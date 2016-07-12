@@ -16,12 +16,13 @@ class HarvestEvent
     # about the taxon. ...we end up building it anyway, which is horribly slow.
     def index
       dids = @harvest_event.new_data_object_ids
-      hids = @harvest_event.hierarchy_entries.pluck(:id)
+      tids = HierarchyEntry.
+        where(id: @harvest_event.hierarchy_entries.pluck(:id)).
+        pluck(:taxon_concept_id)
       EOL.log("HarvestEvent::SiteSearchIndexer#index (#{dids.size} media, "\
-        "#{hids.size} entries)")
+        "#{tids.size} taxa)")
       @solr.index_type(DataObject, dids)
-      @solr.index_type(TaxonConcept, HierarchyEntry.where(id: hids).
-        pluck(:taxon_concept_id))
+      @solr.index_type(TaxonConcept, tids)
     end
   end
 end

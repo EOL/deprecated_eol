@@ -14,7 +14,7 @@ class TaxonConceptName
     end
 
     def by_taxon_concept_id(tc_ids)
-      EOL.log_call
+      EOL.log("TaxonConceptName::Rebuilder.by_taxon_concept_id")
       tc_ids = Array(tc_ids)
       size = tc_ids.size
       index = 0

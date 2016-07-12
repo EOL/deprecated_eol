@@ -75,11 +75,9 @@ class SolrCore
 
     # NOTE: called by #insert_batch via dynamic #send # TODO: long method, break
     # up. (I couldn't feel a really great place to break it on first pass, so:
-    # think about it.) NOTE: this takes a little less than a second per taxon
-    # (for rich taxa), so ... don't hold your breath.
+    # think about it.)
     def get_taxon_concepts(ids)
-      EOL.log("SolrCore::SiteSearch#get_taxon_concepts(#{ids.size} taxa) - expect about 1 second per taxon")
-      @taxa ||= {}
+      EOL.log("SolrCore::SiteSearch#get_taxon_concepts(#{ids.size} taxa)")
       # Smaller than average group because each taxon can have hundreds of
       # names, so this gets ugly fast.
       ids.in_groups_of(200, false) do |batch|
@@ -142,7 +140,7 @@ class SolrCore
     end
 
     def add_scientific_to_objects(base, names, type, weight)
-      return if names
+      return if names.empty?
       @objects << base.merge(
         keyword_type: type,
         keyword: names,

@@ -194,7 +194,8 @@ class TraitBank
     def flatten_taxa(taxa)
       EOL.log_call
       EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
-      taxa.to_a.in_groups_of(10_000, false) do |group|
+      # NOTE: 10_000 here was too high; lost connection to SQL.
+      taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
         TaxonConceptsFlattened.where(taxon_concept_id: group).
           find_each do |flat|

@@ -16,7 +16,7 @@ class SolrCore
     return nil if text == 'NULL' # Can come from DB
     return text if text.is_numeric?
     return text if text =~ CLEAN_TEXT_REGEX
-    return "" if text.is_utf8? # TODO: really? :S
+    return I18n.transliterate(text) if text.is_utf8?
     text.gsub(BAD_CHARS_REGEX, " ").strip
   end
 end

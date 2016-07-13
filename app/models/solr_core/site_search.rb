@@ -91,8 +91,10 @@ class SolrCore
           is_appropriate = concept.vetted_id != Vetted.inappropriate.id
           solr_strings = {}
           concept.taxon_concept_names.map { |tcn| tcn.name.string }.uniq.
-            each { |str| solr_strings[str] = SolrCore.string(str) }.
-            delete_if { |str| str.empty? }
+            each do |str|
+              normal_string = SolrCore.string(str)
+              solr_strings[str] = normal_string unless normal_string.empty?
+            end
 
           # Break up the TaxonConceptName objects by type. Order matters: each
           # precludes the next.

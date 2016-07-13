@@ -56,7 +56,7 @@ class SolrCore
       delete_batch(klass, ids)
       # Been getting "Broken pipe" errors on this next line, decrease from 6400
       # to 2500 to 1000 to attempt fix...
-      @objects.to_a.in_groups_of(2500, false) do |group|
+      @objects.to_a.in_groups_of(1000, false) do |group|
         EOL.log("Adding #{group.count} items...")
         connection.add(group)
       end

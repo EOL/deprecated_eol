@@ -11,8 +11,10 @@ class HierarchyReindexing < ActiveRecord::Base
 
   class << self
     def enqueue_unless_pending(which)
+      queue = HierarchyReindexing.instance_eval { @queue } || :harvesting
       HierarchyReindexing.with_master do
-        pending = Background.in_queue?(:notifications, HierarchyReindexing,
+        return false if Resque.size(queue)
+        pending = Background.in_queue?(queue, HierarchyReindexing,
           "hierarchy_id", which.id)
         return false if pending
       end

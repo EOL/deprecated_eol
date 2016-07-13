@@ -13,7 +13,7 @@ class HierarchyReindexing < ActiveRecord::Base
     def enqueue_unless_pending(which)
       queue = HierarchyReindexing.instance_eval { @queue } || :harvesting
       HierarchyReindexing.with_master do
-        return false if Resque.size(queue)
+        return false if Resque.size(queue) > 100 # The queue is overwhelmed, wait.
         pending = Background.in_queue?(queue, HierarchyReindexing,
           "hierarchy_id", which.id)
         return false if pending

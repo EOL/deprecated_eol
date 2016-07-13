@@ -55,11 +55,8 @@ class SolrCore
       @objects.delete({})
       delete_batch(klass, ids)
       # Been getting "Broken pipe" errors on this next line, decrease from 6400
-      # to 2500 to 1000 to attempt fix... makes sense; that would amount to a
-      # HUGE POST... FIVE IS A TINY TINY REQUEST< THOUGH! I AM JUST DOING THIS
-      # ****TEMPORARILY**** FOR DEBUGGING! CHANGE TO 1000 IF YOU ARE READING
-      # THIS!
-      @objects.to_a.in_groups_of(5, false) do |group|
+      # to 2500 to attempt fix...
+      @objects.to_a.in_groups_of(2500, false) do |group|
         EOL.log("Adding #{group.count} items...")
         connection.add(group)
       end
@@ -94,7 +91,8 @@ class SolrCore
           is_appropriate = concept.vetted_id != Vetted.inappropriate.id
           solr_strings = {}
           concept.taxon_concept_names.map { |tcn| tcn.name.string }.uniq.
-            each { |str| solr_strings[str] = SolrCore.string(str) }
+            each { |str| solr_strings[str] = SolrCore.string(str) }.
+            delete_if { |str| str.empty? }
 
           # Break up the TaxonConceptName objects by type. Order matters: each
           # precludes the next.

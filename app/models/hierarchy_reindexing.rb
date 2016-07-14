@@ -34,17 +34,16 @@ class HierarchyReindexing < ActiveRecord::Base
       HierarchyReindexing.with_master do
         if HierarchyReindexing.exists?(args["id"])
             begin
-              Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
+              EOL.log("HierarchyReindexing: #{args.values.join(', ')}",
+                prefix: "R")
               HierarchyReindexing.find(args["id"]).run
             rescue => e
-              Rails.logger.error "HierarchyReindexing (#{args["id"]}) FAILED: "\
-                " #{e.message}"
+              EOL.log("HierarchyReindexing #{args["id"]} FAILED: #{e.message}",
+                prefix: "!")
             end
         else
           # Do nothing for now—for some reason this is happening a LOT, so let's
-          # just silently ignore it:
-          # Rails.logger.error("HierarchyReindexing #{args["id"]} "\
-          #   "doesn't exist, skippped.")
+          # just silently ignore it
         end
       end
     end

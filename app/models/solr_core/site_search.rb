@@ -193,157 +193,67 @@ class SolrCore
     def get_data_objects(ids)
       EOL.log_call
       set_data_type_and_weight
-      get_object_agents(ids)
-      get_object_users(ids)
-      # Sorry, I am not re-writing this now. Too much complexity. :\
-      query = "
-          SELECT do.id, do.guid,
-          REPLACE(REPLACE(do.object_title, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.description, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.rights_statement, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.rights_holder, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.bibliographic_citation, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.location, '\n', ' '), '\r', ' '),
-          do.created_at, do.updated_at,  l.iso_639_1, do.data_type_id
-          FROM data_objects do
-          LEFT JOIN languages l ON (do.language_id=l.id)
-          LEFT JOIN data_objects_hierarchy_entries dohe
-            ON (do.id=dohe.data_object_id)
-          LEFT JOIN curated_data_objects_hierarchy_entries cdohe
-            ON (do.id=cdohe.data_object_id)
-          LEFT JOIN users_data_objects udo ON (do.id=udo.data_object_id)
-          WHERE do.published=1
-          AND (dohe.visibility_id = #{Visibility.visible.id}
-            OR cdohe.visibility_id = #{Visibility.visible.id}
-            OR udo.visibility_id = #{Visibility.visible.id})
-          AND do.id IN (#{ids.join(',')})"
-      used_ids = []
-      DataObject.connection.select_rows(query).each do |row|
-        id = row[0]
-        next if used_ids.include?(id)
-        used_ids << id
-        guid = row[1]
-        next if row[3].blank? || guid !~ MIN_CHAR_REGEX
-        object_title = SolrCore.string(row[2])
-        description = SolrCore.string(row[3])
-        rights_statement = SolrCore.string(row[4])
-        rights_holder = SolrCore.string(row[5])
-        bibliographic_citation = SolrCore.string(row[6])
-        location = SolrCore.string(row[7])
-        created_at = SolrCore.date(row[8])
-        updated_at = SolrCore.date(row[9])
-        iso = SolrCore.string(row[10]) # NOTE: ATM we don't use this, but...
-        data_type_id = row[11]
-        unless @data_type_and_weight.has_key?(data_type_id)
-          EOL.log("WARNING: unknown data type id #{data_type_id}", prefix: "!")
-        end
+      fields_to_index = {
+        object_title: { full_text: false, resource_weight: 0 },
+        description: { full_text: true, resource_weight: 2 },
+        rights_statement: { full_text: false, resource_weight: 3 },
+        rights_holder: { full_text: false, resource_weight: 4 },
+        bibliographic_citation: { full_text: false, resource_weight: 5 },
+        location: { full_text: false, resource_weight: 6 }
+      }
+
+      DataObject.with_visible_associations.
+                 # TODO: we should try adding a select in here and see how that
+                 # affects performance.
+                 published.
+                 where(id: ids).
+                 find_each do |object|
+        # Don't index any objects that aren't visible somewhere:
+        next if object.visible_associations_empty?
+        # Interesting. I wonder how common this is?
+        next if object.guid !~ MIN_CHAR_REGEX
+        type_and_weight = @data_type_and_weight[object.data_type_id]
         data_types = ["DataObject"]
-        extra_type = @data_type_and_weight[data_type_id][:type]
+        extra_type = type_and_weight[:type]
         data_types << extra_type if !extra_type.blank?
-        resource_weight = @data_type_and_weight[data_type_id][:weight]
+        resource_weight = type_and_weight[:weight]
         base_attributes = {
           resource_type:       data_types,
-          resource_id:         id,
+          resource_id:         object.id,
           resource_unique_key: "DataObject_#{id}",
-          language:            'en', # TODO: should this be iso ?
-          date_created:        created_at,
-          date_modified:       updated_at
+          # TODO: should language be Language.solr_iso_code(object.language_id)?
+          language:            'en',
+          date_created:        SolrCore.date(object.created_at),
+          date_modified:       SolrCore.date(object.updated_at)
         }
-        fields_to_index = [
-          { keyword_type:    "object_title",
-            keyword:         object_title,
-            full_text:       false,
-            resource_weight: resource_weight
-          },
-          { keyword_type:    "description",
-            keyword:         description,
-            full_text:       true,
-            resource_weight: resource_weight + 2
-          },
-          { keyword_type:    "rights_statement",
-            keyword:         rights_statement,
-            full_text:       false,
-            resource_weight: resource_weight + 3
-          },
-          { keyword_type:    "rights_holder",
-            keyword:         rights_holder,
-            full_text:       false,
-            resource_weight: resource_weight + 4
-          },
-          { keyword_type:    "bibliographic_citation",
-            keyword:         bibliographic_citation,
-            full_text:       false,
-            resource_weight: resource_weight + 5
-          },
-          { keyword_type:    "location",
-            keyword:         location,
-            full_text:       false,
-            resource_weight: resource_weight + 6
-          }
-        ]
-        fields_to_index.each do |field_to_index|
-          next if field_to_index[:keyword].nil?
-          keyword = field_to_index[:keyword].gsub(/ +/, " ").strip
-          next if keyword.blank?
+        fields_to_index.each do |field, hash|
+          value = object[field]
+          next if value.blank?
+          value = SolrCore.string(field)
+          next if value.blank?
           @objects << base_attributes.merge(
-            keyword_type:    field_to_index[:keyword_type],
-            keyword:         keyword,
-            full_text:       field_to_index[:full_text],
-            resource_weight: field_to_index[:resource_weight]
+            keyword_type:    field,
+            keyword:         value,
+            full_text:       hash[:full_text],
+            resource_weight: resource_weight + hash[:resource_weight]
           )
         end
-        if ! @agents_for_objects.blank?
-          @agents_for_objects[id].each do |agent_name|
-            next if agent_name.blank?
+        # Yes, this is loading the user one at a time. We have so few, it's not
+        # worth fixing that! ;)
+        if vodo = object.visible_users_data_object
+          unless vodo.user.username.blank?
             @objects << base_attributes.merge(
               keyword_type:    "agent",
-              keyword:         agent_name,
+              keyword:         vodo.user.username,
               resource_weight: resource_weight + 1
             )
           end
-        end
-      end
-    end
-
-    def get_object_agents(ids)
-      EOL.log_call
-      @agents_for_objects ||= {}
-      # NOTE: I tried using find_each, here, but it causes an ORDER BY clause
-      # (it needs to, to keep track of things), so I'll just limit the query
-      # size by grouping ids:
-      ids.in_groups_of(500, false) do |group|
-        Agent.includes(:data_objects).joins(:data_objects).
-          where(["agents_data_objects.data_object_id IN (?) "\
-            "AND data_objects.published = 1", group]).each do |agent|
-          agent_name = SolrCore.string("#{agent.full_name} "\
-            "#{agent.given_name} #{agent.family_name}")
-          if agent_name.blank?
-            EOL.log("WARNING: Agent with no names: #{agent.id}", prefix: "!")
-          else
-            agent.data_objects.each do |dato|
-              @agents_for_objects[dato.id] ||= []
-              @agents_for_objects[dato.id] << agent_name
-            end
-          end
-        end
-      end
-    end
-
-    def get_object_users(ids)
-      EOL.log_call
-      User.includes(:data_objects).
-        where(["users_data_objects.data_object_id IN (?) AND "\
-          "data_objects.published = 1", ids]).
-        find_each do |user|
-        username = SolrCore.string(user.username)
-        full_name = SolrCore.string(user.full_name)
-        user.data_objects.each do |dato|
-          @agents_for_objects[dato.id] ||= []
-          unless username.blank?
-            @agents_for_objects[dato.id] << username
-          end
-          if ! full_name.blank?
-            @agents_for_objects[dato.id] << full_name
+          unless vodo.user.full_name.blank?
+            @objects << base_attributes.merge(
+              keyword_type:    "agent",
+              keyword:         vodo.user.full_name,
+              resource_weight: resource_weight + 1
+            )
           end
         end
       end

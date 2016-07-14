@@ -277,7 +277,7 @@ fr:
         dwc_archive_url: URL de l’archive Darwin Core
         dataset_source_url: Source de données d’origine
         dataset_hosted_url: Ensemble de données source (copie locale)
-        harvest_events: Récolter les événements
+        harvest_events: Collecter les événements
         hierarchy: Hiérarchie
         language_id: Langue par défaut
         dataset_license_id: Licence
@@ -308,7 +308,7 @@ fr:
         title: Titre
       user:
         agreed_with_terms: Conditions de l’accord d’utilisation
-        api_key: Clé de l’IPA
+        api_key: Clé d’interface de programmation d’application
         bio: Biographie
         credentials: Certifications
         curator_level: Niveau de supervision
@@ -349,7 +349,9 @@ fr:
         blank: ne peut être laissé en blanc
         not_a_number: n’est pas un nombre
         not_an_integer: doit être un nombre entier
-        greater_than: doit être de valeur supérieure à %{count}
+        greater_than:
+          one: doit être supérieur à %{count}
+          other: doivent être supérieurs à %{count}
         greater_than_or_equal_to: doit être de valeur supérieure ou égale à %{count}
         equal_to: doit être de valeur égale à %{count}
         less_than: doit être de valeur inférieure à %{count}
@@ -399,14 +401,15 @@ fr:
               wrong_type: n’a pas le format requis, devrait être un fichier GZIP,
                 TAR, ZIP ou XML.
             dwc_archive_url:
-              inaccessible: est inaccessible, l’URL doit être accessible au public
+              inaccessible: est inaccessible, l’URL doit être accessible de manière
+                publique
               invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ,
                 TGZ ou ZIP.
         user_added_data:
           attributes:
             predicate:
               must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-                bien formé
+                bien formatté
               namespace: espace de noms utilisé non reconnu
             subject:
               must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>

@@ -111,8 +111,9 @@ class TraitBank
       return if @traits.empty?
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
-      # NOTE: July 14—size of 250 was too big! :S
-      size = 100
+      # If this is timing out (due to "estimated" run time), STOP ESTIMATING.
+      # Comment out the MaxQueryCostEstimationTime in your Virtuoso INI.
+      size = 250
       group_number = 0
       groups = (traits.size.to_f / size).ceil
       traits.in_groups_of(size, false) do |trait_group|

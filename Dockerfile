@@ -3,7 +3,7 @@ MAINTAINER Jeremy Rice <jrice@eol.org>
 ENV LAST_FULL_REBUILD 2015-03-05
 RUN apt-get update -q && \
     apt-get install -qq -y software-properties-common nodejs \
-      libmysqlclient-dev libqt4-dev supervisor && \
+      libmysqlclient-dev libqt4-dev supervisor vim && \
     add-apt-repository -y ppa:nginx/stable && \
     apt-get update && \
     apt-get install -qq -y nginx && \
@@ -26,6 +26,5 @@ RUN mkdir -p /app/public/uploads/data_search_files && \
     mkdir -p /app/public/uploads/images && \
     chmod a+rx /app/public/uploads/* && \
     chown -R www-data:www-data /app/public/uploads
-RUN chmod a+rx /
 
 CMD /usr/bin/supervisord

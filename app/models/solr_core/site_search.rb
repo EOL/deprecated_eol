@@ -47,23 +47,40 @@ class SolrCore
     end
 
     def insert_batch(klass, ids)
-      EOL.log_call
+      EOL.log("SolrCore::SiteSearch#insert_batch(#{ids.size} "\
+        "#{klass.name.underscore.humanize.pluralize})")
       # Used when building indexes with this class:
       @objects = Set.new
       send("get_#{klass.name.underscore.pluralize}", ids)
       @objects.delete(nil)
       @objects.delete({})
-      delete_batch(klass, ids)
-      # Been getting "Broken pipe" errors on this next line, decrease from 6400
-      # to 2500 to attempt fix...
       @objects.to_a.in_groups_of(2500, false) do |group|
-        EOL.log("Adding #{group.count} items...")
-        connection.add(group)
+        delete_batch(klass, group.map { |item| item[:resource_id] })
+        EOL.log("Adding #{group.size} items...")
+        begin
+          connection.add(group)
+        rescue => e
+          find_failing_add(group)
+          raise e
+        end
       end
       EOL.log("Committing...")
       connection.commit
       EOL.log_return
       @objects = nil # Saves some memory (hopefully).
+    end
+
+    def find_failing_add(objects)
+      EOL.log("Carefully adding #{objects.size} items...")
+      objects.to_a.in_groups_of(5, false) do |group|
+        EOL.log("Adding #{group.count} items...")
+        begin
+          connection.add(group)
+        rescue => e
+          EOL.log("ERROR adding #{group.inspect}", prefix: "*")
+          raise e
+        end
+      end
     end
 
     def delete_batch(klass, ids)

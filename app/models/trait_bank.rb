@@ -193,7 +193,6 @@ class TraitBank
 
     def flatten_taxa(taxa)
       EOL.log_call
-      EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
       # NOTE: 10_000 here was too high; lost connection to SQL.
       taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
@@ -205,7 +204,7 @@ class TraitBank
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
         connection.insert_data(data: triples, graph_name: graph)
-        EOL.log("Completed #{group.count}...", prefix: ".")
+        EOL.log("Flattened #{group.size}/#{taxa.size}...", prefix: ".")
       end
     end
 

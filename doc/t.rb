@@ -1,5 +1,21 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+[969, 1005, 1007, 106].each do |rid|
+  resource = Resource.find(rid)
+  event = resource.harvest_events.last
+  resource.create_mappings
+  resource.port_traits
+  event.index_for_site_search
+  event.index_new_data_objects
+  event.update_attribute(:published_at, Time.now)
+  resource.update_attribute(:resource_status_id, ResourceStatus.published.id)
+  resource.save_resource_contributions
+  resource.hierarchy.insert_data_objects_taxon_concepts
+  event.insert_dotocs
+end
+
+
+
 ### Re-write of taxa to site_search objects:
 # 7221 is 84 taxa, all of them quite rich:
 # 7 is 8 taxa, of varying richness:

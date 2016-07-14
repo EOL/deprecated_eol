@@ -145,12 +145,13 @@ class SolrCore
           end
 
           # Now build the objects:
+          richness = concept.taxon_concept_metric.try(:richness_score)
           base = {
             resource_type:             "TaxonConcept",
             resource_unique_key:       "TaxonConcept_#{id}",
             resource_id:               id,
             ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
-            richness_score:            concept.taxon_concept_metric.richness_score
+            richness_score:            richness
           }
           add_scientific_to_objects(base, surrogates, "Surrogate", 500)
           add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)

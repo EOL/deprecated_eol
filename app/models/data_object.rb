@@ -25,6 +25,8 @@ class DataObject < ActiveRecord::Base
   has_one :data_object_translation
   # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
+  has_one :visible_users_data_object, class_name: "UsersDataObject",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
   has_one :data_objects_link_type
   has_one :image_size
 
@@ -34,6 +36,12 @@ class DataObject < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
+  has_many :visible_data_objects_hierarchy_entries,
+    class_name: "DataObjectsHierarchyEntry",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
+  has_many :visible_curated_data_objects_hierarchy_entries,
+    class_name: "CuratedDataObjectsHierarchyEntry",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
   has_many :all_curated_data_objects_hierarchy_entries, class_name: CuratedDataObjectsHierarchyEntry.to_s, source: :curated_data_objects_hierarchy_entries, foreign_key: :data_object_guid, primary_key: :guid
   has_many :comments, as: :parent
   has_many :data_objects_harvest_events
@@ -80,6 +88,17 @@ class DataObject < ActiveRecord::Base
 
   scope :images, -> { where(data_type_id: DataType.image.id) }
   scope :texts,  -> { where(data_type_id: DataType.text.id) }
+  scope :with_associations, -> do
+    includes(:data_objects_hierarchy_entries,
+     :curated_data_objects_hierarchy_entries,
+     :users_data_object)
+  end
+  scope :with_visible_associations, -> do
+    includes(:visible_data_objects_hierarchy_entries,
+     :visible_curated_data_objects_hierarchy_entries,
+     :visible_users_data_object)
+  end
+  scope :published, -> { where(published: true) }
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
@@ -337,6 +356,12 @@ class DataObject < ActiveRecord::Base
 
   def created_by_user?
     user != nil
+  end
+
+  def visible_associations_empty?
+    visible_data_objects_hierarchy_entries.empty? &&
+      visible_curated_data_objects_hierarchy_entries.empty? &&
+      visible_users_data_object.nil?
   end
 
   def user

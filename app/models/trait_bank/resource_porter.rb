@@ -116,11 +116,13 @@ class TraitBank
       return if @traits.empty?
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
+      # If this is timing out (due to "estimated" run time), STOP ESTIMATING.
+      # Comment out the MaxQueryCostEstimationTime in your Virtuoso INI.
       size = 250
       group_number = 0
       groups = (traits.size.to_f / size).ceil
       traits.in_groups_of(size, false) do |trait_group|
-        EOL.log("metdata group #{group_number += 1}/#{groups}", prefix: ".")
+        EOL.log("metadata group #{group_number += 1}/#{groups}", prefix: ".")
         TraitBank::Old.metadata_in_bulk(@resource, trait_group).each do |h|
           # ?trait ?predicate ?meta_trait ?value ?units
           if h[:units].blank?

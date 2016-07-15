@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chmee2
 # Author: Cvanca
+# Author: Dvorapa
 # Author: H4nek
 # Author: Jachym
 # Author: Jezevec
@@ -105,7 +106,7 @@ cs:
         data_objects_texts: Textové objekty
         data_objects_images: Obrázkové objekty
         data_objects_videos: Video objekty
-        data_objects_sounds: Audio objekty
+        data_objects_sounds: Zvukové objekty
         data_objects_maps: Mapové objekty
         data_objects_trusted: Důvěryhodné datové objekty
         data_objects_unreviewed: Nezkontrolované datové objekty
@@ -1374,8 +1375,8 @@ cs:
   admin_content_page_active: Publikováno
   admin_content_page_not_active: Nepublikováno
   admin_content_page_child_new_link: Vytvořit dceřinou stránku
-  admin_content_page_create_successful_notice: Stránka <a href="#<span class=" notranslate"="">
-    %{anchor} "><em> %{page_name}</em> </a> byla úspěšně vytvořena.
+  admin_content_page_create_successful_notice: Stránka <a href="#%{anchor}"><em>%{page_name}</em></a>
+    byla úspěšně vytvořena.
   admin_content_page_new_header: Vytvořit novou stránku obsahu
   admin_content_page_new_link: Vytvořit novou stránku
   admin_content_page_root: Kořen

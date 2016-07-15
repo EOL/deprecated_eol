@@ -14,6 +14,8 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :known_uri
   belongs_to :taxon_concept
 
+  scope :pending, -> { where( "completed_at IS NULL AND failed_at IS NULL" ) }
+
   def build_file
     if other = similar_file
       FileUtils.cp(other.local_file_path, local_file_path, preserve: true)

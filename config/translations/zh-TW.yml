@@ -3741,12 +3741,6 @@ zh-TW:
   images: 影像
   images_in_red_are_not_trusted: 紅色標記的影像是不可信的。
   images_in_yellow_are_not_reviewed: 黃色標記的影像是未經審核的。
-  images_sort_worklist_note:
-    one: 影像是依照EOL輸入的時間排序，最新的項目最先展示。在這個工作清單中有 %{count} 張影像。
-    other: 影像是依照EOL輸入的時間排序，最新的項目最先展示。在這個工作清單中有 %{count} 張影像。
-  images_with_count:
-    one: '%{count} 張影像'
-    other: '{count} 張影像'
   import_once: 再輸入一次
   inappropriate: 不合適的
   inaturalist_tab_label: iNaturalist觀測

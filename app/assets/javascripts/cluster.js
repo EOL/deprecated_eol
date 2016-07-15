@@ -151,7 +151,7 @@ EoLMap.markerClickFunction = function(pic, latlng) {
     var infoHtml = '<div class="info"><h3>' + title + '</h3>';
     if(pic.l)       {infoHtml += '<div class="info-body"><img src="' + pic.l + '" class="info-img"/></div><br/>';}                  //pic_url
     if(pic.a) {infoHtml += 'Catalog number: ' + pic.a + '<br/>';}                                                                   //catalogNumber
-    infoHtml += 'Source portal: <a href="http://www.gbif.org/occurrence/' + pic.g + '" target="_blank">GBIF data</a>' + '<br/>' +   //gbifID
+    infoHtml += 'Source portal: <a href="http://www.gbif.org/occurrence/' + pic.g + '" target="_blank">GBIF record</a>' + '<br/>' + //gbifID
                 'Publisher: <a href="http://www.gbif.org/publisher/' + pic.d + '" target="_blank">' + pic.c + '</a><br/>' +         //publisher_id & publisher
                 'Dataset: <a href="http://www.gbif.org/dataset/' + pic.f + '" target="_blank">' + pic.e + '</a><br/>';              //dataset_id & dataset
     if(pic.j)   {infoHtml += 'Recorded by: ' + pic.j + '<br/>';}                                                                    //recordedBy

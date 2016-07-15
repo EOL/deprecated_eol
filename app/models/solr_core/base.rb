@@ -76,17 +76,23 @@
     def paginate(q, options = {})
       page = options.delete(:page) || 1
       per_page = options.delete(:per_page) || 30
-      response = begin
-        connection.paginate(page, per_page, "select", params: options.merge(q: q))
-      rescue Timeout::Error => e
-        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{q}",
-          prefix: "!")
-        raise(e)
-      end
+      response = paginate_with_timeout(page, per_page, options.merge(q: q))
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end
       response
+    end
+
+    def paginate_with_timeout(page, per_page, params)
+      begin
+        connection.paginate(page, per_page, "select", params: params)
+      rescue Timeout::Error => e
+        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{params[:q]}",
+          prefix: "!")
+        wait_for_recovery(0)
+        EOL.log("Solr appears to have recovered; retrying...")
+        connection.paginate(page, per_page, "select", params: params)
+      end
     end
 
     # NOTE: this will NOT work on items with composite primary keys.
@@ -129,9 +135,9 @@
       rescue => e
         EOL.log("Solr still down (attempt #{attempts}), waiting...")
         attempts += 1
-        raise(e) if attempts >= 10
+        raise(e) if attempts >= 56
         sleep(attempts * 0.25)
-        wait_for_recovery
+        wait_for_recovery(attempts)
       end
     end
 

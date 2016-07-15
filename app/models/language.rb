@@ -47,6 +47,10 @@ class Language < ActiveRecord::Base
     @iso_by_id[id]
   end
 
+  def self.solr_iso_code(id)
+    iso_code(id) || "unknown"
+  end
+
   def self.from_iso(iso)
     @@from_iso ||= {}
     @@from_iso[iso] ||= cached_find(:iso_639_1, iso)

@@ -84,7 +84,7 @@
               - if first
                 %a.info_icon
                   \&nbsp;
-                .term{ data: { term: "TODO" }}
+                .term
                   - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                   = trait.predicate_name
                   - if trait.statistical_method?

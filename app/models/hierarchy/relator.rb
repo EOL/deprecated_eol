@@ -72,8 +72,12 @@ class Hierarchy
         page: page, per_page: @per_page)
       sleep(0.3) # Less of a hit to production, please!
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 100
-        EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+      if rhead["QTime"] && rhead["QTime"].to_i > 250
+        if rhead["q"] && ! rhead["q"].blank?
+          EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+        else
+          EOL.log("header: #{rhead.inspect}")
+        end
         EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
       if page == 1 && response["response"] && response["response"]["numFound"]

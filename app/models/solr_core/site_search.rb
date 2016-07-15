@@ -184,12 +184,8 @@ class SolrCore
       end
     end
 
-    # TODO: Yech. The scores seem arbitrary, the queries are huge and probably
-    # not necessary (so many nulls); I'm not sure nulls are handled properly
-    # (well, it does remove blanks, but that's a lot of work to find out it's
-    # null!), and this is all VERY obfuscated. :| I'm not pleased with this
-    # code. I definitely wouldn't have done it this way! # NOTE: called by
-    # #insert_batch via dynamic #send
+    # TODO: Long method, break up. # NOTE: called by #insert_batch via dynamic
+    # #send
     def get_data_objects(ids)
       EOL.log_call
       set_data_type_and_weight
@@ -220,7 +216,7 @@ class SolrCore
         base_attributes = {
           resource_type:       data_types,
           resource_id:         object.id,
-          resource_unique_key: "DataObject_#{id}",
+          resource_unique_key: "DataObject_#{object.id}",
           # TODO: should language be Language.solr_iso_code(object.language_id)?
           language:            'en',
           date_created:        SolrCore.date(object.created_at),
@@ -229,11 +225,11 @@ class SolrCore
         fields_to_index.each do |field, hash|
           value = object[field]
           next if value.blank?
-          value = SolrCore.string(field)
+          value = SolrCore.string(value)
           next if value.blank?
           @objects << base_attributes.merge(
-            keyword_type:    field,
-            keyword:         value,
+            keyword_type:    field.to_s,
+            keyword:         [value],
             full_text:       hash[:full_text],
             resource_weight: resource_weight + hash[:resource_weight]
           )

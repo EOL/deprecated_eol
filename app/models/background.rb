@@ -28,11 +28,11 @@ class Background
       Resque::Job.destroy(:notifications, PrepareAndSendNotifications)
     end
 
-    def stop_hierarchies
-      Resque::Job.destroy(:notifications, HierarchyReindexing)
+    def stop_hierarchy_reindexing
+      Resque::Job.destroy(:harvesting, HierarchyReindexing)
     end
 
-    def stop_reindexing
+    def stop_php_reindexing
       things = Resque.peek(:php, 0, SIZE_LIMIT)
       things.select { |t| t["args"].first["cmd"] == "reindex_taxon_concept" }.
              each { |t| Resque::Job.destroy(:php, CodeBridge, t["args"].first) }

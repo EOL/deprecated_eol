@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AWikitranslator
+# Author: Alaa
 # Author: Ali1
 # Author: AwamerT
 # Author: Bachounda
@@ -244,6 +245,7 @@ ar:
         title: عنوان
       translated_known_uri:
         definition: تعريف
+        comment: تعليق
       translated_news_item:
         active_translation: تم نشره
         body: المتن
@@ -266,12 +268,15 @@ ar:
         full_name: الأسم بالكامل
         given_name: الأسم الأول
         language_abbr: اللغة المفضلة
+        permissions: أذونات
         requested_curator_level_id: مستوى الأشراف المرغوب به
         tag_line: الشعار
         username: اسم المستخدم
       user_added_data:
+        object: قيمة
         user: أضيفت من طرف
       user_added_data_metadata:
+        predicate: خاصية
         object: قيمة
     errors:
       format: '%{attribute} %{message}'
@@ -432,7 +437,12 @@ ar:
         toc_item: الموضوع
         link_type: الفئة
       data_search:
+        attribute: حدد خاصية
+        max: القيمة الاعلى
+        max_placeholder: أدخل رقم
+        min: القيمة الادنى
         min_placeholder: أدخل رقما
+        q: قيمة محددة
       eol_statistic:
         date_one: التاريخ
         date_two: التاريخ
@@ -464,6 +474,8 @@ ar:
         request_publish: تم طلب النشر
         request_publish_more: يشير إلى ما إذا كان هناك طلب معلق لتطوير هذا التسلسل
           الهرمي ليصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة.
+      known_uri_relationship:
+        relationship_uri: اختار العلاقة
       news_item:
         active: تم نشره
         active_more: عناصر الأخبار المنشورة ستكون مرئية علنا في الوقت والتاريخ المحدد.
@@ -809,6 +821,9 @@ ar:
     new:
       page_title: رجاءً اترك تعليقك
   collections:
+    download_taxa_data:
+      attribute_header: "صفة \nخاصية"
+      select_all_checkbox: تحديد الكل
     show:
       meta_description_default: مجموعة موسوعة الحياة تحت عنوان %{collection_name}.
       meta_description_default_focus_collection: مجموعة تركيز موسوعة الحياة تحت عنوان
@@ -954,6 +969,7 @@ ar:
       page_header: إحصائيات النص المقدم من المستخدم
       page_title: الإحصائيات
     data:
+      menu_link: بيانات
       page_title: إحصائيات
   forums:
     forums_heading: EOL منتديات
@@ -980,24 +996,37 @@ ar:
       delete: حذف
       edit: تحرير
       reply: رد
+      link: رابط
     categories:
       create: أنشئ تصنيفا
       edit: عدّل التصنيف
+      create_successful: تم إنشاء الصنف بنجاح
     posts:
       edit: عدّل الرسالة
+      create_successful: تم إنشاء المنشور بنجاح
+      update_successful: تم إنشاء المنشور بنجاح
       deleted_subject: (حذف)
+      no_subject: بدون موضوع
       close_window: أغلق
   known_uris:
     add_a_relationship: أضف علاقة
+    equivalent_to: علاقات متماثلة
+    no_relationships: لا يتم العثور على علاقات لهذا الرابط
+    relationships: علاقات
+    preferred_for_equivalence_group: مغضل
     select: اختر
+  known_uri_relationships:
+    created: تم إنشاء العلاقة بنجاح
+    deleted: تم حذف العلاقة بنجاح
   layouts:
     application:
       header_about: عن موسوعة الحياة
       header_learn_more: أطلع على مزيد من المعلومات حول
       header_questions: أطلعني على المزيد
       about_link_what_is_eol: ما هي موسوعة الحياة؟
+      about_link_traitbank: ما هو TraitBank؟
       about_link_eol_blog: مدونة موسوعة الحياة
-      about_link_discover: أكتشف
+      about_link_discover: تعليم
       about_link_statistics: الإحصائيات
       about_link_glossary: قائمة المصطلحات
       about_link_podcasts: حلقات البودكاست
@@ -1698,6 +1727,17 @@ ar:
       index:
         meta_description: تنزيلات البيانات المطلوبة من %{user_full_name}
         meta_title: تنزيلات البيانات للمستخدم %{user_full_name}
+      download: تحميل
+      query_head: استعلام
+      attribute_head: خاصية
+      created_head: تم الانشاء
+      is_complete: نعم
+      is_not_complete: لا
+      processing: معالجة
+      error: حدث خطأ ما في هذا الملف
+      refresh: تحديث
+      search_again: اعادة البحث
+      contact_us: يرجى التواصل معنا للمساعدة
     edit:
       form_tip_account: |-
         لكي تتمكن من تسجيل الدخول إلى موسوعة الحياة، أنت في حاجة إما إلى أسم مستخدم وكلمة مرور موسوعة الحياة أو يمكنك تسجيل الدخول عن طريق حساب لطرف ثالث. كلمة المرور وإسم المستخدم مطلوبان إن لم يكن لديك حساب متصل، ومع ذلك، فقط قم بإدخال كلمة مرور جديدة هنا، إن كنت تود في تغيير الكلمة الحالية.
@@ -1944,6 +1984,19 @@ ar:
       unsubscribed_notifications_successfully: لقد تم انهاء اشتراكك بالإخطارات بنجاح.
       unsubscribe_notifications_failed: عذراً، حدث خطأ، لم يتم انهاء اشتراك المستخدم
         بالإخطارات.
+  user_added_data:
+    add_data_header: ساهم ببيانات الخاصة
+    additional_fields: بيانات حول هذا السجل
+    edit_data_header: عدل بياناتك
+    add_metadata_header: معلومات إضافية
+    create_successful: تم إضافة البيانات بنجاح
+    delete_successful: تم حذف البيانات بنجاح
+    new_field: حقل جديد
+    new_value: قيمة
+  data_search_files:
+    from: القيمة الادنى
+    to: القيمة الأعلى
+    unit_uri: وحدة القياس
   this_article_cannot_be_curated_because_unpublished: لا يمكن معالجة هذا المقال لأنه
     غير منشور
   this_article_is_unpublished: هذا المقال غير منشور
@@ -3004,6 +3057,7 @@ ar:
   add_link_to_page_button: إضافة رابط
   add_new_association_link: أضف رابط جديد
   add_new_tag_suggestion: أضف اقتراح جديد على بطاقة دلالية
+  add_new_known_uri_link: إضافة رابط جديد
   add_page: أضف صفحة
   add_sub_chapter: أضف فصل فرعي
   add_to_a_community: أضف إلى مجتمع.
@@ -3100,6 +3154,9 @@ ar:
     الحياة.  نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى. إذا كان قسم الإدارة الذي
     تبحث عنه غير مدرج بالقائمة التالية، يرجى زيارة  <a href="/administrator">واجهة
     التحكم للنسخة اﻷولى لموقع موسوعة الحياة</a>.
+  admin_options_warning: حفظ التغييرات ربما تستغرق 10 دقائق لتصبح فعالة
+  admin_option_all_users_can_see_data: جميع المستخدمين بإمكانهم الاطلاع على البيانات
+    . وليس فقط اصحاب السماحيات
   admin_link: نظرة عامة
   admin_page_title: 'الإدارة: نبذة عامة.'
   admin_spam_delete: حذف الرسائل المزعجة
@@ -3154,6 +3211,7 @@ ar:
     (إكس إم إل)، وسوف يؤدي إضافة امتداد لغة الترميز القابلة للامتداد (.XML) إلى استجابة
     مماثلة:'
   all_articles: جميع المقالات
+  all_categories: الكل
   all_changes: جميع التغييرات
   all_collections: جميع المجموعات
   all_comments_entered_by_users: يعرض فيما يلي جميع تعليقات المستخدمين على الموقع،
@@ -3182,6 +3240,8 @@ ar:
   amount: كمية
   an_unknown_user: مستخدم غير معروف
   annotation_cabs_colon: 'حاشية:'
+  annotation_submit: اكتب تعليق
+  annotation_body_default: إضافة سؤال أو تعليق ..
   anonymous_user_full_name: مستخدم مجهول الاسم
   anonymous_user_given_name: مجهول الاسم
   anonymous_user_tag_line: غير مسجل الدخول
@@ -3226,6 +3286,7 @@ ar:
     مع معاييرك.
   a_total_of_terms_were_found_matching_your: وجدنا %{count} مصطلحًا متماشيًا مع معاييرك.
   assistive_overview_header: نظرة عامة
+  assistive_data_header: حقائق ومعلومات
   assistive_media_header: الوسائط
   assistive_details_header: التفاصيل
   assistive_literature_header: المواد المطبوعة
@@ -3278,6 +3339,7 @@ ar:
   belongs_in_count_communities:
     one: 'ينتمي إلى %{count} مجتمع '
     other: 'ينتمي إلى %{count} مجتمع '
+  beta_warning_note_header: ملاحظة
   bhl_publication: إصدار لمكتبة التنوع الحيوي
   bi_monthly: نصف شهريًّا
   biodiversity_heritage_library: مكتبة تراث التنوع البيولوجي
@@ -3303,6 +3365,7 @@ ar:
   cache_store: مخزن الذاكرة المخبأة
   calculate_averages_slow: احسب المتوسطات (بطيء)
   cancel: إلغاء
+  cancel_and_delete: إلغاء وحذف
   cancel_split: إلغاء
   cannot_be_associated_with_both_a_user_and_a_community: لا يمكن أن يكون مرتبطًا بمستخدم
     ومجتمع
@@ -3529,6 +3592,7 @@ ar:
     one: 'ينتمي إلى %{count} مجتمع '
     other: 'ينتمي إلى %{count} مجتمع '
   completed: اكتمل
+  completed_colon: مكتمل
   confirm_delete_community: هل أنت متأكد من رغبتك في حذف ذلك المجتمع؟ سوف يتمكن الأعضاء
     المتبقين من رؤيتها، كما سيتم حفظ التحديثات، ولكنها لن تظهر في البحث أو صفحات الأنواع،
     ولن تكن قابلة للتعديل بعد ذلك.
@@ -3648,6 +3712,7 @@ ar:
     بنجاح. الحالة الحالية لبيانات المصدر:  %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة المصدر
   content_partner_resource_dataset_details_header: مجموعة بيانات
+  content_partner_resource_delete_with_type_link: حذف كل شيء
   content_partner_resource_description_empty: لم يتم إضافة وصف لذلك المصدر.
   content_partner_resource_edit_link: تعديل
   content_partner_resource_edit_subheader: تعديل المصدر
@@ -3813,6 +3878,7 @@ ar:
     one: '%{count} نتيجة لـ <em>%{search_term}</em>'
     other: '%{count} نتيجة لـ <em>%{search_term}</em>'
   create_account: إنشاء حساب
+  create_a_new_collection: إنشاء محموعة جديدة
   create_community_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء المجتمع. يرجى التأكد
     من ملء جميع الخانات بشكل صحيح.
   create_community: إنشاء مجتمع
@@ -3888,6 +3954,7 @@ ar:
   your_watch_collection: قائمة المشاهدة الخاصة بك
   current_language: 'اللغة: %{iso_code}'
   currently_in_eol: حاليًا في موسوعة الحياة
+  create_download_data_file: إنشاء ملف
   currently_published: منشور حاليًا
   daily: يوميًّا
   darwin_core: أرشيف داروين كور
@@ -4288,11 +4355,6 @@ ar:
   images: الصور
   images_in_red_are_not_trusted: الصور التي باللون الأحمر غير موقوق بها.
   images_in_yellow_are_not_reviewed: الصور التي باللون الأصفر لم تُراجع.
-  images_sort_worklist_note: تم ترتيب الصور حسب تاريخ ورودها على موقع موسوعة الحياة،
-    مع ظهور أحدث العناصر وصولاً أولاً. هناك %{count} صورة في قائمة العمل هذه.
-  images_with_count:
-    one: '%{count} صورة'
-    other: '%{count} صورة'
   import_once: ضف مرة واحدة
   inappropriate: غير لائق
   inaturalist_tab_label: ملاحظات iNaturalist

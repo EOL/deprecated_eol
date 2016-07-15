@@ -2,13 +2,6 @@ class SolrCore
   class SiteSearch < SolrCore::Base
     CORE_NAME = "site_search"
     MIN_CHAR_REGEX = /^[0-9a-z]{32}/i
-    TAXON_NAME_FIELDS = {
-      preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 },
-      synonyms: { keyword: 'Synonym', weight: 3 },
-      surrogates: { keyword: 'Surrogate', weight: 500 },
-      preferred_commons: { keyword: 'PreferredCommonName', weight: 2 },
-      commons: { keyword: 'CommonName', weight: 4 }
-    }
 
     def initialize
       connect(CORE_NAME)
@@ -54,21 +47,40 @@ class SolrCore
     end
 
     def insert_batch(klass, ids)
-      EOL.log_call
+      EOL.log("SolrCore::SiteSearch#insert_batch(#{ids.size} "\
+        "#{klass.name.underscore.humanize.pluralize})")
       # Used when building indexes with this class:
       @objects = Set.new
       send("get_#{klass.name.underscore.pluralize}", ids)
       @objects.delete(nil)
       @objects.delete({})
-      delete_batch(klass, ids)
-      @objects.to_a.in_groups_of(6400, false) do |group|
-        EOL.log("Adding #{group.count} items...")
-        connection.add(group)
+      @objects.to_a.in_groups_of(2500, false) do |group|
+        delete_batch(klass, group.map { |item| item[:resource_id] })
+        EOL.log("Adding #{group.size} items...")
+        begin
+          connection.add(group)
+        rescue => e
+          find_failing_add(group)
+          raise e
+        end
       end
       EOL.log("Committing...")
       connection.commit
       EOL.log_return
       @objects = nil # Saves some memory (hopefully).
+    end
+
+    def find_failing_add(objects)
+      EOL.log("Carefully adding #{objects.size} items...")
+      objects.to_a.in_groups_of(5, false) do |group|
+        EOL.log("Adding #{group.count} items...")
+        begin
+          connection.add(group)
+        rescue => e
+          EOL.log("ERROR adding #{group.inspect}", prefix: "*")
+          raise e
+        end
+      end
     end
 
     def delete_batch(klass, ids)
@@ -80,323 +92,164 @@ class SolrCore
       end
     end
 
-    # NOTE: called by #insert_batch via dynamic #send
+    # NOTE: called by #insert_batch via dynamic #send # TODO: long method, break
+    # up. (I couldn't feel a really great place to break it on first pass, so:
+    # think about it.)
     def get_taxon_concepts(ids)
-      EOL.log_call
-      @taxa ||= {}
-      get_taxon_names(ids)
-      get_taxon_ancestors(ids)
-      get_taxon_richness(ids)
-      convert_taxa_to_search_objects
-    end
-
-    def get_taxon_names(ids)
-      EOL.log_call
+      EOL.log("SolrCore::SiteSearch#get_taxon_concepts(#{ids.size} taxa)")
       # Smaller than average group because each taxon can have hundreds of
       # names, so this gets ugly fast.
       ids.in_groups_of(200, false) do |batch|
         TaxonConcept.unsuperceded.published.
-                     includes(taxon_concept_names: :name).where(id: batch).
+                     includes(:taxon_concept_metric, :flattened_ancestors,
+                       taxon_concept_names: :name).where(id: batch).
                      each do |concept|
           id = concept.id
-          vetted_id = concept.vetted_id
-          concept.taxon_concept_names.each do |tcn|
-            next if tcn.name.string.blank?
-            string = SolrCore.string(tcn.name.string)
-            if string.blank?
-              # This happens a lot. I'm not sure how, but these strings are still
-              # matched, so this doesn't appear to be a problem, per se.
-              next
+          is_appropriate = concept.vetted_id != Vetted.inappropriate.id
+          solr_strings = {}
+          concept.taxon_concept_names.map { |tcn| tcn.name.string }.uniq.
+            each do |str|
+              normal_string = SolrCore.string(str)
+              solr_strings[str] = normal_string unless normal_string.empty?
             end
-            language_id = tcn.language_id
-            name_vetted_id = tcn.vetted_id
-            if tcn.vern?
-              iso = Language.iso_code(language_id) || 'unknown'
-              if tcn.preferred? && iso != 'unknown'
-                add_to_taxa(id, preferred_commons: { iso => string })
-              elsif name_vetted_id != Vetted.untrusted.id &&
-                vetted_id != Vetted.inappropriate.id
-                add_to_taxa(id, commons: { iso => string })
-              end
-            elsif tcn.source_hierarchy_entry_id && tcn.source_hierarchy_entry_id > 0
-              if Name.is_surrogate_or_hybrid?(string)
-                add_to_taxa(id, surrogates: string)
-              elsif tcn.preferred?
-                add_to_taxa(id, preferred_scientifics: string)
-              else
-                add_to_taxa(id, synonyms: string)
-              end
-            end
+
+          # Break up the TaxonConceptName objects by type. Order matters: each
+          # precludes the next.
+          names = concept.taxon_concept_names
+          (preferred_commons, names) = names.partition { |tcn| tcn.vern? && tcn.preferred? && Language.iso_code(tcn.language_id) }
+          (commons, names) = names.partition { |tcn| tcn.vern? && tcn.vetted_id != Vetted.untrusted.id && is_appropriate }
+          # Lose any remaining names with no entry attached:
+          names.delete_if { |tcn| tcn.source_hierarchy_entry_id.nil? || tcn.source_hierarchy_entry_id <= 0 }
+          (surrogates, names) = names.partition { |tcn| Name.is_surrogate_or_hybrid?(solr_strings[tcn.name.string]) }
+          (preferred_scientifics, synonyms) = names.partition { |tcn| tcn.preferred? }
+
+          # Now pull out unique versions of the normalized names:
+          surrogates = surrogates.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          preferred_scientifics = preferred_scientifics.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          synonyms = synonyms.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          scientifics = preferred_scientifics + synonyms
+
+          # Common names are slightly trickier—they need a language and they
+          # cannot be found in the scientific names...
+          preferred_commons_by_iso = {}
+          preferred_commons.each do |common|
+            string = solr_strings[common.name.string]
+            next if scientifics.include?(string)
+            preferred_commons_by_iso[Language.solr_iso_code(common.language_id)] = string
           end
-        end
-      end
-      remove_common_names_in_scientifics
-    end
-
-    def add_to_taxa(id, add = {})
-      @taxa[id] ||= {}
-      [:surrogates, :preferred_scientifics, :synonyms].each do |attribute|
-        @taxa[id][attribute] ||= Set.new
-        if add.has_key?(attribute)
-          @taxa[id][attribute] << add[attribute]
-        end
-      end
-      # Trickier to set: common languages contain hashes, keyed by language ISO
-      # code and with values of strings in that language.
-      [:preferred_commons, :commons].each do |common_type|
-        @taxa[id][common_type] ||= {}
-        if add.has_key?(common_type)
-          add[common_type].each do |iso, string|
-            @taxa[id][common_type][iso] ||= Set.new
-            @taxa[id][common_type][iso] << string
+          commons_by_iso = {}
+          commons.each do |common|
+            string = solr_strings[common.name.string]
+            next if scientifics.include?(string)
+            commons_by_iso[Language.solr_iso_code(common.language_id)] = string
           end
+
+          # Now build the objects:
+          richness = concept.taxon_concept_metric.try(:richness_score)
+          base = {
+            resource_type:             "TaxonConcept",
+            resource_unique_key:       "TaxonConcept_#{id}",
+            resource_id:               id,
+            ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
+            richness_score:            richness
+          }
+          add_scientific_to_objects(base, surrogates, "Surrogate", 500)
+          add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)
+          add_scientific_to_objects(base, synonyms, "Synonym", 3)
+          add_common_to_objects(base, preferred_commons, "PreferredCommonName", 2)
+          add_common_to_objects(base, preferred_commons, "CommonName", 4)
         end
       end
     end
 
-    def remove_common_names_in_scientifics
-      EOL.log_call
-      @taxa.each do |id, object|
-        remove_duplicate_common_names_in(:preferred_commons, object, id)
-        remove_duplicate_common_names_in(:commons, object, id)
-      end
-    end
-
-    def remove_duplicate_common_names_in(type, object, id)
-      object[type].each do |iso, names|
-        names.each do |name|
-          if object[:preferred_scientifics].include?(name) ||
-             object[:synonyms].include?(name)
-            @taxa[id][type][iso].delete(name)
-            @taxa[id][type].delete(iso) if
-              @taxa[id][type][iso].empty?
-          end
-        end
-      end
-    end
-
-    def get_taxon_ancestors(ids)
-      EOL.log_call
-      TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", @taxa.keys]).
-        find_each do |tcf|
-        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] ||= []
-        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] <<
-          tcf.ancestor_id
-      end
-    end
-
-    def get_taxon_richness(ids)
-      EOL.log_call
-      TaxonConceptMetric.select("taxon_concept_id, richness_score").
-        where(["taxon_concept_id IN (?)", @taxa.keys]).find_each do |tcr|
-        @taxa[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
-      end
-    end
-
-    # TODO: it looks like this takes a LONG time to run; improve.
-    def convert_taxa_to_search_objects
-      EOL.log("converting #{@taxa.count} taxa to search objects", prefix: "#")
-      @taxa.each do |id, taxon|
-        base_attributes = {
-          resource_type:             "TaxonConcept",
-          resource_id:               id,
-          resource_unique_key:       "TaxonConcept_#{id}",
-          ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
-          richness_score:            taxon[:richness_score]
-        }
-        [:preferred_scientifics, :synonyms, :surrogates].each do |field|
-          objs = add_scientific_to_objects(base_attributes, taxon, field)
-          @objects += objs
-        end
-        [:commons, :preferred_commons].each do |field|
-          objs = add_common_to_objects(base_attributes, taxon, field)
-          @objects += objs
-        end
-      end
-    end
-
-    def add_scientific_to_objects(base, object, field)
-      return [] if object[field].empty?
-      [base.merge(
-        keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-        keyword: object[field].to_a,
+    def add_scientific_to_objects(base, names, type, weight)
+      return if names.empty?
+      @objects << base.merge(
+        keyword_type: type,
+        keyword: names,
         language: 'sci',
-        resource_weight: TAXON_NAME_FIELDS[field][:weight]
-      )]
+        resource_weight: weight
+      )
     end
 
-    def add_common_to_objects(base, object, field)
-      return [] if object[field].empty?
-      object[field].map do |iso, names|
+    def add_common_to_objects(base, names_by_iso, type, weight)
+      return names_by_iso.empty?
+      @objects += names_by_iso.map do |iso, names|
         base.merge(
-          keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-          keyword: names.to_a,
+          keyword_type: type,
+          keyword: names,
           language: iso,
-          resource_weight: TAXON_NAME_FIELDS[field][:weight]
+          resource_weight: weight
         )
       end
     end
 
-    # TODO: Yech. The scores seem arbitrary, the queries are huge and probably
-    # not necessary (so many nulls); I'm not sure nulls are handled properly
-    # (well, it does remove blanks, but that's a lot of work to find out it's
-    # null!), and this is all VERY obfuscated. :| I'm not pleased with this
-    # code. I definitely wouldn't have done it this way! # NOTE: called by
-    # #insert_batch via dynamic #send
+    # TODO: Long method, break up. # NOTE: called by #insert_batch via dynamic
+    # #send
     def get_data_objects(ids)
       EOL.log_call
       set_data_type_and_weight
-      get_object_agents(ids)
-      get_object_users(ids)
-      # Sorry, I am not re-writing this now. Too much complexity. :\
-      query = "
-          SELECT do.id, do.guid,
-          REPLACE(REPLACE(do.object_title, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.description, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.rights_statement, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.rights_holder, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.bibliographic_citation, '\n', ' '), '\r', ' '),
-          REPLACE(REPLACE(do.location, '\n', ' '), '\r', ' '),
-          do.created_at, do.updated_at,  l.iso_639_1, do.data_type_id
-          FROM data_objects do
-          LEFT JOIN languages l ON (do.language_id=l.id)
-          LEFT JOIN data_objects_hierarchy_entries dohe
-            ON (do.id=dohe.data_object_id)
-          LEFT JOIN curated_data_objects_hierarchy_entries cdohe
-            ON (do.id=cdohe.data_object_id)
-          LEFT JOIN users_data_objects udo ON (do.id=udo.data_object_id)
-          WHERE do.published=1
-          AND (dohe.visibility_id = #{Visibility.visible.id}
-            OR cdohe.visibility_id = #{Visibility.visible.id}
-            OR udo.visibility_id = #{Visibility.visible.id})
-          AND do.id IN (#{ids.join(',')})"
-      used_ids = []
-      DataObject.connection.select_rows(query).each do |row|
-        id = row[0]
-        next if used_ids.include?(id)
-        used_ids << id
-        guid = row[1]
-        next if row[3].blank? || guid !~ MIN_CHAR_REGEX
-        object_title = SolrCore.string(row[2])
-        description = SolrCore.string(row[3])
-        rights_statement = SolrCore.string(row[4])
-        rights_holder = SolrCore.string(row[5])
-        bibliographic_citation = SolrCore.string(row[6])
-        location = SolrCore.string(row[7])
-        created_at = SolrCore.date(row[8])
-        updated_at = SolrCore.date(row[9])
-        iso = SolrCore.string(row[10]) # NOTE: ATM we don't use this, but...
-        data_type_id = row[11]
-        unless @data_type_and_weight.has_key?(data_type_id)
-          EOL.log("WARNING: unknown data type id #{data_type_id}", prefix: "!")
-        end
+      fields_to_index = {
+        object_title: { full_text: false, resource_weight: 0 },
+        description: { full_text: true, resource_weight: 2 },
+        rights_statement: { full_text: false, resource_weight: 3 },
+        rights_holder: { full_text: false, resource_weight: 4 },
+        bibliographic_citation: { full_text: false, resource_weight: 5 },
+        location: { full_text: false, resource_weight: 6 }
+      }
+
+      DataObject.with_visible_associations.
+                 # TODO: we should try adding a select in here and see how that
+                 # affects performance.
+                 published.
+                 where(id: ids).
+                 find_each do |object|
+        # Don't index any objects that aren't visible somewhere:
+        next if object.visible_associations_empty?
+        # Interesting. I wonder how common this is?
+        next if object.guid !~ MIN_CHAR_REGEX
+        type_and_weight = @data_type_and_weight[object.data_type_id]
         data_types = ["DataObject"]
-        extra_type = @data_type_and_weight[data_type_id][:type]
+        extra_type = type_and_weight[:type]
         data_types << extra_type if !extra_type.blank?
-        resource_weight = @data_type_and_weight[data_type_id][:weight]
+        resource_weight = type_and_weight[:weight]
         base_attributes = {
           resource_type:       data_types,
-          resource_id:         id,
-          resource_unique_key: "DataObject_#{id}",
-          language:            'en', # TODO: should this be iso ?
-          date_created:        created_at,
-          date_modified:       updated_at
+          resource_id:         object.id,
+          resource_unique_key: "DataObject_#{object.id}",
+          # TODO: should language be Language.solr_iso_code(object.language_id)?
+          language:            'en',
+          date_created:        SolrCore.date(object.created_at),
+          date_modified:       SolrCore.date(object.updated_at)
         }
-        fields_to_index = [
-          { keyword_type:    "object_title",
-            keyword:         object_title,
-            full_text:       false,
-            resource_weight: resource_weight
-          },
-          { keyword_type:    "description",
-            keyword:         description,
-            full_text:       true,
-            resource_weight: resource_weight + 2
-          },
-          { keyword_type:    "rights_statement",
-            keyword:         rights_statement,
-            full_text:       false,
-            resource_weight: resource_weight + 3
-          },
-          { keyword_type:    "rights_holder",
-            keyword:         rights_holder,
-            full_text:       false,
-            resource_weight: resource_weight + 4
-          },
-          { keyword_type:    "bibliographic_citation",
-            keyword:         bibliographic_citation,
-            full_text:       false,
-            resource_weight: resource_weight + 5
-          },
-          { keyword_type:    "location",
-            keyword:         location,
-            full_text:       false,
-            resource_weight: resource_weight + 6
-          }
-        ]
-        fields_to_index.each do |field_to_index|
-          next if field_to_index[:keyword].nil?
-          keyword = field_to_index[:keyword].gsub(/ +/, " ").strip
-          next if keyword.blank?
+        fields_to_index.each do |field, hash|
+          value = object[field]
+          next if value.blank?
+          value = SolrCore.string(value)
+          next if value.blank?
           @objects << base_attributes.merge(
-            keyword_type:    field_to_index[:keyword_type],
-            keyword:         keyword,
-            full_text:       field_to_index[:full_text],
-            resource_weight: field_to_index[:resource_weight]
+            keyword_type:    field.to_s,
+            keyword:         [value],
+            full_text:       hash[:full_text],
+            resource_weight: resource_weight + hash[:resource_weight]
           )
         end
-        if ! @agents_for_objects.blank?
-          @agents_for_objects[id].each do |agent_name|
-            next if agent_name.blank?
+        # Yes, this is loading the user one at a time. We have so few, it's not
+        # worth fixing that! ;)
+        if vodo = object.visible_users_data_object
+          unless vodo.user.username.blank?
             @objects << base_attributes.merge(
               keyword_type:    "agent",
-              keyword:         agent_name,
+              keyword:         vodo.user.username,
               resource_weight: resource_weight + 1
             )
           end
-        end
-      end
-    end
-
-    def get_object_agents(ids)
-      EOL.log_call
-      @agents_for_objects ||= {}
-      # NOTE: I tried using find_each, here, but it causes an ORDER BY clause
-      # (it needs to, to keep track of things), so I'll just limit the query
-      # size by grouping ids:
-      ids.in_groups_of(500, false) do |group|
-        Agent.includes(:data_objects).joins(:data_objects).
-          where(["agents_data_objects.data_object_id IN (?) "\
-            "AND data_objects.published = 1", group]).each do |agent|
-          agent_name = SolrCore.string("#{agent.full_name} "\
-            "#{agent.given_name} #{agent.family_name}")
-          if agent_name.blank?
-            EOL.log("WARNING: Agent with no names: #{agent.id}", prefix: "!")
-          else
-            agent.data_objects.each do |dato|
-              @agents_for_objects[dato.id] ||= []
-              @agents_for_objects[dato.id] << agent_name
-            end
-          end
-        end
-      end
-    end
-
-    def get_object_users(ids)
-      EOL.log_call
-      User.includes(:data_objects).
-        where(["users_data_objects.data_object_id IN (?) AND "\
-          "data_objects.published = 1", ids]).
-        find_each do |user|
-        username = SolrCore.string(user.username)
-        full_name = SolrCore.string(user.full_name)
-        user.data_objects.each do |dato|
-          @agents_for_objects[dato.id] ||= []
-          unless username.blank?
-            @agents_for_objects[dato.id] << username
-          end
-          if ! full_name.blank?
-            @agents_for_objects[dato.id] << full_name
+          unless vodo.user.full_name.blank?
+            @objects << base_attributes.merge(
+              keyword_type:    "agent",
+              keyword:         vodo.user.full_name,
+              resource_weight: resource_weight + 1
+            )
           end
         end
       end

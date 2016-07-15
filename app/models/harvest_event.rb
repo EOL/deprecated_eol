@@ -47,8 +47,6 @@ class HarvestEvent < ActiveRecord::Base
     preview_events_by_hierarchy
   end
 
-
-
   def content_partner
     resource.content_partner
   end

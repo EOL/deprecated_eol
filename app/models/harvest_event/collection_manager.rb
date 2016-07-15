@@ -12,8 +12,8 @@ class HarvestEvent
     # TODO: something in this process is slow. Figure out what it is and speed
     # it up!
     def sync
-      EOL.log("collection_manager.rb#sync collection "\
-        "http://eol.org/collections/#{collection.id}")
+      EOL.log("HarvestEvent::CollectionManager.sync ("\
+        "http://eol.org/collections/#{collection.id})")
       update_attributes
       add_user_to_collection
       remove_collection_items_not_in_harvest
@@ -26,6 +26,7 @@ class HarvestEvent
         resource.preview_collection.users = []
         resource.preview_collection.destroy
       end
+      EOL.log_return
     end
 
     private

@@ -15,8 +15,8 @@ class SolrCore
     text = text.to_s # Sometimes we get Fixnums, etc.
     return nil if text == 'NULL' # Can come from DB
     return text if text.is_numeric?
-    return text if text =~ CLEAN_TEXT_REGEX
-    return "" if text.is_utf8? # TODO: really? :S
-    text.gsub(BAD_CHARS_REGEX, " ").strip
+    return text.gsub(/\s+/, " ") if text =~ CLEAN_TEXT_REGEX
+    return I18n.transliterate(text) if text.is_utf8?
+    text.gsub(BAD_CHARS_REGEX, " ").gsub(/\s+/, " ").strip
   end
 end

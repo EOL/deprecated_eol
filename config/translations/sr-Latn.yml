@@ -1824,14 +1824,6 @@ sr-Latn:
   images: Slike
   images_in_red_are_not_trusted: Slike crvene boje su nepoverljive.
   images_in_yellow_are_not_reviewed: Slike žute boje nisu pregledane.
-  images_sort_worklist_note:
-    one: Slike su poređane po datumu uvoza u EOL – prvo najnovije. Postoji %{count}
-      slika na ovom radnom spisku.
-    other: Slike su poređane po datumu uvoza u EOL – prvo najnovije. Postoje %{count}
-      slike na ovom radnom spisku.
-  images_with_count:
-    one: '%{count} slika'
-    other: '%{count} slike'
   import_once: Uvezi jednom
   inappropriate: Neprikladno
   include_all_metadata: uključi sve metapodatke za objekte podataka

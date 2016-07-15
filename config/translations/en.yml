@@ -3861,6 +3861,9 @@ en:
   image_title_with_taxa: "Image of %{taxa}"
   image_title_without_taxa: "Image of an unknown taxon"
   images: "Images"
+  images_with_count:
+    one: "%{count} image"
+    other: "%{count} images"
   images_in_red_are_not_trusted: "Images in red are not trusted."
   images_in_yellow_are_not_reviewed: "Images in yellow are not reviewed."
   image_objects_page_number: "images page"

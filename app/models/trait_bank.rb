@@ -179,7 +179,7 @@ class TraitBank
     def create_mappings(resource)
       triples = []
       graph = resource.graph_name
-      resource.hierarchy.entries.select([:id, :identifier, :taxon_concept_id]).
+      resource.hierarchy.entries.has_identifier.select([:id, :identifier, :taxon_concept_id]).
                find_each do |entry|
         entry_uri = "#{graph}/taxa/#{EOL::Sparql.to_underscore(entry.identifier)}"
         page_uri = "http://eol.org/pages/#{entry.taxon_concept_id}"
@@ -192,8 +192,8 @@ class TraitBank
 
     def flatten_taxa(taxa)
       EOL.log_call
-      EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
-      taxa.to_a.in_groups_of(10_000, false) do |group|
+      # NOTE: 10_000 here was too high; lost connection to SQL.
+      taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
         TaxonConceptsFlattened.where(taxon_concept_id: group).
           find_each do |flat|
@@ -203,7 +203,7 @@ class TraitBank
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
         connection.insert_data(data: triples, graph_name: graph)
-        EOL.log("Completed #{group.count}...", prefix: ".")
+        EOL.log("Flattened #{group.size}/#{taxa.size}...", prefix: ".")
       end
     end
 

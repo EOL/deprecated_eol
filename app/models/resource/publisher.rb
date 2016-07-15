@@ -62,15 +62,14 @@ class Resource
           new_entry_ids - old_entry_ids)
       end
       reindex_and_merge unless was_previewed
-      EOL::Sparql::EntryToTaxonMap.create_graph(@resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end
       sync_collection unless was_previewed
-      @harvest_event.index_for_site_search
-      @harvest_event.index_new_data_objects
       @resource.create_mappings
       @resource.port_traits
+      @harvest_event.index_for_site_search
+      @harvest_event.index_new_data_objects
       @harvest_event.update_attribute(:published_at, Time.now)
       @resource.update_attribute(:resource_status_id,
         ResourceStatus.published.id)

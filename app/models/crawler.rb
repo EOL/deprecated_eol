@@ -18,12 +18,26 @@ class Crawler
     end
 
     # This is just a test, and it's not actually restricted to mammals, because
-    # we don't do IDs specifically by clade...
+    # we don't do IDs specifically by clade... There are about 70K of these.
     def enqueue_all_mammals
       Crawler::SiteMapIndexer.create
       offset = 0
       limit = 250
       all_ids = TaxonConceptsFlattened.descendants_of(1642).pluck(:taxon_concept_id)
+      begin
+        ids = all_ids[offset..offset+limit]
+        Resque.enqueue(Crawler, from: ids.first, to: ids.last)
+        offset += limit
+      end while offset < all_ids.size
+    end
+
+    # This is just a test, and it's not actually restricted to carnivores,
+    # because we don't do IDs specifically by clade... There are about 4200 of these.
+    def enqueue_all_carnivores
+      Crawler::SiteMapIndexer.create
+      offset = 0
+      limit = 250
+      all_ids = TaxonConceptsFlattened.descendants_of(7662).pluck(:taxon_concept_id)
       begin
         ids = all_ids[offset..offset+limit]
         Resque.enqueue(Crawler, from: ids.first, to: ids.last)

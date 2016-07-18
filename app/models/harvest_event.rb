@@ -133,6 +133,11 @@ class HarvestEvent < ActiveRecord::Base
     @hierarchy_entry_ids_with_ancestors = Set.new(harvested + ancestors).to_a
   end
 
+  def index
+    index_for_site_search
+    index_new_data_objects
+  end
+
   def index_for_site_search
     HarvestEvent::SiteSearchIndexer.index(self)
   end

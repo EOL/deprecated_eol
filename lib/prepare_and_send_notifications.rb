@@ -7,18 +7,20 @@ class PrepareAndSendNotifications
   class << self
     def perform
       EOL.log_call
-      PendingNotification.send_notifications(:immediately)
+      Comment.with_master do
+        PendingNotification.send_notifications(:immediately)
 
-      if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
-        EOL.log("Sending daily mail.")
-        PendingNotification.send_notifications(:daily)
-        NotificationEmailerSettings.last_daily_emails_sent = Time.now
-      end
+        if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
+          EOL.log("Sending daily mail.")
+          PendingNotification.send_notifications(:daily)
+          NotificationEmailerSettings.last_daily_emails_sent = Time.now
+        end
 
-      if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
-        EOL.log("Sending weekly mail.")
-        PendingNotification.send_notifications(:weekly)
-        NotificationEmailerSettings.last_weekly_emails_sent = Time.now
+        if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
+          EOL.log("Sending weekly mail.")
+          PendingNotification.send_notifications(:weekly)
+          NotificationEmailerSettings.last_weekly_emails_sent = Time.now
+        end
       end
       EOL.log_return
     end

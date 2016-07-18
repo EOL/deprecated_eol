@@ -176,21 +176,25 @@ class HarvestEvent < ActiveRecord::Base
     ! published? && self.publish?
   end
 
-  def publish_data_objects
-    EOL.log_call
-    count = data_objects.where(published: false).update_all(published: true)
-    EOL.log("(#{count} objects)", prefix: ".")
-    count
+  def publish
+    set_association_visibilities
+    set_association_published_flags
+    publish_entries_and_pages
   end
 
-  # NOTE: You need to call publish_data_objects before this; we don't do it
-  # here, because it ends up being inefficient; it's best to do data_objects in
-  # a separate transaction, so it needed to be separate.
-  # separate.
-  def publish_objects
-    publish_and_show_hierarchy_entries
-    publish_taxon_concepts
-    publish_synonyms
+  def set_association_visibilities
+    ActiveRecord::Base.connection.transaction do
+      show_preview_objects
+      preserve_invisible
+    end
+  end
+
+  def show_preview_objects
+    DataObjectsHierarchyEntry.
+      joins(:data_object, data_object: :data_objects_harvest_events).
+      where(visibility_id: Visibility.get_preview.id,
+        data_objects_harvest_events: { harvest_event_id: id }).
+      update_all(["visibility_id = ?", Visibility.get_visible.id])
   end
 
   # TODO: this would be unnecessary if, during a harvest, we just looked for the
@@ -219,16 +223,34 @@ class HarvestEvent < ActiveRecord::Base
       update_all(visibility_id: Visibility.get_invisible.id)
   end
 
-  def show_preview_objects
-    DataObjectsHierarchyEntry.
-      joins(:data_object, data_object: :data_objects_harvest_events).
-      where(visibility_id: Visibility.get_preview.id,
-        data_objects_harvest_events: { harvest_event_id: id }).
-      update_all(["visibility_id = ?", Visibility.get_visible.id])
+  def set_association_published_flags
+    ActiveRecord::Base.connection.transaction do
+      resource.unpublish_data_objects
+      publish_data_objects
+    end
+  end
+
+  def publish_data_objects
+    EOL.log_call
+    count = data_objects.where(published: false).update_all(published: true)
+    EOL.log("(#{count} objects)", prefix: ".")
+    count
+  end
+
+  def publish_entries_and_pages
+    ActiveRecord::Base.connection.transaction do
+      old_ids = Set.new(resource.unpublish_hierarchy)
+      publish_other_objects
+      mark_as_published
+      new_ids = Set.new(hierarchy_entry_ids_with_ancestors)
+      TaxonConcept.unpublish_and_hide_by_entry_ids(new_ids - old_ids)
+    end
   end
 
   def sync_collection
-    HarvestEvent::CollectionManager.sync(self)
+    ActiveRecord::Base.connection.transaction do
+      HarvestEvent::CollectionManager.sync(self)
+    end
   end
 
   def taxon_concept_ids
@@ -336,6 +358,15 @@ class HarvestEvent < ActiveRecord::Base
   end
 
 private
+
+  # NOTE: You need to call publish_data_objects before this; we don't do it
+  # here, because it ends up being inefficient; it's best to do data_objects in
+  # a separate transaction, so it needed to be separate.
+  def publish_other_objects
+    publish_and_show_hierarchy_entries
+    publish_taxon_concepts
+    publish_synonyms
+  end
 
   def publish_and_show_hierarchy_entries
     EOL.log_call

@@ -173,6 +173,10 @@ class Resource < ActiveRecord::Base
     harvest_events.last.relate_new_hierarchy_entries
   end
 
+  def reindex_for_merges
+    SolrCore::HierarchyEntries.reindex_hierarchy(hierarchy)
+  end
+
   # NOTE: sadly, there's no way (ATM) to know if something was successfully
   # previewed (though we could guess, if the resource isn't auto-publish), so we
   # have to call this method. NOTE ATM this is ONLY called manually.
@@ -181,8 +185,10 @@ class Resource < ActiveRecord::Base
   end
 
   def rebuild_taxon_concept_names
-    TaxonConceptName.rebuild_by_taxon_concept_id(
+    ActiveRecord::Base.connection.transaction do
+      TaxonConceptName.rebuild_by_taxon_concept_id(
       latest_harvest_event_uncached.taxon_concept_ids)
+    end
   end
 
   def ready_to_publish?
@@ -265,11 +271,6 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest
   end
 
-  def oldest_published_harvest_event_uncached
-    HarvestEvent.published.complete.where(resource_id: id).
-      order(:published_at).first
-  end
-
   def latest_published_harvest_event
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
@@ -284,6 +285,15 @@ class Resource < ActiveRecord::Base
     # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_published_harvest = nil if @latest_published_harvest == 0
     @latest_published_harvest
+  end
+
+  def mark_as_published
+    update_attribute(:resource_status_id, ResourceStatus.published.id)
+  end
+
+  def oldest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order(:published_at).first
   end
 
   def latest_published_harvest_event_uncached

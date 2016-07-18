@@ -14,7 +14,7 @@ class Resource
 
     def initialize(resource)
       @resource = resource
-      @harvest_event = resource.harvest_events.last
+      @event = resource.harvest_events.last
       raise "No hierarchy!" unless @resource.hierarchy
     end
 
@@ -40,39 +40,23 @@ class Resource
       was_previewed = options[:previewed]
       EOL.log("PUBLISH: #{resource.title}", prefix: "{")
       unless options[:force]
-        raise "Harvest event already published!" if @harvest_event.published?
-        raise "Harvest event not complete!" unless @harvest_event.complete?
-        raise "Publish flag not set!" unless @harvest_event.publish?
+        raise "Harvest event already published!" if @event.published?
+        raise "Harvest event not complete!" unless @event.complete?
+        raise "Publish flag not set!" unless @event.publish?
       end
-      ActiveRecord::Base.connection.transaction do
-        @harvest_event.show_preview_objects
-        @harvest_event.preserve_invisible
-      end
-      ActiveRecord::Base.connection.transaction do
-        @resource.unpublish_data_objects
-        @harvest_event.publish_data_objects
-      end
-      ActiveRecord::Base.connection.transaction do
-        old_entry_ids = Set.new(@resource.unpublish_hierarchy)
-        @harvest_event.publish_objects
-        @harvest_event.mark_as_published
-        new_entry_ids =
-          Set.new(@harvest_event.hierarchy_entry_ids_with_ancestors)
-        TaxonConcept.unpublish_and_hide_by_entry_ids(
-          new_entry_ids - old_entry_ids)
-      end
-      reindex_and_merge unless was_previewed
-      ActiveRecord::Base.connection.transaction do
-        @resource.rebuild_taxon_concept_names
-      end
-      sync_collection unless was_previewed
+      @event.publish
+      # NOTE: the next two steps comprise the lion's share of publishing time.
+      # NOTE: longest step:
+      @resource.reindex_for_merges unless was_previewed
+      # NOTE: second longest step:
+      @event.merge_matching_concepts unless was_previewed
+      @resource.rebuild_taxon_concept_names
+      @event.sync_collection unless was_previewed
       @resource.create_mappings
       @resource.port_traits
-      @harvest_event.index_for_site_search
-      @harvest_event.index_new_data_objects
-      @harvest_event.update_attribute(:published_at, Time.now)
-      @resource.update_attribute(:resource_status_id,
-        ResourceStatus.published.id)
+      @event.index_for_site_search
+      @event.index_new_data_objects
+      @resource.mark_as_published
       @resource.save_resource_contributions
       denormalize
       EOL.log("PUBLISH DONE: #{resource.title}", prefix: "}")
@@ -85,19 +69,12 @@ class Resource
       # will leave zombie entries). We need to add a step that says "delete all
       # entries in dotoc where ids in (list of ids that were in previous event
       # but not this one)"
-      @harvest_event.insert_dotocs
+      @event.insert_dotocs
     end
 
     def reindex_and_merge
-      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      # NOTE: This is a doozy of a method! It's the largest piece of publishing.
-      @harvest_event.merge_matching_concepts
-    end
-
-    def sync_collection
-      ActiveRecord::Base.connection.transaction do
-        @harvest_event.sync_collection
-      end
+      @resource.reindex_for_merges
+      @event.merge_matching_concepts
     end
   end
 end

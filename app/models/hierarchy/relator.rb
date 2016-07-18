@@ -67,6 +67,7 @@ class Hierarchy
     end
 
     def get_page_from_solr(page)
+      EOL.log("hierarchy_id:#{@hierarchy.id} page: #{page} per: #{@per_page}...")
       # This query is very fast, even at high page numbers:
       response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
         page: page, per_page: @per_page)

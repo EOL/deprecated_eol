@@ -173,7 +173,7 @@ class Resource < ActiveRecord::Base
     harvest_events.last.relate_new_hierarchy_entries
   end
 
-  def reindex_for_merges
+  def index_for_merges
     SolrCore::HierarchyEntries.reindex_hierarchy(hierarchy)
   end
 
@@ -460,6 +460,11 @@ class Resource < ActiveRecord::Base
 
   def all_traits
     @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
+  end
+
+  def publish_traitbank
+    create_mappings
+    port_traits
   end
 
   # Creates a mappings graph of entry IDs to taxon IDs. ...only really needed

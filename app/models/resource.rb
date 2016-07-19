@@ -196,7 +196,7 @@ class Resource < ActiveRecord::Base
   def rebuild_taxon_concept_names
     ActiveRecord::Base.connection.transaction do
       TaxonConceptName.rebuild_by_taxon_concept_id(
-      latest_harvest_event_uncached.taxon_concept_ids)
+      harvest_events.last.taxon_concept_ids)
     end
   end
 
@@ -318,14 +318,10 @@ class Resource < ActiveRecord::Base
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
-      latest_harvest_event_uncached || 0
+      harvest_events.last || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest
-  end
-
-  def latest_harvest_event_uncached
-    HarvestEvent.where(resource_id: id).last
   end
 
   def upload_resource_to_content_master(ip_with_port)

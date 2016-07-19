@@ -37,7 +37,8 @@ class TaxonConcept
           end
         end
         reindex_concepts = []
-        EOL.log("Have #{merges.keys.size + 1} merges...")
+        num_merges = merges.keys.size
+        EOL.log("Have #{num_merges} merges...") unless num_merges <= 0
         merges.each do |to_id, from_ids|
           to_concept = concepts[to_id]
           if to_concept.nil?
@@ -79,8 +80,12 @@ class TaxonConcept
         reindex_concepts.each do |concept|
           TaxonConceptReindexing.reindex(concept, allow_large_tree: true)
         end
+        return num_merges
       end
 
+      # NOTE: if you watch the logs, you will see a lot of individual
+      # TaxonConcept loads, which would be nice to avoid, but until we have a
+      # "bulk merger" class, this is the safest way to do it!
       def ids(id1, id2)
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
         (id1, id2) = [id1, id2].sort

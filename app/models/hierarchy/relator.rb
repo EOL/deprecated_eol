@@ -112,10 +112,9 @@ class Hierarchy
       # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
       sleep(0.3)
       rhead = response["responseHeader"]
-      # if rhead["QTime"] && rhead["QTime"].to_i > 200
-        EOL.log("compare query: #{query}", prefix: ".")
-        EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
-      # end
+      if rhead["QTime"] && rhead["QTime"].to_i > 200
+        EOL.log("SLOW: #{query} took #{rhead["QTime"]}ms", prefix: "!")
+      end
       matching_entries_from_solr = response["response"]["docs"]
       matching_entries_from_solr.each do |matching_entry|
         compare_entries_from_solr(entry, matching_entry)

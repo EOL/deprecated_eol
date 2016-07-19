@@ -122,7 +122,8 @@ module EOL
         table = klass.table_name
         table += "_tmp" if options[:tmp]
         fields = Array(fields)
-        EOL.log("eol/db.rb#bulk_insert #{rows.count} rows into #{table}", prefix: '.')
+        EOL.log("EOL::Db#bulk_insert #{rows.count} rows into #{table}",
+          prefix: '.') unless options[:silent]
         group_num = 0
         rows = Array(rows)
         done = 0

@@ -184,6 +184,15 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self, previewed: true)
   end
 
+  # NOTE: somewhere in here it throws a warning: "Scoped order and limit are
+  # ignored, it's forced to be batch order and batch size" ... we should look
+  # into that and make sure we're not missing something. It's before a call to
+  # uBio. It looks like its on a query like: Name Load (346.5ms)  SELECT
+  # names.id, names_canonical_forms.id canonical_name_id FROM `names` INNER JOIN
+  # `canonical_forms` ON `canonical_forms`.`id` = `names`.`canonical_form_id`
+  # INNER JOIN `names` `names_canonical_forms` ON
+  # `names_canonical_forms`.`canonical_form_id` = `canonical_forms`.`id` WHERE
+  # (names.id IN
   def rebuild_taxon_concept_names
     ActiveRecord::Base.connection.transaction do
       TaxonConceptName.rebuild_by_taxon_concept_id(

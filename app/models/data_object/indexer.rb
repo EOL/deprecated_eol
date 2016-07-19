@@ -9,11 +9,17 @@ class DataObject
     def initialize
       set_prefixes
       @solr = SolrCore::DataObjects.new
+      @batch_size = 10_000
     end
 
     def by_data_object_ids(data_object_ids)
       EOL.log_call
-      data_object_ids.in_groups_of(10000, false) do |batch|
+      num = 0
+      batch_count = (data_object_ids.size / @batch_size).ceil
+      data_object_ids.in_groups_of(@batch_size, false) do |batch|
+        num += 1
+        EOL.log("DataObject::Indexer#index_batch #{num}/#{batch_count}",
+          prefix: '.')
         index_batch(batch)
       end
       EOL.log_return
@@ -38,7 +44,6 @@ class DataObject
     end
 
     def index_batch(data_object_ids)
-      EOL.log_call
       @objects = {}
       add_native_associations(data_object_ids)
       add_curated_associations(data_object_ids)

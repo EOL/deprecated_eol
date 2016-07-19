@@ -34,7 +34,7 @@ class HarvestEvent
     # TODO: break this method up.
     def add_items_collection
       EOL.log_call
-      data = Set.new()
+      data = []
       harvested_objects_not_already_in_collection.find_each do |object|
         title = object.short_title.gsub("'", "''")
         data << "'#{title}', 'DataObject', #{object.id}, #{collection.id}"
@@ -45,7 +45,7 @@ class HarvestEvent
       end
       EOL::Db.bulk_insert(CollectionItem,
         [:name, :collected_item_type, :collected_item_id, :collection_id],
-        data.to_a, ignore: true)
+        data, ignore: true)
     end
 
     def harvested_objects_not_already_in_collection

@@ -33,7 +33,7 @@ class SolrCore
 
     def reindex_hashes(items)
       items = Array(items)
-      EOL.log("SolrCore::DataObjets#reindex_hashes (#{items.size} items)", prefix: '.')
+      EOL.log("SolrCore::DataObjets#reindex_hashes", prefix: '.')
       delete(items.map { |i| "data_object_id:#{i[:data_object_id]}" })
       @connection.add(items)
       @connection.commit

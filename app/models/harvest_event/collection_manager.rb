@@ -53,6 +53,7 @@ class HarvestEvent
           "(data_objects_harvest_events.data_object_id = ci.collected_item_id "\
           "AND ci.collected_item_type = 'DataObject' AND ci.collection_id = "\
           "#{collection.id})").
+        includes(:data_type => :translated_data_types).
         where("ci.id IS NULL")
     end
 

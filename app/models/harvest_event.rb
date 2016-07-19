@@ -253,9 +253,10 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def sync_collection
-    ActiveRecord::Base.connection.transaction do
-      HarvestEvent::CollectionManager.sync(self)
-    end
+    # This used to be in a transaction, but it can take AGES, and it's not
+    # horrible if part of the collection is added, so I'm removing the
+    # transaction:
+    HarvestEvent::CollectionManager.sync(self)
   end
 
   def taxon_concept_ids

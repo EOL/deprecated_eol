@@ -82,10 +82,15 @@ class HarvestBatch
       else
         EOL.log("Nothing was published; skipping denormalization", prefix: "!")
       end
-      EOL.log("PUBLISHING SUMMARY:", prefix: "<")
+      summary = "\n## PUBLISHING SUMMARY, "
+      # Apologies for the hard-coded time zone here, but it helps me report on
+      # things properly:
+      summary += Time.now.in_time_zone("Eastern Time (US & Canada)").
+        strftime("%a %b %d, %I:%M%p")
       @summary.each do |stat|
-        EOL.log("[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}")
+        summary += "\n[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}"
       end
+      EOL.log(summary, prefix: "<")
     end
     EOL.log_return
   end

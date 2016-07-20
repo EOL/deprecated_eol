@@ -87,8 +87,9 @@
       willing_to_try = 5
       while willing_to_try > 0
         begin
-          connection.paginate(page, per_page, "select", params: params)
+          response = connection.paginate(page, per_page, "select", params: params)
           willing_to_try = 0
+          response
         rescue Timeout::Error => e
           EOL.log("SOLR TIMEOUT: pg#{page}(#{per_page}) q: #{params[:q]}",
             prefix: "!")

@@ -8,7 +8,8 @@ class Hierarchy
   # is dangerous, and we don't do anything with them that warrants it (other
   # than multiply, which can be achieved other ways). Let's switch to using a
   # 0-100 scale, which is more stable. NOTE: this is called by
-  # Hierarchy#reindex_and_merge_ids
+  # Hierarchy#reindex_and_merge_ids and
+  # HarvestEvent#relate_new_hierarchy_entries
   class Relator
     def self.relate(hierarchy, options = {})
       relator = self.new(hierarchy, options)

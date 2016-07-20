@@ -44,7 +44,7 @@ class Resource
         raise "Harvest event not complete!" unless @event.complete?
         raise "Publish flag not set!" unless @event.publish?
       end
-      @event.publish
+      @event.publish_affected
       # NOTE: the next two steps comprise the lion's share of publishing time.
       # The indexing takes a bit more time than the merging.
       @resource.index_for_merges unless was_previewed

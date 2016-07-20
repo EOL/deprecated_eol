@@ -181,8 +181,8 @@ class HarvestEvent < ActiveRecord::Base
     ! published? && self.publish?
   end
 
-  def publish
-    EOL.log("Event#publish")
+  def publish_affected
+    EOL.log("Event#publish_affected")
     EOL.log("caller: #{caller.first}")
     ActiveRecord::Base.connection.transaction do
       show_preview_objects

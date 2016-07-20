@@ -85,11 +85,11 @@
 
     def paginate_with_timeout(page, per_page, params)
       willing_to_try = 5
+      response = nil
       while willing_to_try > 0
         begin
           response = connection.paginate(page, per_page, "select", params: params)
           willing_to_try = 0
-          response
         rescue Timeout::Error => e
           EOL.log("SOLR TIMEOUT: pg#{page}(#{per_page}) q: #{params[:q]}",
             prefix: "!")
@@ -103,6 +103,7 @@
           end
         end
       end
+      response
     end
 
     # NOTE: this will NOT work on items with composite primary keys.

@@ -183,6 +183,7 @@ class HarvestEvent < ActiveRecord::Base
 
   def publish
     EOL.log("Event#publish")
+    EOL.log("caller: #{caller.first}")
     ActiveRecord::Base.connection.transaction do
       show_preview_objects
       preserve_invisible

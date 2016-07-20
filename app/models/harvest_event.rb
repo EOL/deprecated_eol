@@ -182,16 +182,16 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def publish
-    set_association_visibilities
-    set_association_published_flags
-    publish_entries_and_pages
-  end
-
-  def set_association_visibilities
+    EOL.log("Event#publish")
     ActiveRecord::Base.connection.transaction do
       show_preview_objects
       preserve_invisible
     end
+    ActiveRecord::Base.connection.transaction do
+      resource.unpublish_data_objects
+      publish_data_objects
+    end
+    publish_entries_and_pages
   end
 
   def show_preview_objects
@@ -207,7 +207,7 @@ class HarvestEvent < ActiveRecord::Base
   def preserve_invisible
     previously = resource.latest_published_harvest_event_uncached
     if previously.nil?
-      EOL.log("First harvest! Nothing to preserve.")
+      EOL.log("First harvest! skipping #preserve_invisible.")
       return
     end
     # NOTE: Ick. This actually runs moderately fast, but... ick. TODO - This
@@ -228,13 +228,6 @@ class HarvestEvent < ActiveRecord::Base
       update_all(visibility_id: Visibility.get_invisible.id)
   end
 
-  def set_association_published_flags
-    ActiveRecord::Base.connection.transaction do
-      resource.unpublish_data_objects
-      publish_data_objects
-    end
-  end
-
   def publish_data_objects
     EOL.log_call
     count = data_objects.where(published: false).update_all(published: true)
@@ -244,7 +237,7 @@ class HarvestEvent < ActiveRecord::Base
 
   def publish_entries_and_pages
     ActiveRecord::Base.connection.transaction do
-      old_ids = Set.new(resource.unpublish_hierarchy)
+      old_ids = Set.new(hierarchy.unpublish)
       publish_other_objects
       mark_as_published
       new_ids = Set.new(hierarchy_entry_ids_with_ancestors)
@@ -369,6 +362,7 @@ private
   # here, because it ends up being inefficient; it's best to do data_objects in
   # a separate transaction, so it needed to be separate.
   def publish_other_objects
+    EOL.log_call
     publish_and_show_hierarchy_entries
     publish_taxon_concepts
     publish_synonyms
@@ -398,6 +392,7 @@ private
   end
 
   def publish_synonyms
+    EOL.log_call
     count = Synonym.unpublished.joins(:hierarchy_entry).
       where(hierarchy_entries: { id: hierarchy_entry_ids_with_ancestors}).
       update_all("synonyms.published = true")

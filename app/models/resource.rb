@@ -450,11 +450,6 @@ class Resource < ActiveRecord::Base
       update_all(published: false)
   end
 
-  def unpublish_hierarchy
-    EOL.log_call
-    hierarchy.unpublish
-  end
-
   def trait_count
     EOL::Sparql.connection.count_traits_in_resource(self)
   end

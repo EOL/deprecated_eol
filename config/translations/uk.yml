@@ -4805,6 +4805,11 @@ uk:
   image_title_with_taxa: Зображення %{taxa}
   image_title_without_taxa: Зображення невідомого таксону
   images: зображення
+  images_with_count:
+    few: '%{count} зображення'
+    many: '%{count} зображень'
+    one: '%{count} зображення'
+    other: '%{count} зображення'
   images_in_red_are_not_trusted: Зображення у червоному кольорі - ненадійні.
   images_in_yellow_are_not_reviewed: Зображення у жовтому кольорі - неперевірені.
   include_all_metadata: включати всі метадані для об'єктів даних

@@ -3739,6 +3739,9 @@ zh-TW:
   image_object: 影像物件
   image_objects_will_contain_two_mediaurl_elements: 影像物件將包含兩個'mediaURL'元素 - 第一個是提供者網站上影像的URL，第二個是儲存於EOL伺服器上媒體其快取版本的網址。若原始影像的寬度超過460像素或高度超過345像素，此影像的EOL版本會被調整(保持長寬比)。
   images: 影像
+  images_with_count:
+    one: '%{count} 張影像'
+    other: '{count} 張影像'
   images_in_red_are_not_trusted: 紅色標記的影像是不可信的。
   images_in_yellow_are_not_reviewed: 黃色標記的影像是未經審核的。
   import_once: 再輸入一次

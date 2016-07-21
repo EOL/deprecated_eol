@@ -3641,6 +3641,8 @@ zh-CN:
   image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
   image_title_with_taxa: '%{taxa}的图像'
   images: 图像
+  images_with_count:
+    other: '%{count}张图像'
   images_in_red_are_not_trusted: 红色标记图像是不可信的。
   images_in_yellow_are_not_reviewed: 黄色标记图像是未经审核的。
   image_objects_page_number: 图片页面
@@ -4141,6 +4143,7 @@ zh-CN:
   preview_changes: 预览变化
   preview_version_of_latest_published_data_object_title_link: '%{link}的预览版本'
   preview: 预览
+  previewing_unpublished_page: 此页面未发布。您有特殊访问权预览它；其他用户不能查看此页面。
   previously_published: 之前发布的
   proceed_to_checkout_page: 前往结帐页面
   process_name: 任务名称
@@ -4803,7 +4806,7 @@ zh-CN:
   you_are_not_authorized_to_perform_this_action: 您无权执行此操作。
   you_are_viewing_this_rank_as_classified_by: 您正在查看的这个%{rank}的分类系统提供者：
   you_can_edit_those_later_if_ne: 如果需要，您可以稍后再做编辑。
-  you_can_identify_yourself_to_eol: 通过在您的请求中添加您的API密钥，您可以向EOL确认您自己的身份（登录后在偏好页面生成您的密钥）：
+  you_can_identify_yourself_to_eol: 通过在您的请求中添加您的API密钥，您可以向EOL确认您自己的身份（登录后，通过打开您的EOL编辑配置文件生成您的密钥。密钥将在此保存；日后再次打开您的编辑配置文件即可取回）：
   you_have_been_logged_in_as_username: 您已经以用户名%{username}登录
   you_have_been_logged_out: 您已登出。
   you_joined_community: 你已经成功加入该小组。

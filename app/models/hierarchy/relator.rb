@@ -114,7 +114,7 @@ class Hierarchy
       sleep(0.3)
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 200
-        EOL.log("SLOW: #{query} took #{rhead["QTime"]}ms", prefix: "!")
+        EOL.log("SLOW (#{rhead["QTime"]}ms): #{query}", prefix: "!")
       end
       matching_entries_from_solr = response["response"]["docs"]
       matching_entries_from_solr.each do |matching_entry|

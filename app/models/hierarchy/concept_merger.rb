@@ -111,8 +111,9 @@ class Hierarchy
         hierarchy2), compare_hierarchies_options(page))
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 1000
-        EOL.log("SLOW: get_page_from_solr took #{rhead["QTime"]}ms for "\
-          "#{rhead["params"]["rows"]} results", prefix: "!")
+        EOL.log("SLOW (#{rhead["QTime"]}ms): Hierarchy::ConceptMerger#"\
+          "get_page_from_solr for #{rhead["params"]["rows"]} results",
+          prefix: "!")
         EOL.log("gporfs query: #{rhead["params"]["q"]}", prefix: ".")
       end
       response["response"]["docs"]

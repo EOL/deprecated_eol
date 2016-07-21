@@ -4983,6 +4983,8 @@ pt-BR:
   image_title_with_taxa: Imagem de %{taxa}
   image_title_without_taxa: Imagem de um táxon desconhecida
   images: Imagens
+  images_with_count:
+    other: uma=%{count} imagem
   images_in_red_are_not_trusted: Imagens em vermelho não são confiáveis​​.
   images_in_yellow_are_not_reviewed: Imagens em amarelo não são revisadas.
   import_once: Importar uma vez

@@ -5428,6 +5428,9 @@ gl:
   image_title_with_taxa: Imaxe de %{taxa}
   image_title_without_taxa: Imaxe dun taxon descoñecido
   images: Imaxes
+  images_with_count:
+    one: '%{count} imaxe'
+    other: '%{count} imaxes'
   images_in_red_are_not_trusted: As imaxes que están en vermello non son de confianza.
   images_in_yellow_are_not_reviewed: As imaxes que están en amarelo non están revisadas.
   image_objects_page_number: páxina de imaxes

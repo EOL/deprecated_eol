@@ -4710,6 +4710,9 @@ sv:
   image_title_with_taxa: Bild på %{taxa}
   image_title_without_taxa: Bild på en okänd taxon
   images: Bilder
+  images_with_count:
+    one: '%{count} bild'
+    other: '%{count} bilder'
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
   image_objects_page_number: bildsida

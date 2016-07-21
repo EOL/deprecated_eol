@@ -1822,6 +1822,9 @@ sr-Latn:
     slike će biti smanjeno (razmera će biti očuvana) ako je izvorna slika veća od
     460 × 345 piksela.
   images: Slike
+  images_with_count:
+    one: '%{count} slika'
+    other: '%{count} slike'
   images_in_red_are_not_trusted: Slike crvene boje su nepoverljive.
   images_in_yellow_are_not_reviewed: Slike žute boje nisu pregledane.
   import_once: Uvezi jednom

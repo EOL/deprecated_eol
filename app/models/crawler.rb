@@ -17,30 +17,17 @@ class Crawler
       end while ids.size > 0
     end
 
-    # This is just a test, and it's not actually restricted to mammals, because
-    # we don't do IDs specifically by clade... There are about 70K of these.
-    def enqueue_all_mammals
+    # This is just for tests. 7662 has about 4200 of these, 1642 has 73K or so.
+    def enqueue_all_descendants(ancestor)
       Crawler::SiteMapIndexer.create
       offset = 0
       limit = 250
-      all_ids = TaxonConceptsFlattened.descendants_of(1642).pluck(:taxon_concept_id)
+      all_ids = TaxonConceptsFlattened.descendants_of(ancestor).
+        pluck(:taxon_concept_id)
       begin
-        ids = all_ids[offset..offset+limit]
-        Resque.enqueue(Crawler, from: ids.first, to: ids.last)
-        offset += limit
-      end while offset < all_ids.size
-    end
-
-    # This is just a test, and it's not actually restricted to carnivores,
-    # because we don't do IDs specifically by clade... There are about 4200 of these.
-    def enqueue_all_carnivores
-      Crawler::SiteMapIndexer.create
-      offset = 0
-      limit = 250
-      all_ids = TaxonConceptsFlattened.descendants_of(7662).pluck(:taxon_concept_id)
-      begin
-        ids = all_ids[offset..offset+limit]
-        Resque.enqueue(Crawler, from: ids.first, to: ids.last)
+        ids = all_ids.sort[offset..offset + limit]
+        Resque.enqueue(Crawler, from: ids.first, to: ids.last,
+          ancestor: ancestor)
         offset += limit
       end while offset < all_ids.size
     end
@@ -53,6 +40,10 @@ class Crawler
       EOL.log("Crawler start: (#{options["from"]}-#{options["to"]})", prefix: "C")
       taxa = TaxonConcept.published.
                where(["id >= ? AND id <= ?", options["from"], options["to"]])
+      if ancestor = options["ancestor"]
+        taxa = taxa.joins(:flattened_ancestors).
+                    where(taxon_concepts_flattened: { ancestor_id: ancestor })
+      end
       with_output_file(options) do |filename|
         count = taxa.count
         taxa.each_with_index do |concept, index|

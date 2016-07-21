@@ -24,7 +24,7 @@ class Crawler
       offset = 0
       limit = 250
       all_ids = TaxonConceptsFlattened.descendants_of(ancestor).
-        pluck(:taxon_concept_id).order(:taxon_concept_id)
+        order(:taxon_concept_id).pluck(:taxon_concept_id)
       begin
         ids = all_ids[offset..offset + limit]
         Resque.enqueue(Crawler, from: ids.first, to: ids.last,

@@ -11,9 +11,10 @@ class Crawler
       limit = 250
       ids = [] # Probably superfluous, but want to be safe because of #while
       begin
-        ids = TaxonConcept.published.limit(limit).order(:id).offset(offset).pluck(:id)
+        ids = TaxonConcept.published.limit(limit).order(:id).offset(offset).
+          pluck(:id)
         Resque.enqueue(Crawler, from: ids.first, to: ids.last)
-        offset += limit
+        offset += limit + 1
       end while ids.size > 0
     end
 
@@ -23,12 +24,12 @@ class Crawler
       offset = 0
       limit = 250
       all_ids = TaxonConceptsFlattened.descendants_of(ancestor).
-        pluck(:taxon_concept_id)
+        pluck(:taxon_concept_id).order(:taxon_concept_id)
       begin
-        ids = all_ids.sort[offset..offset + limit]
+        ids = all_ids[offset..offset + limit]
         Resque.enqueue(Crawler, from: ids.first, to: ids.last,
           ancestor: ancestor)
-        offset += limit
+        offset += limit + 1
       end while offset < all_ids.size
     end
 

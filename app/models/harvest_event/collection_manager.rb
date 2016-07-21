@@ -37,11 +37,12 @@ class HarvestEvent
       EOL.log_call
       data = []
       harvested_objects_not_already_in_collection.find_each do |object|
-        title = object.short_title.gsub("'", "''")
+        title = object.short_title.gsub("'", "''").gsub(/\\/, "\\\\\\")
         data << "'#{title}', 'DataObject', #{object.id}, #{collection.id}"
       end
       harvested_entries_not_already_in_collection.find_each do |entry|
-        data << "'#{entry.name.string.gsub("'", "''")}', 'TaxonConcept', "\
+        name = entry.name.string.gsub("'", "''").gsub(/\\/, "\\\\\\")
+        data << "'#{name}', 'TaxonConcept', "\
           "#{entry.taxon_concept_id}, #{collection.id}"
       end
       EOL::Db.bulk_insert(CollectionItem,

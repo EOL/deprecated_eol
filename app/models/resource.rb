@@ -514,6 +514,10 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def flatten
+    hierarchy.flatten
+  end
+
 private
 
   def url_or_dataset_not_both

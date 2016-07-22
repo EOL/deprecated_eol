@@ -40,10 +40,14 @@ class Resource
       was_previewed = options[:previewed]
       EOL.log("PUBLISH: #{resource.title}", prefix: "{")
       unless options[:force]
-        raise "Harvest event already published!" if @event.published?
-        raise "Harvest event not complete!" unless @event.complete?
-        raise "Publish flag not set!" unless @event.publish?
+        raise HarvestNotReady.new("Harvest event already published!") if
+          @event.published?
+        raise HarvestNotReady.new("Harvest event not complete!") unless
+          @event.complete?
+        raise HarvestNotReady.new("Publish flag not set!") unless
+          @event.publish?
       end
+      @resource.flatten
       @event.publish_affected
       # NOTE: the next two steps comprise the lion's share of publishing time.
       # The indexing takes a bit more time than the merging.

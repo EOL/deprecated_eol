@@ -5,8 +5,6 @@ class HarvestBatch
     @start_time = Time.now
     @resource_ids = Array(ids)
     @summary = []
-    EOL.log("HARVEST batch: #{@resource_ids.join(", ")}", prefix: ".") unless
-      @resource_ids.empty?
   end
 
   def add(id)
@@ -34,10 +32,13 @@ class HarvestBatch
   end
 
   def post_harvesting
+    return if @resource_ids.empty?
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).
         includes([:resource_status, :hierarchy])
+      EOL.log("HarvestBatch#post_harvesting(#{resources.map(&:id).join(", ")}): "\
+        "#{resources.map { |r| "#{r.title} (#{r.id})" }.join(", ")}", prefix: "H")
       resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
@@ -45,13 +46,11 @@ class HarvestBatch
         EOL.log("POST-HARVEST: #{resource.title} (#{resource.id})", prefix: "H")
         unless resource.ready_to_publish?
           status = resource.resource_status.label
-          EOL.log("SKIPPING (status #{status}): "\
-            "#{resource.id} - Must be 'Processed' to publish")
+          EOL.log("SKIPPING (status #{status}): Must be 'Processed' to publish")
           @summary.last[:status] = "Skipped (#{status})"
           next
         end
         begin
-          resource.hierarchy.flatten
           # TODO - somewhere in the UI we can trigger a publish on a resource.
           # Make it run #publish (in the background) NOTE: this used to check
           # for preview vs. publish, but we don't want to preview ever, anymore.
@@ -60,8 +59,11 @@ class HarvestBatch
             prefix: "H")
           any_worked = true
           @summary.last[:status] = "completed"
-        # TODO: there are myriad specific errors that harvesting can throw; catch
-        # them here.
+        # TODO: there are myriad more specific errors that harvesting can throw;
+        # catch them here (gotta catch 'em all!).
+        rescue HarvestNotReady => e
+          EOL.log("SKIPPING: #{e.message}")
+          @summary.last[:status] = "SKIPPED"
         rescue => e
           EOL.log("POST-HARVEST FAILED: #{resource.title} (#{resource.id})",
             prefix: "H")

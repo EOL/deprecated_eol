@@ -15,7 +15,7 @@ class DataObject
     def by_data_object_ids(data_object_ids)
       EOL.log_call
       num = 0
-      batch_count = (data_object_ids.size / @batch_size).ceil
+      batch_count = (data_object_ids.size / @batch_size.to_f).ceil
       data_object_ids.in_groups_of(@batch_size, false) do |batch|
         num += 1
         EOL.log("DataObject::Indexer#index_batch #{num}/#{batch_count}",

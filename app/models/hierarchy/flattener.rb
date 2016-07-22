@@ -45,13 +45,15 @@ class Hierarchy
       # HierarchyEntry.published.visible_or_preview.not_untrusted. This query
       # takes about 25 seconds on 500K entries, and the block takes a few
       # seconds more to process.
-      HierarchyEntry.where(hierarchy_id: @hierarchy.id).
-        pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
-        each do |str|
-        (entry,parent,taxon) = str.split(",")
-        @children[parent] ||= Set.new
-        @children[parent] << entry
-        @taxa[entry] = taxon
+      HierarchyEntry.with_master do
+        HierarchyEntry.where(hierarchy_id: @hierarchy.id).
+          pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
+          each do |str|
+          (entry,parent,taxon) = str.split(",")
+          @children[parent] ||= Set.new
+          @children[parent] << entry
+          @taxa[entry] = taxon
+        end
       end
       raise EOL::Exceptions::EmptyHierarchyFlattened.new if @children.empty?
     end

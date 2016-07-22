@@ -10,7 +10,7 @@ class HierarchyReindexing < ActiveRecord::Base
   @queue = 'harvesting'
 
   class << self
-    def enqueue_unless_pending(which)
+    def enqueue_unless_pending(which, options = {})
       queue = HierarchyReindexing.instance_eval { @queue } || :harvesting
       HierarchyReindexing.with_master do
         return false if Resque.size(queue) > 100 # The queue is overwhelmed, wait.
@@ -18,29 +18,28 @@ class HierarchyReindexing < ActiveRecord::Base
           "hierarchy_id", which.id)
         return false if pending
       end
-      HierarchyReindexing.enqueue(which)
+      HierarchyReindexing.enqueue(which, options)
       true
     end
 
-    def enqueue(which)
+    def enqueue(which, options = {})
       HierarchyReindexing.with_master do
         HierarchyReindexing.where(hierarchy_id: which.id).delete_all
       end
       @self = HierarchyReindexing.create(hierarchy_id: which.id)
-      Resque.enqueue(HierarchyReindexing, id: @self.id, hierarchy_id: which.id)
+      Resque.enqueue(HierarchyReindexing, options.merge(id: @self.id, hierarchy_id: which.id))
     end
 
     def perform(args)
       HierarchyReindexing.with_master do
         if HierarchyReindexing.exists?(args["id"])
-            begin
-              EOL.log("HierarchyReindexing: #{args.values.join(', ')}",
-                prefix: "R")
-              HierarchyReindexing.find(args["id"]).run
-            rescue => e
-              EOL.log("HierarchyReindexing #{args["id"]} FAILED: #{e.message}",
-                prefix: "!")
-            end
+          begin
+            EOL.log("HierarchyReindexing: #{args}", prefix: "R")
+            HierarchyReindexing.find(args["id"]).run
+          rescue => e
+            EOL.log("HierarchyReindexing #{args["id"]} FAILED: #{e.message}",
+              prefix: "!")
+          end
         else
           # Do nothing for now—for some reason this is happening a LOT, so let's
           # just silently ignore it

@@ -43,7 +43,7 @@ class Resource
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
       was_previewed = options[:previewed]
-      EOL.log("PUBLISH: #{@resource}", prefix: "{")
+      EOL.log("PUBLISH STARTING: #{@resource}", prefix: "{")
       unless options[:force]
         raise EOL::Exceptions::HarvestNotReady.new("Event already published!") if
           @event.published?

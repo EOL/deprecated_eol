@@ -1,4 +1,4 @@
-class HarvestBatch
+class PublishBatch
   attr_reader :resources, :start_time
 
   def initialize(ids = [])
@@ -31,19 +31,18 @@ class HarvestBatch
     count >= EolConfig.max_harvest_batch_count.to_i rescue 5
   end
 
-  def post_harvesting
+  def publish
     return if @resource_ids.empty?
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).
         includes([:resource_status, :hierarchy])
-      EOL.log("HarvestBatch#post_harvesting(#{resources.map(&:id).join(", ")}): "\
-        "#{resources.map { |r| "#{r.title} (#{r.id})" }.join(", ")}", prefix: "H")
+      EOL.log("PublishBatch#publish: #{resources.map(&:to_s).join(", ")}",
+        prefix: "P")
       resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
         @summary << { title: resource.title, url: url }
-        EOL.log("POST-HARVEST: #{resource.title} (#{resource.id})", prefix: "H")
         unless resource.ready_to_publish?
           status = resource.resource_status.label
           EOL.log("SKIPPING (status #{status}): Must be 'Processed' to publish")
@@ -55,8 +54,8 @@ class HarvestBatch
           # Make it run #publish (in the background) NOTE: this used to check
           # for preview vs. publish, but we don't want to preview ever, anymore.
           resource.publish
-          EOL.log("POST-HARVEST COMPLETE: #{resource.title} (#{resource.id})",
-            prefix: "H")
+          EOL.log("PUBLISH COMPLETE: #{resource.title} (#{resource.id})",
+            prefix: "P")
           any_worked = true
           @summary.last[:status] = "completed"
         # TODO: there are myriad more specific errors that harvesting can throw;
@@ -65,8 +64,8 @@ class HarvestBatch
           EOL.log("SKIPPING: #{e.message}")
           @summary.last[:status] = "SKIPPED"
         rescue => e
-          EOL.log("POST-HARVEST FAILED: #{resource.title} (#{resource.id})",
-            prefix: "H")
+          EOL.log("PUBLISH FAILED: #{resource.title} (#{resource.id})",
+            prefix: "P")
           EOL.log_error(e)
           @summary.last[:status] = "FAILED"
         end

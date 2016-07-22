@@ -40,11 +40,11 @@ class Resource
       was_previewed = options[:previewed]
       EOL.log("PUBLISH: #{@resource}", prefix: "{")
       unless options[:force]
-        raise HarvestNotReady.new("Harvest event already published!") if
+        raise EOL::Exceptions::HarvestNotReady.new("Event already published!") if
           @event.published?
-        raise HarvestNotReady.new("Harvest event not complete!") unless
+        raise EOL::Exceptions::HarvestNotReady.new("Event not complete!") unless
           @event.complete?
-        raise HarvestNotReady.new("Publish flag not set!") unless
+        raise EOL::Exceptions::HarvestNotReady.new("Publish flag not set!") unless
           @event.publish?
       end
       @resource.flatten

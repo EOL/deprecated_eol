@@ -33,6 +33,7 @@ class PublishBatch
 
   def publish
     return if @resource_ids.empty?
+    # Critical to read from master!
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).

@@ -13,9 +13,11 @@ class Resource
     end
 
     def initialize(resource)
-      @resource = resource
-      @event = resource.harvest_events.last
-      raise "No hierarchy!" unless @resource.hierarchy
+      ActiveRecord::Base.with_master do
+        @resource = resource
+        @event = resource.harvest_events.last
+        raise "No hierarchy!" unless @resource.hierarchy
+      end
     end
 
     # A "light" version of publishing for resources that we keep in "preview
@@ -23,9 +25,12 @@ class Resource
     # _requires_ that the flattened hierarchy have been rebuilt when this is
     # called.
     def preview
-      reindex_and_merge
-      sync_collection
-      denormalize
+      # Critically important to be reading master:
+      ActiveRecord::Base.with_master do
+        reindex_and_merge
+        sync_collection
+        denormalize
+      end
       true
     end
 
@@ -47,23 +52,26 @@ class Resource
         raise EOL::Exceptions::HarvestNotReady.new("Publish flag not set!") unless
           @event.publish?
       end
-      @resource.flatten
-      @event.publish_affected
-      # NOTE: the next two steps comprise the lion's share of publishing time.
-      # The indexing takes a bit more time than the merging.
-      @resource.index_for_merges unless was_previewed
-      @event.merge_matching_concepts unless was_previewed
-      @resource.rebuild_taxon_concept_names
-      @event.sync_collection unless was_previewed
-      @resource.publish_traitbank
-      @event.index
-      @resource.mark_as_published
-      @resource.save_resource_contributions
-      @resource.hierarchy.insert_data_objects_taxon_concepts
-      # TODO: this next command could, technically, leave zombie entries. We
-      # need to add a step that says "delete all entries in dotoc where ids in
-      # (list of ids that were in previous event but not this one)"
-      @event.insert_dotocs
+      # Critically important to read from master!
+      ActiveRecord::Base.with_master do
+        @resource.flatten
+        @event.publish_affected
+        # NOTE: the next two steps comprise the lion's share of publishing time.
+        # The indexing takes a bit more time than the merging.
+        @resource.index_for_merges unless was_previewed
+        @event.merge_matching_concepts unless was_previewed
+        @resource.rebuild_taxon_concept_names
+        @event.sync_collection unless was_previewed
+        @resource.publish_traitbank
+        @event.index
+        @resource.mark_as_published
+        @resource.save_resource_contributions
+        @resource.hierarchy.insert_data_objects_taxon_concepts
+        # TODO: this next command could, technically, leave zombie entries. We
+        # need to add a step that says "delete all entries in dotoc where ids in
+        # (list of ids that were in previous event but not this one)"
+        @event.insert_dotocs
+      end
       EOL.log("PUBLISH DONE: #{resource.title}", prefix: "}")
       true
     end

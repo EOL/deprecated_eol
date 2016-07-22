@@ -257,7 +257,7 @@ class HierarchyEntry < ActiveRecord::Base
 
   def ancestors
     ancestors = flat_ancestors
-    hierarchy.reindex if ancestors.empty? and parent_id > 0
+    hierarchy.reindex(from: id) if ancestors.empty? and parent_id > 0
     ancestors
   end
 

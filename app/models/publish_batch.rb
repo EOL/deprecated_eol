@@ -55,8 +55,7 @@ class PublishBatch
           # Make it run #publish (in the background) NOTE: this used to check
           # for preview vs. publish, but we don't want to preview ever, anymore.
           resource.publish
-          EOL.log("PUBLISH COMPLETE: #{resource.title} (#{resource.id})",
-            prefix: "P")
+          EOL.log("PUBLISH COMPLETE: #{resource}", prefix: "P")
           any_worked = true
           @summary.last[:status] = "completed"
         # TODO: there are myriad more specific errors that harvesting can throw;
@@ -65,8 +64,7 @@ class PublishBatch
           EOL.log("SKIPPING: #{e.message}")
           @summary.last[:status] = "SKIPPED"
         rescue => e
-          EOL.log("PUBLISH FAILED: #{resource.title} (#{resource.id})",
-            prefix: "P")
+          EOL.log("PUBLISH FAILED: #{resource}", prefix: "P")
           EOL.log_error(e)
           @summary.last[:status] = "FAILED"
         end

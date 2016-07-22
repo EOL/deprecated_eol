@@ -20,12 +20,12 @@ class CodeBridge
       end
     elsif args['cmd'] == 'publish_batch'
       with_error_handling(args) do
-        batch = HarvestBatch.new(Array(args['resource_ids']))
-        batch.post_harvesting
+        batch = PublishBatch.new(Array(args['resource_ids']))
+        batch.publish
         Resque.enqueue(CodeBridge, { 'cmd' => 'top_images' })
       end
     elsif args['cmd'] == 'denormalize_tables'
-      batch = HarvestBatch.new
+      batch = PublishBatch.new
       with_error_handling(args) { batch.denormalize_tables }
     elsif args['cmd'] == 'clear_cache'
       tc = TaxonConcept.find(args['taxon_concept_id'])

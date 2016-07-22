@@ -4,7 +4,7 @@ class Manager
     def tend(options = {})
       EOL.log_call
       options[:max_runs] = 30
-      batch ||= HarvestBatch.new
+      batch ||= PublishBatch.new
       while resource = Resource.next && ! batch.complete?
         if paused?
           begin
@@ -19,7 +19,7 @@ class Manager
         batch.add(resource)
         resource.harvest
       end
-      batch.post_harvesting
+      batch.publish
       optimize_solr_if_needed
     end
 

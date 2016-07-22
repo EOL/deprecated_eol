@@ -518,6 +518,14 @@ class Resource < ActiveRecord::Base
     hierarchy.flatten
   end
 
+  def size
+    hierarchy.hierarchy_entries_count
+  end
+
+  def to_s
+    "#{title} (id: #{id}, size: #{size})"
+  end
+
 private
 
   def url_or_dataset_not_both

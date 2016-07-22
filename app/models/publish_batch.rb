@@ -60,7 +60,7 @@ class PublishBatch
           @summary.last[:status] = "completed"
         # TODO: there are myriad more specific errors that harvesting can throw;
         # catch them here (gotta catch 'em all!).
-        rescue HarvestNotReady => e
+      rescue EOL::Exceptions::HarvestNotReady => e
           EOL.log("SKIPPING: #{e.message}")
           @summary.last[:status] = "SKIPPED"
         rescue => e

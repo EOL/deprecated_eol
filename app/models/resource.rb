@@ -31,7 +31,7 @@ class Resource < ActiveRecord::Base
   belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
-  has_many :data_point_uris
+  has_many :data_point_uris , dependent: :destroy
 
   scope :by_priority, -> { order(:position) }
   scope :force_harvest,

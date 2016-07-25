@@ -153,6 +153,9 @@
                 %br/
                 = I18n.t("helpers.label.harvest_event.published_at")
                 = time_or_empty @resource.latest_harvest_event.published_at
+                - if secs = @resource.latest_harvest_event.last_harvest_seconds && secs > 0
+                  %br/
+                  = I18n.t("helpers.label.harvest_event.last_harvest_seconds", distance_of_time_in_words(secs))
                 - unless @resource.preview_collection.blank?
                   %br/
                   = link_to I18n.t(:content_partner_resource_preview_collection_show_link), @resource.preview_collection

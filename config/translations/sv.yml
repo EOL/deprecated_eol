@@ -143,6 +143,7 @@ sv:
         lifedesk_taxa: LifeDesks-taxa
         lifedesk_data_objects: LifeDesks-dataobjekt
         total_taxa_with_data: Sidor med data
+        total_triples: Tripletter
         total_occurrences: Förekomster
         total_measurements: Mätningar
         total_associations: Associationer
@@ -3664,6 +3665,8 @@ sv:
   cannot_be_empty: kan inte vara tom.
   cannot_create_collection_item_from_class_error: 'Vi kan inte skapa ett samlingsobjekt
     från en typ: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'Vi kan inte skapa ett samlingsobjekt
+    från typ(er): (%{types})'
   cannot_create_community_from_watch_collection_error: Du kan inte skapa en gemenskap
     från en bevakningslista.
   cannot_expand_children: kan inte expandera underordnade objekt
@@ -4232,7 +4235,9 @@ sv:
   data_column_sci_name: Vetenskapligt namn
   data_column_common_name: Vanligt namn
   data_column_classification_summary: Klassifikationssammanfattning
+  data_column_measurement: Mätning
   data_column_value: Värde
+  data_column_measurement_uri: Mätnings-URI
   data_column_name: Mätningsetikett
   data_column_val: Värde (normaliserat)
   data_column_raw_value: Råvärde (direkt från källan)
@@ -5116,6 +5121,7 @@ sv:
   object: Objekt
   object_curated: Kurerade objekt.
   objects_curated: Kurerade objekt
+  object_removed: (detta objekt har tagits bort från databasen)
   object_status: Objektstatus
   object_status_all_option: Alla
   object_status_trusted_option: Pålitlig
@@ -5561,6 +5567,7 @@ sv:
     till EOL för denna organism från olika leverantörer, inklusive kuratorer på EOL.
     För närvarande kan vi bara ange ett rekommenderat vanligt namn per språk på en
     viss EOL-sida, men alla namn ska vara sökbara.
+  taxon_data_overview_empty: Ingen har bidragit med dataposter för %{taxon} ännu.
   taxon_data_header: Data om %{taxon}
   taxon_details_empty: Ingen har ännu bidragit några detaljer om detta taxon ännu.
   taxon_details_empty_in_this_language: Ingen har bidragit några detaljer till denna
@@ -5634,6 +5641,7 @@ sv:
   the_new_user_was_created: Den nya användaren har skapats.
   there_are_currently_no_members_in_this_community: Det finns för närvarande inga
     medlemmar i denna gemenskap.
+  the_query_string: söksträngen
   the_suggested_page_to_direct_users_to_link: den föreslagna sidan att omdirigera
     användare till
   the_topic_was_updated: Ämnet har uppdaterats.

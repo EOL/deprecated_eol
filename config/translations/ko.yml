@@ -283,7 +283,7 @@ ko:
         predicate: 특성
         object: 값
     errors:
-      format: '%{attribute}(은)는 %{message}'
+      format: '%{attribute} %{message}'
       template:
         header:
           one: 유효성 검사 오류 %{count}개를 찾았습니다
@@ -312,7 +312,7 @@ ko:
           one: '%{count}보다 많아야 합니다'
           other: '%{count}보다 많아야 합니다'
         greater_than_or_equal_to: '%{count}보다 크거나 같아야 합니다'
-        equal_to: '%{count}(와)과 같아야 합니다'
+        equal_to: '%{count}와(과) 같아야 합니다'
         less_than:
           one: '%{count}보다 작아야 합니다'
           other: '%{count}보다 작아야 합니다'
@@ -573,7 +573,7 @@ ko:
         open_authentications_more: EOL에 로그인할 때 사용할 수 있는 타사 계정에 대한 연결을 관리합니다. <a href="%{open_authentications_url}">연결된
           계정 편집하기</a>
         open_authentications_connected_accounts: 연결한 계정
-        requested_curator_level: '%{curator_level_with_indefinite_article}(이)가 되는
+        requested_curator_level: '%{curator_level_with_indefinite_article}이(가) 되는
           요청은 보류 중입니다.'
         requested_curator_level_id_more: 아직 어떠한 자격을 갖추지 않았으면 <em>조수 큐레이터</em>를 선택하세요.
           전문 과학자나 대학원생 자격을 갖추었다면 <em>전체 큐레이터</em>를 선택하세요. EOL 큐레이터를 경험했거나 더 많은 책임을
@@ -833,7 +833,7 @@ ko:
           %{community_name} 댓글, %{community_name} 활동'
     show:
       meta_description: '%{community_name} 생명의 백과사전 공동체가 주인에 의해 제거되었습니다'
-      meta_title: '%{community_name}(이)가 주인에 의해 제거됨'
+      meta_title: '%{community_name}이(가) 주인에 의해 제거됨'
   content:
     index:
       header_news: EOL 뉴스
@@ -879,7 +879,7 @@ ko:
       meta_title: '%{supplier}에서 %{dato_title}'
       tweet_text: '%{supplier}에서 %{dato_title}'
   eol_statistics:
-    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">(와)과</span>
+    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">와(과)</span>
       <span class="date_two">%{date_two}</span> <span class="assistive">비교</span>
     warnings:
       stats_unavailable_for_date: 죄송합니다, 통계는 %{date}에 사용할 수 없습니다. 다른 날짜를 선택하세요.
@@ -1069,33 +1069,33 @@ ko:
   notifier:
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
     activity_user_added_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 추가했습니다.
     activity_user_removed_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 제거했습니다.
     activity_user_added_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 추가했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 추가했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_removed_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 제거했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 제거했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 있음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 있음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 부적절한 것으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 부적절한 것으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     comments_empty: 최근 댓글이 없습니다.
@@ -1106,7 +1106,7 @@ ko:
 
       생명의 백과사전 팀
     signature_with_species_pages_group_contact: |-
-      궁금한 사항이 있으면 %{species_pages_group_email} (으)로 문의하시기 바랍니다.
+      궁금한 사항이 있으면 %{species_pages_group_email}(으)로 문의하시기 바랍니다.
 
       생명의 백과사전 팀
     user_commented_on_something_date_body: |-
@@ -1529,8 +1529,8 @@ ko:
         meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도
           알려진 %{preferred_common_name}에 대해 존재하는 지리 정보가 없습니다. EOL은 %{preferred_common_name}
           (%{scientific_name})에 대한 지도를 기여하는 데 초대합니다.
-        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}(이)가 사는 곳'
-        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}(이)가
+        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}이(가) 사는 곳'
+        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}이(가)
           사는 곳'
         meta_title: '%{scientific_name}에 대한 지도'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
@@ -1580,11 +1580,11 @@ ko:
             분류와 학명입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고
             알려진 %{preferred_common_name}에 대한 분류와 학명입니다.'
-          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}(와)과 관련된 이름'
-        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}(와)과
-          관련있습니다.'
-        meta_description_with_common_name: '%{scientific_name}라고도 알려진 %{preferred_common_name}에
-          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다.'
+          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와(과) 관련된 이름'
+        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}와(과)
+          관련이 있습니다.'
+        meta_description_with_common_name: '%{scientific_name}(이)라고도 알려진 %{preferred_common_name}에
+          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}와(과) 관련이 있습니다.'
         meta_title: '%{scientific_name}에 대한 분류 정보 - 생물 분류와 이름'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
           대한 분류 정보 - 생물 분류와 이름'
@@ -1617,7 +1617,7 @@ ko:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된
             동의어입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 일반적으로
-            %{preferred_common_name}라고 알려진 %{scientific_name}(와)과 관련된 동의어입니다.'
+            %{preferred_common_name}라고 알려진 %{scientific_name}와(과) 관련된 동의어입니다.'
           meta_keywords: '%{scientific_name} 동의어'
           meta_keywords_with_common_name: '%{preferred_common_name} 동의어 %{scientific_name}
             동의어'
@@ -2950,8 +2950,7 @@ ko:
   admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
   admin_content_page_new_header: 새 내용 문서 만들기
   admin_content_page_new_link: 새 문서 만들기
-  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}을(를) 필요로
-    합니다.
+  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_content_page_parent_option_root: 부모 없음
   admin_content_page_root: 루트
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
@@ -2992,8 +2991,7 @@ ko:
   admin_news_item_edit_header: <em>%{page_name}</em> 문서에 대한 기본 뉴스 항목 정보 업데이트
   admin_news_item_new_link: 뉴스 항목 만들기
   admin_news_item_new_header: 새 뉴스 항목 만들기
-  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}을(를) 필요로
-    합니다.
+  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_news_item_not_active: 게시하지 않음
   admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
     뉴스 항목을 성공적으로 업데이트했습니다.
@@ -3016,9 +3014,9 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_header: 언어 선택하고 내용 추가
-  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
@@ -3035,11 +3033,11 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_new_header: 언어 선택하고 내용 추가
   admin_translated_news_item_new_link: 번역 추가
   admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
-  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_not_active: 게시하지 않음
   admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
     대한 %{language} 번역을 업데이트했습니다.
@@ -3469,7 +3467,7 @@ ko:
   content_partner_contact_new_link: 새 연락 추가
   content_partner_contact_new_page_subheader: 연락 추가
   content_partner_contact_new_edit_form_header: 콘텐츠 파트너 연락 정보
-  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon}(이)가 필요합니다.
+  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon} 필수입니다.
   content_partner_contact_update_successful_notice: 내용을 성공적으로 업데이트했습니다.
   content_partner_contact_update_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 업데이트하지 못했습니다.
   content_partner_contacts_header: 연락처
@@ -3820,8 +3818,8 @@ ko:
   dato_edit_text_button: 이 문서 편집
   dato_edit_link_title: 링크 편집
   dato_edit_text_title: 문서 편집
-  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
-  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
+  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>에 문서 추가
+  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>에 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   deactivate: 비활성화
   development_version_name: EOL V2 베타
@@ -3916,9 +3914,9 @@ ko:
   error_404_page_title: 찾을 수 없음
   error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_500_page_title: 이런.
-  error_500_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_500_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
-  error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_default_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
   error_default_page_title: 이런.
   error_classifications_locked_cannot_reindex: 죄송합니다, 이 문서는 현재 다시 색인을 만들 수 없습니다. 분류가
@@ -4661,7 +4659,7 @@ ko:
   recipients: 받는 사람
   recognized_by_from_source: '%{source}에서 %{recognized_by}'
   recognized_by_as_a_rank: '%{taxon_rank}로 %{recognized_by}'
-  recognized_by_from_source_as_a_rank: '%{taxon_rank}로 %{source}에서 %{recognized_by}'
+  recognized_by_from_source_as_a_rank: '%{taxon_rank}(으)로 %{source}에서 %{recognized_by}'
   record_not_found: '[기록을 찾을 수 없습니다]'
   reference: 각주
   references_cabs_colon: '각주:'

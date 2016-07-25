@@ -3495,9 +3495,26 @@ pt-BR:
           foi completada e as classificações foram movidas para <a href='%{to}'>suas
           próprias páginas</a>; as páginas serão agora reindexadas e precisarão de
           até 25 horas para serem completadas.
+        split_of_taxon_unlocked: A divisão de classificação que você solicitou recentemente
+          foi completada e as classificações foram movidas para <a href='%{to}'>suas
+          próprias páginas</a>; as páginas serão agora reindexadas e precisarão de
+          até 25 horas para serem completadas.
       unlock_with_error:
+        merge_of_an_unknown_taxon_unlocked_with_error: 'A fusão de paginas que você
+          solicitou recentemente foi  <strong>falha por:</strong>: %{error}. Adicionalmente,
+          a pagina afetada não pode ser encontrada.'
         merge_of_it_unlocked_with_error: 'A fusão que pediu recentemente sobre esta
           página <strong>falhou</strong>: %{error}.'
+        merge_of_taxon_unlocked_with_error: 'A fusão de paginas que você pediu recentemente
+          para "%{taxon}" foi <strong>falha devido a </strong>: %{error}.'
+        move_of_an_unknown_taxon_unlocked_with_error: 'A movimentação que você pediu
+          recentemente foi  <strong>falha devido a </strong>: %{error}. Adicionalmente,
+          a pagina afetada não pode ser encontrada.'
+        move_of_it_unlocked_with_error: 'A movimentação que você pediu recentemente
+          nessa pagina <strong>falhou devido a</strong>: %{error}.'
+        move_of_taxon_unlocked_with_error: 'A a movimentação da classificação que
+          você solicitou recentemente sobre esta página <strong>falhou devido a</strong>:
+          %{error}.'
         split_of_it_unlocked_with_error: 'A divisão da classificação que você solicitou
           recentemente sobre esta página <strong>falhou</strong>: %{error}.'
       crop:

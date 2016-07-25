@@ -648,6 +648,7 @@ en:
         publish_more: "Flags harvest event for publication, content will not be made public immediately."
         published_at: "Published"
         published_status: "Status"
+        last_harvest_seconds: "Took %{time_in_words}"
       hierarchy:
         browsable_more: "Check browsable to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
         browsable_status_with_colon: "Browsable status:"

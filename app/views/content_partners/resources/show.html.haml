@@ -153,7 +153,7 @@
                 %br/
                 = I18n.t("helpers.label.harvest_event.published_at")
                 = time_or_empty @resource.latest_harvest_event.published_at
-                - if secs = @resource.last_harvest_seconds && secs > 0
+                - if secs = @resource.last_harvest_seconds && ! secs.nil? && secs > 0
                   %br/
                   = I18n.t("helpers.label.harvest_event.last_harvest_seconds", time_in_words: distance_of_time_in_words(secs))
                 - unless @resource.preview_collection.blank?

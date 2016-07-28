@@ -453,6 +453,9 @@ lt:
           taksonų puslapiuose, kurie yra susiję su jūsų duomenų rinkiniu.
       data_object:
         bibliographic_citation: Bibliografinė citata
+        bibliographic_citation_more: Šiems duomenims rekomenduojama cituoti bibliografines
+          nuorodas, įtraukite pakankamai detalių, kad duomenis galima būtų aiškiai
+          atpažinti.
         description: Tekstas <small>(kai kurie HTML žymėjimai yra leidžiami)</small>
         license_id: Licencija
         license_id_more: Perskaitykite <a href="%{policy_url}">EOL Licencijavimo Politiką</a>
@@ -493,6 +496,8 @@ lt:
           grupę
         taxon_name_placeholder_value_removed: '%{taxon_group} pašalinta, pasirinkite
           naują grupę'
+        taxon_name_more: Pavyzdžiui, įveskite Kolibriai ar Banginiai. TIK pasirinkimai
+          iš išskleidžiamo menių bus naudojami, neredaguokite teksto nepasirinkę rezultato.
         total_results: 'Viso rezultatų: %{total}'
         unit: Matavimo vienetas
       eol_statistic:
@@ -541,7 +546,18 @@ lt:
         administration_settings: Administraciniai nustatymai <small>(matoma tik EOL
           administratoriams)</small>
         accesspoint_url: Duomenų rinkinio URL
+        accesspoint_url_existing_remove: Resursas dabar yra įkeliamas iš URL, kurio
+          pabaiga yra <em>%{accesspoint_url}</em>. Įkelkite failą, jei norite pašalinti
+          egzistuojantį URL ir įkelti resursą iš failo (nerekomenduojama).
         dataset: Duomenų rinkinys
+        dataset_existing_replace: Failas <em>%{file_name}</em> dabar yra susietas
+          su resursu. Įkelkite naują failą, kad pakeistumėte egzistuojantį <em>%{file_name}</em>
+          failą.
+        dataset_existing_remove: Failas <em>%{file_name}</em> dabar yra susietas su
+          resursu. Įveskite URL, jei norite pakeisti egzistuojantį <em>%{file_name}</em>
+          failą ir įkelti resursą iš URL (rekomenduojama).
+        dwc_archive_url: 'Jei yra Darwin Core Archive asociacija su šiuo resursu,
+          įveskite URL čia <small>(tik TAR.GZIP, TAR.GZ ar TGZ)</small>:'
         hierarchy: Hierarchija
         oldest_published_harvest_event: Pirmą kartą paskelbtas
         latest_published_harvest_event: Paskutinį kartą paskelbta
@@ -549,6 +565,8 @@ lt:
         refresh_period_hours: Dažnis
         resource_status_id: Būsena
         resource_status: Būsena
+        resource_url_or_file: Resursų duomenys <small>(pasirinkite URL įvedimą arba
+          failo įkėlimą)</small>
         resource_url_or_file_url: Įkelti išteklį iš URL
         resource_url_or_file_upload: Įkelti išteklių failą
         title: Išteklio pavadinimas
@@ -558,14 +576,64 @@ lt:
         username_or_email: Vartotojo vardas arba el. pašto adresas
       translated_content_page:
         active_translation: Publikuota
+        active_translation_more: Publikuoti vertimai bus matomi viešai, nebent pats
+          puslapis yra nepublikuotas. Atžymėkite <em>publikuotas</em>, jei norite
+          neleisti įprastiems vartotojams peržiūrėti šią puslapio versiją.
         language_id: Kalba
+        left_content_more: '(Neprivaloma) Pridėkite nenumeruotą navigacijos nuorodų
+          sąrašą. Naudokite klasę pavadinimu <code>aktyvus</code>, kad paryškintumėte
+          dabartinio puslapio nuorodą, pvz. <code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>,
+          kur <code>:id</code> yra dabartinio puslapio ID arba unikalus pavadinimas
+          ir <code>:pavadinimas</code> yra puslapį apibūdinantis pavadinimas (<strong>Pastaba:
+          Visos nuorodos į EOL CMS puslapius turėtų prasidėti su pasvyruoju brūkšniu:
+          <code>/info/:id</code></strong>). Kad atliktumėte šiuos pakeitimus jums
+          reikės redaguoti HTML kodą tiesiogiai, tai galite padaryti pasirinkdami
+          <em>Šaltinis</em> redaktoriaus įrankių juostoje.'
+        main_content_more: Įveskite pagrindinį puslapio turinį dėstymo srityje. Naudokite
+          <em>Formatavimo</em> išskleidžiamą menių, kad pasirinktumėte tinkamus semantininius
+          teksto elementus, pavyzdžiui pasirinkite <em>Antraštė 2</em> norėdami formatuoti
+          į antro lygio antraštę. Pastaba <em>Antraštė 1</em> yra skirta puslapio
+          pavadinimui, tad antraštės dėstyme turėtu prasidėti <em>2 Antrašte</em>.
+          Pasirinkite <em>Šaltinis</em>, kad pereitumėte į HTML kodo peržiūra, kuri
+          leidžia rankiniu būtų įterpti ir redaguoti HTML.
+        meta_description_more: Pateikite trumpą apibūdinimą, apibendrinanti pagrindinius
+          puslapio turinio dalykus. Aprašymą naudoja internetiniai paieškų varikliai,
+          kurie tikrina atitikimą ir rodo puslapį rezultatų puslapiuose.
+        meta_keywords_more: Įveskite kableliais atskirtų žodžių ir trumpų frazių sąrašą,
+          kuris geriausiai atspindi šio puslapio turinį. Šie raktažodžiai yra dažnai
+          naudojami internetinių paieškų variklių puslapio aktualumo nustatymui.
+        title_more: Šio turinio pavadinimas bus rodomas puslapio antraštės srityje.
+          Pavadinimas turėtų turėti raktažodžių, kurie geriausiai atitinka turinį.
       translated_news_item:
         active_translation: Publikuota
+        active_translation_more: Publikuoti vertimai bus matomi viešai, nebent naujienų
+          objektas nėra publikuotas. Atžymėkite <em>publkuotas</em>, jei norite neleisti
+          įprastiems vartotojams peržiūrėti šią objekto versiją.
         language_id: Kalba
+        body_more: Įveskite pagrindinį naujienų objekto turinį dėstymo srityje. Naudokite
+          <em>Formatavimo</em> išskleidžiamą menių, kad pasirinktumėte tinkamus semantininius
+          teksto elementus, pavyzdžiui pasirinkite <em>Antraštė 2</em> norėdami formatuoti
+          į antro lygio antraštę. Pastaba <em>Antraštė 1</em> yra skirta puslapio
+          pavadinimui, tad antraštės dėstyme turėtu prasidėti <em>2 Antrašte</em>.
+          Pasirinkite <em>Šaltinis</em>, kad pereitumėte į HTML kodo peržiūra, kuri
+          leidžia rankiniu būtų įterpti ir redaguoti HTML.
+        meta_description_more: Pateikite trumpą aprašymą, kuris apibūdina pagrindinius
+          naujienų objekto turinio dalykus. Aprašymą naudoja internetiniai paieškų
+          varikliai, kurie tikrina atitikimą ir rodo puslapį rezultatų puslapiuose.
+        meta_keywords_more: Įveskite kableliais atskirtų žodžių ir trumpų frazių sąrašą,
+          kuris geriausiai atspindi šio naujienų objekto turinį. Šie raktažodžiai
+          yra dažnai naudojami internetinių paieškų variklių puslapio aktualumo nustatymui.
+        title_more: Šio naujienų objekto pavadinimas bus rodomas puslapio antraštės
+          srityje. Pavadinimas turėtų turėti raktažodžių, kurie geriausiai atitinka
+          turinį.
       user:
         agreed_with_terms: Aš sutinku su <a href="%{terms_url}">naudojimosi taisyklėmis</a>
         bio: Apie mane
         credentials: Kredencialai
+        curation_priveleges_credentials: Kvalifikacija <small>(tik kuratoriai ir meistrai
+          kuratoriai)</small>
+        credentials_more: 'Prašome nurodyti bent vieną konkrečią kvalifikaciją iš
+          šio sąrašo:'
         credentials_more_professional: Profesinės draugijos narys.
         credentials_more_successful_assistant_curator: Kuratoriaus asistento sėkmės
           istorija.
@@ -575,6 +643,9 @@ lt:
           tiesiog išsiųskite paraišką ir mes ją peržiūrėsime.
         curator_level: Dabar jūs esate %{curator_level_with_indefinite_article}.
         curator_scope: Kuracijos sritis
+        curator_scope_more: 'Prašome nurodyti jūsų kompetencijos sritį. Pavyzdžiui:
+          „Borneo Graužikai“, „Apsauginės augalų funkcijos“ arba „Žuvų apsaugos problemos“.
+          Tai neapribos jūsų galimybės būti kuratoriumi, bet informuos EOL bendruomenę.'
         email_reports_frequency_hours: Kaip dažnai norėtumėte gauti el. laiškus apie
           aktyvumą jūsų įnašuose?
         email_settings_submit: el. pašto nustatymai
@@ -771,6 +842,8 @@ lt:
         page_title: 'Administracija: Bendra Statistika'
         table_caption: Bendra puslapio statistika sukurta %{created_at_time}
       lifedesks:
+        menu_link: LifeDesks
+        page_header: LifeDesks Statistika
         page_title: 'Administracija: LifeDesks Statistika'
       marine:
         menu_link: Jūrų statistika
@@ -864,6 +937,10 @@ lt:
   content:
     index:
       header_news: EOL Naujienos
+      meta_description: Encyclopedia of Life yra beprecedentis projektas, siekiantis
+        surinkti mokslinę informaciją apie gyvūnus ir augalus, čia yra prieinami paveikslėliai,
+        faktai ir kita informacija apie visus gyvus mūsų planetos dalykus ir apie
+        gyvūnų karalystes.
       meta_keywords: Gyvūnai, Gyvūnų Nuotraukos, Gyvūnų Informacija, Augalai, Augalų
         Gyvenimas, Augalų Nuotraukos, Augalų Informacija, Flora, Fauna
       meta_title: Gyvūnai - Augalai - Nuotraukos ir Informacija
@@ -1588,6 +1665,10 @@ lt:
       index:
         meta_description: '%{scientific_name} taksonomijos ir moksliniai pavadinimai.
           Biologinės klasifikacijos ir pavadinimai susiję su %{scientific_name}.'
+        meta_title: Taksonominė %{scientific_name} Informacija - Biologinė Klasifikacija
+          ir Pavadinimai
+        meta_title_with_common_name: Taksonominė %{preferred_common_name} (%{scientific_name})
+          Informacija - Biologinė Klasifikacija ir Pavadinimai
         tweet_text: Taksonominė Informacija skirta %{scientific_name}
       common_names:
         hierarchy_entry:
@@ -2658,7 +2739,7 @@ lt:
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: Nežinomas vartotojas
           pridėjo bendrinį pavadinimą „%{name}“ nežinoma kalba į „%{taxon}“.
         an_unknown_user_added_name_in_language_to_taxon: Nežinomas vartotojas pridėjo
-          %{language} bendrinį pavadinimą į „%{taxon}“.
+          %{language} bendrinį pavadinimą „%{name}“ į „%{taxon}“.
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
           pridėjo nežinomą bendrinį pavadinimą nežinoma kalba į nežinomą puslapį.
         user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
@@ -2716,6 +2797,273 @@ lt:
           pašalino bendrinį pavadinimą nežinoma kalba.
         user_removed_name_in_language_from_it: <strong>%{user}</strong> pašalino bendrinį
           pavadinimą %{language} kalba.
+      trust_common_name:
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip patikimą.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame
+          puslapyje kaip patikimą.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba „%{taxon}“
+          kaip patikimą.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: Nežinomas vartotojas
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“ kaip
+          patikimą.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame
+          puslapyje kaip patikimą.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: Nežinomas vartotojas
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame puslapyje
+          kaip patikimą.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: Nežinomas vartotojas
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“ kaip patikimą.
+        an_unknown_user_trusted_name_in_language_on_taxon: Nežinomas vartotojas pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip patikimą.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame puslapyje
+          kaip patikimą.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame puslapyje
+          kaip patikimą.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba „%{taxon}“ kaip patikimą.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“ kaip
+          patikimą.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame puslapyje
+          kaip patikimą.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame puslapyje
+          kaip patikimą.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“ kaip patikimą.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip patikimą.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip patikimą.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: Nežinomas vartotojas
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba kaip patikimą.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: Nežinomas vartotojas
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba kaip patikimą.
+        an_unknown_user_trusted_name_in_language_on_it: Nežinomas vartotojas pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ kaip patikimą.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinomame puslapyje kaip patikimą.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> pažymėjo
+          nežinomą bendrinį pavadinimą %{language} kalba kaip patikimą.
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> pažymėjo
+          bendrinį pavadinimą „%{name}“ nežinomame puslapyje kaip patikimą.
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong> pažymėjo %{language}
+          bendrinį pavadinimą kaip patikimą.
+      untrust_common_name:
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame
+          puslapyje kaip nepatikimą.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame
+          puslapyje kaip nepatikimą.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą „%{taxon}“ nežinoma kalba
+          kaip nepatikimą.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“
+          kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame
+          puslapyje kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame
+          puslapyje kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: Nežinomas
+          vartotojas pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“
+          kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_language_on_taxon: Nežinomas vartotojas
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame puslapyje
+          kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame puslapyje
+          kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba „%{taxon}“ kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“ kaip
+          nepatikimą.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame puslapyje
+          kaip nepatikimą.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame puslapyje
+          kaip nepatikimą.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“ kaip nepatikimą.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip nepatikimą.
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip nepatikimą.
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: Nežinomas vartotojas
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: Nežinomas vartotojas
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba kaip nepatikimą.
+        an_unknown_user_untrusted_name_in_language_on_it: Nežinomas vartotojas pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip nepatikimą.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba kaip nepatikimą.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba kaip nepatikimą.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> pažymėjo %{language}
+          bendrinį pavadinimą „%{name}“ kaip nepatikimą.
+      unreview_common_name:
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame
+          puslapyje kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame
+          puslapyje kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba „%{taxon}“
+          kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“
+          kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame
+          puslapyje kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame
+          puslapyje kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: Nežinomas
+          vartotojas pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“
+          kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_language_on_taxon: Nežinomas vartotojas
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame puslapyje
+          kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba nežinomame puslapyje
+          kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba „%{taxon}“ kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba „%{taxon}“ kaip
+          neperžiūrėtą.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba nežinomame puslapyje
+          kaip neperžiūrėtą.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo %{language} bendrinį pavadinimą „%{name}“ nežinomame puslapyje
+          kaip neperžiūrėtą.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba „%{taxon}“ kaip neperžiūrėtą.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ „%{taxon}“ kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Nežinomas
+          vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Nežinomas vartotojas
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Nežinomas vartotojas
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba kaip neperžiūrėtą.
+        an_unknown_user_unreviewed_name_in_language_on_it: Nežinomas vartotojas pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba kaip neperžiūrėtą.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
+          pažymėjo nežinomą bendrinį pavadinimą %{language} kalba kaip neperžiūrėtą.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
+          pažymėjo bendrinį pavadinimą „%{name}“ nežinoma kalba kaip neperžiūrėtą.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> pažymėjo
+          %{language} bendrinį pavadinimą „%{name}“ kaip neperžiūrėtą.
+      preferred_classification:
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: Nežinomas
+          vartotojas pažymėjo nežinomą klasifikaciją kaip pageidautiną nežinomam taksonui
+        an_unknown_user_preferred_unknown_classification_on_it: Nežinomas vartotojas
+          pažymėjo nežinomą klasifikaciją kaip pageidautiną.
+        an_unknown_user_preferred_unknown_classification_on_taxon: Nežinomas vartotojas
+          pažymėjo nežinomą klasifikaciją kaip pageidautiną „%{taxon}“.
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo nežinomą klasifikaciją kaip pageidautiną nežinomam taksonui.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> pažymėjo
+          nežinomą klasifikaciją kaip pageidautiną.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> nežinomą
+          klasifikaciją kaip pageidautiną „%{taxon}“.
+        an_unknown_user_preferred_classification_on_an_unknown_taxon: Nežinomas vartotojas
+          pažymėjo klasifikaciją iš „%{provider}“ kaip pageidautiną nežinomam taksonui.
+        an_unknown_user_preferred_classification_on_it: Nežinomas vartotojas pažymėjo
+          klasifikaciją iš „%{provider}“ kaip pageidautiną.
+        an_unknown_user_preferred_classification_on_taxon: Nežinomas vartotojas pažymėjo
+          klasifikaciją iš „%{provider}“ kaip pageidautiną „%{taxon}“.
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong>
+          pažymėjo klasifikaciją iš „%{provider}“ kaip pageidautiną nežinomam taksonui.
+        user_preferred_classification_on_it: <strong>%{user}</strong> pažymėjo klasifikaciją
+          iš „%{provider}“ kaip pageidautiną.
+        user_preferred_classification_on_taxon: <strong>%{user}</strong> pažymėjo
+          klasifikaciją iš „%{provider}“ kaip pageidautiną „%{taxon}“.
+      classification_curation:
+        merge:
+          an_unknown_user_merged_to_an_unknown_taxon: Nežinomas vartotojas sujungė
+            du nežinomus puslapius.
+          an_unknown_user_merged_to_taxon: Nežinomas vartotojas sujungė %{target}
+            su kitu puslapiu.
+          an_unknown_user_merged_to_it: Nežinomas vartotojas sujungė šį puslapį su
+            kitu puslapiu.
+          user_merged_to_it: <strong>%{user}</strong> sujungė kitą puslapį su kitu.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> sujungė du nežinomus
+            puslapius.
+          user_merged_to_taxon: <strong>%{user}</strong> sujungė %{target} su kitu
+            puslapiu.
+      split:
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: Nežinomas vartotojas
+          atskyrė nežinomą klasifikaciją nuo nežinomo taksono.
+        an_unknown_user_split_unknown_entry_from_it: Nežinomas vartotojas atskyrė
+          nežinomą klasifikaciją.
+        an_unknown_user_split_unknown_entry_from_taxon: Nežinomas vartotojas atskyrė
+          nežinomą klasifikaciją nuo „%{taxon}“.
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> atskyrė
+          nežinomą klasifikaciją nuo nežinomo taksono.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> atskyrė nežinomą
+          klasifikaciją.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> atskyrė nežinomą
+          klasifikaciją nuo „%{taxon}“.
+        an_unknown_user_split_entry_from_an_unknown_taxon: Nežinomas vartotojas atskyrė
+          „%{provider}“ klasifikaciją nuo nežinomo taksono.
+        an_unknown_user_split_entry_from_it: Nežinomas vartotojas atskyrė „%{provider}“
+          klasifikaciją.
+        an_unknown_user_split_entry_from_taxon: Nežinomas vartotojas atskyrė „%{provider}“
+          klasifikaciją nuo „%{taxon}“.
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> atskyrė „%{provider}“
+          klasifikaciją nuo nežinomo taksono.
+        user_split_entry_from_it: <strong>%{user}</strong> atskyrė „%{provider}“ klasifikaciją.
+        user_split_entry_from_taxon: <strong>%{user}</strong> atskyrė „%{provider}“
+          klasifikaciją nuo „%{taxon}“.
+      merge:
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: Nežinomas vartotojas
+          perkėlė nežinomą klasifikaciją į nežinomą taksoną.
+        an_unknown_user_merged_unknown_entry_to_it: Nežinomas vartotojas pridėjo nežinomą
+          klasifikaciją.
+        an_unknown_user_merged_unknown_entry_to_taxon: Nežinomas vartotojas perkėlė
+          nežinomą klasifikaciją į „%{taxon}“.
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> perkėlė
+          nežinomą klasifikaciją į nežinomą taksoną.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> pridėjo nežinomą
+          klasifikaciją.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> perkėlė nežinomą
+          klasifikaciją į nežinomą taksoną.
+        an_unknown_user_merged_entry_to_an_unknown_taxon: Nežinomas vartotojas perkėlė
+          „%{provider}“ klasifikaciją į nežinomą taksoną.
+        an_unknown_user_merged_entry_to_it: Nežinomas vartotojas pridėjo „%{provider}“
+          klasifikaciją.
+        an_unknown_user_merged_entry_to_taxon: Nežinomas vartotojas perkėlė „%{provider}“
+          klasifikaciją į „%{taxon}“.
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> perkėlė „%{provider}“
+          klasifikaciją į nežinomą taksoną.
+        user_merged_entry_to_it: <strong>%{user}</strong> pridėjo „%{provider}“ klasifikaciją.
+        user_merged_entry_to_taxon: <strong>%{user}</strong> perkėlė „%{provider}“
+          klasifikaciją į „%{taxon}“.
       unlock:
         merge_of_an_unknown_taxon_unlocked: Puslapių sujungimas, kurio neseniai prašėte
           buvo atliktas, bet puslapis nebuvo rastas.
@@ -2725,10 +3073,106 @@ lt:
         merge_of_taxon_unlocked: Sujungimas, kurio jūs neseniai prašėte „%{taxon}“
           buvo atliktas; puslapiai šiuo metu yra iš naujo indeksuojami ir tam gali
           prireikti iki 25 valandų.
+        move_of_an_unknown_taxon_unlocked: Klasifikacijos perkėlimas, kurio neseniai
+          prašėte buvo atliktas, bet puslapis nebuvo rastas.
+        move_of_it_unlocked: Klasifikacijos perkėlimas, kurio jūs neseniai prašėte
+          šiame puslapyje buvo atliktas; puslapiai šiuo metu yra iš naujo indeksuojami
+          ir tam gali prireikti iki 25 valandų.
+        move_of_taxon_unlocked: Klasifikacijos perkėlimas, kurio jūs neseniai prašėte
+          „%{taxon}“ buvo atliktas; puslapiai šiuo metu yra iš naujo indeksuojami
+          ir tam gali prireikti iki 25 valandų.
+        split_of_an_unknown_taxon_unlocked: Klasifikacijos atskyrimas, kurio neseniai
+          prašėte buvo atliktas, bet puslapis nebuvo rastas.
+        split_of_it_unlocked: Klasifikacijos atskyrimas, kurio jūs neseniai prašėte
+          šiame puslapyje buvo atliktas ir klasifikacijos buvo perkeltos į <a href='%{to}'>jų
+          puslapį</a>; puslapiai šiuo metu yra iš naujo indeksuojami ir tam gali prireikti
+          iki 25 valandų.
+        split_of_taxon_unlocked: Klasifikacijos atskyrimas, kurio jūs neseniai prašėte
+          „%{taxon}“ buvo atliktas ir klasifikacijos buvo perkeltos į <a href='%{to}'>jų
+          puslapį</a>; puslapiai šiuo metu yra iš naujo indeksuojami ir tam gali prireikti
+          iki 25 valandų.
+      unlock_with_error:
+        merge_of_an_unknown_taxon_unlocked_with_error: 'Puslapių sujungimas, kurio
+          jūs neseniai prašėte <strong>nepavyko</strong>: %{error}. Be to, paveikti
+          puslapiai nebuvo rasti.'
+        merge_of_it_unlocked_with_error: 'Puslapių sujungimas, kurio jūs neseniai
+          prašėte šiame puslapyje <strong>nepavyko</strong>: %{error}.'
+        merge_of_taxon_unlocked_with_error: 'Puslapių sujungimas, kurio jūs neseniai
+          prašėte „%{taxon}“ <strong>nepavyko</strong>: %{error}.'
+        move_of_an_unknown_taxon_unlocked_with_error: 'Klasifikacijos perkėlimas,
+          kurio jūs neseniai prašėte <strong>nepavyko</strong>: %{error}. Be to, paveiktas
+          puslapis nebuvo rastas.'
+        move_of_it_unlocked_with_error: 'Klasifikacijos perkėlimas, kurio jūs neseniai
+          prašėte šiame puslapyje <strong>nepavyko</strong>: %{error}.'
+        move_of_taxon_unlocked_with_error: 'Klasifikacijos perkėlimas, kurio jūs neseniai
+          prašėte „%{taxon}“ <strong>nepavyko</strong>: %{error}.'
+        split_of_an_unknown_taxon_unlocked_with_error: 'Klasifikacijos atskyrimas,
+          kurio jūs neseniai prašėte <strong>nepavyko</strong>: %{error}. Be to, paveiktas
+          puslapis nebuvo rastas.'
+        split_of_it_unlocked_with_error: 'Klasifikacijos atskyrimas, kurio jūs neseniai
+          prašėte šiame puslapyje <strong>nepavyko</strong>: %{error}.'
+        split_of_taxon_unlocked_with_error: 'Klasifikacijos atskyrimas, kurio jūs
+          neseniai prašėte „%{taxon}“ <strong>nepavyko</strong>: %{error}.'
+      crop:
+        an_unknown_user_cropped_an_older_data_object: Nežinomas vartotojas pakeitė
+          „%{data_object}“ miniatiūrą.
+        an_unknown_user_cropped_an_unknown_data_object: Nežinomas vartotojas pakeitė
+          nežinomo paveikslėlio miniatiūrą.
+        an_unknown_user_cropped_data_object: Nežinomas vartotojas pakeitė „%{data_object}“
+          miniatiūrą.
+        user_cropped_an_older_data_object: <strong>%{user}</strong> pakeitė senesnės
+          „%{data_object}“ versijos miniatiūrą.
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> pakeitė nežinomo
+          paveikslėlio miniatiūrą.
+        user_cropped_data_object: <strong>%{user}</strong> pakeitė „%{data_object}“
+          miniatiūrą.
+        an_unknown_user_cropped_it: Nežinomas vartotojas pakeitė nežinomo paveikslėlio
+          miniatiūrą.
+        user_cropped_it: <strong>%{user}</strong> pakeitė nežinomo paveikslėlio miniatiūrą.
+      user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: Nežinomas vartotojas pridėjo
+          duomenų į nežinomą puslapį.
+        an_unknown_user_create_data_on_taxon: Nežinomas vartotojas pridėjo duomenų
+          į „%{taxon}“.
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> pridėjo duomenų
+          į nežinomą puslapį.
+        user_create_data_on_taxon: <strong>%{user}</strong> pridėjo duomenų į „%{taxon}“.
+        an_unknown_user_update_data_on_an_unknown_taxon: Nežinomas vartotojas atnaujino
+          duomenis nežinomame puslapyje.
+        an_unknown_user_update_data_on_taxon: Nežinomas vartotojas atnaujino duomenis
+          „%{taxon}“.
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> atnaujino duomenis
+          nežinomame puslapyje.
+        user_update_data_on_taxon: <strong>%{user}</strong> atnaujino duomenis „%{taxon}“.
+      other_actions:
+        an_unknown_user_curated_an_older_data_object: Nežinomas vartotojas kuravo
+          senesnę „%{data_object}“ versiją.
+        an_unknown_user_curated_an_unknown_data_object: Nežinomas vartotojas kuravo
+          nežinomą duomenų objektą.
+        an_unknown_user_curated_data_object: Nežinomas vartotojas kuravo „%{data_object}“.
+        user_curated_an_older_data_object: <strong>%{user}</strong> kuravo senesnę
+          „%{data_object}“ versiją.
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> kuravo nežinomą
+          duomenų objektą.
+        user_curated_data_object: <strong>%{user}</strong> kuravo „%{data_object}“.
+        an_unknown_user_curated_it: Nežinomas vartotojas tai kuravo, bet tikslus veiksmas
+          nežinomas.
+        user_curated_it: <strong>%{user}</strong> tai kuravo, bet tikslus veiksmas
+          nežinomas.
   a_maximum_of_30_results_are_returned: puslapyje yra rodomi daugiausia 30 rezultatų.
     Šis parametras leidžia jums gauti daugiau rezultatų puslapių, jei yra daugiau
     nei 30 atitikmenų.
   activity_log_empty: Niekas dar nepateikė atnaujinimų.
+  activity_user_created_data: <strong>%{user}</strong> pridėjo duomenų apie „%{data_object}“
+    į „%{taxon_concept}“.
+  activity_user_created_link: <strong>%{user}</strong> pridėjo %{object_name} nuorodą
+    į „%{taxon_concept}“.
+  activity_user_created_text: <strong>%{user}</strong> pridėjo tekstą į „%{object_name}“
+    „%{taxon_concept}“.
+  activity_user_updated_link: <strong>%{user}</strong> atnaujino „%{object_name}“
+    nuorodą „%{taxon_concept}“.
+  activity_user_updated_text: <strong>%{user}</strong> atnaujino „%{object_name}“
+    tekstą „%{taxon_concept}“.
   add_a_collection_to_a_community: Pridėti „%{collection}“ į bendruomenę
   add_a_comment: Pridėti komentarą.
   add_a_comment_colon: 'Pridėti Komentarą:'
@@ -2789,6 +3233,10 @@ lt:
   admin_content_page_update_unsuccessful_error: Atsiprašome, įvyko klaida, puslapis
     nebuvo atnaujintas.
   admin_content_pages_empty: Nerasta jokių turinio puslapių.
+  admin_content_pages_index_information: Toliau esančiame sąraše yra visi statiniai
+    puslapiai, šiuo metu prieinami EOL svetainėje. Kiekvienas puslapis turi viena
+    ar daugiau vertimų. Kai sukursite naują puslapį būsite paprašytas pridėti vertimą.
+    Publikuoti vertimai yra prieinami viešai.
   admin_content_pages_link: Turinio Valdymas
   admin_content_pages_page_title: 'Administracija: Turinio Valdymas'
   admin_content_partners_index_header: Turinio partneriai
@@ -2844,17 +3292,35 @@ lt:
   admin_news_item_update_unsuccessful_error: Atsiprašome, įvyko klaida, naujiena nebuvo
     atnaujinta.
   admin_news_items_empty: Nebuvo rasta jokių naujienų objektų.
+  admin_news_items_index_information: Toliau esančiame sąraše yra visi naujienų objektai,
+    šiuo metu prieinami EOL svetainėje. Kiekvienas puslapis turi viena ar daugiau
+    vertimų. Kai sukursite naują naujienų objektą būsite paprašytas pridėti vertimą.
+    Publikuoti vertimai yra prieinami viešai.
   admin_news_items_page_title: 'Administracija: Naujienos'
   admin_news_link: Naujienos
   admin_notes_not_visible_to_user: 'Administratoriaus pastabos (nematomos vartotojui):'
+  admin_information: Tai yra administracijos konsolė skirta EOL V2. Šiuo metu mes
+    keliame administracines funkcijas iš V1. Jei administracinio pasirinkimo, kuriuo
+    jūs ieškote nėra sąraše prašome apsilankyti <a href="/administrator">V1 Administracijos
+    Konsolėje</a>.
   admin_options_warning: Šie pokyčiai gali nesuveikti iki 10 minučių.
   admin_option_all_users_can_see_data: Visi vartotojai gali matyti duomenys, ne tik
     vartotojai su teisėmis
   admin_link: Apžvalga
   admin_page_title: 'Administracija: Apžvalga'
+  admin_resource_delete_confirmation: Ar tikrai norite ištrinti šį resursą? Ši komanda
+    ilgai užtrunka. Jūsų ryšys su puslapiu gali būti nutrauktas. Pakartotinai nesiųskite.
   admin_simple_actions_header: 'Paprasti Veiksmai:'
   admin_spam_delete: Ištrinti Šlamštą
   admin_statistics_link: Statistika
+  admin_translated_content_page_create_successful_notice: Vertimas buvo pridėtas į
+    <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_create_unsuccessful_error: Atsiprašome, įvyko klaida,
+    nepavyko pridėti vertimo.
+  admin_translated_content_page_delete_confirmation: Ar tikrai norite ištrinti %{language}
+    „%{page_name}“ versiją? Ištrinti puslapiai negali būti atkurti.
+  admin_translated_content_page_delete_successful_notice: puslapio <em>%{page_name}</em>
+    %{language} vertimas buvo ištrintas.
   admin_translated_content_page_edit_subheader: Redaguoti %{language} vertimus skirtus
     %{page_name}
   admin_translated_content_page_edit_tip: Pavadinimas ir dėstymas yra %{required_icon}
@@ -2897,10 +3363,15 @@ lt:
   admin_user_unhide_successful_notice: Vartotojas nebeslepiamas
   agent: Agentas
   all: visi
+  all_apis_return_by_default_an_xml_response: Visos API, kaip numatyta, gražina atsakymus
+    XML formatu. Kad gautu XML atsaką API funkcijos gali būti iškviestos be formato
+    plėtinio, XML plėtinys gražins tokį pati atsaką.
   all_articles: Visi straipsniai
   all_categories: Visi
   all_changes: Visi pakeitimai
   all_collections: Visos kolekcijos
+  all_comments_entered_by_users: Visi vartotojų komentarai paskelbti šioje svetainėje
+    pateikiami žemiau, surūšiuoti atvirkščiai pagal laiką.
   all_communities: Visos bendruomenės
   all_count: Visi (%{count})
   all_filter: visi
@@ -2913,6 +3384,8 @@ lt:
   all_sources: Visi šaltiniai
   all_taxa: Visi taksonai
   all_title: Visi
+  all_user_submitted_texts_on_the_website: Visi vartotojų tekstai paskelbti šioje
+    svetainėje pateikiami žemiau, surūšiuoti atvirkščiai pagal laiką.
   all_videos: Visi vaizdo įrašai
   allow_user_logins: Leisti vartotojo prisijungimus
   allowed_html_tags: 'Leidžiama HTML: %{comma_separated_tags}'
@@ -2935,14 +3408,44 @@ lt:
   anonymous_user_tag_line: Neprisijungęs
   and: ir
   and_between_form_items: ir
+  any_integer: bet koks sveikasis skaičius
+  any_string: bet kokia eilutė
+  api_refer_to_the_getting_started_page: Žiūrėkite <a href="%{link}">Pradžios</a>
+    puslapį, kur pateikiami EOL API naudojimo pavyzdžiai, naudojimo sąlygos ir informacija
+    apie API raktą.
+  application_version_advisory_information: Programos versija
   are_you_sure: Ar esate tikra(s)?
   are_you_sure_this_action_cannot_be_undone: Ar jūs tikras? Šis veiksmas negalės būti
     atšauktas.
+  admin_login_confirmation: Ar tikrai norite prisijungti prie turinio partnerio registro
+    kaip %{name}? Jei tai padarysite, būsite atjungtas kaip puslapio administratorius.
   article_from: straipsnis iš
+  article_secondary_description_with_others_count:
+    zero: '%{taxon} Apibūdinimų'
+    one: '%{taxon} Apibūdinimas ir %{count} kitų taksonų'
+    other: '%{taxon} Apibūdinimų ir %{count} kitų taksonų'
   article_more_about: Sužinokite daugiau apie šį straipsnį
   articles_with_count:
     one: '%{count} straipsnis'
     other: '%{count} straipsniai'
+  articles_in_languages_with_count:
+    one: 'Straipsniai šiame puslapyje prieinami %{count} kalba:'
+    other: 'Straipsniai šiame puslapyje prieinami %{count} kalbų:'
+  articles_in_other_languages_with_count:
+    one: 'Straipsniai šiame puslapyje prieinami %{count} kita kalba:'
+    other: 'Straipsniai šiame puslapyje prieinami %{count} kitų kalbų:'
+  as_of_time_there_were_unique_visitors:
+    one: '%{time} buvo %{count} unikalus lankytojas'
+    other: '%{time} buvo %{count} unikalių lankytojų'
+  a_total_of_comment_were_found_matching_your_criteria:
+    one: Viso buvo surastas %{count} komentaras atitinkantis jūsų kriterijus.
+    other: Viso buvo surasta %{count} komentarų atitinkančių jūsų kriterijus.
+  a_total_of_items_were_found_matching_your_criteria:
+    one: Viso buvo rastas %{count} objektas atitinkantis jūsų kriterijus.
+    other: Viso buvo rasta %{count} objektų atitinkančių jūsų kriterijus.
+  a_total_of_terms_were_found_matching_your:
+    one: Viso buvo rasta %{count} terminas atitinkantis jūsų kriterijus.
+    other: Viso buvo rasta %{count} terminų atitinkančių jūsų kriterijus.
   assistive_overview_header: Apžvalga
   assistive_data_header: Faktai Ir Informacija
   assistive_media_header: Žiniasklaida
@@ -2982,9 +3485,18 @@ lt:
   associations_more_link: daugiau <span class="assistive">taksono asociacijų</span>
   a_taxon: taksonas
   attribute: Atributas
+  audio_current_time_assistive: Kai įjungtas JavaScript tai rodys dabartinio audio
+    failo grojimo poziciją minutėmis ir sekundėmis.
+  audio_duration_assistive: Kai įjungtas JavaScript tai rodys dabartinio audio failo
+    ilgį minutėmis ir sekundėmis. Priklausomai nuo failo dydžio, JavaScrips gali šiek
+    tiek užtrukti skaičiuojant failo ilgį ir parodant reikšmę čia.
   audio_play: groti
   audio_pause: pauzė
+  audio_pause_assistive: Kai įjungtas JavaScript ši nuoroda jums leis pristabdyti
+    grojamą gretimą audio failą, priešingu atveju ignoruokite šią nuorodą.
   audio_stop: stop
+  audio_stop_assistive: Kai įjungtas JavaScript ši nuoroda jums leis sustabdyti grojamą
+    gretimą audio failą, priešingu atveju ignoruokite šią nuorodą.
   audio_mute: nutildyti
   audio_unmute: įjungti garsą
   authoritative_information: patikima informacija
@@ -2998,19 +3510,53 @@ lt:
     one: Priklauso %{count} Bendruomenei
     other: Priklauso %{count} Bendruomenėms
   beta_warning_header: Jūs naudojate beta testuojama funkcija
+  beta_warning_body: Dauguma vartotoju negali matyti ar naudoti šios funkcijos, kuri
+    yra kuriama. Veikimas ir duomenys gali būti neprognozuojami, bet kviečiame jus
+    tyrinėti. Prašome užpildyti mūsų <a href='https://www.surveymonkey.com/s/9FDTDQP'>apklausą</a>
+    po to kai peržiūrėsite mūsų duomenų galimybes.
   beta_warning_note_header: 'Pastaba:'
+  bhl: Biodiversity Heritage Library
+  bhl_partner_footer: Apsilankyti Biodiversity Heritage Library
   bhl_publication: BHL publikacija
   bi_monthly: Du kartus per mėnesį
+  biodiversity_heritage_library: Biodiversity Heritage Library
+  biomedical_terms: Biomedicinos terminai
+  biomedical_terms_introduction: Šie terminai yra išvesti ieškant biomedicininę duomenų
+    basę, <a rel="nofollow" href="%{pubmed_url}">PubMed</a> pavadinimu <em>%{scientific_name}</em>.
+    Rezultatai analizuojami su <a rel="nofollow" href="%{ligercat_url}">LigerCat</a>
+    įrankiu, kuris sukuria debesį su geriausiai tinkamais <a rel="nofollow" href="%{mesh_url}">Medical
+    Subject Headings (MESH)</a>. Kiekvieno termino dydis atitinka kiek kartu jis yra
+    PubMed paieškos rezultatuose. Paspauskite ant termino, kad pamatytumėte pilną
+    LigerCat debesį, su tiesioginėmis PubMed paieškos galimybėmis.
+  biomedical_terms_provided_by: Terminai pateikti <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
+  biomedical_terms_clouds_provided_by: Debesys pateikti MBL <a rel="nofollow" href="%{supplier_url}">Biology
+    of Aging projekto</a>.
   body: 'Tekstas:'
   browsable: Galima naršyti
   browsable_hierarchies: Naršomos Hierarchijos
   browse_hierarchy: naršyti hierarchiją
+  build_communities: Kurti bendruomenes
   by_caps: Pagal
   by_scientific_name_table_header: pagal Mokslinį Pavadinimą
   cancel: Atšaukti
   cancel_and_delete: atšaukti ir ištrinti
   cancel_split: Atšaukti
+  cannot_be_associated_with_both_a_user_and_a_community: Negali būti susietas su vartotoju
+    ir su bendruomene
   cannot_be_empty: negali būti tuščias.
+  cannot_create_collection_item_from_class_error: 'Negalime sukurti kolekcijos objekto
+    iš tipo: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'Negalime sukurti kolekcijos
+    objekto iš tipo(-ų): (%{types})'
+  cannot_create_community_from_watch_collection_error: Negalime sukurti bendruomenės
+    iš stebėjimų sąrašo.
+  cannot_expand_children: negalima išplėsti priklausomų
+  cannot_find_member: Vartotojas su šiuo id nebuvo rastas.
+  cannot_index_collection_item_type_error: Negalime indeksuoti kolekcijos objekto
+    iš %{type}
+  categories_title: 'Pasirinkite kategoriją, tada atributą:'
+  category_suggestions: 'Jei nežinote kokius URI naudoti atributams ar vertėms, toliau
+    esančios nuorodos pateiks siūlomų URI, atrinktų EOL kuratorių:'
   change: Keisti
   change_rating_to_1_of_5: Keisti reitingą į 1 iš 5
   change_rating_to_2_of_5: Keisti reitingą į 2 iš 5
@@ -3020,29 +3566,175 @@ lt:
   choose_collection_header: Pasirinkti kolekciją
   citation: Citata
   citing_link: Cituojama
+  clade: Taksonominės Grupės
+  classification_already_preferred: 'Klaida: Ši klasifikacija jau buvo pažymėta kaip
+    pageidautina.'
+  classification_curation_pending: Laukiama kuravimo. Ši klasifikacija artimiausiu
+    metu negali būti perkelta į kitą puslapį.
+  classification_curation_split_comment_with_count:
+    one: '%{count} klasifikacija iš šio puslapio buvo <a href=''%{url}''>atskirta
+      į atskirą puslapį</a>.'
+    other: '%{count} klasifikacijos iš šio puslapio buvo <a href=''%{url}''>atskirtos
+      į atskirą puslapį</a>.'
+  classification_from_agent: '%{agent} Klasifikacija.'
+  classification_from_agent_chosen_by_curator: '%{agent} Klasifikacija parinkta %{curator}.'
+  classification_from_agent_chosen_by_curator_see_more: '%{agent} Klasifikacija parinkta
+    %{curator} - <a href="%{more_link}">žiūrėti daugiau</a>.'
   classification_preferred_for_taxon: Pageidaujama
+  classification_preferred_for_taxon_help_tip: '%{icon} žymi pageidautiną šio taksono
+    klasifikaciją.'
   classification_summary_section_header: Klasifikacija
+  classification_split_help: <b>Jūs atskirsite klasifikacijas nuo šio puslapio.</b>
+    Norėdami tęsti turite nurodyti, kurios egzistuojančios klasifikacijos <i>geriausiai</i>
+    reprezentuoja šį puslapį. Tai mums padės išlaikyti klasifikacijas, kurias jūs
+    pasirinkote, atskirai nuo šio puslapio.
+  classification_merge_help: <b>Jūs atskirsite klasifikacijas nuo šio puslapio.</b>
+    Norėdami tęsti turite nurodyti, kurios egzistuojančios klasifikacijos <i>geriausiai</i>
+    reprezentuoja taksono puslapį, iš kurio keliate klasifikacija. Tai mums padės
+    išlaikyti klasifikacijas, kurias jūs pasirinkote, atskirai nuo šio puslapio.
+  classification_split_warning: <b>Skirkite laiko įsitikinti ar pasirinkote <i>visas</i>
+    klasifikacijas, kurios atitinka tikslinį puslapį.</b> Pavyzdžiui, jei atskiriate
+    ar perkeliate musmirės klasifikaciją iš meškėno puslapio, turite pasirinkti visas
+    musmirės klasifikacijas šiai operacijai, jei kažką praleisite, tai gali būti sunku
+    pataisyti vėliau.
+  classification_button_help: Prašome pasirinkti klasifikacija, kuri geriausiai atitinka
+    egzistuojantį puslapį ir paspauskite atitinkamą „naudoti kaip pavyzdį“. Kad operaciją
+    visiškai atšauktumėte, spauskite „atšaukti“.
   classification_tree_header: Klasifikaciją
+  classifications_edit_cancelled_merge_to_self: Jūsų šaltinis ir tikslas yra tas pats
+    puslapis; nėra ko perkelti.
+  classifications_edit_cancelled_busy: Atsiprašome, jūsų prašymas redaguoti puslapį
+    klasifikaciją šiuo metu negali būti apdorotas; vienas ar daugiau taksono puslapių
+    yra užrakintas. Egzistuojantis prašymas juos redaguoti yra apdorojamas.
+  classifications_locked: Šiame puslapyje esanti klasifikacija šiuo metu negali būti
+    redaguojama. Kitas prašymas redaguoti šias klasifikacijas yra apdorojamas.
   classifications_preferred_column_header: Pageidaujama
   classifications_exemplar_column_header: Pavyzdys
   classifications_hierarchy_column_header: Klasifikacija
+  classifications_merge_additional_confirm_required: Kad sujungtumėte šias klasifikacijas
+    reikalinga papildoma informacija.
+  classifications_merge_providers_match_confirm: Aš patvirtinu, kad noriu nepaisyti
+    šio turinio partnerio teiginio, kad šie duomenys turėtų būti atskyri.
+  classifications_merge_providers_match_warning: Jūs ketinate sujungti du puslapius,
+    %{provider} pažymėjo, kad duomenys juose turėtų būti atskiri. Prašome patvirtinti,
+    kad norite <i>nepaisyti</i> tiekėjo teiginio ir sudėti šiuos duomenys į tą patį
+    puslapį.
   classifications_recognized_by_column_header: Pripažino
   classifications_rank_column_header: Rangas
   classifications_split_column_header: Perskirti / Perkelti
+  classifications_split_one_classification_only: Prašome pasirinkti tik vieną klasifikaciją
+    perskyrimui. Kitos klasifikacijos gali būti perkeltos į naują puslapį po to kai
+    jis bus sukurtas.
+  classifications_summary_header_with_count:
+    zero: EOL neturi klasifikacijų šiam taksonui
+    one: Rasta %{count} klasifikacijoje
+    other: Rasta %{count} klasifikacijose
+  classifications_with_count:
+    one: '%{count} klasifikacija'
+    other: '%{count} klasifikacijos'
+  clear_all_non_species_pages: Išvalyti visus ne rūšių puslapius
+  clear_species_page: Išvalyti rūšių puslapius
+  cms_available_in_languages: 'Šis puslapis prieinamas:'
   cms_editor: CMS Redaktorius
   cms_missing_content_title: Trūksta vertimo
+  cms_missing_content_message: Atsiprašome, šis puslapis nėra pasiekimas pasirinkta
+    kalba %{selected_language}.
   curator_level: Kuratoriaus lygis
   curator_level_with_indefinite_article_master_curator: <strong>meistras kuratorius</strong>
   curator_level_with_indefinite_article_full_curator: <strong>kuratorius</strong>
   curator_level_with_indefinite_article_assistant_curator: <strong>asistentas kuratorius</strong>
   click: Paspausti
   clicked_time: Paspaudimo Laikas
+  click_on_an_activity_to_see_th: Paspauskite ant veiklos, kad pamatytumėte kitas
+    veiklas, kurios įvyko per penkias minutes.
+  click_on_a_username_to_view_the_users_detailed_profile: Paspauskite ant vartotojo
+    vardo, kad peržiūrėtumėte detalų vartotojo profilį, paspauskite ant duomenų tipo,
+    kad peržiūrėtumėte pakomentuotą objektą (paspauskite savo naršyklės atgal mygtuką,
+    kad sugrįžtumėte čia), paspauskite „redaguoti“, kad pakeistumėte komentarą arba
+    paspauskite „ištrinti“, kad komentarą ištrintumėte visam laikui.
+  click_on_a_user_to_view_the_users_detailed_profile: Paspauskite and vartotojo, kad
+    peržiūrėtumėte išsamų vartotojo profilį, paspauskite ant rūšies, kad peržiūrėtumėte
+    puslapį, kuriame egzistuoja tekstas (naudokite savo naršyklės atgal mygtuką, kad
+    sugrįžtumėte čia).
+  close_this_window_to_return_to_edit_window: UŽDARYKITE ŠĮ LANGĄ, KAD SUGRĮŽTUMĖTE
+    Į REDAGAVIMO LANGĄ
+  collect_item: Įtraukti objektą į kolekciją
+  collect_items: Įtraukti objektus į kolekciją
+  collection_api_sort_field_notes: Jei įtrauktas sort_field parametras bus rodomi
+    tik kolekcijų objektai, kurių rūšiavimo laukas visiškai atitinka parametrą.
+  collection_create_failure: Kolekcijos sukūrimas nepavyko.
+  collection_created_with_count_notice:
+    one: Kolekcija <em>%{collection_name}</em> sėkmingai sukurta su %{count} kolekcijos
+      objektu.
+    other: Kolekcija <em>%{collection_name}</em> sėkmingai sukurta su %{count} kolekcijos
+      objektų.
   collection_delete_link: Panaikinti šią kolekciją visam laikui
   collection_destroyed: Kolekcija buvo ištrinta.
   collection_removed: Kolekcija %{collection} ištrinta.
+  collection_update_failure: Kolekcijos %{collection} atnaujinti nepavyko. Patikrinkite
+    ar yra problemų su kolekcijos objektais
   collection_not_existing: Kolekcija %{collection} neegzistuoja.
+  collection_error_no_items_selected: 'Klaida: Nėra pasirinktų objektų, jokie veiksmai
+    nebuvo atlikti.'
   collection_image: Kolekcijos vaizdas
+  collection_is_empty: Ši kolekcija šiuo metu yra tuščia.
+  collection_item_edit_page_title: Redaguoti objektą kolekcijoje <em>%{collection_name}</em>
+  collection_item_not_found_error: Šis kolekcijos objektas nebuvo rastas.
+  collection_item_edit_by_javascript_not_authorized_error: Atsiprašome, jūs neturite
+    teisės redaguoti šio kolekcijos objekto. Jei esate kolekcijos savininkas ar redaktorius
+    prašome perkrauti puslapį ir patikrinti ar esate prisijungę.
+  collection_items_count:
+    zero: Tuščia
+    one: '%{count} objektas'
+    other: '%{count} objektai'
+  collection_items_duplicate_ids: Negalima sukurti kolekcijos iš dublikato(-ų) ID
+    %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type negali
+    būti nulis:%{item}'
+  collection_copy_complete_with_count:
+    one: Nukopijuotas %{count} objektas iš %{from} į %{to}.
+    other: Viso nukopijuota %{count} objektų iš %{from} į %{to}.
+  collection_move_complete_with_count:
+    one: Perkeltas %{count} objektas iš %{from} į %{to}.
+    other: Viso perkelta %{count} objektų iš %{from} į %{to}.
+  collection_remove_complete_with_count:
+    one: Pašalintas %{count} objektas iš %{from}.
+    other: Pašalinta %{count} objektų iš %{from}.
+  collection_copy_choose_all_items_target_title: 'Kopijuoti visus objektus iš „%{collection}“
+    į:'
+  collection_move_choose_all_items_target_title: 'Perkelti visus objektus iš „%{collection}“
+    į:'
+  collection_copy_choose_target_title_with_count:
+    one: 'Kopijuoti %{count} objektą iš "%{collection}" į:'
+    other: 'Kopijuoti %{count} objektus iš "%{collection}" į:'
+  collection_move_choose_target_title_with_count:
+    one: 'Perkelti %{count} objektą iš "%{collection}" į:'
+    other: 'Perkelti %{count} objektus iš "%{collection}" į:'
+  collection_name_cannot_be_blank: Kolekcijos pavadinimas negali būti tuščias
   collection_name_label: Kolekcijos pavadinimas
+  collection_newsfeed: Kolekcijos naujienų srautas
+  collection_not_created_error: Atsiprašome, įvyko klaida, kolekcija <em>%{collection_name}</em>
+    negali būti kuruojama.
+  collection_not_destroyed_error: Atsiprašome, kolekcija nebuvo ištrinta.
+  collection_not_found_error: Atsiprašome, kolekcija nebuvo rasta.
+  collection_created_notice: Kolekcija <em>%{collection_name}</em> sėkmingai sukurta.
+  collection_redindexed: Kolekcija suindeksuota iš naujo.
+  collection_updated_notice: Kolekcija <em>%{collection_name}</em> sėkmingai atnaujinta.
+  collection_was_removed_by_owner: Savininkas pašalino šią kolekciją.
+  collection_not_updated_error: Atsiprašome, įvyko klaida, kolekcija nebuvo atnaujinta.
+  collection_was_added_to_community: „%{collection}“ buvo pridėta į bendruomenę.
+  community_can_now_manage_this_collection: „%{community}“ dabar turi teises valdyti
+    šią kolekciją.
+  collections_filter: Kolekcijos
+  collections_link: Kolekcijos
+  collections_page_title: Kolekcijos
+  collections_summary_empty: Šis puslapis dar nėra jokiose kolekcijose.
+  collections_summary_header_with_count:
+    one: Yra %{count} kolekcijoje
+    other: Yra %{count} kolekcijose
+  collections_with_count:
+    one: '%{count} kolekcija'
+    other: '%{count} kolekcijos'
   comment: Komentuoti
   comment_added_notice: Komentaras sėkmingai pridėtas.
   comment_body_label: Jūsų komentaras
@@ -3051,26 +3743,92 @@ lt:
   comment_edit_by_javascript_not_authorized_error: Atsiprašome, jūs neturite tesės
     redaguoti šį komentarą. Jei esate komentaro autorius prašome perkrauti puslapį
     ir patikrinti ar esate prisijungęs.
+  comment_or_rate_on_this_article: pakomentuokite arba įvertinkite šį straipsnį
+  comment_or_rate_on_this_link: pakomentuokite arba įvertinkite šią nuorodą
   comment_not_added_error: Atsiprašome, įvyko klaida, komentaras negali būti pridėtas.
   comment_not_deleted_error: Atsiprašome, įvyko klaida, komentaras negali būti ištrintas.
   comment_not_updated_error: Atsiprašome, įvyko klaida, komentaras negali būti atnaujintas.
   comment_new_title: Pridėti naują komentarą
   comment_new_posters_image_alt: Jūsų profilio nuotrauką, jei jūs nurodėte.
+  comment_new_posters_image_advisory_info: Jūsų profilio nuotrauka ir vardas bus rodomas
+    šalia jūsų komentaro sąrašuose.
+  comment_show_posters_image_alt: '%{posters_name} profilio nuotrauka, kuris atliko
+    šį veiksmą.'
   comments_and_tags: Komentarai ir Žymės
   comments: Komentarai
+  comments_filter: Komentarai
   comments_moderated: Komentarai Moderuoti
   comments_on: Komentarai Įjungti
+  comments_page_title: '%{parent} Komentarai'
+  comments_with_count:
+    one: '%{count} Komentaras'
+    other: '%{count} Komentarai'
+  common_activities_by_logged_in: Bendra prisijungusių vartotojų veikla.
+  common_name_avg: Bendrinių Pavadinimų vidurkis
+  common_name: Bendrinis Pavadinimas
+  common_name_exists: Bendrinis pavadinimas <em>%{name_string}</em> jau egzistuoja
+  common_names_with_count:
+    one: '%{count} bendrinis pavadinimas'
+    other: '%{count} bendriniai pavadinimai'
+  common_user_activity_page_title: Bendra Vartotojo Veikla
+  communities_with_count:
+    one: '%{count} bendruomenė'
+    other: '%{count} bendruomenės'
+  communities_filter: Bendruomenės
+  communities_link: Bendruomenės
+  communities_page_title: Bendruomenės
   communities_index_empty: Nėra aktyvių bendruomenių.
   communities_index_header: Aktyvios bendruomenės
   communities_that_can_edit_this_collection: Bendruomenės galinčios tvarkyti šia kolekciją
   community: Bendruomenė
   community_activity: Bendruomenės Veikla
+  community_contributions_with_count:
+    one: '%{count} Įnašas'
+    other: '%{count} Įnašai'
+  community_destroyed: Jūs ištrynėte šią bendruomenę. Ji nebebus rodoma taksonų puslapiuose
+    ir paieškose.
+  community_description_default: Encyclopedia of Life bendruomenė.
   community_empty_notice: Ši bendruomenė neturi narių.
+  community_focus: Tvarkyti kolekcijas
+  community_focus_items_with_count:
+    one: '%{count} objektas'
+    other: '%{count} objektai'
+  community_invitation_comment: Norėčiau jus pakviesti prisijungti prie „%{community}“.
+  community_logo_alt_text: '%{community_name} bendruomenės logotipas'
+  community_managers_with_count:
+    one: '%{count} Bendruomenės Valdytojas'
+    other: '%{count} Bendruomenės Valdytojai'
   community_members: Bendruomenės nariai
+  community_members_with_count:
+    one: '%{count} Bendruomenės Narys'
+    other: '%{count} Bendruomenės Nariai'
   community_name_label: Bendruomenės pavadinimas
+  community_newsfeed: Bendruomenės naujienų srautas
+  community_no_longer_has_manager_access_to_collection: „%{community}“ nebeturi prieigos
+    prie „%{collection}“.
   community_not_destroyed_error: Atsiprašome, įvyko klaida ir bendruomenė nebuvo ištrinta.
+  community_tab_collections_header: Kolekcijos
+  community_tab_communities_description: Bendruomenės yra EOL narių grupės, kurių
+    nariai domisi panašiais dalykais ir yra to dalyko žinovai. EOL bendruomenės yra
+    organizuojamas vienai ar daugiau EOL kolekcijų ir siūlo nariams susitelkti ties
+    svarbiomis problemomis. Daugiau informacijos apie EOL bendruomenes ir instrukcijas
+    kaip sukurti savo yra prieinama <a href='/info/communities'>pagalbos puslapyje</a>.
+  community_tab_curators_description: Kuratoriai yra EOL vartotojai su biologine patirtimi,
+    kurie skiria laiko peržiūrėti EOL turinį užtikrindami, kad tai ką jūs matote yra
+    patikima ir aukštos kokybės.
   community_removed_by_owner: Bendruomenė buvo pašalinta jos savininko.
+  communities_summary_empty: Šis taksonas dar nebuvo įtrauktas į jokias bendruomenes.
+  communities_summary_header_with_count:
+    one: Priklauso %{count} bendruomenei
+    other: Priklauso %{count} bendruomenėms
   completed: Baigtas
+  completed_colon: 'Baigta:'
+  confirm_deactivate_user: Ar tikrai norite visam laikui atjungti vartotoją?
+  confirm_delete_community: Ar tikrai norite ištrinti šią bendruomenę? Likę nariai
+    vis dar galės ją matyti ir naujienų srautas bus išlaikytas, bet ji nepasirodys
+    paieškose ar taksonų puslapiuose ir nebebus galima ją redaguoti.
+  confirm_delete_data_object: Ar tikrai norite ištrinti šį Duomenų Objektą? Šio veiksmo
+    anuliuoti negalima.
   confirm_leave: Ar jūs tikrai norite palikti šią bendruomenę?
   confirm_password_colon: 'Patvirtinti Slaptažodį:'
   contact: Kontaktai
@@ -3079,13 +3837,39 @@ lt:
   contact_us: susisiekite su mumis
   contact_us_link: Susisiekite su mumis
   contact_us_functions: Susisiekite su Mumis Funkcijos
+  contact_us_submissions: Susiekite Su Mumis Pareiškimai
   contact_us_topics: Susisiekite su Mumis Temos
+  containing_value: sudėtyje yra %{value}.
   content_has_been_updated: Turinys buvo atnaujintas.
+  content_notes_not_shown_to_us: 'Turinio Pastabos (nerodomos vartotojui):'
+  content_partner: Turinio Partneris
+  content_partner_new_link: Pridėti naują turinio partnerį
+  content_partner_admin_index_link_back_to: grįžti į partnerių valdymą
   content_partner_agreement_cancel_edit_agreement_link: Atšaukti
   content_partner_agreement_cancel_new_agreement_link: Atšaukti
   content_partner_agreement_cancel_sign_agreement_link: Atšaukti
+  content_partner_agreement_create_successful_notice: Turinio partnerio susitarimo
+    sąlygos sėkmingai sukurtos.
+  content_partner_agreement_create_unsuccessful_error: Atsiprašome, įvyko klaida,
+    turinio partnerio susitarimo sąlygos nebuvo sukurtos.
+  content_partner_agreement_subheader: Turinio Partnerio Susitarimas
+  content_partner_agreement_signed_successful_notice: Jūs sėkmingai sutikote su turinio
+    partnerio susitarimu, dabar galite pridėti duomenų resursų.
+  content_partner_agreement_signed_unsuccessful_error: Atsiprašome, įvyko klaida,
+    atrodo yra techninių problemų su turinio partnerio sutikimu. Prašome pabandyti
+    dar kartą, jei problema išlieka prašome pranešti EOL.
+  content_partner_agreement_update_successful_notice: Turinio partnerio susitarimo
+    sąlygos sėkmingai atnaujintos.
+  content_partner_agreement_update_unsuccessful_error: Atsiprašome, įvyko klaida,
+    turinio partnerio susitarimo sąlygos nebuvo atnaujintos.
+  content_partner_about_header: Apie %{partner_name}
+  content_partner_administration_notes_empty: Nėra administracijos pastabų.
   content_partner_administration_notes_header: Administracijos pastabos
   content_partner_administration_settings_header: Administracijos nustatymai
+  content_partner_administration_settings_introduction: Toliau esantys administracijos
+    laukai yra matomi ir redaguojami tik EOL administratorių.
+  content_partner_collections_empty: Turinio partnerio kolekcijų sąrašo duomenys,
+    kuriuos partneris pateikė per savo resursus. Nerasta publikuotų kolekcijų.
   content_partner_column_header_partner: Partneris
   content_partner_contact_create_successful_notice: Kontaktas buvo pridėtas.
   content_partner_contact_create_unsuccessful_error: Atsiprašome, įvyko klaida, kontaktas
@@ -3097,71 +3881,458 @@ lt:
   content_partner_contact_edit_page_subheader: Redaguoti kontaktą
   content_partner_contact_new_link: Pridėti naują kontaktą
   content_partner_contact_new_page_subheader: Pridėti kontaktą
+  content_partner_contact_new_edit_form_header: Turinio partnerio kontaktinė informacija
+  content_partner_contact_new_edit_form_tip: Vardas, pavardė ir el. paštas yra %{required_icon}
+    privalomi.
   content_partner_contact_update_successful_notice: Kontaktas sėkmingai atnaujintas.
   content_partner_contact_update_unsuccessful_error: Atsiprašome, įvyko klaida, kontaktas
     nebuvo atnaujintas.
   content_partner_contacts_header: Kontaktai
+  content_partner_current_agreement_empty: Nėra susitarimo
+  content_partner_current_agreement_signed_on_with_date: Pasirašyta %{date}
   content_partner_current_agreement_view_link: Žiūrėti
   content_partner_current_agreement_edit_link: Redaguoti
   content_partner_current_agreement_create_link: Sukurti naują
   content_partner_current_agreement_not_accepted: Dar nepriimtas
+  content_partner_data_description_header: Duomenų aprašymas
+  content_partner_data_description_empty: Niekas nepridėjo pateiktų duomenų aprašymo.
+  content_partner_default_description: Encyclopedia of Life turinio partneris.
+  content_partner_edit_link: Redaguoti turinio partnerį
   content_partner_filter_option_vetted_yes: Taip
   content_partner_filter_option_vetted_no: Ne
   content_partner_filter_option_published_never_published: Niekada nepublikuotas
+  content_partner_filter_option_published_latest_harvest_not_published: Naujausias
+    nepublikuotas
+  content_partner_filter_option_published_latest_harvest_pending_publish: Naujausias
+    laukiantis publikavimo
+  content_partner_filter_option_published_latest_harvest_published: Naujausias publikuotas
+  content_partner_filter_option_published_no_resources: Nėra išteklių
   content_partner_filter_published: Publikuotas
+  content_partner_has_unpublished_content_true: Nepublikuotas turinys
+  content_partner_has_unpublished_content_false: Nėra nepublikuoto turinio
+  content_partner_homepage_link: Apsilankyti partnerio interneto svetainėje
+  content_partner_latest_published_harvest_event_time_ago: Paskutinį kartą atnaujinta
+    prieš %{time_passed};
+  content_partner_logo_alt_text: '%{partner_name} turinio partnerio logotipas'
+  content_partner_managed_by_header: Valdomas
+  content_partner_new_page_subheader: Pridėti naują turinio partnerį
+  content_partner_new_edit_form_profile_header: Turinio partnerio profilio informacija
+  content_partner_new_edit_form_tip: Dalis informacijos, kurią čia įvesite bus matoma
+    viešai. Projekto pavadinimas ir aprašymas yra %{required_icon} privalomi.
   content_partner_notes_header: Projekto pastabos
+  content_partner_notes_empty: Nėra papildomų pastabų šiam projektui.
+  content_partner_oldest_published_harvest_event_time_ago: Pirmąkart paskelbta EOL
+    prieš %{time_passed};
+  content_partner_overview_agreement_header: Partnerio sutikimas
+  content_partner_overview_agreement_link: Peržiūrėti dabartinį sutikimą
+  content_partner_overview_link: Partnerio Apžvalga
+  content_partner_overview_link_back_to: grįžti į partnerio apžvalgą
+  content_partner_profile_menu: Turinio Partnerio Profilis
   content_partner_public_false: Privatus
   content_partner_public_true: Viešas
+  content_partner_registered_time_ago: Registruota prieš %{time_passed};
+  content_partner_reports: Turinio Partnerio Ataskaitos
+  content_partner_resource_about_header: Apie išteklį
   content_partner_resource_auto_publish_true: Taip
   content_partner_resource_auto_publish_false: Ne
+  content_partner_resource_collection_empty: Kolekcija nebuvo sugeneruota šiam resursui.
+  content_partner_resource_collections_header: Kolekcijos
+  content_partner_resource_collection_header: Publikuota kolekcija
+  content_partner_resource_collection_show_link: Peržiūrėti publikuotą kolekciją
+  content_partner_resource_create_successful_notice: 'Turinio partnerio resurso informacija
+    sėkmingai pridėta. Dabartinė resurso duomenų būsena: %{resource_status}.'
+  content_partner_resource_create_unsuccessful_error: Atsiprašome, įvyko klaida, resursas
+    nebuvo pridėtas.
+  content_partner_resource_validation_finish_notice: Turinio partnerio resurso patvirtinimas
+    baigtas ir jo būsena yra %{resource_status}.
+  content_partner_resource_dataset_details_header: Duomenų rinkinys
+  content_partner_resource_delete_with_type_link: Ištrinti viską
+  content_partner_resource_description_empty: Aprašymas nebuvo pateiktas šiam ištekliui.
   content_partner_resource_edit_link: Redaguoti
+  content_partner_resource_edit_subheader: Redaguoti išteklį
+  content_partner_resource_edit_with_type_link: Redaguoti išteklį
+  content_partner_resource_harvest_event_current_published: Šiuo metu publikuotas
   content_partner_resource_harvest_event_not_published: Nepublikuotas
+  content_partner_resource_harvest_event_previously_published: Publikuotas ankščiau
+  content_partner_resource_harvest_event_publish_pending: Laukiama publikavimo
+  content_partner_resource_page_title: Encyclopedia of Life - %{content_partner_name}  -
+    %{resource_name}
+  content_partner_resource_hierarchy_browsable: Galima naršyti
   content_partner_resource_hierarchy_edit_link: Redaguoti
+  content_partner_resource_hierarchy_not_browsable: Negalima naršyti
+  content_partner_resource_hierarchy_request_publish: Laukiama atsakymo į prašymą
   content_partner_resource_hierarchy_unknown: Nežinomas
+  content_partner_resource_licensing_details_header: Teisės ir priskyrimas
+  content_partner_resource_new_link: Pridėti naują resursą
+  content_partner_resource_new_subheader: Pridėti naują resursą
+  content_partner_resource_preview_collection_header: Peržiūrėti kolekciją
+  content_partner_resource_preview_collection_show_link: Peržiūrėti peržiūros kolekciją
+  content_partner_resource_processing_header: Apdorojimo statusas ir parametrai
   content_partner_resource_resource_status_new: Sukurta
+  content_partner_resource_show_link_back_to: grįžti į išteklį
+  content_partner_resource_show_subheader: Duomenys apie išteklį <em>%{resource_title}</em>
+  content_partner_resource_status_update_illegal_transition_error: Atsiprašome, dabartinė
+    resurso %{resource_title} būsena yra %{current_resource_status} ir ji negali būti
+    pakeista į %{requested_resource_status}.
+  content_partner_resource_status_update_successful_notice: Resurso %{resource_title}
+    statusas sėkmingai pakeistas į %{resource_status}.
+  content_partner_resource_status_update_unsuccessful_error: Atsiprašome, įvyko klaida,
+    resurso %{resource_title} statusas negali būti pakeistas į %{resource_status}.
+  content_partner_resource_update_successful_notice: 'Turinio partnerio resurso detalės
+    sėkmingai atnaujintos. Dabartinė resurso duomenų būsena: %{resource_status}.'
+  content_partner_resource_update_successful: Turinio partnerio resurso informacija
+    sėkmingai atnaujinta.
+  content_partner_resource_update_unsuccessful_error: Atsiprašome, įvyko klaida, resurso
+    informacija nebuvo atnaujinta.
+  content_partner_resource_upload_unsuccessful_error: 'Atsiprašome, įvyko klaida,
+    resurso informacija buvo atnaujinta, bet pats resursas nebuvo įkeltas: %{resource_status}.'
+  content_partner_resource_validation_unsuccessful_error: Atsiprašome, resurso informacija
+    buvo atnaujinta, bet resurso nepavyko patvirtinti. Prašome peržiūrėti žemiau pateiktą
+    apdorojimo informaciją.
   content_partner_resource_vetted_true: Taip
   content_partner_resource_vetted_false: Ne
   content_partner_resource_view_link: Žiūrėti
+  content_partner_resources_header: Ištekliai
+  content_partner_resources_link_back_to: grįžti į išteklius ir kontaktus
+  content_partner_resources_link: Ištekliai ir Kontaktai
+  content_partner_resources_policy_information: Prieš pridedant savo duomenų išteklius
+    prašome peržiūrėti ir sutikti su toliau esančiu turinio partnerio naudojimo susitarimu.
+  content_partner_statistics_column_header_provider_count: Puslapiai su tiekėjo turiniu
   content_partner_statistics_column_header_total_count: Visi puslapiai
+  content_partner_statistics_column_header_provider_proportion: Tiekėjo procentas
+  content_partner_statistics_empty: Nerasta %{month_name} %{year} statistikos.
   content_partner_statistics_month_label: Mėnesis
   content_partner_statistics_year_label: Metai
+  content_partner_statistics_summary_caption: Naudojimo santraukos statistika skirta
+    taksonų puslapiams, kuriuose yra %{partner_name} turinio atsižvelgiant į bendrą
+    EOL svetainės naudojimą.
+  content_partner_statistics_link: Naudojimo Statistika
+  content_partner_statistics_taxa_page_caption: Išsami naudojimo statistika skirta
+    taksono puslapiams, kuriuose yra %{partner_name} turinio.
   content_partner_statistics_column_header_taxa_page_page_views: Puslapio Peržiūros
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Unikalios
+    Puslapio Peržiūros
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Laikas
+    Puslapyje (sekundėmis)
+  content_partner_stats_message: Dėl šiuo metu naudojamos paslaugos statistikos generavimui
+    šio mėnesio duomenys šiuo metu nėra prieinami. Mūsų komanda siekia sprendimo.
+    Partneriams pranešime el. paštu kai ši problema bus išspręsta.
   content_partner_status_empty: Nežinoma būsena
+  content_partner_update_successful_notice: Partnerio duomenys sėkmingai atnaujinti.
+  content_partner_update_unsuccessful_error: Atsiprašome, įvyko klaida, partnerio
+    duomenys nebuvo atnaujinti.
+  content_partner_vetted_false: Neperžiūrėtas
+  content_partner_vetted_true: Patikrintas
+  content_partners_link: Turinio Partneriai
+  content_partners_empty: Nerasta jokių turinio partnerių.
+  content_partners_page_title: Turinio Partneriai
+  content_partners_page_description: Encyclopedia of Life turinio partneriai turi
+    didžiulius kiekius informacijos apie biologinę įvairovę savo puslapiuose ir duomenų
+    bazėse, jie šia informacija taip pat dalinasi EOL puslapiuose. Mes labai vertiname
+    jų įnašą į EOL misiją ir skatiname jus sužinoti daugiau apie juos. Sužinokite
+    daugiau apie <a href="%{more_url}">tapimą turinio partneriu.</a>
+  content_partners_with_count:
+    one: '%{count} turinio partneris'
+    other: '%{count} turinio partneriai'
+  content_server_full_url: Pilnas Turinio Serverio URL
+  content_servers: Turinio Serveriai
+  content_setting_colon: 'Turinio Nustatymas:'
+  content_summary_table_type_status_column_header: Turinio tipas ir būsena
   content_summary_table_count_column_header: Skaičiuoti
+  content_summary_table_type_descendants_row: Palikuonių skaičius
+  content_summary_table_type_trusted_images_row: Patikimų paveikslėlių skaičius
+  content_summary_table_type_unreviewed_images_row: Nepržiūrėtų paveikslėlių skaičius
+  content_summary_table_type_trusted_text_row: Patikimų tekstų skaičius
+  content_summary_table_type_unreviewed_text_row: Neperžiūrėtų tekstų skaičius
+  content_type: Turinio Tipas
+  contribute: Prisidėti
+  copied_all_items_from_collection_with_count:
+    one: Nukopijavo vieną objektą iš %{from} į šią kolekciją.
+    other: Nukopijavo visus %{count} objektus iš %{from} į šią kolekciją.
+  copied_all_items_to_collections:
+    one: Nukopijavo visus objektus iš %{name} į %{count} kolekciją.
+    other: Nukopijavo visus objektus iš %{name} į %{count} kolekcijas.
+  copied_items_from_collection_with_count_notice:
+    one: Nukopijavo %{count} objektą iš %{name}.
+    other: Nukopijavo %{count} objektus iš %{name}.
   copy: Kopijuoti
+  copy_of_name: '%{name} Kopija'
+  copy_items_to_a_new_collection_with_count:
+    one: Kopijuoti %{count} objektą į naują kolekciją
+    other: Kopijuoti %{count} objektus į naują kolekciją
   copyright: 'AUTORINĖS TEISĖS:'
+  correct_donation_message_with_link: Jei ši informacija nėra teisinga, prašome <a
+    href='%{link}'>grįžti</a> ir atlikti pakeitimus.
+  could_not_find_collection_error: Atsiprašome, ši kolekcija nebuvo rasta.
+  could_not_find_user: Jūs neesate šios bendruomenės narys.
   count: Skaičiuoti
+  count_results_for_search_term:
+    one: '%{count} <em>%{search_term}</em> rezultatas'
+    other: '%{count} <em>%{search_term}</em> rezultatai'
+  count_results_for_traitbank:
+    one: '%{count} TraitBank rezultatas'
+    other: '%{count} TraitBank rezultatai'
   create_account: Sukurti sąskaitą
+  create_a_new_collection: Sukurti naują kolekciją
+  create_community_unsuccessful_error: Atsiprašome, įvyko klaida, jūsų bendruomenė
+    nebuvo sukurta. Prašome įsitikinti, kad visi laukai yra užpildyti teisingai.
   create_community: Sukurti bendruomenę
+  create_community_about_heading: Apie bendruomenės sukūrimą
+  create_community_about_text: Jūs sukursite bendruomenę skirtą „%{collection_name}“
+    turiniui. Visi vartotojai galės prisijungti prie jūsų bendruomenės, bet tik tie
+    nariai, kuriems patikėsite „valdytojo“ statusą galės redaguoti pačią bendruomenę
+    ar su jūsų bendruomenę susijusią kolekciją.
+  create_community_around_this_collection_header: Sukurkite bendruomenę skirta šiai
+    kolekcijai
   create_a_community: Sukurti bendruomenę
+  create_a_community_login_advisory: Jūsų bus paprašyta prisijungti prieš sukuriant
+    bendruomenę
   create_a_collection: Sukurti kolekciją
   create_collection_button: Sukurti kolekciją
+  create_child_page: Sukurti antraeilį puslapį
   create_community_button: Sukurti bendruomenę
+  create_user_unsuccessful_error: Atsiprašome, įvyko klaida, jūsų nauja paskyra nebuvo
+    sukurta. Prašome įsitikinti, kad visi laukai yra užpildyti teisingai.
   created_at: Sukurta
   created_by: Sukūrė
   created_colon: 'Sukurta:'
+  created_community: Bendruomenė buvo sėkmingai sukurta.
+  created: Sukurta
   creative_commons: Creative Commons
+  credentials: Kvalifikacija
+  credentials_colon: 'Kvalifikacija:'
+  crop_image: apkirpti paveikslėlį
+  crop_image_thumbnails: Apkirpti paveikslėlio miniatiūras
+  curated: Kuruojamas
   curated_association_update_button: Išsaugoti pakeitimus
+  curated_objects_of: '%{name} kuruojami objektai'
+  curated_species_of: '%{name} kuruojamos rūšys'
+  curation_comment: Kuravimo Komentaras
+  curation_error_no_hide_reasons_given: Prašome pasirinkti priežastį, kodėl slepiate
+    tai %{association} puslapyje, arba palikite komentarą paaiškinanti kodėl tai slepiate
+  curation_error_no_untrust_reasons_given: Prašome pasirinkti priežastį kodėl tuo
+    nepasitikite %{association} puslapyje, arba palikite komentaro paaiškinanti kodėl
+    nepasitikite tuo
+  curation_error_vetted_invalid: Negalite kuruoti %{association} '%{vetted}'
+  curation_error_visibility_invalid: Negalite kuruoti %{association} '%{visibility}'
+  curation_error_untrust_reasons_invalid: '%{association} nepasitikėjimo priežastis
+    negalima'
+  curation_error_hide_reasons_invalid: '%{association} slėpimo priežastis negalima'
+  curation_error_object_in_preview_state_cannot_be_curated: Šis objektas yra peržiūrimas
+    importavimui ir negali būti kuruojamas
+  curation_privileges_page_description: Pasirinkite norimą kuravimo lygį, asistentas,
+    kuratorius ar meistras kuratorius. Kuratoriaus ir meistro kuratoriaus paraiškos
+    turi būti su sritimi ir kvalifikacija, jūs busite informuotas el. paštu kai jūsų
+    informacija bus peržiūrėta ir patvirtinta. Asistento kuratoriaus paraiškos nėra
+    peržiūrimos ir bus patvirtintos iškarto. Sužinokite daugiau apie <a href="%{curators_url}">tapimą
+    kuratoriumi</a>.
   curation_privileges_page_title: Tapti kuratoriumi
+  curation_scope: Kuravimo Sritis
+  curation_reason_placeholder: papildoma informacija (neprivaloma)
   curator: kuratorius
   curator_question: Kuratorius?
+  curator_level_application_pending_notice: Ačiū, kad norite tapti kuratoriumi. Mes
+    jus informuosime el. paštu kai peržiūrėsime jūsų paraišką.
+  curator_level_assistant_approved_notice: Sveikiname! Dabar jūs esate <em>kuratorius
+    asistentas</em>. <a href="%{more_url}">Sužinokite daugiau apie kuratoriaus asistento
+    vaidmenį</a>.
+  curator_level_assistant_curator: Asistentas Kuratorius
+  curator_level_full_curator: Kuratorius
+  curator_level_full_pending_notice: Ačiū, kad norite tapti <em>kuratoriumi</em>.
+    Mes jus informuosime el. paštu kai peržiūrėsime jūsų paraišką.
+  curator_level_master_curator: Meistras Kuratorius
+  curator_level_master_pending_notice: Ačiū, kad norite tapti <em>meistru kuratoriumi</em>.
+    Mes jus informuosime el. paštu kai peržiūrėsime jūsų paraišką.
   curator_profile: kuratorio profilis
   curator_profile_menu: Kuratorio Profilis
+  curator_profile_of: '%{name} kuratoriaus profilis'
+  curator_scope_colon: 'Kuravimo sritis:'
+  curator_signup_message: Kas galėtumėte prašyti kuratoriaus privilegijų turite nurodyti
+    kvalifikacijos sritį žemiau. Jūs būsite informuotas el. paštu jei jūsų paraiška
+    kuratoriaus privilegijoms bus patvirtinta.
+  curator_status_changed_by: '%{user} pakeitė kuratoriaus būseną %{date}'
   curators: Kuratoriai
+  curators_empty: Mūsų kuratoriai neatliko jokių veiksmų šiame puslapyje.
+  curators_summary_header_with_count:
+    one: Peržiūrėta %{count} kuratoriaus
+    other: Peržiūrėta %{count} kuratorių
+  curators_summary_learn_more_link: Sužinokite kaip kuruoti
+  curators_with_count:
+    one: '%{count} Kuratorius'
+    other: '%{count} Kuratoriai'
   your_current_rating_0_of_5: 'Jūsų dabartinis reitingas: 0 iš 5'
   your_current_rating_1_of_5: 'Jūsų dabartinis reitingas: 1 iš 5'
   your_current_rating_2_of_5: 'Jūsų dabartinis reitingas: 2 iš 5'
   your_current_rating_3_of_5: 'Jūsų dabartinis reitingas: 3 iš 5'
   your_current_rating_4_of_5: 'Jūsų dabartinis reitingas: 4 iš 5'
   your_current_rating_5_of_5: 'Jūsų dabartinis reitingas: 5 iš 5'
+  your_watch_collection: jūsų stebimųjų sąrašas
+  current_language: 'Kalba: %{iso_code}'
+  currently_in_eol: Dabar Encyclopedia of Life
+  create_download_data_file: Sukurti Failą
+  institutional_sponsors: Instituciniai Rėmėjai
+  currently_published: šiuo metu publikuotas
+  daily: Kasdien
+  dashboard: Prietaisų Skydelis
+  data: Duomenys
+  data_about_subtab_header: Apie EOL Duomenis
+  data_results_only_for_search: TraitBank „%{search_term}“ rezultatai
+  data_about_this_record: Duomenys apie šį įrašą
+  data_column_tc_id: EOL puslapio ID
+  data_column_sci_name: Mokslinis Pavadinimas
+  data_column_common_name: Bendrinis Pavadinimas
+  data_column_classification_summary: Klasifikacijos Santrauka
+  data_column_measurement: Matavimas
+  data_column_value: Reikšmė
+  data_column_measurement_uri: Matavimo URI
+  data_column_value_uri: Reikšmės URI
+  data_column_resource: Turinio Partnerio Ištekliaus URL
+  data_column_name: Matavimo Etiketė
+  data_column_name_uri: Matavimo URI
+  data_column_val: Reikšmė (normalizuota)
+  data_column_raw_value: Gryna Reikšmė (tiesiai iš šaltinio)
+  data_column_val_uri: Reikšmės URI
+  data_column_units: Vienetai (normalizuoti)
+  data_column_units_uri: Vienetų URI (normalizuota)
+  data_column_raw_units: Gryni Vienetai (tiesiai iš šaltinio)
+  data_column_raw_units_uri: Grynų Vienetų URI (tiesiai iš šaltinio)
+  data_column_source: Tiekėjas
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> surenka duomenis
+    iš įvairių tiekėjų. Pasirinkite eilutę, kad sužinotumėte daugiau apie įrašą arba
+    <a href="%{traitbank_search_path}">ieškokite TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    surenka duomenis iš įvairių tiekėjų. Pasirinkite eilutę, kad sužinotumėte daugiau
+    apie įrašą arba <a href="%{traitbank_search_path}">ieškokite %{taxon_name}</a>.
   data_database_colon: 'Data:'
+  data_glossary: Duomenų Glosarijus
+  data_glossary_contribute: Norėdami pridėti naujų terminų į glosarijų, <a href=%{url}>apsvarstykite
+    duomenų įkėlimą</a>.
+  data_link_to_record: Nuorodą į šį įrašą
+  data_logging_active: Duomenų Registravimas Aktyvus
+  data_master_database_colon: 'Duomenų Meistras:'
+  data_metadata_subtable_summary: Papildomi duomenys apie šį faktą.
+  data_measurement_subtable_summary: Papildomi duomenys apie šio fakto matavimus.
+  data_object: Duomenų Objektas
+  data_object_deleted: Duomenų Objektas buvo sėkmingai ištrintas
+  data_object_reference: Duomenų objekto nuoroda
+  data_object_ignore: ignoruoti šį objektą
+  data_object_undo_ignore: pašalinti iš ignoruojamų sąrašo
+  data_object_toc_items_list:
+    one: Randamas po %{quoted_toc_titles}
+    other: Randami po %{quoted_toc_titles}
+  data_overview_table_caption: Bruožo duomenys
+  data_point_uri_source_missing: trūksta šaltinio
+  data_point_uri_summary_name: duomenys apie %{taxon}
+  data_provided_by_user: pateikta %{whom}
+  data_provided_by_content_partner: 'Tiekėjas: %{whom}'
+  data_ranges: Duomenų suvestines
+  data_reference_subtable_summary: Papildomos nuorodas apie šį faktą.
+  data_row_exemplar_added: Pridėta į Peržiūrą.
+  data_row_exemplar_removed: Pašalinta iš Peržiūros.
+  data_row_excluded_from_overview_notice: 'Pastaba: ši eilute buvo išimta iš Peržiūros.'
+  data_row_add_exemplar_button: pridėti į Peržiūrą
+  data_row_remove_exemplar_button: pašalinti iš Peržiūros
+  data_row_additional_detail_assistive: Įkelti metaduomenis apie šį faktą.
+  data_row_additional_detail_assistive_js: Perjungti tarp šio fakto metaduomenš rodymo
+    ir slėpimo.
+  data_row_additional_detail_alt: Papildoma informacija
+  data_row_additional_detail_show_alt: Rodyti papildomą informaciją
+  data_row_additional_detail_hide_alt: Slėpti papildomą informaciją
+  data_row_additional_detail_loading_alt: Papildoma informacija įkeliama
+  data_row_hide_button: Slėpti Eilutę
+  data_row_unhide_button: Nebeslėpti Eilutės
+  data_search:
+    page_title: Ieškoti TraitBank
+    form:
+      equivalent_attributes: 'Lygiavertės reikšmės:'
+      equivalent_values: 'Lygiavertės reikšmės:'
+      search_again_for_attributes: ieškokite dar kartą, kad įtrauktumėte pasirinktus
+        atributus
+      search_again_for_values: ieškokite dar kartą, kad įtrauktumėte pasirinktas reikšmes
+      header_assistive: Paieškos forma
+      input_summary_intro: Pasirinkti paieškos nustatymai
+      new_search_link: Pradėti naują paiešką
+      or_range_header: Arba <span class="assistive">įveskite diapazoną</span>
+      refine_search_header: Patikslinti paiešką (nebūtina)
+      search_suggestions_header: Nežinote kur pradėti?
+      search_suggestions_subheader_colon: 'Pabandykite vieną iš šių duomenų paieškų:'
+      search_suggestion_whale_mass: Kurie banginiai sveria daugiau nei 10000 kg?
+      search_suggestion_diatom_shape: Kokios yra titnagdumbliai formos?
+      search_suggestion_cavity_nests: Kokios rūšys stato ertminius lizdus?
+      search_suggestion_blue_flowers: Kurie augalai turi mėlynus žiedus?
+      search_tools_show_link: Rodyti paieškos nustatymus
+      search_tools_hide_link: Slėpti paieškos nustatymus
+      search_value_or_range_header: Ieškoti konkrečios reikšmės ar intervalo
+      search_within_taxon_group_header: Ieškoti taksono grupėje
+      sort_header: Rūšiuoti rezultatus
+    notice:
+      clade_too_big: Atsiprašome, rodomi rezultatai nėra filtruoti %{taxon_name},
+        nes jų per daug. Pasirinkite mažesnę grupę arba <a href="%{contactus_tech_path}">susiekite
+        su mumis</a> dėl pagalbos.
+      clade_has_no_data: Niekas dar neįkėlė %{taxon_name} duomenų įrašų. <a href="%{contribute_path}">Sužinokite
+        kaip galite prisidėti</a>.
+  data_search_link: Ieškoti mokslinių duomenų EOL
+  data_search_explanation: Naudokitės EOL duomenų paieška, kad rastumėte objektus
+    atitinkančius '%{term}' stebėjimuose,<br />matavimuose ir kituose mokslo pareiškimuose.
+  data_search_attribute: Ieškoti TraitBank įrašų su %{attribute} duomenimis
+  data_search_destroyed: Šis darbas nebebus apdorojamas.
+  data_search_files_with_count:
+    one: '%{count} duomenų atsiuntimas'
+    other: '%{count} duomenų atsiuntimai'
+  data_search_row_hidden: Kuratorius paslėpė šią duomenų eilutę.
+  data_server_unavailable: EOL duomenys šiuo metu nepasiekiami. Prašome patikrinti
+    vėliau. Atsiprašome už nepatogumus.
+  data_show_n_more_rows: Rodyti dar NNN...
+  data_subtab_about: Apie
+  data_subtab_glossary: Glosarijus skirtas %{taxon}
+  data_summary_header_with_count:
+    zero: EOL neturi bruožų duomenų
+    one: EOL turi duomenų apie 1 bruožą
+    other: EOL turi duomenų apie %{count} bruožus
+  data_summary_ranges_header_with_count: EOL turi santraukos duomenis
+  data_tab_curator_exemplar: Ši eilutė buvo pridėta į Apžvalgos skirtuką.
+  data_tab_curator_excluded: Ši eilutė buvo pašalinta iš Apžvalgos skirtuko.
+  data_tab_curator_key_exemplar: '%{image} pridėta į <a href=''%{link}''>Apžvalgą</a>'
+  data_tab_curator_key_excluded: '%{image} pašalinta iš <a href=''%{link}''>Apžvalgos</a>'
+  data_table_summary: 'Bruožų informacija skirta %{taxon}. Kiekviena duomenų eilutė
+    yra atskiras faktas, pateiktas turinio partnerio arba vartotojo. Kiekviena reikšmė
+    gali turėti suskleistą lentelę, kuri apibūdina fakto metaduomenis: kur duomenys
+    buvo surinkti, kam priklauso duomenų autorinės teisės ir panašiai. Paspauskite
+    ant eilutės, kad mataduomenys būtų rodomi. Paspauskite dar kartą, kad paslėptumėte.
+    Rodant metaduomenis taip pat rodomos ir anotacijos, kurios leidžia vartotojams
+    pridėti ir savo anotacijas. Kuratoriai turi papildomų funkcijų, kai yra rodomi
+    metaduomenys.'
+  data_usage_reports: Duomenų Naudojimo Ataskaitos
   date_caps: Data
   date_uploaded: Įkėlimo data
   dato_create_cancel: Atšaukti
   dato_edit_cancel: Atšaukti
+  dato_create_user_link_error: Atsiprašome, įvyko klaida, nuoroda negali būti pridėta.
   dato_create_user_text_error: Atsiprašome, įvyko klaida, straipsnis nebuvo pridėtas.
+  dato_location_created: 'Vieta Sukurta: %{loc}'
   dato_new_edit_user_text_fieldset_content_header: Straipsnio turinys
+  dato_new_edit_user_text_link_fieldset_content_header: Nuorodos duomenys
   dato_new_edit_user_text_fieldset_information_header: Straipsnio informacija
+  dato_new_edit_user_text_link_form_tip: Jūsų nuoroda bus paskelbta taksono puslapyje.
+    Jei neesate kuratorius, ji bus pažymėta kaip „neperžiūrėta“ kol kuratorius ją
+    peržiūrės. Kategorija, aprašymas ir URL yra privalomi (%{required_icon}), visi
+    kiti laukai yra neprivalomi. Reikiant daugiau pagalbos skaitykite <a href="%{add_article_help_url}">straipsnio/nuorodos
+    pridėjimo pagalba</a>.
+  dato_new_edit_user_text_form_tip: Jūsų baigtas straipsnis bus paskelbtas taksono
+    puslapyje. Jei neesate kuratorius, tekstas bus pažymėtas kaip „neperžiūrėtas“,
+    kol kuratorius jį peržiūrės. Poskyris, tekstas, kalba ir licencija yra privalomi
+    (%{required_icon}), visi kiti laukas yra neprivalomi. Jei pasirinksite CC BY (Paskyrimas)
+    licenciją prašome nurodyti teisių savininką arba palikite tuščią jei norite, kad
+    būtų naudojamas jūsų pilnas vardas. Viešo Domeno licencijoms teisių savininko
+    nereikia. Jei reikia daugiau pagalbos skaitykite <a href="%{add_article_help_url}">straipsnio
+    pridėjimo pagalba</a>.
+  dato_create_user_text_validation_error: Prašome įsitikinti ar užpildėte formą teisingai.
+  dato_update_users_text_not_owner_exception: Tik pirminis šio teksto objekto autorius
+    gali jį redaguoti.
+  dato_edit_link_button: Redaguoti šią nuorodą
+  dato_edit_link_description: Ačiū, kad pasidalinote savo žiniomis EOL. Peržiūrėta
+    nuoroda bus pridėta į jūsų stebimųjų sąrašą, kad galėtumėte sekti diskusijas susijusias
+    su ja, ir kad galėtumėte patikrinti jos kuravimo būseną.
   dato_edit_text_title: Redaguoti straipsnį
   dato_update_user_text_error: Atsiprašome, įvyko klaida, straipsnis nebuvo atnaujintas.
   development_version_name: EOL V2 Beta
@@ -3386,6 +4557,7 @@ lt:
   source_url: Šaltinio URL
   twitter: Twitter
   unknown: Nežinoma
+  use_as_examplar_button: naudoti kaip pavyzdį
   what_is_eol: Kas yra EOL?
   what_is_this_question: Kas tai?
   you_are_not_authorized_to_perform_this_action: Jums neleidžiama atlikti šį veiksmą.

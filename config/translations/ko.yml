@@ -933,8 +933,8 @@ ko:
     update_failed: 죄송합니다, 오류가 발생해 포럼을 업데이트할 수 없습니다
     delete_successful: 포럼을 성공적으로 삭제했습니다
     delete_failed_not_empty: 포럼이 비어있지 않으므로 포럼을 삭제할 수 없습니다
-    move_successful: 포럼을 성공적으로 옮겼습니다
-    move_failed: 포럼을 옮길 수 없습니다
+    move_successful: 포럼을 성공적으로 이동했습니다
+    move_failed: 포럼을 이동할 수 없습니다
     edit: 포럼 편집
     post_by_user_at_time: '%{user}, %{time}'
     actions: 동작
@@ -954,8 +954,8 @@ ko:
       update_failed: 죄송합니다, 오류가 발생해 분류를 업데이트할 수 없습니다
       delete_successful: 분류를 성공적으로 삭제했습니다
       delete_failed_not_empty: 분류가 비어있지 않으므로 분류를 삭제할 수 없습니다
-      move_successful: 분류를 성공적으로 옮겼습니다
-      move_failed: 분류를 옮길 수 없습니다
+      move_successful: 분류를 성공적으로 이동했습니다
+      move_failed: 분류를 이동할 수 없습니다
     posts:
       joined_date: '%{date}에 가입함'
       create: 새 게시물 만들기
@@ -2769,29 +2769,29 @@ ko:
           user_merged_to_taxon: <strong>%{user}</strong>님이 %{target} 문서에 다른 문서를 병합했습니다.
         move:
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: 알 수 없는
-            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_taxon: 알 수 없는 사용자가 %{taxon}
-            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_taxon: 알 수 없는 사용자가 %{target}
-            문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong>님이
-            %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+            %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 이동했습니다.
           user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong>님이
-            %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+            %{target} 문서로 %{classifications} 분류를 이동했습니다.
       split:
         an_unknown_user_split_unknown_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수
           없는 분류에 알 수 없는 분류를 나눴습니다.
@@ -2815,25 +2815,25 @@ ko:
           분류를 나눴습니다.
       merge:
         an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수
-          없는 분류에 알 수 없는 분류를 옮겼습니다.
+          없는 분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_unknown_entry_to_it: 알 수 없는 사용자가 알 수 없는 분류를 추가했습니다.
         an_unknown_user_merged_unknown_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에
-          알 수 없는 분류를 옮겼습니다.
+          알 수 없는 분류를 이동했습니다.
         user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이
-          알 수 없는 분류에 알 수 없는 분류를 옮겼습니다.
+          알 수 없는 분류에 알 수 없는 분류를 이동했습니다.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong>님이 알 수 없는 분류를 추가했습니다.
         user_merged_unknown_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}"
-          분류에 알 수 없는 분류를 옮겼습니다.
+          분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
         an_unknown_user_merged_entry_to_it: 알 수 없는 사용자가 "%{provider}"의 분류를 추가했습니다.
         an_unknown_user_merged_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
         user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이 알 수 없는 분류에
-          "%{provider}"의 분류를 옮겼습니다.
+          "%{provider}"의 분류를 이동했습니다.
         user_merged_entry_to_it: <strong>%{user}</strong>님이 "%{provider}"의 분류를 추가했습니다.
         user_merged_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
       unlock:
         merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
         merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
@@ -3258,7 +3258,7 @@ ko:
   classifications_rank_column_header: 순위
   classifications_split_column_header: 나누기 / 이동
   classifications_split_one_classification_only: 분할하려면 분류 하나만 선택하세요. 분할하려는 분류를 만들고
-    나서 다른 분류는 새 문서로 옮길 수 있습니다
+    나서 다른 분류는 새 문서로 이동할 수 있습니다
   classifications_summary_header_with_count:
     one: 분류 %{count}개 찾음
     zero: 분류가 EOL에 정상적으로 보이지 않음
@@ -3302,21 +3302,21 @@ ko:
     one: 항목 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
     other: 항목 총 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
   collection_move_complete_with_count:
-    one: 항목 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
-    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
+    one: 항목 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
+    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
   collection_remove_complete_with_count:
     one: 항목 %{count}개를 %{from}에서 제거했습니다.
     other: 항목 %{count}개를 %{from}에서 제거했습니다.
   collection_copy_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
     복사:'
   collection_move_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
-    옮기기:'
+    이동:'
   collection_copy_choose_target_title_with_count:
     one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
     other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
   collection_move_choose_target_title_with_count:
-    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
-    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
+    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
+    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
@@ -4296,7 +4296,7 @@ ko:
   maintained_by: 유지 관리자
   major_heading: 주요 제목
   make_an_editor: 관리자 되기
-  make_user_an_editor_title: '%{user} 사용자가 다음 모음집을 관리하도록 허용'
+  make_user_an_editor_title: '%{user}님이 다음 모음집을 관리하도록 허용'
   manage_your_profile: 내 프로필 관리
   managed_by: 관리자
   managed_collections_with_count:
@@ -4351,23 +4351,23 @@ ko:
     one: 형제 자매 %{count}개 더 있음...
     other: 형제 자매 %{count}개 더 있음...
   most_active_members: 가장 많이 활발한 구성원
-  move: 옮기기
-  move_down: 아래로 옮기기
+  move: 이동
+  move_down: 아래로 이동
   move_items_to_a_new_collection_with_count:
     one: 새 모음집에 항목 %{count}개를 이동합니다
     other: 새 모음집에 항목 %{count}개를 이동합니다
   move_to_bottom: 맨 아래로 이동
   move_to_top: 맨 위로 이동
-  move_up: 위로 옮기기
+  move_up: 위로 이동
   moved_all_items_from_collection_with_count:
-    one: '%{from}에서 이 모음집으로 항목 %{count}개를 옮겼습니다.'
-    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 옮겼습니다.'
+    one: '%{from}에서 이 모음집으로 항목 %{count}개를 이동했습니다.'
+    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 이동했습니다.'
   moved_all_items_to_collections:
-    one: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
-    other: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
+    one: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
+    other: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
   moved_items_from_collection_with_count_notice:
-    one: '%{name}에서 항목 %{count}개를 옮겼습니다.'
-    other: '%{name}에서 항목 %{count}개를 옮겼습니다.'
+    one: '%{name}에서 항목 %{count}개를 이동했습니다.'
+    other: '%{name}에서 항목 %{count}개를 이동했습니다.'
   multimedia_links: 멀티미디어 링크
   must_be_associated_with_either_a_user_or_a_community: 사용자나 공동체 중 하나에 연결해야 합니다
   must_provide_search_term_error: 검색어를 입력해야 합니다.

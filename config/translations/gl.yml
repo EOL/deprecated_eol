@@ -5875,8 +5875,8 @@ gl:
   newsfeed_help_for_watchlist: A fonte de novas da lista de vixilancia da EOL recolle
     as actualizacións asociadas aos elementos presentes na lista de vixilancia do
     propietario, incluídas as actividades do devandito propietario.
-  newsletter_banner: Sexa parte da comunidade EOL&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>subscríbase
-    ó boletín de EOL</a>
+  newsletter_banner: Forma parte da comunidade da EOL. <a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>Subscríbete
+    ao boletín da EOL.</a>
   new_upload: Nova carga
   new_user: Novo usuario
   next: Seguinte
@@ -5890,6 +5890,7 @@ gl:
   no_comments_have_been_left_yet: Aínda non deixaron ningún comentario.
   no_errors_are_available: Non hai ningún erro dispoñible.
   no_harvesting_logs_for_this_da: Non hai ningún rexistro de colleita para esa data
+  no_harvesting_events_running_now: Non hai ningún evento de colleita nestes intres
   no_items_were_copied_to_collections_error: 'Non se copiou ningún elemento ás coleccións:
     %{names}.'
   no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
@@ -6136,6 +6137,8 @@ gl:
   preview_changes: Vista previa dos cambios
   preview_version_of_latest_published_data_object_title_link: Vista previa de %{link}
   preview: vista previa
+  previewing_unpublished_page: Esta páxina non está publicada. Tes acceso especial
+    para ollar unha vista previa; os outros usuarios non poden ver esta páxina.
   previously_published: publicado anteriormente
   proceed_to_checkout_page: Continuar ata a páxina do pagamento
   process_name: Nome do proceso
@@ -6260,6 +6263,9 @@ gl:
   return_references_for_the_page_taxon: devolver todas as referencias do taxon da
     páxina
   return_synonyms_for_the_page_taxon: devolver todos os sinónimos do taxon da páxina
+  return_any_taxonomy_details_from_different_hierarchy_providers: devolve calquera
+    detalle taxonómico desde distintos provedores de xerarquías de taxons, nunha táboa
+    chamada "taxonConcepts"
   returns_all_metadata_about_a_particular_collection: devolve todos os metadatos acerca
     dunha colección particular e os elementos que contén indexados pola EOL
   returns_all_metadata_about_a_particular_data_object: devolve todos os metadatos
@@ -6267,6 +6273,7 @@ gl:
   returns_either_a_positive_or_negative_response: devolve ou ben unha resposta positiva
     (indicando que as API están funcionais) ou ben unha resposta negativa ou ben nada
     (indicando que as API non están funcionais).
+  returns_either_a_batch_or_not: devolve ou non un lote
   revisions: Revisións
   rights: Dereitos
   rights_holder: Titular dos dereitos
@@ -6371,7 +6378,7 @@ gl:
     one: Ollar %{count} administrador
     other: Ollar os %{count} administradores
   see_in_data_glossary: explorar o glosario de datos completo
-  see_in_glossary_tab: ver na pestana do glosario
+  see_in_glossary_tab: ver na lapela do glosario
   see_notes: ollar as notas
   see_more_on_the_data_tab: ver máis na ficha de datos
   see_this_record_in_virtuoso: ver este rexistro en Virtuoso
@@ -6426,7 +6433,7 @@ gl:
   skip_to_navigation: Saltar ata a navegación
   skip_to_table_of_contents: Saltar ata a táboa de contidos
   social_sharing_reddit_button: enviar a reddit
-  social_sharing_header: EOL nos sitios de medios sociales
+  social_sharing_header: A EOL nos sitios de medios sociais
   social_sharing_twitter_tweet_button: Chiar
   social_sharing_twitter_follow_eol_button: Sigue a @eol
   some_required_fields_were_not_entered: Non completaches algúns campos obrigatorios
@@ -6512,7 +6519,7 @@ gl:
   suggested_attributes: 'Atributos suxeridos:'
   suggested_result_page_id: 'ID da páxina de resultados suxeridos:'
   suggested_results_avg: Media dos resultados suxeridos
-  suggested_vocab_add: termo recomendado
+  suggested_vocab_add: recomendar o termo
   suggested_vocab_remove: eliminar a recomendación
   summary_thumbnail_title: 'Resumo:'
   supplier: Provedor
@@ -6538,7 +6545,7 @@ gl:
   tasks_with_count:
     one: '%{count} tarefa atopada'
     other: '%{count} tarefas atopadas'
-  taxa_count: Número de taxóns
+  taxa_count: Número de taxons
   taxa_column_header: Taxons
   taxa_with_count:
     one: '%{count} taxon'
@@ -6663,6 +6670,8 @@ gl:
     obter información sobre o acceso a outras xerarquías que corresponden a unha páxina
     concreta da EOL. O campo "taxonConceptID" contén o identificador de páxina da
     EOL que se pode empregar na API das páxinas.
+  hierarchies_entries_descendants_description: Dado o identificador dunha entrada
+    de xerarquía, esta API devolve todos os descendentes desa entrada de xerarquía.
   hierarchies_description: A Enciclopedia da vida non ten unha única xerarquía taxonómica
     ao crear as páxinas. Máis ben, a EOL indexa moitas xerarquías e compáraas entre
     elas. Esta API lista os metadatos acerca dunha xerarquía, como o nome do provedor
@@ -6942,7 +6951,8 @@ gl:
   user_activity_stats_wikipedia_nominated:
     one: '%{count} artigo da Wikipedia candidato'
     other: '%{count} artigos da Wikipedia candidatos'
-  new_uri_warning: O termo que está a punto de engadir non é un termo EOL recomendado.
+  new_uri_warning: O termo que estás a piques de engadir non é un termo recomendado
+    pola EOL.
   user_agent: Axente de usuario
   user_already_active_notice: A túa conta xa está activa. Inicia sesión.
   user_comments: Comentarios do usuario
@@ -6959,6 +6969,7 @@ gl:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> comentou sobre os datos
     que foron eliminados.
+  user_count_reindexed: Reindexáronse os contadores dos usuarios
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: ID do usuario
   user_index_intro: A continuación, móstranse todos os usuarios da web rexistrados
@@ -7007,6 +7018,7 @@ gl:
     one: '%{count} socio de contidos actual'
     other: '%{count} socios de contidos actuais'
   users_curation_header: Habilidades do conservador
+  user_counts_refresh_daily: '*os contadores actualízanse a diario'
   users_form_account_header: A túa conta
   users_form_curation_header: Habilidades do conservador
   users_form_profile_info_header: Información pública de perfil
@@ -7048,6 +7060,7 @@ gl:
   view_error_log: ollar o rexistro de erros
   view_full_size_image: Ollar a imaxe a tamaño completo
   view_harvesting_log: ollar o rexistro de colleita
+  view_current_harvesting: Ver a colleita actual
   view_article_source: Ollar a fonte do artigo
   view_image_source: Ollar a fonte da imaxe
   view_image_map_source: Ollar a fonte do mapa
@@ -7124,7 +7137,9 @@ gl:
     clasificou:'
   you_can_edit_those_later_if_ne: Podes editalos máis adiante, se fose necesario.
   you_can_identify_yourself_to_eol: 'Podes identificarte na EOL engadindo a túa clave
-    API nas túas solicitudes (accede ao sistema e xera a clave na túa páxina de preferencias):'
+    API nas túas solicitudes (accede ao sistema e xera a clave abrindo a edición do
+    teu perfil da EOL. A clave gardarase aquí; abre de novo a edición do teu perfil
+    para recuperala máis adiante):'
   you_have_been_logged_in_as_username: Accediches ao sistema como %{username}
   you_have_been_logged_out: Saíches ao anonimato.
   you_joined_community: Unícheste a esta comunidade sen problemas.

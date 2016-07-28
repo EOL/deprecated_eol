@@ -368,6 +368,7 @@ class Resource < ActiveRecord::Base
       Rails.logger.error("** Unable to delete from HarvestEvents where "\
         "resource_id = #{id} (#{e.message})")
     end
+    TraitBank.delete_resource(resource)
     Rails.logger.error("** Destroyed Resource #{id}")
   end
 

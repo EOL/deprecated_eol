@@ -4755,6 +4755,9 @@ tl:
     ng anyo) kung ang orihinal na imahe ay mas malaki kaysa sa 460 mga piksel ang
     lapat o 345 mga piksel ang taas.
   images: Mga larawan
+  images_with_count:
+    one: '%{count} larawan'
+    other: '%{count} mga larawan'
   images_in_red_are_not_trusted: Ang mga larawang mapula ay hindi pinagkakatiwalaan.
   images_in_yellow_are_not_reviewed: Ang mga larawang madilaw ay hindi pa nasusuring
     muli.

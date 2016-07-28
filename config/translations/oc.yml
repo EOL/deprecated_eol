@@ -5179,6 +5179,9 @@ oc:
   image_title_with_taxa: Imatge de %{taxa}
   image_title_without_taxa: Imatge d'un taxon desconegut
   images: Imatges
+  images_with_count:
+    one: '%{count} imatge'
+    other: '%{count} imatges'
   images_in_red_are_not_trusted: Los imatges en roge son pas fisables.
   images_in_yellow_are_not_reviewed: Los imatges en jaune son pas estats revistes.
   image_objects_page_number: pagina d’imatges

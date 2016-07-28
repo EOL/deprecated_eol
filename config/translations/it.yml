@@ -6231,6 +6231,8 @@ it:
   preview_version_of_latest_published_data_object_title_link: Versione di anteprima
     di %{link}
   preview: anteprima
+  previewing_unpublished_page: Questa pagina non è pubblicata. Tu hai un accesso speciale
+    per vederla in anteprima; altri utenti non possono vedere questa pagina.
   previously_published: pubblicato in precedenza
   proceed_to_checkout_page: Passa alla pagina di Checkout
   process_name: Nome del processo

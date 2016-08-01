@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Erdemaslancan
 # Author: Gorizon
+# Author: Kumkumuk
 # Author: Mirzali
 ---
 diq:
@@ -51,16 +52,31 @@ diq:
   translated_collection_types-label-collection_type_id-18: Halê mışewreyi
   translated_collection_types-label-collection_type_id-19: Zanışiya nameyi
   translated_collection_types-label-collection_type_id-1: Taxsonomi
+  translated_collection_types-label-collection_type_id-20: Molkekuler data
+  translated_collection_types-label-collection_type_id-21: Name kerdış
   translated_collection_types-label-collection_type_id-22: Vengi
   translated_collection_types-label-collection_type_id-23: Gırey
   translated_collection_types-label-collection_type_id-24: Literatur
+  translated_collection_types-label-collection_type_id-2: Molkekuler barkodi
   translated_collection_types-label-collection_type_id-3: Şınasnayış
   translated_collection_types-label-collection_type_id-4: Resımi
   translated_collection_types-label-collection_type_id-5: Vılakerdış
   translated_collection_types-label-collection_type_id-6: Halê mışewreyi
   translated_collection_types-label-collection_type_id-7: Zanışiya nami
+  translated_collection_types-label-collection_type_id-8: Molkekuler data
+  translated_collection_types-label-collection_type_id-9: Name kerdış
+  translated_contact_roles-label-contact_role_id-1: İrtibata sıfti
   translated_contact_roles-label-contact_role_id-2: İrtıbatê İdareyi
   translated_contact_roles-label-contact_role_id-3: İrtıbatê Tekniki
+  translated_contact_subjects-title-contact_subject_id-24: Ezayey u qeyd
+  translated_contact_subjects-title-contact_subject_id-25: Şertê karkerdışi u lisans
+    kerdış
+  translated_contact_subjects-title-contact_subject_id-26: Musayış u musnayış
+  translated_contact_subjects-title-contact_subject_id-27: Wertağê zerreki bê
+  translated_contact_subjects-title-contact_subject_id-28: Destega Wertağê zerreki
+  translated_contact_subjects-title-contact_subject_id-29: Destega kuratori
+  translated_contact_subjects-title-contact_subject_id-30: U tinar kerdıi bık (imla,  gramer,
+    resim,  malumat)
   translated_content_partner_statuses-label-content_partner_status_id-1: Vınderde
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arşivya
@@ -100,12 +116,32 @@ diq:
   translated_ranks-label-rank_id-118: cıns
   translated_ranks-label-rank_id-175: babetê infra
   translated_ranks-label-rank_id-183: alem
+  translated_ranks-label-rank_id-266: Taxım
+  translated_ranks-label-rank_id-280: Şube
+  translated_ranks-label-rank_id-313: sect
+  translated_ranks-label-rank_id-314: sect.
+  translated_ranks-label-rank_id-317: Lete
   translated_ranks-label-rank_id-324: rati
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
   translated_ranks-label-rank_id-335: babeti
   translated_ranks-label-rank_id-352: familyaya bıni
+  translated_ranks-label-rank_id-370: Bınşube
   translated_ranks-label-rank_id-375: leteyê bıni
   translated_ranks-label-rank_id-383: familyaya bıni
+  translated_ranks-label-rank_id-390: Bıncins
+  translated_ranks-label-rank_id-391: bıncins.
+  translated_ranks-label-rank_id-394: Bıncins
+  translated_ranks-label-rank_id-396: Bınalem
+  translated_ranks-label-rank_id-399: Bıntaxım
+  translated_ranks-label-rank_id-401: Bınşube
+  translated_ranks-label-rank_id-408: Bınlete
+  translated_ranks-label-rank_id-411: Bınseri
   translated_ranks-label-rank_id-494: eşire
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varietay
+  translated_ranks-label-rank_id-518: variety
   translated_ranks-label-rank_id-51: Sınıfe
   translated_ranks-label-rank_id-74: mıntıqe
   translated_ranks-label-rank_id-85: k

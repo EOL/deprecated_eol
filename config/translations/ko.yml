@@ -1326,8 +1326,7 @@ ko:
       %{activity_name} 행동을 수행했습니다.
     collection_activity_user_added_item: '<b>%{user_name}</b>님이 <b>%{collection_name}</b>
       모음집에 %{collected_item_type} #%{collected_item_id} 항목을 추가했습니다.'
-    collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고
-      있습니다.
+    collection_activity_user_watching_recipient: <b>%{user_name}</b>님은 당신을 주시하고 있습니다.
     community_activity_by_user: <b>%{user_name}</b>님이 <b>%{community_name}</b> 공동체에
       %{activity_name} 행동을 수행했습니다.
     community_activity_user_joined: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
@@ -1751,7 +1750,7 @@ ko:
         tweet_text: '%{user_full_name} 콘텐츠 파트너'
     data_downloads:
       index:
-        meta_description: '%{user_full_name} 사용자가 요청한 데이터 내려받기'
+        meta_description: '%{user_full_name}님이 요청한 데이터를 다운로드합니다.'
         meta_title: '%{user_full_name} 데이터 내려받기'
         tweet_text: '%{user_full_name} 데이터 내려받기'
       header_with_count:
@@ -1811,7 +1810,7 @@ ko:
     notifications:
       edit:
         page_description: (EOL 뉴스레터를 제외하고) 아래에 나타난 모든 업데이트는 내 <a href="%{user_newsfeed_link}">EOL
-          뉴스피드</a>에서 사용할 수 있지만, 많은 사용자가 특히 관심 있은 활동의 특정 종류에 대해 이메일로 알리고 싶을 수 있습니다.
+          뉴스피드</a>에서 사용할 수 있지만, 많은 사람들이 특히 관심 있은 활동의 특정 종류에 대해 이메일로 알리고 싶을 수 있습니다.
           사용자 환경 설정에 맞게 빈도를 설정하려면 아래 버튼을 사용할 수 있습니다
         page_title: 알림 설정
       update:
@@ -2843,9 +2842,9 @@ ko:
         move_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다.'
         split_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 나누기를 완료했지만 문서를 찾을 수 없습니다.
         split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로
-          옮겼습니다.
+          이동했습니다; 문서는 이제 다시 색인되고 있으며 완료하는데 25시간이 필요합니다.
         split_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 나누기를 완료했고 분류를 <a href=''%{to}''>자신의
-          문서</a>로 옮겼습니다.'
+          문서</a>로 이동했습니다; 문서는 이제 다시 색인되고 있으며 완료하는데 25시간이 필요합니다.'
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: '최근에 요청한 문서 병합을 <strong>실패했습니다</strong>:
           %{error} 또한 영향을 받은 문서를 찾을 수 없습니다.'
@@ -3183,7 +3182,7 @@ ko:
   belongs_in_count_communities:
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
-  beta_warning_header: 사용자는 베타 테스트 기능을 사용하고 있습니다
+  beta_warning_header: 당신은 베타 테스트 기능을 사용하고 있습니다
   beta_warning_note_header: '참고:'
   bhl: 생물 다양성 유산 도서관
   bhl_partner_footer: 생물 다양성 유산 도서관 방문하기
@@ -3825,7 +3824,7 @@ ko:
   development_version_name: EOL V2 베타
   default: 기본값
   default_focus_collection_name_from_community: '%{name}의 집중'
-  default_watch_collection_name: '%{username} 사용자의 주시문서 목록'
+  default_watch_collection_name: '%{username}님의 주시문서 목록'
   delete_community: 이 공동체 삭제
   delete_data_object: 삭제
   delete: 삭제
@@ -5144,7 +5143,7 @@ ko:
     이전 판에댓글을 남겼습니다:'
   user_commented_on_themself: '<strong>%{user_with_link}</strong>님이 <a href=''%{link}''>%{username}의
     뉴스 피드</a>에 댓글을 남겼습니다:'
-  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong>님이 제거한 사용자의 문서에
+  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong>님이 제거된 사용자의 문서에
     댓글을 남겼습니다:'
   user_commented_on_your_image: |-
     <strong>%{user}</strong>님이 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 댓글을 남겼습니다:
@@ -5152,10 +5151,10 @@ ko:
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 사용자 ID
   user_joined_community_on_date: '%{username}님이 %{date}에 이 공동체에 가입했습니다.'
-  user_joined_when: '"%{user}" 사용자는 %{when}에 가입했습니다'
+  user_joined_when: '"%{user}"님은 %{when}에 가입했습니다'
   user_left_comment_on_date: '%{username}님이 %{date}에 댓글을 남겼습니다.'
   user_no_longer_active_message: 이 사용자는 더 이상 활동하지 않습니다
-  user_no_longer_has_manager_access_to_collection: '%{user} 사용자는 더 이상 "%{collection}"
+  user_no_longer_has_manager_access_to_collection: '%{user}님은 더 이상 "%{collection}"
     모음집으로 관리자 접근할 수 없습니다.'
   user_pending_notifications_assitive: <span class="assistive">알림</span>
   user_pending_notifications_with_count:
@@ -5171,8 +5170,8 @@ ko:
   user_pending_notifications_comments_with_count_assistive:
     one: <span class="assistive">댓글 </span>%{count}개
     other: <span class="assistive">댓글 </span>%{count}개
-  user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가했습니다.
-  username_taken: '%{name} 사용자는 이미 토큰이 있습니다'
+  user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가되었습니다.
+  username_taken: '%{name}님은 이미 가지고 있습니다'
   username_colon: '사용자 이름:'
   username: 사용자 이름
   user_response: 사용자 응답

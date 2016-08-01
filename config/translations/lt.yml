@@ -2855,7 +2855,7 @@ lt:
         user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> pažymėjo
           bendrinį pavadinimą „%{name}“ nežinomame puslapyje kaip patikimą.
         user_trusted_name_in_language_on_it: <strong>%{user}</strong> pažymėjo %{language}
-          bendrinį pavadinimą kaip patikimą.
+          bendrinį pavadinimą „%{name}“ kaip patikimą.
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: Nežinomas
           vartotojas pažymėjo nežinomą bendrinį pavadinimą nežinoma kalba nežinomame
@@ -3052,7 +3052,7 @@ lt:
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> pridėjo nežinomą
           klasifikaciją.
         user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> perkėlė nežinomą
-          klasifikaciją į nežinomą taksoną.
+          klasifikaciją į „%{taxon}“.
         an_unknown_user_merged_entry_to_an_unknown_taxon: Nežinomas vartotojas perkėlė
           „%{provider}“ klasifikaciją į nežinomą taksoną.
         an_unknown_user_merged_entry_to_it: Nežinomas vartotojas pridėjo „%{provider}“
@@ -3163,7 +3163,7 @@ lt:
     Šis parametras leidžia jums gauti daugiau rezultatų puslapių, jei yra daugiau
     nei 30 atitikmenų.
   activity_log_empty: Niekas dar nepateikė atnaujinimų.
-  activity_user_created_data: <strong>%{user}</strong> pridėjo duomenų apie „%{data_object}“
+  activity_user_created_data: <strong>%{user}</strong> pridėjo duomenų apie „%{object_name}“
     į „%{taxon_concept}“.
   activity_user_created_link: <strong>%{user}</strong> pridėjo %{object_name} nuorodą
     į „%{taxon_concept}“.
@@ -3410,6 +3410,7 @@ lt:
   and_between_form_items: ir
   any_integer: bet koks sveikasis skaičius
   any_string: bet kokia eilutė
+  api_cache_time_to_live_parameter: laikas sekundėmis, kiek norėtumėte išlaikyti atsakymą
   api_refer_to_the_getting_started_page: Žiūrėkite <a href="%{link}">Pradžios</a>
     puslapį, kur pateikiami EOL API naudojimo pavyzdžiai, naudojimo sąlygos ir informacija
     apie API raktą.
@@ -3962,6 +3963,10 @@ lt:
   content_partner_resource_hierarchy_not_browsable: Negalima naršyti
   content_partner_resource_hierarchy_request_publish: Laukiama atsakymo į prašymą
   content_partner_resource_hierarchy_unknown: Nežinomas
+  content_partner_resource_hierarchy_update_successful_notice: Hierarchija sėkmingai
+    atnaujinta.
+  content_partner_resource_hierarchy_update_unsuccessful_error: Atsiprašome, įvyko
+    klaida, hierarchija nebuvo atnaujintas.
   content_partner_resource_licensing_details_header: Teisės ir priskyrimas
   content_partner_resource_new_link: Pridėti naują resursą
   content_partner_resource_new_subheader: Pridėti naują resursą
@@ -3986,6 +3991,9 @@ lt:
     informacija nebuvo atnaujinta.
   content_partner_resource_upload_unsuccessful_error: 'Atsiprašome, įvyko klaida,
     resurso informacija buvo atnaujinta, bet pats resursas nebuvo įkeltas: %{resource_status}.'
+  content_partner_resource_url_or_dataset_not_both_error: Duomenų rinkinio URL arba
+    failas vienam resursai, o ne abu. Prašome apsispręsti ar norite pateikti URL ar
+    įkelti failą šiam apibūdintam resursui. Papildomi resursai gali būti pridėti vėliau.
   content_partner_resource_validation_unsuccessful_error: Atsiprašome, resurso informacija
     buvo atnaujinta, bet resurso nepavyko patvirtinti. Prašome peržiūrėti žemiau pateiktą
     apdorojimo informaciją.
@@ -3997,6 +4005,8 @@ lt:
   content_partner_resources_link: Ištekliai ir Kontaktai
   content_partner_resources_policy_information: Prieš pridedant savo duomenų išteklius
     prašome peržiūrėti ir sutikti su toliau esančiu turinio partnerio naudojimo susitarimu.
+  content_partner_statistics_column_header_statistic: Statistika surinkta %{month_name}
+    mėnesiui, %{year}
   content_partner_statistics_column_header_provider_count: Puslapiai su tiekėjo turiniu
   content_partner_statistics_column_header_total_count: Visi puslapiai
   content_partner_statistics_column_header_provider_proportion: Tiekėjo procentas
@@ -4037,6 +4047,8 @@ lt:
   content_server_full_url: Pilnas Turinio Serverio URL
   content_servers: Turinio Serveriai
   content_setting_colon: 'Turinio Nustatymas:'
+  content_summary_table_caption: Turinio susijusio su %{taxon_name} ir jo palikuoniais
+    %{hierarchy_label} santrauka
   content_summary_table_type_status_column_header: Turinio tipas ir būsena
   content_summary_table_count_column_header: Skaičiuoti
   content_summary_table_type_descendants_row: Palikuonių skaičius
@@ -4173,6 +4185,7 @@ lt:
   institutional_sponsors: Instituciniai Rėmėjai
   currently_published: šiuo metu publikuotas
   daily: Kasdien
+  darwin_core: Darwin Core
   dashboard: Prietaisų Skydelis
   data: Duomenys
   data_about_subtab_header: Apie EOL Duomenis
@@ -4214,6 +4227,8 @@ lt:
   data_measurement_subtable_summary: Papildomi duomenys apie šio fakto matavimus.
   data_object: Duomenų Objektas
   data_object_deleted: Duomenų Objektas buvo sėkmingai ištrintas
+  data_object_not_associated_with_any_hierarchies: Šis duomenų objektas nėra susijęs
+    su jokiomis hierarchijomis.
   data_object_reference: Duomenų objekto nuoroda
   data_object_ignore: ignoruoti šį objektą
   data_object_undo_ignore: pašalinti iš ignoruojamų sąrašo
@@ -4226,6 +4241,7 @@ lt:
   data_provided_by_user: pateikta %{whom}
   data_provided_by_content_partner: 'Tiekėjas: %{whom}'
   data_ranges: Duomenų suvestines
+  data_ranges_subheader: Duomenų suvestinės šiai Taksonominei Grupei
   data_reference_subtable_summary: Papildomos nuorodas apie šį faktą.
   data_row_exemplar_added: Pridėta į Peržiūrą.
   data_row_exemplar_removed: Pašalinta iš Peržiūros.
@@ -4333,124 +4349,568 @@ lt:
   dato_edit_link_description: Ačiū, kad pasidalinote savo žiniomis EOL. Peržiūrėta
     nuoroda bus pridėta į jūsų stebimųjų sąrašą, kad galėtumėte sekti diskusijas susijusias
     su ja, ir kad galėtumėte patikrinti jos kuravimo būseną.
+  dato_edit_text_button: Redaguoti šį straipsnį
+  dato_edit_text_page_description: Ačiū, kad pasidalinote savo žiniomis EOL. Peržiūrėtas
+    straipsnis bus pridėtas į jūsų stebimųjų sąrašą, kad galėtumėte sekti diskusijas
+    susijusias su juo, ir kad galėtumėte patikrinti jo kuravimo būseną.
+  dato_edit_link_title: Redaguoti nuorodą
   dato_edit_text_title: Redaguoti straipsnį
+  dato_new_text_for_taxon_page_title: Pridėti straipsnį į <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Pridėti nuorodą į <i>%{taxon}</i>
+  dato_new_text_page_description: Ačiū už jūsų indelį EOL. Jūsų straipsnis bus pridėtas
+    į jūsų stebimųjų sąrašą, kad galėtumėte sekti diskusijas susijusias su juo, ir
+    kad galėtumėte patikrinti jo kuravimo būseną.
   dato_update_user_text_error: Atsiprašome, įvyko klaida, straipsnis nebuvo atnaujintas.
+  deactivate: Išjungti
   development_version_name: EOL V2 Beta
   default: Numatytasis
+  default_focus_collection_name_from_community: '%{name} Sritis'
+  default_rating: numatytasis reitingas
+  default_rating_value_of_total: 'Numatytasis reitingas: %{rating} iš %{total}'
+  default_watch_collection_name: '%{username} Stebimųjų Sąrašas'
   delete_community: Ištrinti šia bendruomenę
+  delete_data_object: Ištrinti
   delete: ištrinti
   deleted_colon: 'ištrinta:'
   delete_firstcap: Ištrinti
   description: Aprašymas
   description_of: Aprašymas
+  descriptive_label: Apibūdinanti Etiketė
   destination_inappropriate_for_logged_in_users: Jūs prisijungęs.
   destroy: Naikinti
   detail: Detalė
   details: Detalės
   details_title: Detalės
+  did_you_mean: 'Ar turėjote omenyje: %{suggestions} ?'
+  disabled_for_now: ŠIO METU IŠJUNGTA
+  discover_link: Išsilavinimas
+  donate_link: Aukoti
+  done_already: Jau padaryta
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Nerodyti nežinomų
+    registracijos datų (V1 vartotojai, visi prieš Sausio 5 d., 2009)
   do_you_want_to_be_a_curator: Ar norite būti kuratoriumi
+  download_wav_file: Atsisiųsti WAV failą
+  download_data: Atsisiųsti Duomenis
   download_collection_data: Atsisiųsti duomenis
+  duplicate_comment_warning: 'Komentaras nebuvo išsaugotas: atrodo jūs jau išsiuntėte
+    šį komentarą. ...Ar paspaudėte mygtuką „rašyti komentarą“ dukart?'
+  duplicate_text_warning: 'Tekstas nebuvo išsaugotas: atrodo jūs jau išsiuntėte šį
+    straipsnį. ...Ar paspaudėte mygtuką „pridėti straipsnį“ dukart?'
+  duplicate_items_were_ignored: Pasikartojantys objektai buvo ignoruoti.
+  each_method_documentation_page_has_formatted_responses: Kiekvieno metodo dokumentacijos
+    puslapis turi atsakymų pavyzdžius XML ir JSON formatais.
+  edit_comment: Redaguoti komentarą
+  edit_comment_lowercase: redaguoti komentarą
   edit_community: Redaguoti bendruomenę
-  edit: Redaguoti
+  edit_contact_us_topic: Redaguoti Susisiekimo Temą
+  edit_contact_us_topics: redaguoti susisiekimo temas
+  edit: redaguoti
   edited_colon: 'redaguota:'
+  edit_hierarchy: redaguoti hierarchiją
+  edit_collection_details: Redaguoti kolekcijos duomenis
+  edit_collection_details_header: Redaguoti kolekcijos duomenis
   edit_my_profile: Redaguoti mano profilį
+  edit_news_items: redaguoti naujienų objektą
   edit_page_contents: redaguoti puslapio tūrinį
+  edit_permission_header: 'Redaguoti Leidimus: %{permission}'
   edit_search_suggestion: Redaguoti Paieškos Pasiūlymus
   edit_search_suggestions: redaguoti paieškos pasiūlymus
+  edit_table_of_contents: redaguoti turinio lentelę
   edit_tag_suggestions: redaguoti žymių pasiūlymus
+  edit_the_topic_area_intro: Redaguokite temos sritį ir el. pašto adresą žemiau ir
+    pažymėkite aktyvavimo laukelį, kad susisiekimo puslapyje vartotojams tai būtų
+    rodoma.
+  edit_user_details_instructions: Redaguokite vartotojo duomenis žemiau. Galite nusiųsti
+    šiam vartotojui el. laišką iš sistemos paspausdami „rodyti el. laiško zoną“ žemiau
+    ir surinkdami el. laiško tekstą. Naują slaptažodį įveskite tik tada jei norite
+    jį pakeisti, priešingu atveju palikite tuščia.
+  edit_the_user_s_comment_below: Redaguoti vartotojo komentarą žemiau.
+  edit_upload: Redaguoti Įkėlimą
+  edit_username: Redaguoti %{username}
+  edit_web_users: redaguoti interneto vartotojus
+  editors_tab_label: Valdytojai
   email: El. paštas
   email_colon: 'El. paštas:'
+  email_recipients: El. laiškų gavėjai
+  eol_accepted_subjects: EOL priimti dalykai
+  eol_curator_activity_email_message: Encyclopedia of Life kuratorius <a href='%{profile_url}'>%{curator_full_name}</a>
+    %{action} <a href='%{data_object_url}'>EOL svetainėje</a>%{comment}
   encyclopedia_of_life: Gyvenimo Enciklopedija
+  eol_administration_console: EOL Administravimo Konsolė
+  eol_api_data_objects: 'EOL API: Duomenų Objektai'
   eol_api_colon: 'EOL API:'
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: Hierarchija'
+  eol_api_hierarchy_entries: 'EOL API: Hierarchijos Įrašai'
+  eol_api_hierarchy_entries_descendants: 'EOL API: Hierarchijos Įrašų Palikuoniai'
   eol_api_pages: 'EOL API: Puslapiai'
+  eol_api_ping: 'EOL API: Ping'
+  eol_api_provider_hierarchies: 'EOL API: Tiekėjo Hierarchijos'
+  eol_api_search_by_provider: 'EOL API: Ieškoti Pagal Tiekėją'
   eol_api_search: 'EOL API: Paieška'
   eol_api_collections: 'EOL API: Kolekcijos'
   eol_colon: 'EOL:'
   eol_flickr_group: EOL Flickr Grupė
   eol_news: EOL Naujienos
   eol_pages: Puslapiai
+  error_log_detail: Klaidos Žurnalo Duomenys
+  error_log: Klaidos Žurnalas
+  error_logging_active: Klaidų Įrašymas Aktyvus
+  error_violates_tos: Atrodo, kad jūsų turinys pažeidžia EOL naudojimo sąlygas. Jei
+    manote, kad tai klaida prašome susisiekti su mumis.
+  error_401_page_title: Neautorizuota
+  error_401_description: Atsiprašome, jūs neturite leidimo pasiekti šį URL.
   error_403_page_title: Uždrausta
+  error_403_description: Atsiprašome, jūs neturite leidimo pasiekti šį URL.
   error_404_page_title: Nerasta
+  error_404_description: Atsiprašome, neradome puslapio tuo URL.
   error_500_page_title: Oi.
+  error_500_description: Atsiprašome, iškilo problema. Jei problema tęsiasi, prašome
+    susisiekti el. paštu <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_description: Atsiprašome, iškilo problema. Jei problema tęsiasi, prašome
+    susisiekti el. paštu <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Oi.
+  error_classifications_locked_cannot_reindex: Atsiprašome, šis puslapis šiuo metu
+    negali būti indeksuotas iš naujo. Klasifikacijos yra užrakintos.
+  error_couldnt_find_collection_by_id: Kolekcija, kurią jūs galėtumėte valdyti su
+    id %{id} nerasta.
+  error_couldnt_find_community_by_id: Kolekcija, kurią jūs galėtumėte valdyti su id
+    %{id} nerasta.
+  error_exemplar_chosen_with_invalid_action: 'Atsiprašome, bet klasifikacija, kurią
+    jūs pasirinkote buvo nepakeista: dalis prašymo buvo prarasta. Jums teks bandyti
+    dar kartą.'
+  error_homepage_or_search_option: 'Galite arba grįžti į <a href="/">pagrindinį puslapį</a>
+    arba naudoti mūsų paieškos įrankį:'
+  error_no_items_selected: Privalote pasirinkti objektus iš kolekcijos arba pasirinkti
+    „Visi objektai“ iš išskleidžiamo menių.
+  error_updating_user: Įvyko klaida atnaujinant šio vartotojo įrašą
+  every_method_can_also_return_json_response: Kiekvienas metodas gali gražinti JSON
+    atsakymą, pridedant .json plėtinį.
   example_colon: 'Pavyzdys:'
+  exception: Išimtis
+  exceptions:
+    security_violations:
+      administrators_only: Atsiprašome, prieiga apribota, gali prieiti tik EOL Administratoriai.
+      default: Prieiga uždrausta.
+      hidden_user_login: Atsiprašome, prisijungimas yra išjungtas tai paskyrai.
+      hidden_user_recover_account: Atsiprašome, paskyros atkūrimas yra išjungtas tai
+        paskyrai.
+      hidden_user_temporary_login: Atsiprašome, paskyros atkūrimas ir prisijungimas
+        yra išjungti tai paskyrai.
+      inactive_user_login: Atsiprašome, ta paskyra dar nėra aktyvi. Jei negavote patvirtinimo
+        el. laiško kai užsiregistravote, prašome vykdyti paskyros atkūrimo procedūrą,
+        kad patvirtintumėte savo el. pašto adresą ir aktyvuotumėte savo paskyrą.
+      min_master_curators_only: Atsiprašome, prieiga apribota, gali prieiti tik EOL
+        kuratoriai su minimaliu kuravimo lygiu Meistras.
+      min_full_curators_only: Atsiprašome, prieiga apribota, gali prieiti tik EOL
+        kuratoriai su minimaliu kuravimo lygiu Kuratorius.
+      min_assistant_curators_only: Atsiprašome, prieiga apribota, gali prieiti tik
+        EOL kuratoriai su minimaliu kuravimo lygiu Asistentas.
+      admin_or_master_curators_only: Atsiprašome, prieiga apribota, gali prieiti tik
+        EOL administratoriai ir EOL kuratoriai su minimaliu kuravimo lygiu Meistras.
+      no_access: Atsiprašome, ši funkcija laikinai išjungta. Patikrinkite vėliau.
+      missing_edit_acess_to_forum_category: Atsiprašome, tik administratoriai gali
+        redaguoti šią forumo kategoriją
+      missing_delete_acess_to_forum_category: Atsiprašome, tik administratoriai gali
+        ištrinti šią forumo kategoriją
+      missing_edit_acess_to_forum_post: Atsiprašome, tik administratoriai arba įrašo
+        autorius gali redaguoti ši forumo įrašą
+      missing_delete_acess_to_forum_post: Atsiprašome, tik administratoriai arba įrašo
+        autorius gali ištrinti ši forumo įrašą
+      missing_set_article_as_exemplar_privilege: Atsiprašome, tik kuratoriai gali
+        nustatyti straipsnį kaip pavyzdinį
+      missing_delete_access_to_synonym: Atsiprašome, tik agentai ištrina šį sinonimą
+      missing_delete_access_to_data_search_file: Atsiprašome, tik administratoriai,
+        meistrai kuratoriai ar failo savininkas gali ištrinti šį failą
+      missing_permission_to_view_open_authentications: Atsiprašome, tik administratoriai
+        ir paskyros savininkas gali peržiūrėti atviras šios paskyros autentifikacijas.
+      missing_permission_to_add_open_authentications: Atsiprašome, tik administratoriai
+        ir paskyros savininkas gali pridėti atvirų autentifikacijų į šią paskyrą.
+      missing_permission_to_delete_open_authentications: Atsiprašome, tik administratoriai
+        ir paskyros savininkas gali ištrinti atviras autentifikacijas šiai paskyrai
+      this_action_requires_higher_curation_level: Atsiprašome, šiam veiksmui reikia
+        aukštesnio kuratoriaus lygio
+      admins_and_joined_only_can_read: Atsiprašome, jūs turėtumėte prisijungti prie
+        kolekcijos, kad galėtumėte ją peržiūrėti
+      owner_and_managers_only_can_edit: Atsiprašome, tik kolekcijos savininkas ar
+        valdytojai gali ją redaguoti
+      error_revoking_editor_on_an_empty_community: Atsiprašome, redaktoriai negali
+        būti pašalinti iš tuščios bendruomenės
+      only_managers_can_edit_community: Atsiprašome, tik valdytojai gali redaguoti
+        šią bendruomenę
+      only_managers_can_delete_community: Atsiprašome, tik valdytojai gali ištrinti
+        šią bendruomenę
+      only_admins_can_view_content_pages: Atsiprašome, tik administratoriai gali peržiūrėti
+        turinio puslapius
+      only_admins_can_view_translated_content_pages: Atsiprašome, tik administratoriai
+        gali peržiūrėti išverstus turinio puslapius
+      only_admins_can_edit_forums: Atsiprašome, tik administratoriai gali redaguoti
+        forumus
+      must_be_logged_in: Atsiprašome, turite būti prisijungę
+      only_admins_can_read_hidden_news_items: Atsiprašome, tik administratoriai gali
+        skaityti paslėptus naujienų objektus
+      only_admins_can_read_hidden_translated_news_items: Atsiprašome, tik administratoriai
+        gali skaityti išverstus, paslėptus naujienų objektus
+      can_not_access_unpublished_taxon: Atsiprašome, jūs negalite prieiti prie nepublikuoto
+        taksono
+      only_data_owner_can_edit: Atsiprašome, tik duomenų savininkas gali tai redaguoti
+      only_data_owner_can_delete: Atsiprašome, tik duomenų savininkas gali tai ištrinti
+      error_editing_someone_account: Atsiprašome, galite redaguoti tik savo paskyrą
+      can_not_edit_permissions: Atsiprašome, jūs negalite keisti teisių
+      collection_job_not_valid: Kolekcijos darbo negalimas
+  excluded_icon_tip: Eilutės pažymėtos neįtraukimo žymą %{excluded_icon} niekada nebus
+    rodomos taksono apžvalgos puslapiuose.
+  expand_all_children: išskleisti visus antrinius
+  expired: Pasibaigęs
+  expires_in_colon: 'Pasibaigia:'
   explore: Naršyti
+  explore_what_we_know_about_taxon: Žiūrėkite ką EOL žino apie %{taxon}.
+  export_curator_csv_link: '[eksportuoti visus kuratorius kaip CSV]'
+  export_this_list_as_csv: Eksportuoti šį sąrašą kaip CSV
+  external_link_header: Išorinė Nuoroda
+  external_link_icon_alt_text: Išorinė nuoroda.
+  external_report_click_url_to_proceed: Išorinė ataskaita. Paspauskite URL, kad tęstumėte.
+  external_report_click_year_to_proceed: Išorinė ataskaita. Paspauskite metus, kad
+    tęstumėte.
   facebook: Facebook
+  false_label: Netiesa
   family_name_colon: 'Pavardė:'
+  feedback: Atsiliepimai
   file: Failas
+  file_download_pending: Atsisiuntimo sukūrimas reikalauja šiek tiek daugiau laiko,
+    tad mes pradėjome tam skirtą darbą fone. Galite <a href='%{link}'>patikrinti darbo
+    būseną</a> bet kuriuo metu.
+  file_download_ready: EOL baigė kurti duomenų paieškos failą jūsų užklausai „%{query}“,
+    Galite <a href='%{file}'>jį atsisiųsti per kelias artimiausias dienas</a>.
+  file_download_refreshing: Atsiuntimo atnaujinimui reikia šiek tiek daugiau laiko,
+    tad pradėjome tam skirtą darbą fone. Galite <a href='%{link}'>patikrinti darbo
+    būseną</a> bet kada.
   file_id: Failo ID
   file_size: Failo Dydis
+  fill_in_a_message_below_to_send_email_to_user: 'Įrašykite tekstą žemiau, kad išsiųstumėte
+    el. laišką šiam vartotojui iš svetainės. Žinutė bus išsiųsta kai pateiksite formą:'
   filter_button: Filtras
   filter_by_day: Filtruoti pagal dieną
+  filter_by_subject: Filtruoti pagal temą
   filter_by_status_all_option: visos būsenos
   filter_by_status_trusted_option: Patikimas
   filter_by_status_unreviewed_option: Neperžiūrėti
   filter_by_status_untrusted_option: nepatikimas
+  filter_by_status_inappropriate_option: Netinkamas
+  filter_by_status: Filtruoti pagal būseną
   filter_by_type: Filtruoti pagal typą
   filter_by_type_all_option: visų tipų
+  filter_by_type_all_option_with_count:
+    one: Visi tipai (%{count})
+    other: Visi tipai (%{count})
   filter_by_type_collection_option: Kolekcijos
   filter_by_type_community_option: Bendruomenės
+  filter_by_type_content_page_option: Apie EOL
   filter_by_type_image_option: Paveikslėliai
+  filter_by_type_image_option_with_count:
+    one: Paveikslėliai (%{count})
+    other: Paveikslėliai (%{count})
+  filter_by_type_data_option: Bruožai
+  filter_by_type_link_option: Nuorodos
   filter_by_type_text_option: Straipsniai
   filter_by_type_user_option: Žmonės
   filter_by_type_sound_option: Garsai
+  filter_by_type_sound_option_with_count:
+    one: Garsai (%{count})
+    other: Garsai (%{count})
+  filter_by_type_taxon_concept_option: Taksonai
   filter_by_type_video_option: Vaizdo įrašai
+  filter_by_type_video_option_with_count:
+    one: Vaizdo įrašai (%{count})
+    other: Vaizdo įrašai (%{count})
+  filter_by_type_comment_option: Komentarai
+  filter_by_type_object_curated_option: Kuruojami objektai
+  filter_by_type_name_option: Pavadinimai
+  filter_by_type_taxa_comment_option: Taksonų komentarai
+  filter_newsfeed_option_all: Visi
+  filter_newsfeed_option_messages: Komentarai
+  filter_newsfeed_option_community: Bendruomenė
+  filter_newsfeed_option_collections: Kolekcijos
+  filter_newsfeed_option_watchlist: Stebimųjų sąrašas
+  filter_newsfeed_option_curation: Kuravimas
+  filtered_information: Filtruota informacija
+  taxon_concept_search_keyword:
+    one: taksonas
+    other: taksonai
+  image_search_keyword:
+    one: paveikslėlis
+    other: paveikslėliai
+  video_search_keyword:
+    one: vaizdo įrašas
+    other: vaizdo įrašai
+  sound_search_keyword:
+    one: garsas
+    other: garsai
+  text_search_keyword:
+    one: straipsnis
+    other: straipsniai
+  data_search_keyword:
+    one: bruožas
+    other: bruožai
+  link_search_keyword:
+    one: nuoroda
+    other: nuorodos
+  user_search_keyword:
+    one: asmuo
+    other: asmenys
+  community_search_keyword:
+    one: bendruomenė
+    other: bendruomenės
+  collection_search_keyword:
+    one: kolekcija
+    other: kolekcijos
+  find_taxa_submit_button: rasti taksonus
+  flash_notice_redirected_from_search_html: Jūs čia patekote ieškodami <em>%{search_string}</em>.
+    <a href="%{more_results_url}">Spauskite čia, kad grįžtumėte į paieškos puslapį.</a>
+  flash_notice_redirected_from_search_html_more_results: Jūs čia patekote ieškodami
+    <em>%{search_string}</em>. <a href="%{more_results_url}">Spauskite čia, kad pamatytumėte
+    kitus paieškos rezultatus.</a>
+  flash_video: Flash vaizdo įrašas
   flickr: Flickr
+  focus_collection_edit: Galite redaguoti šios bendruomenės kolekcijas tiesiai kiekvienos
+    kolekcijos redagavimo puslapyje.
+  forgot_password: Pamiršau slaptažodį
   forgot_password_form_cancel: Atšaukti
+  forgot_password_form_choose_username_instructions: Yra kelios paskyros užregistruotos
+    su <em>%{email}</em> el. paštu, prašome pasirinkti, kurios paskyros slaptažodį
+    norite nustatyti iš naujo.
   forgot_password_form_choose_username_legend: Pasirinkite sąskaitą
+  forgot_password_form_choose_username_blank_error: Prašome pasirinkti paskyrą, kurios
+    slaptažodį norite nustatyti iš naujo.
+  forgot_password_form_username_or_email_blank_error: Prašome įvesti savo vartotojo
+    vardą arba el. paštą, kad nustatytumėte savo slaptažodį iš naujo.
+  forgot_password_form_header: Iš naujo nustatyti slaptažodį
+  forgot_password_form_helper: Prašome atkreipti dėmesį, kad slaptažodžio perstatymo
+    el. laiškai <em>dažnai</em> būna el. pašto filtrų pažymėti kaip „Šlamštas“. Prašome
+    patikrinti savo šlamšto aplanką, jei negausite el. laiško per vieną valandą.
+  forgot_password_cannot_find_user_from_username_or_email_error: Atsiprašome, nėra
+    vartotojo paskyrų susijusiu su nurodytu vartotojo vardu ar el. paštu <em>%{username_or_email}</em>.
+  for_pdfs_and_docs_parens: (PDF ir dokumentams)
+  form_validation_errors_for_attribute_assistive: Šiame elemente yra tvirtinimo klaida
+  frequency: Dažnis
+  frequency_daily: Kasdien
+  frequency_monthly: Kas mėnesį
   frequency_never: Niekada
+  frequency_weekly: Kas savaitę
+  friendly_url: Draugiškas URL
+  from_community: iš %{community} bendruomenės
+  from_communities: 'iš bendruomenių: %{communities}'
+  full_content_url: Pilno Turinio URL
   gbif_map: GBIF žemėlapis
+  general_site_admin: bendras svetainės administratorius
+  get_help_choosing_a_subject: Gauti pagalbą renkantis temą
+  get_help_choosing_a_subchapter: Gauti pagalbą renkantis poskyrį
   get_more_tasks: gauti daugiau užduočių
+  given_name_colon: 'Suteiktas Pavadinimas:'
+  gives_access_to_a_single_hierarchy_indexed_by_eol: suteikia prieigą prie vienos
+    hierarchijos, indeksuotos EOL ir jos vidinių ryšių
+  gives_access_to_a_single_hierarchy_descendants_by_eol: suteikia prieigą prie vieno
+    hierarchijos įrašo palikuonių
+  global_access_tagline: Visuotinė prieiga prie žinių apie gyvybę Žemėje
+  global_navigation: Visuotinė Navigacija
+  glossary: Terminų žodynas
+  glossary_subhead: Terminų žodynas
   go_back: grįžti atgal
   go: Pirmyn
   google_analytic_results: Google Analytics rezultatai
+  google_analytics_active: Google Analytics aktyvus
+  google_analytics_google_account_and_access_required: Google Analytics (reikalinga
+    Google paskyra ir prieiga)
   google: Google
   google_images: Google vaizdai
+  google_scholar: Google Scholar
+  grant_manager_link: Suteikti valdytojo rolę
+  grant_permission: suteikti
+  grant_full_curator_link: Suteikti
+  has_already_been_taken: buvo paimtas
   has_colon: 'Turi:'
+  has_curated_your_image: kuravo jūsų paveikslėlį
+  has_hidden_your_image: paslėpė jūsų paveikslėlį
+  has_trusted_your_image: pažymėjo jūsų paveikslėlį kaip patikimą
+  has_untrusted_your_image: pažymėjo jūsų paveikslėlį kaip nepatikimą
+  hello_user: Sveiki, %{user}
   help: Pagalba
   here: čia
   hidden: Paslėptas
   hidden_comment: paslėptas komentaras
   hide: slėpti
   hierarchy: Hierarchija
+  hierarchy_entry_switch_missing_id_error: Atsiprašome, hierarchijos įrašo puslapis,
+    kurį pasirinkote nebuvo rastas dėl trūkstamo identifikatoriaus.
+  hierarchy_roots_colon: 'Hierarchijos Šaknys:'
   hierarchy_updated: Hierarchija atnaujinta
   hierarchies_title: Hierarchijos
   home: Pradžia
+  home_page_link_advisory_information: Ši nuoroda jus nukreips į Encyclopedia of Life
+    svetainės pagrindinį puslapį
+  however_there_are_summaries: Tačiau, <a href='%{summary_url}'>EOL apibendrina duomenis
+    iš pogrupių</a>.
   html_format: (HTML formatas)
+  html_format_with_left_col: (HTML FORMATAS, įveskite tik tada jei norite kairiojo
+    stulpelio puslapyje, priešingu atveju palikite tuščią)
+  content_upload_url: http://%{domain}%{upload_attachment}
+  content_upload_restrictions_note: (dydis turi būti mažiau nei 10 MB, failas bus
+    saugomas toks, koks buvo įkeltas, t.y. nebus keičiamas dydis)
   id: ID
+  check_this_to_browse_eol_by_the_hierarchy: (Jei šis langelis pažymėtas, tada klasifikacija
+    bus rodoma pavadinimu skirtume be „Rodyti Visas Klasifikacijas“)
+  reindex_data_object_button: Indeksuoti objektą iš naujo
+  reindex_page_button: Indeksuoti puslapį iš naujo
   image: Paveikslėlis
+  image_cropped_notice: Paveikslėlis buvo apkirptas sėkmingai.
+  image_crop_failed_error: Atsiprašome, įvyko klaida, paveikslėlis nebuvo apkirptas.
   image_is_no_longer_available: Vaizdas nebegaliojantis
   image_map_from: žemėlapis iš
   image_not_found: Vaizdas nerastas
+  image_object: Vaizdo objektas
+  image_title_with_taxa: '%{taxa} paveikslėlis'
+  image_title_without_taxa: Nežinomo taksono paveikslėlis
   images: Paveikslėliai
+  images_with_count:
+    one: '%{count} paveikslėlis'
+    other: '%{count} paveikslėliai'
+  images_in_red_are_not_trusted: Raudoni paveikslėliai nėra patikimi.
+  images_in_yellow_are_not_reviewed: Geltoni paveikslėliai nėra peržiūrėti.
+  image_objects_page_number: Paveikslėlių puslapis
+  import_once: Importuoti vieną kartą
+  import_ontology: Importuoti Ontologiją
+  inappropriate: Netinkamas
+  inaturalist_tab_label: iNaturalist Pastabos
+  include_all_metadata: įtrauki visus duomenų objektų metaduomenis
+  including_traitbank_count:
+    one: ', įskaitant %{count} TraitBank atributą'
+    other: ', įskaitant %{count} TraitBank atributus'
   in_collection: kolekcijoje
+  in_community: bendruomenėje
+  indexed: Indeksuota
+  info_item: Informacijos objektas
+  info_items_col_header: Informacijos objektai
+  information_for_any_audience: Informacija bet kokiai auditorijai
+  information_intended_for_beginners: Informacija skirta pradedantiesiems
+  information_intended_for_experts: Informacija skirta ekspertams
+  in_providing_its_content_to_eo: Teikiant jo turinį EOL,
+  in_this_data_type: 'šiame %{data_type}:'
+  insufficient_privileges_to_add_common_names: Atsiprašome, neturite pakankamai didelių
+    teisių, kad pridėtumėte bendrinius pavadinimus.
+  insufficient_privileges_to_curate_names: Atsiprašome, neturite pakankamai didelių
+    teisių, kad kuruotumėte pavadinimus.
+  internal_ip_address: vidinis IP adresas
+  inverse_sort: Atvirkštinis rūšiavimas
   invite_members_label: kviesti Narius
+  invite_members_help_text: Pridėkite EOL vartotojus čia ir jie gaus pakvietimus į
+    jūsų naują bendruomenę!
   ip_address: IP Adresas
   ip: IP
+  item_added_to_watch_collection_notice: „%{item_name}“ buvo pridėtas į %{collection_name}.
+  item_added_to_collection_notice: Objektas buvo pridėtas į kolekciją <em>%{collection_name}</em>
+  item_details_missing: Atsiprašome, įvyko klaida, objekto duomenys negali būti gauti.
   item_type_article: Straipsnis
+  item_type_cms_page: Informacija apie EOL
   item_type_collection: Kolekcija
   item_type_community: Bendruomenė
   item_type_image: Paveikslėlis
   item_type_image_map: Žemėlapis
+  item_type_link: Nuoroda
   item_type_map: Žemėlapis
   item_type_person: Asmuo
+  item_type_sound: Garsas
+  item_type_taxon: Taksonas
   item_type_video: Vaizdo įrašas
+  item_type_article_assistive: Šis objektas yra straipsnis
+  item_type_cms_page_assistive: Šis objektas yra informacinis turinys apie EOL
+  item_type_collection_assistive: Šis objektas yra kolekcija
+  item_type_community_assistive: Šis objektas yra bendruomenė
+  item_type_image_assistive: Šis objektas yra paveikslėlis
+  item_type_image_map_assistive: Šis objektas yra žemėlapio paveikslėlis
+  item_type_link_assistive: Šis objektas yra Nuoroda
+  item_type_map_assistive: Šis objektas yra žemėlapis
+  item_type_person_assistive: Šis objektas yra asmuo
+  item_type_sound_assistive: Šis objektas yra garsas
+  item_type_taxon_assistive: Šis objektas yra taksonas
+  item_type_video_assistive: Šis objektas yra vaizdo įrašas
+  item_not_added_already_in_collection: 'Šis objektas: %{value} jau buvo pridėtas
+    į kolekciją.'
+  item_not_added_to_itself_notice: Atsiprašome, jūs negalite pridėti kolekcijos <em>%{collection_name}</em>
+    į ją pačią.
+  item_not_added_to_collection_error: Atsiprašome, įvyko klaida, pasirinkta objektas
+    nebuvo pridėtas į kolekciją.
+  item_not_updated_in_collection_error: Atsiprašome, įvyko klaida, kolekcijos objektas
+    nebuvo atnaujintas.
+  item_updated_in_collection_notice: Objektas sėkmingai atnaujintas <em>%{collection_name}</em>
+    kolekcijoje.
+  items_no_copy_none_selected_warning: Nėra nukopijuotų objektų, nes nei vienas nebuvo
+    pasirinktas. Kad nukopijuotumėte objektus į kitą kolekciją, pirma sąraše pažymėkite
+    langelį šalia objektų, kuriuos norite nukopijuoti.
+  items_no_move_none_selected_warning: Nėra perkeltų objektų, nes nei vienas nebuvo
+    pasirinktas. Kad perkeltumėte objektus į kitą kolekciją, pirma sąraše pažymėkite
+    langelį šalia objektų, kuriuos norite nukopijuoti.
+  items_no_remove_none_selected_warning: Nėra pašalintų objektų, nes nei vienas nebuvo
+    pasirinktas. Kad pašalintumėte objektus į kitą kolekciją, pirma sąraše pažymėkite
+    langelį šalia objektų, kuriuos norite nukopijuoti.
+  items_with_count_semi_colon:
+    one: '%{count} objektas;'
+    other: '%{count} objektai;'
+  iucn_red_list_status_advisory_information: Ši nuoroda jūs nukreips į Pasaulinės
+    gamtos apsaugos organizacijos (IUCN) svetainę, kur galite rasti daugiau informacijos
+    apie IUCN Nykstančių Rūšių Raudonąjį Sąrašą.
   join_community_button: Prisijungti prie šios bendruomenės
+  join_eol_community_html: Tapkite <abbr title="Encyclopedia of Life">EOL</abbr> bendruomenės
+    dalimi!
+  join_eol_button_html: Prisijunkite prie <abbr title="Encyclopedia of Life">EOL</abbr>
+    dabar
+  joined_mailing_list: Tik tie, kurie prisijungė prie siuntimų sąrašo
+  joined_time_ago: Prisijungė prieš %{time_passed}
+  json_response: JSON Atsakymas
+  just_pages_with_pictures_and_text: Tik tie puslapiai su paveikslėliais ir tekstu
+  keep_split_entry_from_this_entry: Laikyti atskirai nuo šio įrašo
+  key: Raktas
+  known_uri_category_header: Kategorijos
+  known_uri_created: URI pridėta.
+  known_uri_missing_translation: Neišversta, prašome redaguoti
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: URI atnaujinta.
+  known_uri_label_inverse: yra atvirkštinis
+  known_uri_label_allowed_val: leidžia vertę
+  known_uri_label_allowed_unit: leidžia vienetą
+  known_uri_label_unit: turi numatytąjį vienetą
+  known_uri_label_equivalent: yra lygiavertis
+  known_uri_label_indirectly_equivalent: yra netiesiogiai lygiavertis
+  known_uris_empty_sorry: Atsiprašome, kol kas nėra siūlomų URI šiai kategorijai.
+  known_uris_none: Niekas nepridėjo šio tipo URI.
+  known_uris_page_title: URI EOL Duomenims
+  known_uris_sorted: Tvarka atnaujinta.
   label: Etiketė
   language: 'Kalba:'
   languages: Kalbos
+  language_selector_advisory_information: Toliau esantys sąrašas yra kalbų, kuriomis
+    svetainė yra prieinama sąrašas, kad pakeistumėte esamą kalbą pasirinkite kitą
+    kalbą iš sąrašo.
+  language_with_count: '%{language} (%{count})'
   last_updated: Paskutinis atnaujinimas
   last_updated_time_ago: Atnaujinta %{time_passed} atgal
+  learn_about_collections: Kaip galiu vieną sukurti?
+  learn_about_content_partners: Kaip aš galiu tapti vienu?
+  learn_about_communities: Kaip aš galiu dalyvauti?
   learn_about_eol: Kaip aš galiu naudoti EOL?
+  learn_about_contributing: Kaip aš galiu prisidėti?
   learn_about_joining: Kaip aš galiu prisijungti?
+  learn_how_to_contribute: Sužinoti, kaip prisidėti.
   learn_more_about_communities_link: Sužinokite daugiau apie Bendruomenes
+  learn_more_about_names_for_this_taxon: sužinokite daugiau apie šio taksono pavadinimus
+  learn_more_link: (%{learn_more})
   learn_more_lowercase: sužinokite daugiau
   leave_community_button: Palikti šia bendruomenę
   leave_a_comment: Palikti komentarą
   leave_reply: Palikti Atsakymą
+  left_content_area: Kairioji turinio sritis
+  legend: 'Legenda:'
   license: Licencija
+  license_none: Nėra
   license_all_rights_reserved: Visos teisės saugomos
   license_cc_by: Creative Commons Attribution (CC BY)
   license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
@@ -4478,48 +4938,282 @@ lt:
   license_cc_by_sa_2_0: Creative Commons Attribution Share Alike 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Attribution Share Alike 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Attribution Share Alike 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
+  license_no_known_copyright_restrictions: Nėra jokių žinomų autorinių teisių apribojimų
   license_not_applicable: Licencija netaikoma
   license_public_domain: Viešas Domenas
+  licensing: Licencija
+  limits_the_number_of_returned_image_objects: apriboja gražinamų paveikslėlių objektų
+    skaičių
+  limits_the_number_of_returned_text_objects: apriboja gražinamų teksto objektų skaičių
+  limits_the_number_of_returned_video_objects: apriboja gražinamų vaizdo įrašo objektų
+    skaičių
+  limits_the_number_of_returned_sound_objects: apriboja gražinamų garso objektų skaičių
+  limits_the_number_of_returned_map_objects: apriboja gražinamų žemėlapio objektų
+    skaičių
+  limits_the_number_of_returned_iucn_objects: įtraukti IUCN Raudonojo Sąrašo būsenos
+    objektą
+  limits_the_returned_to_a_specific_language: pateikia rezultatai nurodyta kalba.
+  link_more_about: Sužinokite daugiau apie šią nuorodą
+  link_name: Nuorodos Pavadinimas
+  link_to_this_term: nuorodą į šį terminą
+  link_to_top_of_page: viršus
+  links_with_count:
+    one: '%{count} nuoroda'
+    other: '%{count} nuorodos'
+  list_newsletter_emails: rodyti naujienlaiškių gavėjų el. paštus
+  list_of_activity_combinations: Veiklų kombinacijų per 5 min. sąrašas
   literature: Literatūra
+  literature_empty: Išnašų nerasta.
+  literature_header: Išnašos
+  literature_links: Literatūros nuorodos
+  literature_links_link: Literatūros nuorodos
+  literature_references: Literatūros išnašos
   location: Vietovė
   location_colon: 'Vieta:'
   login_required_button: Reikalingas prisijungimas
   login: prisijungti
+  login_header: Prisijunkite prie savo <abbr title="Encyclopedia of Life">EOL</abbr>
+    paskyros
+  login_hidden_user_message: '%{given_name} paskyra nebeaktyvi'
   login_or_create_account: Prisijungti arba Sukurti Sąskaitą
+  login_to_the_website_as: Prisijungti prie svetainės kaip %{username}
+  logo_header: Logotipas
+  logo_type_error: Logotipas nėra tinkamo paveikslėlio tipo (turi būti PNG arba JPEG).
   logout: Atsijungti
+  looking_up_url: Ieškoma URL...
+  main_content_area: 'Pagrindinio turinio sritis:'
+  main_database_colon: 'Pagrindinis:'
+  main_master_database_colon: 'Pagrindinis Meistras:'
+  maintained_by: tvarko
+  major_heading: Didelis pavadinimas
+  make_an_editor: padaryti valdytoju
+  make_user_an_editor_title: Leisti %{user} tvarkyti šias kolekcijas
   manage_your_profile: Tvarkyti Savo Profilį
+  managed_by: Valdoma
+  managed_collections_with_count:
+    one: '%{count} Valdoma Kolekcija'
+    other: '%{count} Valdomos Kolekcijos'
+  manager_parens: (valdytojas)
   map_from: žemėlapis iš
+  master_curators_may_add_data: 'Meistrai kuratoriai gali pridėti duomenis:'
+  map_objects_page_number: Žemėlapių puslapis
+  maps_with_count:
+    one: '%{count} Žemėlapis'
+    other: '%{count} Žemėlapiai'
+  maps_empty: Dar niekas nepridėjo žemėlapių į šį puslapį.
+  maps_empty_contribute_instructions: Sužinokite kaip pridėti žemėlapius į EOL.
+  march_of_life_thumbnail_title: 'March of Life:'
+  matching_users_found_with_count:
+    one: Viso rastas %{count} vartotojas atitinkantis jūsų kriterijus.
+    other: Viso rasta %{count} vartotojų atitinkančių jūsų kriterijus.
+  max_collection_items_error: Atsiprašome, jūsų prašymas viršija %{max} kolekcijos
+    objektų limitą.
   media: Žiniasklaida
+  media_summary_empty: Dar niekas nepridėjo paveikslėlių į šį puslapį.
+  media_summary_empty_contribute_instructions: Sužinokite kaip pridėti paveikslėlius
+    į EOL.
+  member_of_professional_society_credential_option: profesinės draugijos narys
   member_of: narys
   members_like_you: Nariai kaip jus
+  members_with_count:
+    one: '%{count} narys'
+    other: '%{count} nariai'
+  members_with_count_semi_colon:
+    one: '%{count} narys:'
+    other: '%{count} nariai:'
+  merge_concepts: sujungti sąvokos
+  merge_data: sujungti klasifikacijas
+  merge_pending: Sujungimo operacija šiek tiek užtruks. Dalyvaujantis taksonai dabar
+    yra apsaugoti nuo klasifikacijos redagavimų, iki sujungimo atlikimo. Jūs gausite
+    el. laišką kai procesas bus baigtas ir tai bus rodoma puslapio naujienų sraute.
   message_colon: Pranešimas
+  message_will_disappear: (šis pranešimus netrukus išnyks)
+  meta_description_colon: 'Meta duomenų aprašymas:'
+  meta_keywords_colon: 'Meta duomenų raktažodžiai:'
+  meta_title_site_name: Encyclopedia of Life
   method: Metodas
   methods: Metodai
+  missing_interpolation_argument_error: '[vertimas nebaigtas]'
   monthly: Kas mėnesį
+  more_children_with_count:
+    one: dar %{count}...
+    other: dar %{count}...
+  more_taxa_with_attribute: peržiūrėti visus taksonus su šio atributu
   most_active_members: Daugiausiai aktyvūs nariai
   move: Perkelti
   move_down: Nuleisti žemyn
+  added_classifications_ready: Duomenys iš pasirinktų klasifikacijų yra paruošti perkėlimui
+    į kitą puslapį. Kad užbaigtumėte procesą pasirinkite „perskirti į naują puslapį“
+    arba eikite į puslapio, kuriame norėtumėte, kad atsidurtų duomenys, pavadinimo
+    skirtuką ir pasirinkite „sujungti klasifikacijas“.
+  move_items_to_a_new_collection_with_count:
+    one: Perkelti %{count} objektą į naują kolekciją
+    other: Perkelti %{count} objektus į naują kolekciją
   move_to_bottom: Nuleisti į apačią
   move_to_top: Perkelti į viršų
   move_up: Pakelti aukštyn
+  moved_all_items_from_collection_with_count:
+    one: Perkeltas %{count} objektas iš %{from} į šią kolekciją.
+    other: Perkelti %{count} objektai iš %{from} į šią kolekciją.
+  moved_all_items_to_collections:
+    one: Visi objektai perkelti iš %{name} į %{count} kolekciją.
+    other: Visi objektai perkelti iš %{name} į %{count} kolekcijas.
+  moved_items_from_collection_with_count_notice:
+    one: Perkeltas %{count} objektas iš %{name}.
+    other: Perkelti %{count} objektai iš %{name}.
+  must_be_associated_with_either_a_user_or_a_community: Turi būti susijęs su vartotoju
+    arba bendruomene
+  must_provide_search_term_error: Turite įvesti paieškos žodį.
+  must_be_checked_in_to_view: '- turi būti pažymėtas, kad galėtumėte peržiūrėti'
+  must_be_checked_in_to_show: '- turi būti pažymėtas, kad būtų rodomas vartotojui'
   must_be_less_than_128_characters_long: turi būti mažesnis nei 128 simbolių.
+  must_be_logged_in: Turite būti prisijungę, kad atliktumėte šį veiksmą.
   my_activity: Mano veikla
   my_info: Mano informacija
   name_colon: 'Pavadinimas:'
   name: Pavadinimas
+  name_preferred_for_language_yes: Pageidaujamas
+  name_preferred_for_language_help_tip: '%{icon} žymi pageidautiną pavadinimą kiekvienai
+    kalbai.'
+  name_preferred_taxonomically_for_source_help_tip: '%{icon} žymi pageidautiną pavadinimą
+    iš kiekvieno šaltinio.'
+  name_preferred_taxonomically_for_source_yes: Pageidaujamas
   names: Pavadinimai
+  names_filter: Pavadinimai
+  names_common_empty: Nėra bendrinių pavadinimų susijusių su šiuo taksonu
+  names_common_list_by_language_assistive_header: Bendrinių pavadinimų išvardyti pagal
+    kalbą
+  names_curation_column_header: Kuravimas
   names_name_column_header: Pavadinimas
+  names_preferred_column_header: Pageidaujamas
+  names_relationship_column_header: Ryšis
+  names_sources_column_header: Šaltiniai
   names_status_column_header: Būsena
+  names_synonyms_empty: Nėra sinonimų susijusiu su šiuo taksonu.
   curator_colon: 'Kuratorius:'
+  mobile:
+    contents:
+      home: Pradžia
+      taxa: Taksonai
+      full_site: Pilna svetainė
+      species: Rūšys
+      explore_eol: Naršyti EOL
+    taxa:
+      taxon_overview: Taksono Apžvalga
+      overview: Peržiūra
+      details: Informacija
+      maps: Žemėlapiai
+      nomenclature: Terminologija
+      literature: Literatūra
+      community: Bendruomenė
+      resources: Ištekliai
+      taxon_details: Taksono Informacija
+      images: Paveikslėliai
+      sounds: Garsai
+      videos: Vaizdo įrašai
+    search:
+      suggestions: Pasiūlymai
+      no_results_found: Rezultatų nerasta
+      results: Rezultatai
+  moderator_colon: 'Moderatorius:'
+  main_species_page_link_with_spaces: ' &nbsp;&nbsp; rūšies puslapis>>'
   never: Niekada
   new_collection: Nauja kolekcija
+  new_contact_us_topic: Nauja Susisiekimo Tema
+  new_news_item: Naujas Naujienų Objektas
+  news_and_event_links: Naujienų ir įvykių nuorodos
+  news_archive_page: naujienų archyvo puslapis
+  news_date: Naujienų Data
+  new_search_suggestion: Naujas Paieškos Pasiūlymas
+  news_available_in_languages: 'Šis puslapis prieinamas:'
+  news_item_date_as_shown_to_user: 'Naujienų Objekto Data rodoma vartotojui (laikas
+    rodomas tik RSS sraute):'
+  news_item_is_visible_on_website_after_this_time: 'Naujienų objektas yra matomas
+    svetainėje po šio laiko:'
+  news_item: naujienų objektas
+  news_item_title: Naujienų Objektas
+  news_missing_content_title: Trūksta vertimo
+  news_missing_content_message: Atsiprašome, šis puslapis nėra pasiekimas pasirinkta
+    kalba %{selected_language}.
+  newsfeed: Naujienų srautas
+  newsfeed_help_for_collection: Šis EOL Kolekcijos Naujienų srautas surenka naujienas
+    susijusius su objektais priklausančiais kolekcijai, įskaitant naujienas apie savininką
+    ir kitų EOL vartotoju komentarus.
+  newsfeed_help_for_community: Šis EOL Bendruomenės Naujienų srautas surenka naujienas
+    susijusius su objektais priklausančiais Tvarkomoms Kolekcijoms, įskaitant naujienas
+    apie narius ir kitų EOL vartotoju komentarus.
+  newsfeed_help_for_profile: EOL Profilio Naujienų sraute yra kitų vartotojų komentarai
+    skirti savininkui, EOL Bendruomenės kvietimai, srautas surenka naujienas susijusias
+    su objektais savininko EOL stebimųjų sąraše.
+  newsfeed_help_for_taxon: EOL Taksono Puslapio Naujienų srautas surenka naujienas
+    susijusias su ten rodomais objektais, įskaitant kuravimo veiksmus ir EOL vartotojų
+    komentarus.
+  newsfeed_help_for_watchlist: EOL stebimųjų sąrašo naujienų srautas surenka naujienas
+    susijusias su objektais esančiais savininko EOL stebimųjų sąraše, įskaitant savininko
+    veiklą.
+  newsletter_banner: Tapkite EOL bendruomenės dalimi&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>užsiprenumeruokite
+    EOL Naujienlaiškį šiandien</a>
+  new_upload: Naujas Įkėlimas
+  new_user: Naujas Vartotojas
   next: Kitas
+  no_active_members: Dar nebuvo pakankamai veiklos.
+  no_answer: Ne
+  no_classificaitons_selected: Nepasirinktos jokios klasifikacijos. Nėra ko perkelti.
+  no_collections_apply: Nėra kolekcijų prie kurių jūs galite prieiti ir galinčių turėti
+    valdytojų.
+  no_comments_are_available_for_subject: Nėra komentarų skirtu %{subject}
+  no_comments_have_been_left_yet: Dar nėra nei vieno komentaro.
   no_errors_are_available: Klaidų nėra.
+  no_items_were_copied_to_collections_error: 'Nenukopijuotas nei vienas objektas į
+    kolekcijas: %{names},'
+  no_news_items_for_month_and_year: Nėra naujienų objektų skirtu %{month_and_year}
   none: nėra
+  "no": Ne
+  num_content_partners: Turinio partnerių skaičius
+  num_data_objects: Duomenų objektų skaičius
+  no_record_found_matching_your_criteria: Nėra įrašų atitinkančiu jūsų kriterijus.
+  no_related_names: Nėra pavadinimų susijusiu su šiuo taksonu.
+  no_results_for_search_term: Nėra „%{search_term}“ rezultatų
+  no_search_suggestions_are_avai: Nėra paieškos pasiūlymų, atitinkančiu jūsų paieškos
+    kriterijus.
   no_tasks_found: Nerasta jokių užduočių
+  no_survey_responses_are_availa: Nėra prieinamų apklausos atsakymų.
+  not_applicable: netaikoma
+  not_evaluated: Neįvertinta
+  not_recognized_by_available_hierarchies: Nėra pripažinta nei vienos iš prieinamų
+    klasifikacijų
+  not_specified: nenurodyta
+  not_yet_implemented_error: Atsiprašome, ši funkcija dar neveikia.
   note: 'Pastaba:'
   notes: Pastabos
+  notes_not_shown_to_user: 'Pastabos (nerodomos vartotojui):'
+  note_all_times_utc: Atkreipkite dėmesį, kad visi laikai yra UTC (Grinvičo Laikas)
+  notification_frequency_daily_digest: Kasdienė santrauka
+  notification_frequency_send_immediately: Siųsti iškart
+  notification_frequency_never: Niekada
+  notification_frequency_weekly: Kas savaitę
+  notification_frequency_newsfeed_only: Tik Naujienų Srautas
+  notifications_and_messages_review_notice: Prašome peržiūrėti pranešimus, kurie jums
+    bus siunčiami el. paštu.
+  email_updates_for_eol_addicts: Atnaujinimai EOL nuolatiniams vartotojams.
+  email_updates_for_eol_members: Atnaujinimai, kuriuos norės gauti dauguma EOL narių.
+  notifications_tab_name: Pranešimai
+  taxon_not_found_error: „%{taxon}“ nerastas
+  not_published_yet: nepaskelbta
+  not_shown_on_the_website_note: (nerodoma svetainėje ar nuorodos URL, tik informaciniais
+    tikslais)
+  no_uploaded_content_is_available: Nėra prieinamo įkelto turinio.
+  no_users_matched_search: Nėra prieinamų vartotojų, atitinkančių jūsų paieškos kriterijus.
+  no_user_submitted_data_objects: Nėra vartotojų pateiktų duomenų objektų, atitinkančių
+    jūsų paieškos kriterijus.
+  nucleotide_sequences: Nukleotidų Sekos
+  object_curation: Objekto Kuravimas
   object: Objektas
+  object_curated: Objektas Kuruojamas.
+  objects_curated: Objektai Kuruojami
+  object_removed: (šis objektas buvo pašalintas iš duomenų bazės)
   object_status: Objekto būsena
   object_status_all_option: Visi
   object_status_trusted_option: Patikimas
@@ -4530,37 +5224,899 @@ lt:
   object_type_collection_option: Kolekcija
   object_type_community_option: Bendruomenė
   object_type_image_option: Paveikslėlis
+  object_type_link_option: Nuoroda
   object_type_sound_option: Garsas
+  object_type_taxon_concept_option: Taksono Koncepcija
   object_type_text_option: Tekstas
   object_type_user_option: Vartotojas
   object_type_video_option: Vaizdo įrašas
+  object_visibility: Objekto matomumas
   object_visibility_all_option: Visi
   object_visibility_visible_option: Matomi
   object_visibility_invisible_option: Paslėpti
+  older_version_of_latest_published_data_object_title_link: Senesnė %{link} versija
+  other_version_links: 'Kitos versijos: %{version_links}'
+  other_category_subtab: Kita
+  other_measurements_from_this_record: Kiti šio įrašo matavimai
+  ontology_uri: Ontologijos URI
+  number_of_trusted_images_at_this_entry: '# patikimų šio įrašo paveikslėlių'
+  number_of_trusted_text_objects_at_this_entry: '# patikimų šio įrašo teksto objektų'
+  number_of_unreviewed_images_at_this_entry: '# neperžiūrėtų šio įrašo paveikslėlių'
+  number_of_unreviewed_text_objects_at_this_entry: '# neperžiūrėtų šio įrašo teksto
+    objektų'
+  only_alphanum_with_no_spaces: gali būti tik skaičiai ir skaičiai be tarpų
+  only_multi_search_suggestions: (tik tada jei yra keli pasiūlymai tam pačiam paieškos
+    terminui, rūšiuojama žemiausias-->aukščiausias)
+  only_show_authoritative_conten: 'Rodyti tik autoritetingą turinį:'
+  only_show_unapproved_curators: Rodyti tik nepatvirtintus kuratorius
+  on_time_col_header: kada
+  option_please_select: Prašome pasirinkti
+  or_add_it_to_an_existing_collection: arba pridėkite į egzistuojančią kolekciją
+  or_add_it_to_an_existing_community: arba pridėkite į egzistuojančią bendruomenę
+  or_copy_them_to_existing_collection: arba kopijuokite į egzistuojančią kolekciją
+  or_email_education: arba siųskite savo pasiūlymą %{link}.
+  or_move_them_to_existing_collection: arba perkelkite į egzistuojančią kolekciją
+  original_object: Originalus objektas
   original: 'ORIGINALAS:'
+  other_us_dollars_amount: 'Kita: JAV $'
+  other_collection_items_with_count:
+    one: '%{count} kitas objektas'
+    other: '%{count} kiti objektai'
+  other_community_items_with_count:
+    one: '%{count} kitas objektas'
+    other: '%{count} kiti objektai'
+  other_taxa_with_count:
+    one: '%{count} kitas taksonas'
+    other: '%{count} kiti taksonai'
+  overview: Apžvalga
+  page_linked_to: Puslapis susijęs su
   page_name: Puslapio Pavadinimas
+  page_navigation: Puslapio navigacija
+  page_not_found: Puslapis nerastas
+  page: Puslapis
+  page_results_avg: Puslapio Rezultatų vidurkis
+  page_urls: 'Puslapio URL:'
+  pages_title: Išnašos
+  pages_with_count:
+    one: '%{count}'
+    other: '%{count}'
+  page_statistics_and_tools: puslapio statistika ir įrankiai
   pages_with_pictures_and_text: Puslapių su paveikslėliais ir tekstu
+  pages_with_pictures_or_text: Puslapiai su paveikslėliais ar tekstu
+  page_statistics: Puslapio statistika
+  page_views_th: Puslapio Peržiūros
+  pages_curator_section_link: Kuratoriai
+  pages_admin_section_link: Administratoriai
+  pagination_page_number: Puslapis %{number}
+  pagination_next: Kitas
+  pagination_next_with_count:
+    one: žiūrėti kitą %{count}
+    other: žiūrėti kitus %{count}
+  pagination_previous: Ankstesnis
+  pagination_previous_with_count:
+    one: žiūrėti ankstesnį %{count}
+    other: žiūrėti ankstesnius %{count}
+  pagination_range_with_count:
+    one: Rodomas %{count} įrašas
+    other: Rodomi %{start_number} &ndash; %{end_number} iš %{count}
+  parameters: Parametrai
+  partner_information: Partnerio informacija
+  partner_page: partnerio puslapis
+  partner: Partneris
+  partner_web_site_colon: 'Partnerio Interneto Svetainė:'
+  password_must_be_4to16_characters: Slaptažodžio ilgis turi būti nuo 4 iki 16 simbolių.
+  password_colon: 'Slaptažodis:'
+  pause: pauzė
+  people_with_count:
+    one: '%{count} asmuo'
+    other: '%{count} asmenys'
+  permalink: Nuoroda į šią vietą
+  permissions_list_header: Teisės EOL
+  permission_granted: Teisės suteiktos.
+  permission_revoked: Teisės panaikintos.
+  permissions_users_count:
+    one: '%{count} vartotojas'
+    other: '%{count} vartotojai'
+  personal_profile_menu: Asmeninis Profilis
   personal_space: Asmeninė erdvė
+  pinterest: Pinterest
+  please_confirm_your_donation_details: Prašome patvirtinti savo aukos informaciją
+  please_note_that_some_of_these: Atkreipkite dėmesį, kad kai kurie įrankiai šiuo
+    metu yra beta versijoje todėl gali keistis ateityje ar turėti klaidų.
+  please_publish_this_resource_notice: '*** <strong>PASTABA:</strong> Prašome <strong>%{publish_link}</strong>
+    šį resursą čia ***'
+  please_refresh: Prašome atnaujinti puslapį, kad peržiūrėtumėte naujausią EOL svetainės
+    versiją
+  please_indicate_curation_reason: 'Prašome pasirinkti priežastį ir/arba palikti kuravimo
+    komentarą:'
+  please_state_one_credential: 'Prašome nurodyti bent vieną tikslią kvalifikaciją
+    iš šio sąrašo:'
+  please_return_to_eol_homepage: Prašome grįžti į EOL pagrindinį puslapį
+  please_wait: Prašome palaukti...
+  post_comment: Rašyti Komentarą
+  posts_from_year: '%{year} įrašai'
+  preferred_common_name_advisory_information: Pageidaujamas bendras pavadinimas šiam
+    taksonui.
+  preview_changes: Peržiūrėti Pakeitimus
+  preview_version_of_latest_published_data_object_title_link: '%{link} peržiūros versija'
+  preview: peržiūra
   previewing_unpublished_page: Šis puslapis nėra paskelbtas. Jūs turite specialią
     prieigą, kad galėtumėte jį peržiūrėti; kiti vartotojai negali matyti šio puslapio.
+  previously_published: ankščiau publikuotas
+  proceed_to_checkout_page: Eiti į Užsakymo Puslapį
+  process_name: Proceso Pavadinimas
+  profile_colon: 'Profilis:'
+  profile: Profilis
+  profile_image_alt_text_curator: Kuratoriaus %{user_full_name} profilio paveikslėlis
+  profile_image_alt_text_member: Nario %{user_full_name} profilio paveikslėlis
+  profile_newsfeed: Mano naujienų srautas
+  profile_picture: Profilio Paveikslėlis
+  project: Projektas
+  provide_a_concept_id: jei pateiktas EOL puslapio ID, paieškos rezultatuose bus tik
+    taksonominės grupės nariai
+  provider: Teikėjas
+  providers: Teikėjai
+  public: Viešas
+  public_domain: viešas domenas
+  publish_after_utc: Paskelbti Po (UTC)
+  publish_changes: Paskelbti Pakeitimus
+  published: Publikuota
+  published_parens: (Publikuota)
+  publish: publikuoti
+  publish_requested: Prašoma Publikacijos
   punctuation_comma: ','
+  punctuation_semi_colon: ;
+  quarterly: Kas Ketvirtį
+  range: Diapazonas
+  rank_recognized_by_agent: '%{rank} pripažįstamas %{agent}'
+  rank_recognized_by_from_source: '%{rank} pripažįstamas %{agent} %{source}'
+  rank_recognized_by_agent_colon: '<b>%{rank}</b> pripažįstamas %{agent}:'
+  rated_by_count_people:
+    one: iš %{count} asmens
+    other: iš %{count} asmenų
+  rating_added_notice: Vertinimas buvo pridėtas sėkmingai.
+  rating_learn_more_link: Sužinoti apie vertinimą
+  rating_not_added_error: Atsiprašome, įvyko klaida, vertinimas nebuvo pridėtas.
+  reading_from_ontology: Skaitoma <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
+  recaptcha: Įveskite du žodžius ar skaičius, kuriuos matote žemiau
+  recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha
+    simboliai</a> nesutapo, prašome bandyti dar kartą.
+  recent_updates: Naujausi atnaujinimai
+  recently_visited: Neseniai lankyta
+  recently_used_link: Neseniai naudota
+  recipients: Gavėjai
+  recognized_by_from_source: '%{recognized_by} %{source}'
+  recognized_by_as_a_rank: '%{recognized_by} kaip %{taxon_rank}'
+  recognized_by_from_source_as_a_rank: '%{recognized_by} %{source} kaip %{taxon_rank}'
+  record_count: Įrašų Skaičius
+  record_not_found: '[įrašas nerastas]'
+  recount_collection_items_done: Kolekcijos objektų perskaičiavimas baigtas.
+  redirect_url_ok_title_unavailable: Peradresavimo URL Geras, Pavadinimas Negalimas
+  reference: Išnaša
+  references_cabs_colon: 'Išnašos:'
+  related_names_with_count:
+    one: '%{count} susijęs pavadinimas'
+    other: '%{count} susiję pavadinimai'
+  related_organizations: Susijusios organizacijos
+  remove_curatorship_colon: 'Pašalinti kuravimą:'
+  remove_data_object_association: Pašalinti asociaciją
   remove_membership: Pašalinti narystę
+  remove: Pašalinti
+  reply: Atsakyti
+  required: Privaloma
+  revoke_full_curator_link: Atšaukti
+  revoke_manager_link: Atšaukti valdytojo vaidmenį
+  revoke_permission: atšaukti
+  removed_count_items_from_collection_notice:
+    one: '%{count} objektas pašalintas iš kolekcijos.'
+    other: '%{count} objektai pašalinti iš kolekcijos.'
+  request_mailing_list_colon: 'Vartotojas nenori gauti el. laiškų:'
+  request: Prašymas
+  required_form_element: Privaloma
+  reset_password_enter_new_password_notice: Tai yra vienkartinis prijungimas, prašome
+    įvesti naują slaptažodį jei norite tęsti.
+  reset_password_instructions_sent_to_user_notice: Instrukcijos kaip pakeisti jūsų
+    <em>%{username}</em> paskyros slaptažodį buvo išsiųsti jūsų el. pašto adresu.
+  reset_password_token_expired_error: Atsiprašome, jūsų slaptažodis nebuvo pakeistas.
+    Nurodyta nuoroda nebegalioja, prašome užpildyti ir išsiųsti pamiršto slaptažodžio
+    formą, kad gautumėte naują nuorodą.
+  resource: Išteklis
+  resource_import_frequency:
+    once: Importuoti vieną kartą
+    weekly: Kas savaitę
+    monthly: Kas mėnesį
+    bimonthly: Du kartus per mėnesį
+    quarterly: Kas Ketvirtį
+    hours_with_count:
+      one: '%{count} valanda'
+      other: '%{count} valandos'
+  resource_hint_dataset_source_url: (originalus duomenų rinkinio šaltinio URL, pavyzdžiui
+    studija ar darbas)
+  resource_hint_default_rights: (automatiškai taikoma objektams <i>esantiems</i> duomenų
+    rinkinyje)
   resources: Ištekliai
+  response_formats: Atsakymo Formatai
+  response: Atsakymas
+  resque_status_header: 'Resque būklė:'
+  results_per_page: 'Rezultatai viename puslapyje:'
+  results: Rezultatai
+  results_offset: Rezultatai %{from} - %{to} iš %{total} skirti <em>%{for}</em>
+  revisions: Peržiūros
   rights: Teisės
   rights_holder: Teisių turėtojas
+  rights_statement: Teisių pareiškimas
+  richness_score: Turtingumo Balas
+  save_comment_lowercase: išsaugoti komentarą
+  save_curated_association_submit_button: Išsaugoti asociaciją
+  save_email_settings: išsaugoti el. pašto nustatymus
+  save: Išsaugoti
+  scientific_name: Mokslinis Pavadinimas
+  sci_name_avg_table_head: Mok. Pavadino vid
+  scrub_user_warning: 'ĮSPĖJIMAS: tai pašalins VISĄ vartotojo pridėtą turinį ir NEGALI
+    BŪTI ANULIUOTA. Ar TIKRAI?'
+  search: Paieška
+  search_by_term_page_title: 'Paieška: %{term}'
+  search_for_comments_containing_the_text: 'Ieškoti komentarų su šio tekstu:'
+  search_for_curators_containing: 'Ieškoti kuratorių su:'
+  search_for_messages_containing: 'Ieškoti žinučių su:'
+  search_for_terms_containing: 'Ieškoti terminų su:'
+  search_for_users_containing_this_in_their_username_name_or_email_address: Ieškoti
+    vartotojų, kurių varde, vartotojo varde ar el. pašte tai yra.
+  search_log_report_intro: Ši sritis pateikia informaciją apie dažniausiai vartotojų
+    naudojamus paieškos terminus, kiek kartų paieška buvo atlikta ir šiek tiek informacijos
+    apie to paieškos termino rezultatų skaičių. Paspauskite ant stulpelių, kad išrūšiuotumėte
+    pagal tą stulpelį. Paspauskite ant paieškos termino, kad pamatytumėte informaciją
+    apie rezultatų paspaudimus (jei yra), po paieškos atlikimo.
+  search_next_label: Kitas
+  search_previous_label: Ankstesnis
+  search_input_advisory_information: Įveskite bendrinį ar mokslinį gyvo organizmo
+    pavadinimą, apie kuri norėtume žinoti daugiau. Taip pat galite ieškoti EOL narių,
+    kolekcijų ar bendruomenių.
+  search_results: Paieškos Rezultatai
+  search_field_label: Ieškoti EOL
+  search_field_common_name: Bendrinis Pavadinimas
+  search_field_preferred_common_name: Pageidaujamas Bendras Pavadinimas
+  search_field_preferred_scientific: Pageidaujamas Mokslinis Pavadinimas
+  search_field_surrogate: Pakaitalas
+  search_field_synonym: Sinonimas
   search_placeholder: Ieškoti EOL ...
+  search_suggestion_admin_intro: Ši sritis yra naudojama paieškos siūlymų vartotojams
+    generavimui nurodant vartotojų ieškomą terminą ir puslapį, į kurį jie turėtų būti
+    nukreipti su pasiūlymu. Pasiūlyti rezultatai visada yra rodomi aukščiau kitų rezultatų.
+    Paieškos terminas gali turėti kelis pasiūlymus.
+  search_suggestion_created: Paieškos pasiūlymas buvo sėkmingai sukurtas.
+  search_suggestion_updated: Paieškos pasiūlymas buvo sėkmingai atnaujintas.
+  search_suggestions: Paieškos Pasiūlymai
+  search_summary: Paieškos Santrauka
+  search_term_detail_report: Paieškos Termino Detalių Ataskaita
+  search_term_reports: paieškos termino ataskaitos
+  search_term_reports_title: Paieškos Termino Ataskaitos
+  search_term: Paieškos Terminas
+  search_the_site: Ieškoti svetainėje
+  searching_within_clade: esantis %{clade_name}
+  see_all_activity_combinations: Žiūrėti visos veiklos kombinacijas per 5 minutes.
+  see_all_of_your_collections: Peržiūrėti visas savo kolekcijas
+  see_all_of_your_communities: Peržiūrėti visas savo bendruomenes
+  see_all_classifications_with_count_html:
+    one: Peržiūrėti <span class="assistive">%{count} patvirtintą klasifikaciją, kurioje
+      yra taksonas.</span>
+    other: Peržiūrėti visas <span class="assistive">%{count} patvirtintas klasifikacijas,
+      kuriose yra taksonas.</span>
+  see_all_collections_with_count_html:
+    one: Peržiūrėti <span class="assistive">%{count} kolekciją, kurioje yra šis puslapis.</span>
+    other: Peržiūrėti visas <span class="assistive">%{count} kolekcijas, kuriose yra
+      šis puslapis.</span>
+  see_all_comments_with_count_for_link_or_rate:
+    one: peržiūrėti %{count} šios nuorodos komentarą arba įvertinkite ją
+    other: peržiūrėti visus %{count} šios nuorodos komentarus arba įvertinkite ją
+  see_all_comments_with_count_for_text_or_rate:
+    one: peržiūrėti %{count} šio straipsnio komentarą arba įvertinkite jį
+    other: peržiūrėti visus %{count} šio straipsnio komentarus arba įvertinkite jį
+  see_all_data_summaries: Peržiūrėti visas <span class="assistive">šio taksono duomenų
+    suvestines.</span>
+  see_all_data_with_count_html:
+    zero: Peržiūrėti <span class="assistive">šio taksono</span> duomenų skirtuką.
+    one: Peržiūrėti <span class="assistive">%{count} šio taksono bruožą.</span>
+    other: Peržiūrėti visus <span class="assistive">%{count} šio taksono bruožus.</span>
+  see_all_updates_with_count_html:
+    one: Peržiūrėti <span class="assistive">%{count} šio puslapio atnaujinimą.</span>
+    other: Peržiūrėti <span class="assistive">%{count} šio puslapio atnaujinimus.</span>
+  see_all_maps_link: Peržiūrėti visus žemėlapius
+  see_all_editors_with_count:
+    one: Peržiūrėti %{count} valdytoją
+    other: Peržiūrėti %{count} valdytojus
+  see_in_glossary_tab: peržiūrėti žodyno skirtuke
+  see_notes: žiūrėti pastabas
+  see_more_on_the_data_tab: žiūrėti daugiau duomenų skirtuke
+  see_this_record_in_virtuoso: žiūrėti įrašą Virtuoso
+  select_an_item_from_the_menu: Pasirinkite objektą iš Meniu
+  select_tool_and_go: 'Pasirinkite įrankį ir paspauskite „Pirmyn“:'
+  select_colon: 'Pasirinkite:'
+  select_topic: Prašome pasirinkite temos sritį
+  selected_language_advisory_information: Tai yra šiuo metu pasirinkta kalba.
+  selected_items: Pasirinkti objektai
+  send_contact_email: Siųsti Kontaktinį El. Laišką
+  send_email_colon: 'Siųsti el. laišką:'
+  send: Siųsti
+  sent_invitations_to_users:
+    one: Pakvietimas buvo išsiųstas %{users}.
+    other: Pakvietimai buvo išsiųsti %{users}.
+  sep_emails_with_commas_note: (atskirkite el. paštus kableliais)
+  server_ip_address: Serverio IP Adresas
+  set_as_exemplar: Nustatyti kaip pavyzdinį
+  share_a_collection: Dalintis kolekcija
+  show: Rodyti
+  show_data_from_all_content_partners: Pašalinti klasifikacijos filtrą
+  show_email_message_area: '[rodyti el. pašto žinutės sritį]'
+  show_full_tree: rodyti visą medį...
+  show_in_overview: rodyti Apžvalgoje
+  show_more_row_data_link: daugiau
   show_status_message: Rodyti būsenos pranešimą
+  show_tasks: rodyti užduotis
   show_warning_message: Šou įspėjamąjį pranešimą
+  showing_all_error_logs: Rodomos <b>visos klaidos</b>
+  showing_error_logs_from_date: Rodomos <b>%{date}</b> klaidos
+  shown_to_the_user_parens: (parodyta vartotojui)
+  shown_to_user_as_the_title_of_page: parodyta vartotojui kaip puslapio pavadinimas
   sign_in: Registruotis
+  sign_in_remember_me_disallowed_for_admins_notice: Saugumo sumetimais, administratoriai
+    negali prisiminimo funkcijos.
+  sign_in_successful_notice: Prisijungimas sėkmingas.
+  sign_in_unsuccessful_error: Prisijungimas nepavyko. Neteisingas vartotojo vardas,
+    el. pašto adresas arba slaptažodis.
+  sign_out: Atsijungti
+  site_cms: Svetainės CMS
+  site_information: Svetainės informacija
+  site_language: Svetainės kalba
+  site_settings_menu: Svetainės Nustatymai
+  skip_to_content: Pereiti prie turinio
+  skip_to_navigation: Pereiti prie navigacijos
+  skip_to_table_of_contents: Pereiti prie turinio lentelės
+  social_sharing_reddit_button: siųsti į reddit
+  social_sharing_header: EOL socialiniuose tinkluose
+  social_sharing_twitter_tweet_button: Tweet
+  social_sharing_twitter_follow_eol_button: Sekite @eol
+  some_required_fields_were_not_entered: Kai kurie laukai nebuvo užpildyti (privalote
+    įvesti pavadinimą ir turinį ARBA URL).
+  sort_by_button: Rūšiuoti
+  sort_by_label: Rūšiuoti pagal
+  sort_by_newest_option: Naujausias
+  sort_by_oldest_option: Seniausias
+  sort_by_rating_option: Reitingas
+  sort_by_richness_option: Turtingumas
+  sort_by_alphabetical_option: Abėcėlės tvarka
+  sort_by_hierarchy_publish_request_option: Hierarchijos Publikavimo Prašymas
+  sort_by_reverse_alphabetical_option: Atvirkštinė Abėcėlė
+  sort_by_recently_added_option: Neseniai pridėta
   sort_by_recently_updated_option: Neseniai atnaujinta
+  sort_by_status_option: Būsena
+  sort_by_title_ascending: Pavadinimas Didėjimo Tvarka
+  sort_by_title_descending: Pavadinimas Mažėjimo Tvarka
+  sort_by_value_ascending: Pirma žemos vertės
+  sort_by_value_descending: Pirma aukštos vertės
+  sort_by_year_ascending: Metai Didėjimo Tvarka
+  sort_by_year_descending: Metai Mažėjimo Tvarka
+  sort_collection_by_label: Rūšiuoti kolekciją pagal
+  sort_order: Rūšiavimo Tvarka
+  sort_by: Rūšiuoti pagal
+  sort_field: 'Rūšiuoti Laukas:'
+  sorry_no_collections_are_available_to_share: Atsiprašome, nėra kolekcijų, kuriomis
+    galėtumėte pasidalinti su šia bendruomene.
+  sorry_no_communities_are_available_to_share: Atsiprašome, nėra bendruomenių, su
+    kuriomis galėtumėte pasidalinti šia kolekcija.
+  sound_file: Garso Failas
+  sound_from: garsas iš
+  sound_object: Garso objektas
+  sound_objects_page_number: garsų puslapis
   sound_of: Garsas
+  sounds_with_count:
+    one: '%{count} garsas'
+    other: '%{count} garsai'
+  source_information_header: Šaltinio informacija
+  source_and_additional_information: Šaltinis ir Papildoma Informacija
+  source: Šaltinis
+  source_colon: 'Šaltinis:'
   source_url: Šaltinio URL
+  special_collection: Ypatinga kolekcija
+  special_collections_cannot_be_destroyed: Ši kolekcija yra vienintelė kolekcija susieta
+    su savo bendruomene ir ji negali būti ištrinta.
+  species_curated: Kuruojamos Rūšys
+  species: Rūšys
+  split_into_new_concept: perskirti į naują puslapį
+  split_cancelled: Perskyrimo operacija atšaukta.
+  split_pending: Skyrimo operacija šiek tiek užtruks. Šis puslapis dabar yra apsaugotas
+    nuo klasifikacijos redagavimų, iki atskyrimo atlikimo. Jūs gausite el. laišką
+    kai procesas bus baigtas ir tai bus rodoma puslapio naujienų sraute.
+  split_only_possible_with_all_classifications: Nors jūs turite teisę perskirti klasifikacijas,
+    jūs privalote <a href='%{link}'>parodyti visas klasifikacijas</a>, kad veiksmas
+    būtų leistinas.
+  stars_with_count:
+    one: '%{count} žvaigždė'
+    other: '%{count} žvaigždės'
+  started: Pradėtas
+  stats: Statistika
+  stat: Statistika
+  stored_classifications: Atkreipkite dėmesį. kad jūs turite <a href='%{anchor}'>saugomų
+    klasifikacijų žemiau</a>.
+  sub_heading: Paantraštė
+  subject: tema
+  submit: Siųsti
+  submitting: Prašome palaukti...
+  submitted_colon: 'Pateikta:'
+  suggested_attributes: 'Siūlomi atributai:'
+  suggested_result_page_id: 'Siūlomo Rezultatų Puslapio ID:'
+  suggested_results_avg: Siūlomų Rezultatų vid
+  suggested_vocab_add: rekomenduoti terminą
+  suggested_vocab_remove: pašalinti rekomendaciją
+  summary_thumbnail_title: 'Santrauka:'
+  supplier: Tiekėjas
+  supplier_allcaps: 'TIEKĖJAS:'
+  supplier_colon: 'Tiekėjas:'
+  survey_link: Atlikite mūsų apklausą
+  switch_language_advisory_information: Keisti svetainės kalbą į %{language_label}
+  synonym: Sinonimas
+  synonyms_with_count:
+    one: '%{count} sinonimas'
+    other: '%{count} sinonimai'
+  table_column_header_actions: Veiksmai
+  table_of_contents_editor: Turinio Lentelės Redaktorius
+  table_of_contents: Turinio Lentelė
+  target_blank_advisory_information: Jei paspausite ant nuorodos puslapis atsidarys
+    naujame naršyklės lange.
+  task_status: Užduoties būsena
+  task_status_active_option: Aktyvus
+  task_status_curated_option: Kuruojamas
+  task_status_ignored_option: Ignoruojamas
+  tasks_with_count:
+    one: rasta %{count} užduotis
+    other: rasta %{count} užduotys
+  taxa_count: Taksonų Skaičius
+  taxa_column_header: Taksonai
+  taxa_with_count:
+    one: '%{count} taksonas'
+    other: '%{count} taksonai'
+  taxon: taksonas
+  taxon_biomedical_terms_link: Biomedicinos terminai
+  taxon_citizen_science_header: Pilietinio Mokslo Nuorodos
+  taxon_citizen_science_link: Pilietinio mokslo nuorodos
+  taxon_citizen_science_resources_empty: Dar niekas nepridėjo pilietinio mokslo nuorodų
+    į šį puslapį.
+  taxon_common_names_subtab_explanation: Dauguma žmonių organizmus žino jų bendriniais
+    pavadinimais arba „liaudiškais“ pavadinimais. Bendriniai pavadinimai beveik visada
+    skiriasi skirtingomis kalbomis, o moksliniai ne. Pavadinimai taip pat gali skirtis
+    priklausomai nuo regiono. Šis skirtukas rodo visus EOL pateiktus bendrinius pavadinimus
+    šiam organizmui iš įvairių teikėjų, įskaitant kuratorius. Šiuo metu galime nustatyti
+    tik vieną pageidautiną bendrinį pavadinimą kalbai puslapyje, bet visi pavadinimai
+    turėtų būti surandami, kai jų ieškoma.
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> surenka duomenų įrašus
+    iš daug teikėjų. Dar niekas nepridėjo duomenų įrašų skirtu %{taxon}.
+  taxon_data_overview_empty: Dar niekas nepridėjo duomenų įrašų skirtu %{taxon}.
+  taxon_data_header: Duomenų apie %{taxon}
+  taxon_details_empty: Dar niekas nepridėjo duomenų į šį puslapį.
+  taxon_details_empty_in_this_language: Dar niekas nepridėjo duomenų į šį puslapį
+    šia kalba.
+  taxon_education_empty: Dar niekas nepridėjo švietimo išteklių į šį puslapį.
+  taxon_education_header: Švietimo Ištekliai
+  taxon_education_link: Švietimo ištekliai
+  taxon_group: Taksono Grupė
+  taxon_id: Taksono ID
+  taxon_identification_resources_empty: Dar neikas nepridėjo identifikacijos išteklių
+    į šį puslapį.
+  taxon_identification_resources_header: Identifikacijos Ištekliai
+  taxon_identification_resources_link: Identifikacijos ištekliai
+  taxon_multimedia_links_link: Multimedijos nuorodos
+  taxon_newsfeed: Taksono naujienų srautas
+  taxon_news_and_event_links_link: Naujienų ir įvykių nuorodos
+  taxon_nucleotide_sequences_link: Nukleotidų sekos
+  taxon_partner_links_empty: Turinio partneriai dar nepateikė šaltinių nuorodų šiam
+    puslapiui.
+  taxon_partner_links_empty_learn_more_link: Sužinokite, kaip tapti turinio partneriu
+  taxon_partner_links_header: Partnerio nuorodos
+  taxon_partner_links_link: Partnerio nuorodos
+  taxon_page_content_disclaimer_header: Atsakomybės apribojimas
+  taxon_page_content_disclaimer: EOL turinys yra automatiškai surenkamas iš daug skirtingų
+    turinio teikėjų. Dėl to kartais EOL puslapiai gali būti painūs.
+  taxon_page_content_disclaimer_suggest_improvement: Kad pateiktumėte patobulinimo
+    prašymą, prašome palikti komentarą šiame puslapyje. Ačiū!
+  taxon_related_organizations_link: Susijusios organizacijos
+  taxonomic_summary_of_content: turinio taksonominis apibendrinimas
+  taxon_recognized_by: Taksonas pripažintas %{whom}
+  taxon_selected_from_search_res: Taksonas Pasirinktas Iš Paieškos Rezultatų
+  taxon_suggested: Taksonas Pasiūlytas
+  technical_functions: Techninės Funkcijos
+  terms_agreement_form_fallback: Prašome peržiūrėti ir sutikti su <a href="%{terms_url}">naudojimosi
+    sąlygomis</a> prieš prieinant prie savo paskyros.
+  terms_agreement_form_header: Naudojimosi sąlygos
+  terms_agreement_form_submit: Sutinku
+  terms_of_use_link: Naudojimo sąlygas ir privatumas
+  term_for_search_admin_ui: Terminas
+  test: Testas.
+  test_it_out: Išbandyti
+  text_object: Teksto Objektas
+  text_objects_page_number: Tekstų puslapis
+  text: tekstas
+  text_capital: Tekstas
+  text_summary_empty: Dar niekas nepridėjo trumpos santraukos į šį puslapį.
+  text_summary_empty_header: Trumpa santrauka
+  text_summary_more_link: Skaityti visą įrašą
+  text_with_count:
+    one: '%{count} Straipsnis'
+    other: '%{count} Straipsniai'
+  thanks_for_donation: Ačiū už paramą skirta Encyclopedia of Life. Jūsų informacija
+    buvo išsiųsta ir bus apdorota.
+  thanks_for_your_time: Ačiū už jūsų laiką,
+  thank_you_for_your_generous_support: Dėkojame už jūsų dosnią paramą!
+  thank_you: Ačiū
+  the_amount_entered_was: 'Įrašyta suma buvo: %{number} USD'
+  the_comment_was_successfully_updated: Komentaras buvo sėkmingai atnaujintas.
+  the_comment_was_successfully_deleted: Komentaras buvo sėkmingai ištrintas.
+  the_content_could_not_be_displ: Turinys negali būti rodomas.
+  the_content_was_updated: Turinys buvo atnaujintas.
+  the_file_was_uploaded: Failas buvo įkeltas.
+  the_following_bibliography: Ši bibliografija buvo sugeneruota surenkant visas išnašas,
+    kurias pateikė mūsų turinio partneriai. Gali būti dublikatų.
+  topics_avilable_to_contact_us_info: Toliau esančios temų sritis yra prieinamos Susisiekimo
+    puslapyje. Galite pridėti ar redaguoti temų sritis ir su jomis susietus el. paštus.
+    Visi pakeitimai įsigalioja iškart.
+  the_following_users_were_prese: 'Šiems vartotojams buvo pateiktas iššokantis apklausos
+    langas su prašymu atlikti apklausa, kaip ir pateikta žemiau:'
+  the_image_from_this_source_has_not_been_reviewed: Paveikslėlis iš šio šaltinio nebuvo
+    peržiūrėtas.
+  the_image_from_this_source_is_not_trusted: Paveikslėlis iš šio šaltinio nepatikimas.
+  the_info_highlighted_is_reviewed: Informacija paryškinta raudonai buvo peržiūrėta
+    kuratoriaus ir pažymėta kaip nepatikima.
+  the_information_highlighted_in: Informacija paryškinta geltonai nebuvo peržiūrėta.
+  the_message_was_sent: Pranešimas buvo išsiųstas.
+  the_new_topic_was_created: Nauja tema buvo sukurta.
+  the_new_user_was_created: Naujas vartotojas buvo sukurtas.
+  there_are_currently_no_members_in_this_community: Šiuo metu nėra narių šioje bendruomenėje.
+  the_suggested_page_to_direct_users_to_link: siūlomas puslapis į kurį bus nukreipiami
+    vartotojai
+  the_topic_was_updated: Tema buvo atnaujinta.
+  the_user_was_updated: Vartotojas buvo atnaujintas.
+  the_user_who_performed_this_action_was_removed: Vartotojas, kuris atliko šį veiksmą
+    buvo pašalintas.
+  this_cannot_be_undone_are_you_sure: Tai negali būti anuliuojama; ar tikrai?
+  this_collection_has_no_managers: Ši kolekcija neturi valdytojų.
+  this_comment_was_deleted: Šis komentaras buvo ištrintas.
+  this_community_was_deleted: Ši bendruomenė buvo ištrintas jos savininko.
+  this_data_object_will_be_reindexed: Šis duomenų objektas bus indeksuotas iš naujo.
+  this_is_a_focus_collection_for_community: Tai yra %{community} tikslas.
+  this_page_will_be_reindexed: Šis puslapis bus indeksuotas iš naujo fone, tai gali
+    užtrukti iki 24 valandų.
+  gbif_occurrence_learn_more_link: Pasiekti duomenis per GBIF Portalą.
+  ping_method_description: Šis metodas nepavyks (tada greičiausiai bus pateiktas EOL
+    klaidos puslapis) arba bus pateiktas Sėkmės pranešimas. Nėra jokių kitų galimų
+    žinučių
+  this_page_shows_information_ab: Šis puslapis pateikia informaciją apie specifinį
+    paieškos terminą ir apie rezultatus, kuriuos vartotojai paspaudė atlikę paiešką.
+  this_resource_unpublished_notice: Šiuo metu šis išteklius nėra nustatytas kaip publikuotas
+    administratoriaus.
+  threat_status_header_colon: '<abbr title="International Union for Conservation of
+    Nature">IUCN</abbr> grėsmės būklė:'
+  thumbnail_page_colon: 'miniatiūros puslapis:'
+  time_ago: prieš %{time_passed}
+  title: Pavadinimas
+  toc_entry_col_header: TL Įrašas
+  toc_no_longer_available: TL Informacija nebepasiekiama
+  toc: TL
+  topic_area: Temos Sritis
+  topic: Tema
+  to_process_your_donation_please_proceed: Kad apdorotume jūsų auką prašome tęsti
+  to_send_email_enter_text: Kad išsiųstumėte šiam vartotojui el. laišką įveskite tekstą
+    žemiau ir spauskite „Siųsti“.
+  to_submit_a_species_photograph_for: Kad pateiktumėte rūšies nuotrauką skirta %{taxon},
+    prašome siųsti nuotraukas į %{flickr_link} ir sekti instrukcijas esančias pagrindiniame
+    grupės puslapyje.
+  total_items_with_count:
+    one: '%{count} objektas'
+    other: viso %{count} objektai
+  total_searches: 'Viso paieškų:'
+  total: Viso
+  traitbank_banner: <strong>Pristatome <a href='/traitbank'>TraitBank</a>:</strong>
+    ieškokite tarp milijonų duomenų įrašų EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Sužinokite
+    daugiau</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Ieškokite duomenų</a>
+  translation_deleted: Vertimas buvo ištrintas
+  translation_information_header: Vertimo informacija
+  translation_saved: Vertimas buvo išsaugotas
+  translations_submit: Peržiūrėti vertimą
+  trigger_search_term_entered_by: vartotojo įvestas aktyvinantis paieškos terminas
+  "true": Tiesa
+  true_label: Tiesa
+  truncated_comment_omission: '... <a href=''%{link}''>daugiau</a>'
+  truncated_comment_omission_linkless: '...'
+  truncated_news_item_omission: '... <a href=''%{link}''>daugiau</a>'
+  trusted: Patikimas
+  trusted_images: Patikimi paveikslėliai
+  trusted_maps: Patiki žemėlapiai
+  trusted_text_objects: Patiki straipsniai
+  tumblr: Tumblr
   twitter: Twitter
+  type: Tipas
+  unable_to_copy_items_to_collection_error: Atsiprašome, negalime nukopijuoti kolekcijos
+    objektų į %{name}.
+  unable_to_invite_users_to_community_with_count:
+    one: Pakvietimas negali būti išsiųstas į %{list}.
+    other: Pakvietimai negali būti išsiųsti į %{list}.
+  unique_page_views_th: Unikalios Puslapio Peržiūros
+  unit_of_measure: Matavimo Vienetas
   unknown: Nežinoma
+  unknown_hierarchy: Nežinoma Hierarchija
+  unknown_data_object_title: Nežinomas duomenų objektas
+  unable_to_determine_title: Nepavyko nustatyti šio svetainės puslapio pavadinimo
+  unpublished: Nepublikuotas
+  unpublished_collections_with_count:
+    one: '%{count} paslėpta kolekcija'
+    other: '%{count} paslėptos kolekcijos'
+  unreviewed: Neperžiūrėta
+  unreviewed_images: Neperžiūrėti paveiksliai
+  unreviewed_maps: Neperžiūrėti žemėlapiai
+  unreviewed_text_objects: Neperžiūrėti straipsniai
+  untrusted: Nepatikima
+  update: Atnaujinti
+  update_collection_submit_button: Atnaujinti kolekcijos informaciją
+  update_language: Atnaujinti kalbą
+  update_page: Atnaujinti puslapį
+  update_user_successful_notice: Paskyra sėkmingai atnaujinta.
+  update_user_unsuccessful_error: Atsiprašome, įvyko klaida, jūsų paskyra nebuvo atnaujinta.
+    Prašome įsitikinti, kad visi laukai buvo užpildyti teisingai.
+  updated_community: Bendruomenė buvo sėkmingai atnaujinta.
+  updated_member: Narys buvo sėkmingai atnaujintas.
+  updated: Atnaujinta
+  updated_colon: 'Atnaujinta:'
+  updates: Atnaujinimai
+  upload_content: įkelti turinį
+  upload_logo_help_text: Tai bus pagrindinis paveikslėlis, reprezentuojantis jūsų
+    bendruomenę - tai gali būti bet kas.
+  uploaded_by: Įkėlė
+  uploaded_content: Įkeltas Turinys
+  uploaded_on: Įkelta
+  upload: Įkelti
+  uri: URI
+  url: URL
+  url_not_accessible: Šis URL yra neprieinamas
+  us_dollars_100: JAV $100
+  us_dollars_35: JAV $35
+  us_dollars_50: JAV $50
+  us_dolars_75: JAV $75
   use_as_examplar_button: naudoti kaip pavyzdį
+  use_as_examplar_note_preferred: 'Pastabe: Ši klasifikacija yra pageidaujama. Tikriausiai
+    turėtumėte naudoti ją.'
+  used_for_friendly_url_note: (naudojamas draugiškos nuorodos vartotojams generavimui,
+    negali turėti tarpų ar specialių simbolių)
+  user_activation_failed_resent_validation_email_error: Atsiprašome, įvyko klaida,
+    jūsų paskyra nebuvo patvirtinta. Tai dažniausiai nutinka kai patvirtinimo nuoroda,
+    kurią įvedėte ar pasirinkote yra neatpažįstama. Aktyvavimo instrukcijos buvo dar
+    kartą išsiųstos į el. pašto adresą, su kurio užsiregistravote, prašome įsitikinti,
+    kad naudojama patvirtinimo nuoroda sutampa su nuoroda aktyvavimo el. laiške.
+  user_activation_failed_user_not_found_error: Atsiprašome, įvyko klaida, paskyra,
+    kuria bandote patvirtinti nebuvo rasta. Prašome patikrinti ar naudojama patvirtinimo
+    nuoroda sutampa su nuoroda esančia aktyvavimo el. laiške, kurį gavote užsiregistravę.
+  user_activation_successful_notice: Sveiki atvykę, ačiū, kad prisijungėte prie Encyclopedia
+    of Life komandos. Jūsų paskyra su vartotojo vardu <em>%{username}</em> dabar yra
+    aktyvuota, prašome prisijungti.
+  user_activity_click_on_the_numbers: Spauskite ant skaičių, kad peržiūrėtumėte atitinkamus
+    veiklos srautus.
+  user_activity_page_title: Vartotojo Veikla
+  user_activity_stats_articles_added:
+    one: pridėtas %{count} straipsnis
+    other: pridėta %{count} straipsnių
+  user_activity_stats_articles_added_dropdown: Pridėti straipsniai
+  user_activity_stats_comment_submitted:
+    one: išsiųstas %{count} komentaras
+    other: išsiųsti %{count} komentarai
+  user_activity_stats_common_names_added:
+    one: pridėtas %{count} bendrinis pavadinimas
+    other: pridėta %{count} bendrinių pavadinimų
+  user_activity_stats_common_names_curated:
+    one: kuruojamas %{count} bendrinis pavadinimas
+    other: kuruojami %{count} bendriniai pavadinimai
+  user_activity_stats_common_names_removed:
+    one: pašalintas %{count} bendrinis pavadinimas
+    other: pašalinti %{count} bendriniai pavadinimai
+  user_activity_stats_data_added:
+    one: pridėtas %{count} duomenų įrašas
+    other: pridėti %{count} duomenų įrašai
+  user_activity_stats_data_added_dropdown: Duomenys pridėti
+  user_activity_stats_header: Veikla
+  user_activity_stats_objects_curated:
+    one: kuruojamas %{count} objektas
+    other: kuruojami %{count} objektai
+  user_activity_stats_objects_curated_dropdown: Kuruojami objektai
+  user_activity_stats_preferred_classifications_selected:
+    one: pasirinkta %{count} pageidaujama klasifikacija
+    other: pasirinktos %{count} pageidaujamos klasifikacijos
+  user_activity_stats_selected_articles_for_overview:
+    one: pasirinktas %{count} straipsnis Apžvalgai
+    other: pasirinkti %{count} straipsniai Apžvalgai
+  user_activity_stats_set_exemplar:
+    one: '%{count} paveikslėlis nustatytas kaip pavyzdinis'
+    other: '%{count} paveikslėliai nustatyti kaip pavyzdiniai'
+  user_activity_stats_taxa_commented:
+    one: pakomentuotas %{count} taksonas
+    other: pakomentuoti %{count} taksonai
+  user_activity_stats_taxa_comments:
+    one: '%{count} taksono komentaras'
+    other: '%{count} taksono komentarų'
+  user_activity_stats_taxa_comments_dropdown: Taksonų komentarai
+  user_activity_stats_taxa_curated:
+    one: kuruojamas %{count} taksonas
+    other: kuruojama %{count} taksonų
+  user_activity_stats_wikipedia_nominated:
+    one: nominuotas %{count} Vikipedijos straipsnis
+    other: nominuoti %{count} Vikipedijos straipsniai
+  new_uri_warning: Terminas, kurį ruošiatės pridėti nėra rekomenduojamas EOL terminas.
+  user_already_active_notice: Jūsų paskyra jau aktyvuota, prašome prisijungti.
+  user_comments: Vartotojo Komentarai
+  user_comment: Vartotojo Komentaras
+  user_commented_on_something_colon: '<strong>%{user}</strong> pakomentavo „%{what}“:'
+  user_commented_on_older_data_object_colon: '<strong>%{user}</strong> pakomentavo
+    senesnę „%{what}“ versiją:'
+  user_commented_on_themself: '<strong>%{user_with_link}</strong> pakomentavo <a href=''%{link}''>%{username}''s
+    naujienų srautą</a>:'
+  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> pakomentavo
+    pašalinto vartotojo puslapį:'
+  user_commented_on_your_image: |-
+    <strong>%{user}</strong> pakomentavo jūsų paveikslėlį <a href='%{data_object_link}'>Encyclopedia of Life svetainėje</a>:
+    %{comment_body}
+  user_commented_on_removed_data: <strong>%{user}</strong> pakomentavo pašalintus
+    duomenis.
+  user_full_name_with_curator: '%{user} (%{curator_level})'
+  user_id: Vartotojo ID
+  user_joined_community_on_date: '%{username} prisijungė prie bendruomenės %{date}.'
+  user_joined_when: „%{user}“ prisijungė %{when}
+  user_left_comment_on_date: '%{username} pakomentavo %{date}.'
+  user_no_longer_active_message: Šis vartotojas nebėra aktyvus
+  user_no_longer_has_manager_access_to_collection: '%{user} nebeturi valdytojo prieigos
+    prie „%{collection}“.'
+  user_pending_notifications_assitive: <span class="assistive">pranešimai</span>
+  user_pending_notifications_with_count:
+    one: '%{count} pranešimas'
+    other: '%{count} pranešimai'
+  user_pending_notifications_with_count_assitive:
+    one: '%{count}<span class="assistive"> pranešimas</span>'
+    other: '%{count}<span class="assistive"> pranešimai</span>'
+  user_pending_notifications_comments_assistive: <span class="assistive">komentarai</span>
+  user_pending_notifications_comments_with_count:
+    one: '%{count} komentaras'
+    other: '%{count} komentarai'
+  user_pending_notifications_comments_with_count_assistive:
+    one: '%{count}<span class="assistive"> komentaras</span>'
+    other: '%{count}<span class="assistive"> komentarai</span>'
+  user_was_added_as_editor_of_collection: Vartotojas buvo pridėtas kaip „%{collection}“
+    valdytojas.
+  username_taken: '%{name} jau yra užimtas'
+  username_colon: 'Vartotojo vardas:'
+  username: Vartotojo vardas
+  user_response: Vartotojo Atsakymas
+  user_says_colon: '%{users_name} sako:'
+  user_submitted_text_found: 'Vartotojo pateiktas tekstas rastas:'
+  user_submitted_text: Vartotojo pateiktas tekstas
+  user_system_down: Atsiprašome, bet vartotojo registravimo sistema šiuo metu neprieinama.
+    Prašome pabandyti vėliau.
+  user: Vartotojas
+  users_about_me_header: Apie mane
+  users_content_partners_header: Turinio partneriai
+  users_content_partners_information: EOL turinio partneriai yra individai ir organizacijos,
+    kurie dalijasi biologinės įvairovės duomenis su visu pasauliu per EOL. Sužinokite
+    daugiau apie <a href="%{more_url}">EOL Turinio Partnerius</a>.
+  users_content_partners_with_count:
+    one: '%{count} esamas turinio partneris'
+    other: '%{count} esami turinio partneriai'
+  users_curation_header: Kuratoriaus kvalifikacija
+  users_form_account_header: Jūsų paskyra
+  users_form_curation_header: Kuratoriaus kvalifikacija
+  users_form_profile_info_header: Vieša profilio informacija
+  users_form_tip: Vartotojo vardas yra privalomas visiems vartotojams, kiti objektai
+    pažymėti kaip privalomi %{required_icon} yra nebūti visuotiniams vartotojams,
+    bet yra privalomi kuratoriams.
+  users_member_of_count_communities:
+    one: '%{count} bendruomenės narys'
+    other: '%{count} bendruomenių narys'
+  users_my_info_header: Mano informacija
+  users_that_can_edit_this_collection: Vartotojai, kurie gali valdyti šią kolekciją
+  using_the_site: Naudodami Svetainę
+  validation_error: Patvirtinimo Klaida
+  validation_following_fields: 'Kilo problemų su šiais laukais:'
+  values: Reikšmės
+  value: Reikšmė
+  value_empty: (tuščia)
+  value_default: (numatytasis)
+  versions_colon: 'Versijos:'
+  vetted: Patikrintas
+  video_from: vaizdo įrašas iš
+  video_object: Vaizdo įrašo objektas
+  video_objects_page_number: Vaizdo įrašų puslapis
+  video_title_not_available_in_language: Pavadinimas neprieinamas %{language} kalba
+  videos_with_count:
+    one: '%{count} vaizdo įrašas'
+    other: '%{count} vaizdo įrašai'
+  view_verb: Žiūrėti
+  view_added_text: žiūrėti pridėtą tekstą
+  view_as_button: Pakeisti rodinį
+  view_as_label: Žiūrėti kaip
+  view_contact_us_submissions: žiūrėti susisiekimo pareiškimus
+  view_curators: žiūrėti kuratorius
+  view_current_version_link: Žiūrėti dabartinę versiją
+  view_in_classification: žiūrėti klasifikacijoje
+  view_translation_source_link: Žiūrėti vertimo šaltinį
+  view_error_log: žiūrėti klaidos žurnalą
+  view_full_size_image: Žiūrėti viso dydžio paveikslėlį
+  view_article_source: Žiūrėti straipsnio šaltinį
+  view_image_source: Žiūrėti paveikslėlio šaltinį
+  view_image_map_source: Žiūrėti žemėlapio šaltinį
+  view_map_source: Žiūrėti žemėlapio šaltinį
+  view_sound_source: Žiūrėti garso įrašo šaltinį
+  view_source: Žiūrėti šaltinį
+  view_video_source: Žiūrėti vaizdo įrašo šaltinį
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Žiūrėti tik puslapius
+    bent su paveikslėliu ar tekstu
+  view_this_hierarchy: žiūrėti šią hierarchiją
+  view_user_comments: žiūrėti vartotojo komentarus
+  view_your_curator_profile: Žiūrėti savo kuratoriaus profilį
+  vimeo: Vimeo
+  visible_title: Matomas
+  visitors: Lankytojai
+  vivisimo: Vivisimo
+  wants_colon: 'Nori:'
+  watch_list: Stebimųjų sąrašas
+  watch_list_newsfeed: Stebimųjų Sąrašo Naujienų Srautas
+  watch_collections_cannot_be_destroyed: Ši kolekcija yra vienintelė kolekcija susieta
+    su savo bendruomene ir ji negali būti ištrinta.
+  warning_you_are_editing_as_admin: 'Įspėjimas: Jūs galite redaguoti šį puslapį tik
+    todėl, kad esate administratorius.'
+  web_service_base_url: Interneto paslaugų bazės URL
+  web_users: Interneto Naudotojai
+  weekly: Kas savaitę
+  welcome_and_you_were_logged_out: Sveiki atvykę į naują EOL! Įvyko klaida su jūsų
+    senu prisijungimu, todėl jus atjungėme. Tačiau jūsų sena prisijungimo informacija
+    turėtu vėl veikti. Atsiprašome!
+  welcome_to_the_eol_administrat: Sveiki atvykę į EOL Administracijos Konsolę. Prašome
+    pasirinkti funkciją iš kairėje esančio navigacijos menių.
+  welcome: Sveiki atvykę
+  what_do_these_numbers_mean: Ką reiškia šie skaičiai?
   what_is_eol: Kas yra EOL?
   what_is_this_question: Kas tai?
+  who_registered_before: iki
+  who_registered_from: kurie užsiregistravo nuo
+  wikipedia_queue_create_successful_notice: Vikipedijos straipsnio %{article} peržiūra
+    %{rev} buvo įtraukta į eilę importavimui.
+  wikipedia_queue_create_unsuccessful_error: Atsiprašome, įvyko klaida, Vikipedijos
+    straipsnis nebuvo įtrauktas į eilę importavimui.<br />Peržiūros URL turi sutaptihttps://en.wikipedia.org/w/index.php?title=*PAVADINIMAS*&oldid=*SENASID*
+  wikipedia_queue_new_instructions_intro: 'Kas rasti Vikipedijos straipsnio peržiūros
+    URL:'
+  wikipedia_queue_new_instructions_step_one: Eikite į Vikipedijos straipsnio puslapį,
+    pvz. <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_four: Nukopijuokite peržiūros URL iš savo
+    naršyklės ir įklijuokite į Vikipedijos importavimo prašymo formą rodoma čia, peržiūros
+    URL turėtų atrodyti panašiai į <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_page_title: Prašyti Vikipedijos straipsnio importavimo
+  will_find_taxon_pages_matching_the_search_term: suras taksono puslapius jei pavadinimas
+    ar bet kuris sinonimas ar bendrinis vardas visiškai sutaps su ieškomu terminu.
+  would_you_like_to_become_a_curator_notice: Ar norėtumėte tapti kuratoriumi? Galite
+    prašyti prieigos <a href='%{url}'>savo profilio puslapyje</a>.
+  worklist: Darbo sąrašas
+  xml_response: XML Atsakymas
+  yahoo_images: Yahoo Vaizdai
+  yahoo: Yahoo
+  year: Metai
+  yes_answer: Taip
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: 'Jūs esate administratorius.
+    Jūs galite matyti klaidos pranešimą:'
   you_are_not_authorized_to_perform_this_action: Jums neleidžiama atlikti šį veiksmą.
+  you_can_edit_those_later_if_ne: Jei reikės galėsite juos redaguoti vėliau.
+  you_have_been_logged_in_as_username: Buvote prijungti kaip %{username}
+  you_have_been_logged_out: Buvote atjungti.
+  you_joined_community: Jūs sėkmingai prisijungėte prie šios bendruomenės.
   you_left_community: Jūs sėkmingai palikote šia bendruomenę.
+  you_must_be_comfortable: Turėtumėte suprasti HTML jei norite kurti nuorodas ar naudoti
+    formatavimą.
+  your_browser_does_not_support: Jūsų naršyklė nepalaiko HTML5 vaizdo įrašo.
+  your_email_address: Jūsų el. pašto adresas
+  you_removed_the_member_from_the_community: Jūs sėkmingai pašalinote šį narį iš bendruomenės.
+  your_ip_address: Jūsų IP Adresas
+  your_preferences: Jūsų Pageidavimai
   your_rating: Jūsų vertinimas
+  youtube: YouTube
+  youtube_video: YouTube vaizdo įrašas
 ...

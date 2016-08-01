@@ -6285,6 +6285,8 @@ gl:
   save: Gardar
   scientific_name: Nome científico
   sci_name_avg_table_head: Media do nome científico
+  scrub_user_button: limpar usuario
+  scrub_user_notice: Usuario limpado correctamenteǃ
   scrub_user_warning: 'ADVERTENCIA: isto eliminará TODO o contido engadido polo usuario
     e NON SE PODE DESFACER. Está SEGURO?'
   search: Procurar

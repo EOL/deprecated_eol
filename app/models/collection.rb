@@ -79,15 +79,22 @@ class Collection < ActiveRecord::Base
     return taxa_counts
   end
 
+  def clear
+    CollectionItem.where(collection_id: id).delete_all
+    collection_items_count = 0
+    save
+    solr = SolrCore::CollectionItems.new
+    solr.delete("collection_id:#{id}")
+  end
+
   # NOTE: you don't want to do this unless you REALLY know what you are doing.
   def scrub!
+    clear
     name = "Violation of TOS removed"
     description = ""
-    collection_items.delete_all
     save
-    @solr = SolrCore::SiteSearch.new
-    @solr.delete_item(self)
-    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
+    solr = SolrCore::SiteSearch.new
+    solr.delete_item(self)
   end
 
   def special?

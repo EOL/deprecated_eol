@@ -21,8 +21,8 @@ class Hierarchy
     # be best if we rebuilt that table periodically, even though doing so would
     # be rather hairy! TODO
     def flatten
-      EOL.log("Flattening #{@hierarchy.label} (#{@hierarchy.id}; RID="\
-        "#{@hierarchy.resource.id})", prefix: "#")
+      EOL.log("Hierarchy::Flattener.flatten(#{@hierarchy.id}) "\
+        "#{@hierarchy.label} (RID: #{@hierarchy.resource.id})", prefix: "#")
       begin
         study_hierarchy
       rescue EOL::Exceptions::EmptyHierarchyFlattened => e
@@ -45,13 +45,15 @@ class Hierarchy
       # HierarchyEntry.published.visible_or_preview.not_untrusted. This query
       # takes about 25 seconds on 500K entries, and the block takes a few
       # seconds more to process.
-      HierarchyEntry.where(hierarchy_id: @hierarchy.id).
-        pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
-        each do |str|
-        (entry,parent,taxon) = str.split(",")
-        @children[parent] ||= Set.new
-        @children[parent] << entry
-        @taxa[entry] = taxon
+      HierarchyEntry.with_master do
+        HierarchyEntry.where(hierarchy_id: @hierarchy.id).
+          pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
+          each do |str|
+          (entry,parent,taxon) = str.split(",")
+          @children[parent] ||= Set.new
+          @children[parent] << entry
+          @taxa[entry] = taxon
+        end
       end
       raise EOL::Exceptions::EmptyHierarchyFlattened.new if @children.empty?
     end
@@ -91,23 +93,32 @@ class Hierarchy
       currently = @hierarchy.ancestry_set
       old = currently - @flat_entries
       create = @flat_entries - currently
+      if old.size <= 0 && create.size <= 0
+        EOL.log("Hierarchy already properly flattened, nothing to do.")
+        # NOTE: it's *possible* (maybe?) that there are flattened taxa to add
+        # that we're skipping here, but I *really* don't think that's going to
+        # happen, so I don't think it's worth doing.
+        return 0
+      end
+
       EOL.log("Ancestry is now #{currently.size}, wants to be "\
         "#{@flat_entries.size} (#{old.size} old, #{create.size} new)",
         prefix: ".")
-
       HierarchyEntriesFlattened.delete_set(old)
       # Now ensure that no later process gets an empty set!
       @hierarchy.clear_ancestry_set
       begin
         EOL::Db.bulk_insert(HierarchyEntriesFlattened,
-          [ "hierarchy_entry_id", "ancestor_id" ], create)
+        [ "hierarchy_entry_id", "ancestor_id" ], create)
       rescue ActiveRecord::RecordNotUnique => e
         raise "Did you run this with_master? tried to create a duplicate "\
-          "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
+        "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
       end
 
+      # TODO: Ideally, we would also build diffs for taxa... also, we never
+      # remove any!:
       EOL::Db.bulk_insert(TaxonConceptsFlattened,
-        [ "taxon_concept_id", "ancestor_id" ], @flat_concepts, ignore: true)
+      [ "taxon_concept_id", "ancestor_id" ], @flat_concepts, ignore: true)
     end
   end
 end

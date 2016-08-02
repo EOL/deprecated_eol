@@ -8,7 +8,8 @@ class Hierarchy
   # is dangerous, and we don't do anything with them that warrants it (other
   # than multiply, which can be achieved other ways). Let's switch to using a
   # 0-100 scale, which is more stable. NOTE: this is called by
-  # Hierarchy#reindex_and_merge_ids
+  # Hierarchy#reindex_and_merge_ids and
+  # HarvestEvent#relate_new_hierarchy_entries
   class Relator
     def self.relate(hierarchy, options = {})
       relator = self.new(hierarchy, options)
@@ -113,8 +114,7 @@ class Hierarchy
       sleep(0.3)
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 200
-        EOL.log("compare query: #{query}", prefix: ".")
-        EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
+        EOL.log("SLOW (#{rhead["QTime"]}ms): #{query}", prefix: "!")
       end
       matching_entries_from_solr = response["response"]["docs"]
       matching_entries_from_solr.each do |matching_entry|

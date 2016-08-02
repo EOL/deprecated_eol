@@ -61,8 +61,8 @@ class Hierarchy
       end
       EOL.log("Preparing to merge #{@merges.keys.size} taxa into "\
         "#{@merges.values.sort.uniq.size} targets.")
-      merge_taxa
-      CollectionItem.remove_superceded_taxa(@merges)
+      num_merges = merge_taxa || 0
+      CollectionItem.remove_superceded_taxa(@merges) unless num_merges <= 0
       EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
 
@@ -111,8 +111,9 @@ class Hierarchy
         hierarchy2), compare_hierarchies_options(page))
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 1000
-        EOL.log("gporfs Request took #{rhead["QTime"]}ms for "\
-          "#{rhead["params"]["rows"]} results", prefix: ".")
+        EOL.log("SLOW (#{rhead["QTime"]}ms): Hierarchy::ConceptMerger#"\
+          "get_page_from_solr for #{rhead["params"]["rows"]} results",
+          prefix: "!")
         EOL.log("gporfs query: #{rhead["params"]["q"]}", prefix: ".")
       end
       response["response"]["docs"]
@@ -208,7 +209,7 @@ class Hierarchy
 
     def merge_taxa
       begin
-        TaxonConcept::Merger.in_bulk(@merges)
+        return TaxonConcept::Merger.in_bulk(@merges)
       rescue => e
         EOL.log("ERROR: Merging failed. Merge map: #{@merges.inspect}")
         raise(e)

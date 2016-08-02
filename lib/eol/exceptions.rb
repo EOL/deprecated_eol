@@ -12,6 +12,7 @@ module EOL
     class DuplicateCollectionItems < StandardError; end
     class FailedToCreateTag < StandardError; end
     class HarvestPauseTimeExceeded < StandardError; end
+    class HarvestNotReady < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end
     class MergeToUnpublishedTaxon < StandardError; end

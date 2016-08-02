@@ -31,7 +31,7 @@ class Resource < ActiveRecord::Base
   belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
-  has_many :data_point_uris
+  has_many :data_point_uris , dependent: :destroy
 
   scope :by_priority, -> { order(:position) }
   scope :force_harvest,
@@ -173,6 +173,10 @@ class Resource < ActiveRecord::Base
     harvest_events.last.relate_new_hierarchy_entries
   end
 
+  def index_for_merges
+    SolrCore::HierarchyEntries.reindex_hierarchy(hierarchy)
+  end
+
   # NOTE: sadly, there's no way (ATM) to know if something was successfully
   # previewed (though we could guess, if the resource isn't auto-publish), so we
   # have to call this method. NOTE ATM this is ONLY called manually.
@@ -180,9 +184,20 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self, previewed: true)
   end
 
+  # NOTE: somewhere in here it throws a warning: "Scoped order and limit are
+  # ignored, it's forced to be batch order and batch size" ... we should look
+  # into that and make sure we're not missing something. It's before a call to
+  # uBio. It looks like its on a query like: Name Load (346.5ms)  SELECT
+  # names.id, names_canonical_forms.id canonical_name_id FROM `names` INNER JOIN
+  # `canonical_forms` ON `canonical_forms`.`id` = `names`.`canonical_form_id`
+  # INNER JOIN `names` `names_canonical_forms` ON
+  # `names_canonical_forms`.`canonical_form_id` = `canonical_forms`.`id` WHERE
+  # (names.id IN
   def rebuild_taxon_concept_names
-    TaxonConceptName.rebuild_by_taxon_concept_id(
-      latest_harvest_event_uncached.taxon_concept_ids)
+    ActiveRecord::Base.connection.transaction do
+      TaxonConceptName.rebuild_by_taxon_concept_id(
+      harvest_events.last.taxon_concept_ids)
+    end
   end
 
   def ready_to_publish?
@@ -265,11 +280,6 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest
   end
 
-  def oldest_published_harvest_event_uncached
-    HarvestEvent.published.complete.where(resource_id: id).
-      order(:published_at).first
-  end
-
   def latest_published_harvest_event
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
@@ -286,6 +296,15 @@ class Resource < ActiveRecord::Base
     @latest_published_harvest
   end
 
+  def mark_as_published
+    update_attribute(:resource_status_id, ResourceStatus.published.id)
+  end
+
+  def oldest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order(:published_at).first
+  end
+
   def latest_published_harvest_event_uncached
     HarvestEvent.published.complete.where(resource_id: id).
       order("published_at DESC").first
@@ -299,14 +318,10 @@ class Resource < ActiveRecord::Base
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
-      latest_harvest_event_uncached || 0
+      harvest_events.last || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest
-  end
-
-  def latest_harvest_event_uncached
-    HarvestEvent.where(resource_id: id).last
   end
 
   def upload_resource_to_content_master(ip_with_port)
@@ -353,6 +368,7 @@ class Resource < ActiveRecord::Base
       Rails.logger.error("** Unable to delete from HarvestEvents where "\
         "resource_id = #{id} (#{e.message})")
     end
+    TraitBank.delete_resource(resource)
     Rails.logger.error("** Destroyed Resource #{id}")
   end
 
@@ -435,11 +451,6 @@ class Resource < ActiveRecord::Base
       update_all(published: false)
   end
 
-  def unpublish_hierarchy
-    EOL.log_call
-    hierarchy.unpublish
-  end
-
   def trait_count
     EOL::Sparql.connection.count_traits_in_resource(self)
   end
@@ -450,6 +461,11 @@ class Resource < ActiveRecord::Base
 
   def all_traits
     @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
+  end
+
+  def publish_traitbank
+    create_mappings
+    port_traits
   end
 
   # Creates a mappings graph of entry IDs to taxon IDs. ...only really needed
@@ -497,6 +513,18 @@ class Resource < ActiveRecord::Base
       exist = TraitBank.group_exists?(uris.to_a)
       DataPointUri.where(uri: (uris - exist).to_a).delete_all unless exist.empty?
     end
+  end
+
+  def flatten
+    hierarchy.flatten
+  end
+
+  def size
+    hierarchy.hierarchy_entries_count
+  end
+
+  def to_s
+    "#{title} (id: #{id}, size: #{size})"
   end
 
 private

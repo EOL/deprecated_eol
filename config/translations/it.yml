@@ -5516,6 +5516,9 @@ it:
   image_title_with_taxa: Immagine di %{taxa}
   image_title_without_taxa: Immagine di un taxon sconosciuto
   images: Immagini
+  images_with_count:
+    one: '%{count} immagine'
+    other: '%{count} immagini'
   images_in_red_are_not_trusted: Le immagini in rosso non sono attendibili.
   images_in_yellow_are_not_reviewed: Le immagini in giallo non sono state revisionate
   image_objects_page_number: Pagina immagini
@@ -6228,6 +6231,8 @@ it:
   preview_version_of_latest_published_data_object_title_link: Versione di anteprima
     di %{link}
   preview: anteprima
+  previewing_unpublished_page: Questa pagina non è pubblicata. Tu hai un accesso speciale
+    per vederla in anteprima; altri utenti non possono vedere questa pagina.
   previously_published: pubblicato in precedenza
   proceed_to_checkout_page: Passa alla pagina di Checkout
   process_name: Nome del processo
@@ -7242,8 +7247,9 @@ it:
     in base:'
   you_can_edit_those_later_if_ne: È possibile modificarle in seguito, se necessario.
   you_can_identify_yourself_to_eol: 'È possibile identificare se stessi in EOL aggiungendo
-    la tua chiave API alle tue richieste (fai il login e genera la tua chiave nella
-    tua pagina delle preferenze):'
+    la tua chiave API alle tue richieste (accedi e genera la tua chiave aprendo il
+    tuo profilo EOL per la modifica. La chiave sarà salvata qui; apri nuovamente il
+    tuo profilo in modifica per recuperarla in un secondo momento):'
   you_have_been_logged_in_as_username: Sei stato connesso come %{username}
   you_have_been_logged_out: Sei stato disconnesso.
   you_joined_community: Ti sei iscritto con successo a questa comunità.

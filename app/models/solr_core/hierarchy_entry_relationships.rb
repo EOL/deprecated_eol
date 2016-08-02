@@ -23,7 +23,7 @@ class SolrCore
         relationships_to: [:from_hierarchy_entry]
       ).where(id: entry_ids)
       index = 0
-      total = (entries.size / 1000).ceil
+      total = (entries.size / 1000.0).ceil
       entries.find_in_batches(batch_size: 1000) do |batch|
         index += 1
         EOL.log("batch #{index}/#{total}") if index > 1

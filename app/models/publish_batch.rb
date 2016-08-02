@@ -1,12 +1,10 @@
-class HarvestBatch
+class PublishBatch
   attr_reader :resources, :start_time
 
   def initialize(ids = [])
     @start_time = Time.now
     @resource_ids = Array(ids)
     @summary = []
-    EOL.log("HARVEST batch: #{@resource_ids.join(", ")}", prefix: ".") unless
-      @resource_ids.empty?
   end
 
   def add(id)
@@ -33,38 +31,40 @@ class HarvestBatch
     count >= EolConfig.max_harvest_batch_count.to_i rescue 5
   end
 
-  def post_harvesting
+  def publish
+    return if @resource_ids.empty?
+    # Critical to read from master!
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).
         includes([:resource_status, :hierarchy])
+      EOL.log("PublishBatch#publish: #{resources.map(&:to_s).join(", ")}",
+        prefix: "P")
       resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
         @summary << { title: resource.title, url: url }
-        EOL.log("POST-HARVEST: #{resource.title} (#{resource.id})", prefix: "H")
         unless resource.ready_to_publish?
           status = resource.resource_status.label
-          EOL.log("SKIPPING (status #{status}): "\
-            "#{resource.id} - Must be 'Processed' to publish")
+          EOL.log("SKIPPING (status #{status}): Must be 'Processed' to publish")
           @summary.last[:status] = "Skipped (#{status})"
           next
         end
         begin
-          resource.hierarchy.flatten
           # TODO - somewhere in the UI we can trigger a publish on a resource.
           # Make it run #publish (in the background) NOTE: this used to check
           # for preview vs. publish, but we don't want to preview ever, anymore.
           resource.publish
-          EOL.log("POST-HARVEST COMPLETE: #{resource.title} (#{resource.id})",
-            prefix: "H")
+          EOL.log("PUBLISH COMPLETE: #{resource}", prefix: "P")
           any_worked = true
           @summary.last[:status] = "completed"
-        # TODO: there are myriad specific errors that harvesting can throw; catch
-        # them here.
+        # TODO: there are myriad more specific errors that harvesting can throw;
+        # catch them here (gotta catch 'em all!).
+      rescue EOL::Exceptions::HarvestNotReady => e
+          EOL.log("SKIPPING: #{e.message}")
+          @summary.last[:status] = "SKIPPED"
         rescue => e
-          EOL.log("POST-HARVEST FAILED: #{resource.title} (#{resource.id})",
-            prefix: "H")
+          EOL.log("PUBLISH FAILED: #{resource}", prefix: "P")
           EOL.log_error(e)
           @summary.last[:status] = "FAILED"
         end
@@ -82,10 +82,15 @@ class HarvestBatch
       else
         EOL.log("Nothing was published; skipping denormalization", prefix: "!")
       end
-      EOL.log("PUBLISHING SUMMARY:", prefix: "<")
+      summary = "\n## PUBLISHING SUMMARY, "
+      # Apologies for the hard-coded time zone here, but it helps me report on
+      # things properly:
+      summary += Time.now.in_time_zone("Eastern Time (US & Canada)").
+        strftime("%a %b %d, %I:%M%p")
       @summary.each do |stat|
-        EOL.log("[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}")
+        summary += "\n[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}"
       end
+      EOL.log(summary, prefix: "<")
     end
     EOL.log_return
   end

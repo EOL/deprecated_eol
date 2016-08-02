@@ -13,9 +13,11 @@ class Resource
     end
 
     def initialize(resource)
-      @resource = resource
-      @harvest_event = resource.harvest_events.last
-      raise "No hierarchy!" unless @resource.hierarchy
+      ActiveRecord::Base.with_master do
+        @resource = resource
+        @event = resource.harvest_events.last
+        raise "No hierarchy!" unless @resource.hierarchy
+      end
     end
 
     # A "light" version of publishing for resources that we keep in "preview
@@ -23,9 +25,12 @@ class Resource
     # _requires_ that the flattened hierarchy have been rebuilt when this is
     # called.
     def preview
-      reindex_and_merge
-      sync_collection
-      denormalize
+      # Critically important to be reading master:
+      ActiveRecord::Base.with_master do
+        reindex_and_merge
+        sync_collection
+        denormalize
+      end
       true
     end
 
@@ -38,66 +43,42 @@ class Resource
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
       was_previewed = options[:previewed]
-      EOL.log("PUBLISH: #{resource.title}", prefix: "{")
+      EOL.log("PUBLISH STARTING: #{@resource}", prefix: "{")
       unless options[:force]
-        raise "Harvest event already published!" if @harvest_event.published?
-        raise "Harvest event not complete!" unless @harvest_event.complete?
-        raise "Publish flag not set!" unless @harvest_event.publish?
+        raise EOL::Exceptions::HarvestNotReady.new("Event already published!") if
+          @event.published?
+        raise EOL::Exceptions::HarvestNotReady.new("Event not complete!") unless
+          @event.complete?
+        raise EOL::Exceptions::HarvestNotReady.new("Publish flag not set!") unless
+          @event.publish?
       end
-      ActiveRecord::Base.connection.transaction do
-        @harvest_event.show_preview_objects
-        @harvest_event.preserve_invisible
-      end
-      ActiveRecord::Base.connection.transaction do
-        @resource.unpublish_data_objects
-        @harvest_event.publish_data_objects
-      end
-      ActiveRecord::Base.connection.transaction do
-        old_entry_ids = Set.new(@resource.unpublish_hierarchy)
-        @harvest_event.publish_objects
-        @harvest_event.mark_as_published
-        new_entry_ids =
-          Set.new(@harvest_event.hierarchy_entry_ids_with_ancestors)
-        TaxonConcept.unpublish_and_hide_by_entry_ids(
-          new_entry_ids - old_entry_ids)
-      end
-      reindex_and_merge unless was_previewed
-      ActiveRecord::Base.connection.transaction do
+      # Critically important to read from master!
+      ActiveRecord::Base.with_master do
+        @resource.flatten
+        @event.publish_affected
+        # NOTE: the next two steps comprise the lion's share of publishing time.
+        # The indexing takes a bit more time than the merging.
+        @resource.index_for_merges unless was_previewed
+        @event.merge_matching_concepts unless was_previewed
         @resource.rebuild_taxon_concept_names
+        @event.sync_collection unless was_previewed
+        @resource.publish_traitbank
+        @event.index
+        @resource.mark_as_published
+        @resource.save_resource_contributions
+        @resource.hierarchy.insert_data_objects_taxon_concepts
+        # TODO: this next command could, technically, leave zombie entries. We
+        # need to add a step that says "delete all entries in dotoc where ids in
+        # (list of ids that were in previous event but not this one)"
+        @event.insert_dotocs
       end
-      sync_collection unless was_previewed
-      @resource.create_mappings
-      @resource.port_traits
-      @harvest_event.index_for_site_search
-      @harvest_event.index_new_data_objects
-      @harvest_event.update_attribute(:published_at, Time.now)
-      @resource.update_attribute(:resource_status_id,
-        ResourceStatus.published.id)
-      @resource.save_resource_contributions
-      denormalize
       EOL.log("PUBLISH DONE: #{resource.title}", prefix: "}")
       true
     end
 
-    def denormalize
-      @resource.hierarchy.insert_data_objects_taxon_concepts
-      # TODO: this next command isn't technically enough. (it will work, but it
-      # will leave zombie entries). We need to add a step that says "delete all
-      # entries in dotoc where ids in (list of ids that were in previous event
-      # but not this one)"
-      @harvest_event.insert_dotocs
-    end
-
     def reindex_and_merge
-      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      # NOTE: This is a doozy of a method! It's the largest piece of publishing.
-      @harvest_event.merge_matching_concepts
-    end
-
-    def sync_collection
-      ActiveRecord::Base.connection.transaction do
-        @harvest_event.sync_collection
-      end
+      @resource.index_for_merges
+      @event.merge_matching_concepts
     end
   end
 end

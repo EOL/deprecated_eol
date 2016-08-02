@@ -84,15 +84,26 @@
     end
 
     def paginate_with_timeout(page, per_page, params)
-      begin
-        connection.paginate(page, per_page, "select", params: params)
-      rescue Timeout::Error => e
-        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{params[:q]}",
-          prefix: "!")
-        wait_for_recovery(0)
-        EOL.log("Solr appears to have recovered; retrying...")
-        connection.paginate(page, per_page, "select", params: params)
+      willing_to_try = 5
+      response = nil
+      while willing_to_try > 0
+        begin
+          response = connection.paginate(page, per_page, "select", params: params)
+          willing_to_try = 0
+        rescue Timeout::Error => e
+          EOL.log("SOLR TIMEOUT: pg#{page}(#{per_page}) q: #{params[:q]}",
+            prefix: "!")
+          wait_for_recovery(0)
+          willing_to_try -= 1
+          if willing_to_try > 0
+            EOL.log("Solr recovered; retrying #{willing_to_try} times...")
+          else
+            EOL.log("I GIVE UP!")
+            raise e
+          end
+        end
       end
+      response
     end
 
     # NOTE: this will NOT work on items with composite primary keys.
@@ -131,6 +142,11 @@
     def wait_for_recovery(attempts)
       attempts ||= 0
       begin
+        # I want to see that it's STABLE and up...
+        try_recovery
+        sleep(1)
+        try_recovery
+        sleep(1)
         try_recovery
       rescue => e
         EOL.log("Solr still down (attempt #{attempts}), waiting...")

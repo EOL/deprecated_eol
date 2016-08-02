@@ -166,6 +166,7 @@ class Hierarchy < ActiveRecord::Base
   # Returns (a potentially VERY large) array of ids that were previously
   # published.
   def unpublish
+    EOL.log_call
     ids = unpublish_and_hide_hierarchy_entries
     unpublish_synonyms
     ids
@@ -203,8 +204,8 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
-  def reindex
-    HierarchyReindexing.enqueue_unless_pending(self)
+  def reindex(options = {})
+    HierarchyReindexing.enqueue_unless_pending(self, options)
   end
 
   def insert_data_objects_taxon_concepts

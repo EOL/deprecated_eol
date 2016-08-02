@@ -4353,6 +4353,9 @@ ar:
     أو 345 من حيث الطول، فسيتم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ
     بنسبة الأبعاد)  .
   images: الصور
+  images_with_count:
+    one: '%{count} صورة'
+    other: '%{count} صورة'
   images_in_red_are_not_trusted: الصور التي باللون الأحمر غير موقوق بها.
   images_in_yellow_are_not_reviewed: الصور التي باللون الأصفر لم تُراجع.
   import_once: ضف مرة واحدة

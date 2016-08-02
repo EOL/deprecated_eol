@@ -64,9 +64,10 @@ class Trait
 
   def make_point
     res_id = resource.try(:id)
+    page_id = @page ? @page.id : @source_set.id
     @point = DataPointUri.create(
       uri: uri.to_s,
-      taxon_concept_id: @source_set.id,
+      taxon_concept_id: page_id,
       vetted_id: Vetted.trusted.id,
       visibility_id: Visibility.visible.id,
       class_type: "MeasurementOrFact",

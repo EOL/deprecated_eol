@@ -5700,6 +5700,9 @@ de:
   image_title_with_taxa: Bild von %{taxa}
   image_title_without_taxa: Bild eines unbekannten Taxons
   images: Bilder
+  images_with_count:
+    one: Ein Bild
+    other: '%{count} Bilder'
   images_in_red_are_not_trusted: Rot gekennzeichneten Bildern wird nicht vertraut.
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht
     überprüft.
@@ -6443,6 +6446,8 @@ de:
   preview_changes: Vorschau der Änderungen
   preview_version_of_latest_published_data_object_title_link: Vorschau von %{link}
   preview: Vorschau
+  previewing_unpublished_page: Diese Seite ist nicht veröffentlicht. Sie haben Spezialzugriff
+    auf die Vorschau. Andere Benutzer können diese Seite nicht sehen.
   previously_published: zuvor veröffentlicht
   proceed_to_checkout_page: Weiter zur Abmeldeseite
   process_name: Prozessname
@@ -7471,8 +7476,10 @@ de:
   you_can_edit_those_later_if_ne: Sie können diese später bearbeiten, sofern dies
     notwendig ist.
   you_can_identify_yourself_to_eol: 'Sie können sich gegenüber EOL ausweisen, indem
-    Sie Ihren Abrufen Ihren API-Schlüssen hinzufügen. (Melden Sie sich an und generieren
-    Sie Ihre Schlüssel auf der Seite mit Ihren Einstellungen):'
+    Sie Ihren Abrufen Ihren API-Schlüssel hinzufügen. Melden Sie sich an und generieren
+    Sie Ihre Schlüssel durch das Öffnen Ihres EOL-Profils zur Bearbeitung. Der Schlüssel
+    wird hier gespeichert. Öffnen Sie erneut Ihr Profil zur Bearbeitung, um ihn später
+    abzurufen:'
   you_have_been_logged_in_as_username: Sie wurden als Nutzer %{username} angemeldet.
   you_have_been_logged_out: Sie wurden nun abgemeldet.
   you_joined_community: Sie sind dieser Gemeinschaft erfolgreich beigetreten.

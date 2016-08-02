@@ -283,7 +283,7 @@ ko:
         predicate: 특성
         object: 값
     errors:
-      format: '%{attribute}(은)는 %{message}'
+      format: '%{attribute} %{message}'
       template:
         header:
           one: 유효성 검사 오류 %{count}개를 찾았습니다
@@ -312,7 +312,7 @@ ko:
           one: '%{count}보다 많아야 합니다'
           other: '%{count}보다 많아야 합니다'
         greater_than_or_equal_to: '%{count}보다 크거나 같아야 합니다'
-        equal_to: '%{count}(와)과 같아야 합니다'
+        equal_to: '%{count}와(과) 같아야 합니다'
         less_than:
           one: '%{count}보다 작아야 합니다'
           other: '%{count}보다 작아야 합니다'
@@ -322,7 +322,7 @@ ko:
         inaccessible: 접근할 수 없습니다
         wrong_type: 잘못된 형식입니다
       full_messages:
-        format: '%{attribute}(은)는 %{message}'
+        format: '%{attribute} %{message}'
       models:
         data_object:
           attributes:
@@ -479,8 +479,8 @@ ko:
       resource:
         administration_settings: 관리자 설정 <small>(EOL 관리자에게만 표시됨)</small>
         accesspoint_url: 데이터 집합 URL
-        accesspoint_url_existing_remove: 이 자료는 현재 끝난 URL인 <em>%{accesspoint_url}</em>(을)를
-          불러오고 있습니다. 기존 URL을 제거하려면 파일을 올리고 대신 파일에서 자료를 불러오세요.
+        accesspoint_url_existing_remove: 이 리소스는 현재 <em>%{accesspoint_url}</em>로 끝나는
+          URL로부터 불러오고 있습니다. 기존 URL을 제거하고 파일로부터 리소스를 대신 불러오려면 파일을 업로드하세요. (권장하지 않음)
         dataset: 데이터 집합
         dataset_existing_replace: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존
           <em>%{file_name}</em> 파일을 바꾸려면 새 파일을 올리세요.
@@ -573,7 +573,7 @@ ko:
         open_authentications_more: EOL에 로그인할 때 사용할 수 있는 타사 계정에 대한 연결을 관리합니다. <a href="%{open_authentications_url}">연결된
           계정 편집하기</a>
         open_authentications_connected_accounts: 연결한 계정
-        requested_curator_level: '%{curator_level_with_indefinite_article}(이)가 되는
+        requested_curator_level: '%{curator_level_with_indefinite_article}이(가) 되는
           요청은 보류 중입니다.'
         requested_curator_level_id_more: 아직 어떠한 자격을 갖추지 않았으면 <em>조수 큐레이터</em>를 선택하세요.
           전문 과학자나 대학원생 자격을 갖추었다면 <em>전체 큐레이터</em>를 선택하세요. EOL 큐레이터를 경험했거나 더 많은 책임을
@@ -833,7 +833,7 @@ ko:
           %{community_name} 댓글, %{community_name} 활동'
     show:
       meta_description: '%{community_name} 생명의 백과사전 공동체가 주인에 의해 제거되었습니다'
-      meta_title: '%{community_name}(이)가 주인에 의해 제거됨'
+      meta_title: '%{community_name}이(가) 주인에 의해 제거됨'
   content:
     index:
       header_news: EOL 뉴스
@@ -879,7 +879,7 @@ ko:
       meta_title: '%{supplier}에서 %{dato_title}'
       tweet_text: '%{supplier}에서 %{dato_title}'
   eol_statistics:
-    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">(와)과</span>
+    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">와(과)</span>
       <span class="date_two">%{date_two}</span> <span class="assistive">비교</span>
     warnings:
       stats_unavailable_for_date: 죄송합니다, 통계는 %{date}에 사용할 수 없습니다. 다른 날짜를 선택하세요.
@@ -933,8 +933,8 @@ ko:
     update_failed: 죄송합니다, 오류가 발생해 포럼을 업데이트할 수 없습니다
     delete_successful: 포럼을 성공적으로 삭제했습니다
     delete_failed_not_empty: 포럼이 비어있지 않으므로 포럼을 삭제할 수 없습니다
-    move_successful: 포럼을 성공적으로 옮겼습니다
-    move_failed: 포럼을 옮길 수 없습니다
+    move_successful: 포럼을 성공적으로 이동했습니다
+    move_failed: 포럼을 이동할 수 없습니다
     edit: 포럼 편집
     post_by_user_at_time: '%{user}, %{time}'
     actions: 동작
@@ -954,8 +954,8 @@ ko:
       update_failed: 죄송합니다, 오류가 발생해 분류를 업데이트할 수 없습니다
       delete_successful: 분류를 성공적으로 삭제했습니다
       delete_failed_not_empty: 분류가 비어있지 않으므로 분류를 삭제할 수 없습니다
-      move_successful: 분류를 성공적으로 옮겼습니다
-      move_failed: 분류를 옮길 수 없습니다
+      move_successful: 분류를 성공적으로 이동했습니다
+      move_failed: 분류를 이동할 수 없습니다
     posts:
       joined_date: '%{date}에 가입함'
       create: 새 게시물 만들기
@@ -1069,33 +1069,33 @@ ko:
   notifier:
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
     activity_user_added_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 추가했습니다.
     activity_user_removed_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 제거했습니다.
     activity_user_added_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 추가했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 추가했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_removed_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 제거했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 제거했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 있음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 있음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 부적절한 것으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 부적절한 것으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     comments_empty: 최근 댓글이 없습니다.
@@ -1106,7 +1106,7 @@ ko:
 
       생명의 백과사전 팀
     signature_with_species_pages_group_contact: |-
-      궁금한 사항이 있으면 %{species_pages_group_email} (으)로 문의하시기 바랍니다.
+      궁금한 사항이 있으면 %{species_pages_group_email}(으)로 문의하시기 바랍니다.
 
       생명의 백과사전 팀
     user_commented_on_something_date_body: |-
@@ -1393,7 +1393,7 @@ ko:
         hierarchy_entry:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}을 포함하는
             모음집입니다.'
-          meta_description_with_common_name: '%{preferred_common_name}(을)를 포함하는 모음집입니다.
+          meta_description_with_common_name: '%{preferred_common_name}을(를) 포함하는 모음집입니다.
             (%{hierarchy_provider}에 의해 분류한 %{scientific_name})'
           meta_keywords: '%{scientific_name} 모음집, %{scientific_name} 관찰, %{hierarchy_provider}
             모음집, %{hierarchy_provider} 관찰, %{hierarchy_provider} 표본'
@@ -1401,8 +1401,8 @@ ko:
           meta_title_with_common_name: '%{preferred_common_name}의 모음집 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
           tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 모음집'
-        meta_description: '%{scientific_name}(을)를 포함하는 모음집입니다.'
-        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})(을)를
+        meta_description: '%{scientific_name}을(를) 포함하는 모음집입니다.'
+        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})을(를)
           포함하는 모음집입니다.'
         meta_keywords: '%{scientific_name} 모음집, %{scientific_name} 관찰'
         meta_keywords_with_common_name: '%{preferred_common_name} 모음집, %{preferred_common_name}
@@ -1441,7 +1441,7 @@ ko:
             존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에
             대한 문서를 기여하는 데 초대합니다.
           meta_description_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해
-            분류한 %{scientific_name}에 대한 설명과 문서입니다. %{scientific_name}에 대한 %{chapter_list}(을)를
+            분류한 %{scientific_name}에 대한 설명과 문서입니다. %{scientific_name}에 대한 %{chapter_list}을(를)
             포함합니다.
           meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해
             분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과 문서입니다.
@@ -1450,8 +1450,8 @@ ko:
             EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에
             대한 문서를 기여하는 데 초대합니다.
           meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에
-            의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과
-            문서입니다. %{chapter_list}(을)를 포함합니다.
+            의해 분류된, 학명이 %{scientific_name}인 %{preferred_common_name}에 대한 설명과 문서입니다.
+            %{chapter_list}을(를) 포함합니다.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 설명과 문서'
           meta_title_with_common_name: '%{preferred_common_name}에 대한 설명과 문서 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
@@ -1459,16 +1459,16 @@ ko:
         meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 설명과 문서
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 문서가 없습니다. EOL은
           보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
-        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설며오가
-          문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설명과
+          문서입니다. %{chapter_list}을(를) 포함합니다.
         meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진
           %{preferred_common_name}에 대한 설명과 문서입니다.
         meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도
           알려진 %{preferred_common_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고
           더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 문서를 기여하는 데
           초대합니다.
-        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 과학적으로 %{scientific_name}라고도
-          알려진 %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 학명이 %{scientific_name}인
+          %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}을(를) 포함합니다.
         meta_title: '%{scientific_name}에 대한 설명과 문서'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
           대한 설명과 문서'
@@ -1514,8 +1514,8 @@ ko:
         hierarchy_entry:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가
             어디서 살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다.'
-          meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고
-            어디서 살고 있습니까? %{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가 어디서
+          meta_description_with_common_name: 어디서 %{preferred_common_name}을(를) 찾았고
+            어디서 살고 있습니까? %{hierarchy_provider}에 의해 분류한 %{scientific_name}이(가) 어디서
             살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 지도'
           meta_title_with_common_name: '%{preferred_common_name}의 지도 (%{hierarchy_provider}에
@@ -1524,13 +1524,13 @@ ko:
         meta_description: '%{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 곳입니다.'
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 대해 존재하는 지리 정보가 없습니다.
           EOL은 %{scientific_name}에 대한 지도를 기여하는 데 초대합니다.
-        meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고 어디서
+        meta_description_with_common_name: 어디서 %{preferred_common_name}을(를) 찾았고 어디서
           살고 있습니까? %{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 장소입니다.
         meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도
           알려진 %{preferred_common_name}에 대해 존재하는 지리 정보가 없습니다. EOL은 %{preferred_common_name}
           (%{scientific_name})에 대한 지도를 기여하는 데 초대합니다.
-        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}(이)가 사는 곳'
-        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}(이)가
+        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}이(가) 사는 곳'
+        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}이(가)
           사는 곳'
         meta_title: '%{scientific_name}에 대한 지도'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
@@ -1580,11 +1580,11 @@ ko:
             분류와 학명입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고
             알려진 %{preferred_common_name}에 대한 분류와 학명입니다.'
-          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}(와)과 관련된 이름'
-        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}(와)과
-          관련있습니다.'
-        meta_description_with_common_name: '%{scientific_name}라고도 알려진 %{preferred_common_name}에
-          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다.'
+          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와(과) 관련된 이름'
+        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}와(과)
+          관련이 있습니다.'
+        meta_description_with_common_name: '%{scientific_name}(이)라고도 알려진 %{preferred_common_name}에
+          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}와(과) 관련이 있습니다.'
         meta_title: '%{scientific_name}에 대한 분류 정보 - 생물 분류와 이름'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
           대한 분류 정보 - 생물 분류와 이름'
@@ -1617,7 +1617,7 @@ ko:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된
             동의어입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 일반적으로
-            %{preferred_common_name}라고 알려진 %{scientific_name}(와)과 관련된 동의어입니다.'
+            %{preferred_common_name}라고 알려진 %{scientific_name}와(과) 관련된 동의어입니다.'
           meta_keywords: '%{scientific_name} 동의어'
           meta_keywords_with_common_name: '%{preferred_common_name} 동의어 %{scientific_name}
             동의어'
@@ -1936,8 +1936,8 @@ ko:
       form_tip: EOL 계정을 복구하려면 해당 계정으로 연결한 이메일 주소를 입력하세요. 몇 시간 이내에 계정 복구 이메일을 받을 수
         없을 때는 스팸 폴더를 확인하시기 바랍니다.
       notices:
-        recovery_email_sent: 자세한 지시 사항으로 된 계정 복구 이메일을 보냈습니다. 한 시간 내로 이메일을 받지 못했다면
-          수신 허용 목록에 %{from_address}(을)를 추가하고 스팸 필터를 확인하세요.
+        recovery_email_sent: 추가적인 지시 사항과 함께 계정 복구 이메일을 보냈습니다. 한 시간 내로 이메일을 받지 못했다면
+          수신 허용 목록에 %{from_address}을(를) 추가하고 스팸 필터를 확인하세요.
         temporarily_logged_in_update_authentication_details: 일시적으로 계정 복구를 허용하기 위해
           로그인하고 있으며, 성공적으로 로그인을 할 수 있도록 하려면 비밀번호를 바꾸거나 연결된 계정을 업데이트하세요.
       meta_title: 계정 복구
@@ -2769,29 +2769,29 @@ ko:
           user_merged_to_taxon: <strong>%{user}</strong>님이 %{target} 문서에 다른 문서를 병합했습니다.
         move:
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: 알 수 없는
-            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_taxon: 알 수 없는 사용자가 %{taxon}
-            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_taxon: 알 수 없는 사용자가 %{target}
-            문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong>님이
-            알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong>님이
-            %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+            %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 이동했습니다.
           user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong>님이
-            %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+            %{target} 문서로 %{classifications} 분류를 이동했습니다.
       split:
         an_unknown_user_split_unknown_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수
           없는 분류에 알 수 없는 분류를 나눴습니다.
@@ -2815,25 +2815,25 @@ ko:
           분류를 나눴습니다.
       merge:
         an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수
-          없는 분류에 알 수 없는 분류를 옮겼습니다.
+          없는 분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_unknown_entry_to_it: 알 수 없는 사용자가 알 수 없는 분류를 추가했습니다.
         an_unknown_user_merged_unknown_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에
-          알 수 없는 분류를 옮겼습니다.
+          알 수 없는 분류를 이동했습니다.
         user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이
-          알 수 없는 분류에 알 수 없는 분류를 옮겼습니다.
+          알 수 없는 분류에 알 수 없는 분류를 이동했습니다.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong>님이 알 수 없는 분류를 추가했습니다.
         user_merged_unknown_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}"
-          분류에 알 수 없는 분류를 옮겼습니다.
+          분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
         an_unknown_user_merged_entry_to_it: 알 수 없는 사용자가 "%{provider}"의 분류를 추가했습니다.
         an_unknown_user_merged_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
         user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이 알 수 없는 분류에
-          "%{provider}"의 분류를 옮겼습니다.
+          "%{provider}"의 분류를 이동했습니다.
         user_merged_entry_to_it: <strong>%{user}</strong>님이 "%{provider}"의 분류를 추가했습니다.
         user_merged_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
       unlock:
         merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
         merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
@@ -2950,7 +2950,7 @@ ko:
   admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
   admin_content_page_new_header: 새 내용 문서 만들기
   admin_content_page_new_link: 새 문서 만들기
-  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
+  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_content_page_parent_option_root: 부모 없음
   admin_content_page_root: 루트
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
@@ -2991,7 +2991,7 @@ ko:
   admin_news_item_edit_header: <em>%{page_name}</em> 문서에 대한 기본 뉴스 항목 정보 업데이트
   admin_news_item_new_link: 뉴스 항목 만들기
   admin_news_item_new_header: 새 뉴스 항목 만들기
-  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
+  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_news_item_not_active: 게시하지 않음
   admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
     뉴스 항목을 성공적으로 업데이트했습니다.
@@ -3014,9 +3014,9 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_header: 언어 선택하고 내용 추가
-  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
@@ -3033,11 +3033,11 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_new_header: 언어 선택하고 내용 추가
   admin_translated_news_item_new_link: 번역 추가
   admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
-  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_not_active: 게시하지 않음
   admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
     대한 %{language} 번역을 업데이트했습니다.
@@ -3258,7 +3258,7 @@ ko:
   classifications_rank_column_header: 순위
   classifications_split_column_header: 나누기 / 이동
   classifications_split_one_classification_only: 분할하려면 분류 하나만 선택하세요. 분할하려는 분류를 만들고
-    나서 다른 분류는 새 문서로 옮길 수 있습니다
+    나서 다른 분류는 새 문서로 이동할 수 있습니다
   classifications_summary_header_with_count:
     one: 분류 %{count}개 찾음
     zero: 분류가 EOL에 정상적으로 보이지 않음
@@ -3302,21 +3302,21 @@ ko:
     one: 항목 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
     other: 항목 총 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
   collection_move_complete_with_count:
-    one: 항목 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
-    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
+    one: 항목 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
+    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
   collection_remove_complete_with_count:
     one: 항목 %{count}개를 %{from}에서 제거했습니다.
     other: 항목 %{count}개를 %{from}에서 제거했습니다.
   collection_copy_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
     복사:'
   collection_move_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
-    옮기기:'
+    이동:'
   collection_copy_choose_target_title_with_count:
     one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
     other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
   collection_move_choose_target_title_with_count:
-    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
-    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
+    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
+    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
@@ -3431,7 +3431,7 @@ ko:
   contact_us_functions: 기능 문의하기
   contact_us_submissions: 제출 문의하기
   contact_us_topics: 주제 문의하기
-  containing_value: '%{value}(을)를 포함합니다.'
+  containing_value: '%{value}을(를) 포함합니다.'
   content_has_been_updated: 내용을 업데이트했습니다.
   content_notes_not_shown_to_us: '내용 참고 (사용자에게 보이지 않음):'
   content_partner: 콘텐츠 파트너
@@ -3467,7 +3467,7 @@ ko:
   content_partner_contact_new_link: 새 연락 추가
   content_partner_contact_new_page_subheader: 연락 추가
   content_partner_contact_new_edit_form_header: 콘텐츠 파트너 연락 정보
-  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon}(이)가 필요합니다.
+  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon} 필수입니다.
   content_partner_contact_update_successful_notice: 내용을 성공적으로 업데이트했습니다.
   content_partner_contact_update_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 업데이트하지 못했습니다.
   content_partner_contacts_header: 연락처
@@ -3678,8 +3678,8 @@ ko:
   curated_objects_of: '%{name}의 큐레이트한 개체'
   curated_species_of: '%{name}의 큐레이트한 종'
   curation_comment: 큐레이션 댓글
-  curation_error_vetted_invalid: '''%{vetted}''(으)로 %{association}(을)를 큐레이트할 수 없습니다.'
-  curation_error_visibility_invalid: '''%{visibility}''(으)로 %{association}(을)를 큐레이트할
+  curation_error_vetted_invalid: '''%{vetted}''(으)로 %{association}을(를) 큐레이트할 수 없습니다.'
+  curation_error_visibility_invalid: '''%{visibility}''(으)로 %{association}을(를) 큐레이트할
     수 없습니다.'
   curation_error_untrust_reasons_invalid: '%{association}에 대한 신뢰할 수 없는 이유가 올바르지 않습니다'
   curation_error_hide_reasons_invalid: '%{association}에 대한 숨기기 이유가 올바르지 않습니다'
@@ -3818,8 +3818,8 @@ ko:
   dato_edit_text_button: 이 문서 편집
   dato_edit_link_title: 링크 편집
   dato_edit_text_title: 문서 편집
-  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
-  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
+  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>에 문서 추가
+  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>에 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   deactivate: 비활성화
   development_version_name: EOL V2 베타
@@ -3914,9 +3914,9 @@ ko:
   error_404_page_title: 찾을 수 없음
   error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_500_page_title: 이런.
-  error_500_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_500_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
-  error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_default_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
   error_default_page_title: 이런.
   error_classifications_locked_cannot_reindex: 죄송합니다, 이 문서는 현재 다시 색인을 만들 수 없습니다. 분류가
@@ -4122,6 +4122,9 @@ ko:
   image_title_with_taxa: '%{taxa}의 그림'
   image_title_without_taxa: 알 수 없는 분류의 그림
   images: 그림
+  images_with_count:
+    one: 그림 %{count}개
+    other: 그림 %{count}개
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
   import_once: 한 번에 가져오기
@@ -4148,7 +4151,7 @@ ko:
   invite_members_help_text: 여기에 EOL 사용자를 추가하고 새 공동체에 초대를 받을 것입니다!
   ip_address: IP 주소
   ip: IP
-  item_added_to_watch_collection_notice: '"%{item_name}"(을)를 %{collection_name} 모음집에
+  item_added_to_watch_collection_notice: '"%{item_name}"을(를) %{collection_name} 모음집에
     추가했습니다.'
   item_added_to_collection_notice: 항목을 <em>%{collection_name}</em> 모음집에 추가했습니다
   item_details_missing: 죄송합니다, 오류가 발생해 항목 정보를 찾을 수 없습니다.
@@ -4293,7 +4296,7 @@ ko:
   maintained_by: 유지 관리자
   major_heading: 주요 제목
   make_an_editor: 관리자 되기
-  make_user_an_editor_title: '%{user} 사용자가 다음 모음집을 관리하도록 허용'
+  make_user_an_editor_title: '%{user}님이 다음 모음집을 관리하도록 허용'
   manage_your_profile: 내 프로필 관리
   managed_by: 관리자
   managed_collections_with_count:
@@ -4348,23 +4351,23 @@ ko:
     one: 형제 자매 %{count}개 더 있음...
     other: 형제 자매 %{count}개 더 있음...
   most_active_members: 가장 많이 활발한 구성원
-  move: 옮기기
-  move_down: 아래로 옮기기
+  move: 이동
+  move_down: 아래로 이동
   move_items_to_a_new_collection_with_count:
     one: 새 모음집에 항목 %{count}개를 이동합니다
     other: 새 모음집에 항목 %{count}개를 이동합니다
   move_to_bottom: 맨 아래로 이동
   move_to_top: 맨 위로 이동
-  move_up: 위로 옮기기
+  move_up: 위로 이동
   moved_all_items_from_collection_with_count:
-    one: '%{from}에서 이 모음집으로 항목 %{count}개를 옮겼습니다.'
-    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 옮겼습니다.'
+    one: '%{from}에서 이 모음집으로 항목 %{count}개를 이동했습니다.'
+    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 이동했습니다.'
   moved_all_items_to_collections:
-    one: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
-    other: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
+    one: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
+    other: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
   moved_items_from_collection_with_count_notice:
-    one: '%{name}에서 항목 %{count}개를 옮겼습니다.'
-    other: '%{name}에서 항목 %{count}개를 옮겼습니다.'
+    one: '%{name}에서 항목 %{count}개를 이동했습니다.'
+    other: '%{name}에서 항목 %{count}개를 이동했습니다.'
   multimedia_links: 멀티미디어 링크
   must_be_associated_with_either_a_user_or_a_community: 사용자나 공동체 중 하나에 연결해야 합니다
   must_provide_search_term_error: 검색어를 입력해야 합니다.
@@ -4484,7 +4487,7 @@ ko:
   email_updates_for_eol_addicts: EOL 중독자에 대한 업데이트입니다.
   email_updates_for_eol_members: 대부분의 EOL 구성원은 업데이트하고 싶어합니다.
   notifications_tab_name: 알림
-  taxon_not_found_error: '"%{taxon}"(을)를 찾을 수 없습니다'
+  taxon_not_found_error: '"%{taxon}"을(를) 찾을 수 없습니다'
   not_published_yet: 아직 게시하지 않았습니다.
   no_uploaded_content_is_available: 올린 콘텐츠는 사용할 수 없습니다.
   nucleotide_sequences: 염기 서열
@@ -4656,7 +4659,7 @@ ko:
   recipients: 받는 사람
   recognized_by_from_source: '%{source}에서 %{recognized_by}'
   recognized_by_as_a_rank: '%{taxon_rank}로 %{recognized_by}'
-  recognized_by_from_source_as_a_rank: '%{taxon_rank}로 %{source}에서 %{recognized_by}'
+  recognized_by_from_source_as_a_rank: '%{taxon_rank}(으)로 %{source}에서 %{recognized_by}'
   record_not_found: '[기록을 찾을 수 없습니다]'
   reference: 각주
   references_cabs_colon: '각주:'
@@ -4981,7 +4984,7 @@ ko:
     one: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다.'
     other: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과하는 하위 %{count}개가 있습니다.'
   the_id_of_provider_hierarchy_you_are_searching: 당신이 검색하고 있는 제공자의 계층 ID입니다. 유효한 ID에
-    대해서는 %{link}(을)를 확인하세요
+    대해서는 %{link}을(를) 확인하세요
   the_image_from_this_source_has_not_been_reviewed: 이 자료에서 그림이 검토되지 않았습니다.
   the_image_from_this_source_is_not_trusted: 이 자료에서 그림은 신뢰할 수 없습니다.
   the_info_highlighted_is_reviewed: 아래에 빨간색으로 강조한 정보는 큐레이터에 의해 검토했고 신뢰할 수 없음으로 표시했습니다.
@@ -5266,7 +5269,7 @@ ko:
   you_are_an_admin_so_i_will_show_you_that_the_error_was: '당신은 관리자입니다. 오류 메시지를 보는
     것을 허용합니다:'
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.
-  you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}(을)를 보고 있습니다:'
+  you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}을(를) 보고 있습니다:'
   you_can_edit_those_later_if_ne: 필요한 경우 나중에 편집할 수 있습니다.
   you_have_been_logged_in_as_username: '%{username} 사용자로 로그인되어 있습니다'
   you_have_been_logged_out: 로그아웃했습니다.

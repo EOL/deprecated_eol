@@ -531,6 +531,7 @@ mk:
           биде јавно достапна.
         published_at: Објавено
         published_status: Статус
+        last_harvest_seconds: 'Траеше: %{time_in_words}'
       hierarchy:
         browsable_more: Штиклирајте „Прелистлива“ за да ја унапредите оваа хиерархија
           во една од главните прелистливи хиерархии на EOL.

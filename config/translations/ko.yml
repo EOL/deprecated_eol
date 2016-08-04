@@ -5171,7 +5171,7 @@ ko:
     one: <span class="assistive">댓글 </span>%{count}개
     other: <span class="assistive">댓글 </span>%{count}개
   user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가되었습니다.
-  username_taken: '%{name}님은 이미 가지고 있습니다'
+  username_taken: '%{name}님은 이미 사용 중입니다'
   username_colon: '사용자 이름:'
   username: 사용자 이름
   user_response: 사용자 응답

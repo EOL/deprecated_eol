@@ -551,6 +551,7 @@ gl:
           non se fará público inmediatamente.
         published_at: Publicado
         published_status: Estado
+        last_harvest_seconds: Levou %{time_in_words}
       hierarchy:
         browsable_more: Comprobar a navegabilidade para promover esta xerarquía para
           converterse nunha das primarias da EOL.

@@ -575,6 +575,7 @@ fr:
           ne sera pas rendu public immédiatement).
         published_at: Publié
         published_status: État
+        last_harvest_seconds: Prit %{time_in_words}
       hierarchy:
         browsable_more: Cochez <em>navigable</em> pour promouvoir cette hiérarchie
           parmi les principales hiérarchies navigables de l’EdlV.

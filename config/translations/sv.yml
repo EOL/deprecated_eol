@@ -510,6 +510,7 @@ sv:
         first_published_at: Först publicerad
         published_at: Publicerad
         published_status: Status
+        last_harvest_seconds: Tog %{time_in_words}
       hierarchy:
         browsable_more: Markera "bläddringsbar" för att befrämja denna hierarki att
           bli en av de primära bläddringsbara hierarkierna på EOL.

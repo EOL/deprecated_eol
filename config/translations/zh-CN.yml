@@ -499,6 +499,7 @@ zh-CN:
         publish_more: 数据采集状态标记，内容不会立即对用户可见。
         published_at: 已发布
         published_status: 状态
+        last_harvest_seconds: 已取得%{time_in_words}
       hierarchy:
         browsable_more: 选择该项以使该分类系统升为EOL中可浏览的基本分类系统之一。
         browsable_status_with_colon: 可浏览状态：

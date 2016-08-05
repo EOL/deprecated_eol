@@ -1,4 +1,15 @@
 class PageSerializer
+  # TODO:
+  # * "provider" for media needs to include the partner's full name.
+  # * "media_type" can be skipped; it's implied.
+  # * skip "format" for images. Implied.
+  # * Check that licenses come across with "name" "source_url", a working "icon_url" and "can_be_chosen_by_partners". ...I think they do, but the icon_url apears to be borked.
+  # * references. ...not for this version, buy mark it as TODO.
+  # * attributions. Crappy. ...i think we can skip it for the very first version, but soon TODO
+  # * sections. Argh. Totally need this for the article, anyway. ...I suppose not RIGHT away, though...
+  # * ratings are also TODO, though lower priority.
+  # * Think about page content positions. :S
+  # * Look at the "media type" that the map comes over as. Looks wrong.
   def self.store_page_id(pid)
     # Test with 328598 (Raccoon)
     page = { id: pid, moved_to_node_id: nil }

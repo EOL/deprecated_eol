@@ -13,6 +13,7 @@
 # Author: McDutchie
 # Author: MedShot
 # Author: Milenej
+# Author: MrLeopold
 # Author: Ndijkstra
 # Author: Patio
 # Author: Robin van der Vliet
@@ -565,6 +566,7 @@ nl:
           niet direct openbaar gemaakt.
         published_at: Gepubliceerd
         published_status: Status
+        last_harvest_seconds: Duurde %{time_in_words}
       hierarchy:
         browsable_more: Selecteer "doorbladerbaar" om deze hiërarchie te bevorderen
           naar de primaire doorbladerbare hiërarchieën in EOL.

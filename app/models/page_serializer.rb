@@ -1,15 +1,9 @@
 class PageSerializer
   # TODO:
-  # * "provider" for media needs to include the partner's full name.
-  # * "media_type" can be skipped; it's implied.
-  # * skip "format" for images. Implied.
-  # * Check that licenses come across with "name" "source_url", a working "icon_url" and "can_be_chosen_by_partners". ...I think they do, but the icon_url apears to be borked.
   # * references. ...not for this version, buy mark it as TODO.
-  # * attributions. Crappy. ...i think we can skip it for the very first version, but soon TODO
-  # * sections. Argh. Totally need this for the article, anyway. ...I suppose not RIGHT away, though...
+  # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
   # * ratings are also TODO, though lower priority.
-  # * Think about page content positions. :S
-  # * Look at the "media type" that the map comes over as. Looks wrong.
+  # * TODO: Think about page content positions. :S
   def self.store_page_id(pid)
     user = EOL::AnonymousUser.new(Language.default)
     # Test with pid = 328598 (Raccoon)
@@ -56,8 +50,6 @@ class PageSerializer
         resource_pk: i.identifier,
         provider_type: "Resource",
         provider: resource,
-        media_type: "image",
-        format: "jpg",
         license: { name: lic.title, source_url: lic.source_url,
           icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
         language: get_language(i),
@@ -89,18 +81,29 @@ class PageSerializer
       owner: article.owner,
       name: article.best_title,
       source_url: article.source_url,
-      body: article.description_linked
+      body: article.description_linked,
+      sections: article.toc_items.map { |ti| build_section(ti) }
     }]
 
     traits = PageTraits.new(pid).traits
     page[:traits] = traits.map do |trait|
-      value = trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : trait.value_name
-      # TODO: a lot to add here, importantly the source. ...but we don't *need* it yet.
-      trait_hash = { uri: trait.uri.to_s,
+      source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
+        find { |v| v !~ /resources\/\d/ }
+      # TODO: metadata ...but we don't *need* it yet.
+      trait_hash = {
+        resource: build_resource(trait.resource),
+        resource_pk: trait.uri.gsub(/.*\//, ""),
         predicate: trait.predicate,
-        value: value
+        source: source
       }
-      trait_hash[:units] = trait.units_uri.uri if trait.units_uri
+      if trait.units_uri
+        trait_hash[:units] = trait.units_uri.uri
+        trait_hash[:measurement] = trait.value_name
+      elsif trait.value_uri.is_a?(KnownUri)
+        trait_hash[:term] = trait.value_uri.uri
+      else
+        trait_hash[:literal] = trait.value_name
+      end
       trait_hash
     end
 
@@ -127,8 +130,6 @@ class PageSerializer
         resource_pk: map.identifier,
         provider_type: "Resource",
         provider: resource,
-        media_type: "image",
-        format: "jpg",
         license: { name: lic.title, source_url: lic.source_url,
           icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
         language: get_language(map),
@@ -168,5 +169,11 @@ class PageSerializer
       source_url: node.source_url,
       parent: build_node(node.parent, resource)
     }
+  end
+
+  def build_section(toc_item)
+    return nil if toc_item.nil?
+    { parent: build_section(toc_item.parent), position: toc_item.view_order,
+      name: toc_item.label }
   end
 end

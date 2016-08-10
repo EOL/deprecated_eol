@@ -49,8 +49,9 @@ class Trait
   end
 
   # This keeps the output from a terminal a sane length:
-  def inspect
-    "<Trait @source_set_id=#{source_set_id} @predicate=#{predicate} @uri=#{uri} "\
+  def to_s
+    set = @source_set ? @source_set.id : "[none]"
+    "<Trait @source_set_id=#{set} @predicate=#{predicate} @uri=#{uri} "\
       "@point=#{point.id} @page=#{@page} @inverse=#{inverse?}>"
   end
 

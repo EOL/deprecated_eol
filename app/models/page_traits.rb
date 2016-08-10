@@ -38,7 +38,7 @@ class PageTraits < TraitSet
   end
 
   # Avoid a ton of output in the console:
-  def inspect
+  def to_s
     "<PageTraits @id=#{id} @rdf=(#{@rdf.size}xTriple) "\
       "@points=(#{@points.size}xDataPointUri) "\
       "@glossary=(#{@glossary.size}xKnownUri) "\

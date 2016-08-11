@@ -93,7 +93,7 @@ class PageSerializer
         # TODO: metadata ...but we don't *need* it yet.
         trait_hash = {
           resource: build_resource(trait.resource),
-          resource_pk: trait.uri.gsub(/.*\//, ""),
+          resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
           predicate: trait.predicate,
           source: source
         }

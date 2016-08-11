@@ -153,7 +153,7 @@ class PageSerializer
   end
 
   def build_resource(resource)
-    { name: resource.title, partner: resource.content_partner.name) }
+    { name: resource.title, partner: resource.content_partner.name }
   end
 
   def build_node(node, resource)

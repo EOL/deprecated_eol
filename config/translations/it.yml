@@ -566,6 +566,7 @@ it:
           reso pubblico immediatamente.
         published_at: Pubblicato
         published_status: Stato
+        last_harvest_seconds: Ha impiegato %{time_in_words}
       hierarchy:
         browsable_more: Controlla la navigabilità per promuovere questa gerarchia
           a diventare una delle principali gerarchie navigabili su EOL

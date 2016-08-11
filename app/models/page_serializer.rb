@@ -125,7 +125,7 @@ class PageSerializer
         b_cit = article.bibliographic_citation
         b_cit = nil if b_cit.blank?
         resource = build_resource(map.resource)
-        url = i.original_image.sub("_orig.jpg", "")
+        url = map.original_image.sub("_orig.jpg", "")
         page[:maps] = [{
           guid: map.guid,
           resource_pk: map.identifier,
@@ -154,6 +154,7 @@ class PageSerializer
     end
 
     def build_resource(resource)
+      return nil if resource.nil?
       { name: resource.title, partner: resource.content_partner.name }
     end
 

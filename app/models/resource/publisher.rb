@@ -27,7 +27,8 @@ class Resource
     def preview
       # Critically important to be reading master:
       ActiveRecord::Base.with_master do
-        reindex_and_merge
+        @resource.index_for_merges
+        @event.merge_matching_concepts
         sync_collection
         denormalize
       end
@@ -74,11 +75,6 @@ class Resource
       end
       EOL.log("PUBLISH DONE: #{resource.title}", prefix: "}")
       true
-    end
-
-    def reindex_and_merge
-      @resource.index_for_merges
-      @event.merge_matching_concepts
     end
   end
 end

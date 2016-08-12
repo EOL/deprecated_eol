@@ -3496,7 +3496,7 @@ pt-BR:
           próprias páginas</a>; as páginas serão agora reindexadas e precisarão de
           até 25 horas para serem completadas.
         split_of_taxon_unlocked: A divisão de classificação que você solicitou recentemente
-          foi completada e as classificações foram movidas para <a href='%{to}'>suas
+          para %{taxon} foi completada e as classificações foram movidas para <a href='%{to}'>suas
           próprias páginas</a>; as páginas serão agora reindexadas e precisarão de
           até 25 horas para serem completadas.
       unlock_with_error:
@@ -3513,10 +3513,14 @@ pt-BR:
         move_of_it_unlocked_with_error: 'A movimentação que você pediu recentemente
           nessa pagina <strong>falhou devido a</strong>: %{error}.'
         move_of_taxon_unlocked_with_error: 'A a movimentação da classificação que
-          você solicitou recentemente sobre esta página <strong>falhou devido a</strong>:
-          %{error}.'
+          você solicitou para %{taxon}  <strong>falhou devido a</strong>: %{error}.'
+        split_of_an_unknown_taxon_unlocked_with_error: 'A divisão de classificação
+          que você pediu recentemente <strong>falhou devido a:</strong>: %{error}.
+          Adicionalmente, a pagina afetada não pode ser encontrada.'
         split_of_it_unlocked_with_error: 'A divisão da classificação que você solicitou
           recentemente sobre esta página <strong>falhou</strong>: %{error}.'
+        split_of_taxon_unlocked_with_error: 'A divisão da classificação que você solicitou
+          recentemente para %{taxon} <strong>falhou</strong>: %{error}.'
       crop:
         an_unknown_user_cropped_an_older_data_object: Um usuário desconhecido mudou
           a imagem em miniatura de "%{data_object}".
@@ -3534,6 +3538,8 @@ pt-BR:
           uma imagem desconhecida.
         user_cropped_it: <strong>%{user}</strong> mudou a imagem em miniatura desconhecida.
       user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: Um usuário desconhecido adicionou
+          informações a uma pagina desconhecida.
         an_unknown_user_create_data_on_taxon: Um usuário desconhecido adicionou dados
           a "%{taxon}".
         user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> adicionou dados
@@ -3541,6 +3547,12 @@ pt-BR:
         user_create_data_on_taxon: <strong>%{user}</strong> adicionou dados a "%{taxon}".
         an_unknown_user_update_data_on_an_unknown_taxon: Um usuário desconhecido atualizou
           dados em uma página desconhecida.
+        an_unknown_user_update_data_on_taxon: Um usuário desconhecido atualizou as
+          informações em %{taxon}.
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong>atualizou informações
+          em uma pagina desconhecida.
+        user_update_data_on_taxon: <strong>%{user}</strong> atualizou informações
+          em "%{taxon}".
       other_actions:
         an_unknown_user_curated_an_older_data_object: Um usuário desconhecido curador
           de uma versão mais antiga de "%{data_object}".
@@ -3561,6 +3573,8 @@ pt-BR:
     por página. Este parâmetro permite que você buscar mais páginas de resultados,
     se houver mais de 30 encontrados
   activity_log_empty: Ninguém forneceu atualizações ainda.
+  activity_user_created_data: <strong>%{user}</strong> adiconou informações sobre
+    "%{object_name}" em "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> adicionou um link para "%{object_name}"
     sobre "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}"
@@ -3665,15 +3679,23 @@ pt-BR:
     primeira vez
   admin_content_partners_statistics_first_published_caption: Parceiros de conteúdo
     com recursos publicados pela primeira vez entre %{date_from} e %{date_to}.
+  admin_content_partners_statistics_first_published_empty: nenhum conteudo de parceiros
+    foram publicados entre %{date_from} e %{date_to}.
   admin_content_partners_statistics_first_published_download_csv_submit: Download
     como CSV
   admin_content_partners_statistics_link: Estatísticas
+  admin_content_partners_statistics_page_title: 'Administração: Estatísticas de Conteúdo
+    de Parceiros'
   admin_home: Página inicial de administrador
   admin_news_item_active: Publicado
+  admin_news_item_create_successful_notice: Noticia <a href="#%{anchor}"><em>%{page_name}</em></a>
+    criada com sucesso.
   admin_news_item_create_unsuccessful_error: Desculpe, ocorreu um erro, a notícia
     não foi criada.
   admin_news_item_delete_confirmation: Tem certeza de que deseja excluir "%{page_name}"
     e todas as traduções? Páginas apagadas não podem ser recuperadas.
+  admin_news_item_delete_successful_notice: Noticia %{page_name} e traduções de itens
+    relacionados apagados com sucesso.
   admin_news_item_edit_header: Atualizar informações de itens de notícias básicas
     de <em>%{page_name}</em>
   admin_news_item_edit_tip: É recomendado que você não editar o nome original deste
@@ -3740,6 +3762,8 @@ pt-BR:
     a tradução não pôde ser adicionada.
   admin_translated_news_item_delete_confirmation: Tem certeza de que deseja apagar
     a versão em %{language} de "%{page_name}"? Páginas apagadas não podem ser recuperadas.
+  admin_translated_news_item_delete_successful_notice: '%{language} tradução da noticia
+    <em>%{page_name}</em> foi apagada.'
   admin_translated_news_item_edit_subheader: Editar a tradução em %{language} da página
     <em>%{page_name}</em>
   admin_translated_news_item_edit_tip: Título e corpo são %{required_icon} obrigatórios.
@@ -3753,6 +3777,7 @@ pt-BR:
     da página <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_news_item_update_unsuccessful_error: Desculpe, ocorreu um erro,
     a tradução não pode ser atualizada.
+  admin_updated_config: Atualizar configuração para %{name}
   admin_user_delete_successful_notice: Usuário foi excluído
   admin_user_hide_successful_notice: O usuário está escondido
   admin_user_unhide_successful_notice: O usuário não está mais escondido
@@ -3793,7 +3818,12 @@ pt-BR:
   amount: Quantidade
   an_unknown_user: Um usuário desconhecido
   annotation_cabs_colon: 'Anotação:'
+  annotations_with_count:
+    one: '%{count} anotação '
+    other: '%{count} annotations'
   annotation_submit: Postar comentário
+  annotation_note: Comentarios serão compartilhados com os provedores de informação
+    (se disponivel).
   annotation_body_default: Adicionar uma questão ou comentário
   anonymous_user_full_name: Usuário Anônimo
   anonymous_user_given_name: Anônimo
@@ -3806,6 +3836,9 @@ pt-BR:
   any_string: qualquer cadeia de texto
   api_cache_time_to_live_parameter: quantos segundos que você deseja ter a resposta
     em cache
+  api_refer_to_the_getting_started_page: Veja a pagina<a href="%{link}">Começando
+    agora</a> para exemplos de utilização da API EOL, termos de use informação sobre
+    registro de chave API.
   application_version_advisory_information: Versão do aplicativo
   are_you_sure: Tem certeza?
   are_you_sure_this_action_cannot_be_undone: Você tem certeza? Essa ação não pode

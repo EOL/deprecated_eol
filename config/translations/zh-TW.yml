@@ -1831,7 +1831,7 @@ zh-TW:
   about_eol: 關於EOL
   about_resources: 關於資源
   about_resources_title: 外部資源的連結
-  about_resources_body: <p>歡迎您提供有關這個物種或生物類群的第三方網站的連結。範例包含提供鑑定檢索表、新聞故事、部落格以及教育和公民科學資源的網站。</p>
+  about_resources_body: 歡迎您提供有關這個物種或生物類群的第三方網站的連結。範例包含提供鑑定檢索表、新聞故事、部落格以及教育和公民科學資源的網站。
   about_resources_notice: Note&mdash；所有連結都必須遵循EOL的使用條款並通過蒐藏經理的審核。<br />如果您對您想要連結至EOL的一個資源有疑問，請
     <a href='%{contact_us_link}'>聯絡我們</a>。</p>
   account_information: 帳號資訊
@@ -2786,8 +2786,8 @@ zh-TW:
     field)是使用者提供的一個字串，為某個典藏項目的特殊註釋；它可以是任何字元的字串，但如果是一個日期，則必須符合YYYY-MM-DD的格式。分類單元的項目將包含一個'richness_score'。豐富度是一個度規，由0和100之間的一個整數代表，數字高的表示一個頁面有各類來源的豐富內容。有關分類單元豐富度，請見一個分類單元頁面的更新標籤，例如：%{richness_url}。
   a_pipe_delimited_list_of_licenses: 一個用'|'符號分隔的合約授權清單或是以'all'取得任何種類授權之下的物件。所有縮寫為cc-的授權都是
     %{creative_commons_link} 的授權，請造訪他們的網站以取得他們提供的各類授權資訊。
-  a_pipe_delimited_list_of_spm_info_item_subject_names: 用'概要'回報概要的文字(若是存在的話)、一個從 %{subjects_text}
-    清單(例如：TaxonBiology, FossilHistory)得到的以'|'符號分隔的主題名稱清單、或是以'all'取得任何主題之下的文字。永遠回報一個概要的文字作為第一個結果(若是在所給上下文情況之下存在的話)。
+  a_pipe_delimited_list_of_spm_info_item_subject_names: 用'overview'回報概要的文字(若是存在的話)、一個從
+    %{subjects_text} 清單(例如：TaxonBiology, FossilHistory)得到的以'|'符號分隔的主題名稱清單、或是以'all'取得任何主題之下的文字。永遠回報一個概要的文字作為第一個結果(若是在所給上下文情況之下存在的話)。
   api_results_can_be_cached: 呼叫API得到的任何回應都可以被快取並指定儲存時間。使用 "cache_ttl" 參數，其數值即是API的回應快取被儲存的秒數。如此一來HTTP標投中便會指示瀏覽器替結果建立快取，同時在EOL的伺服器裡也將建立快取並儲存參數中指定的秒數。如果參數
     "cache_ttl" 的數值被改變，第一個使用新值的連線請求將不會使用快取，但後續請求將得以運用新的快取回應內容。
   application_version_advisory_information: 應用版本

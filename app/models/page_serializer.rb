@@ -25,11 +25,14 @@ class PageSerializer
 
       page[:native_node] = build_node(node, resource)
 
+      preferred_langs = {}
       page[:vernaculars] = concept.preferred_common_names.map do |cn|
+        lang = get_language(cn)
         { string: cn.name.string,
-          language: get_language(cn),
-          preferred: cn.preferred?
+          language: lang,
+          preferred: cn.preferred? && ! preferred_langs[lang]
         }
+        preferred_langs[lang] = true if cn.preferred?
       end
 
       # NOTE: these were NOT pre-loaded, so we could limit them. Also note that

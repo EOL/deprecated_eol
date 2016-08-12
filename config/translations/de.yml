@@ -569,6 +569,7 @@ de:
           Die Inhalte werden allerdings nicht sofort veröffentlicht.
         published_at: Veröffentlicht
         published_status: Status
+        last_harvest_seconds: 'Dauer: %{time_in_words}'
       hierarchy:
         browsable_more: Klicken Sie auf „Durchsuchbar“, um diese Hierarchie zu einer
           der primär zu durchsuchenden Hierarchien auf EOL zu machen.

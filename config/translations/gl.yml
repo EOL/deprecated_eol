@@ -551,6 +551,7 @@ gl:
           non se fará público inmediatamente.
         published_at: Publicado
         published_status: Estado
+        last_harvest_seconds: Levou %{time_in_words}
       hierarchy:
         browsable_more: Comprobar a navegabilidade para promover esta xerarquía para
           converterse nunha das primarias da EOL.
@@ -6285,6 +6286,8 @@ gl:
   save: Gardar
   scientific_name: Nome científico
   sci_name_avg_table_head: Media do nome científico
+  scrub_user_button: limpar usuario
+  scrub_user_notice: Usuario limpado correctamenteǃ
   scrub_user_warning: 'ADVERTENCIA: isto eliminará TODO o contido engadido polo usuario
     e NON SE PODE DESFACER. Está SEGURO?'
   search: Procurar

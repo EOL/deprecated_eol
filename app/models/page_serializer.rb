@@ -97,14 +97,14 @@ class PageSerializer
         trait_hash = {
           resource: build_resource(trait.resource),
           resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
-          predicate: trait.predicate,
+          predicate: build_uri(trait.predicate_uri),
           source: source
         }
         if trait.units_uri
-          trait_hash[:units] = trait.units_uri.uri
+          trait_hash[:units] = build_uri(trait.units_uri)
           trait_hash[:measurement] = trait.value_name
         elsif trait.value_uri.is_a?(KnownUri)
-          trait_hash[:term] = trait.value_uri.uri
+          trait_hash[:term] = build_uri(trait.value_uri)
         else
           trait_hash[:literal] = trait.value_name
         end
@@ -180,6 +180,18 @@ class PageSerializer
       return nil if toc_item.nil?
       { parent: build_section(toc_item.parent), position: toc_item.view_order,
         name: toc_item.label }
+    end
+
+    def build_uri(known_uri)
+      return nil if known_uri.nil?
+      { uri: known_uri.uri,
+        name: known_uri.name,
+        definition: known_uri.definition,
+        comment: known_uri.comment,
+        attribution: known_uri.attribution,
+        is_hidden_from_overview: known_uri.exclude_from_exemplars,
+        is_hidden_from_glossary: known_uri.hide_from_glossary
+      }
     end
   end
 end

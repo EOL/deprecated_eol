@@ -5,6 +5,8 @@ class PageSerializer
     # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
+    # NOTE: I've been testing with PageSerializer.store_page_id(328598). It's
+    # very slow. ...but that's EOL. :|
     def store_page_id(pid)
       user = EOL::AnonymousUser.new(Language.default)
       # Test with pid = 328598 (Raccoon)
@@ -184,14 +186,21 @@ class PageSerializer
 
     def build_uri(known_uri)
       return nil if known_uri.nil?
-      { uri: known_uri.uri,
-        name: known_uri.name,
-        definition: known_uri.definition,
-        comment: known_uri.comment,
-        attribution: known_uri.attribution,
-        is_hidden_from_overview: known_uri.exclude_from_exemplars,
-        is_hidden_from_glossary: known_uri.hide_from_glossary
-      }
+      if known_uri.is_a?(UnknownUri)
+        { uri: known_uri.uri,
+          name: known_uri.uri.sub(/^.*\//, "").underscore.humanize,
+          description: "Information about this URI was not available during harvesting.",
+          is_hidden_from_overview: true,
+          is_hidden_from_glossary: true }
+      else
+        { uri: known_uri.uri,
+          name: known_uri.name,
+          definition: known_uri.definition,
+          comment: known_uri.comment,
+          attribution: known_uri.attribution,
+          is_hidden_from_overview: known_uri.exclude_from_exemplars,
+          is_hidden_from_glossary: known_uri.hide_from_glossary }
+      end
     end
   end
 end

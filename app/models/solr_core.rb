@@ -1,7 +1,10 @@
 # encoding: utf-8
 class SolrCore
-  BAD_CHARS_REGEX = /[;×\"'|\n\r\t ]+/
-  CLEAN_TEXT_REGEX = /^[a-zA-Z0-9 \(\),\.&-_]+$/
+  # Note the \s captures a lot of weird things (\v for example); the space
+  # itself is fine (and that's what we replace it with), so "BAD" is a misnomer,
+  # here.
+  BAD_CHARS_REGEX = /[;×\"'|\s]+/
+  CLEAN_TEXT_REGEX = /^[\w \(\),\.&-]+$/
 
   def self.date(date)
     # "setting the default to 1969-12-31T07:00:01Z"

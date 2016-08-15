@@ -35,7 +35,18 @@ class SolrCore
       items = Array(items)
       EOL.log("SolrCore::DataObjets#reindex_hashes", prefix: '.')
       delete(items.map { |i| "data_object_id:#{i[:data_object_id]}" })
-      @connection.add(items)
+      begin
+        @connection.add(items)
+      rescue Errno::EPIPE => e # added for iNat, Aug 2016
+        EOL.log("Broken pipe while adding #{items.size} items, attempting individually:")
+        items.each do |item|
+          begin
+            @connection.add([item])
+          rescue => e
+            EOL.log("Failed while adding item: #{item.inspect}")
+          end
+        end
+      end
       @connection.commit
     end
   end

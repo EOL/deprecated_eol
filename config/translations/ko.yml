@@ -56,7 +56,7 @@ ko:
         content_partner_status: 프로젝트 상태
         created_at: 만들어짐
         description: 프로젝트 설명
-        display_name: 보여줄 이름
+        display_name: 표시 이름
         full_name: 프로젝트 이름
         homepage: 프로젝트 URL
         id: ID
@@ -67,7 +67,7 @@ ko:
         vetted: 조사됨
       content_partner_agreement:
         created_at: 만든 곳
-        signed_by: 다음 사용자로 로그인
+        signed_by: 서명자
         signed_on_date: 날짜에 로그인
       content_partner_contact:
         email_reports_frequency_hours: 이메일 보고서의 빈도
@@ -383,7 +383,7 @@ ko:
         description_of_data: 데이터에 대한 설명 <small>(비공개)</small>
         description_of_data_more: 얼마나 많은 항목을 사용할 수 있는지, 관련된 생명체가 무엇인지, 그리고 그들이 조합
           또는 공인 전문가 또는 지식을 공동체에 의해 선택되었는지 여부에 대해 당신이 가진 정보의 유형에 대한 설명을 제공하세요.
-        last_action: 마지막 행동
+        last_action: 마지막 동작
         latest_published_harvest_event: 최근 게시함
         logo_current: '현재 로고:'
         logo_new: '새 로고 올리기:'
@@ -398,8 +398,8 @@ ko:
           적용됩니다. EOL 내용 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을
           올릴</a> 수 있습니다.
       content_partner_contact:
-        email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 행동이
-          있다면 이메일 보고서가 보내집니다.
+        email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 동작이
+          있을 경우에만 이메일 보고서가 보내집니다.
       data_object:
         bibliographic_citation: 참고 문헌 인용
         bibliographic_citation_more: 가능한 모호하지 않게 데이터를 식별하기에 충분한 자세한 내용이 포함된 참고 문헌의
@@ -1117,11 +1117,11 @@ ko:
     activity_on_content_partner_content:
       subject: '%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 내용에 대한 최근 활동의 요약입니다'
       message: |-
-        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
+        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
 
-        질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
+        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
-        큐레이트 행동:
+        큐레이트 동작%{data_object_comments}:
         %{curator_activity_log}
 
         데이터 개체에 대한 댓글:
@@ -1132,12 +1132,12 @@ ko:
     activity_on_user_content:
       subject: 생명의 백과사전에 추가한 내용에 대한 최근 활동의 요약
       message: |-
-        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.
+        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다.
 
-        질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
+        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
 
-        큐레이트 행동:
+        큐레이트 동작:
         %{curator_activity_log}
 
         데이터 개체에 대한 댓글:
@@ -1323,12 +1323,12 @@ ko:
     someone_commented_on_something: <b>%{who}</b>님이 <b>%{what}</b>에 댓글을 남겼습니다.
     comment_link: EOL에 대한 댓글 보기
     collection_activity_by_user: <b>%{user_name}</b>님이 <b>%{collection_name}</b> 모음집에
-      %{activity_name} 행동을 수행했습니다.
+      %{activity_name} 동작을 수행했습니다.
     collection_activity_user_added_item: '<b>%{user_name}</b>님이 <b>%{collection_name}</b>
       모음집에 %{collected_item_type} #%{collected_item_id} 항목을 추가했습니다.'
     collection_activity_user_watching_recipient: <b>%{user_name}</b>님은 당신을 주시하고 있습니다.
     community_activity_by_user: <b>%{user_name}</b>님이 <b>%{community_name}</b> 공동체에
-      %{activity_name} 행동을 수행했습니다.
+      %{activity_name} 동작을 수행했습니다.
     community_activity_user_joined: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
       공동체에 가입했습니다.
     community_activity_user_left: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
@@ -1336,9 +1336,9 @@ ko:
     community_activity_user_made_member_a_manager: <b>%{user_name}</b>님이 <b>%{member_name}</b>
       사용자를 <b>%{community_name}</b> 공동체의 관리자로 정했습니다.
     curator_activity_on_data_object_by_user: '<b>%{user_name}</b>님이 <b>%{dato_title}</b>
-      (%{dato_type} #%{dato_id})에 %{activity_name} 행동을 수행했습니다.'
+      (%{dato_type} #%{dato_id})에 %{activity_name} 동작을 수행했습니다.'
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b>님이 <b>%{taxon_concept}</b>
-      (%{taxon_overview_url})에 %{activity_name} 행동을 수행했습니다.
+      (%{taxon_overview_url})에 %{activity_name} 동작을 수행했습니다.
     data_object_activity_article_added_by_user: <b>%{user_name}</b>님이 <b>%{taxon_concept}</b>
       (%{taxon_details_url})에 %{dato_title}(으)로 부르는 문서를 추가했습니다.
   recent_activities:
@@ -1765,7 +1765,7 @@ ko:
       created_head: 만들어짐
       updated_head: 마지막 명령
       complete_head: 다 되었습니까?
-      actions_head: 행동
+      actions_head: 동작
       is_complete: 예
       is_not_complete: 아니오
       query_empty: (필터 없음)
@@ -1962,7 +1962,7 @@ ko:
     add_metadata_header: 추가 정보
     edit_metadata_header: 메타데이터 편집
     create_successful: 데이터가 성공적으로 추가되었습니다
-    create_failed: '사용자의 데이터를 추가할 수 없습니다: %{errors}'
+    create_failed: '데이터를 추가할 수 없습니다: %{errors}'
     delete_successful: 데이터가 지워졌습니다
     new_field: 새 필드...
     new_value: 값
@@ -2891,8 +2891,8 @@ ko:
           개체를 큐레이트했습니다.
         user_curated_data_object: <strong>%{user}</strong>님이 "%{data_object}"을(를)
           큐레이트했습니다.
-        an_unknown_user_curated_it: 알 수 없는 사용자가 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
-        user_curated_it: <strong>%{user}</strong>님이 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
+        an_unknown_user_curated_it: 알 수 없는 사용자가 큐레이트를 했지만 수행하는 정확한 동작이 끊겼습니다.
+        user_curated_it: <strong>%{user}</strong>님이 큐레이트를 했지만 수행하는 정확한 동작이 끊겼습니다.
   a_maximum_of_30_results_are_returned: 최대 문서 당 결과 30개가 나타납니다. 이 변수는 30개 이상 일치할 때
     더 많은 결과 문서를 가져올 수 있습니다
   activity_log_empty: 아직 제공한 업데이트가 없습니다.
@@ -3100,7 +3100,7 @@ ko:
     <a href="%{link}">시작하기</a>를 참고하세요.
   application_version_advisory_information: 애플리케이션 버전
   are_you_sure: 확실합니까?
-  are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
+  are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 동작은 취소할 수 없습니다.
   article_from: 문서
   article_secondary_description_with_others_count:
     one: '%{taxon} 분류와 다른 분류 %{count}개의 설명'
@@ -3286,7 +3286,7 @@ ko:
     other: <em>%{collection_name}</em> 공동체에 모음집 항목 %{count}개를 성공적으로 만들었습니다.
   collection_delete_link: 이 모음집 영구 삭제
   collection_destroyed: 모음집을 삭제했습니다.
-  collection_error_no_items_selected: '오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다.'
+  collection_error_no_items_selected: '오류: 항목을 선택하지 않아 어떠한 동작도 하지 않았습니다.'
   collection_image: 모음집 그림
   collection_is_empty: 이 모음집은 현재 비어 있습니다.
   collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
@@ -3356,7 +3356,7 @@ ko:
   comment_new_title: 새 댓글 추가
   comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
   comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 댓글 옆에 나타납니다.
-  comment_show_posters_image_alt: 이 행동을 한 %{posters_name}의 프로필 사진입니다.
+  comment_show_posters_image_alt: 이 동작을 한 %{posters_name}의 프로필 사진입니다.
   comments_and_tags: 댓글과 태그
   comments: 댓글
   comments_filter: 댓글
@@ -3706,7 +3706,7 @@ ko:
   curator_scope_colon: '큐레이터 범위:'
   curator_signup_message: 큐레이터 권한을 요청하려면 아래에 자격 증명의 범위를 표시해야 합니다. 큐레이터 권한에 대한 신청을
     허락하면 이메일을 통해 알려드립니다.
-  curator_status_changed_by: '%{date}에 %{user} 사용자에 의해 큐레이터 상태를 바꿈'
+  curator_status_changed_by: '%{date}에 %{user}님에 의해 큐레이터 상태를 바꿈'
   curators: 큐레이터
   curators_empty: 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
   curators_summary_header_with_count:
@@ -4285,7 +4285,7 @@ ko:
   login_header: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: '%{given_name} 계정은 더 이상 활동하지 않습니다'
   login_or_create_account: 로그인 또는 계정 만들기
-  login_to_the_website_as: '%{username} 사용자로서 웹사이트 로그인'
+  login_to_the_website_as: '%{username}님으로 웹사이트 로그인'
   logo_header: 로고
   logout: 로그아웃
   looking_up_url: URL 찾는 중...
@@ -4792,8 +4792,8 @@ ko:
   send_email_colon: '이메일 보내기:'
   send: 보내기
   sent_invitations_to_users:
-    one: '%{users} 사용자에게 초대장을 보냈습니다.'
-    other: '%{users} 사용자에게 초대장을 보냈습니다.'
+    one: '%{users에게 초대장을 보냈습니다.'
+    other: '%{users}에게 초대장을 보냈습니다.'
   sep_emails_with_commas_note: (쉼표로 여러 이메일 주소를 구분)
   server_ip_address: 서버 IP 주소
   set_as_exemplar: 표본으로 설정
@@ -5270,7 +5270,7 @@ ko:
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.
   you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}을(를) 보고 있습니다:'
   you_can_edit_those_later_if_ne: 필요한 경우 나중에 편집할 수 있습니다.
-  you_have_been_logged_in_as_username: '%{username} 사용자로 로그인되어 있습니다'
+  you_have_been_logged_in_as_username: '%{username}님으로 로그인되어 있습니다'
   you_have_been_logged_out: 로그아웃했습니다.
   you_joined_community: 성공적으로 공동체에 가입했습니다.
   you_left_community: 성공적으로 공동체를 떠났습니다.

@@ -398,7 +398,7 @@ class DataObject < ActiveRecord::Base
         data_object_guid: guid, user_id: user.id, rating: new_rating,
         weight: user.rating_weight)
     end
-    recalculate_rating
+    self.update_column(:data_rating, average_rating) # Can't call method, loops!
   end
 
   def recalculate_rating
@@ -1180,12 +1180,6 @@ class DataObject < ActiveRecord::Base
     users_data_objects_ratings.each do |udo|
       rating_summary_hash[udo.rating] += udo.weight
     end
-    # Self-healing code:
-    if average_rating != data_rating
-      EOL.log("RATING: #{data_rating} -> #{average_rating} for #{id}",
-        prefix: "!")
-      data_object.recalculate_rating
-    end
     rating_summary_hash
   end
 
@@ -1195,8 +1189,14 @@ class DataObject < ActiveRecord::Base
 
   def average_rating
     return 2.5 if users_data_objects_ratings.blank?
-    rating_summary.map { |score, votes| score * votes }.inject(:+) /
+    average = rating_summary.map { |score, votes| score * votes }.inject(:+) /
       total_ratings.to_f
+    # Self-healing code:
+    if average != data_rating
+      EOL.log("RATING: #{data_rating} -> #{average} for #{id}", prefix: "!")
+      self.update_column(:data_rating, average) # Can't call method, loops!
+    end
+    average
   end
 
   def show_rights_holder?

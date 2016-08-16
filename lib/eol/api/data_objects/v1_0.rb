@@ -66,6 +66,7 @@ module EOL
           return_hash['dataType'] = data_object.data_type.schema_value
           return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
           return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.try(:vetted)
+          return_hash['dataRatings'] = data_object.rating_summary
           return_hash['dataRating'] = data_object.data_rating
 
           if data_object.is_text?

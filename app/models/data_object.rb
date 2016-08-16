@@ -394,11 +394,11 @@ class DataObject < ActiveRecord::Base
         user_rating.update_column(:weight, user.rating_weight)
       end
     else
-      UsersDataObjectsRating.create(data_object_guid: guid, user_id: user.id,
-                                    rating: new_rating, weight: user.rating_weight)
+      users_data_objects_ratings << UsersDataObjectsRating.create(
+        data_object_guid: guid, user_id: user.id, rating: new_rating,
+        weight: user.rating_weight)
     end
-    users_data_objects_ratings.reload
-    self.update_column(:data_rating, average_rating)
+    recalculate_rating
   end
 
   def recalculate_rating
@@ -1180,16 +1180,23 @@ class DataObject < ActiveRecord::Base
     users_data_objects_ratings.each do |udo|
       rating_summary_hash[udo.rating] += udo.weight
     end
+    # Self-healing code:
+    if average_rating != data_rating
+      EOL.log("RATING: #{data_rating} -> #{average_rating} for #{id}",
+        prefix: "!")
+      data_object.recalculate_rating
+    end
     rating_summary_hash
   end
 
   def total_ratings
-    rating_summary.collect{ |score, votes| votes }.inject(:+)
+    rating_summary.values.inject(:+)
   end
 
   def average_rating
     return 2.5 if users_data_objects_ratings.blank?
-    rating_summary.collect{ |score, votes| score * votes }.inject(:+) / total_ratings.to_f
+    rating_summary.map { |score, votes| score * votes }.inject(:+) /
+      total_ratings.to_f
   end
 
   def show_rights_holder?

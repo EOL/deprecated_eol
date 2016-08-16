@@ -6,7 +6,8 @@
     EOL.enableRatings();
 - en_type ||= en_type(data_object)
 - total = 5
-- average_rating = data_object.safe_rating
+- rating_summary = data_object.rating_summary
+- average_rating = data_object.average_rating
 - user_rating = if hide_user_rating
   - nil # user_rating isn't used when we hide_user_rating
 - elsif @taxon_media # We have a cache of a bunch of ratings...
@@ -48,7 +49,6 @@
       .header
         %h3= title
         = link_to I18n.t(:rating_learn_more_link), cms_page_path('curation_standards', :anchor => 'rating')
-      - rating_summary = data_object.rating_summary
       %dl.rating_counts
         - [ 5, 4, 3, 2, 1 ].each do |rating_score|
           - votes_for_this_score = rating_summary[rating_score]

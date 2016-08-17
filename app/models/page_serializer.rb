@@ -9,8 +9,6 @@ class PageSerializer
     # very slow. ...but that's EOL. :|
     def store_page_id(pid)
       user = EOL::AnonymousUser.new(Language.default)
-      # Test with pid = 328598 (Raccoon)
-      page = { id: pid, moved_to_node_id: nil }
       # First, get it with supercedure:
       concept = TaxonConcept.find(pid)
       # Then, get it with includes:
@@ -22,6 +20,8 @@ class PageSerializer
             flattened_ancestors: [ ancestor: [ name: [ canonical_form: :name ] ] ],
             name: [ canonical_form: :name ] ] ]
         ).first
+      # Test with pid = 328598 (Raccoon)
+      page = { id: concept.id, moved_to_node_id: nil }
       node = concept.entry
       resource = build_resource(node.hierarchy.resource)
 
@@ -92,7 +92,7 @@ class PageSerializer
         sections: article.toc_items.map { |ti| build_section(ti) }
       }]
 
-      traits = PageTraits.new(pid).traits
+      traits = PageTraits.new(concept.id).traits
       page[:traits] = traits.map do |trait|
         source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
           find { |v| v !~ /resources\/\d/ }
@@ -104,8 +104,8 @@ class PageSerializer
           source: source
         }
         if trait.units_uri
-          trait_hash[:units] = build_uri(trait.units_uri)
           trait_hash[:measurement] = trait.value_name
+          trait_hash[:units] = build_uri(trait.units_uri)
         elsif trait.value_uri.is_a?(KnownUri)
           trait_hash[:term] = build_uri(trait.value_uri)
         else
@@ -148,7 +148,7 @@ class PageSerializer
         }]
       end
 
-      name = Rails.root.join("public", "store-#{pid}.json").to_s
+      name = Rails.root.join("public", "store-#{concept.id}.json").to_s
       File.unlink(name) if File.exist?(name)
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
     end
@@ -169,8 +169,6 @@ class PageSerializer
       {
         resource: resource,
         rank: node.rank.label,
-        lft: node.lft,
-        rgt: node.rgt,
         scientific_name: node.italicized_name,
         canonical_form: node.title_canonical_italicized,
         resource_pk: node.identifier,

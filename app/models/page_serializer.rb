@@ -71,26 +71,28 @@ class PageSerializer
       end
 
       article = concept.overview_text_for_user(user)
-      lic = article.license
-      b_cit = article.bibliographic_citation
-      b_cit = nil if b_cit.blank?
-      resource = build_resource(article.resource)
-      page[:articles] = [{
-        guid: article.guid,
-        resource_pk: article.identifier,
-        provider_type: "Resource",
-        provider: resource,
-        license: { name: lic.title, source_url: lic.source_url,
-          icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-        language: get_language(article),
-        # TODO: skipping location here
-        bibliographic_citation: b_cit,
-        owner: article.owner,
-        name: article.best_title,
-        source_url: article.source_url,
-        body: article.description_linked,
-        sections: article.toc_items.map { |ti| build_section(ti) }
-      }]
+      if(article)
+        lic = article.license
+        b_cit = article.bibliographic_citation
+        b_cit = nil if b_cit.blank?
+        resource = build_resource(article.resource)
+        page[:articles] = [{
+          guid: article.guid,
+          resource_pk: article.identifier,
+          provider_type: "Resource",
+          provider: resource,
+          license: { name: lic.title, source_url: lic.source_url,
+            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
+          language: get_language(article),
+          # TODO: skipping location here
+          bibliographic_citation: b_cit,
+          owner: article.owner,
+          name: article.best_title,
+          source_url: article.source_url,
+          body: article.description_linked,
+          sections: article.toc_items.map { |ti| build_section(ti) }
+        }]
+      end
 
       traits = PageTraits.new(concept.id).traits
       page[:traits] = traits.map do |trait|

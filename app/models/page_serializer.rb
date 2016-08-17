@@ -5,8 +5,9 @@ class PageSerializer
     # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
-    # NOTE: I've been testing with PageSerializer.store_page_id(328598). It's
-    # very slow. ...but that's EOL. :|
+    # NOTE: I've been testing with PageSerializer.store_page_id(328598).
+    # Next was pid = 19831
+    # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
       user = EOL::AnonymousUser.new(Language.default)
       # First, get it with supercedure:
@@ -38,16 +39,21 @@ class PageSerializer
         hash
       end
 
+      # Bah! Direct relationships were NOT working, so I'm using Solr, which is
+      # horrible and indicates a deep problem. TODO: THIS WILL NOT WORK !!!
+      # ...when you start grabbing higher-level taxa AND their children.
+      # ...Well, it'll work... but it will contain many many duplicates.
+      media = concept.data_objects_from_solr(
+        ignore_translations: true,
+        return_hierarchically_aggregated_objects: true,
+        page: 1, per_page: 100,
+        data_type_ids: DataType.image_type_ids )
+
       # NOTE: these were NOT pre-loaded, so we could limit them. Also note that
       # the curated_data_objects_hierarchy_entry CANNOT be preloaded here, since
       # it's invoked via GUID, not by ID (though the relationship could probably
       # be rewritten, that's out of scope, here.)
-      page[:media] = concept.data_objects.images.published.
-                     includes(:license, :language, :data_object_translation,
-                       :users_data_object,
-                       data_objects_hierarchy_entries: [ hierarchy_entry:
-                       [ hierarchy: [ :resource ] ] ]).
-                     limit(100).map do |i|
+      page[:media] = media.map do |i|
         lic = i.license
         b_cit = i.bibliographic_citation
         b_cit = nil if b_cit.blank?

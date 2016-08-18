@@ -20,6 +20,10 @@ class Background
       end
     end
 
+    def top_images_in_queue?
+      in_queue?(:php, CodeBridge, cmd, top_images)
+    end
+
     def stop_top_images
       Resque::Job.destroy(:php, CodeBridge, {"cmd"=>"top_images"})
     end

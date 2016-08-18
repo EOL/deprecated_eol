@@ -5,12 +5,11 @@ class PageSerializer
     # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
-    # NOTE: I've been testing with PageSerializer.store_page_id(328598). It's
-    # very slow. ...but that's EOL. :|
+    # NOTE: I've been testing with PageSerializer.store_page_id(328598).
+    # Next was pid = 19831
+    # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
       user = EOL::AnonymousUser.new(Language.default)
-      # Test with pid = 328598 (Raccoon)
-      page = { id: pid, moved_to_node_id: nil }
       # First, get it with supercedure:
       concept = TaxonConcept.find(pid)
       # Then, get it with includes:
@@ -22,6 +21,8 @@ class PageSerializer
             flattened_ancestors: [ ancestor: [ name: [ canonical_form: :name ] ] ],
             name: [ canonical_form: :name ] ] ]
         ).first
+      # Test with pid = 328598 (Raccoon)
+      page = { id: concept.id, moved_to_node_id: nil }
       node = concept.entry
       resource = build_resource(node.hierarchy.resource)
 
@@ -38,16 +39,21 @@ class PageSerializer
         hash
       end
 
+      # Bah! Direct relationships were NOT working, so I'm using Solr, which is
+      # horrible and indicates a deep problem. TODO: THIS WILL NOT WORK !!!
+      # ...when you start grabbing higher-level taxa AND their children.
+      # ...Well, it'll work... but it will contain many many duplicates.
+      media = concept.data_objects_from_solr(
+        ignore_translations: true,
+        return_hierarchically_aggregated_objects: true,
+        page: 1, per_page: 100,
+        data_type_ids: DataType.image_type_ids )
+
       # NOTE: these were NOT pre-loaded, so we could limit them. Also note that
       # the curated_data_objects_hierarchy_entry CANNOT be preloaded here, since
       # it's invoked via GUID, not by ID (though the relationship could probably
       # be rewritten, that's out of scope, here.)
-      page[:media] = concept.data_objects.images.published.
-                     includes(:license, :language, :data_object_translation,
-                       :users_data_object,
-                       data_objects_hierarchy_entries: [ hierarchy_entry:
-                       [ hierarchy: [ :resource ] ] ]).
-                     limit(100).map do |i|
+      page[:media] = media.map do |i|
         lic = i.license
         b_cit = i.bibliographic_citation
         b_cit = nil if b_cit.blank?
@@ -71,28 +77,30 @@ class PageSerializer
       end
 
       article = concept.overview_text_for_user(user)
-      lic = article.license
-      b_cit = article.bibliographic_citation
-      b_cit = nil if b_cit.blank?
-      resource = build_resource(article.resource)
-      page[:articles] = [{
-        guid: article.guid,
-        resource_pk: article.identifier,
-        provider_type: "Resource",
-        provider: resource,
-        license: { name: lic.title, source_url: lic.source_url,
-          icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-        language: get_language(article),
-        # TODO: skipping location here
-        bibliographic_citation: b_cit,
-        owner: article.owner,
-        name: article.best_title,
-        source_url: article.source_url,
-        body: article.description_linked,
-        sections: article.toc_items.map { |ti| build_section(ti) }
-      }]
+      if(article)
+        lic = article.license
+        b_cit = article.bibliographic_citation
+        b_cit = nil if b_cit.blank?
+        resource = build_resource(article.resource)
+        page[:articles] = [{
+          guid: article.guid,
+          resource_pk: article.identifier,
+          provider_type: "Resource",
+          provider: resource,
+          license: { name: lic.title, source_url: lic.source_url,
+            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
+          language: get_language(article),
+          # TODO: skipping location here
+          bibliographic_citation: b_cit,
+          owner: article.owner,
+          name: article.best_title,
+          source_url: article.source_url,
+          body: article.description_linked,
+          sections: article.toc_items.map { |ti| build_section(ti) }
+        }]
+      end
 
-      traits = PageTraits.new(pid).traits
+      traits = PageTraits.new(concept.id).traits
       page[:traits] = traits.map do |trait|
         source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
           find { |v| v !~ /resources\/\d/ }
@@ -104,8 +112,8 @@ class PageSerializer
           source: source
         }
         if trait.units_uri
-          trait_hash[:units] = build_uri(trait.units_uri)
           trait_hash[:measurement] = trait.value_name
+          trait_hash[:units] = build_uri(trait.units_uri)
         elsif trait.value_uri.is_a?(KnownUri)
           trait_hash[:term] = build_uri(trait.value_uri)
         else
@@ -148,7 +156,7 @@ class PageSerializer
         }]
       end
 
-      name = Rails.root.join("public", "store-#{pid}.json").to_s
+      name = Rails.root.join("public", "store-#{concept.id}.json").to_s
       File.unlink(name) if File.exist?(name)
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
     end
@@ -169,8 +177,6 @@ class PageSerializer
       {
         resource: resource,
         rank: node.rank.label,
-        lft: node.lft,
-        rgt: node.rgt,
         scientific_name: node.italicized_name,
         canonical_form: node.title_canonical_italicized,
         resource_pk: node.identifier,

@@ -22,7 +22,7 @@
 uk:
   activerecord:
     models:
-      user: Акаунт
+      user: обліковий запис
     attributes:
       collection:
         name: Назва колекції
@@ -315,8 +315,10 @@ uk:
       format: '%{attribute} %{message}'
       template:
         header:
-          one: знайдено %{count} помилку перевірки
-          other: знайдено %{count} помилок перевірки
+          one: Знайдено %{count} помилку перевірки
+          few: Знайдено %{count} помилки перевірки
+          many: Знайдено %{count} помилок перевірки
+          other: Знайдено %{count} помилки поревірки
         body: 'Деякі поля заповнені невірно:'
       messages:
         taken: вже взято
@@ -330,10 +332,14 @@ uk:
         blank: не може бути порожнім
         too_long:
           one: занадто довге (максимум %{count} символ)
-          other: занадто довге (максимум %{count} символи)
+          few: занадто довге (максимум %{count} символи)
+          many: занадто довге (максимум %{count} символів)
+          other: занадто довге (максимум %{count} символу)
         too_short:
-          one: закоротке (мінімум - %{count} character)
-          other: закоротке (мінімум - %{count} символів)
+          one: закоротке (мінімум %{count} символ)
+          few: закоротке (мінімум %{count} символи)
+          many: закоротке (мінімум %{count} символів)
+          other: закоротке (мінімум %{count} символу)
         wrong_length: невірна довжина (має бути %{count} знаків)
         not_a_number: не є числом
         not_an_integer: має бути ціле число
@@ -4071,7 +4077,10 @@ uk:
     one: Перебуває в %{count} колекції
     other: Перебуває в %{count} колекціях
   collections_with_count:
-    other: '%{count} колекція'
+    one: '%{count} колекція'
+    few: '%{count} колекції'
+    many: '%{count} колекцій'
+    other: '%{count} колекції'
   comment: Коментар
   comment_added_notice: Коментар успішно доданий.
   comment_body_label: Ваш коментар
@@ -4647,7 +4656,7 @@ uk:
     можливість завантаження даних</a>.
   data_link_to_record: Посилання на цей запис
   data_logging_active: Журналювання даних активне
-  data_master_database_colon: 'Основні бази даних:'
+  data_master_database_colon: 'Майстер даних:'
   data_metadata_subtable_summary: Додаткові дані про цей факт.
   data_measurement_subtable_summary: Додаткові дані про вимірювання цього факту.
   data_object: Об'єкт даних
@@ -4816,11 +4825,18 @@ uk:
   did_you_mean: 'Ви мали на увазі: %{suggestions} ?'
   disabled_for_now: ВИМКНЕНО
   discover_link: Освіта
+  displaying_numerical_range_eol_records_with_count:
+    one: Відображення %{count} запису в ЕЖ
+    other: Відображення %{start_number} &ndash; %{end_number} з %{count} записів в
+      ЕЖ
   donate_link: Пожертвувати
   done_already: Уже зроблено
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не показувати
+    невідомі дати реєстрації (V1-користувачі, всі, що зареєструвалися до 5 січня 2009)
   do_you_want_to_be_a_curator: Ви хочете бути куратором
   download_wav_file: Завантажити файл WAV
   download_data: Завантажити дані
+  download_collection_data: Завантажити дані
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Коментар не збережено: здається, ви вже опублікували
     цей коментар. Ви натиснули кнопку ''Надіслати коментар'' двічі?'
@@ -5006,6 +5022,7 @@ uk:
       error_editing_someone_account: Вибачте, Ви можете редагувати лише свій власний
         обліковий запис
       can_not_edit_permissions: Вибачте, Ви не можете редагувати права
+      collection_job_not_valid: Недійсне завдання колекції
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи
     не будуть показані на сторінках огляду таксону.
   expand_all_children: розгорнути усіх нащадків
@@ -5022,12 +5039,28 @@ uk:
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: факультет, співробітник або аспірант
     у відповідному департаменті, університеті або коледжі
+  failed_login_attempts_with_count:
+    other: (%{count} невдала спроба входу) — треба поставити галочку, щоб користувач
+      міг увійти в систему
   false_label: Хибність
   family_name_colon: 'Назва сім''ї:'
   feedback: Зворотний зв'язок
   file: Файл
+  file_download_pending: Створення завантаження потребує трохи додаткового часу, тож
+    ми започаткували фонове завдання для цього. Ви можете  <a href='%{link}'>перевірити
+    статус цього завдання</a> в будь-який час.
+  file_download_ready: ЕЖ завершила створення файлу пошуку даних для Вашого запиту
+    «%{query}». Ви можете <a href='%{file}'>завантажити його в будь-який час протягом
+    наступних декількох днів</a>.
+  file_download_refreshing: Оновлення завантаження Вимагає трохи додаткового часу,
+    тож ми започаткували фонове завдання для цього. Ви можете <a href='%{link}'>перевірити
+    статус цього завдання</a> в будь-який час.
   file_id: ІД файлу
   file_size: Розмір файлу
+  filed_under_label_with_date: Подано %{date} як %{label}
+  fill_in_a_message_below_to_send_email_to_user: 'Заповніть повідомлення нижче, щоб
+    відправити електронного листа цьому користувачеві з цього сайту. Повідомлення
+    буде надіслано після надсилання форми:'
   filter_button: Фільтр
   filter_by_day: Фільтрувати за днем
   filter_by_subject: Фільтрувати за темою
@@ -5115,8 +5148,12 @@ uk:
   flickr: Flickr
   focus_collection_edit: Вам дозволено редагування колекцій цієї спільноти безпосередньо
     на сторінці редагування кожної колекції.
+  focus_list_newsfeed: Стрічка новин для списку основних тем
   forgot_password: Забули пароль
   forgot_password_form_cancel: Скасувати
+  forgot_password_form_choose_username_instructions: Є декілька облікових записів,
+    зареєстрованих з електронною адресою <em>%{email}</em>, будь ласка, виберіть один
+    обліковий запис, для якого треба скинути пароль.
   forgot_password_form_choose_username_legend: Виберіть обліковий запис
   forgot_password_form_choose_username_blank_error: Будь ласка, виберіть обліковий
     запис, для якого ви хочете відновити пароль.
@@ -5130,9 +5167,14 @@ uk:
   forgot_password_cannot_find_user_from_username_or_email_error: На жаль, там не немає
     облікових записів користувачів із зазначеним іменем користувача або електронною
     поштою <em>%{username_or_email}</em>.
+  for_example_for_the_taxon_element_for_a_node: Наприклад, для елемента таксона для
+    вузла в ієрархії ITIS, dc:identifier буде ITIS TSN. Елемент dwct:taxonID містить
+    <i>ідентифікатор ЕЖ</i>, що має бути використаний в API %{link}.
+  for_images_to_reference_parens: (для зображень, на які треба послатися)
   for_pdfs_and_docs_parens: (для PDF-файлів і документів)
   form_validation_errors_for_attribute_assistive: Існує помилка перевірки на цьому
     елементі
+  fragment_caching_enabled: Кешування фрагментів увімкнено
   frequency: Частота
   frequency_daily: Щодня
   frequency_monthly: Щомісяця
@@ -5141,12 +5183,32 @@ uk:
   friendly_url: Дружні URL
   from_community: від спільноти  %{community}
   from_communities: 'від громад: %{communities}'
+  full_content_url: URL-адреса повного контенту
   gbif_map: GBIF карта
+  general_site_admin: загальний адміністратор сайту
+  georeference_records_colon: 'Записи геоприв''язки:'
   get_help_choosing_a_subject: Отримати допомогу при виборі теми
   get_help_choosing_a_subchapter: Отримати допомогу при виборі підтеми
   get_more_tasks: отримати більше завдань
+  given_name_colon: 'Ім''я:'
+  data_object_api_description: Якщо вказаний ідентифікатор для об'єкту даних, цей
+    API поверне всі метадані про об'єкт, надані ЕЖ її контент-партнером. Контент-партнер
+    цитується в першому елементі агента і має роль «партнер».
+  given_the_vast_number: Зважаючи на незмірну кількість наукових та загальних назв
+    (загалом близько 20 мільйонів), дуже важко подати користувачеві саме ті види,
+    які він сподівається знайти. Наприклад, є декілька видів птахів з англомовною
+    назвою «Robin» (American Robin, Alpine Robin, Smoky Robin), і  декілька видів
+    риб з назвою «Robin», а також таксономіст з прізвищем Робін, який надав назви
+    десяткам різних видів. Ми включили параметр «exact», щоб виводилися лише результати,
+    що точно відповідають пошуковому терміну, але ми не можемо гарантувати, що виведені
+    таксони є саме тими таксонами, які Ви сподівалися відшукати. Ми постійно стараємось
+    вдосконалити релевантність наших пошукових результатів, тож можна сподіватися
+    на деякі покращення пошукової системи вже в близькому майбутньому.
+  gives_access_to_a_single_hierarchy_indexed_by_eol: надає доступ до єдиної ієрархії,
+    індексованої ЕЖ, та її внутрішніх взаємовідносин.
   gives_access_to_a_single_hierarchy_descendants_by_eol: надає доступ до нащадків
     для єдиного ієрархічного запису
+  global_access_tagline: Глобальний доступ до знань про життя на Землі
   global_navigation: загальне меню
   glossary: Глосарій
   glossary_subhead: Глосарій
@@ -5159,12 +5221,20 @@ uk:
   google: Google
   google_images: Google Зображення
   google_scholar: Google Академія
+  grant_manager_link: Надати роль менеджера
   grant_permission: дозвіл
   grant_full_curator_link: Дозвіл
   harvest_id: ІД збору
   harvesting_processes_log: Журнал процесів збору
   harvests_for: Збори для %{resource}
+  harvest_resource: Збір даних з ресурсу
+  harvest_duration: Тривалість збору даних станом на зараз
+  has_already_been_taken: вже прийнято.
   has_colon: 'Має:'
+  has_curated_your_image: позначив Ваше зображення як куроване
+  has_hidden_your_image: приховав Ваше зображення
+  has_trusted_your_image: позначив Ваше зображення як довірене
+  has_untrusted_your_image: зняв позначку про довіру з Вашого зображення
   hello_user: Привіт %{user}
   help: довідка
   here: тут
@@ -5172,17 +5242,53 @@ uk:
   hidden_comment: прихований коментар
   hide: приховати
   hierarchy: Ієрархія
+  hierarchy_entry_switch_missing_id_error: Вибачте, вибрану сторінку запису ієрархії
+    знайти не вдалося через відсутність ідентифікатора.
   hierarchy_node_missing: На жаль, відсутні дані для цього вузла.
+  hierarchy_roots_colon: 'Корені ієрархії:'
   hierarchy_updated: Ієрархія оновлена
   hierarchies_title: Ієрархії
   home: Головна
   home_page_cache_last_cleared_on: Кеш головної сторінки востаннє очищено %{date}
   home_page_link_advisory_information: Це посилання переадресує вас на головну сторінку
     веб-сайту Енциклопедії життя
+  however_there_are_summaries: Однак, <a href='%{summary_url}'>ЕЖ підсумовує дані
+    з підгруп</a>.
   html_format: (Формат HTML)
+  html_format_with_left_col: (HTML-формат, введіть лише якщо Ви хочете мати лівий
+    стовпець на сторінці, в іншому випадку залиште порожнім)
   content_upload_url: http://%{domain}%{upload_attachment}
+  content_upload_restrictions_note: (розмір має бути менш як 10 MB, файл буде збережений
+    як завантаження, тобто не буде виконано жодних змін вимірів зображення)
   id: ІД
+  if_checked_and_user_is_saved: Якщо поставити галочку й зберегти користувача, то
+    його обґрунтування, сферу діяльності, інформацію про затвердження та вибрані клади
+    буде вилучено, і користувач більше не відображатиметься як куратор. Вам слід додати
+    примітку нижче, щоб зазначити причину. Жодної інформації користувачеві надіслано
+    не буде.
+  if_multiple_media_objects_are_returned: 'Якщо будуть виведено багато медіаоб''єктів,
+    список сортуватиметься за типом об''єкта. В межах кожного об''єкта сортування
+    елементів відбувається за статусом перевірки (''Довірений'' &gt; ''Неперервірений''
+    &gt; ''Недовірений''), а далі — за рейтингом даних. Однак, у випадку з певними
+    типами даних, певні елементи отримують найвищий пріоритет: якщо один з цих елементів
+    виводиться, він буде розташований на першому місці. У випадку зображень, зображення
+    екземплярів мають найвищий пріоритет. У випадку з типами текстів, найвищий пріоритет
+    має текст загального огляду.'
+  if_the_details_parameter_is_not_set: Якщо параметр «details» не встановлено, то
+    виведені будуть лише ідентифікатор об'єкта даних, тип даних та суб'єкт у випадку
+    статей. Тип даних матиме значення зі словника типів ресурсу %{linka}. Текстовий
+    суб'єкт буде одним із %{linkb}.
+  check_this_to_browse_eol_by_the_hierarchy: (Якщо цю галочку буде встановлено, класифікації
+    будуть відображені у вкладці назв без потреби натискати «Показати всі класифікації».)
+  return_content_by_vettedness: Якщо «перевірці» надається значення «1», то виведено
+    буде лише довірений контент. Якщо «перевірка» має значення «2», то виведено буде
+    лише довірений та неперевірений контент (недовірений контент виведено не буде).
+    Якщо «перевірка» має значення «3», то виведено буде лише неперевірений контент.
+    Якщо «перевірка» має значення «4», то виведено буде лише недовірений контент.
+    Стандартним значенням є виведення всього доступного контенту.
+  reindex_data_object_button: Переіндексувати об'єкт
   reindex_page_button: Переіндексувати сторінку
+  reindex_users_button: Переіндексувати підрахунок користувачів
   image: Зображення
   image_cropped_notice: Зображення обрізане успішно.
   image_crop_failed_error: Вибачте, сталася помилка, сторінка не може бути обрізана.
@@ -5190,6 +5296,11 @@ uk:
   image_map_from: карта від
   image_not_found: Зображення не знайдено
   image_object: Зображення об'єкта
+  image_objects_will_contain_two_mediaurl_elements: Об'єкти зображень міститимуть
+    два елементи «mediaURL» — першим є URL-адреса зображення на веб-сайті постачальника,
+    а другим є URL-адреса кешованої версії медіафайлу, збереженої на сервері ЕЖ. Версія
+    зображення в ЕЖ матиме змінений розмір (зі збереженням пропорцій), якщо оригінальне
+    зображення мало понад 460 пікселів у ширину та 345 пікселів у висоту.
   image_title_with_taxa: Зображення %{taxa}
   image_title_without_taxa: Зображення невідомого таксону
   images: зображення
@@ -5197,6 +5308,11 @@ uk:
     other: '%{count} зображення'
   images_in_red_are_not_trusted: Зображення у червоному кольорі - ненадійні.
   images_in_yellow_are_not_reviewed: Зображення у жовтому кольорі - неперевірені.
+  image_objects_page_number: сторінка зображень
+  import_once: Імпортувати один раз
+  import_ontology: Імпортувати онтологію
+  inappropriate: Недоречний
+  inaturalist_tab_label: Спостереження iNaturalist
   include_all_metadata: включати всі метадані для об'єктів даних
   including_traitbank_count:
     one: ', включно з %{count} властивістю в TraitBank'
@@ -5209,6 +5325,7 @@ uk:
   information_for_any_audience: Інформація для будь-якої аудиторії
   information_intended_for_beginners: Інформація, призначена для початківців
   information_intended_for_experts: Інформація, призначена для фахівців
+  in_providing_its_content_to_eo: Надаючи свій контент ЕЖ,
   in_this_data_type: 'у цьому %{data_type}:'
   insufficient_privileges_to_add_common_names: На жаль, ви не маєте достатніх прав
     на додавання загальних назв.
@@ -5366,9 +5483,13 @@ uk:
   limits_the_number_of_returned_video_objects: обмежує число повернутих об'єктів відео
   limits_the_number_of_returned_sound_objects: обмежує число повернутих звукових об'єкти
   limits_the_number_of_returned_map_objects: обмежує число повернутих об'єктів мапи
+  limits_the_number_of_returned_iucn_objects: включити об'єкти статусу з Червоного
+    списку МСОП
+  limits_the_returned_to_a_specific_language: надає результати вказаною мовою.
   link_more_about: Докладніше про це посилання
   link_name: Назва посилання
   link_to_this_term: посилання на цей термін
+  link_to_top_of_page: вгору
   links_with_count:
     few: '%{count} посилання'
     many: '%{count} посилань'
@@ -5376,7 +5497,15 @@ uk:
     other: '%{count} посилання'
   list_newsletter_emails: список розсилання листів
   listing_collections: Лістинг колекцій
+  list_of_activity_combinations: Список комбінацій діяльності за п'ятихвилинний період
+  lists_the_identifiers_for_all_hierarchies: виводить список ідентифікаторів для усіх
+    ієрархій, постачених контент-партнерами.
   literature: Література
+  literature_bhl_information: Подану бібліографію згенеровано автоматичними сервісами.
+    BHL використовує таксономічні розумні інструменти для визначення розташування,
+    перевірки й запису наукових назв, вказаних у тексті кожної оцифрованої сторінки
+    в цифровій колекції BHL.
+  literature_bhl_link: Переглянути відкриту бібліографію в BHL
   literature_empty: Посилання не знайдено.
   literature_header: Посилання
   literature_links: Літературні посилання
@@ -5385,17 +5514,38 @@ uk:
   location: Місцезнаходження
   location_colon: 'Місце:'
   login_required_button: Потрібний вхід
+  logging_database_colon: 'Журналювання:'
   login: увійти
+  login_header: Увійдіть під своїм обліковим записом в <abbr title="Encyclopedia of
+    Life">ЕЖ</abbr>
   login_hidden_user_message: Обліковий запис %{given_name} більше не активний
   login_or_create_account: Увійти або створити обліковий запис
   login_to_the_website_as: Увійти на сайт як %{username}
   logo_header: Логотип
+  logo_type_error: Логотип не є дійсним типом зображення (має бути PNG або JPEG).
   logout: Вихід
-  main_database_colon: 'Основне:'
+  looking_up_url: Пошук URL-адреси...
+  main_content_area: 'Область основного контенту:'
+  main_database_colon: 'Основна:'
+  main_master_database_colon: 'Основний майстер:'
+  maintained_by: підтримується
+  major_heading: Основний заголовок
+  make_an_editor: зробити менеджером
+  make_user_an_editor_title: Дозволити %{user} керувати вказаними колекціями
   manage_your_profile: Управління вашим профілем
+  managed_by: Керується
+  managed_collections_with_count:
+    one: '%{count} керована колекція'
+    few: '%{count} керовані колекції'
+    many: '%{count} керованих колекцій'
+    other: '%{count} керованої колекції'
+  manager_endorse_collections_suggestion: Щоб показати цю колекцію як вибрану на цій
+    сторінці спільноти, додайте вибрану колекцію до будь-якої з керованих колекцій
+    спільноти.
   manager_parens: (менеджер)
   map_from: карта від
   master_curators_may_add_data: 'Куратори майстри можуть додавати дані:'
+  map_objects_page_number: Сторінка карт
   maps_with_count:
     few: '%{count} карти'
     many: '%{count} карт'
@@ -5403,6 +5553,7 @@ uk:
     other: '%{count} карти'
   maps_empty: Ніхто ще не вніс жодних карт на цю сторінку.
   maps_empty_contribute_instructions: Дізнайтеся, як вносити карти у ЕЖ.
+  maps_image_maps_header: Медіафайли, позначені як «карти»
   media: Медіа
   media_list_empty_contribute_instructions: Дізнайтеся, як вносити медіадані у ЕЖ.
   media_with_count:

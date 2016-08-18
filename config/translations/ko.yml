@@ -1797,7 +1797,7 @@ ko:
       comments_link: 댓글
       newsfeed_link: 뉴스 피드
       show:
-        meta_description: '%{user_full_name}에 대한 뉴스, 활동 업데이트와 덧글입니다.'
+        meta_description: '%{user_full_name}에 대한 뉴스, 활동 업데이트와 댓글입니다.'
         meta_title: '%{user_full_name} 뉴스 피드'
         tweet_text: '%{user_full_name} 뉴스 피드'
       comments:
@@ -5028,7 +5028,7 @@ ko:
   total: 총계
   translation_deleted: 번역이 삭제됨
   translation_information_header: 번역 정보
-  translation_log: 국제화(I18n) 주요 빈도 히스토그램
+  translation_log: I18n 주요 빈도 히스토그램
   translation_saved: 번역이 저장됨
   translations_submit: 번역 보기
   trigger_search_term_entered_by: 사용자가 입력한 검색어를 트리거

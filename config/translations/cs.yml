@@ -14,6 +14,7 @@
 # Author: Reaperman
 # Author: Utar
 # Author: Vks
+# Author: Zbyso23
 ---
 cs:
   activerecord:
@@ -149,7 +150,10 @@ cs:
         lifedesk_taxa: LifeDesks taxony
         lifedesk_data_objects: LifeDesks datové objekty
         total_taxa_with_data: Stránky s informacemi
+        total_measurements: Měření
         total_associations: Asociace
+        total_measurement_types: Typy Měření
+        total_association_types: Asociace Typů
         total_user_added_data: Informace dodané uživatelem
       forum:
         forum_category_id: Kategorie fóra
@@ -175,6 +179,7 @@ cs:
         request_publish: Požádat o zveřejnění
       known_uri:
         description: Popis
+        exclude_from_exemplars: Vyloučit z Přehledu
         name: Jméno
         toc_items: Kategorie
         uri: URI
@@ -482,6 +487,7 @@ cs:
           novou skupinu'
         taxon_name_more: Zadejte například Trochilidae nebo velryby a vyberte odpovídající
           skupinu.
+        total_results: 'Celkové výsledky: %{total}'
         unit: Měrná jednotka
       eol_statistic:
         date_one: Datum
@@ -844,6 +850,9 @@ cs:
     new:
       page_title: Zanechte prosím svůj názor
   collections:
+    download_taxa_data:
+      attribute_header: Vlastnost
+      select_all_checkbox: Vybrat vše
     show:
       meta_description_default: Sbírka Encyklopedie života nazvaná %{collection_name}.
       meta_description_default_focus_collection: Zaměření sbírky Encyclopedie Života
@@ -1068,6 +1077,11 @@ cs:
       atribut
     no_results: Ke zvolené statistice nejsou žádné výsledky
     please_select_field_types: Vyberte prosím přiřazení ke každému atributu
+    relationships: Vztahy
+    relationships_from_this_uri: Vztahy z této URI
+    relationships_to_this_uri: Vztahy k této URI
+    name_placeholder_text: např. Přispěvatel
+    select: Zvolit
   layouts:
     application:
       header_about: O EOL
@@ -1106,6 +1120,7 @@ cs:
       learn_more_link_protists: Prvoci
       learn_more_link_archaea: Archea
       learn_more_link_viruses: Viry
+      questions_link_evolution: Co je evoluce?
       questions_link_biodiversity: Co je to biodiverzita?
       questions_link_species: Co je to druh?
       questions_link_discovering_species: Jak jsou druhy objevovány?
@@ -1116,6 +1131,8 @@ cs:
       questions_link_indicator_species: Co je indikátor druhu?
       questions_link_model_organism: Co je modelový organismus?
       questions_link_contributing_to_research: Jak mohu přispět k výzkumu?
+    footer:
+      google_plus: Encyklopedie Života na Google+
   members:
     index:
       meta_description: Členové %{community_name}, komunity Encyklopedie života.
@@ -1299,16 +1316,29 @@ cs:
       subject: Ověřte prosím svůj požadavek na účet v Encyklopedii života
   recent_activity:
     intro: Zde je přehled vašich činností v EOL za %{time}
+    intro_immediately: Dobrý den, %{name} —
+    default_subject: Nedávná aktivita na EOL
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
     comment_title: '%{who} komentoval %{what}'
     collection_activity_log_title: '%{who} upravil kolekci'
     community_activity_log_title: '%{who} pozměnil komunitu'
     data_object_title: '%{who} přidal na EOL nový obsah'
+    comment_link: Zobrazit komentář na EOL
   recent_activities:
     index:
       list_header: Posledních 7 dní
+  sessions:
+    new:
+      meta_title: Přihlášení
+      problems_signing_in_with_eol_authentication: Zapomněli jste heslo?
   taxa:
+    communities:
+      collections:
+        meta_title: Sbírky %{scientific_name}
+    data:
+      index:
+        tweet_text: Fakta o %{scientific_name}
     details:
       index:
         meta_title: Popisy a články o %{scientific_name}

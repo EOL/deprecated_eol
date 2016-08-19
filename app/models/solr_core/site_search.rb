@@ -156,8 +156,8 @@ class SolrCore
           add_scientific_to_objects(base, surrogates, "Surrogate", 500)
           add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)
           add_scientific_to_objects(base, synonyms, "Synonym", 3)
-          add_common_to_objects(base, preferred_commons, "PreferredCommonName", 2)
-          add_common_to_objects(base, preferred_commons, "CommonName", 4)
+          add_common_to_objects(base, preferred_commons_by_iso, "PreferredCommonName", 2)
+          add_common_to_objects(base, commons_by_iso, "CommonName", 4)
         end
       end
     end
@@ -173,7 +173,7 @@ class SolrCore
     end
 
     def add_common_to_objects(base, names_by_iso, type, weight)
-      return names_by_iso.empty?
+      return if names_by_iso.empty?
       @objects += names_by_iso.map do |iso, names|
         base.merge(
           keyword_type: type,

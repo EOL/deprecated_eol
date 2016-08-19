@@ -50,8 +50,13 @@
         %h3= title
         = link_to I18n.t(:rating_learn_more_link), cms_page_path('curation_standards', :anchor => 'rating')
       %dl.rating_counts
+        -# We were getting weird disconnects from the average, here; might as well recalculate it on the fly.
+        - running_total = 0
+        - votes = 0
         - [ 5, 4, 3, 2, 1 ].each do |rating_score|
           - votes_for_this_score = rating_summary[rating_score]
+          - running_total += votes_for_this_score * rating_score
+          - votes += votes_for_this_score
           %dt= I18n.t('stars_with_count', :count => rating_score)
           %dd
             %span
@@ -59,6 +64,8 @@
               - if percentage_with_this_score > 0
                 %span{ :style => "width: #{percentage_with_this_score}%" }
             = votes_for_this_score
+        - if running_total > 0 && votes > 0
+          - average_rating = running_total / votes
         - if data_object.has_been_rated?
           %dt= I18n.t('average_rating')
         - else

@@ -1,6 +1,15 @@
 class DataObject
   class Indexer
 
+    if false
+      # TEST:
+      DataObject::Indexer.by_data_object_ids([26726692])
+      solr = SolrCore::DataObjects.new
+      a_ids = solr.paginate("data_object_id:26726692")["response"]["docs"].first["ancestor_id"]
+      TaxonConcept.where(id: a_ids).with_title.map(&:title)
+      # BAD RESULTS: ["Plantae", "Chromista", "Ochrophyta Cavalier-Smith, 1995", "Phaeophyceae", "Laminariales", "Lessoniaceae", "Khakista", "Bacillariophyceae Haeckel, 1878", "Cymbellales D. G. Mann, 1990", "Lessonia Bory de Saint-Vincent, 1825", "Echinella", "Lessonia", "<i>Gomphonema angusticephalum</i> E.Reichardt & Lange-Bertalot", "<i>Dictyochloropsis irregularis</i>", "<i>Frustulia bisulcata</i> R. Maillard", "<i>Lessonia nigrescens</i>", "Protozoa", "Gomphonemataceae Kützing 1844", "Phaeophyta", "Eukaryota", "Stramenopiles", "Heterokonta", "Biota", "Chromalveolata", "Px clade"]
+    end
+
     def self.by_data_object_ids(data_object_ids)
       indexer = self.new
       indexer.by_data_object_ids(data_object_ids)

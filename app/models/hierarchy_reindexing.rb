@@ -35,7 +35,7 @@ class HierarchyReindexing < ActiveRecord::Base
         if HierarchyReindexing.exists?(args["id"])
           begin
             EOL.log("HierarchyReindexing: #{args}", prefix: "R")
-            HierarchyReindexing.find(args["id"]).run
+            HierarchyReindexing.find(args["id"]).run(args["from"])
           rescue => e
             EOL.log("HierarchyReindexing #{args["id"]} FAILED: #{e.message}",
               prefix: "!")
@@ -48,9 +48,20 @@ class HierarchyReindexing < ActiveRecord::Base
     end
   end
 
-  def run
+  def run(from = nil)
     start
-    hierarchy.flatten
+    if from
+      entry = HierarchyEntry.find(from)
+      ancestors = entry.flat_ancestors
+      if ancestors.empty? and entry.parent_id > 0
+        hierarchy.flatten
+      else
+        EOL.log("SKIPPING: this ancestry appears to be fine!")
+        EOL.log("  http://eol.org/pages/#{entry.taxon_concept_id} parent_id: #{entry.parent_id}, ancestors: #{ancestors.join(",")})")
+      end
+    else
+      hierarchy.flatten
+    end
     complete
   end
 

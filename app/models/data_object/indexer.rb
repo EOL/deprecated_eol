@@ -213,6 +213,7 @@ class DataObject
 
     # Test:
     if false
+      DataObject::Indexer.by_data_object_ids([26726692])
       solr = SolrCore::DataObjects.new
       a_ids = solr.paginate("data_object_id:26726692")["response"]["docs"].first["ancestor_id"]
       TaxonConcept.where(id: a_ids).with_title.map(&:title)
@@ -238,7 +239,7 @@ class DataObject
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
             taxon_id if taxon_id
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
-            ancestor_id if ancestor_id
+            ancestor_ids if ancestor_ids
         end
       end
     end

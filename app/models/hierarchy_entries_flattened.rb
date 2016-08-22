@@ -12,8 +12,7 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   class << self
     def delete_set(id_pairs)
       return if id_pairs.empty?
-      ids_array = id_pairs.to_a
-      id_pairs.map! { |pair| "(#{pair})" }
+      ids_array = id_pairs.to_a.map { |pair| "(#{pair})" }
       ids_array.in_groups_of(1000, false) do |group|
         where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(",")})").
           delete_all

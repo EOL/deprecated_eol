@@ -57,7 +57,7 @@ class HierarchyReindexing < ActiveRecord::Base
         hierarchy.flatten
       else
         EOL.log("SKIPPING: this ancestry appears to be fine!")
-        EOL.log("  http://eol.org/pages/#{entry.taxon_concept_id} parent_id: #{entry.parent_id}, ancestors: #{ancestors.join(",")})")
+        EOL.log("  http://eol.org/pages/#{entry.taxon_concept_id} parent_id: #{entry.parent_id}, ancestors: #{ancestors.map(&:id).join(",")})")
       end
     else
       hierarchy.flatten

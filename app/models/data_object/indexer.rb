@@ -205,9 +205,9 @@ class DataObject
 
     def ancestor_query(concept_id)
       TaxonConcept.where(id: concept_id).
-        includes(hierarchy_entries: :flattened_ancestors).
+        includes(hierarchy_entries: { flattened_ancestors: :ancestor }).
         first.hierarchy_entries.flat_map do |e|
-          e.flattened_ancestors.map(&:ancestor_id)
+          e.flattened_ancestors.map(&:ancestor).compact.map(&:taxon_concept_id)
         end.uniq
     end
 

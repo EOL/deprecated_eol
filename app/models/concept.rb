@@ -8,7 +8,7 @@ class Concept
   end
 
   def initialize(id)
-    @taxon_concept = TaxonConcept.with_titles.find(id)
+    @taxon_concept = TaxonConcept.with_titles.includes(published_hierarchy_entries: :flat_ancestors).find(id)
   end
 
   def entry(id = nil)
@@ -34,22 +34,20 @@ class Concept
 
   def explain_entries
     grouped = entries.group_by(&:hierarchy)
+    string = ""
 
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
-      puts ""
       if hierarchy.resource
-        puts "##### [#{hierarchy.resource.title}]"\
-          "(http://eol.org/resources/#{hierarchy.resource.id}) *#{hierarchy.label}* "\
-          "```#{hierarchy.id}```"
+        string += "\n##### [#{hierarchy.resource.title}](http://eol.org/resources/#{hierarchy.resource.id}) Hierarchy label: \"#{hierarchy.label}\" id: ```#{hierarchy.id}```\n"
       else
-        puts "##### #{hierarchy.label} (no resource available) ```#{hierarchy.id}```"
+        string += "\n##### Hierarchy label: #{hierarchy.label} (no resource available) id: ```#{hierarchy.id}```\n"
       end
       grouped[hierarchy].each do |he|
-        puts "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) "\
-          "```#{he.id}```"
+        string += "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) ```#{he.id}``` -- "
+        string += "**flat_ancestors**: #{he.flat_ancestors.map { |a| "[#{a.canonical_form.string}](http://eol.org/pages/#{a.taxon_concept_id}) ```#{a.id}```" }.join(", ")}\n"
       end
     end
-    nil
+    puts string
   end
 
   def explain_rels(of_entry)

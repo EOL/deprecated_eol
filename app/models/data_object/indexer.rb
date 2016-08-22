@@ -50,9 +50,9 @@ class DataObject
       add_user_associations(data_object_ids)
       # Ids that we actually found (some from data_object_ids c/h/b missing)
       ids = @objects.keys
-      add_ancestries_from_result(get_ancestries(ids))
-      add_ancestries_from_result(get_curated_ancestries(ids))
-      add_ancestries_from_result(get_user_added_ancestries(ids))
+      add_ancestries_from_result(get_partner_association(ids))
+      add_ancestries_from_result(get_curated_associations(ids))
+      add_ancestries_from_result(get_user_added_associations(ids))
       add_attribute(query: get_ignores(ids), attribute: :ignored_by_user_id,
         value_field: :user_id, array: true)
       add_attribute(query: get_curation(ids), attribute: :curated_by_user_id,
@@ -66,27 +66,27 @@ class DataObject
       @objects.each do |id, attributes|
         @objects[id][:max_vetted_weight] =
           if attributes.has_key?(:trusted_ancestor_id)
-          5
-        elsif attributes.has_key?(:unreviewed_ancestor_id)
-          4
-        elsif attributes.has_key?(:untrusted_ancestor_id)
-          3
-        elsif attributes.has_key?(:inappropriate_ancestor_id)
-          2
-        else
-          1
-        end
+            5
+          elsif attributes.has_key?(:unreviewed_ancestor_id)
+            4
+          elsif attributes.has_key?(:untrusted_ancestor_id)
+            3
+          elsif attributes.has_key?(:inappropriate_ancestor_id)
+            2
+          else
+            1
+          end
 
         @objects[id][:max_visibility_weight] =
           if attributes.has_key?(:visible_ancestor_id)
-          4
-        elsif attributes.has_key?(:invisible_ancestor_id)
-          3
-        elsif attributes.has_key?(:preview_ancestor_id)
-          2
-        else
-          1
-        end
+            4
+          elsif attributes.has_key?(:invisible_ancestor_id)
+            3
+          elsif attributes.has_key?(:preview_ancestor_id)
+            2
+          else
+            1
+          end
       end
       last = @objects.keys.first
       @solr.reindex_hashes(objects_to_hashes)
@@ -171,68 +171,68 @@ class DataObject
       end
     end
 
-    def get_ancestries(data_object_ids)
+    def get_partner_association(data_object_ids)
       DataObject.
         select("data_objects.id, hierarchy_entries.taxon_concept_id, "\
           "data_objects_hierarchy_entries.vetted_id, "\
-          "data_objects_hierarchy_entries.visibility_id, tcf.ancestor_id").
-        joins(:hierarchy_entries).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
-          "(hierarchy_entries.taxon_concept_id = tcf.taxon_concept_id)").
-        # NOTE: This check on NOT visible strikes me as odd... but the PHP code
-        # did it in two places (granted, it could have been copy/pasted in
-        # error). But this says "where the object is published, or, if it's not,
-        # where the association is NOT visible." That does not seem right. :|
-        # TODO: is this a bug? ...That said, I imagine the only reason we would
-        # want to index _unpublished_ images is if they are preview, which is
-        # likely the intent.
-        where(["(data_objects.published = 1 OR "\
-          "data_objects_hierarchy_entries.visibility_id != ?) AND "\
-          "data_objects.id IN (?)",
-          Visibility.visible.id, data_object_ids])
+          "data_objects_hierarchy_entries.visibility_id").
+        joins(data_objects_hierarchy_entries: :hierarchy_entry).
+        where(["data_objects.published = 1 AND data_objects.id IN (?)",
+          data_object_ids])
     end
 
-    def get_curated_ancestries(data_object_ids)
+    def get_curated_associations(data_object_ids)
       DataObject.
         select("data_objects.id, hierarchy_entries.taxon_concept_id, "\
           "curated_data_objects_hierarchy_entries.vetted_id, "\
-          "curated_data_objects_hierarchy_entries.visibility_id, tcf.ancestor_id").
+          "curated_data_objects_hierarchy_entries.visibility_id").
         joins(curated_data_objects_hierarchy_entries: :hierarchy_entry).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
-          "(hierarchy_entries.taxon_concept_id = tcf.taxon_concept_id)").
-        # NOTE: see the note on the where clause of #get_ancestries
-        where(["(data_objects.published = 1 OR "\
-          "curated_data_objects_hierarchy_entries.visibility_id != ?) AND "\
-          "data_objects.id IN (?)",
-          Visibility.visible.id, data_object_ids])
+        where(["data_objects.published = 1 AND data_objects.id IN (?)",
+          data_object_ids])
     end
 
     # NOTE: For consistency, I'm pulling this from DataObject. It could actually
     # be done pulling right from UsersDataObject. I'm not sure what the
     # performance difference is, but it's probably not zero.
-    def get_user_added_ancestries(data_object_ids)
+    def get_user_added_associations(data_object_ids)
       DataObject.
         select("data_objects.id, users_data_objects.taxon_concept_id, "\
           "users_data_objects.vetted_id, "\
-          "users_data_objects.visibility_id, tcf.ancestor_id").
+          "users_data_objects.visibility_id").
         joins(:users_data_object).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
-          "(users_data_objects.taxon_concept_id = tcf.taxon_concept_id)").
         where(["data_objects.id IN (?)", data_object_ids])
+    end
+
+    def ancestor_query(concept_id)
+      TaxonConcept.where(id: concept_id).
+        includes(hierarchy_entries: :flattened_ancestors).
+        first.hierarchy_entries.flat_map do |e|
+          e.flattened_ancestors.map(&:ancestor_id)
+        end.uniq
+    end
+
+    # Test:
+    if false
+      solr = SolrCore::DataObjects.new
+      a_ids = solr.paginate("data_object_id:26726692")["response"]["docs"].first["ancestor_id"]
+      TaxonConcept.where(id: a_ids).with_title.map(&:title)
+      # WRONG set:
+      # ["Plantae", "Chromista", "Ochrophyta Cavalier-Smith, 1995", "Phaeophyceae", "Laminariales", "Lessoniaceae", "Khakista", "Bacillariophyceae Haeckel, 1878", "Cymbellales D. G. Mann, 1990", "Lessonia Bory de Saint-Vincent, 1825", "Echinella", "Lessonia", "<i>Gomphonema angusticephalum</i> E.Reichardt & Lange-Bertalot", "<i>Dictyochloropsis irregularis</i>", "<i>Frustulia bisulcata</i> R. Maillard", "<i>Lessonia nigrescens</i>", "Protozoa", "Gomphonemataceae Kützing 1844", "Phaeophyta", "Eukaryota", "Stramenopiles", "Heterokonta", "Biota", "Chromalveolata", "Px clade"]
     end
 
     def add_ancestries_from_result(query)
       query.find_each do |dato|
-        # NOTE: this should not happen, but PHP had it. :\
-        next unless @objects.has_key?(dato.id)
         # A modicum of brevity:
         taxon_id = dato["taxon_concept_id"]
-        ancestor_id = dato["ancestor_id"]
+        # NOTE this is INEFFICIENT! It's n^2 (kinda). ...But it's a compromise
+        # until we get taxon_concepts_flattened working...
+        ancestor_ids = ancestor_query(taxon_id)
         @objects[dato.id][:ancestor_id] ||= [] # TODO: set?
         @objects[dato.id][:ancestor_id] << taxon_id if taxon_id
-        @objects[dato.id][:ancestor_id] << ancestor_id if ancestor_id
+        @objects[dato.id][:ancestor_id] = ancestor_ids unless ancestor_ids.empty?
         [ @vetted_prefix[dato["vetted_id"]],
-          @visibility_prefix[dato["visibility_id"]] ].compact.
+          @visibility_prefix[dato["visibility_id"]]
+        ].compact.
           each do |prefix|
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] ||= []
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<

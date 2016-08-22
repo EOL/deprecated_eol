@@ -46,7 +46,7 @@ class Hierarchy
       # takes about 25 seconds on 500K entries, and the block takes a few
       # seconds more to process.
       HierarchyEntry.with_master do
-        HierarchyEntry.where(hierarchy_id: @hierarchy.id).
+        HierarchyEntry.where(hierarchy_id: @hierarchy.id).published.
           pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
           each do |str|
           (entry,parent,taxon) = str.split(",")

@@ -42,6 +42,8 @@ class Crawler
       taxa = TaxonConcept.published.
                where(["id >= ? AND id <= ?", options["from"], options["to"]])
       if ancestor = options["ancestor"]
+        # TODO: don't trust this! :( We should pick a hierarchy or (or use the
+        # browsables) and just walk up those ONLY...
         taxa = taxa.joins(:flattened_ancestors).
                     where(taxon_concepts_flattened: { ancestor_id: ancestor })
       end

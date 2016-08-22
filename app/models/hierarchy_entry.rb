@@ -103,7 +103,9 @@ class HierarchyEntry < ActiveRecord::Base
 
   # If you want to make a browsable tree of HEs, this might be a helpful method:
   def self.preload_deeply_browsable(set)
-    HierarchyEntry.preload_associations(set, [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ], select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]} )
+    HierarchyEntry.preload_associations(set, [ { agents_hierarchy_entries:
+      :agent }, :rank, { hierarchy: :agent } ], select: {hierarchy_entries:
+        [:id, :parent_id, :taxon_concept_id]} )
     set
   end
 
@@ -173,9 +175,11 @@ class HierarchyEntry < ActiveRecord::Base
     if name.is_surrogate_or_hybrid? || name.is_subgenus?
       # do nothing
     elsif name.ranked_canonical_form && !name.ranked_canonical_form.string.blank?
-      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))
+      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if
+        (species_or_below? || @title_canonical_italicized.match(/ /))
     elsif name.canonical_form && !name.canonical_form.string.blank?
-      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if (species_or_below? || @title_canonical_italicized.match(/ /))
+      @title_canonical_italicized = "<i>#{@title_canonical_italicized}</i>" if
+        (species_or_below? || @title_canonical_italicized.match(/ /))
     else
       # do nothing
     end
@@ -230,7 +234,8 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def rank_label
-    @rank_label ||= if rank.blank? || rank.label.blank?
+    @rank_label ||=
+      if rank.blank? || rank.label.blank?
         I18n.t(:taxon).firstcap
       else
         rank.label.firstcap
@@ -247,7 +252,9 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def species_or_below?
-    return false if rank_id == 0  # this was causing a lookup for rank id=0, so I'm trying to save queries here
+    # this was causing a lookup for rank id=0, so I'm trying to save queries
+    # here
+    return false if rank_id == 0
     return Rank.italicized_ids.include?(rank_id)
   end
 
@@ -261,25 +268,30 @@ class HierarchyEntry < ActiveRecord::Base
     ancestors
   end
 
-  # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.
+  # Some HEs have a "source database" agent, which needs to be considered in
+  # addition to normal sources.
   def source_database_agents
     @source_db_agents ||=
-      agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source_database.id }.map(&:agent)
+      agents_hierarchy_entries.
+        select { |ar| ar.agent_role_id == AgentRole.source_database.id }.
+        map(&:agent)
   end
 
-  # If a HE *does* have a source database, some behavior changes (we must consider the hierarchy agent source
-  # separately), so:
+  # If a HE *does* have a source database, some behavior changes (we must
+  # consider the hierarchy agent source separately), so:
   def has_source_database?
     source_database_agents && ! source_database_agents.empty?
   end
 
   # These are all of the agents, NOT including the hierarchy agent:
   def source_agents
-    agents_hierarchy_entries.select {|ar| ar.agent_role_id == AgentRole.source.id }.map(&:agent)
+    agents_hierarchy_entries.
+      select { |ar| ar.agent_role_id == AgentRole.source.id }.map(&:agent)
   end
 
-  # This gives you the correct array of source agents that recognize the taxon.  Keep in mind that if there is a
-  # source database, you MUST cite the hierarchy agent SEPARATELY, so it is not included; otherwise, it is:
+  # This gives you the correct array of source agents that recognize the taxon.
+  # Keep in mind that if there is a source database, you MUST cite the hierarchy
+  # agent SEPARATELY, so it is not included; otherwise, it is:
   def recognized_by_agents
     if has_source_database?
       (source_database_agents + source_agents).compact
@@ -288,16 +300,19 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
-  # This is a full list of AgentsHierarchyEntry models associated with this HE, and should only be used when you know
-  # there is no source database (the API code uses this method a lot, at the time of this writing).
+  # This is a full list of AgentsHierarchyEntry models associated with this HE,
+  # and should only be used when you know there is no source database (the API
+  # code uses this method a lot, at the time of this writing).
   def agents_roles
     ([agent_from_hierarchy] + agents_hierarchy_entries).compact
   end
 
-  # This is only used by #agents_roles, to add it to the list when it's actually there. Don't use this to get an Agent.
+  # This is only used by #agents_roles, to add it to the list when it's actually
+  # there. Don't use this to get an Agent.
   def agent_from_hierarchy
     if h_agent = hierarchy.agent
-      h_agent.full_name = hierarchy.label # To change the name from just "Catalogue of Life"
+      # To change the name from just "Catalogue of Life"
+      h_agent.full_name = hierarchy.label
       AgentsHierarchyEntry.new(hierarchy_entry: self, agent: h_agent,
                                agent_role: AgentRole.source, view_order: 0)
     else
@@ -311,7 +326,8 @@ class HierarchyEntry < ActiveRecord::Base
     raise "Missing :vetted"      unless options[:vetted]
     Synonym.update_all(
       "vetted_id = #{options[:vetted].id}",
-      "language_id = #{options[:language_id]} AND name_id = #{options[:name_id]} AND hierarchy_entry_id = #{id}"
+      "language_id = #{options[:language_id]} AND name_id = "\
+        "#{options[:name_id]} AND hierarchy_entry_id = #{id}"
     )
   end
 
@@ -334,7 +350,8 @@ class HierarchyEntry < ActiveRecord::Base
           return hierarchy.outlink_uri.gsub(/%%ID%%/, identifier)
         end
       else
-        # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
+        # there was no %%ID%% pattern in the outlink_uri, but its not blank so
+        # its a generic URL for all entries
         return hierarchy.outlink_uri
       end
     end
@@ -356,11 +373,14 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def preferred_classification_summary?
-    Rails.cache.exist?(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"))
+    Rails.cache.exist?(HierarchyEntry.
+      cached_name_for("preferred_classification_summary_for_#{self.id}"))
   end
 
   def preferred_classification_summary
-    Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), expires_in: 5.days) do
+    Rails.cache.fetch(HierarchyEntry.
+      cached_name_for("preferred_classification_summary_for_#{self.id}"),
+      expires_in: 5.days) do
       root_ancestor, immediate_parent = kingdom_and_immediate_parent
       return '' if root_ancestor.blank?
       str_to_return = root_ancestor.name.string
@@ -374,10 +394,13 @@ class HierarchyEntry < ActiveRecord::Base
     sorted_ancestors = flattened_ancestors.select { |a| a.ancestor_id != 0 }.
       sort { |a,b| a.ancestor.lft <=> b.ancestor.lft }
     sorted_ancestors.shift if hierarchy == Hierarchy.ncbi
-    return [ nil, nil ] if sorted_ancestors.blank?  # sorted ancestors might be blank now
+    # sorted ancestors might be blank now
+    return [ nil, nil ] if sorted_ancestors.blank?
     root_ancestor = sorted_ancestors.first.ancestor
     immediate_parent = sorted_ancestors.pop.ancestor
-    while immediate_parent && immediate_parent != root_ancestor && [ Rank.genus.id, Rank.species.id, Rank.subspecies.id, Rank.variety.id, Rank.infraspecies.id ].include?(immediate_parent.rank_id)
+    while immediate_parent && immediate_parent != root_ancestor &&
+        [ Rank.genus.id, Rank.species.id, Rank.subspecies.id, Rank.variety.id,
+          Rank.infraspecies.id ].include?(immediate_parent.rank_id)
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
@@ -391,7 +414,8 @@ class HierarchyEntry < ActiveRecord::Base
     HierarchyEntriesFlattened.where(hierarchy_entry_id: id).destroy_all
     curator_activity_logs.destroy_all
     hierarchy_entry_moves.destroy_all
-    # TODO: handling data objects here. Not doing it now because this is only used from HarvestEvent, and HE handles Datos itself.
+    # TODO: handling data objects here. Not doing it now because this is only
+    # used from HarvestEvent, and HE handles Datos itself.
     refs.destroy_all
     # Not handling the rest of the tree, here, which I believe is expected.
   end

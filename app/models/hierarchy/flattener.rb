@@ -94,25 +94,24 @@ class Hierarchy
       old = currently - @flat_entries
       create = @flat_entries - currently
       if old.size <= 0 && create.size <= 0
-        EOL.log("Hierarchy already properly flattened, nothing to do.")
+        EOL.log("Hierarchy already properly flattened, skipping.")
         # NOTE: it's *possible* (maybe?) that there are flattened taxa to add
         # that we're skipping here, but I *really* don't think that's going to
         # happen, so I don't think it's worth doing.
-        return 0
-      end
-
-      EOL.log("Ancestry is now #{currently.size}, wants to be "\
+      else
+        EOL.log("Ancestry is now #{currently.size}, wants to be "\
         "#{@flat_entries.size} (#{old.size} old, #{create.size} new)",
         prefix: ".")
-      HierarchyEntriesFlattened.delete_set(old)
-      # Now ensure that no later process gets an empty set!
-      @hierarchy.clear_ancestry_set
-      begin
-        EOL::Db.bulk_insert(HierarchyEntriesFlattened,
-        [ "hierarchy_entry_id", "ancestor_id" ], create)
-      rescue ActiveRecord::RecordNotUnique => e
-        raise "Did you run this with_master? tried to create a duplicate "\
-        "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
+        HierarchyEntriesFlattened.delete_set(old)
+        # Now ensure that no later process gets an empty set!
+        @hierarchy.clear_ancestry_set
+        begin
+          EOL::Db.bulk_insert(HierarchyEntriesFlattened,
+          [ "hierarchy_entry_id", "ancestor_id" ], create)
+        rescue ActiveRecord::RecordNotUnique => e
+          raise "Did you run this with_master? tried to create a duplicate "\
+          "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
+        end
       end
 
       # TODO: Ideally, we would also build diffs for taxa... also, we never

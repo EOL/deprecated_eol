@@ -230,7 +230,7 @@ class DataObject
         ancestor_ids = ancestor_query(taxon_id)
         @objects[dato.id][:ancestor_id] ||= [] # TODO: set?
         @objects[dato.id][:ancestor_id] << taxon_id if taxon_id
-        @objects[dato.id][:ancestor_id] = ancestor_ids unless ancestor_ids.empty?
+        @objects[dato.id][:ancestor_id] += ancestor_ids unless ancestor_ids.empty?
         [ @vetted_prefix[dato["vetted_id"]],
           @visibility_prefix[dato["visibility_id"]]
         ].compact.
@@ -238,7 +238,7 @@ class DataObject
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] ||= []
           @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
             taxon_id if taxon_id
-          @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
+          @objects[dato.id]["#{prefix}_ancestor_id".to_sym] +=
             ancestor_ids if ancestor_ids
         end
       end

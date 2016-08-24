@@ -18,10 +18,12 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       ids_array.in_groups_of(1000, false) do |group|
         this_size = group.size
         count += this_size
-        EOL.log("#delete_set working on #{this_size}/#{size} (#{count/size.to_f}%)")
+        EOL.log("#delete_set working on #{this_size}/#{size} (#{count/size.to_f}%)") if
+          size > 10_000
         where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(",")})").
           delete_all
       end
+      EOL.log("#delete_set done.") if size > 10_000
       count
     end
 

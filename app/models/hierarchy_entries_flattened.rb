@@ -13,10 +13,16 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
     def delete_set(id_pairs)
       return if id_pairs.empty?
       ids_array = id_pairs.to_a.map { |pair| "(#{pair})" }
+      size = ids_array.size
+      count = 0
       ids_array.in_groups_of(1000, false) do |group|
+        this_size = group.size
+        count += this_size
+        EOL.log("#delete_set working on #{this_size}/#{size} (#{count/size.to_f}%)")
         where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(",")})").
           delete_all
       end
+      count
     end
 
     # This is how a hierarchy gets its ancestry_set. It's not very fast, but

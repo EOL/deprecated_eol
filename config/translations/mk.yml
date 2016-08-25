@@ -531,6 +531,7 @@ mk:
           биде јавно достапна.
         published_at: Објавено
         published_status: Статус
+        last_harvest_seconds: 'Траеше: %{time_in_words}'
       hierarchy:
         browsable_more: Штиклирајте „Прелистлива“ за да ја унапредите оваа хиерархија
           во една од главните прелистливи хиерархии на EOL.
@@ -3703,7 +3704,7 @@ mk:
   any_integer: секој цел број
   any_string: било која низа
   api_cache_time_to_live_parameter: колку секунди одговорот да седи во меѓускладот
-  api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API
+  api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој приложник
     ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот
     на експонати може да се филтрира по тип и да се подредува по наведените атрибути.
     Некои експонати ќе го содржат изборниот атрибут „sort_field“ (подредување на поле).
@@ -3713,8 +3714,8 @@ mk:
     Содржајноста ќе се изразува со број од 0 до 100 - што повеќе различни извори,
     тоа е повисока оценката. Прочитајте за содржајност на таксоните во јазичето за
     актуелности (поднови) на таксонската страница (на пр. %{richness_url}).
-  a_pipe_delimited_list_of_licenses: Список на лиценци одделени со вертикална црта
-    | или „сите“ за да ги добиете објектите под сите лиценци. Сите лиценци со кратенката
+  a_pipe_delimited_list_of_licenses: Список на лиценци одделени со права црта | или
+    „сите“ за да ги добиете објектите под сите лиценци. Сите лиценци со кратенката
     cc- се од %{creative_commons_link}. За да дознаете какви сè лиценци се нудат,
     посетете го нивното мрежно место.
   a_pipe_delimited_list_of_spm_info_item_subject_names: „overview“ ви дава што се
@@ -5293,6 +5294,9 @@ mk:
   image_title_with_taxa: Слика на %{taxa}
   image_title_without_taxa: Слика на непознат таксон
   images: Слики
+  images_with_count:
+    one: '%{count} слика'
+    other: '%{count} слики'
   images_in_red_are_not_trusted: Сликите со црвено се недоверливи.
   images_in_yellow_are_not_reviewed: Сликите со жолто не се проверени.
   image_objects_page_number: страница со слики
@@ -5729,7 +5733,7 @@ mk:
   newsfeed_help_for_watchlist: Каналот за списокот на набљудувања собира актуелности
     поврзани со објектите на набљудуваните на сопственикот, вклучувајќи ги и неговите
     активности.
-  newsletter_banner: Станете дел од заедницата на EOL &mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>пријавете
+  newsletter_banner: Станете дел од заедницата &mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>пријавете
     се за билтенот на EOL</a>
   new_upload: Ново подигање
   new_user: Нов корисник
@@ -5984,6 +5988,8 @@ mk:
   preview_version_of_latest_published_data_object_title_link: Подготвителна верзија
     на %{link}
   preview: преглед
+  previewing_unpublished_page: Оваа страница е необјавена. Имате посебен пристап за
+    да ја прегледате; другите корисници не можат да ја видат.
   previously_published: претходно објавено
   proceed_to_checkout_page: Кон наплатната страница
   process_name: Име на постапката
@@ -6977,8 +6983,9 @@ mk:
     на:'
   you_can_edit_those_later_if_ne: Можете нив да ги уредите подоцна, ако затреба.
   you_can_identify_yourself_to_eol: 'Можете да ѝ се претставите на EOL додавајќи го
-    вашиот API-клуч во барањата (најавете се и создајте свој клуч во страницата за
-    нагодувања):'
+    вашиот приложнички клуч во барањата (најавете се и создајте свој клуч отворајќи
+    го вашиот профил на EOL за уредување. Овој клуч ќе се зачува тука; отворете го
+    профилот за уредување повторно за да можете подоцна да му пристапите):'
   you_have_been_logged_in_as_username: Најавени сте како %{username}
   you_have_been_logged_out: Одјавени сте.
   you_joined_community: Успешно се приклучивте на заедницата.

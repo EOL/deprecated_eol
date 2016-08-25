@@ -51,14 +51,6 @@ end
 
 # NOT versioning these, since they really are for development (and test) only:
 group :test, :development do
-  gem "zeus"
-  # Auto-testing with zeus (IFF you have it installed)
-  gem "guard-zeus", require: false
-  # automatically install/update your gem bundle when needed
-  gem "guard-bundler", require: false
-  gem "guard-rspec", require: false # Auto-testing
-  gem "guard-cucumber", require: false # for guard-zeus to work properly
-  gem "launchy" # Allows save_and_open_page in specs, very, very handy!
   # rails console has additional commands: show-models, show-routes --grep use
   gem "pry-rails"
   # Better debugging. Raise an error in pry console and use cd-cause to get to
@@ -157,6 +149,11 @@ gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
 # need this?
 gem "escape"
 gem "ezcrypto" # TODO: - remove this, I don"t think we use it.
+# Google API, for pushing notifications of changes:
+gem "google-api-client", "~> 0.7",
+  require: ["google/api_client",
+            "google/api_client/client_secrets",
+            "google/api_client/auth/installed_app"]
 # This is how we handle ALL of our HTML, you need to learn this.
 gem "haml", "4.0.4"
 # http://www.rubysec.com/advisories/OSVDB-96425/
@@ -176,9 +173,9 @@ gem "mime-types", "1.25"
 gem "mysql2", "0.3.14" # This is our database. You might want this.
 # For gathering tons of awesome stats about the site
 gem "newrelic_rpm", "~> 3.9"
-# TODO: - update oauth ... do we even still use v1?
-gem "oauth", "0.4.7" # Logging in via Facebook and Twitter, older version.
-gem "oauth2", "0.8.0" # Logging in via Facebook and Twitter
+# TODO: - update oauth ... we still use v1 for Twitter and Yahoo
+gem "oauth", "0.4.7" # Logging in via Twitter and Yahoo
+gem "oauth2", "~> 1.1" # Logging in via Facebook and Google
 # Uploading files, such as icons for users and collections.
 gem "paperclip", "4.1.1"
 gem "rails_autolink", "1.1.5" # Adding links to user-entered text.

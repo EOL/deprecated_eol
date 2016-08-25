@@ -5,15 +5,16 @@ class DataFileMaker
   # TODO - logging here is bad; improve. I'm using #error just to ensure it shows up in the log, but that's probably subprime.
   def self.perform(args)
     EOL.log_call
-    EOL.log("#{args.values.join(', ')}", prefix: ".")
     # Once upon a time, a job was skipped because it didn't exist... but it should have.
     # I assume this was a case of slight slave lag and bad timing, so to ensure
     # that doesn't cause a problem:
     DataSearchFile.with_master do
       if DataSearchFile.exists?(args["data_file_id"])
         begin
-          move_user_files_to_bottom(args["data_file_id"])
-          DataSearchFile.find(args["data_file_id"]).build_file
+          dsf = DataSearchFile.find(args["data_file_id"])
+          move_user_files_to_bottom(dsf.id)
+          EOL.log("DataSearchFile ##{dsf.id} for user #{dsf.user.full_name} (#{dsf.user_id})", prefix: ".")
+          dsf.build_file
         rescue => e
           EOL.log_error(e)
         end
@@ -29,7 +30,7 @@ class DataFileMaker
     def self.move_user_files_to_bottom(data_file_id)
       user_id = DataSearchFile.find(data_file_id).user_id rescue nil
       if user_id
-        user_pending_files_ids = DataSearchFile.pending.where(user_id: user_id).map(&:id)
+        user_pending_files_ids = DataSearchFile.where(user_id: user_id).pending.pluck(:id)
         user_pending_files_ids.each do |file_id|
           found = Resque.dequeue(DataFileMaker,data_file_id: file_id)
           Resque.enqueue(DataFileMaker,data_file_id: file_id) unless found.zero?

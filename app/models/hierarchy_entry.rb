@@ -1,6 +1,7 @@
 # Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and
 # most data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
+  BOGUS_SUFFIX_RE = /^[A-Z][a-z]+ [a-z]{3,}([A-Z0-9_]{2,})/
 
   belongs_to :hierarchy
   belongs_to :name
@@ -23,6 +24,10 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
   has_many :curated_data_objects_hierarchy_entries
+  has_many :relationships_from, class_name: "HierarchyEntryRelationship",
+    inverse_of: :from_hierarchy_entry, foreign_key: "hierarchy_entry_id_1"
+  has_many :relationships_to, class_name: "HierarchyEntryRelationship",
+    inverse_of: :to_hierarchy_entry, foreign_key: "hierarchy_entry_id_2"
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
@@ -108,15 +113,16 @@ class HierarchyEntry < ActiveRecord::Base
 
   # NOTE: this is unused in the code, but is used manually. Please keep.
   def from_solr
-    solr = SolrCore::HierarchyEntries.new
-    solr.paginate("id:#{id}")["response"]["docs"]
+    @entry_solr ||= SolrCore::HierarchyEntries.new
+    @entry_solr.connection.
+      get("select", params: { q: "id:#{id}" } )["response"]["docs"]
   end
 
   # NOTE: this is unused in the code, but is used manually. Please keep.
   def relationships_from_solr(limit = 30)
-    solr = SolrCore::HierarchyEntryRelationships.new
-    solr.paginate("hierarchy_entry_id_1:#{id}",
-      per_page: limit)["response"]["docs"]
+    @rel_solr ||= SolrCore::HierarchyEntryRelationships.new
+    @rel_solr.connection.get("select", params: {
+      q: "hierarchy_entry_id_1:#{id}", rows: limit })["response"]["docs"]
   end
 
   def has_parent?
@@ -181,6 +187,21 @@ class HierarchyEntry < ActiveRecord::Base
   # hash. See SolrCore::HierarchyEntries for info on how those are populated,
   # but be warned: it's complex. :| TODO: add a for_hash scope...
   def to_hash
+    # NOTE the difference here. Kind of absurd... there is precicely zero
+    # clarity on where/why the difference is required. The clean form is
+    # lowercase, with spaces around parens (and proably other changes that I
+    # haven't noticed yet). I am *guessing* this was to make Solr searches
+    # cleaner in some way, though how it helps escapes me. Probably something to
+    # do with exact word matches.
+    canonical = name.clean_canonical_form
+    canonical_string = name.canonical_form.string
+
+    if canonical_string =~ BOGUS_SUFFIX_RE
+      suffix = $1
+      canonical.sub!(suffix, "")
+      canonical_string.sub!(suffix, "")
+    end
+
     hash = {
       id: id,
       common_name: synonyms && synonyms.select { |s| s.common_name? }.
@@ -196,8 +217,8 @@ class HierarchyEntry < ActiveRecord::Base
       vetted_id: vetted_id,
       published: published,
       name: SolrCore.string(name.string),
-      canonical_form: name.clean_canonical_form,
-      canonical_form_string: name.canonical_form.string
+      canonical_form: canonical,
+      canonical_form_string: canonical_string
     }
     if ancestor_names
       ancestor_names.keys.each do |key|
@@ -236,7 +257,7 @@ class HierarchyEntry < ActiveRecord::Base
 
   def ancestors
     ancestors = flat_ancestors
-    hierarchy.reindex if ancestors.empty? and parent_id > 0
+    hierarchy.reindex(from: id) if ancestors.empty? and parent_id > 0
     ancestors
   end
 
@@ -363,19 +384,6 @@ class HierarchyEntry < ActiveRecord::Base
     [ root_ancestor, immediate_parent ]
   end
 
-  # NOTE: Apparently, early in negotiations with Google (early enough that by
-  # the time of this writing, they had forgotten they'd asked), they requested
-  # that we add a link to Wikipedia to the JSON-LD. This is that link. It
-  # references the same article that you could find by going to the "Details"
-  # tab and clicking on "Wikipedia".
-  def mapping_jsonld
-    { '@type' => 'dwc:ResourceRelationship',
-      'dwc:resourceID' => KnownUri.taxon_uri(taxon_concept_id),
-      'dwc:relationshipOfResource' => 'foaf:isPrimaryTopicOf',
-      'dwc:relatedResourceID' => outlink_url,
-      'dwc:relationshipAccordingTo' => 'http://eol.org' }
-  end
-
   def destroy_everything
     top_images.destroy_all
     # takes too long, prolly not needed: top_unpublished_images.destroy_all
@@ -386,21 +394,6 @@ class HierarchyEntry < ActiveRecord::Base
     # TODO: handling data objects here. Not doing it now because this is only used from HarvestEvent, and HE handles Datos itself.
     refs.destroy_all
     # Not handling the rest of the tree, here, which I believe is expected.
-  end
-
-  def repopulate_flattened_descendants
-    HierarchyEntriesFlattened.repopulate(self)
-  end
-
-  # NOTE: this means "the WHOLE thing, from this node down." You probably mean
-  # to run this on the kingdom, but we're not creating that restriction, so you
-  # have the option of reindexing a lower node if needed.
-  def repopulate_flattened_hierarchy
-    HierarchyEntry.with_master do
-      get_descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
-        entry.repopulate_flattened_descendants
-      end
-    end
   end
 
   private

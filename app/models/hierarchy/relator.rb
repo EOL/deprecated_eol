@@ -7,36 +7,10 @@ class Hierarchy
   # SolrCore::HierarchyEntries (q.v.)! TODO: scores are stored as floats... this
   # is dangerous, and we don't do anything with them that warrants it (other
   # than multiply, which can be achieved other ways). Let's switch to using a
-  # 0-100 scale, which is more stable.
+  # 0-100 scale, which is more stable. NOTE: this is called by
+  # Hierarchy#reindex_and_merge_ids and
+  # HarvestEvent#relate_new_hierarchy_entries
   class Relator
-    # NOTE: PHP actually had a bug (!) where this was _only_ Kingdom, but the
-    # intent was clearly supposed to be this, so I'm going with it: TODO - this
-    # should be in the DB, anyway. :\
-    RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY = [
-      Rank.kingdom.try(:id),
-      Rank.phylum.try(:id),
-      Rank.class_rank.try(:id),
-      Rank.order.try(:id)
-    ].compact
-    # NOTE: Genus is low because, presumedly, a binomial will always match at
-    # the Genus if it's matched the name. :\
-    RANK_WEIGHTS = { "genus" => 50, "family" => 90, "order" => 80,
-      "class" => 60, "phylum" => 40, "kingdom" => 20 }
-
-    # I am not going to freak out about the fact that TODO: this needs to be in
-    # the database. I've lost my energy to freak out about such things. :|
-    GOOD_SYNONYMY_HIERARCHY_IDS = [
-      123, # WORMS
-      143, # Fishbase
-      622, # IUCN
-      636, # Tropicos
-      759, # NCBI
-      787, # ReptileDB
-      860, # Avibase
-      903, # ITIS
-      949  # COL 2012
-    ]
-
     def self.relate(hierarchy, options = {})
       relator = self.new(hierarchy, options)
       relator.relate
@@ -44,19 +18,21 @@ class Hierarchy
 
     def initialize(hierarchy, options = {})
       # We load this at runtime, so new ranks are read in:
-      @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
-        flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
       @browsable = Hierarchy.browsable
-      @new_entry_ids = options[:entry_ids]
+      @new_entry_ids = {}
+      Array(options[:entry_ids]).each { |id| @new_entry_ids[id] = true }
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
-      @count = 0
       @all_hierarchies = options[:all_hierarchies]
+      hiers = @browsable
+      hiers = hiers.where(["id != ?", @hierarchy.id]) if @hierarchy.complete?
+      @hierarchy_ids = hiers.pluck(:id)
       @per_page = Rails.configuration.solr_relationships_page_size.to_i
       @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
       @scores = {}
+      @similarity = Hierarchy::Similarity.new
     end
 
     def relate
@@ -79,7 +55,8 @@ class Hierarchy
         entries = get_page_from_solr(page)
         entries.each do |entry|
           begin
-            compare_entry(entry) if @new_entry_ids.include?(entry["id"])
+            compare_entry(@similarity.study(entry)) if
+              @new_entry_ids.has_key?(entry["id"])
           rescue => e
             EOL.log("Failed on entry ##{entry["id"]} (page #{page})")
             raise e
@@ -96,8 +73,12 @@ class Hierarchy
         page: page, per_page: @per_page)
       sleep(0.3) # Less of a hit to production, please!
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 100
-        EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+      if rhead["QTime"] && rhead["QTime"].to_i > 250
+        if rhead["q"] && ! rhead["q"].blank?
+          EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+        else
+          EOL.log("header: #{rhead.inspect}")
+        end
         EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
       if page == 1 && response["response"] && response["response"]["numFound"]
@@ -106,259 +87,79 @@ class Hierarchy
       response["response"]["docs"]
     end
 
-    def metaquote(string)
-      string.gsub(/\\/, "\\\\\\\\").gsub(/"/, "\\\"")
-    end
-
     # TODO: cleanup. :|
     def compare_entry(entry)
       matches = []
-      entry["rank_id"] ||= 0
-      if entry["name"]
-        search_name = metaquote(entry["name"])
-        # PHP TODO: "what about subgenera?"
-        search_canonical = ""
-        # TODO: store surrogate flag... somewhere. Store virus value there too
-        if ! Name.is_surrogate_or_hybrid?(search_name) &&
-          ! entry_is_in_virus_kingdom?(entry) &&
-          ! entry["canonical_form"].blank?
-          search_canonical = metaquote(entry["canonical_form"])
-        end
-        search_canonical = "" if search_canonical =~ /virus$/
-        query_or_clause = []
-        query_or_clause << "canonical_form_string:\"#{search_canonical}\"" unless
-          search_canonical.blank?
-        query_or_clause << "name:\"#{search_name}\""
-        # TODO: should we add this? The PHP code had NO WAY of getting to this:
-        if (false)
-          query_or_clause << "synonym_canonical:\"#{search_canonical}\""
-        end
-        query = "(#{query_or_clause.join(" OR ")})"
-        if @all_hierarchies
-          # TODO: Never used, currently; saving for later port work:
-          query += " AND hierarchy_id:#{@hierarchy_against.id}" if
-            @hierarchy_against
-          # Complete hierarchies are not compared with themselves. Other (e.g.:
-          # Flickr, which can have multiple occurrences of the "same" concept in
-          # it) _do_ need to be compared with themselves.
-          query += " NOT hierarchy_id:#{@hierarchy.id}" if @hierarchy.complete?
-          # PHP: "don't relate NCBI to itself"
-          # TODO: This should NOT be hard-coded:
-          query += " NOT hierarchy_id:759" if @hierarchy.id == 1172
-          query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
-        else
-          h_ids = @browsable
-          h_ids = h_ids.where(["id != ?", @hierarchy.id]) if
-            @hierarchy.complete?
-          conditions = h_ids.pluck(:id).map { |id| "hierarchy_id:#{id}" }
-          query += " AND (#{conditions.join(" OR ")})"
-        end
-        # TODO: make rows variable configurable
-        response = @solr.select(query, rows: 400)
-        # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
-        sleep(0.3)
-        rhead = response["responseHeader"]
-        if rhead["QTime"] && rhead["QTime"].to_i > 200
-          EOL.log("compare query: #{query}", prefix: ".")
-          EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
-        end
-        matching_entries_from_solr = response["response"]["docs"]
-        matching_entries_from_solr.each do |matching_entry|
-          compare_entries_from_solr(entry, matching_entry)
-        end
-      else
-        # This is caused by entries with only a canonical form. I'm not sure if
-        # this is "right," but it is certainly "normal," so I'm not sure we
-        # actually need to warn about it. I'm leaving this on for now, though,
-        # to get a sense of frequency and possibly spark a conversation about
-        # whether we should be doing something different. It seems so—the name
-        # on an entry should be the preferred scientific name, so this error
-        # implies we have entries with no such thing... which is... odd. Should
-        # it just be the canonical form?
-        EOL.log("WARNING: solr entry with canonical form only: #{entry["id"]} "\
-          "(#{entry["canonical_form"]})", prefix: "!")
+      # PHP TODO: "what about subgenera?"
+      search_canonical = ""
+      # TODO: store surrogate flag... somewhere. Store virus value there too
+      if ! Name.is_surrogate_or_hybrid?(entry["quoted_name"]) &&
+        ! entry["is_virus"] &&
+        ! entry["canonical_form"].blank?
+        search_canonical = entry["quoted_canonical"]
+      end
+      query_or_clause = []
+      query_or_clause << "canonical_form_string:\"#{search_canonical}\"" unless
+        search_canonical.blank?
+      query_or_clause << "name:\"#{entry["quoted_name"]}\""
+      # TODO: should we add this? The PHP code had NO WAY of getting to this:
+      if (false)
+        query_or_clause << "synonym_canonical:\"#{search_canonical}\""
+      end
+      query = "(#{query_or_clause.join(" OR ")})"
+      query += hierarchy_clause
+      # TODO: make rows variable configurable
+      response = @solr.select(query, rows: 500)
+      # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
+      sleep(0.3)
+      rhead = response["responseHeader"]
+      if rhead["QTime"] && rhead["QTime"].to_i > 200
+        EOL.log("SLOW (#{rhead["QTime"]}ms): #{query}", prefix: "!")
+      end
+      matching_entries_from_solr = response["response"]["docs"]
+      matching_entries_from_solr.each do |matching_entry|
+        compare_entries_from_solr(entry, matching_entry)
       end
     end
 
-    def entry_is_in_virus_kingdom?(entry)
-      entry["kingdom"] &&
-        (entry["kingdom"].downcase == "virus" ||
-        entry["kingdom"].downcase == "viruses")
+    def hierarchy_clause
+      @hierarchy_clause ||= if @hierarchy_against
+        # TODO: Never used, currently; saving for later port work:
+        " AND hierarchy_id:#{@hierarchy_against.id}"
+      elsif @all_hierarchies
+        # Complete hierarchies are not compared with themselves. Other (e.g.:
+        # Flickr, which can have multiple occurrences of the "same" concept in
+        # it) _do_ need to be compared with themselves.
+        clause = " NOT hierarchy_id:#{@hierarchy.id}" if @hierarchy.complete?
+        # PHP: "don't relate NCBI to itself"
+        # TODO: This should NOT be hard-coded:
+        clause += " NOT hierarchy_id:759" if @hierarchy.id == 1172
+        clause += " NOT hierarchy_id:1172" if @hierarchy.id == 759
+        clause
+      else
+        " AND (#{@hierarchy_ids.map { |id| "hierarchy_id:#{id}" }.join(" OR ")})"
+      end
     end
 
     def compare_entries_from_solr(entry, matching_entry)
-      matching_entry["rank_id"] ||= 0
-      score = score_comparison(entry, matching_entry)
-      if score
-        store_score(entry["id"], matching_entry["id"], score)
-        store_score(matching_entry["id"], entry["id"], score)
+      score = @similarity.compare(entry, matching_entry,
+        from_studied: true, complete: @hierarchy.complete?)
+      if score.is_a?(Hash) && score[:score] && score[:score] > 0
+        store_score(score)
       end
     end
 
-    def score_comparison(from_entry, to_entry)
-      return nil if from_entry["id"] == to_entry["id"]
-      # TODO: this really, really should not happen:
-      return nil if from_entry["name"].blank? || to_entry["name"].blank?
-      # TODO: shouldn't need this because of the condition above. :|
-      return nil if @hierarchy.complete? &&
-        from_entry["hierarchy_id"] == @hierarchy.id &&
-        to_entry["hierarchy_id"] == @hierarchy.id
-      return nil if rank_ids_conflict?(from_entry["rank_id"],
-        to_entry["rank_id"])
-      synonym = false
-      # PHP: "viruses are a pain and will not match properly right now"
-      is_virus = from_entry["name"].downcase =~ /virus$/ ||
-        to_entry["name"].downcase =~ /virus$/
-      is_virus ||= virus_kingdom?(from_entry) || virus_kingdom?(to_entry)
-      # nil, 0.5, or 1... TODO: that's not terribly elegant. Re-think.
-      name_match = compare_names(from_entry, to_entry, is_virus)
-      # If it's not a complete match (and not a virus), check for synonyms:
-      if ! name_match && ! is_virus
-        name_match = compare_synonyms(from_entry, to_entry)
-        synonym = name_match > 0
-      end
-      ancestry_match = compare_ancestries(from_entry, to_entry)
-      total_score = if name_match.nil?
-        0
-      elsif ancestry_match.nil?
-        # One of the ancestries was totally empty:
-        name_match * 0.5
-      elsif ancestry_match > 0
-        # Ancestry was reasonable match:
-        name_match * ancestry_match
-      else
-        0
-      end
-      # DO NOT SCORE ZEROES:
-      total_score <= 0 ? nil : { score: total_score, synonym: synonym }
-    end
-
-    def rank_ids_conflict?(rid1, rid2)
-      if @rank_groups.has_key?(rid1) && @rank_groups.has_key?(rid2)
-        @rank_groups[rid1] != @rank_groups[rid2]
-      else
-        rid1 && rid1 != 0 && rid2 && rid2 != 0 && rid1 != rid2
-      end
-    end
-
-    def virus_kingdom?(entry)
-      entry["kingdom"].try(:downcase) == 'virus' ||
-        entry["kingdom"].try(:downcase) == 'viruses'
-    end
-
-    def compare_names(from_entry, to_entry, is_virus)
-      return 1 if from_entry["name"] == to_entry["name"]
-      return nil if is_virus # TODO: wrong place for this
-      return 0.5 if from_entry["canonical_form"] && to_entry["canonical_form"] &&
-        from_entry["canonical_form"] == to_entry["canonical_form"]
-      return nil
-    end
-
-    def compare_synonyms(from_entry, to_entry)
-      if synonymy_of(to_entry).include?(from_entry["name"]) ||
-        synonymy_of(from_entry).include?(to_entry["name"])
-        1
-      elsif synonymy_of(to_entry).include?(from_entry["canonical_form"]) ||
-        synonymy_of(from_entry).include?(to_entry["canonical_form"])
-        0.5
-      else
-        0
-      end
-    end
-
-    def synonymy_of(entry)
-      if GOOD_SYNONYMY_HIERARCHY_IDS[entry["hierarchy_id"]] && entry["synonym"]
-        entry["synonym"]
-      else
-        []
-      end
-    end
-
-    # "check each rank in order of priority and return the respective weight on
-    # match"
-    def compare_ancestries(from_entry, to_entry)
-      return nil if empty_ancestry?(from_entry)
-      return nil if empty_ancestry?(to_entry)
-      weights = ancestor_weights(from_entry, to_entry)
-      best_matching_weight = weights.values.sort.last || 0
-      # TODO: logging. ...We need some kind of record that explains why matches
-      # were made or refused for each pair. :|
-      # Kingdoms only match if...
-      if weights.has_key?("kingdom")
-        # Never ever match bad kingdoms:
-        return 0 if weights["kingdom"] < 0
-        if weights.size > 1
-          # We matched on Kingdom AND something else, which is great!
-          return 1
-        else
-          # We *only* had kingdoms to work with... If both entries have other
-          # ranks (but they didn't match), return the score based on kingdom
-          # only:
-          return weights["kingdom"].to_f / 100 unless
-            has_any_non_kingdom?(from_entry) && has_any_non_kingdom?(to_entry)
-          # If we're here, then one of the entries did NOT have other ranks at
-          # all:
-          return 0 unless allowed_to_match_at_kingdom_only?([from_entry, to_entry])
-          # If we haven't returned, then we're looking at a pair of higher-level
-          # entries that matched only at kingdom (which is fine)
+    def store_score(score)
+      type = score[:is_synonym] ? 'syn' : 'name'
+      keys = ["#{score[:from]},#{score[:to]},'#{type}'",
+              "#{score[:to]},#{score[:from]},'#{type}'"]
+      keys.each do |key|
+        unless @scores.has_key?(key) && @scores[key] < score[:score]
+          @scores[key] = score[:score]
+          size = @scores.size
+          EOL.log("#{size} relationships...", prefix: ".") if size % 1_000 == 0
         end
       end
-      # score based on the lowest matching rank (which is the highest score):
-      return best_matching_weight.to_f / 100
-    end
-
-    def ancestor_weights(from_entry, to_entry)
-      weights = {}
-      RANK_WEIGHTS.sort_by { |k,v| - v }.each do |rank, weight|
-        if from_entry[rank] && to_entry[rank]
-          if from_entry[rank] == to_entry[rank] # MATCH!
-            weights[rank] = weight
-          else # CONTRADICTION!
-            if rank == "kingdom"
-              # If either of them is Animalia, absolutely DO NOT MATCH!
-              if from_entry[rank].downcase == "animalia" ||
-                 to_entry[rank].downcase == "animalia"
-                weights[rank] = -100
-              end
-            end
-          end
-        end
-      end
-      return weights
-    end
-
-    def best_matching_weight(from_entry, to_entry)
-      ancestor_weights.values.sort.last || 0
-    end
-
-    def empty_ancestry?(entry)
-      entry.values_at(*RANK_WEIGHTS.keys).all? { |v| v.blank? }
-    end
-
-    def has_any_non_kingdom?(entry)
-      ranks = RANK_WEIGHTS.keys
-      ranks.delete("kingdom")
-      entry.values_at(*ranks).any? { |v| ! v.blank? }
-    end
-
-    # This is kinda dumb; returns true basically only if both entries have known
-    # ranks and those ranks are higher than or equal to Order.
-    def allowed_to_match_at_kingdom_only?(entries)
-      Array(entries).each do |entry|
-        return false unless
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(entry["rank_id"])
-      end
-      true
-    end
-
-    def store_score(from, to, score)
-      type = score[:synonym] ? 'syn' : 'name'
-      key = "#{from},#{to},'#{type}'"
-      unless @scores.has_key?(key) && @scores[key] < score[:score]
-        @scores[key] = score[:score]
-      end
-      size = @scores.size
-      EOL.log("#{size} relationships...", prefix: ".") if size % 10_000 == 0
     end
 
     def add_curator_assertions
@@ -409,7 +210,7 @@ class Hierarchy
     def reindex_relationships
       EOL.log_call
       SolrCore::HierarchyEntryRelationships.
-        reindex_entries_in_hierarchy(@hierarchy, @new_entry_ids)
+        reindex_entries_in_hierarchy(@hierarchy, @new_entry_ids.keys)
     end
   end
 end

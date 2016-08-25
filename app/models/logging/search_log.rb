@@ -70,7 +70,7 @@ class SearchLog < LazyLoggingModel
 
     sql = [sql]
     sql << "%#{options[:search_string]}%" unless options[:search_string].blank?
-    SearchLog.paginate_by_sql(ActiveRecord::Base.sanitize_sql_array(sql), page: page, per_page: per_page)
+    SearchLog.paginate_by_sql(EOL::Db.sanitize_array(sql), page: page, per_page: per_page)
   end
 
   def self.totals

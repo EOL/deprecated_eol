@@ -105,22 +105,22 @@ module EOL
         return results unless EolConfig.data?
         begin
           if Rails.configuration.respond_to?('show_sparql_queries') && Rails.configuration.show_sparql_queries
-            Rails.logger.error "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+            EOL.log("#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}")
           end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue => e
-          ActiveRecord::Base.logger.error "** ERROR: Virtuoso Connection refused: #{e.message}"
-          ActiveRecord::Base.logger.error "** Query: "\
-            "\"#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}\""
+          EOL.log("ERROR: Virtuoso Connection refused: #{e.message}", prefix: "!")
+          EOL.log("Query: \"#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}\"",
+            prefix: "!")
           raise EOL::Exceptions::SparqlDataEmpty # This gets caught by our code gracefully.
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
           # later!
           if e.message =~ /Invalid port number/
-            Rails.logger.error "We found a graph that cannot be removed programmatically."
-            Rails.logger.error "Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see"
-            Rails.logger.error "if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy ...if so, delete it and"
-            Rails.logger.error "try again. Sorry!"
+            EOL.log("We found a graph that cannot be removed programmatically.")
+            EOL.log("Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see")
+            EOL.log("if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy ...if so, delete it and")
+            EOL.log("try again. Sorry!")
           end
           raise e
         end

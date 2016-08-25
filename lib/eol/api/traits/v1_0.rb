@@ -16,7 +16,7 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           I18n.locale = params[:language] unless params[:language].blank?
-          JSON.pretty_generate(PageTraits.new(params[:id]).jsonld)
+          TraitBank::JsonLd.for_page(params[:id])
         end
       end
     end

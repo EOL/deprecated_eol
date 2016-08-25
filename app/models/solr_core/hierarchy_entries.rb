@@ -30,13 +30,14 @@ class SolrCore
 
     def build_entry_ancestors(ancestry)
       entry_ancestors = {}
-      EOL.log("Given #{@ids.size} IDs to index.") if @ids
+      EOL.log("Given #{@ids.size} IDs to index.") unless @ids.empty?
       ancestry.each do |pair|
         (entry, ancestor) = pair.split(",").map(&:to_i)
         next unless @ids.empty? || @ids.include?(entry)
         entry_ancestors[entry] ||= []
         entry_ancestors[entry] << ancestor
-        @all_ids += [entry, ancestor]
+        @all_ids << entry
+        @all_ids << ancestor
       end
       entry_ancestors
     end
@@ -52,11 +53,15 @@ class SolrCore
     end
 
     def add_ancestry(entries, entry_ancestors)
-      entries.each do |entry|
+      EOL.log("Adding ancestry (#{entries.size} entries)")
+      # This can take a few seconds but vastly speeds up the rest:
+      indexed_entries = {}
+      entries.each { |entry| indexed_entries[entry.id] = entry }
+      entries.each_with_index do |entry, index|
         entry.ancestor_names = {}
-        if entry_ancestors.has_key?(entry.id)
-          entry_ancestors[entry.id].each do |ancestor_id|
-            ancestor = entries.find { |e| e.id == ancestor_id }
+        if ancestors = entry_ancestors[entry.id]
+          ancestors.each do |ancestor_id|
+            ancestor = indexed_entries[ancestor_id]
             if ancestor && ancestor.rank_id && rank = Rank.label(ancestor.rank_id)
               entry.ancestor_names.merge!(rank => ancestor.name.string)
             end

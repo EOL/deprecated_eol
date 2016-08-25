@@ -94,7 +94,7 @@ class DataSearchFile < ActiveRecord::Base
     total = results.traits.total_entries
     count = results.traits.count
     while count <= total and results.traits.count > 0
-      EOL.log("DSF: page #{page}, count #{count}, total #{total}", prefix: ".")
+      EOL.log("DSF: page #{page}, row #{count}/#{total}, for #{user.full_name} (#{user_id})", prefix: ".")
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       results.traits.each do |trait|
         if trait.hidden?

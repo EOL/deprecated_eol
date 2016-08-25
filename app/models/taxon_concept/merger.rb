@@ -8,11 +8,12 @@ class TaxonConcept
   # as the supercedure_id to see where it went. If you're calling this, you
   # probably care about both.
   class Merger
+    # TODO: RandomHierarchyImage should be scanned and updated, too!
     class << self
       def in_bulk(raw_merges)
         ids = Set.new
         merges = {}
-        concepts = []
+        concepts = {}
         # NOTE raw_merges is keyed on the old id; we want one keyed on new IDs.
         raw_merges.each do |old_id, new_id|
           while raw_merges.has_key?(new_id)
@@ -24,18 +25,22 @@ class TaxonConcept
           ids += [old_id, new_id]
         end
         ids.to_a.in_groups_of(10_000, false) do |group|
-          concepts += TaxonConcept.with_titles.where(id: group)
+          TaxonConcept.with_titles.where(id: group).each do |concept|
+            concepts[concept.id] = concept
+          end
         end
-        concepts.select { |c| ! c.published? }.each do |concept|
+        concepts.values.select { |c| ! c.published? }.each do |concept|
           if merges.has_key?(concept.id)
             lost = merges.delete(concept.id)
             EOL.log("WARNING: Cannot merge taxa (#{lost.join(", ")}) to "\
               "UNPUBLISHED taxon #{concept.id}")
           end
         end
-        reindex_ids = []
+        reindex_concepts = []
+        num_merges = merges.keys.size
+        EOL.log("Have #{num_merges} merges...") unless num_merges <= 0
         merges.each do |to_id, from_ids|
-          to_concept = concepts.find { |c| c.id == to_id }
+          to_concept = concepts[to_id]
           if to_concept.nil?
             EOL.log("ERROR: Missing target concept! (#{from_ids.join(", ")}) "\
               "=> #{to_id}", prefix: "!")
@@ -43,49 +48,52 @@ class TaxonConcept
           end
           from_concepts = []
           from_ids.each do |id|
-            concept =  concepts.find { |c| c.id == id }
-            if concept
-              from_concepts << concept
+            if concepts.has_key?(id)
+              from_concepts << concepts[id]
             else
-              EOL.log("Missing source concept (#{id})!")
+              EOL.log("WARNING: Missing source concept (#{id})!", prefix: "*")
             end
           end
           if from_concepts.empty?
-            EOL.log("ERROR: No source concepts to merge to #{to_id}!",
-              prefix: "!")
+            EOL.log("WARNING: No source concepts to merge to #{to_id}!",
+              prefix: "*")
             next
           elsif from_concepts.size == 1
             begin
-              taxon_concepts(from_concepts.first, to_concept,
+              taxon_concepts(to_concept, from_concepts.first,
                 skip_reindex: true)
-              reindex_ids << to_id
+              reindex_concepts << to_concept
+              EOL.log("MERGE: #{from_concepts.first} => #{to_concept}")
             rescue => e
-              EOL.log("SKIP MERGE #{from_ids.first} => #{to_id}: #{e.message}",
-                prefix: "!")
+              EOL.log("SKIP MERGE #{from_concepts.first} => #{to_concept}: "\
+                "#{e.message}", prefix: "*")
             end
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:
-            multiple_concepts(to_concept, from_concepts.map(&:id))
-            reindex_ids << to_id
-            EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
-              "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
-              "(#{to_concept.id})")
+            multiple_concepts(to_concept.id, from_concepts.map(&:id))
+            reindex_concepts << to_concept
+            EOL.log("MERGE multiple to #{to_concept}:")
+            from_concepts.each { |c| EOL.log("  ... #{c}") }
           end
         end
         # Second pass; now we're done mucking with Solr, so let PHP have at it:
-        reindex_ids.each do |concept|
+        reindex_concepts.each do |concept|
           TaxonConceptReindexing.reindex(concept, allow_large_tree: true)
         end
+        return num_merges
       end
 
+      # NOTE: if you watch the logs, you will see a lot of individual
+      # TaxonConcept loads, which would be nice to avoid, but until we have a
+      # "bulk merger" class, this is the safest way to do it!
       def ids(id1, id2)
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
         (id1, id2) = [id1, id2].sort
-        new_concept = TaxonConcept.find(id1)
+        new_concept = TaxonConcept.find_without_supercedure(id1)
         return new_concept if id1 == id2
         raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
         raise EOL::Exceptions::MergeToUnpublishedTaxon unless new_concept.published?
-        old_concept = TaxonConcept.find(id2)
+        old_concept = TaxonConcept.find_without_supercedure(id2)
         raise "Missing source concept (#{id2})" unless old_concept
         EOL.log("MERGE: concept #{id2} into #{id1}")
         taxon_concepts(new_concept, old_concept)
@@ -94,6 +102,7 @@ class TaxonConcept
       def taxon_concepts(new_concept, old_concept, options = {})
         new_id = new_concept.id
         old_id = old_concept.id
+        raise "Wrong IDs!" if new_id > old_id
         old_concept.update_attributes(supercedure_id: new_id, published: false)
         HierarchyEntry.where(taxon_concept_id: old_id).
           update_all(taxon_concept_id: new_id)
@@ -120,9 +129,8 @@ class TaxonConcept
       end
 
       # NOTE: DOES NOT reindex items!
-      def multiple_concepts(to_concept, old_ids)
-        new_id = new_concept.id
-        old_concepts = TaxonConcept.where(ids: old_ids)
+      def multiple_concepts(new_id, old_ids)
+        old_concepts = TaxonConcept.where(id: old_ids)
         old_concepts.update_all(supercedure_id: new_id, published: false)
         HierarchyEntry.where(taxon_concept_id: old_ids).
           update_all(taxon_concept_id: new_id)
@@ -146,7 +154,6 @@ class TaxonConcept
         # tc id on that table:
         update_ignore_ids(RandomHierarchyImage, new_id, old_ids)
       end
-
 
       def move_traits(new_id, old_id)
         traits = TraitBank.page_traits(old_id)
@@ -178,11 +185,11 @@ class TaxonConcept
       end
 
       def update_ignore_ids(klass, id1, ids)
-        EOL::Db.update_ignore_id_by_field(klass, id1, ids, "taxon_concept_id")
+        EOL::Db.update_ignore_ids_by_field(klass, id1, ids, "taxon_concept_id")
       end
 
-      def update_ignore_ancestor_ids(klass, id1, id2)
-        EOL::Db.update_ignore_id_by_field(klass, id1, ids, "ancestor_id")
+      def update_ignore_ancestor_ids(klass, id1, ids)
+        EOL::Db.update_ignore_ids_by_field(klass, id1, ids, "ancestor_id")
       end
     end
   end

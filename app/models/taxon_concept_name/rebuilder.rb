@@ -14,13 +14,13 @@ class TaxonConceptName
     end
 
     def by_taxon_concept_id(tc_ids)
-      EOL.log_call
+      EOL.log("TaxonConceptName::Rebuilder.by_taxon_concept_id")
       tc_ids = Array(tc_ids)
       size = tc_ids.size
       index = 0
       tc_ids.in_groups_of(500, false) do |ids|
         index += ids.size
-        EOL.log("Rebuilding names: #{index}/#{size}")
+        EOL.log("Rebuilding names: #{index} taxa of #{size}")
         rebuild_tc_ids(ids)
         sleep(0.1) # Let's not throttle the DB.
       end
@@ -212,6 +212,7 @@ class TaxonConceptName
     end
 
     def insert_scientific_names(data)
+      EOL.log("Inserting #{data.size} scientific names...")
       EOL::Db.bulk_insert(TaxonConceptName,
         # NOTE: PHP didn't bother with the last two fields, synonym_id and
         # vetted_id. I guess that means scientific names are always considered
@@ -220,7 +221,7 @@ class TaxonConceptName
         # synonyms table...)
         [:taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id,
           :vern, :preferred],
-        data.to_a)
+        data.to_a, silent: true)
     end
 
     def prepare_common_names
@@ -236,10 +237,11 @@ class TaxonConceptName
     end
 
     def insert_common_names(data)
+      EOL.log("Inserting #{data.size} scientific names...")
       EOL::Db.bulk_insert(TaxonConceptName,
         [:taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id,
           :vern, :preferred, :synonym_id, :vetted_id],
-        data.to_a)
+        data.to_a, silent: true)
     end
 
     def there_was_no_preferred_name(tc_id, language_id)

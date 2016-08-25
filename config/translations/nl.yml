@@ -13,6 +13,7 @@
 # Author: McDutchie
 # Author: MedShot
 # Author: Milenej
+# Author: MrLeopold
 # Author: Ndijkstra
 # Author: Patio
 # Author: Robin van der Vliet
@@ -565,6 +566,7 @@ nl:
           niet direct openbaar gemaakt.
         published_at: Gepubliceerd
         published_status: Status
+        last_harvest_seconds: Duurde %{time_in_words}
       hierarchy:
         browsable_more: Selecteer "doorbladerbaar" om deze hiërarchie te bevorderen
           naar de primaire doorbladerbare hiërarchieën in EOL.
@@ -5516,6 +5518,9 @@ nl:
   image_title_with_taxa: Afbeelding van %{taxa}
   image_title_without_taxa: Afbeelding van een onbekend taxon
   images: Afbeeldingen
+  images_with_count:
+    one: '%{count} afbeelding'
+    other: '%{count} afbeeldingen'
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.
   image_objects_page_number: afbeeldingenpagina

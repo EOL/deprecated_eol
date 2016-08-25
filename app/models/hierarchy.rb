@@ -151,16 +151,22 @@ class Hierarchy < ActiveRecord::Base
     Hierarchy::ConceptMerger.merges_for_hierarchy(self)
   end
 
+  # NOTE: this is only called manually. Pleas keep.
+  def relate
+    resource.harvest_events.last.relate_new_hierarchy_entries
+  end
+
   # NOTE: this is not called in the code, but it's use manually. Please keep.
   def reindex_and_merge_ids(ids)
-    SolrCore::HierarchyEntries.reindex_hierarchy(self, ids: [ids])
+    SolrCore::HierarchyEntries.reindex_hierarchy(self, ids: ids)
     Hierarchy::Relator.relate(self, entry_ids: ids)
-    Hierarchy::ConceptMerger.merges_for_hierarchy(self, ids: [ids])
+    Hierarchy::ConceptMerger.merges_for_hierarchy(self, ids: ids)
   end
 
   # Returns (a potentially VERY large) array of ids that were previously
   # published.
   def unpublish
+    EOL.log_call
     ids = unpublish_and_hide_hierarchy_entries
     unpublish_synonyms
     ids
@@ -198,12 +204,8 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
-  def repopulate_flattened
-    kingdoms.each(&:repopulate_flattened_hierarchy)
-  end
-
-  def reindex
-    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
+  def reindex(options = {})
+    HierarchyReindexing.enqueue_unless_pending(self, options)
   end
 
   def insert_data_objects_taxon_concepts

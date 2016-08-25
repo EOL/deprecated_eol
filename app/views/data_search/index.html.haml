@@ -40,6 +40,7 @@
             - exemplar = trait.included?
             - excluded = trait.excluded?
             - taxon_link = taxon_data_path(trait.page)
+            - header_id = trait.point.anchor
             %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true } }
               %td.taxon
                 .icon
@@ -53,25 +54,24 @@
                   - subtitle = trait.page.preferred_common_name_in_language(current_language)
                   - unless subtitle.blank?
                     = link_to subtitle.firstcap, taxon_link
-              %th.predicate
+              %th.predicate{ id: header_id }
                 %a.info_icon
                   \&nbsp;
-                .term{ data: { term: "TODO" }}
+                .term
                   - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                   = trait.predicate_name
                   - if trait.statistical_method?
                     %span.stat= trait.statistical_method_names.join(", ")
                   = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
-              %td.val
-                .term{ data: { term: "TODO" }}
+              %td.val{ id: "#{header_id}_d" }
+                .term
                   - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                   = format_value(trait).html_safe
                   = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
               %td.source
                 %span.source
                   - if trait.resource && trait.partner
-                    = link_to(trait.partner.name,
-                      [trait.partner, trait.resource])
+                    = link_to(trait.partner.name, trait.partner)
                   - else
                     = link_to(I18n.t(:source_url), trait.source_url)
               %td.comment

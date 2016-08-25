@@ -1,11 +1,3 @@
-#
-# top level EOL module
-#
-# we might want to use this for global configuration options or ... anything
-#
-# it's also useful to have around for namespacing other classes/modules
-# in the EOL:: namespace
-#
 module EOL
   class << self
     # NOTE: this assumes the tables are empty. If not, Solr will take a while...
@@ -87,9 +79,9 @@ module EOL
     end
 
     def log_error(e)
-      EOL.log("ERROR: #{e.message}", prefix: "!")
+      EOL.log("ERROR: #{e.message.gsub(/IN \(.*\)/, "IN ([snip])")}", prefix: "!")
       i = 0
-      @gem_regex = /(gems|bin)\/(actionpack|activerecord|resque|rake|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
+      @gem_regex = /(gems|bin)\/(actionpack|activerecord|resque|rake|haml|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
       skipped = 0
       while e.backtrace[i] !~ /__pry__/ &&
         i < e.backtrace.length

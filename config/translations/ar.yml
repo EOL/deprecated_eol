@@ -10,6 +10,7 @@
 # Author: DRIHEM
 # Author: Fatz
 # Author: Ghada.nabeel
+# Author: Hhaboh162002
 # Author: Malhargan
 # Author: Meno25
 # Author: Mutarjem horr
@@ -597,7 +598,7 @@ ar:
         email_settings_submit: إعدادات البريد الإلكتروني
         email: عنوان البريد الإلكتروني
         entered_password: كلمة السر <small>(4-16 حرف)</small>
-        generate_api_key: أطلب مفتاح واجهة برمجة التطبيقات
+        generate_api_key: اطلب مفتاح واجهة برمجة التطبيقات
         generate_api_key_more: إذا كنت ترغب في استخدام واجهة برمجة التطبيقات الخاصة
           بموسوعة الحياة، يمكنك توليد مقتاح واجهة التطبيقات لتحديد طلبك. إقرأ المزيد
           عن <a href='%{api_docs_url}'>إضافة مفتاح إلى واجهة برمجة التطبيقات</a> .
@@ -620,7 +621,7 @@ ar:
           خبرة بموسوعة الحياة وترغب في تحمل مسئوليات جديدة.
         tag_line: الشعار او العنوان <small>مثال "مولع بالطيور"</small>
         user_identities: أنا أكون
-        username: أسم المستخدم <small>(4-32 حرف)</small>
+        username: اسم المستخدم <small>(4-32 حرف)</small>
         username_or_email: اسم المستخدم أو عنوان البريد الإلكتروني
       wikipedia_queue:
         revision_url: رابط النسخة المراجعة  <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
@@ -1085,7 +1086,7 @@ ar:
       meta_title: أخبار موسوعة الحياة
       meta_keywords: أخبار موسوعة الحياة، موسوعة الحياة أخبار
   notifier:
-    activity_log_empty: No recent actions by curators.
+    activity_log_empty: لا أفعال حديثة بواسطة المشرفين.
     activity_user_added_association_on_date: |-
       قام %{curator_level} %{users_name} (%{users_url}) بإضافة ارتباط غير معروف إلى %{object_name} (%{object_url})
       %{action_date}.
@@ -1111,7 +1112,7 @@ ar:
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: "صنف %{curator_level}
       %{users_name} (%{users_url}) التالي كغير مناسب: \n%{object_name} (%{object_url})\n%{action_date}."
-    comments_empty: No recent comments.
+    comments_empty: لا تعليقات حديثة.
     greeting_dear_name_with_comma: عزيزي  %{name}،
     signature_basic: فريق عمل موسوعة الحياة
     signature_with_contact_us_link: |-
@@ -1133,8 +1134,9 @@ ar:
         الحياة، رجاء التواصل مع:  %{species_pages_group_email}. \nإجراءات إشرافية:\n%{curator_activity_log}\nتعليقات
         على كائنات بيانات:\n%{data_object_comments}\nتعليقات على صفحات مرتبطة بياناتك:\n%{page_comments}"
     activity_on_user_content:
-      subject: Summary of recent activity on content you have added to the Encyclopedia
-        of Life
+      subject: |2-
+
+        Summary of recent activity on content you have added to the Encyclopedia of Life
       message: |-
         هذا بريد إلكتروني آلي من موسوعة الحياة يلخص آخر التعليقات والإجراءات الإشرافية على المحتوى التي أضفتها للموسوعة من خلال حسابك الشخصي باسم المستخدم: %{members_username}.
         في حالة وجود أي أسئلة أو عند الحاجة لمساعدة في الدخول على حسابك كعضو في موسوعة الحياة، رجاء التواصل مع:  %{species_pages_group_email}.
@@ -1759,12 +1761,12 @@ ar:
       meta_title: إنظّم إلى موسوعة الحياة
       sign_up_with_facebook_assistive: أفتح حساباََ على موسوعة الحياة بأستخدام بيانات
         إعتماء الفايسبوك.
-      sign_up_with_google_assistive: أفتح حساباََ على موسوعة الحياة بأستخدام بيانات
-        إعتماء Google.
+      sign_up_with_google_assistive: افتح حسابا على موسوعة الحياة باستخدام بيانات
+        بيانات الولوج إلى Google.
       sign_up_with_twitter_assistive: أفتح حساباََ على موسوعة الحياة بأستخدام بيانات
         إعتماء Twitter.
-      sign_up_with_yahoo_assistive: أفتح حساباََ على موسوعة الحياة بأستخدام بيانات
-        إعتماء Yahoo.
+      sign_up_with_yahoo_assistive: افتح حسابا على موسوعة الحياة باستخدام بيانات الولوج
+        إلى Yahoo.
     newsfeeds:
       activity_link: نشاط
       comments_link: تعليقات
@@ -3263,7 +3265,8 @@ ar:
     أولى (إذا وجد في السياق المحدد).'
   application_version_advisory_information: نسخة التطبيق
   are_you_sure: هل أنت متأكد؟
-  are_you_sure_this_action_cannot_be_undone: Are you sure? This action cannot be undone.
+  are_you_sure_this_action_cannot_be_undone: هل أنت متأكد؟ هذا الفعل لا يمكن التراجع
+    عنه.
   admin_login_confirmation: هل أنت متأكد من رغبتك في الدخول في سجل شريك المحتوى كـ
     %{name} ؟ في هذه الحالة، سيتم تسجيل خروجك من الموقع كإداري.
   article_from: مقال من
@@ -3536,7 +3539,7 @@ ar:
   common_names_with_count:
     one: '%{count} اسم شائع'
     other: '%{count} اسم شائع'
-  common_user_activity_page_title: Common User Activity
+  common_user_activity_page_title: نشاط المستخدم الشائع
   communities_with_count:
     one: 'ينتمي إلى %{count} مجتمع '
     other: 'ينتمي إلى %{count} مجتمع '
@@ -4307,8 +4310,8 @@ ar:
   help: مساعدة
   here: هنا
   hidden: مخفي
-  hidden_comment: hidden comment
-  hide: hide
+  hidden_comment: تعليق مخفي
+  hide: إخفاء
   hierarchy: تسلسل هرمي
   hierarchy_entry_switch_missing_id_error: عفوًا، لم نتمكن من العثور على صفحة مدخل
     التسلسل الهرمي الذي قمت باختياره نتيجة لفقدان المعرف.
@@ -4353,6 +4356,9 @@ ar:
     أو 345 من حيث الطول، فسيتم تغيير حجم نسخة الصورة بموسوعة الحياة (مع  الاحتفاظ
     بنسبة الأبعاد)  .
   images: الصور
+  images_with_count:
+    one: '%{count} صورة'
+    other: '%{count} صورة'
   images_in_red_are_not_trusted: الصور التي باللون الأحمر غير موقوق بها.
   images_in_yellow_are_not_reviewed: الصور التي باللون الأصفر لم تُراجع.
   import_once: ضف مرة واحدة
@@ -4790,7 +4796,7 @@ ar:
   object_status_untrusted_option: غير موثوق به
   object_type: نوع الموضوع
   object_type_all_option: الكل
-  object_type_collection_option: Collection
+  object_type_collection_option: المجموعة
   object_type_community_option: المجتمع
   object_type_image_option: صورة
   object_type_link_option: رابط
@@ -4969,7 +4975,7 @@ ar:
   recaptcha_incorrect_error_with_anchor: لم تتطابق رموز نظام <a href="#%{recaptcha_anchor}">ريكابتشا</a>،
     يرجى المحاولة مرة أخرى.
   recent_updates: آخر التحديثات
-  recently_visited: Recently visited
+  recently_visited: التي زرتها مؤخرا
   recipients: المرسل إليهم
   recognized_by_from_source: '%{recognized_by} في %{source}'
   recognized_by_as_a_rank: '%{recognized_by} على أنها  %{taxon_rank}'
@@ -5016,8 +5022,9 @@ ar:
   return: عرض
   return_all_common_names_for_this_taxon: عرض جميع الاسماء الشائعة لتلك الأصنوفة
   return_all_synonyms_for_this_taxon: عرض جميع مرادفات تلك الأصنوفة
-  returns_all_metadata_about_a_particular_collection: returns all metadata about a
-    particular collection and the items it contains indexed by EOL
+  returns_all_metadata_about_a_particular_collection: |2-
+
+    returns all metadata about a particular collection and the items it contains indexed by EOL
   returns_all_metadata_about_a_particular_data_object: يعرض جميع البيانات الفوقية
     عن عنصر بيانات محدد (نص، أو صورة، أو مقطع فيديو) مفهرس من قبل موسوعة الحياة.
   returns_either_a_positive_or_negative_response: يعرض استجابة إيجابية (تشير إلى أن
@@ -5307,7 +5314,7 @@ ar:
   thank_you_for_your_generous_support: شكرًا لدعمكم الكريم
   thank_you: شكرًا لك.
   the_amount_entered_was: 'القيمة المدخلة: %{number} دولار أمريكي'
-  the_comment_was_successfully_updated: The comment was successfully updated.
+  the_comment_was_successfully_updated: التعليق تم تحديثه بنجاح.
   the_comment_was_successfully_deleted: تم حذف التعليق
   the_content_could_not_be_displ: لا يمكن عرض المحتوى
   the_content_was_updated: تم تحديث المحتوى
@@ -5374,7 +5381,7 @@ ar:
   this_area_shows_all_submission: تُظهر هذه المساحة كل المدخلات التي وردت من خلال
     "اتصل بنا" أو صفحات الاتصال بالإعلام. لعرض المدخلات، اختر أحد الموضوعات أدناه
     أو %{link}
-  this_cannot_be_undone_are_you_sure: This cannot be undone; are you sure?
+  this_cannot_be_undone_are_you_sure: هذا لا يمكن التراجع عنه؛ هل أنت متأكد؟
   this_collection_has_no_managers: لا يوجد مدير لهذه المجموعة.
   this_comment_was_deleted: تم حذف هذا التعليق
   this_community_has_no_endorsed_collections: لم يقدم هذا المجتمع أي مجموعات.
@@ -5405,13 +5412,9 @@ ar:
   provider_hierarchies_method_description: سوف تعرض تلك الطريقة مراجع إلى جميع التسلسلات
     الهرمية المقدمة من شركاء محتوى موسوعة الحياة. وسوف تضم الاستجابة عنوان التسلسل
     الهرمي والمعرف المميز بموسوعة الحياة والذي يمثل ذلك التسلسل.
-  this_method_takes_an_integer_or_string: This method takes an integer or string which
-    is the unique identifier for a taxon from some provider's database, and a hierarchy_id
-    which represents the provider and returns the EOL page ID for that taxon. For
-    example using the %{link_provider} API, I can find out that the EOL hierarchy_id
-    for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then
-    search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>,
-    by calling %{link_url}
+  this_method_takes_an_integer_or_string: |2-
+
+    This method takes an integer or string which is the unique identifier for a taxon from some provider's database, and a hierarchy_id which represents the provider and returns the EOL page ID for that taxon. For example using the %{link_provider} API, I can find out that the EOL hierarchy_id for the Integrated Taxonomic Information System (ITIS) is %{itis_id}. I can then search EOL for the ITIS Taxonomic Serial Number (TSN) of 180542,<i>Ursus maritimus</i>, by calling %{link_url}
   this_page_shows_information_ab: تُظهر هذه الصفحة معلومات حول مصطلح بحث محدد ويقوم
     المستخدم بالنقر على النتائج بعد إجراء البحث.
   this_resource_unpublished_notice: لم يقرر المدير أن هذا المورد منشور في هذا الوقت.

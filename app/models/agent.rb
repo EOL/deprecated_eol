@@ -26,8 +26,8 @@ class Agent < ActiveRecord::Base
   # we have create an agent bypassing all the usual safety checks
   def self.create_agent_from_user(thename)
     Agent.with_master do
-      agent_id = Agent.connection.insert(
-        ActiveRecord::Base.sanitize_sql_array(["INSERT INTO agents (full_name) VALUES (?)", thename]))
+      agent_id = Agent.connection.insert(EOL::Db.sanitize_array(
+        ["INSERT INTO agents (full_name) VALUES (?)", thename]))
       return Agent.find(agent_id)
     end
     return nil
@@ -74,4 +74,3 @@ protected
   end
 
 end
-

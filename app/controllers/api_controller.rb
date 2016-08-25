@@ -2,7 +2,7 @@ class ApiController < ApplicationController
 
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     :keep_home_page_fresh
-  before_filter :set_default_format_to_xml
+  before_filter :set_default_format_to_xml, except: [ :ping_host ]
   before_filter :get_api_method, except: [ :ping_host, :render_test_response ]
   after_filter :set_cache_headers
 

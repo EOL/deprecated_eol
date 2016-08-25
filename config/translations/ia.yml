@@ -2527,6 +2527,9 @@ ia:
   home_page_link_advisory_information: Iste ligamine te porta al pagina principal
     del sito web del Encyclopedia del Vita
   images: Imagines
+  images_with_count:
+    one: '%{count} imagine'
+    other: '%{count} imagines'
   indexed: Indexate
   iucn_red_list_status_advisory_information: Iste ligamine mena al sito web del Union
     International pro le Conservation del Natura (IUCN) ubi se trova plus informationes

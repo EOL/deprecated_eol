@@ -1,0 +1,204 @@
+# Messages for Kannada (ಕನ್ನಡ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Nayvik
+# Author: VASANTH S.N.
+---
+kn:
+  translated_activities-name-activity_id-50: ನಂಬಿಗರ್ಹವಲ್ಲದ
+  translated_activities-name-activity_id-51: ತೋರಿಸು
+  translated_activities-name-activity_id-52: ಸೃಷ್ಟಿಸು
+  translated_activities-name-activity_id-53: ಅಡಗಿಸು
+  translated_activities-name-activity_id-54: ಪರಿಷ್ಕರಿಸು
+  translated_activities-name-activity_id-55: ಅನುಚಿತ
+  translated_activities-name-activity_id-56: ಅಳಿಸು
+  translated_activities-name-activity_id-57: ದರ
+  translated_activities-name-activity_id-58: ನಂಬಿಗರ್ಹ
+  translated_activities-name-activity_id-59: ಪರಿಶೀಲಿಸಲ್ಪಡದ
+  translated_activities-name-activity_id-63: ಸಂಗ್ರಹಿಸು
+  translated_activities-name-activity_id-64: ತೆಗೆ
+  translated_agent_roles-label-agent_role_id-10: ಯೋಜನೆ
+  translated_agent_roles-label-agent_role_id-11: ಪ್ರಕಾಶಕ
+  translated_agent_roles-label-agent_role_id-12: ರೆಕಾರ್ಡರ್
+  translated_agent_roles-label-agent_role_id-13: ಆಕರ
+  translated_agent_roles-label-agent_role_id-14: ಮೂಲ ದತ್ತಕೋಶ
+  translated_agent_roles-label-agent_role_id-15: ಸಂಪರ್ಕ ವ್ಯಕ್ತಿ
+  translated_agent_roles-label-agent_role_id-16: ವಂತಿಗೆದಾರರು
+  translated_agent_roles-label-agent_role_id-21: ಸರಬರಾಜುದಾರರು
+  translated_agent_roles-label-agent_role_id-22: ಅನುವಾದಕ
+  translated_agent_roles-label-agent_role_id-23: ವೈಜ್ಞಾನಿಕ ಪರಿಶೀಲಕರು
+  translated_agent_roles-label-agent_role_id-24: ಭಾಷಾ ಪರಿಶೀಲಕರು
+  translated_agent_roles-label-agent_role_id-2: ಕರ್ತೃ
+  translated_agent_roles-label-agent_role_id-3: ಸಂಕಲನಕಾರರು
+  translated_agent_roles-label-agent_role_id-4: ರಚನಕಾರರು
+  translated_agent_roles-label-agent_role_id-5: ಸೃಷ್ಟಿಕರ್ತ
+  translated_agent_roles-label-agent_role_id-6: ನಿರ್ದೇಶಕ
+  translated_agent_roles-label-agent_role_id-7: ಸಂಪಾದಕ
+  translated_agent_roles-label-agent_role_id-8: ವಿವರಣೆಕಾರರು
+  translated_agent_roles-label-agent_role_id-9: ಛಾಯಾಗ್ರಾಹಕರು
+  translated_audiences-label-audience_id-1: ತಜ್ಞ ಬಳಕೆದಾರರು
+  translated_audiences-label-audience_id-2: ಸಾರ್ವಜನಿಕರು
+  translated_audiences-label-audience_id-3: ಮಕ್ಕಳು
+  translated_collection_types-label-collection_type_id-10: ಧ್ವನಿಗಳು
+  translated_collection_types-label-collection_type_id-11: ಕೊಂಡಿಗಳು
+  translated_collection_types-label-collection_type_id-12: ಸಾಹಿತ್ಯ
+  translated_collection_types-label-collection_type_id-13: ಜೀವಿ ವರ್ಗೀಕರಣ
+  translated_collection_types-label-collection_type_id-14: ಅಣು ಸಂಬಂಧಿ ಸಂಕೇತ ಪಟ್ಟಿಗಳು
+  translated_collection_types-label-collection_type_id-15: ವಿವರ
+  translated_collection_types-label-collection_type_id-16: ಚಿತ್ರಗಳು
+  translated_collection_types-label-collection_type_id-17: ವಿತರಣೆ
+  translated_collection_types-label-collection_type_id-18: ಸಂರಕ್ಷಣೆಯ ಸ್ಥಿತಿ
+  translated_collection_types-label-collection_type_id-19: ಹೆಸರಿನ ಮಾಹಿತಿ
+  translated_collection_types-label-collection_type_id-1: ಜೀವಿ ವರ್ಗೀಕರಣ
+  translated_collection_types-label-collection_type_id-20: ಅಣು ಸಂಬಂಧಿ ದತ್ತಾಂಶ
+  translated_collection_types-label-collection_type_id-21: ಅಭಿದಾನ
+  translated_collection_types-label-collection_type_id-22: ಧ್ವನಿಗಳು
+  translated_collection_types-label-collection_type_id-23: ಕೊಂಡಿಗಳು
+  translated_collection_types-label-collection_type_id-24: ಸಾಹಿತ್ಯ
+  translated_collection_types-label-collection_type_id-2: ಅಣು ಸಂಬಂಧಿ ಸಂಕೇತ ಪಟ್ಟಿಗಳು
+  translated_collection_types-label-collection_type_id-3: ವಿವರ
+  translated_collection_types-label-collection_type_id-4: ಚಿತ್ರಗಳು
+  translated_collection_types-label-collection_type_id-5: ವಿತರಣೆ
+  translated_collection_types-label-collection_type_id-6: ಸಂರಕ್ಷಣೆಯ ಸ್ಥಿತಿ
+  translated_collection_types-label-collection_type_id-7: ಹೆಸರಿನ ಮಾಹಿತಿ
+  translated_collection_types-label-collection_type_id-8: ಅಣು ಸಂಬಂಧಿ ದತ್ತಾಂಶ
+  translated_collection_types-label-collection_type_id-9: ಅಭಿದಾನ
+  translated_contact_roles-label-contact_role_id-1: ಪ್ರಾಥಮಿಕ ಸಂಪರ್ಕ
+  translated_contact_roles-label-contact_role_id-2: ‍‍ಆಡಳಿತಾತ್ಮಕ ಸಂಪರ್ಕ
+  translated_contact_roles-label-contact_role_id-3: ತಾಂತ್ರಿಕ ಸಂಪರ್ಕ
+  translated_contact_subjects-title-contact_subject_id-24: ಸದಸ್ಯತ್ವ ಮತ್ತು ನೋಂದಣಿ
+  translated_contact_subjects-title-contact_subject_id-25: ಉಪಯೋಗದ ನಿಬಂಧನೆಗಳು ಮತ್ತು
+    ಪರವಾನಗಿ
+  translated_contact_subjects-title-contact_subject_id-26: ಕಲಿಕೆ ಮತ್ತು ಶಿಕ್ಷಣ
+  translated_contact_subjects-title-contact_subject_id-27: ವಿಷಯ ಪಾಲುದಾರರಾಗಿ
+  translated_contact_subjects-title-contact_subject_id-28: ವಿಷಯ ಪಾಲುದಾರರ ಸಹಾಯ
+  translated_contact_subjects-title-contact_subject_id-29: ಪರಿಪಾಲಕರ ಸಹಾಯ
+  translated_contact_subjects-title-contact_subject_id-30: ಸರಿಪಡಿಸಿ(ಪದಬರಿಗೆ(spelling)
+    ಮತ್ತು ವ್ಯಾಕರಣ,ಚಿತ್ರಗಳು,ಮಾಹಿತಿ)
+  translated_contact_subjects-title-contact_subject_id-31: ಚಿತ್ರಗಳು,ವಿಡಿಯೋಗಳು ಅಥವಾ
+    ಧ್ವನಿಗಳನ್ನು ನೀಡಿ
+  translated_contact_subjects-title-contact_subject_id-33: ಆರ್ಥಿಕ ಸಹಾಯ ನೀಡಿ
+  translated_contact_subjects-title-contact_subject_id-35: ಸಾಮಾನ್ಯ ಮರುಮಾಹಿತಿ
+  translated_content_partner_statuses-label-content_partner_status_id-1: ಬಾಕಿ ಉಳಿದಿರುವ
+  translated_content_partner_statuses-label-content_partner_status_id-2: ಸಕ್ರಿಯ
+  translated_content_partner_statuses-label-content_partner_status_id-3: ಸಂಗ್ರಹಕ್ಕೆ
+    ಸೇರಿಸಿದ
+  translated_content_partner_statuses-label-content_partner_status_id-4: ನಿಷ್ಕ್ರಿಯ
+  translated_content_tables-label-content_table_id-1: ವಿವರಗಳು
+  translated_data_types-label-data_type_id-10: ನಕ್ಷೆ
+  translated_data_types-label-data_type_id-1: ಚಿತ್ರ
+  translated_data_types-label-data_type_id-2: ಧ್ವನಿ
+  translated_data_types-label-data_type_id-3: ಪಠ್ಯ
+  translated_data_types-label-data_type_id-4: ವೀಡಿಯೊ
+  translated_data_types-label-data_type_id-5: GBIF ಚಿತ್ರ
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: ಫ್ಲಾಶ್
+  translated_data_types-label-data_type_id-8: ಯೂಟ್ಯೂಬ್
+  translated_licenses-description-license_id-1: ಯಾವುದೇ ಹಕ್ಕುಗಳನ್ನು ಕಾದಿರಿಸಲಾಗಿಲ್ಲ
+  translated_licenses-description-license_id-29: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-2: '&#169; ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾದಿರಿಸಲಾಗಿದೆ'
+  translated_licenses-description-license_id-30: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-31: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-32: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-33: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-34: ಸಾರ್ವಜನಿಕ ವಲಯ
+  translated_licenses-description-license_id-35: ಸಾರ್ವಜನಿಕ ವಲಯ
+  translated_licenses-description-license_id-36: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-37: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-38: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-39: ಸಾರ್ವಜನಿಕ ವಲಯ
+  translated_licenses-description-license_id-3: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-42: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-43: ಪರವಾನಗಿ ಅನ್ವಯಿಸುವುದಿಲ್ಲ
+  translated_licenses-description-license_id-4: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-5: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-6: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-7: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-8: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_licenses-description-license_id-9: ಕೆಲವು ಹಕ್ಕುಗಳು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ
+  translated_ranks-label-rank_id-118: ಜಾತಿ
+  translated_ranks-label-rank_id-169: ನಿಮ್ನದರ್ಜೆ
+  translated_ranks-label-rank_id-175: ನಿಮ್ನಪ್ರಭೇದಗಳು
+  translated_ranks-label-rank_id-183: ಸಾಮ್ರಾಜ್ಯ
+  translated_ranks-label-rank_id-266: ದರ್ಜೆ
+  translated_ranks-label-rank_id-280: ವಿಭಾಗ
+  translated_ranks-label-rank_id-317: ಶಾಖೆ
+  translated_ranks-label-rank_id-324: ಸರಣಿ
+  translated_ranks-label-rank_id-335: ಪ್ರಾಭೇದಗಳು
+  translated_ranks-label-rank_id-352: ಉಪ ಕುಟುಂಬ
+  translated_ranks-label-rank_id-370: ಉಪವರ್ಗ
+  translated_ranks-label-rank_id-375: ಉಪಶಾಖೆ
+  translated_ranks-label-rank_id-383: ಉಪಕುಟುಂಬ
+  translated_ranks-label-rank_id-394: ಉಪಜಾತಿ
+  translated_ranks-label-rank_id-396: ಉಪಸಾಮ್ರಾಜ್ಯ
+  translated_ranks-label-rank_id-399: ಉಪದರ್ಜೆ
+  translated_ranks-label-rank_id-401: ಉಪವಿಭಾಗ
+  translated_ranks-label-rank_id-408: ಉಪಶಾಖೆ
+  translated_ranks-label-rank_id-411: ಉಪಸರಣಿ
+  translated_ranks-label-rank_id-415: ಉಪಪ್ರಭೇದ
+  translated_ranks-label-rank_id-422: ಉಪಬುಡಕಟ್ಟು
+  translated_ranks-label-rank_id-463: ಉತ್ಕೃಷ್ಟಕುಟುಂಬ
+  translated_ranks-label-rank_id-472: ಉತ್ಕೃಷ್ಟವಿಭಾಗ
+  translated_ranks-label-rank_id-494: ಬುಡಕಟ್ಟು
+  translated_ranks-label-rank_id-503: ಶ್ರೇಣಿಕೃತವಲ್ಲದ
+  translated_ranks-label-rank_id-518: ವೈವಿಧ್ಯ
+  translated_ranks-label-rank_id-51: ವರ್ಗ
+  translated_ranks-label-rank_id-562: ಸಂಕರಜಾತಿ
+  translated_ranks-label-rank_id-563: ಸಂಕರಪ್ರಭೇದ
+  translated_ranks-label-rank_id-564: ಸಂಕರ ಉಪಪ್ರಭೇದ
+  translated_ranks-label-rank_id-565: ಸಂಕರವೈವಿಧ್ಯ
+  translated_ranks-label-rank_id-74: ಶಾಖೆ
+  translated_ranks-label-rank_id-99: ಕುಟುಂಬ
+  translated_resource_statuses-label-resource_status_id-10: ಪ್ರಕಟಿತ
+  translated_resource_statuses-label-resource_status_id-11: ಪ್ರಕಟಣೆಗೆ ಬಾಕಿ
+  translated_resource_statuses-label-resource_status_id-1: ನಕಲೇರಿಸಲಾಗುತ್ತಿದೆ
+  translated_resource_statuses-label-resource_status_id-2: ನಕಲೇರಿಸಲಾಗಿದೆ
+  translated_resource_statuses-label-resource_status_id-3: ನಕಲೇರಿಕೆ ವಿಫಲ
+  translated_resource_statuses-label-resource_status_id-5: ಮಾನ್ಯ ಮಾಡಲಾಗಿದೆ
+  translated_resource_statuses-label-resource_status_id-6: ಮಾನ್ಯತೆ ವಿಫಲ
+  translated_resource_statuses-label-resource_status_id-7: ಪರಿಷ್ಕರಣೆಯಲ್ಲಿದೆ
+  translated_resource_statuses-label-resource_status_id-8: ಪರಿಷ್ಕರಿಸಲಾಗಿದೆ
+  translated_resource_statuses-label-resource_status_id-9: ಪರಿಷ್ಕರಣೆ ವಿಫಲ
+  translated_service_types-label-service_type_id-2: ಇತರೆ
+  translated_sort_styles-name-sort_style_id-1: ಇತ್ತೀಚಿಗೆ ಸೇರಿಸಲ್ಪಟ್ಟ
+  translated_sort_styles-name-sort_style_id-2: ಪುರಾತನ
+  translated_sort_styles-name-sort_style_id-3: ಅಕ್ಷರಾನುಕ್ರಮಣಿಕೆಯಲ್ಲಿ
+  translated_sort_styles-name-sort_style_id-5: ಶ್ರೀಮಂತಿಕೆ
+  translated_sort_styles-name-sort_style_id-6: ಸ್ಥಾನ
+  translated_statuses-label-status_id-1: ಅಳವಡಿಸಲಾದ
+  translated_statuses-label-status_id-2: ಪರಿಷ್ಕರಿಸಲಾದ
+  translated_statuses-label-status_id-3: ಬದಲಾವಣೆರಹಿತ
+  translated_statuses-label-status_id-4: ಪುನರ್ಬಳಕೆ ಮಾಡಿದ
+  translated_synonym_relations-label-synonym_relation_id-16: ಅಸ್ಪಷ್ಟ ಪರ್ಯಾಯಪದ
+  translated_synonym_relations-label-synonym_relation_id-17: ತಪ್ಪಾಗಿ ಅನ್ವಯಿಸಿದ ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-18: ತಾತ್ಕಾಲಿಕವಾಗಿ ಸ್ವೀಕರಿಸಿದ
+    ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-19: ಸ್ವೀಕರಿಸಲಾದ ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-1: ಪರ್ಯಾಯಪದ
+  translated_synonym_relations-label-synonym_relation_id-20: ದತ್ತ ಸಂಚಯ ಸಾಧನ
+  translated_synonym_relations-label-synonym_relation_id-22: ಬರವಣಿಗೆಯ ಭಿನ್ನತೆ(ತಪ್ಪಾದ
+    ಪದಬರಿಗೆ)
+  translated_synonym_relations-label-synonym_relation_id-23: ತಪಾದ ಅನ್ವಯ
+  translated_synonym_relations-label-synonym_relation_id-24: ತಿರಸ್ಕರಿಸಲಾದ ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-2: ಸಾಮಾನ್ಯ ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-31: ಅನಾವಶ್ಯ ಬದಲಿಕೆ
+  translated_synonym_relations-label-synonym_relation_id-49: ಊರ್ಜಿತ ನಾಮ
+  translated_synonym_relations-label-synonym_relation_id-50: ಊರ್ಜಿತ
+  translated_synonym_relations-label-synonym_relation_id-51: ಸ್ವೀಕರಿಸಲಾದ
+  translated_synonym_relations-label-synonym_relation_id-52: ಪ್ರಾಧಿಕಾರ
+  translated_synonym_relations-label-synonym_relation_id-53: ಪ್ರಕಟಿತವಲ್ಲದ ಹೆಸರು
+  translated_synonym_relations-label-synonym_relation_id-56: ತಪ್ಪಾದ ಪದಬರಿಗೆ
+  translated_synonym_relations-label-synonym_relation_id-57: ಪರ್ಯಾಯ ಪದಬರಿಗೆ
+  translated_synonym_relations-label-synonym_relation_id-63: ಸ್ವೀಕಾರ ಮಾಡದ
+  translated_synonym_relations-label-synonym_relation_id-64: ಅಮಾನ್ಯ
+  translated_table_of_contents-label-table_of_contents_id-194: ಗಾತ್ರ
+  translated_table_of_contents-label-table_of_contents_id-299: " \nಶಿಕ್ಷಣ"
+  translated_table_of_contents-label-table_of_contents_id-300: ವಿಕಿಪೀಡಿಯ
+  translated_table_of_contents-label-table_of_contents_id-306: ಪುಟಗಳ ಅಂಕಿಅಂಶಗಳು
+  translated_table_of_contents-label-table_of_contents_id-312: ವಲಸೆ
+  translated_table_of_contents-label-table_of_contents_id-335: ಶಾಸನ
+  translated_table_of_contents-label-table_of_contents_id-336: ಟಿಪ್ಪಣಿಗಳು
+  translated_table_of_contents-label-table_of_contents_id-337: ಶಿಕ್ಷಣ
+  translated_table_of_contents-label-table_of_contents_id-34: ಟಿಪ್ಪಣಿ
+  translated_vetted-label-vetted_id-0: ತಿಳಿದಿಲ್ಲ
+...

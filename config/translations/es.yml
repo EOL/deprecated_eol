@@ -5554,6 +5554,9 @@ es:
   image_title_with_taxa: Imagen de los %{taxa}
   image_title_without_taxa: Imagen de un taxón desconocido
   images: Imágenes
+  images_with_count:
+    one: '%{count} Imagen'
+    other: '%{count} Imágenes'
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
   image_objects_page_number: página de imágenes

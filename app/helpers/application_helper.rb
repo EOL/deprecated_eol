@@ -461,7 +461,7 @@ module ApplicationHelper
     ancestors = hierarchy_entry.ancestors
     if ancestor = ancestors.shift
       # using strings here instead of haml.concat because it saves up to 30% of the processing time
-      html = "<ul class='branch'><li>" +
+      html = "<ul class='branch' id='entry_#{hierarchy_entry.id}'><li>" +
         navigation_node(ancestor, options) +
         show_full_tree(hierarchy_entry, options) +
         "</li></ul>"
@@ -487,7 +487,7 @@ module ApplicationHelper
           hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
           # limit the array to $max_children and iterate
           hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|
-            haml_tag :li do
+            haml_tag :li, id: "node_#{hierarchy_entry.id}" do
               haml_tag :span, class: (options[:current] ? 'current' : nil) do
                 haml_concat navigation_node(hierarchy_entry, options)
               end
@@ -555,7 +555,7 @@ module ApplicationHelper
     seconds = seconds_diff
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
-    
+
 
   def format_time(given_seconds)
      Time.at(given_seconds).utc.strftime("%H:%M:%S")

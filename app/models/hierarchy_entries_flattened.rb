@@ -15,11 +15,14 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       ids_array = id_pairs.to_a.map { |pair| "(#{pair})" }
       size = ids_array.size
       count = 0
-      ids_array.in_groups_of(1000, false) do |group|
+      ids_array.in_groups_of(500, false) do |group|
         this_size = group.size
         count += this_size
-        EOL.log("#delete_set working on #{this_size}/#{size} (#{count/size.to_f}%)") if
-          size > 10_000
+        if size > 10_000
+          # This can rather slow down the site, so we need to let it breathe.
+          EOL.log("#delete_set working on #{this_size}/#{size} (#{count/size.to_f}%)")
+          sleep(10)
+        end
         where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(",")})").
           delete_all
       end

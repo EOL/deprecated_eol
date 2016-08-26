@@ -27,7 +27,7 @@ class Hierarchy
     # be rather hairy! TODO
     def flatten
       EOL.log("Hierarchy::Flattener.flatten(#{@hierarchy.id}) "\
-        "#{@hierarchy.label} (RID: #{@hierarchy.resource.id})", prefix: "#")
+        "#{@hierarchy.label} (RID: #{@hierarchy.resource.try(:id)})", prefix: "#")
       begin
         study_hierarchy
       rescue EOL::Exceptions::EmptyHierarchyFlattened => e

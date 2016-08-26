@@ -2,6 +2,11 @@ class Hierarchy
   class Flattener
     attr_reader :ancestry
 
+    def self.flatten_all
+      Hierarchy.browsable.each { |h| flatten(h) }
+      Hierarchy.nonbrowsable.each { |h| flatten(h) }
+    end
+
     def self.flatten(hierarchy)
       flattener = self.new(hierarchy)
       flattener.flatten

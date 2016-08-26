@@ -126,12 +126,25 @@ module EOL
           prefix: '.') unless options[:silent]
         group_num = 0
         rows = Array(rows)
-        size = rows.size
+         = rows.size
         done = 0
-        rows.in_groups_of(2000, false) do |group|
-          done += group.size
-          EOL.log("group #{group_num += 1} (#{done}/#{size}, #{done / size.to_f * 100}%)") if
-            rows.size > 100_000 && group_num % 10 == 0
+        start = Time.now
+        group_size = 2000
+        groups = size / group_size
+        groups += 1 unless size % group_size == 0
+        warn_threshold = 2000 * 50
+        rows.in_groups_of(group_size, false) do |group|
+          group_num += 1
+          if size > warn_threshold && group_num % 10 == 1
+            done += group.size
+            elapsed = Time.now - start
+            pct = done / size.to_f * 100
+            time_per_group = elapsed / group_num
+            groups_remaining = groups - group_num
+            time_remaining = (groups_remaining * time_per_group).to_i
+            EOL.log("group #{group_num += 1} (#{done}/#{size}, #{pct.round(3)}%, #{time_remaining}s remaining)",
+              prefix: ".")
+          end
           klass.connection.execute(
             "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
             "(`#{fields.join("`, `")}`) "\

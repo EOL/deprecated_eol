@@ -1,5 +1,6 @@
 class CreateCuratorCommunity < ActiveRecord::Migration
   def self.up
+    Visibility.create_enumerated
     community = CuratorCommunity.build
     # I know this sucks, but... it's a requirement on the production EOL, so.....
     # Make Katja the owner of the community:

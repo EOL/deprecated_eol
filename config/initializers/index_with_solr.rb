@@ -32,8 +32,13 @@ module ActiveRecord
             return nil
           end
 
-          self.keywords_to_send_to_solr_index.each do |params|
-            solr_connection.create(params)
+          begin
+            self.keywords_to_send_to_solr_index.each do |params|
+              solr_connection.create(params)
+            end
+          rescue StandardError => e
+            puts "You appear to be running a migration. Skipping index."
+            return nil
           end
         end
 
@@ -55,10 +60,15 @@ module ActiveRecord
           params[:date_created] = self.created_at.solr_timestamp if self.respond_to?('created_at') && self.created_at
           params[:date_modified] = self.updated_at.solr_timestamp if self.respond_to?('updated_at') && self.updated_at
 
-          if self.class == DataObject && !self.data_type_id.blank?
-            data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
-            data_type_label = (data_type_label == 'Text' && self.is_link?) ? 'Link' : data_type_label
-            params[:resource_type] = [self.class.to_s, data_type_label]
+          begin
+            if self.class == DataObject && !self.data_type_id.blank?
+              data_type_label = self.is_video? ? 'Video' : self.data_type.label('en')
+              data_type_label = (data_type_label == 'Text' && self.is_link?) ? 'Link' : data_type_label
+              params[:resource_type] = [self.class.to_s, data_type_label]
+            end
+          rescue StandardError => e
+            puts "You appear to be running a migration. Skipping index."
+            return nil
           end
 
           options[:keywords] ||= []
@@ -80,7 +90,7 @@ module ActiveRecord
                 keywords_to_send_to_solr << params.merge(additional_params)
               elsif return_value.class == Array
                 return_value.each do |rv|
-                  keyword_type = 
+                  keyword_type =
                   additional_params = {
                     :keyword => rv[:keywords],
                     :keyword_type => rv[:keyword_type] || field_or_method,
@@ -132,7 +142,7 @@ module ActiveRecord
         skip_callback :save, :after, :add_to_index rescue nil
         skip_callback :destroy, :before, :remove_from_index rescue nil
       end
-      
+
       def assign_weight!(keyword)
         resource_weight = nil
         if keyword[:resource_type] == 'TaxonConcept'
@@ -149,7 +159,7 @@ module ActiveRecord
           else
             resource_weight = 9
           end
-          
+
         elsif keyword[:resource_type].include? 'DataObject'
           if keyword[:resource_type].include? 'Text'
             resource_weight = 40
@@ -164,7 +174,7 @@ module ActiveRecord
           end
           # we want matches in descriptions to be shown BELOW titles
           resource_weight += 1 if keyword[:keyword_type].to_s == 'description'
-          
+
         elsif keyword[:resource_type].include? 'Community'
           resource_weight = 10
         elsif keyword[:resource_type].include? 'Collection'
@@ -176,7 +186,7 @@ module ActiveRecord
         elsif keyword[:resource_type].include? 'ContentPage'
           resource_weight = 25
         end
-        
+
         resource_weight = 499 if resource_weight.blank?
         keyword[:resource_weight] = resource_weight
       end

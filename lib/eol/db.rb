@@ -126,11 +126,12 @@ module EOL
           prefix: '.') unless options[:silent]
         group_num = 0
         rows = Array(rows)
+        size = rows.size
         done = 0
         rows.in_groups_of(2000, false) do |group|
           done += group.size
-          EOL.log("group #{group_num += 1} (#{done}/#{rows.size})") if
-            rows.size > 40_000 && group_num % 20 == 0
+          EOL.log("group #{group_num += 1} (#{done}/#{size}, #{done / size.to_f * 100}%)") if
+            rows.size > 100_000 && group_num % 10 == 0
           klass.connection.execute(
             "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
             "(`#{fields.join("`, `")}`) "\

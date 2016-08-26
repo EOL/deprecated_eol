@@ -9,18 +9,18 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
-  belongs_to :parent, class_name: HierarchyEntry.to_s, foreign_key: :parent_id
+  belongs_to :parent, class_name: "HierarchyEntry", foreign_key: :parent_id
 
   has_many :agents, through: :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
   has_many :top_images
   has_many :top_unpublished_images
   has_many :synonyms
-  has_many :scientific_synonyms, class_name: Synonym.to_s,
+  has_many :scientific_synonyms, class_name: "Synonym",
       conditions: Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
-  has_many :common_names, class_name: Synonym.to_s,
+  has_many :common_names, class_name: "Synonym",
       conditions: Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
-  has_many :flattened_ancestors, class_name: HierarchyEntriesFlattened.to_s
+  has_many :flattened_ancestors, class_name: "FlatEntry"
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
   has_many :curated_data_objects_hierarchy_entries
@@ -41,7 +41,7 @@ class HierarchyEntry < ActiveRecord::Base
     association_foreign_key: 'ancestor_id', order: 'lft'
   has_and_belongs_to_many :harvest_events
 
-  has_many :hierarchy_descendants_relationship, class_name: HierarchyEntriesFlattened.to_s, foreign_key: 'ancestor_id'
+  has_many :hierarchy_descendants_relationship, class_name: "FlatEntry", foreign_key: 'ancestor_id'
 
   has_many :descendants, through: :hierarchy_descendants_relationship, source: 'hierarchy_entry'
 
@@ -411,7 +411,6 @@ class HierarchyEntry < ActiveRecord::Base
     top_images.destroy_all
     # takes too long, prolly not needed: top_unpublished_images.destroy_all
     synonyms.destroy_all
-    HierarchyEntriesFlattened.where(hierarchy_entry_id: id).destroy_all
     curator_activity_logs.destroy_all
     hierarchy_entry_moves.destroy_all
     # TODO: handling data objects here. Not doing it now because this is only

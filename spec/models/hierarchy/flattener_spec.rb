@@ -18,20 +18,18 @@ describe Hierarchy::Flattener do
 
   it 'should create ancestry' do
     expect(flattener.flatten).not_to raise_error
-    flats = HierarchyEntriesFlattened.where(hierarchy_entry_id: entry_1_2_3.id)
     {
       entry_2_1 => [entry_2],
       entry_1_2 => [entry_1],
       entry_1_2_3 => [entry_1_2, entry_1]
     }.each do |child, ancestors|
       ancestors.each do |ancestor|
-        expect(HierarchyEntriesFlattened.exists?(hierarchy_entry_id: child.id,
+        expect(FlatEntry.exists?(hierarchy_entry_id: child.id,
           ancestor_id: ancestor.id)).to be_true
       end
     end
     [entry_1, entry_2, entry_3].each do |root|
-      expect(HierarchyEntriesFlattened.exists?(hierarchy_entry_id: root.id)).
-        to_not be_true
+      expect(FlatEntry.exists?(hierarchy_entry_id: root.id)).to_not be_true
     end
   end
 end

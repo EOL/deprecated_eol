@@ -44,20 +44,7 @@ module EOL
       root_he = HierarchyEntry.new
       root_he.id = 0
       Hierarchy.find(:all).each do |hierarchy|
-        EOL::Data.flatten_hierarchies_recursion(root_he, hierarchy)
-      end
-    end
-
-    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper
-    # lft/rgt IDs to them and their children via .assign_id
-    def self.flatten_hierarchies_recursion(node, hierarchy, parents=[])
-      parents.each do |p|
-        HierarchyEntriesFlattened.find_or_create_by_hierarchy_entry_id_and_ancestor_id(node.id, p.id) if node.id != p.id
-        TaxonConceptsFlattened.find_or_create_by_taxon_concept_id_and_ancestor_id(node.taxon_concept_id, p.taxon_concept_id) if node.taxon_concept_id != p.taxon_concept_id
-      end
-      HierarchyEntry.find_all_by_parent_id_and_hierarchy_id(node.id, hierarchy.id).each do |child_node|
-        child_parents = parents + [child_node]
-        EOL::Data.flatten_hierarchies_recursion(child_node, hierarchy, child_parents)
+        Hierarchy.flatten
       end
     end
 

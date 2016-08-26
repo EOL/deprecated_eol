@@ -23,7 +23,7 @@ describe 'API:hierarchy_entries_descendants' do
     @descentant_hierarchy_entry = HierarchyEntry.gen(identifier: '123abb', hierarchy: @hierarchy,
                                                     name: @name_of_descentant_hierarchy_entry, published: 1,
                                                     rank: @rank_of_descentant_hierarchy_entry)
-    HierarchyEntriesFlattened.create(hierarchy_entry_id: @descentant_hierarchy_entry.id , ancestor_id: @hierarchy_entry.id)
+    FlatEntry.create(hierarchy_entry_id: @descentant_hierarchy_entry.id , ancestor_id: @hierarchy_entry.id, hierarchy_id: @hierarchy.id)
   end
 
 

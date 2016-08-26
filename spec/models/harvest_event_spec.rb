@@ -103,7 +103,7 @@ describe HarvestEvent do
       # NOTE that this one is required because harvest_events_hierarchy_entries
       # does NOT include all entries that were harvested! (Stupidly; we'll fix
       # that later.) Thus we need to ensure that this method is ALSO returning
-      # any "ancestors" that were created in HierarchyEntriesFlattened which
+      # any "ancestors" that were created in FlatEntry which
       # were NOT in harvest_events_hierarchy_entries.
     end
 
@@ -115,12 +115,12 @@ describe HarvestEvent do
       # NOTE: associated through hierarchy entries.
       it "should publish all synonyms"
       it "should publish flat_ancestor entries"
-      # NOTE: this means you will have to create HierarchyEntriesFlattened and
+      # NOTE: this means you will have to create FlatEntry and
       # ensure that the ancestor entries are published. Two ancestors of one
       # entry is plenty.
       it "should show flat_ancestor entries"
       it "should publish flat_ancestor synonyms"
-      # NOTE that those go through the HierarchyEntriesFlattened.
+      # NOTE that those go through the FlatEntry.
       it "should publish flat_ancestor taxon_concepts"
       # NOTE that these go through TaxonConceptsFlattened.
       it "should return a list of entry ids affected"

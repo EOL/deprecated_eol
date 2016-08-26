@@ -19,6 +19,7 @@ class Hierarchy < ActiveRecord::Base
   before_save :reset_request_publish, if: Proc.new { |hierarchy| hierarchy.browsable == 1 }
 
   scope :browsable, conditions: { browsable: true }
+  scope :nonbrowsable, conditions: { browsable: false }
 
   alias entries hierarchy_entries
 
@@ -218,9 +219,8 @@ class Hierarchy < ActiveRecord::Base
     EOL.log("done", prefix: ".")
   end
 
-  # This  query takes 10min in production for 533_548 entries.
   def ancestry_set
-    @ancestry_set ||= HierarchyEntriesFlattened.pks_in_hierarchy(self)
+    @ancestry_set ||= FlatEntry.where(hierarchy_id: id)
   end
 
   def clear_ancestry_set

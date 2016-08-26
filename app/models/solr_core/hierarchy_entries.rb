@@ -21,28 +21,32 @@ class SolrCore
       @ids = Array(options[:ids])
       ancestry = EOL.wait_for_results { hierarchy.ancestry_set }
       entry_ancestors = build_entry_ancestors(ancestry)
-      entries = build_entries(ancestry)
+      entries = build_entries
       add_ancestry(entries, entry_ancestors)
       EOL.log("Found #{entries.size} entries")
       raise "PROBLEM: no entries found!" if entries.size == 0
-      reindex_items(entries)
+      if @ids.empty?
+        delete("hierarchy_id:#{hierarchy.id}")
+        index_items(entries)
+      else
+        reindex_items(entries)
+      end
     end
 
     def build_entry_ancestors(ancestry)
       entry_ancestors = {}
       EOL.log("Given #{@ids.size} IDs to index.") unless @ids.empty?
-      ancestry.each do |pair|
-        (entry, ancestor) = pair.split(",").map(&:to_i)
-        next unless @ids.empty? || @ids.include?(entry)
-        entry_ancestors[entry] ||= []
-        entry_ancestors[entry] << ancestor
-        @all_ids << entry
-        @all_ids << ancestor
+      ancestry.group_by(&:hierarchy_entry_id).each do |eid, ancestors|
+        next unless @ids.empty? || @ids.include?(ancestor.hierarchy_entry_id)
+        a_ids = ancestors.map(&:ancestor_id)
+        entry_ancestors[eid] = a_ids
+        @all_ids << eid
+        @all_ids += a_ids
       end
       entry_ancestors
     end
 
-    def build_entries(ancestry)
+    def build_entries
       entries = []
       @all_ids.to_a.in_groups_of(10_000, false) do |ids|
         entries += HierarchyEntry.where(id: ids).

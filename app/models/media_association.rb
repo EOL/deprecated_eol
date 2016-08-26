@@ -56,10 +56,9 @@ class MediaAssociation < ActiveRecord::Base
       data = Set.new(assocs.values.flatten)
       ids = assocs.keys
       ids.in_groups_of(6400, false) do |group|
-        HierarchyEntriesFlattened.where(hierarchy_entry_id: group).
-          find_each do |he|
-          assocs[he.hierarchy_entry_id].each do |row|
-            data << row.sub(/^\d+/, he.ancestor_id.to_s)
+        FlatEntry.where(hierarchy_entry_id: group).find_each do |flat_entry|
+          assocs[flat_entry.hierarchy_entry_id].each do |row|
+            data << row.sub(/^\d+/, flat_entry.ancestor_id.to_s)
           end
         end
       end

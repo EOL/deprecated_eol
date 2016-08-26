@@ -78,7 +78,7 @@ class Hierarchy
       @flat_concepts = Set.new
       @ancestry.keys.each do |child|
         @ancestry[child].each do |ancestor|
-          @flat_entries << "#{child},#{ancestor}"
+          @flat_entries << "#{@hierarchy.id},#{child},#{ancestor}"
           @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor] || 0}"
         end
       end
@@ -88,30 +88,17 @@ class Hierarchy
     end
 
     def update_tables
-      # Ensure we're looking at the latest version:
-      @hierarchy.clear_ancestry_set
-      currently = @hierarchy.ancestry_set
-      old = currently - @flat_entries
-      create = @flat_entries - currently
-      if old.size <= 0 && create.size <= 0
-        EOL.log("Hierarchy already properly flattened, skipping.")
-        # NOTE: it's *possible* (maybe?) that there are flattened taxa to add
-        # that we're skipping here, but I *really* don't think that's going to
-        # happen, so I don't think it's worth doing.
-      else
-        EOL.log("Ancestry is now #{currently.size}, wants to be "\
-        "#{@flat_entries.size} (#{old.size} old, #{create.size} new)",
-        prefix: ".")
-        HierarchyEntriesFlattened.delete_set(old)
-        # Now ensure that no later process gets an empty set!
+      EOL.log("delete old hierarchy ancestry...", prefix: ".")
+      FlatEntry.where(hierarchy_id: @hierarchy.id).delete_all
+      # Now ensure that no later process gets an empty set!
+      begin
+        EOL::Db.bulk_insert(FlatEntry,
+          [ "hierarchy_id", "hierarchy_entry_id", "ancestor_id" ],
+          @flat_entries)
         @hierarchy.clear_ancestry_set
-        begin
-          EOL::Db.bulk_insert(HierarchyEntriesFlattened,
-          [ "hierarchy_entry_id", "ancestor_id" ], create)
-        rescue ActiveRecord::RecordNotUnique => e
-          raise "Did you run this with_master? tried to create a duplicate "\
+      rescue ActiveRecord::RecordNotUnique => e
+        raise "Did you run this with_master? tried to create a duplicate "\
           "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
-        end
       end
 
       # TODO: Ideally, we would also build diffs for taxa... also, we never

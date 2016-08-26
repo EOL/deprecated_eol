@@ -1,7 +1,12 @@
-# An ancestry tree for hierarchy entries. It's a bit absurd to me that
-# hierarchy_id isn't in the fields. It's also crazy that we don't index
-# individual fields (just the PK, which is the combo)... but so far, things
-# aren't _that_ slow, so we perservere.
+#
+#
+#
+#
+# DEPRECATED. Use FlatEntry istead. This table/class is now only relevant to PHP.
+#
+#
+#
+#
 class HierarchyEntriesFlattened < ActiveRecord::Base
   self.table_name = "hierarchy_entries_flattened"
   self.primary_keys = :hierarchy_entry_id, :ancestor_id
@@ -11,6 +16,8 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
 
   class << self
     def delete_set(id_pairs)
+      EOL.log("DEPRECATED: call to HierarchyEntriesFlattened.delete_set",
+        prefix: "!")
       return if id_pairs.empty?
       ids_array = id_pairs.to_a.map { |pair| "(#{pair})" }
       size = ids_array.size
@@ -34,6 +41,8 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
     # should only be used during harvesting (and it should be cached after it's
     # called):
     def pks_in_hierarchy(hierarchy)
+      EOL.log("DEPRECATED: call to HierarchyEntriesFlattened.pks_in_hierarchy",
+        prefix: "!")
       pks = Set.new
       ids = hierarchy.hierarchy_entries.pluck(:id)
       num = 0
@@ -53,6 +62,8 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
 
   # TODO: This should really be an aliased attribute (I think), but I'm in a rush.
   def flat_ancestor
+    EOL.log("DEPRECATED: call to HierarchyEntriesFlattened#flat_ancestor",
+      prefix: "!")
     ancestor
   end
 end

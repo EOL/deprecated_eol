@@ -128,7 +128,7 @@ class HarvestEvent < ActiveRecord::Base
     return @hierarchy_entry_ids_with_ancestors if
       @hierarchy_entry_ids_with_ancestors
     harvested = hierarchy_entries.pluck(:id)
-    ancestors = HierarchyEntriesFlattened.where(hierarchy_entry_id: harvested).
+    ancestors = FlatEntry.where(hierarchy_entry_id: harvested).
       pluck("DISTINCT ancestor_id")
     @hierarchy_entry_ids_with_ancestors = Set.new(harvested + ancestors).to_a
   end
@@ -278,6 +278,7 @@ class HarvestEvent < ActiveRecord::Base
         entry.taxon_concept.hierarchy_entries.blank?
       name.destroy if name.hierarchy_entries.blank?
       hierarchy.destroy if hierarchy.hierarchy_entries.blank?
+      FlatEntry.where(hierarchy_id: hierarchy.id).delete_all
     end
     # This next operation can fail because of table locks...
     begin

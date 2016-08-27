@@ -177,6 +177,7 @@ class PageSerializer
       {
         resource: resource,
         rank: node.rank.label,
+        page_id: node.taxon_concept_id,
         scientific_name: node.italicized_name,
         canonical_form: node.title_canonical_italicized,
         resource_pk: node.identifier,

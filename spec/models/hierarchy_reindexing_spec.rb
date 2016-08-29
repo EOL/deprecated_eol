@@ -11,8 +11,8 @@ describe HierarchyReindexing do
     expect(HierarchyReindexing.class_eval { @queue }).to eq('notifications')
   end
 
-  it "repopulates the flattened ancestors" do 
-    expect_any_instance_of(Hierarchy).to receive(:repopulate_flattened)
+  it "repopulates the flattened ancestors" do
+    expect_any_instance_of(Hierarchy).to receive(:flatten)
     HierarchyReindexing.perform({"id"=> @hierarchy_reindexing.id})
   end
 
@@ -21,9 +21,9 @@ describe HierarchyReindexing do
      HierarchyReindexing.perform({"id"=> nil})
 
   end
-  
-  it "repopulates the flattened ancestors" do 
-    expect_any_instance_of(Hierarchy).to receive(:repopulate_flattened)
+
+  it "repopulates the flattened ancestors" do
+    expect_any_instance_of(Hierarchy).to receive(:flatten)
     HierarchyReindexing.perform({"id"=> @hierarchy_reindexing.id})
   end
 end

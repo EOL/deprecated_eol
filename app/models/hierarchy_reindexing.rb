@@ -1,31 +1,56 @@
+# TODO: this class is NOT NEEDED. Refactor and remove; simply process by
+# hierarchy id.
 class HierarchyReindexing < ActiveRecord::Base
 
   belongs_to :hierarchy
   scope :pending, -> { where( completed_at: nil ) }
-  @queue = 'notifications'
+  # Putting this in the harvesting queue because if one of these is running, it
+  # runs the risk of screwing up a harvest (by locking a table and causing a
+  # timeout)
+  @queue = 'harvesting'
 
-  def self.enqueue(which)
-      @self = HierarchyReindexing.create( hierarchy_id: which.id )
-      Resque.enqueue(HierarchyReindexing, id: @self.id)
-  end
+  class << self
+    def enqueue_unless_pending(which, options = {})
+      queue = HierarchyReindexing.instance_eval { @queue } || :harvesting
+      HierarchyReindexing.with_master do
+        return false if Resque.size(queue) > 100 # The queue is overwhelmed, wait.
+        pending = Background.in_queue?(queue, HierarchyReindexing,
+          "hierarchy_id", which.id)
+        return false if pending
+      end
+      HierarchyReindexing.enqueue(which, options)
+      true
+    end
 
-  def self.perform(args)
-    Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
-    if HierarchyReindexing.exists?(args["id"])
-        begin
-          HierarchyReindexing.find(args["id"]).run
-        rescue => e
-          Rails.logger.error "HierarchyReindexing (#{args["id"]}) FAILED: "\
-            " #{e.message}"
+    def enqueue(which, options = {})
+      HierarchyReindexing.with_master do
+        HierarchyReindexing.where(hierarchy_id: which.id).delete_all
+      end
+      @self = HierarchyReindexing.create(hierarchy_id: which.id)
+      Resque.enqueue(HierarchyReindexing, options.merge(id: @self.id, hierarchy_id: which.id))
+    end
+
+    def perform(args)
+      HierarchyReindexing.with_master do
+        if HierarchyReindexing.exists?(args["id"])
+          begin
+            EOL.log("HierarchyReindexing: #{args}", prefix: "R")
+            HierarchyReindexing.find(args["id"]).run
+          rescue => e
+            EOL.log("HierarchyReindexing #{args["id"]} FAILED: #{e.message}",
+              prefix: "!")
+          end
+        else
+          # Do nothing for now—for some reason this is happening a LOT, so let's
+          # just silently ignore it
         end
-    else
-       Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skippped."
+      end
     end
   end
 
   def run
     start
-    hierarchy.repopulate_flattened
+    hierarchy.flatten
     complete
   end
 

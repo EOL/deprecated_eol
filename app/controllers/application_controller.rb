@@ -455,9 +455,9 @@ class ApplicationController < ActionController::Base
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
     if Rails.cache
-      Rails.cache.delete('homepage/activity_logs_expiration')
       Language.find_active.each do |language|
-        expire_fragment(controller: '/content', action: 'index', action_suffix: "activity_#{language.iso_639_1}")
+        expire_fragment(action: 'index', controller: "content",
+          action_suffix: "activity_#{language}_data_#{EolConfig.data?}")
       end
     end
   end

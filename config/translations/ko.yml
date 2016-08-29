@@ -56,7 +56,7 @@ ko:
         content_partner_status: 프로젝트 상태
         created_at: 만들어짐
         description: 프로젝트 설명
-        display_name: 보여줄 이름
+        display_name: 표시 이름
         full_name: 프로젝트 이름
         homepage: 프로젝트 URL
         id: ID
@@ -67,7 +67,7 @@ ko:
         vetted: 조사됨
       content_partner_agreement:
         created_at: 만든 곳
-        signed_by: 다음 사용자로 로그인
+        signed_by: 서명자
         signed_on_date: 날짜에 로그인
       content_partner_contact:
         email_reports_frequency_hours: 이메일 보고서의 빈도
@@ -151,6 +151,7 @@ ko:
         total_associations: 협회
         total_measurement_types: 측정 방식
         total_user_added_data: 사용자가 추가한 데이터
+        total_data_records: 데이터 레코드
       forum:
         forum_category_id: 분류
         name: 포럼 이름
@@ -282,7 +283,7 @@ ko:
         predicate: 특성
         object: 값
     errors:
-      format: '%{attribute}(은)는 %{message}'
+      format: '%{attribute} %{message}'
       template:
         header:
           one: 유효성 검사 오류 %{count}개를 찾았습니다
@@ -311,7 +312,7 @@ ko:
           one: '%{count}보다 많아야 합니다'
           other: '%{count}보다 많아야 합니다'
         greater_than_or_equal_to: '%{count}보다 크거나 같아야 합니다'
-        equal_to: '%{count}(와)과 같아야 합니다'
+        equal_to: '%{count}와(과) 같아야 합니다'
         less_than:
           one: '%{count}보다 작아야 합니다'
           other: '%{count}보다 작아야 합니다'
@@ -321,13 +322,13 @@ ko:
         inaccessible: 접근할 수 없습니다
         wrong_type: 잘못된 형식입니다
       full_messages:
-        format: '%{attribute}(은)는 %{message}'
+        format: '%{attribute} %{message}'
       models:
         data_object:
           attributes:
             rights_holder:
               blank: CC-BY 라이선스를 비워 둘 수 없습니다
-              inclusion: 퍼블릭 도메인 라이선스를 비어두어야 합니다
+              inclusion: 퍼블릭 도메인 라이선스를 비워두어야 합니다
         harvest_event:
           attributes:
             publish:
@@ -382,7 +383,7 @@ ko:
         description_of_data: 데이터에 대한 설명 <small>(비공개)</small>
         description_of_data_more: 얼마나 많은 항목을 사용할 수 있는지, 관련된 생명체가 무엇인지, 그리고 그들이 조합
           또는 공인 전문가 또는 지식을 공동체에 의해 선택되었는지 여부에 대해 당신이 가진 정보의 유형에 대한 설명을 제공하세요.
-        last_action: 마지막 행동
+        last_action: 마지막 동작
         latest_published_harvest_event: 최근 게시함
         logo_current: '현재 로고:'
         logo_new: '새 로고 올리기:'
@@ -397,8 +398,8 @@ ko:
           적용됩니다. EOL 내용 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을
           올릴</a> 수 있습니다.
       content_partner_contact:
-        email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 행동이
-          있다면 이메일 보고서가 보내집니다.
+        email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 동작이
+          있을 경우에만 이메일 보고서가 보내집니다.
       data_object:
         bibliographic_citation: 참고 문헌 인용
         bibliographic_citation_more: 가능한 모호하지 않게 데이터를 식별하기에 충분한 자세한 내용이 포함된 참고 문헌의
@@ -476,10 +477,10 @@ ko:
         connected: 연결함
         connect: 추가
       resource:
-        administration_settings: 관리자 설정 <small>(EOL 관리자한테만 보여짐)</small>
+        administration_settings: 관리자 설정 <small>(EOL 관리자에게만 표시됨)</small>
         accesspoint_url: 데이터 집합 URL
-        accesspoint_url_existing_remove: 이 자료는 현재 끝난 URL인 <em>%{accesspoint_url}</em>(을)를
-          불러오고 있습니다. 기존 URL을 제거하려면 파일을 올리고 대신 파일에서 자료를 불러오세요.
+        accesspoint_url_existing_remove: 이 리소스는 현재 <em>%{accesspoint_url}</em>로 끝나는
+          URL로부터 불러오고 있습니다. 기존 URL을 제거하고 파일로부터 리소스를 대신 불러오려면 파일을 업로드하세요. (권장하지 않음)
         dataset: 데이터 집합
         dataset_existing_replace: <em>%{file_name}</em> 파일은 현재 이 자료와 연결되어 있습니다. 기존
           <em>%{file_name}</em> 파일을 바꾸려면 새 파일을 올리세요.
@@ -572,7 +573,7 @@ ko:
         open_authentications_more: EOL에 로그인할 때 사용할 수 있는 타사 계정에 대한 연결을 관리합니다. <a href="%{open_authentications_url}">연결된
           계정 편집하기</a>
         open_authentications_connected_accounts: 연결한 계정
-        requested_curator_level: '%{curator_level_with_indefinite_article}(이)가 되는
+        requested_curator_level: '%{curator_level_with_indefinite_article}이(가) 되는
           요청은 보류 중입니다.'
         requested_curator_level_id_more: 아직 어떠한 자격을 갖추지 않았으면 <em>조수 큐레이터</em>를 선택하세요.
           전문 과학자나 대학원생 자격을 갖추었다면 <em>전체 큐레이터</em>를 선택하세요. EOL 큐레이터를 경험했거나 더 많은 책임을
@@ -647,7 +648,7 @@ ko:
         force_harvest: 강제로 수확 요청
       session:
         create: 로그인
-        sign_in_with_facebook: 페이스북으로 로그인
+        sign_in_with_facebook: Facebook으로 로그인
         sign_in_with_google: Google로 로그인
         sign_in_with_twitter: 트위터로 로그인
         sign_in_with_yahoo: 야후로 로그인
@@ -777,6 +778,8 @@ ko:
     new:
       page_title: 피드백을 남겨주세요
   collections:
+    download_taxa_data:
+      select_all_checkbox: 모두 선택
     show:
       meta_description_default: '%{collection_name} 제목의 생명체 백과사전 모음집입니다.'
       meta_description_default_focus_collection: '%{collection_name} 제목의 생명체 백과사전
@@ -830,7 +833,7 @@ ko:
           %{community_name} 댓글, %{community_name} 활동'
     show:
       meta_description: '%{community_name} 생명의 백과사전 공동체가 주인에 의해 제거되었습니다'
-      meta_title: '%{community_name}(이)가 주인에 의해 제거됨'
+      meta_title: '%{community_name}이(가) 주인에 의해 제거됨'
   content:
     index:
       header_news: EOL 뉴스
@@ -876,7 +879,7 @@ ko:
       meta_title: '%{supplier}에서 %{dato_title}'
       tweet_text: '%{supplier}에서 %{dato_title}'
   eol_statistics:
-    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">(와)과</span>
+    comparing_dates: <span class="date_one">%{date_one}</span><span class="assistive">와(과)</span>
       <span class="date_two">%{date_two}</span> <span class="assistive">비교</span>
     warnings:
       stats_unavailable_for_date: 죄송합니다, 통계는 %{date}에 사용할 수 없습니다. 다른 날짜를 선택하세요.
@@ -914,6 +917,7 @@ ko:
       page_title: 통계
     data:
       menu_link: 데이터
+      page_header: 데이터 통계
       page_title: 통계
   forums:
     forums_heading: EOL 포럼
@@ -929,8 +933,8 @@ ko:
     update_failed: 죄송합니다, 오류가 발생해 포럼을 업데이트할 수 없습니다
     delete_successful: 포럼을 성공적으로 삭제했습니다
     delete_failed_not_empty: 포럼이 비어있지 않으므로 포럼을 삭제할 수 없습니다
-    move_successful: 포럼을 성공적으로 옮겼습니다
-    move_failed: 포럼을 옮길 수 없습니다
+    move_successful: 포럼을 성공적으로 이동했습니다
+    move_failed: 포럼을 이동할 수 없습니다
     edit: 포럼 편집
     post_by_user_at_time: '%{user}, %{time}'
     actions: 동작
@@ -950,8 +954,8 @@ ko:
       update_failed: 죄송합니다, 오류가 발생해 분류를 업데이트할 수 없습니다
       delete_successful: 분류를 성공적으로 삭제했습니다
       delete_failed_not_empty: 분류가 비어있지 않으므로 분류를 삭제할 수 없습니다
-      move_successful: 분류를 성공적으로 옮겼습니다
-      move_failed: 분류를 옮길 수 없습니다
+      move_successful: 분류를 성공적으로 이동했습니다
+      move_failed: 분류를 이동할 수 없습니다
     posts:
       joined_date: '%{date}에 가입함'
       create: 새 게시물 만들기
@@ -981,7 +985,12 @@ ko:
       delete_successful: 스레드를 성공적으로 삭제했습니다
       delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
   known_uris:
+    add_a_relationship: 관계 추가
     relationships: 관계
+    uri_placeholder_text: '예: http://purl.org/dc/terms/contributor'
+    name_placeholder_text: '예: 기여자'
+    ontology_information_url_placeholder_text: '예: http://dublincore.org/documents/dcmi-terms/'
+    ontology_source_url_placeholder_text: '예: http://dublincore.org/2012/06/14/dcterms.rdf'
     preferred_for_equivalence_group: 선호
     select: 선택
   layouts:
@@ -1003,7 +1012,7 @@ ko:
       about_link_contact_us: 문의하기
       learn_more_link_animals: 동물
       learn_more_link_mammals: 포유류
-      learn_more_link_birds: 조류
+      learn_more_link_birds: 조류 (새)
       learn_more_link_amphibians: 양서류
       learn_more_link_reptiles: 파충류
       learn_more_link_fish: 어류
@@ -1023,6 +1032,7 @@ ko:
       learn_more_link_protists: 원생생물
       learn_more_link_archaea: 고세균
       learn_more_link_viruses: 바이러스
+      learn_more_link_algae: 조류 (수생 생물)
       questions_link_evolution: 진화가 무엇인가요?
       questions_link_biodiversity: 생물 다양성이 무엇입니까?
       questions_link_species: 종은 무엇입니까?
@@ -1059,33 +1069,33 @@ ko:
   notifier:
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
     activity_user_added_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 추가했습니다.
     activity_user_removed_association_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에
+      %{curator_level} %{users_name} (%{users_url})은(는) %{action_date}에
       %{object_name} (%{object_url})에 대해 알 수 없는 연관을 제거했습니다.
     activity_user_added_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 추가했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 추가했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_removed_association_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 연관을 제거했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 연관을 제거했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 있음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 있음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 신뢰할 수 없음으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 신뢰할 수 없음으로 표시했습니다:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 부적절한 것으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})은(는) 부적절한 것으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     comments_empty: 최근 댓글이 없습니다.
@@ -1096,7 +1106,7 @@ ko:
 
       생명의 백과사전 팀
     signature_with_species_pages_group_contact: |-
-      궁금한 사항이 있으면 %{species_pages_group_email} (으)로 문의하시기 바랍니다.
+      궁금한 사항이 있으면 %{species_pages_group_email}(으)로 문의하시기 바랍니다.
 
       생명의 백과사전 팀
     user_commented_on_something_date_body: |-
@@ -1107,11 +1117,11 @@ ko:
     activity_on_content_partner_content:
       subject: '%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 내용에 대한 최근 활동의 요약입니다'
       message: |-
-        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
+        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
 
-        질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
+        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
-        큐레이트 행동:
+        큐레이트 동작%{data_object_comments}:
         %{curator_activity_log}
 
         데이터 개체에 대한 댓글:
@@ -1122,12 +1132,12 @@ ko:
     activity_on_user_content:
       subject: 생명의 백과사전에 추가한 내용에 대한 최근 활동의 요약
       message: |-
-        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.
+        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다.
 
-        질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
+        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
 
-        큐레이트 행동:
+        큐레이트 동작:
         %{curator_activity_log}
 
         데이터 개체에 대한 댓글:
@@ -1304,33 +1314,32 @@ ko:
     default_subject: EOL에 대한 최근 활동
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
-    comment_title: '%{who} 사용자가 %{what}에 댓글을 남겼습니다'
-    comment_title_your_newsfeed: '%{who} 사용자가 뉴스 피드에 댓글을 남겼습니다'
-    collection_activity_log_title: '%{who} 사용자가 모음집을 수정했습니다'
-    community_activity_log_title: '%{who} 사용자가 공동체를 수정했습니다'
-    curator_activity_log_title: '%{who} 사용자가 누군가하게 큐레이트했습니다'
-    data_object_title: '%{who} 사용자가 EOL에 새 내용을 추가했습니다'
-    someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 댓글을 남겼습니다.
+    comment_title: '%{who}님이 %{what}에 댓글을 남겼습니다'
+    comment_title_your_newsfeed: '%{who}님이 뉴스 피드에 댓글을 남겼습니다'
+    collection_activity_log_title: '%{who}님이 모음집을 수정했습니다'
+    community_activity_log_title: '%{who}님이 공동체를 수정했습니다'
+    curator_activity_log_title: '%{who}님이 무언가를 큐레이트했습니다'
+    data_object_title: '%{who}님이 EOL에 새 내용을 추가했습니다'
+    someone_commented_on_something: <b>%{who}</b>님이 <b>%{what}</b>에 댓글을 남겼습니다.
     comment_link: EOL에 대한 댓글 보기
-    collection_activity_by_user: <b>%{user_name}</b> 사용자가 <b>%{collection_name}</b>
-      모음집에 %{activity_name} 행동을 수행했습니다.
-    collection_activity_user_added_item: '<b>%{user_name}</b> 사용자가 <b>%{collection_name}</b>
+    collection_activity_by_user: <b>%{user_name}</b>님이 <b>%{collection_name}</b> 모음집에
+      %{activity_name} 동작을 수행했습니다.
+    collection_activity_user_added_item: '<b>%{user_name}</b>님이 <b>%{collection_name}</b>
       모음집에 %{collected_item_type} #%{collected_item_id} 항목을 추가했습니다.'
-    collection_activity_user_watching_recipient: <b>%{user_name}</b> 사용자는 당신을 주시하고
-      있습니다.
-    community_activity_by_user: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
-      공동체에 %{activity_name} 행동을 수행했습니다.
+    collection_activity_user_watching_recipient: <b>%{user_name}</b>님은 당신을 주시하고 있습니다.
+    community_activity_by_user: <b>%{user_name}</b>님이 <b>%{community_name}</b> 공동체에
+      %{activity_name} 동작을 수행했습니다.
     community_activity_user_joined: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
       공동체에 가입했습니다.
     community_activity_user_left: <b>%{user_name}</b> 사용자가 <b>%{community_name}</b>
       공동체를 떠났습니다.
-    community_activity_user_made_member_a_manager: <b>%{user_name}</b> 사용자가 <b>%{member_name}</b>
+    community_activity_user_made_member_a_manager: <b>%{user_name}</b>님이 <b>%{member_name}</b>
       사용자를 <b>%{community_name}</b> 공동체의 관리자로 정했습니다.
-    curator_activity_on_data_object_by_user: '<b>%{user_name}</b> 사용자가 <b>%{dato_title}</b>
-      (%{dato_type} #%{dato_id})에 %{activity_name} 행동을 수행했습니다.'
-    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b>
-      (%{taxon_overview_url})에 %{activity_name} 행동을 수행했습니다.
-    data_object_activity_article_added_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b>
+    curator_activity_on_data_object_by_user: '<b>%{user_name}</b>님이 <b>%{dato_title}</b>
+      (%{dato_type} #%{dato_id})에 %{activity_name} 동작을 수행했습니다.'
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b>님이 <b>%{taxon_concept}</b>
+      (%{taxon_overview_url})에 %{activity_name} 동작을 수행했습니다.
+    data_object_activity_article_added_by_user: <b>%{user_name}</b>님이 <b>%{taxon_concept}</b>
       (%{taxon_details_url})에 %{dato_title}(으)로 부르는 문서를 추가했습니다.
   recent_activities:
     index:
@@ -1383,7 +1392,7 @@ ko:
         hierarchy_entry:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}을 포함하는
             모음집입니다.'
-          meta_description_with_common_name: '%{preferred_common_name}(을)를 포함하는 모음집입니다.
+          meta_description_with_common_name: '%{preferred_common_name}을(를) 포함하는 모음집입니다.
             (%{hierarchy_provider}에 의해 분류한 %{scientific_name})'
           meta_keywords: '%{scientific_name} 모음집, %{scientific_name} 관찰, %{hierarchy_provider}
             모음집, %{hierarchy_provider} 관찰, %{hierarchy_provider} 표본'
@@ -1391,8 +1400,8 @@ ko:
           meta_title_with_common_name: '%{preferred_common_name}의 모음집 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
           tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 모음집'
-        meta_description: '%{scientific_name}(을)를 포함하는 모음집입니다.'
-        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})(을)를
+        meta_description: '%{scientific_name}을(를) 포함하는 모음집입니다.'
+        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})을(를)
           포함하는 모음집입니다.'
         meta_keywords: '%{scientific_name} 모음집, %{scientific_name} 관찰'
         meta_keywords_with_common_name: '%{preferred_common_name} 모음집, %{preferred_common_name}
@@ -1431,7 +1440,7 @@ ko:
             존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에
             대한 문서를 기여하는 데 초대합니다.
           meta_description_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해
-            분류한 %{scientific_name}에 대한 설명과 문서입니다. %{scientific_name}에 대한 %{chapter_list}(을)를
+            분류한 %{scientific_name}에 대한 설명과 문서입니다. %{scientific_name}에 대한 %{chapter_list}을(를)
             포함합니다.
           meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해
             분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과 문서입니다.
@@ -1440,8 +1449,8 @@ ko:
             EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에
             대한 문서를 기여하는 데 초대합니다.
           meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에
-            의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과
-            문서입니다. %{chapter_list}(을)를 포함합니다.
+            의해 분류된, 학명이 %{scientific_name}인 %{preferred_common_name}에 대한 설명과 문서입니다.
+            %{chapter_list}을(를) 포함합니다.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 설명과 문서'
           meta_title_with_common_name: '%{preferred_common_name}에 대한 설명과 문서 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
@@ -1449,16 +1458,16 @@ ko:
         meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 설명과 문서
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 문서가 없습니다. EOL은
           보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
-        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설며오가
-          문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설명과
+          문서입니다. %{chapter_list}을(를) 포함합니다.
         meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진
           %{preferred_common_name}에 대한 설명과 문서입니다.
         meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도
           알려진 %{preferred_common_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고
           더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 문서를 기여하는 데
           초대합니다.
-        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 과학적으로 %{scientific_name}라고도
-          알려진 %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 학명이 %{scientific_name}인
+          %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}을(를) 포함합니다.
         meta_title: '%{scientific_name}에 대한 설명과 문서'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
           대한 설명과 문서'
@@ -1504,8 +1513,8 @@ ko:
         hierarchy_entry:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가
             어디서 살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다.'
-          meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고
-            어디서 살고 있습니까? %{hierarchy_provider}에 의해 분류한 %{scientific_name}(이)가 어디서
+          meta_description_with_common_name: 어디서 %{preferred_common_name}을(를) 찾았고
+            어디서 살고 있습니까? %{hierarchy_provider}에 의해 분류한 %{scientific_name}이(가) 어디서
             살고 세계에 고유 위치가 어디에 있는지에 대한 지리 정보입니다.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 지도'
           meta_title_with_common_name: '%{preferred_common_name}의 지도 (%{hierarchy_provider}에
@@ -1514,13 +1523,13 @@ ko:
         meta_description: '%{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 곳입니다.'
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 대해 존재하는 지리 정보가 없습니다.
           EOL은 %{scientific_name}에 대한 지도를 기여하는 데 초대합니다.
-        meta_description_with_common_name: 어디서 %{preferred_common_name}(을)를 찾았고 어디서
+        meta_description_with_common_name: 어디서 %{preferred_common_name}을(를) 찾았고 어디서
           살고 있습니까? %{scientific_name}에 대한 지리 정보입니다. 세계에서 살고 있는 장소입니다.
         meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도
           알려진 %{preferred_common_name}에 대해 존재하는 지리 정보가 없습니다. EOL은 %{preferred_common_name}
           (%{scientific_name})에 대한 지도를 기여하는 데 초대합니다.
-        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}(이)가 사는 곳'
-        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}(이)가
+        meta_keywords: '%{scientific_name} 서식지, %{scientific_name}이(가) 사는 곳'
+        meta_keywords_with_common_name: '%{preferred_common_name} 서식지, %{preferred_common_name}이(가)
           사는 곳'
         meta_title: '%{scientific_name}에 대한 지도'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
@@ -1570,11 +1579,11 @@ ko:
             분류와 학명입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}라고
             알려진 %{preferred_common_name}에 대한 분류와 학명입니다.'
-          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}(와)과 관련된 이름'
-        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}(와)과
-          관련있습니다.'
-        meta_description_with_common_name: '%{scientific_name}라고도 알려진 %{preferred_common_name}에
-          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}(와)과 관련있습니다.'
+          tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와(과) 관련된 이름'
+        meta_description: '%{scientific_name}에 대한 분류와 학명입니다. 생물 분류와 이름은 %{scientific_name}와(과)
+          관련이 있습니다.'
+        meta_description_with_common_name: '%{scientific_name}(이)라고도 알려진 %{preferred_common_name}에
+          대한 분류와 학명입니다. 생물 분류와 이름은 %{preferred_common_name}와(과) 관련이 있습니다.'
         meta_title: '%{scientific_name}에 대한 분류 정보 - 생물 분류와 이름'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
           대한 분류 정보 - 생물 분류와 이름'
@@ -1607,7 +1616,7 @@ ko:
           meta_description: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}와 관련된
             동의어입니다.'
           meta_description_with_common_name: '%{hierarchy_provider}에 의해 분류한 일반적으로
-            %{preferred_common_name}라고 알려진 %{scientific_name}(와)과 관련된 동의어입니다.'
+            %{preferred_common_name}라고 알려진 %{scientific_name}와(과) 관련된 동의어입니다.'
           meta_keywords: '%{scientific_name} 동의어'
           meta_keywords_with_common_name: '%{preferred_common_name} 동의어 %{scientific_name}
             동의어'
@@ -1625,6 +1634,9 @@ ko:
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})의
           동의어'
         tweet_text: '%{scientific_name}의 동의어'
+    overview:
+      show:
+        tweet_text: '%{scientific_name} 정보'
     resources:
       show:
         hierarchy_entry:
@@ -1738,7 +1750,7 @@ ko:
         tweet_text: '%{user_full_name} 콘텐츠 파트너'
     data_downloads:
       index:
-        meta_description: '%{user_full_name} 사용자가 요청한 데이터 내려받기'
+        meta_description: '%{user_full_name}님이 요청한 데이터를 다운로드합니다.'
         meta_title: '%{user_full_name} 데이터 내려받기'
         tweet_text: '%{user_full_name} 데이터 내려받기'
       header_with_count:
@@ -1753,7 +1765,7 @@ ko:
       created_head: 만들어짐
       updated_head: 마지막 명령
       complete_head: 다 되었습니까?
-      actions_head: 행동
+      actions_head: 동작
       is_complete: 예
       is_not_complete: 아니오
       query_empty: (필터 없음)
@@ -1785,7 +1797,7 @@ ko:
       comments_link: 댓글
       newsfeed_link: 뉴스 피드
       show:
-        meta_description: '%{user_full_name}에 대한 뉴스, 활동 업데이트와 덧글입니다.'
+        meta_description: '%{user_full_name}에 대한 뉴스, 활동 업데이트와 댓글입니다.'
         meta_title: '%{user_full_name} 뉴스 피드'
         tweet_text: '%{user_full_name} 뉴스 피드'
       comments:
@@ -1798,7 +1810,7 @@ ko:
     notifications:
       edit:
         page_description: (EOL 뉴스레터를 제외하고) 아래에 나타난 모든 업데이트는 내 <a href="%{user_newsfeed_link}">EOL
-          뉴스피드</a>에서 사용할 수 있지만, 많은 사용자가 특히 관심 있은 활동의 특정 종류에 대해 이메일로 알리고 싶을 수 있습니다.
+          뉴스피드</a>에서 사용할 수 있지만, 많은 사람들이 특히 관심 있은 활동의 특정 종류에 대해 이메일로 알리고 싶을 수 있습니다.
           사용자 환경 설정에 맞게 빈도를 설정하려면 아래 버튼을 사용할 수 있습니다
         page_title: 알림 설정
       update:
@@ -1903,7 +1915,7 @@ ko:
       twitter: 트위터
       warnings:
         no_way_to_login: 더 이상 어떠한 연결한 계정이 없으며 연결한 계정을 추가하거나 EOL 사용자 이름과 비밀번호를 추가하지
-          않는 한 EOL에 다시 로그인 할 수 없습니다.
+          않는 한 EOL에 다시 로그인할 수 없습니다.
       yahoo: 야후!
     pending:
       header: 등록하셔서 감사합니다!
@@ -1923,8 +1935,8 @@ ko:
       form_tip: EOL 계정을 복구하려면 해당 계정으로 연결한 이메일 주소를 입력하세요. 몇 시간 이내에 계정 복구 이메일을 받을 수
         없을 때는 스팸 폴더를 확인하시기 바랍니다.
       notices:
-        recovery_email_sent: 자세한 지시 사항으로 된 계정 복구 이메일을 보냈습니다. 한 시간 내로 이메일을 받지 못했다면
-          수신 허용 목록에 %{from_address}(을)를 추가하고 스팸 필터를 확인하세요.
+        recovery_email_sent: 추가적인 지시 사항과 함께 계정 복구 이메일을 보냈습니다. 한 시간 내로 이메일을 받지 못했다면
+          수신 허용 목록에 %{from_address}을(를) 추가하고 스팸 필터를 확인하세요.
         temporarily_logged_in_update_authentication_details: 일시적으로 계정 복구를 허용하기 위해
           로그인하고 있으며, 성공적으로 로그인을 할 수 있도록 하려면 비밀번호를 바꾸거나 연결된 계정을 업데이트하세요.
       meta_title: 계정 복구
@@ -1945,11 +1957,16 @@ ko:
       unsubscribe_notifications_failed: 죄송합니다, 오류가 발생해 사용자가 알림을 구독 취소할 수 없습니다.
   user_added_data:
     add_data_header: 자신이 가진 데이터를 기여
+    additional_fields: 이 레코드에 관한 데이터
     edit_data_header: 데이터 편집
     add_metadata_header: 추가 정보
-    create_successful: 데이터가 성공적으로 추가 되었습니다
+    edit_metadata_header: 메타데이터 편집
+    create_successful: 데이터가 성공적으로 추가되었습니다
+    create_failed: '데이터를 추가할 수 없습니다: %{errors}'
     delete_successful: 데이터가 지워졌습니다
+    new_field: 새 필드...
     new_value: 값
+    update_successful: 데이터가 성공적으로 업데이트되었습니다
   data_search_files:
     from: 가장 낮은 값
     to: 가장 높은 값
@@ -2027,43 +2044,41 @@ ko:
       add_editor:
         an_unknown_user_of_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집의 관리자로 추가했습니다.
         an_unknown_user_of_collection: 알 수 없는 사용자가 "%{collection}" 모음집의 관리자로 추가했습니다.
-        user_of_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에 관리자로
+        user_of_an_unknown_collection: <strong>%{user}</strong>님이 알 수 없는 모음집에 관리자로
           추가했습니다.
-        user_of_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집의 관리자로
-          추가했습니다.
+        user_of_collection: <strong>%{user}</strong>님이 "%{collection}" 모음집의 관리자로 추가했습니다.
         an_unknown_user_of_it: 알 수 없는 사용자를 운영자로서 추가했습니다.
-        user_of_it: <strong>%{user}</strong> 사용자가 관리자로 추가했습니다.
+        user_of_it: <strong>%{user}</strong>님이 관리자로 추가되었습니다.
       bulk_add:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: 알 수 없는 사용자가 알 수
           없는 모음집에 대량으로 항목을 추가했습니다.
         an_unknown_user_added_bulk_items_to_collection: 알 수 없는 사용자가 "%{collection}"
           모음집에 대량으로 항목을 추가했습니다.
-        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> 사용자가
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong>님이
           알 수 없는 모음집에 대량으로 항목을 추가했습니다.
-        user_added_bulk_items_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}"
+        user_added_bulk_items_to_collection: <strong>%{user}</strong>님이 "%{collection}"
           모음집에 대량으로 항목을 추가했습니다.
         an_unknown_user_added_bulk_items_to_it: 알 수 없는 사용자가 대량으로 항목을 추가했습니다.
-        user_of_it: <strong>%{user}</strong> 사용자가 대량으로 항목을 추가했습니다.
+        user_of_it: <strong>%{user}</strong>님이 대량으로 항목을 추가했습니다.
       create:
         an_unknown_user_created_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집을 만들었습니다.
         an_unknown_user_created_collection: 알 수 없는 사용자가 "%{collection}" 모음집을 만들었습니다.
-        user_created_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집을
+        user_created_an_unknown_collection: <strong>%{user}</strong>님이 알 수 없는 모음집을
           만들었습니다.
-        user_created_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집을
-          만들었습니다.
+        user_created_collection: <strong>%{user}</strong>님이 "%{collection}" 모음집을 만들었습니다.
         an_unknown_user_created_it: 알 수 없는 사용자가 만들었습니다.
-        user_created_it: <strong>%{user}</strong> 사용자가 만들었습니다.
+        user_created_it: <strong>%{user}</strong>님이 만들었습니다.
       remove_all:
         an_unknown_user_cleared_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집에서 모든
           항목을 제거했습니다.
         an_unknown_user_cleared_collection: 알 수 없는 사용자가 "%{collection}" 모음집에서 모든 항목을
           제거했습니다.
-        user_cleared_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는 모음집에서
+        user_cleared_an_unknown_collection: <strong>%{user}</strong>님이 알 수 없는 모음집에서
           모든 항목을 제거했습니다.
-        user_cleared_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집에서
+        user_cleared_collection: <strong>%{user}</strong>님이 "%{collection}" 모음집에서
           모든 항목을 제거했습니다.
         an_unknown_user_cleared_it: 알 수 없는 사용자가 모든 항목을 제거했습니다.
-        user_cleared_it: <strong>%{user}</strong> 사용자가 모든 항목을 제거했습니다.
+        user_cleared_it: <strong>%{user}</strong>님이 모든 항목을 제거했습니다.
       remove:
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: 알 수 없는
           사용자가 알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
@@ -2073,19 +2088,19 @@ ko:
           모음집에서 "%{item}" 항목을 제거했습니다.
         an_unknown_user_removed_item_from_collection: 알 수 없는 사용자가 "%{collection}"
           모음집에서 "%{item}" 항목을 제거했습니다.
-        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong>
-          사용자가 알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
-        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> 사용자가
-          "%{collection}" 모음집에서 알 수 없는 항목을 제거했습니다.
-        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> 사용자가
-          알 수 없는 모음집에서 "%{item}" 항목을 제거했습니다.
-        user_removed_item_from_collection: <strong>%{user}</strong> 사용자가 "%{collection}"
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong>님이
+          알 수 없는 모음집에서 알 수 없는 항목을 제거했습니다.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong>님이 "%{collection}"
+          모음집에서 알 수 없는 항목을 제거했습니다.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong>님이 알
+          수 없는 모음집에서 "%{item}" 항목을 제거했습니다.
+        user_removed_item_from_collection: <strong>%{user}</strong>님이 "%{collection}"
           모음집에서 "%{item}" 항목을 제거했습니다.
         an_unknown_user_removed_an_unknown_item_from_it: 알 수 없는 사용자가 알 수 없는 항목을 제거했습니다.
         an_unknown_user_removed_item_from_it: 알 수 없는 사용자가 "%{item}" 항목을 제거했습니다.
-        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> 사용자가 알 수 없는
-          항목을 제거했습니다.
-        user_removed_item_from_it: <strong>%{user}</strong> 사용자가 "%{item}" 항목을 제거했습니다.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong>님이 알 수 없는 항목을
+          제거했습니다.
+        user_removed_item_from_it: <strong>%{user}</strong>님이 "%{item}" 항목을 제거했습니다.
       collect:
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 알 수 없는 사용자가
           알 수 없는 모음집에 알 수 없는 항목을 추가했습니다.
@@ -2095,74 +2110,70 @@ ko:
           "%{item}" 항목을 추가했습니다.
         an_unknown_user_added_item_to_collection: 알 수 없는 사용자가 "%{collection}" 모음집에
           "%{item}" 항목을 추가했습니다.
-        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong>
-          사용자가 알 수 없는 모음집에 알 수 없는 항목을 추가했습니다.
-        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}"
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong>님이
+          알 수 없는 모음집에 알 수 없는 항목을 추가했습니다.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong>님이 "%{collection}"
           모음집에 알 수 없는 항목을 추가했습니다.
-        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> 사용자가 알
-          수 없는 모음집에 "%{item}" 항목을 추가했습니다.
-        user_added_item_to_collection: <strong>%{user}</strong> 사용자가 "%{collection}"
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong>님이 알 수 없는
+          모음집에 "%{item}" 항목을 추가했습니다.
+        user_added_item_to_collection: <strong>%{user}</strong>님이 "%{collection}"
           모음집에 "%{item}" 항목을 추가했습니다.
         an_unknown_user_added_an_unknown_item_to_it: 알 수 없는 사용자가 알 수 없는 항목을 추가했습니다.
         an_unknown_user_added_item_to_it: 알 수 없는 사용자가 "%{item}" 항목을 추가했습니다.
-        user_added_an_unknown_item_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 항목을
-          추가했습니다.
-        user_added_item_to_it: <strong>%{user}</strong> 사용자가 "%{item}" 항목을 추가했습니다.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong>님이 알 수 없는 항목을 추가했습니다.
+        user_added_item_to_it: <strong>%{user}</strong>님이 "%{item}" 항목을 추가했습니다.
       other_actions:
         an_unknown_user_modified_an_unknown_collection: 알 수 없는 사용자가 알 수 없는 모음집을 수정했습니다.
         an_unknown_user_modified_collection: 알 수 없는 사용자가 "%{collection}" 모음집을 수정했습니다.
-        user_modified_an_unknown_collection: <strong>%{user}</strong> 사용자가 알 수 없는
-          모음집을 수정했습니다.
-        user_modified_collection: <strong>%{user}</strong> 사용자가 "%{collection}" 모음집을
+        user_modified_an_unknown_collection: <strong>%{user}</strong>님이 알 수 없는 모음집을
+          수정했습니다.
+        user_modified_collection: <strong>%{user}</strong>님이 "%{collection}" 모음집을
           수정했습니다.
         an_unknown_user_modified_it: 알 수 없는 사용자가 수정했고 정확한 바뀜이 사라졌습니다.
-        user_modified_it: <strong>%{user}</strong> 사용자가 수정했으나 정확한 바뀜이 사라졌습니다.
+        user_modified_it: <strong>%{user}</strong>님이 수정했으나 정확한 바뀜이 사라졌습니다.
     community_activity_log:
       create:
         an_unknown_user_created_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 만들었습니다.
         an_unknown_user_created_community: 알 수 없는 사용자가 "%{community}" 공동체를 만들었습니다.
-        user_created_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를
+        user_created_an_unknown_community: <strong>%{user}</strong>님이 알 수 없는 공동체를
           만들었습니다.
-        user_created_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를
-          만들었습니다.
+        user_created_community: <strong>%{user}</strong>님이 "%{community}" 공동체를 만들었습니다.
       join:
         an_unknown_user_joined_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체에 가입했습니다.
         an_unknown_user_joined_community: 알 수 없는 사용자가 "%{community}" 공동체에 가입했습니다.
-        user_joined_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체에
-          가입했습니다.
-        user_joined_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체에 가입했습니다.
+        user_joined_an_unknown_community: <strong>%{user}</strong>님이 알 수 없는 공동체에 가입했습니다.
+        user_joined_community: <strong>%{user}</strong>님이 "%{community}" 공동체에 가입했습니다.
       leave:
         an_unknown_user_left_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 떠났습니다.
         an_unknown_user_left_community: 알 수 없는 사용자가 "%{community}" 공동체를 떠났습니다.
-        user_left_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를
-          떠났습니다.
-        user_left_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를 떠났습니다.
+        user_left_an_unknown_community: <strong>%{user}</strong>님이 알 수 없는 공동체를 떠났습니다.
+        user_left_community: <strong>%{user}</strong>님이 "%{community}" 공동체를 떠났습니다.
       change_description:
         an_unknown_user_changed_the_description_of_an_unknown_community: 알 수 없는 사용자가
           알 수 없는 공동체의 설명을 바꿨습니다.
         an_unknown_user_changed_the_description_of_community: 알 수 없는 사용자가 "%{community}"
           공동체의 설명을 바꿨습니다.
-        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong>
-          사용자가 알 수 없는 공동체의 설명을 바꿨습니다.
-        user_changed_the_description_of_community: <strong>%{user}</strong> 사용자가 "%{community}"
+        user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong>님이
+          알 수 없는 공동체의 설명을 바꿨습니다.
+        user_changed_the_description_of_community: <strong>%{user}</strong>님이 "%{community}"
           공동체의 설명을 바꿨습니다.
       change_name:
         an_unknown_user_changed_the_name_of_an_unknown_community: 알 수 없는 사용자가 알 수
           없는 공동체의 이름을 바꿨습니다.
         an_unknown_user_changed_the_name_of_community: 알 수 없는 사용자가 "%{community}"
           공동체의 이름을 바꿨습니다.
-        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> 사용자가
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong>님이
           알 수 없는 공동체의 이름을 바꿨습니다.
-        user_changed_the_name_of_community: <strong>%{user}</strong> 사용자가 "%{community}"
+        user_changed_the_name_of_community: <strong>%{user}</strong>님이 "%{community}"
           공동체의 이름을 바꿨습니다.
       change_icon:
         an_unknown_user_changed_the_icon_of_an_unknown_community: 알 수 없는 사용자가 알 수
           없는 공동체의 로고를 바꿨습니다.
         an_unknown_user_changed_the_icon_of_community: 알 수 없는 사용자가 "%{community}"
           공동체의 로고를 바꿨습니다.
-        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> 사용자가
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong>님이
           알 수 없는 공동체의 로고를 바꿨습니다.
-        user_changed_the_icon_of_community: <strong>%{user}</strong> 사용자가 "%{community}"
+        user_changed_the_icon_of_community: <strong>%{user}</strong>님이 "%{community}"
           공동체의 로고를 바꿨습니다.
       add_manager:
         an_unknown_user_added_an_unknown_manager_to_an_unknown_community: 알 수 없는 사용자가
@@ -2173,21 +2184,20 @@ ko:
           공동체에 "%{manager}" 관리자를 추가했습니다.
         an_unknown_user_added_manager_to_community: 알 수 없는 사용자가 "%{community}" 공동체에
           "%{manager}" 관리자를 추가했습니다.
-        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong>
-          사용자가 알 수 없는 모음집에 알 수 없는 관리자를 추가했습니다.
-        user_added_an_unknown_manager_to_community: <strong>%{user}</strong> 사용자가
-          "%{community}" 공동체에 알 수 없는 관리자를 추가했습니다.
-        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> 사용자가
-          알 수 없는 공동체에 "%{manager}" 관리자를 추가했습니다.
-        user_added_manager_to_community: <strong>%{user}</strong> 사용자가 "%{community}"
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong>님이
+          알 수 없는 모음집에 알 수 없는 관리자를 추가했습니다.
+        user_added_an_unknown_manager_to_community: <strong>%{user}</strong>님이 "%{community}"
+          공동체에 알 수 없는 관리자를 추가했습니다.
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong>님이 알 수
+          없는 공동체에 "%{manager}" 관리자를 추가했습니다.
+        user_added_manager_to_community: <strong>%{user}</strong>님이 "%{community}"
           공동체에 "%{manager}" 관리자를 추가했습니다.
       other_actions:
         an_unknown_user_modified_an_unknown_community: 알 수 없는 사용자가 알 수 없는 공동체를 수정했습니다.
         an_unknown_user_modified_community: 알 수 없는 사용자가 "%{community}" 공동체를 수정했습니다.
-        user_modified_an_unknown_community: <strong>%{user}</strong> 사용자가 알 수 없는 공동체를
+        user_modified_an_unknown_community: <strong>%{user}</strong>님이 알 수 없는 공동체를
           수정했습니다.
-        user_modified_community: <strong>%{user}</strong> 사용자가 "%{community}" 공동체를
-          수정했습니다.
+        user_modified_community: <strong>%{user}</strong>님이 "%{community}" 공동체를 수정했습니다.
     curator_activity_log:
       reasons_to_untrust: '신뢰할 수 없는 이유: %{reasons}'
       reasons_to_hide: '숨기는 이유: %{reasons}'
@@ -2204,21 +2214,21 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 있음으로 표시했습니다.
         an_unknown_user_trusted_data_object_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 "%{data_object}" 개체를 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_trusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_older_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 "%{data_object}" 개체를 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알
-          수 없는 문서에 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_trusted_it_on_an_unknown_association: <strong>%{user}</strong>님이 알 수
+          없는 문서에 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_it_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 신뢰할 수 있음으로 표시했습니다.
         an_unknown_user_trusted_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에
           신뢰할 수 있음으로 표시했습니다.
@@ -2237,25 +2247,25 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_data_object_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 "%{data_object}" 개체를 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_untrusted_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_older_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 "%{data_object}"의 이전 버전을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 데이터 개체를 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 알 수 없는 데이터 개체를 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 "%{data_object}" 개체를 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는
           문서에 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_it_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가
-          알 수 없는 문서에 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong>님이 알
+          수 없는 문서에 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_it_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 신뢰할 수 없음으로 표시했습니다.
       show:
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 알 수
@@ -2270,25 +2280,25 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
         an_unknown_user_showed_data_object_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
-        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 보임으로 표시했습니다.
-        user_showed_an_older_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 보임으로 표시했습니다.
-        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
-        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
-        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
-        user_showed_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_showed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 보임으로 표시했습니다.
+        user_showed_an_older_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 "%{data_object}"의 이전 버전을 보임으로 표시했습니다.
+        user_showed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        user_showed_an_unknown_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 알 수 없는 데이터 개체를 보임으로 표시했습니다.
+        user_showed_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
+        user_showed_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 "%{data_object}" 개체를 보임으로 표시했습니다.
         an_unknown_user_showed_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에
           보임으로 표시했습니다.
         an_unknown_user_showed_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에
           보임으로 표시했습니다.
-        user_showed_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알
-          수 없는 문서에 보임으로 표시했습니다.
-        user_showed_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_showed_it_on_an_unknown_association: <strong>%{user}</strong>님이 알 수 없는
+          문서에 보임으로 표시했습니다.
+        user_showed_it_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 보임으로 표시했습니다.
       hide:
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 알 수 없는
@@ -2303,26 +2313,26 @@ ko:
           없는 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
         an_unknown_user_hid_data_object_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
-        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
-        user_hid_an_older_data_object_on_association: <strong>%{user}</strong> 사용자가
-          "%{association}" 문서에 "%{data_object}"의 이전 버전을 숨김으로 표시했습니다.
-        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
-        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong> 사용자가
+        user_hid_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 숨김으로 표시했습니다.
+        user_hid_an_older_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
+          문서에 "%{data_object}"의 이전 버전을 숨김으로 표시했습니다.
+        user_hid_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
+        user_hid_an_unknown_data_object_on_association: <strong>%{user}</strong>님이
           "%{association}" 문서에 알 수 없는 데이터 개체를 숨김으로 표시했습니다.
-        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong> 사용자가
+        user_hid_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
           알 수 없는 문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
-        user_hid_data_object_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_hid_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 "%{data_object}" 개체를 숨김으로 표시했습니다.
         an_unknown_user_hid_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는 문서에 숨김으로
           표시했습니다.
         an_unknown_user_hid_it_on_association: 알 수 없는 사용자가 "%{association}" 문서에 숨김으로
           표시했습니다.
-        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가 알 수 없는
-          문서에 숨김으로 표시했습니다.
-        user_hid_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
-          문서에 숨김으로 표시했습니다.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong>님이 알 수 없는 문서에
+          숨김으로 표시했습니다.
+        user_hid_it_on_association: <strong>%{user}</strong>님이 "%{association}" 문서에
+          숨김으로 표시했습니다.
       unreviewed:
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: 알
           수 없는 사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
@@ -2336,25 +2346,25 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_data_object_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 "%{data_object}"의 이전 버전을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong>
-          사용자가 "%{association}" 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
-        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
-        user_unreviewed_data_object_on_association: <strong>%{user}</strong> 사용자가
-          "%{association}" 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_older_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_older_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 "%{data_object}"의 이전 버전을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_data_object_on_association: <strong>%{user}</strong>님이
+          "%{association}" 문서에 알 수 없는 데이터 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_data_object_on_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
+        user_unreviewed_data_object_on_association: <strong>%{user}</strong>님이 "%{association}"
+          문서에 "%{data_object}" 개체를 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_it_on_an_unknown_association: 알 수 없는 사용자가 알 수 없는
           문서에 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_it_on_association: 알 수 없는 사용자가 "%{association}"
           문서에 검토하지 않음으로 표시했습니다
-        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> 사용자가
-          알 수 없는 문서에 검토하지 않음으로 표시했습니다.
-        user_unreviewed_it_on_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong>님이 알
+          수 없는 문서에 검토하지 않음으로 표시했습니다.
+        user_unreviewed_it_on_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 검토하지 않음으로 표시했습니다.
       add_association:
         an_unknown_user_associated_an_older_data_object_to_an_unknown_association: 알
@@ -2369,25 +2379,25 @@ ko:
           "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 추가했습니다.
         an_unknown_user_associated_data_object_to_association: 알 수 없는 사용자가 "%{data_object}"
           개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
-        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 추가했습니다.
-        user_associated_an_older_data_object_to_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 추가했습니다.
-        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 연관을 추가했습니다.
-        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
-        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 추가했습니다.
-        user_associated_data_object_to_association: <strong>%{user}</strong> 사용자가
-          "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_an_older_data_object_to_an_unknown_association: <strong>%{user}</strong>님이
+          "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 추가했습니다.
+        user_associated_an_older_data_object_to_association: <strong>%{user}</strong>님이
+          "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_an_unknown_data_object_to_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 연관을 추가했습니다.
+        user_associated_an_unknown_data_object_to_association: <strong>%{user}</strong>님이
+          알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
+        user_associated_data_object_to_an_unknown_association: <strong>%{user}</strong>님이
+          "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 추가했습니다.
+        user_associated_data_object_to_association: <strong>%{user}</strong>님이 "%{data_object}"
+          개체와 "%{association}" 문서 사이에 연관을 추가했습니다.
         an_unknown_user_associated_it_to_an_unknown_association: 알 수 없는 사용자가 알 수 없는
           문서에 연관을 추가했습니다.
         an_unknown_user_associated_it_to_association: 알 수 없는 사용자가 "%{association}"
           문서에 연관을 추가했습니다.
-        user_associated_it_to_an_unknown_association: <strong>%{user}</strong> 사용자가
-          알 수 없는 문서에 연관을 추가했습니다.
-        user_associated_it_to_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_associated_it_to_an_unknown_association: <strong>%{user}</strong>님이 알
+          수 없는 문서에 연관을 추가했습니다.
+        user_associated_it_to_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 연관을 추가했습니다.
       remove_association:
         an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: 알
@@ -2402,25 +2412,25 @@ ko:
           없는 사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 제거했습니다.
         an_unknown_user_disassociated_data_object_from_association: 알 수 없는 사용자가 "%{data_object}"
           개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
-        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 제거했습니다.
-        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 제거했습니다.
-        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 연관을 제거했습니다.
-        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
-        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 제거했습니다.
-        user_disassociated_data_object_from_association: <strong>%{user}</strong>
-          사용자가 "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong>님이
+          "%{data_object}" 개체의 이전 버전과 알 수 없는 문서 사이에 연관을 제거했습니다.
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong>님이
+          "%{data_object}"의 이전 버전과 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 연관을 제거했습니다.
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong>님이
+          알 수 없는 데이터 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong>님이
+          "%{data_object}" 개체와 알 수 없는 문서 사이에 연관을 제거했습니다.
+        user_disassociated_data_object_from_association: <strong>%{user}</strong>님이
+          "%{data_object}" 개체와 "%{association}" 문서 사이에 연관을 제거했습니다.
         an_unknown_user_disassociated_it_from_an_unknown_association: 알 수 없는 사용자가
           알 수 없는 문서에 연관을 제거했습니다.
         an_unknown_user_disassociated_it_from_association: 알 수 없는 사용자가 "%{association}"
           문서에 연관을 제거했습니다.
-        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 연관을 제거했습니다.
-        user_disassociated_it_from_association: <strong>%{user}</strong> 사용자가 "%{association}"
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong>님이
+          알 수 없는 문서에 연관을 제거했습니다.
+        user_disassociated_it_from_association: <strong>%{user}</strong>님이 "%{association}"
           문서에 연관을 제거했습니다.
       choose_exemplar_image:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 알
@@ -2435,26 +2445,26 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
         an_unknown_user_chose_exemplar_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
-        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
-        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
-        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 표본 그림을 설정했습니다.
-        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 데이터 개체를 표본으로 설정했습니다.
-        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
-        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 "%{data_object}" 개체의 이전 버전을 표본으로 설정했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 표본 그림을 설정했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 데이터 개체를 표본으로 설정했습니다.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{data_object}" 개체를 표본으로 설정했습니다.
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는
           문서에 표본으로 설정했습니다.
         an_unknown_user_chose_exemplar_it_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 표본으로
           설정했습니다.
-        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가
-          알 수 없는 문서에 표본으로 설정했습니다.
-        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
-          문서에 표본으로 설정했습니다.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong>님이 알 수
+          없는 문서에 표본으로 설정했습니다.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong>님이 "%{taxon}" 문서에
+          표본으로 설정했습니다.
       choose_exemplar_article:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 알
           수 없는 사용자가 알 수 없는 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
@@ -2468,26 +2478,26 @@ ko:
           알 수 없는 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
         an_unknown_user_chose_exemplar_data_object_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 문서를 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 데이터 개체를 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 "%{data_object}"의 이전 버전을 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 문서를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 데이터 개체를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{data_object}" 개체를 둘러보기에 보이도록 선택했습니다.
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는
           문서에 둘러보기에 보이도록 선택했습니다.
         an_unknown_user_chose_exemplar_it_on_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에 둘러보기에
           보이도록 선택했습니다.
-        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 사용자가
-          알 수 없는 문서에 둘러보기에 보이도록 선택했습니다.
-        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
-          문서에 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong>님이 알 수
+          없는 문서에 둘러보기에 보이도록 선택했습니다.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong>님이 "%{taxon}" 문서에
+          둘러보기에 보이도록 선택했습니다.
       add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: 알
           수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
@@ -2505,21 +2515,21 @@ ko:
           문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
         an_unknown_user_added_name_in_language_to_taxon: 알 수 없는 사용자가 "%{taxon}" 문서에
           "%{name}" %{language} 공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
-        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
-        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
-        user_added_name_in_language_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 추가했습니다.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: 알 수 없는
           사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
@@ -2529,14 +2539,14 @@ ko:
           언어로 "%{name}" 공통 이름을 추가했습니다.
         an_unknown_user_added_name_in_language_to_it: 알 수 없는 사용자가 "%{name}" %{language}
           공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> 사용자가
-          %{language}로 알 수 없는 공통 이름을 추가했습니다.
-        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> 사용자가
-          알 수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
-        user_added_name_in_language_to_it: <strong>%{user}</strong> 사용자가 "%{name}"
-          %{language} 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 알 수 없는 공통 이름을 추가했습니다.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong>님이 %{language}로
+          알 수 없는 공통 이름을 추가했습니다.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong>님이 알
+          수 없는 언어로 "%{name}" 공통 이름을 추가했습니다.
+        user_added_name_in_language_to_it: <strong>%{user}</strong>님이 "%{name}" %{language}
+          공통 이름을 추가했습니다.
       remove_common_name:
         an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: 알
           수 없는 사용자가 알 수 없는 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
@@ -2546,21 +2556,21 @@ ko:
           "%{taxon}" 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
         an_unknown_user_removed_name_in_language_from_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 %{language}로 공통 이름을 제거했습니다.
-        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
-        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 %{language}로 공통 이름을 제거했습니다.
-        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
-        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 %{language}로 공통 이름을 제거했습니다.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 %{language}로 공통 이름을 제거했습니다.
         an_unknown_user_removed_name_in_an_unknown_language_from_it: 알 수 없는 사용자가 알
           수 없는 언어로 공통 이름을 제거했습니다.
         an_unknown_user_removed_name_in_language_from_it: 알 수 없는 사용자가 %{language}로
           공통 이름을 제거했습니다.
-        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 공통 이름을 제거했습니다.
-        user_removed_name_in_language_from_it: <strong>%{user}</strong> 사용자가 %{language}로
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 공통 이름을 제거했습니다.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong>님이 %{language}로
           공통 이름을 제거했습니다.
       trust_common_name:
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알
@@ -2579,21 +2589,21 @@ ko:
           "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
         an_unknown_user_trusted_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_name_in_language_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 있음으로 표시했습니다.
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: 알 수
           없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
@@ -2603,13 +2613,13 @@ ko:
           없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
         an_unknown_user_trusted_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language}
           공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong> 사용자가
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>님이
           %{language}로 알 수 없는 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong> 사용자가
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
           알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 있음으로 표시했습니다.
-        user_trusted_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}"
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong>님이 "%{name}"
           %{language} 공통 이름을 신뢰할 수 있음으로 표시했습니다.
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알
@@ -2628,21 +2638,21 @@ ko:
           "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 알
           수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
@@ -2652,13 +2662,13 @@ ko:
           수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
         an_unknown_user_untrusted_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language}
           공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
-          사용자가 %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
-        user_untrusted_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}"
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>님이
+          %{language}로 알 수 없는 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 "%{name}" 공통 이름을 신뢰할 수 없음으로 표시했습니다.
+        user_untrusted_name_in_language_on_it: <strong>%{user}</strong>님이 "%{name}"
           %{language} 공통 이름을 신뢰할 수 없음으로 표시했습니다.
       unreview_common_name:
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 알
@@ -2677,21 +2687,21 @@ ko:
           "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_name_in_language_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          사용자가 "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>님이
+          "%{taxon}" 문서에 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           문서에 "%{name}" %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 알
           수 없는 사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
@@ -2701,13 +2711,13 @@ ko:
           알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
         an_unknown_user_unreviewed_name_in_language_on_it: 알 수 없는 사용자가 "%{name}" %{language}
           공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
-          사용자가 %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          사용자가 알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
-        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> 사용자가 "%{name}"
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong>님이
+          %{language}로 알 수 없는 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>님이
+          알 수 없는 언어로 "%{name}" 공통 이름을 검토하지 않음으로 표시했습니다.
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong>님이 "%{name}"
           %{language} 공통 이름을 검토하지 않음으로 표시했습니다.
       preferred_classification:
         an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: 알 수
@@ -2716,11 +2726,11 @@ ko:
           분류를 선호함으로 표시했습니다.
         an_unknown_user_preferred_unknown_classification_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           분류에 알 수 없는 분류를 선호함으로 표시했습니다.
-        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
-        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> 사용자가
-          알 수 없는 분류를 선호함으로 표시했습니다.
-        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> 사용자가
+        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
+        user_preferred_unknown_classification_on_it: <strong>%{user}</strong>님이 알
+          수 없는 분류를 선호함으로 표시했습니다.
+        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong>님이
           "%{taxon}" 분류에 알 수 없는 분류를 선호함으로 표시했습니다.
         an_unknown_user_preferred_classification_on_an_unknown_taxon: 알 수 없는 사용자가
           알 수 없는 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
@@ -2728,11 +2738,11 @@ ko:
           분류를 선호함으로 표시했습니다.
         an_unknown_user_preferred_classification_on_taxon: 알 수 없는 사용자가 "%{taxon}"
           분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
-        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong>
-          사용자가 알 수 없는 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
-        user_preferred_classification_on_it: <strong>%{user}</strong> 사용자가 "%{provider}"에서
+        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
+        user_preferred_classification_on_it: <strong>%{user}</strong>님이 "%{provider}"에서
           분류를 선호함으로 표시했습니다.
-        user_preferred_classification_on_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_preferred_classification_on_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           분류에 "%{provider}"에서 분류를 선호함으로 표시했습니다.
       classification_curation:
         split:
@@ -2742,93 +2752,87 @@ ko:
             문서</a>에 %{taxon} 문서에서 %{classifications}(으)로 분류를 나누었습니다.
           an_unknown_user_split_classifications_from_it: 알 수 없는 사용자가 <a href='%{to}'>자신의
             문서</a>에 %{classifications}(으)로 분류를 나누었습니다.
-          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong>
-            사용자가 <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications}(으)로 분류를
-            나누었습니다.
-          user_split_classifications_from_taxon: <strong>%{user}</strong> 사용자가 <a
-            href='%{to}'>자신의 문서</a>에 %{taxon}에서 %{classifications}(으)로 분류를 나누었습니다.
-          user_split_classifications_from_it: <strong>%{user}</strong> 사용자가 <a href='%{to}'>자신의
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong>님이
+            <a href='%{to}'>자신의 문서</a>에 알 수 없는 문서에서 %{classifications}(으)로 분류를 나누었습니다.
+          user_split_classifications_from_taxon: <strong>%{user}</strong>님이 <a href='%{to}'>자신의
+            문서</a>에 %{taxon}에서 %{classifications}(으)로 분류를 나누었습니다.
+          user_split_classifications_from_it: <strong>%{user}</strong>님이 <a href='%{to}'>자신의
             문서</a>에 %{classifications}(으)로 분류를 나누었습니다.
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 문서 둘을 병합했습니다.
           an_unknown_user_merged_to_taxon: 알 수 없는 사용자가 %{target} 문서에 다른 문서를 병합했습니다.
           an_unknown_user_merged_to_it: 알 수 없는 사용자가 이 문서에 다른 문서를 병합했습니다.
-          user_merged_to_it: <strong>%{user}</strong> 사용자가 이 문서에 다른 문서를 병합했습니다.
-          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는 문서
-            둘을 병합했습니다.
-          user_merged_to_taxon: <strong>%{user}</strong> 사용자가 %{target} 문서에 다른 문서를
+          user_merged_to_it: <strong>%{user}</strong>님이 이 문서에 다른 문서를 병합했습니다.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong>님이 알 수 없는 문서 둘을
             병합했습니다.
+          user_merged_to_taxon: <strong>%{user}</strong>님이 %{target} 문서에 다른 문서를 병합했습니다.
         move:
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 알
-            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: 알
-            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            수 없는 사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: 알 수 없는
-            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_taxon_to_taxon: 알 수 없는 사용자가 %{taxon}
-            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
+            문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
           an_unknown_user_moved_classifications_from_it_to_taxon: 알 수 없는 사용자가 %{target}
-            문서로 %{classifications}(으)로 분류를 옮겼습니다.
-          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong>
-            사용자가 알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
-          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong>
-            사용자가 알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 옮겼습니다.
-          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong>
-            사용자가 %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
-          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong>
-            사용자가 알 수 없는 문서로 %{classifications}(으)로 분류를 옮겼습니다.
-          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong>
-            사용자가 %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 옮겼습니다.
-          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> 사용자가
-            %{target} 문서로 %{classifications} 분류를 옮겼습니다.
+            문서로 %{classifications}(으)로 분류를 이동했습니다.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
+            알 수 없는 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong>님이
+            알 수 없는 문서에서 %{target} 문서로 %{classifications}(으)로 분류를 이동했습니다.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong>님이
+            %{taxon} 문서에서 알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong>님이
+            알 수 없는 문서로 %{classifications}(으)로 분류를 이동했습니다.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong>님이
+            %{taxon} 문서에서 %{target} 문서로 %{classifications} 분류를 이동했습니다.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong>님이
+            %{target} 문서로 %{classifications} 분류를 이동했습니다.
       split:
         an_unknown_user_split_unknown_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수
           없는 분류에 알 수 없는 분류를 나눴습니다.
         an_unknown_user_split_unknown_entry_from_it: 알 수 없는 사용자가 알 수 없는 분류를 구분했습니다.
         an_unknown_user_split_unknown_entry_from_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에
           알 수 없는 분류를 나눴습니다.
-        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong>님이
           알 수 없는 분류에 알 수 없는 분류를 나눴습니다.
-        user_split_unknown_entry_from_it: <strong>%{user}</strong> 사용자가 알 수 없는 분류를
-          구분했습니다.
-        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
+        user_split_unknown_entry_from_it: <strong>%{user}</strong>님이 알 수 없는 분류를 구분했습니다.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong>님이 "%{taxon}"
           분류에 알 수 없는 분류를 나눴습니다.
         an_unknown_user_split_entry_from_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에
           "%{provider}"의 분류를 나눴습니다.
         an_unknown_user_split_entry_from_it: 알 수 없는 사용자가 "%{provider}"의 분류를 구분했습니다.
         an_unknown_user_split_entry_from_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의
           분류를 나눴습니다.
-        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수
-          없는 분류에 "%{provider}"의 분류를 나눴습니다.
-        user_split_entry_from_it: <strong>%{user}</strong> 사용자가 "%{provider}"의 분류를
-          구분했습니다.
-        user_split_entry_from_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에
-          "%{provider}"의 분류를 나눴습니다.
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong>님이 알 수 없는
+          분류에 "%{provider}"의 분류를 나눴습니다.
+        user_split_entry_from_it: <strong>%{user}</strong>님이 "%{provider}"의 분류를 구분했습니다.
+        user_split_entry_from_taxon: <strong>%{user}</strong>님이 "%{taxon}" 분류에 "%{provider}"의
+          분류를 나눴습니다.
       merge:
         an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수
-          없는 분류에 알 수 없는 분류를 옮겼습니다.
+          없는 분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_unknown_entry_to_it: 알 수 없는 사용자가 알 수 없는 분류를 추가했습니다.
         an_unknown_user_merged_unknown_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에
-          알 수 없는 분류를 옮겼습니다.
-        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가
-          알 수 없는 분류에 알 수 없는 분류를 옮겼습니다.
-        user_merged_unknown_entry_to_it: <strong>%{user}</strong> 사용자가 알 수 없는 분류를
-          추가했습니다.
-        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}"
-          분류에 알 수 없는 분류를 옮겼습니다.
+          알 수 없는 분류를 이동했습니다.
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이
+          알 수 없는 분류에 알 수 없는 분류를 이동했습니다.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong>님이 알 수 없는 분류를 추가했습니다.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}"
+          분류에 알 수 없는 분류를 이동했습니다.
         an_unknown_user_merged_entry_to_an_unknown_taxon: 알 수 없는 사용자가 알 수 없는 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
         an_unknown_user_merged_entry_to_it: 알 수 없는 사용자가 "%{provider}"의 분류를 추가했습니다.
         an_unknown_user_merged_entry_to_taxon: 알 수 없는 사용자가 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
-        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> 사용자가 알 수 없는
-          분류에 "%{provider}"의 분류를 옮겼습니다.
-        user_merged_entry_to_it: <strong>%{user}</strong> 사용자가 "%{provider}"의 분류를
-          추가했습니다.
-        user_merged_entry_to_taxon: <strong>%{user}</strong> 사용자가 "%{taxon}" 분류에 "%{provider}"의
-          분류를 옮겼습니다.
+          분류를 이동했습니다.
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong>님이 알 수 없는 분류에
+          "%{provider}"의 분류를 이동했습니다.
+        user_merged_entry_to_it: <strong>%{user}</strong>님이 "%{provider}"의 분류를 추가했습니다.
+        user_merged_entry_to_taxon: <strong>%{user}</strong>님이 "%{taxon}" 분류에 "%{provider}"의
+          분류를 이동했습니다.
       unlock:
         merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
         merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
@@ -2838,9 +2842,9 @@ ko:
         move_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다.'
         split_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 나누기를 완료했지만 문서를 찾을 수 없습니다.
         split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로
-          옮겼습니다.
+          이동했습니다; 문서는 이제 다시 색인되고 있으며 완료하는데 25시간이 필요합니다.
         split_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 나누기를 완료했고 분류를 <a href=''%{to}''>자신의
-          문서</a>로 옮겼습니다.'
+          문서</a>로 이동했습니다; 문서는 이제 다시 색인되고 있으며 완료하는데 25시간이 필요합니다.'
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: '최근에 요청한 문서 병합을 <strong>실패했습니다</strong>:
           %{error} 또한 영향을 받은 문서를 찾을 수 없습니다.'
@@ -2867,38 +2871,38 @@ ko:
           바꿨습니다.
         an_unknown_user_cropped_data_object: 알 수 없는 사용자가 "%{data_object}" 개체의 섬네일
           그림을 바꿨습니다.
-        user_cropped_an_older_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}"
+        user_cropped_an_older_data_object: <strong>%{user}</strong>님이 "%{data_object}"
           개체의 이전 버전의 섬네일을 바꿨습니다.
-        user_cropped_an_unknown_data_object: <strong>%{user}</strong> 사용자가 알 수 없는
-          그림의 섬네일을 바꿨습니다.
-        user_cropped_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}" 개체의
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong>님이 알 수 없는 그림의
+          섬네일을 바꿨습니다.
+        user_cropped_data_object: <strong>%{user}</strong>님이 "%{data_object}" 개체의
           섬네일 그림을 바꿨습니다.
         an_unknown_user_cropped_it: 알 수 없는 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
-        user_cropped_it: <strong>%{user}</strong> 사용자가 알 수 없는 그림의 섬네일을 바꿨습니다.
+        user_cropped_it: <strong>%{user}</strong>님이 알 수 없는 그림의 섬네일을 바꿨습니다.
       other_actions:
         an_unknown_user_curated_an_older_data_object: 알 수 없는 사용자가 "%{data_object}"의
           이전 버전을 큐레이트했습니다.
         an_unknown_user_curated_an_unknown_data_object: 알 수 없는 사용자가 알 수 없는 데이터 개체를
           큐레이트했습니다.
-        an_unknown_user_curated_data_object: 알 수 없는 사용자가 "%{data_object}"(을)를 큐레이트했습니다.
-        user_curated_an_older_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}"의
+        an_unknown_user_curated_data_object: 알 수 없는 사용자가 "%{data_object}"을(를) 큐레이트했습니다.
+        user_curated_an_older_data_object: <strong>%{user}</strong>님이 "%{data_object}"의
           이전 버전을 큐레이트했습니다.
-        user_curated_an_unknown_data_object: <strong>%{user}</strong> 사용자가 알 수 없는
-          데이터 개체를 큐레이트했습니다.
-        user_curated_data_object: <strong>%{user}</strong> 사용자가 "%{data_object}"(을)를
+        user_curated_an_unknown_data_object: <strong>%{user}</strong>님이 알 수 없는 데이터
+          개체를 큐레이트했습니다.
+        user_curated_data_object: <strong>%{user}</strong>님이 "%{data_object}"을(를)
           큐레이트했습니다.
-        an_unknown_user_curated_it: 알 수 없는 사용자가 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
-        user_curated_it: <strong>%{user}</strong> 사용자가 큐레이트를 했지만 수행하는 정확한 행동이 끊겼습니다.
+        an_unknown_user_curated_it: 알 수 없는 사용자가 큐레이트를 했지만 수행하는 정확한 동작이 끊겼습니다.
+        user_curated_it: <strong>%{user}</strong>님이 큐레이트를 했지만 수행하는 정확한 동작이 끊겼습니다.
   a_maximum_of_30_results_are_returned: 최대 문서 당 결과 30개가 나타납니다. 이 변수는 30개 이상 일치할 때
     더 많은 결과 문서를 가져올 수 있습니다
   activity_log_empty: 아직 제공한 업데이트가 없습니다.
-  activity_user_created_link: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}"
+  activity_user_created_link: <strong>%{user}</strong>님이 "%{taxon_concept}"에 "%{object_name}"
     이름으로 링크를 추가했습니다.
-  activity_user_created_text: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}"
+  activity_user_created_text: <strong>%{user}</strong>님이 "%{taxon_concept}"에 "%{object_name}"
     이름으로 텍스트를 추가했습니다.
-  activity_user_updated_link: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}"
+  activity_user_updated_link: <strong>%{user}</strong>님이 "%{taxon_concept}"에 "%{object_name}"
     링크를 업데이트했습니다.
-  activity_user_updated_text: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}"
+  activity_user_updated_text: <strong>%{user}</strong>님이 "%{taxon_concept}"에 "%{object_name}"
     텍스트를 업데이트했습니다.
   add_a_collection_to_a_community: 공동체에 "%{collection}" 추가
   add_a_comment: 댓글을 추가합니다.
@@ -2911,6 +2915,7 @@ ko:
   add_a_new_topic_area: 새 주제 영역 추가
   add_a_new_user: 새 사용자 추가
   add_a_taxon_association_label: 분류 연관 추가
+  add_another_metadata_field: 새 메타데이터 필드 추가
   add_article_instead: 대신 문서 추가
   add_article_to_page_button: 문서 추가
   add_association_submit_button: 연관 추가
@@ -2944,7 +2949,7 @@ ko:
   admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
   admin_content_page_new_header: 새 내용 문서 만들기
   admin_content_page_new_link: 새 문서 만들기
-  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
+  admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_content_page_parent_option_root: 부모 없음
   admin_content_page_root: 루트
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
@@ -2985,7 +2990,7 @@ ko:
   admin_news_item_edit_header: <em>%{page_name}</em> 문서에 대한 기본 뉴스 항목 정보 업데이트
   admin_news_item_new_link: 뉴스 항목 만들기
   admin_news_item_new_header: 새 뉴스 항목 만들기
-  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
+  admin_news_item_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon} 필수입니다.
   admin_news_item_not_active: 게시하지 않음
   admin_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
     뉴스 항목을 성공적으로 업데이트했습니다.
@@ -3008,9 +3013,9 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_content_page_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_header: 언어 선택하고 내용 추가
-  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_content_page_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_content_page_new_link: 번역 추가
   admin_translated_content_page_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
   admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
@@ -3027,11 +3032,11 @@ ko:
     대한 %{language} 번역을 삭제했습니다.
   admin_translated_news_item_edit_subheader: <em>%{page_name}</em>에 대한 %{language}
     번역 편집
-  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_edit_tip: 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_new_header: 언어 선택하고 내용 추가
   admin_translated_news_item_new_link: 번역 추가
   admin_translated_news_item_new_subheader: <em>%{page_name}</em>에 대한 번역 추가
-  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon}(이)가 필요합니다.
+  admin_translated_news_item_new_tip: 언어, 제목과 본문은 %{required_icon} 필수입니다.
   admin_translated_news_item_not_active: 게시하지 않음
   admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>에
     대한 %{language} 번역을 업데이트했습니다.
@@ -3095,7 +3100,7 @@ ko:
     <a href="%{link}">시작하기</a>를 참고하세요.
   application_version_advisory_information: 애플리케이션 버전
   are_you_sure: 확실합니까?
-  are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 행동은 되돌릴 수 없습니다.
+  are_you_sure_this_action_cannot_be_undone: 확실합니까? 이 동작은 취소할 수 없습니다.
   article_from: 문서
   article_secondary_description_with_others_count:
     one: '%{taxon} 분류와 다른 분류 %{count}개의 설명'
@@ -3124,6 +3129,7 @@ ko:
     one: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
     other: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
   assistive_overview_header: 둘러보기
+  assistive_data_header: 사실과 정보
   assistive_media_header: 미디어
   assistive_details_header: 자세한 사항
   assistive_literature_header: 문헌
@@ -3176,6 +3182,7 @@ ko:
   belongs_in_count_communities:
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
+  beta_warning_header: 당신은 베타 테스트 기능을 사용하고 있습니다
   beta_warning_note_header: '참고:'
   bhl: 생물 다양성 유산 도서관
   bhl_partner_footer: 생물 다양성 유산 도서관 방문하기
@@ -3250,7 +3257,7 @@ ko:
   classifications_rank_column_header: 순위
   classifications_split_column_header: 나누기 / 이동
   classifications_split_one_classification_only: 분할하려면 분류 하나만 선택하세요. 분할하려는 분류를 만들고
-    나서 다른 분류는 새 문서로 옮길 수 있습니다
+    나서 다른 분류는 새 문서로 이동할 수 있습니다
   classifications_summary_header_with_count:
     one: 분류 %{count}개 찾음
     zero: 분류가 EOL에 정상적으로 보이지 않음
@@ -3279,7 +3286,7 @@ ko:
     other: <em>%{collection_name}</em> 공동체에 모음집 항목 %{count}개를 성공적으로 만들었습니다.
   collection_delete_link: 이 모음집 영구 삭제
   collection_destroyed: 모음집을 삭제했습니다.
-  collection_error_no_items_selected: '오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다.'
+  collection_error_no_items_selected: '오류: 항목을 선택하지 않아 어떠한 동작도 하지 않았습니다.'
   collection_image: 모음집 그림
   collection_is_empty: 이 모음집은 현재 비어 있습니다.
   collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
@@ -3294,21 +3301,21 @@ ko:
     one: 항목 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
     other: 항목 총 %{count}개를 %{from}에서 %{to}으로 복사했습니다.
   collection_move_complete_with_count:
-    one: 항목 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
-    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 옮겼습니다.
+    one: 항목 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
+    other: 항목 총 %{count}개를 %{from}에서 %{to}으로 이동했습니다.
   collection_remove_complete_with_count:
     one: 항목 %{count}개를 %{from}에서 제거했습니다.
     other: 항목 %{count}개를 %{from}에서 제거했습니다.
   collection_copy_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
     복사:'
   collection_move_choose_all_items_target_title: '"%{collection}" 모음집에서 다음으로 모든 항목
-    옮기기:'
+    이동:'
   collection_copy_choose_target_title_with_count:
     one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
     other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 복사:'
   collection_move_choose_target_title_with_count:
-    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
-    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 옮기기:'
+    one: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
+    other: '"%{collection}" 모음집에서 다음으로 항목 %{count}개 이동:'
   collection_name_cannot_be_blank: 모음집 이름은 비워둘 수 없습니다
   collection_name_label: 모음집 이름
   collection_newsfeed: 모음집 뉴스 피드
@@ -3349,7 +3356,7 @@ ko:
   comment_new_title: 새 댓글 추가
   comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
   comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 댓글 옆에 나타납니다.
-  comment_show_posters_image_alt: 이 행동을 한 %{posters_name}의 프로필 사진입니다.
+  comment_show_posters_image_alt: 이 동작을 한 %{posters_name}의 프로필 사진입니다.
   comments_and_tags: 댓글과 태그
   comments: 댓글
   comments_filter: 댓글
@@ -3423,7 +3430,7 @@ ko:
   contact_us_functions: 기능 문의하기
   contact_us_submissions: 제출 문의하기
   contact_us_topics: 주제 문의하기
-  containing_value: '%{value}(을)를 포함합니다.'
+  containing_value: '%{value}을(를) 포함합니다.'
   content_has_been_updated: 내용을 업데이트했습니다.
   content_notes_not_shown_to_us: '내용 참고 (사용자에게 보이지 않음):'
   content_partner: 콘텐츠 파트너
@@ -3459,7 +3466,7 @@ ko:
   content_partner_contact_new_link: 새 연락 추가
   content_partner_contact_new_page_subheader: 연락 추가
   content_partner_contact_new_edit_form_header: 콘텐츠 파트너 연락 정보
-  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon}(이)가 필요합니다.
+  content_partner_contact_new_edit_form_tip: 이름, 성과 이메일은 %{required_icon} 필수입니다.
   content_partner_contact_update_successful_notice: 내용을 성공적으로 업데이트했습니다.
   content_partner_contact_update_unsuccessful_error: 죄송합니다, 오류가 발생해 내용을 업데이트하지 못했습니다.
   content_partner_contacts_header: 연락처
@@ -3670,8 +3677,8 @@ ko:
   curated_objects_of: '%{name}의 큐레이트한 개체'
   curated_species_of: '%{name}의 큐레이트한 종'
   curation_comment: 큐레이션 댓글
-  curation_error_vetted_invalid: '''%{vetted}''(으)로 %{association}(을)를 큐레이트할 수 없습니다.'
-  curation_error_visibility_invalid: '''%{visibility}''(으)로 %{association}(을)를 큐레이트할
+  curation_error_vetted_invalid: '''%{vetted}''(으)로 %{association}을(를) 큐레이트할 수 없습니다.'
+  curation_error_visibility_invalid: '''%{visibility}''(으)로 %{association}을(를) 큐레이트할
     수 없습니다.'
   curation_error_untrust_reasons_invalid: '%{association}에 대한 신뢰할 수 없는 이유가 올바르지 않습니다'
   curation_error_hide_reasons_invalid: '%{association}에 대한 숨기기 이유가 올바르지 않습니다'
@@ -3699,7 +3706,7 @@ ko:
   curator_scope_colon: '큐레이터 범위:'
   curator_signup_message: 큐레이터 권한을 요청하려면 아래에 자격 증명의 범위를 표시해야 합니다. 큐레이터 권한에 대한 신청을
     허락하면 이메일을 통해 알려드립니다.
-  curator_status_changed_by: '%{date}에 %{user} 사용자에 의해 큐레이터 상태를 바꿈'
+  curator_status_changed_by: '%{date}에 %{user}님에 의해 큐레이터 상태를 바꿈'
   curators: 큐레이터
   curators_empty: 큐레이터는 아직 이 문서에 어떠한 작업도 하지 않았습니다.
   curators_summary_header_with_count:
@@ -3718,6 +3725,8 @@ ko:
   your_watch_collection: 내 주시문서 목록
   current_language: '언어: %{iso_code}'
   currently_in_eol: 현재 생명의 백과사전에서
+  create_download_data_file: 파일 만들기
+  institutional_sponsors: 기관 스폰서
   currently_published: 현재 게시함
   daily: 매일
   darwin_core: 다윈 코어
@@ -3808,14 +3817,14 @@ ko:
   dato_edit_text_button: 이 문서 편집
   dato_edit_link_title: 링크 편집
   dato_edit_text_title: 문서 편집
-  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
-  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
+  dato_new_text_for_taxon_page_title: <i>%{taxon}</i>에 문서 추가
+  dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>에 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   deactivate: 비활성화
   development_version_name: EOL V2 베타
   default: 기본값
   default_focus_collection_name_from_community: '%{name}의 집중'
-  default_watch_collection_name: '%{username} 사용자의 주시문서 목록'
+  default_watch_collection_name: '%{username}님의 주시문서 목록'
   delete_community: 이 공동체 삭제
   delete_data_object: 삭제
   delete: 삭제
@@ -3831,7 +3840,7 @@ ko:
   details_title: 자세한 사항
   did_you_mean: '이것을 찾으셨나요: %{suggestions} ?'
   disabled_for_now: 지금 비활성화
-  discover_link: 발견
+  discover_link: 교육
   donate_link: 기부
   done_already: 이미 완료
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 알 수 없는 등록한
@@ -3867,17 +3876,17 @@ ko:
   email_colon: '이메일:'
   email_recipients: 이메일 받는 사람
   eol_accepted_subjects: EOL이 수락한 주제
-  eol_curator_activity_email_message: 생명의 백과사전 큐레이터 <a href='%{profile_url}'>%{curator_full_name}</a>
-    사용자가 <a href='%{data_object_url}'>EOL 사이트</a>%{comment}에 %{action}
+  eol_curator_activity_email_message: 생명의 백과사전 큐레이터 <a href='%{profile_url}'>%{curator_full_name}</a>님이
+    <a href='%{data_object_url}'>EOL 사이트</a>%{comment}에 %{action}
   encyclopedia_of_life: 생명의 백과사전
   endorsed_by: 알찬 문서 지정자
   endorsed_collections: 알찬 모음집
   endorsed_collections_with_count:
     one: 알찬 모음집 %{count}개
     other: 알찬 모음집 %{count}개
-  enter_in_a_search_term_users_a: 사용자가 검색하고 있는 검색어를 입력하고 나서 결과 분류/문서 ID는 해당 검색에 대해
-    제안으로 가리켜야 합니다. 분류/문서 ID는 가리키고 싶은 문서의 URL에서 찾습니다. (예 www.eol.org/pages/5 는 5번째
-    분류/문서 ID를 가집니다) 문서 이름과 첫 그림은 사용할 수 있으면 모아지고 결과로 저장됩니다.
+  enter_in_a_search_term_users_a: '사용자가 찾고 있는 검색어를 입력한 다음 결과 분류/문서 ID는 해당 검색에 대해 제안으로
+    가리켜야 합니다. 분류/문서 ID는 가리키고 싶은 문서의 URL에서 찾습니다. (예: www.eol.org/pages/5는 5번째 분류/문서
+    ID를 가집니다) 문서 이름과 첫 그림은 사용할 수 있으면 수집하여 결과로 저장됩니다.'
   eol_administration_console: EOL 관리 콘솔
   eol_api_data_objects: 'EOL API: 데이터 개체'
   eol_api_colon: 'EOL API:'
@@ -3904,9 +3913,9 @@ ko:
   error_404_page_title: 찾을 수 없음
   error_404_description: 죄송합니다, 해당 URL에서 문서를 찾을 수 없습니다.
   error_500_page_title: 이런.
-  error_500_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_500_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
-  error_default_description: 죄송합니다, 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>로
+  error_default_description: 죄송합니다만 오류가 발생했습니다. 문제가 지속되면 <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>(으)로
     이메일을 보내주세요.
   error_default_page_title: 이런.
   error_classifications_locked_cannot_reindex: 죄송합니다, 이 문서는 현재 다시 색인을 만들 수 없습니다. 분류가
@@ -3917,7 +3926,7 @@ ko:
     다시 시도해야 합니다.'
   error_homepage_or_search_option: '<a href="/">홈페이지</a>로 돌아가거나 검색 도구를 사용할 수 있습니다:'
   error_watch_collections_cannot_be_shared: 주시문서 모음집을 공유할 수 없습니다
-  error_updating_user: 이 사용자의 기록을 업데이트 하는 동안 오류가 났습니다
+  error_updating_user: 이 사용자의 기록을 업데이트하는 동안 오류가 났습니다
   example_colon: '예시:'
   exception: 예외
   exceptions:
@@ -3939,6 +3948,8 @@ ko:
       only_admins_can_view_translated_content_pages: 죄송합니다, 관리자들만 이 문서의 번역본을 볼 수 있습니다.
       only_admins_can_edit_forums: 죄송합니다, 관리자들만 포럼을 편집할 수 있습니다.
       must_be_logged_in: 죄송하지만 로그인해야 합니다
+      only_data_owner_can_edit: 죄송합니다. 데이터 소유자만이 편집할 수 있습니다.
+      only_data_owner_can_delete: 죄송합니다. 데이터 소유자만이 삭제할 수 있습니다.
       error_editing_someone_account: 죄송합니다, 계정을 가진 사람만 편집할 수 있습니다.
       can_not_edit_permissions: 죄송합니다, 당신은 권한을 수정할 수 없습니다.
   expand_all_children: 모든 하위 확장
@@ -3968,6 +3979,7 @@ ko:
     채우세요. 양식을 제출하면 메시지를 보냅니다:'
   filter_button: 필터
   filter_by_day: 날짜별 필터
+  filter_by_subject: 주제별 필터
   filter_by_status_all_option: 모든 상태
   filter_by_status_trusted_option: 신뢰할 수 있음
   filter_by_status_unreviewed_option: 검토되지 않음
@@ -4031,7 +4043,7 @@ ko:
     입력하세요.
   forgot_password_form_header: 비밀번호 초기화
   forgot_password_form_helper: 비밀번호 재설정 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있음을
-    참고하세요. 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
+    참고하세요. 한 시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인해 주세요.
   forgot_password_cannot_find_user_from_username_or_email_error: 죄송합니다, 제공한 <em>%{username_or_email}</em>
     사용자 이름이나 이메일로 된 사용자 계정이 없습니다.
   for_images_to_reference_parens: (그림 참고용)
@@ -4109,9 +4121,12 @@ ko:
   image_title_with_taxa: '%{taxa}의 그림'
   image_title_without_taxa: 알 수 없는 분류의 그림
   images: 그림
+  images_with_count:
+    one: 그림 %{count}개
+    other: 그림 %{count}개
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
-  import_once: 한번에 가져오기
+  import_once: 한 번에 가져오기
   inappropriate: 부적절
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타데이터 포함
@@ -4135,7 +4150,7 @@ ko:
   invite_members_help_text: 여기에 EOL 사용자를 추가하고 새 공동체에 초대를 받을 것입니다!
   ip_address: IP 주소
   ip: IP
-  item_added_to_watch_collection_notice: '"%{item_name}"(을)를 %{collection_name} 모음집에
+  item_added_to_watch_collection_notice: '"%{item_name}"을(를) %{collection_name} 모음집에
     추가했습니다.'
   item_added_to_collection_notice: 항목을 <em>%{collection_name}</em> 모음집에 추가했습니다
   item_details_missing: 죄송합니다, 오류가 발생해 항목 정보를 찾을 수 없습니다.
@@ -4163,7 +4178,7 @@ ko:
   item_type_sound_assistive: 이 항목은 소리입니다
   item_type_taxon_assistive: 이 항목은 분류입니다
   item_type_video_assistive: 이 항목은 동영상입니다
-  item_not_added_already_in_collection: 이 항목은 이미 모음집에 추가했습니다.
+  item_not_added_already_in_collection: 이 항목:%{value}은 이미 모음집에 추가했습니다.
   item_not_added_to_itself_notice: 죄송합니다, 자신을 <em>%{collection_name}</em> 모음집에 추가할
     수 없습니다.
   item_not_added_to_collection_error: 죄송합니다, 오류가 발생해 선택한 항목을 모음집에 추가할 수 없습니다.
@@ -4209,6 +4224,7 @@ ko:
   leave_a_comment: 댓글 남기기
   leave_reply: 답글 남기기
   left_content_area: 왼쪽 내용 영역
+  legend: '범례:'
   license: 라이선스
   license_none: 없음
   license_all_rights_reserved: 모든 권리 소유
@@ -4269,7 +4285,7 @@ ko:
   login_header: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr> 계정에 로그인
   login_hidden_user_message: '%{given_name} 계정은 더 이상 활동하지 않습니다'
   login_or_create_account: 로그인 또는 계정 만들기
-  login_to_the_website_as: '%{username} 사용자로서 웹사이트 로그인'
+  login_to_the_website_as: '%{username}님으로 웹사이트 로그인'
   logo_header: 로고
   logout: 로그아웃
   looking_up_url: URL 찾는 중...
@@ -4279,7 +4295,7 @@ ko:
   maintained_by: 유지 관리자
   major_heading: 주요 제목
   make_an_editor: 관리자 되기
-  make_user_an_editor_title: '%{user} 사용자가 다음 모음집을 관리하도록 허용'
+  make_user_an_editor_title: '%{user}님이 다음 모음집을 관리하도록 허용'
   manage_your_profile: 내 프로필 관리
   managed_by: 관리자
   managed_collections_with_count:
@@ -4334,23 +4350,23 @@ ko:
     one: 형제 자매 %{count}개 더 있음...
     other: 형제 자매 %{count}개 더 있음...
   most_active_members: 가장 많이 활발한 구성원
-  move: 옮기기
-  move_down: 아래로 옮기기
+  move: 이동
+  move_down: 아래로 이동
   move_items_to_a_new_collection_with_count:
     one: 새 모음집에 항목 %{count}개를 이동합니다
     other: 새 모음집에 항목 %{count}개를 이동합니다
   move_to_bottom: 맨 아래로 이동
   move_to_top: 맨 위로 이동
-  move_up: 위로 옮기기
+  move_up: 위로 이동
   moved_all_items_from_collection_with_count:
-    one: '%{from}에서 이 모음집으로 항목 %{count}개를 옮겼습니다.'
-    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 옮겼습니다.'
+    one: '%{from}에서 이 모음집으로 항목 %{count}개를 이동했습니다.'
+    other: '%{from}에서 이 모음집으로 모든 항목 %{count}개를 이동했습니다.'
   moved_all_items_to_collections:
-    one: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
-    other: '%{name}에서 모음집 %{count}개로 모든 항목을 옮겼습니다.'
+    one: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
+    other: '%{name}에서 모음집 %{count}개로 모든 항목을 이동했습니다.'
   moved_items_from_collection_with_count_notice:
-    one: '%{name}에서 항목 %{count}개를 옮겼습니다.'
-    other: '%{name}에서 항목 %{count}개를 옮겼습니다.'
+    one: '%{name}에서 항목 %{count}개를 이동했습니다.'
+    other: '%{name}에서 항목 %{count}개를 이동했습니다.'
   multimedia_links: 멀티미디어 링크
   must_be_associated_with_either_a_user_or_a_community: 사용자나 공동체 중 하나에 연결해야 합니다
   must_provide_search_term_error: 검색어를 입력해야 합니다.
@@ -4426,6 +4442,8 @@ ko:
   news_missing_content_title: 번역 없음
   news_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   newsfeed: 뉴스 피드
+  newsletter_banner: EOL 공동체의 일원이 되세요&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>EOL
+    뉴스레터에 오늘 가입하세요</a>
   new_upload: 새로 올리기
   new_user: 새 사용자
   next: 다음
@@ -4468,7 +4486,7 @@ ko:
   email_updates_for_eol_addicts: EOL 중독자에 대한 업데이트입니다.
   email_updates_for_eol_members: 대부분의 EOL 구성원은 업데이트하고 싶어합니다.
   notifications_tab_name: 알림
-  taxon_not_found_error: '"%{taxon}"(을)를 찾을 수 없습니다'
+  taxon_not_found_error: '"%{taxon}"을(를) 찾을 수 없습니다'
   not_published_yet: 아직 게시하지 않았습니다.
   no_uploaded_content_is_available: 올린 콘텐츠는 사용할 수 없습니다.
   nucleotide_sequences: 염기 서열
@@ -4477,6 +4495,7 @@ ko:
   object: 개체
   object_curated: 개체를 큐레이트했습니다.
   objects_curated: 개체 큐레이트함
+  object_removed: (이 오브젝트는 데이터베이스에서 제거되었습니다)
   object_status: 개체 상태
   object_status_all_option: 모두
   object_status_trusted_option: 신뢰할 수 있음
@@ -4621,6 +4640,7 @@ ko:
   quarterly: 분기별
   rails_databases: Rails 데이터베이스
   rails_environment: Rails 환경
+  range: 범위
   rank_recognized_by_agent: '%{agent}에 의해 인정한 %{rank}'
   rank_recognized_by_from_source: '%{source}에 %{agent}에 의해 인정한 %{rank}'
   rank_recognized_by_agent_colon: '%{agent}에 의해 인정한 <b>%{rank}</b>:'
@@ -4638,7 +4658,7 @@ ko:
   recipients: 받는 사람
   recognized_by_from_source: '%{source}에서 %{recognized_by}'
   recognized_by_as_a_rank: '%{taxon_rank}로 %{recognized_by}'
-  recognized_by_from_source_as_a_rank: '%{taxon_rank}로 %{source}에서 %{recognized_by}'
+  recognized_by_from_source_as_a_rank: '%{taxon_rank}(으)로 %{source}에서 %{recognized_by}'
   record_not_found: '[기록을 찾을 수 없습니다]'
   reference: 각주
   references_cabs_colon: '각주:'
@@ -4772,8 +4792,8 @@ ko:
   send_email_colon: '이메일 보내기:'
   send: 보내기
   sent_invitations_to_users:
-    one: '%{users} 사용자에게 초대장을 보냈습니다.'
-    other: '%{users} 사용자에게 초대장을 보냈습니다.'
+    one: '%{users에게 초대장을 보냈습니다.'
+    other: '%{users}에게 초대장을 보냈습니다.'
   sep_emails_with_commas_note: (쉼표로 여러 이메일 주소를 구분)
   server_ip_address: 서버 IP 주소
   set_as_exemplar: 표본으로 설정
@@ -4949,21 +4969,21 @@ ko:
   text_with_count:
     one: 문서 %{count}개
     other: 문서 %{count}개
-  thanks_for_donation: 생명의 백과 사전에 지원해 주어서 감사합니다.  정보가 제출되었으며 처리됩니다.
+  thanks_for_donation: 생명의 백과사전을 지원해 주셔서 감사합니다. 정보가 제출되었으며 처리될 것입니다.
   thanks_for_your_time: 시간을 내어 주셔서 감사합니다,
   thank_you_for_your_generous_support: 관대한 지원에 감사합니다!
   thank_you: 감사합니다
   the_amount_entered_was: '입력한 금액: %{number} 미국 달러'
   the_comment_was_successfully_updated: 댓글을 성공적으로 업데이트했습니다.
   the_comment_was_successfully_deleted: 댓글을 성공적으로 삭제했습니다.
-  the_content_could_not_be_displ: 컨텐츠를 볼 수 없습니다.
-  the_content_was_updated: 컨텐츠가 업데이트되었습니다.
+  the_content_could_not_be_displ: 콘텐츠를 볼 수 없습니다.
+  the_content_was_updated: 콘텐츠가 업데이트되었습니다.
   the_file_was_uploaded: 파일이 올려졌습니다.
   too_many_descendants_to_curate_with_count:
     one: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다.'
-    other: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다.'
+    other: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과하는 하위 %{count}개가 있습니다.'
   the_id_of_provider_hierarchy_you_are_searching: 당신이 검색하고 있는 제공자의 계층 ID입니다. 유효한 ID에
-    대해서는 %{link}(을)를 확인하세요
+    대해서는 %{link}을(를) 확인하세요
   the_image_from_this_source_has_not_been_reviewed: 이 자료에서 그림이 검토되지 않았습니다.
   the_image_from_this_source_is_not_trusted: 이 자료에서 그림은 신뢰할 수 없습니다.
   the_info_highlighted_is_reviewed: 아래에 빨간색으로 강조한 정보는 큐레이터에 의해 검토했고 신뢰할 수 없음으로 표시했습니다.
@@ -5008,7 +5028,7 @@ ko:
   total: 총계
   translation_deleted: 번역이 삭제됨
   translation_information_header: 번역 정보
-  translation_log: 국제화(I18n) 주요 빈도 히스토그램
+  translation_log: I18n 주요 빈도 히스토그램
   translation_saved: 번역이 저장됨
   translations_submit: 번역 보기
   trigger_search_term_entered_by: 사용자가 입력한 검색어를 트리거
@@ -5028,6 +5048,7 @@ ko:
     one: '%{list}에 초대장을 보낼 수 없습니다.'
     other: '%{list}에 초대장을 보낼 수 없습니다.'
   unique_page_views_th: 고유 문서 보기
+  unit_of_measure: 측정 단위
   unknown: 알 수 없음
   unknown_hierarchy: 알 수 없는 계층
   unknown_data_object_title: 알 수 없는 데이터 개체
@@ -5117,24 +5138,23 @@ ko:
   user_already_active_notice: 계정이 이미 활성화되어 있습니다, 로그인하세요.
   user_comments: 사용자 댓글
   user_comment: 사용자 댓글
-  user_commented_on_something_colon: '<strong>%{user}</strong> 사용자가 "%{what}"에 댓글을
-    남겼습니다:'
-  user_commented_on_older_data_object_colon: '<strong>%{user}</strong> 사용자가 %{what}의
+  user_commented_on_something_colon: '<strong>%{user}</strong>님이 "%{what}"에 댓글을 남겼습니다:'
+  user_commented_on_older_data_object_colon: '<strong>%{user}</strong>님이 %{what}의
     이전 판에댓글을 남겼습니다:'
-  user_commented_on_themself: '<strong>%{user_with_link}</strong> 사용자가 <a href=''%{link}''>%{username}의
+  user_commented_on_themself: '<strong>%{user_with_link}</strong>님이 <a href=''%{link}''>%{username}의
     뉴스 피드</a>에 댓글을 남겼습니다:'
-  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> 사용자가 제거한 사용자의
-    문서에 댓글을 남겼습니다:'
+  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong>님이 제거된 사용자의 문서에
+    댓글을 남겼습니다:'
   user_commented_on_your_image: |-
-    <strong>%{user}</strong> 사용자가 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 댓글을 남겼습니다:
+    <strong>%{user}</strong>님이 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 댓글을 남겼습니다:
     %{comment_body}
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 사용자 ID
-  user_joined_community_on_date: '%{username} 사용자가 %{date}에 이 공동체에 가입했습니다.'
-  user_joined_when: '"%{user}" 사용자는 %{when}에 가입했습니다'
-  user_left_comment_on_date: '%{username} 사용자가 %{date}에 댓글을 남겼습니다.'
+  user_joined_community_on_date: '%{username}님이 %{date}에 이 공동체에 가입했습니다.'
+  user_joined_when: '"%{user}"님은 %{when}에 가입했습니다'
+  user_left_comment_on_date: '%{username}님이 %{date}에 댓글을 남겼습니다.'
   user_no_longer_active_message: 이 사용자는 더 이상 활동하지 않습니다
-  user_no_longer_has_manager_access_to_collection: '%{user} 사용자는 더 이상 "%{collection}"
+  user_no_longer_has_manager_access_to_collection: '%{user}님은 더 이상 "%{collection}"
     모음집으로 관리자 접근할 수 없습니다.'
   user_pending_notifications_assitive: <span class="assistive">알림</span>
   user_pending_notifications_with_count:
@@ -5150,8 +5170,8 @@ ko:
   user_pending_notifications_comments_with_count_assistive:
     one: <span class="assistive">댓글 </span>%{count}개
     other: <span class="assistive">댓글 </span>%{count}개
-  user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가했습니다.
-  username_taken: '%{name} 사용자는 이미 토큰이 있습니다'
+  user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가되었습니다.
+  username_taken: '%{name}님은 이미 사용 중입니다'
   username_colon: '사용자 이름:'
   username: 사용자 이름
   user_response: 사용자 응답
@@ -5248,9 +5268,9 @@ ko:
   you_are_an_admin_so_i_will_show_you_that_the_error_was: '당신은 관리자입니다. 오류 메시지를 보는
     것을 허용합니다:'
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.
-  you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}(을)를 보고 있습니다:'
+  you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}을(를) 보고 있습니다:'
   you_can_edit_those_later_if_ne: 필요한 경우 나중에 편집할 수 있습니다.
-  you_have_been_logged_in_as_username: '%{username} 사용자로 로그인되어 있습니다'
+  you_have_been_logged_in_as_username: '%{username}님으로 로그인되어 있습니다'
   you_have_been_logged_out: 로그아웃했습니다.
   you_joined_community: 성공적으로 공동체에 가입했습니다.
   you_left_community: 성공적으로 공동체를 떠났습니다.

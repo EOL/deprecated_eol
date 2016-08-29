@@ -594,22 +594,22 @@ private
 
   def remove_items(options)
     collection_items = options[:items] || collection_items_with_scope(options.merge(allow_all: true))
-    bulk_log = params[:scope] == 'all_items'
+    all_items = params[:scope] == 'all_items'
     count = 0
     raise EOL::Exceptions::NoItemsSelected if collection_items.blank?
-    collection_items.each do |item|
-      item = CollectionItem.find(item) # Sometimes, this is just an id.
-      if item.update_attributes(collection_id: nil) # Not actually destroyed, so that we can talk about it in feeds.
-        item.remove_from_solr # TODO - needed?  Or does the #after_save method handle this?
-        count += 1
-        unless bulk_log
+    if all_items
+      @collection.clear
+      log_activity(activity: Activity.remove_all)
+    else
+      collection_items.each do |item|
+        item = CollectionItem.find(item) # Sometimes, this is just an id.
+        if item.update_attributes(collection_id: nil) # Not actually destroyed, so that we can talk about it in feeds.
+          item.remove_from_solr # TODO - needed?  Or does the #after_save method handle this?
+          count += 1
           log_activity(activity: Activity.remove, collection_item: item)
         end
       end
-    end
-    @collection_items.delete_if {|ci| collection_items.include?(ci.id.to_s) } if @collection_items
-    if bulk_log
-      log_activity(activity: Activity.remove_all)
+      @collection_items.delete_if { |ci| collection_items.include?(ci.id.to_s) } if @collection_items
     end
     options[:from].set_relevance if options[:from]
     return count

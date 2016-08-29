@@ -45,30 +45,17 @@ EOL.switch_subtab = function(which, options) {
   EOL.limit_data_rows();
 };
 
+// $('table.data tr.data .info') ...basically anything for which the "define"
+// helper method is called on... unless it's nested in a row.
 EOL.create_info_dialog = function(match) {
-  var $has_id = $(match).closest('[id]');
-  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  var nearest = $(match).closest('[id]').attr('id');
   $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
     .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
-  EOL.enable_info_dialogs($('#tip_'+nearest),$('table.data tr.data, table.meta tr'));
-  EOL.enable_data_tab_glossary_links($(match));
-  $(match).appendTo(document.body);
-};
-
-EOL.create_info_dialog_for_data_search = function(match) {
-  var $has_id = $(match).closest('[id]');
-  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
-  $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
-  $(match)
-    .attr('id', "info_"+nearest)
-    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
-    .addClass('tip')
-    .prepend('<a href="#" class="close">&nbsp;</a>');
-  EOL.enable_info_dialogs($('#tip_'+nearest));
+  EOL.enable_info_dialogs($('#tip_'+nearest), $('table.data tr.data, table.meta tr'));
   EOL.enable_data_tab_glossary_links($(match));
   $(match).appendTo(document.body);
 };
@@ -86,7 +73,7 @@ EOL.create_info_ranges_dialog = function(match) {
   EOL.enable_data_tab_glossary_links($(match));
   $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
-  };
+};
 
 EOL.create_collection_taxon_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
@@ -135,7 +122,7 @@ EOL.enable_data_tab_glossary_links = function(info) {
   // want to enable this on the data tab, so check for some element that only exists there
   if(info.closest('#taxon_data.main_container').length > 0) {
     info.find('a.glossary').each(function() {
-      $(this).text($(this).data('tab_link_message'));
+      $(this).text($(this).data('tab-link-message'));
     });
     info.find('a.glossary').on('click', function(e) {
       e.preventDefault();
@@ -149,28 +136,30 @@ EOL.enable_data_tab_glossary_links = function(info) {
   }
 };
 
+// $('table.data tr.data, table.meta tr')
 EOL.enable_info_dialogs = function(tip, table_row) {
-  tip.unbind('click')
-    .on('click', function(e) {
-      // This will make sure we don't open rows when clicking info icons:
-      e.stopPropagation();
-      $('.site_column').unbind('click');
-      var $link = $(this);
-      var $info = $('#info_'+$(this).data('info'));
-      if ($info.is(':visible')) {
-        $info.hide('fast');
-      } else {
-        $('.info.tip').hide('fast');
-        var pos = $(this).offset();
-        $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
-        $info.show('fast',
-          function() {
-            $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
-          }
-        ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false); } );
-      }
-    });
-    EOL.info_icon_mouse_hover(table_row);
+  console.log("Adding click event for: " + tip.data('info'));
+  tip.unbind('click').on('click', function(e) {
+    // This will make sure we don't open rows when clicking info icons:
+    e.stopPropagation();
+    $('.site_column').unbind('click');
+    var $link = $(this);
+    var $info = $('#info_' + $(this).data('info'));
+    console.log("Clicked on tooltip: " + $(this).data('info'));
+    if ($info.is(':visible')) {
+      $info.hide('fast');
+    } else {
+      $('.info.tip').hide('fast');
+      var pos = $(this).offset();
+      $info.css({ top: pos.top + $(this).height(), left: pos.left + $(this).width() });
+      $info.show('fast',
+        function() {
+          $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
+        }
+      ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false); } );
+    }
+  });
+  EOL.info_icon_mouse_hover(table_row);
 };
 
  // making sure the info icons show when anywhere on the row is moused over
@@ -194,27 +183,6 @@ EOL.disable_button = function($button) {
   if (!$button.is(':disabled')) {
     $button.attr("disabled", true).fadeTo(225, 0.3);
   }
-};
-
-EOL.attribute_is_not_okay = function() {
-  $('input.predicate_autocomplete').addClass('problems');
-  $('#new_uri_warning').show();
-  EOL.disable_measurement_input();
-};
-
-EOL.attribute_is_okay = function() {
-  $('input.predicate_autocomplete').removeClass('problems');
-  $('#new_uri_warning').hide();
-  if ($('#predicate_uri_type').val() == 'measurement' && $('.predicate_autocomplete').val() !== '') {
-    $('fieldset.unit_of_measure').fadeIn(100);
-  } else {
-    EOL.disable_measurement_input();
-  }
-};
-
-EOL.disable_measurement_input = function() {
-  $('fieldset.unit_of_measure').fadeOut(100);
-  $('fieldset.unit_of_measure input').val('');
 };
 
 EOL.hide_data_tables = function(tables) {
@@ -259,20 +227,6 @@ EOL.toggle_actions_row = function(data_row) {
 
 EOL.sort_glossary = function(a, b) {
   return ($(b).find('dt').text()) < ($(a).find('dt').text()) ? 1 : -1;
-};
-
-EOL.enable_suggestions_hover = function() {
-  $('input.predicate_autocomplete').parent().hover(function() {
-    if (!$('ul.ui-autocomplete').is(':visible') && $('input.predicate_autocomplete').val() === '') {
-      $('div#suggestions').show();
-    } else $('div#suggestions').hide();
-  }, function () {
-    $('div#suggestions').hide();
-  });
-};
-
-EOL.disable_suggestions_hover = function() {
-  $('input.predicate_autocomplete').parent().unbind('hover');
 };
 
 EOL.update_input_id_and_name = function(form, new_id) {
@@ -346,142 +300,47 @@ EOL.update_unit_select_options = function(known_uri_id) {
 };
 
 $(function() {
-
+  // Hide metadata, add the ">" icon:
   $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
-
-  $('.has_many').each(function() {
-    var $subform = $(this).clone();
-    $subform.find('.once').remove();
-    var last_input = $(this).closest('form').find('input[id^=user_added_data_user_added_data_metadata_attributes]').filter(':last');
-    var highest_field_id = parseInt(last_input.attr('id').match(/(\d+)/)[1]);
-    EOL.update_input_id_and_name($subform, highest_field_id += 1);
-    $subform.appendTo($(this)).addClass('subform').hide();
-    $(this).append('<span class="add"><a href="#">'+$(this).data('another')+'</a></span>');
-    $(this).find('.add a').on('click', function() {
-      $subform.clone().insertBefore($(this).parent()).show();
-      EOL.update_input_id_and_name($subform, highest_field_id += 1);
-      var form_h = $('.has_many_expandable').height();
-      $('.has_many_expandable').height(form_h + $subform.height());
-      return(false);
-    });
+  // Clicking on the triangle in the row is effectively just clicking on the row
+  // (otherwise this would be blocked as a clickable link in the row, skipping
+  // the click on the row itself:)
+  $('table.data .fold a').on('click', function() {
+    $(this).closest('tr').click(); return(false);
   });
-
-  $('div#suggestions').appendTo($('input.predicate_autocomplete').parent());
-
-  $('input.predicate_autocomplete').keyup(function(e) {
-    var key = e.keyCode || e.which;
-    // it was the return key that was pressed, likely the user
-    // choosing an autocomplete value from the list, so do nothing
-    if (key === 13) return;
-    var $field = $(this);
-    if ($field.val() !== '') {
-      $('div#suggestions').hide();
+  // on click, open row:
+  $('table.data tr.data').on('click', function(e) {
+    var $targ;
+    var $orig_targ;
+    if (e.target) $targ = $(e.target);
+    else if (e.srcElement) $targ = $(e.srcElement);
+    $orig_targ = $targ;
+    // Grab the TR if they clicked on something lower. Seems odd that this happens, but it does (it's usually a TD).
+    if (! $targ.is("tr")) $targ = $targ.closest('tr');
+    // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
+    if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
+    // Abort if it's a legitimate link (which will handle itself):
+    if ($orig_targ.is('a')) {
+      e.stopPropagation();
+      return;
     }
-    if ($('input.predicate_known_uri_id').val() !== '') {
-      $('input.predicate_known_uri_id').val('');
-      EOL.attribute_is_not_okay();
-    }
-    if ($field.val() === '' || $('input.predicate_known_uri_id').val() !== '') {
-      EOL.attribute_is_okay();
-    } else EOL.attribute_is_not_okay();
-  }).focus(function() {
-    if ($(this).val() === '') {
-      $('div#suggestions').show();
-    }
+    $targ.next().find('.info').each(function() { EOL.create_info_dialog(this); });
+    EOL.toggle_actions_row($targ);
   });
-
-  EOL.enable_suggestions_hover();
-
-  $('fieldset.unit_of_measure').hide();
-
-  $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
-
-  $('table.data tr.data').on('click',
-    function(e) {
-      var $targ;
-      if (e.target) $targ = $(e.target);
-      else if (e.srcElement) $targ = $(e.srcElement);
-      // Grab the TR if they clicked on something lower. Seems odd that this happens, but it does (it's usually a TD).
-      if (! $targ.is("tr")) $targ = $targ.closest('tr');
-      // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
-      if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
-      // Abort if it's a legitimate link (which will handle itself):
-      if ($(e.target).is('a')) {
-        e.stopPropagation();
-        return;
-      }
-      EOL.toggle_actions_row($targ);
-    });
-
+  // on click of metadata, close row:
   $('table.data tr.actions td .metadata').live('click',
     function(e) {
       if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
       EOL.toggle_actions_row($(this).closest('tr').prev());
     });
-
-  $('#recently_used_category a').on('click', function() {
-    $('#suggestions').find('.child').hide();
-    var $next = $(this).parent().next();
-    while($next.hasClass('child')) {
-      $next.show();
-      $next = $next.next();
-    }
-    return(false);
-  });
-
-  $('li.attribute').live('click', function() {
-    var span = $(this).find('.name');
-    $('input.predicate_autocomplete').val(span.text());
-    $('input.predicate_known_uri_id').val(span.data('id'));
-    $('#predicate_uri_type').val(span.data('uri_type'));
-    $('#user_added_data_has_values').val(span.data('has_values'));
-    EOL.attribute_is_okay();
-    $('div#suggestions').hide();
-  });
-
-  // any chosen autocomplete value is legitimate
-  $('input.predicate_autocomplete').bind('railsAutocomplete.select', function(event, data){
-    EOL.attribute_is_okay();
-  });
-
-  $('input[data-autocomplete]').live('focus', function() {
-    // if the field is a value autocomplete, check the hidden *_has_values
-    // field to see if we should disable autocomplete or not
-    if ($(this).data('autocomplete').match(/known_uri_values/)) {
-      var value_toggle = $(this).closest('div').find('input[id*="has_values"]:first');
-      if (value_toggle.length > 0) {
-        if (value_toggle.val() === '1') $(this).autocomplete('enable');
-        else $(this).autocomplete('disable');
-      }
-    }
-
-    // for the primary measurement, always autocomplete with the value in the text input. The other
-    // autocomplete fields will search on ' ' to show always show the pick-list on focus. The primary
-    // measurment field will show the custom selector when the field is empty
-    if ($(this).hasClass('predicate_autocomplete')) {
-      $(this).autocomplete("search", $(this).val());
-    } else $(this).autocomplete("search", ' ');
-  });
-
-  // this helps show default pick-lists when the fields are empty
-  $('input[data-autocomplete]').keyup(function(e) {
-    var key = e.keyCode || e.which;
-    // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
-    if (key === 37 || key === 38 || key === 39 || key === 40) return;
-    if ($(this).val() === '') {
-      if ($(this).hasClass('predicate_autocomplete')) {
-        $('div#suggestions').show();
-      } else $(this).autocomplete("search", ' ');
-    }
-  });
-
+  // Subtabs:
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
     EOL.switch_subtab($(this));
     return(false);
   });
-
+  // Show a "more..." link if there's a ton of data for one attribute:
   EOL.limit_data_rows();
-
+  // Open rows that are in the URL:
   if (location.hash !== "") {
     var name  = location.hash.replace(/\?.*$/, '');
     var $row = $(name);
@@ -491,128 +350,30 @@ $(function() {
       $("html, body").animate({ scrollTop: new_top });
     }
   }
-
-  // Remove links on the overview should be hidden until you hover:
+  // Remove links (on the overview) should be hidden until you hover:
   $('#data_summary table').hover(function() {
     $('span.remove').show();
   }, function () {
     $('span.remove').hide();
   }).find('span.remove').hide();
-
+  // Hide hidden buttons. This isn't in the CSS for accessibility reasons.
   $('a.button.hidden').hide();
-
-  $('#sortable.standard.uris').sortable({
-    placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
-    update: function(e, ui) {
-      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
-    }
-  }).disableSelection();
-
-  $('#sortable a.to_top').on('click', function() {
-    $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') });
-    return(false);
-  });
-
-  $('#sortable a.to_bottom').on('click', function() {
-    $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
-    return(false);
-  });
-
-  $('#sortable a.to_top_p_harvest').on('click', function() {
-    $.post("/pending_harvests/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') });
-    return(false);
-  });
-
-  $('#sortable a.to_bottom_p_harvest').on('click', function() {
-    $.post("/pending_harvests/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
-    return(false);
-  });
-
-  $('#sortable.standard.pending_harvests').sortable({
-    placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
-    update: function(e, ui) {
-      $.post("/pending_harvests/sort", { pending_harvests: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
-    }
-  }).disableSelection();
-
-  $('#pause_p_harvest').on('click', function() {
-  	document.getElementById("pause_pending_harvests").style.display = "none";
-  	document.getElementById("resume_pending_harvests").style.display = "block";
-    $.post("/pending_harvests/pause_harvesting");
-    return(false);
-  });
-
-  $('#resume_p_harvest').on('click', function() {
-  	document.getElementById("resume_pending_harvests").style.display = "none";
-  	document.getElementById("pause_pending_harvests").style.display = "block";
-    $.post("/pending_harvests/resume_harvesting");
-    return(false);
-  });
-
-  // Definitions of Attributes are dialogs if JS is enabled:
-  $('table.data tr .info, table.data.search tr .info').each(function() {
+  // Definitions of attributes are dialogs if JS is enabled:
+  $('table.data tr.data .info').each(function() {
     EOL.create_info_dialog(this);
   });
-
-  $('form.copy .vital li .info, form.copy .vital.search li .info').each(function() {
-    EOL.create_info_dialog_for_data_search(this);
+  // Some fields in the data search form have info:
+  $('form.copy .vital li .info').each(function() {
+    EOL.create_info_dialog(this);
   });
-
- $('table.ranges tr .info, table.ranges.search tr .info').each(function() {
+  // Ranges (missing at the time of this writing, but hey)
+  $('table.ranges tr .info, table.ranges.search tr .info').each(function() {
     EOL.create_info_ranges_dialog(this);
   });
-
- $('table.taxon_collection tr .info_icon, table.taxon_collection.search tr .info_icon').each(function() {
-    EOL.create_collection_taxon_info_dialog(this);
-  });
-
-  $('.add_content .article').hide();
-  $('.add_content .add_data a').on('click', function() {
-    var $article = $('.add_content .article');
-    if ($article.is(':visible')) {
-      $(this).removeClass('open');
-      $('.add_content .article').hide();
-    } else {
-      $(this).addClass('open');
-      $('.add_content .article').show();
-    }
-    return(false);
-  });
-
+  // Glossary hover items:
   EOL.enable_hover_list_items();
-
+  // Alert if you want to download data:
   $('.page_actions .data_download a').on('click', function() {
     window.alert($(this).parent().data('alert').replace(/<\/?[^>]+>/g, ''));
   });
-
-  $('#known_uris.glossary ul.chapters li').find('a, input').on('click', function(e) {
-    e.preventDefault();
-    var li = $(this).closest('li');
-    var checkbox = li.find('input');
-    var chapters = $('#known_uris.glossary ul.chapters');
-    if(li.hasClass('selected')) {
-      li.removeClass('selected');
-      // for some reason the setTimeout is needed when the checkbox is the one clicked
-      setTimeout(function() { checkbox.prop('checked', false); }, 5);
-      if(chapters.find('li.selected').length === 0) $('ul.glossary > li').show();
-      else {
-        // using the attributeContainsWord selector ~= here
-        $('ul.glossary li[data-toc-id~="' + li.data('toc-id') + '"]').hide();
-      }
-    } else
-    {
-      if(chapters.find('li.selected').length === 0) $('ul.glossary > li').hide();
-      li.addClass('selected');
-      setTimeout(function() { checkbox.prop('checked', true); }, 5);
-      // using the attributeContainsWord selector ~= here
-      $('ul.glossary li[data-toc-id~="' + li.data('toc-id') + '"]').show();
-    }
-    return false;
-  });
-
-  // change the list of units based on the currently selected attribute
-  $('#data_search select#attribute').on('change', function() {
-    EOL.update_unit_select_options($(this).find(":selected").data('known_uri_id'));
-  });
-
 });

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Idh0854
+# Author: Ykhwong
 # Author: 아라
 ---
 ko:
@@ -95,7 +96,7 @@ ko:
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: 플래시
   translated_data_types-label-data_type_id-8: 유튜브
-  translated_licenses-description-license_id-1: 권리 보유 안함
+  translated_licenses-description-license_id-1: 권리 보유 안 함
   translated_licenses-description-license_id-29: 일부 권리 보유
   translated_licenses-description-license_id-2: '&#169; 모든 권리 보유'
   translated_licenses-description-license_id-30: 일부 권리 보유
@@ -171,12 +172,12 @@ ko:
   translated_ranks-label-rank_id-99: 과
   translated_resource_statuses-label-resource_status_id-10: 게시함
   translated_resource_statuses-label-resource_status_id-11: 게시 보류 중
-  translated_resource_statuses-label-resource_status_id-12: 게시 안함 보류 중
+  translated_resource_statuses-label-resource_status_id-12: 게시 안 함 보류 중
   translated_resource_statuses-label-resource_status_id-13: 강제 수확
   translated_resource_statuses-label-resource_status_id-1: 올리는 중
   translated_resource_statuses-label-resource_status_id-2: 올려짐
   translated_resource_statuses-label-resource_status_id-3: 올리기 실패
-  translated_resource_statuses-label-resource_status_id-4: 내용 서버로 옮김
+  translated_resource_statuses-label-resource_status_id-4: 내용 서버로 이동됨
   translated_resource_statuses-label-resource_status_id-5: 확인됨
   translated_resource_statuses-label-resource_status_id-6: 확인 실패
   translated_resource_statuses-label-resource_status_id-7: 처리 중

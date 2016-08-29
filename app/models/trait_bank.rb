@@ -7,6 +7,7 @@ class TraitBank
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+  PAGE_RE = /http:\/\/eol.org\/pages\/(\d+)$/
 
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re
@@ -38,7 +39,6 @@ class TraitBank
       if result.nil? || result.blank?
         # Don't store empty results:
         Rails.cache.delete(key)
-        EOL.log("TB.cache_query: #{key} (0 results, not saved)")
       elsif result.is_a?(String)
         EOL.log("TB.cache_query: #{key} (#{result[0..29]})")
       elsif result.is_a?(Fixnum)
@@ -62,6 +62,29 @@ class TraitBank
 
     def uri?(uri)
       EOL::Sparql.is_uri?(uri)
+    end
+
+    # NOTE: this is not used in the code, command-line only.
+    def pages_with_traits_in_clade(clade)
+      TraitBank.connection.query("SELECT COUNT(DISTINCT ?page) WHERE "\
+        "{ GRAPH <http://eol.org/traitbank> { ?page a eol:page . "\
+        "?page ?pred ?trait . ?trait a eol:trait . "\
+        "?page eol:has_ancestor <http://eol.org/pages/#{clade}> } } LIMIT 10").
+        first[:"callret-0"].to_i
+    end
+
+    # NOTE this may have duplicates if there are multi traits with diff names:
+    # NOTE: this is not used in the code, command-line only.
+    def pages_and_names_with_traits_in_clade(clade)
+      results = []
+      TraitBank.paginate("SELECT DISTINCT ?page ?name WHERE "\
+        "{ GRAPH <http://eol.org/traitbank> { ?page a eol:page . "\
+        "?page ?foo ?trait . ?trait a eol:trait . "\
+        "?page eol:has_ancestor <http://eol.org/pages/281> . "\
+        "?trait <http://rs.tdwg.org/dwc/terms/scientificName> ?name . } }") do |set|
+          set.each { |r| results << [r[:page].to_s, r[:name].to_s] }
+        end
+      results
     end
 
     # Even 100 is too many for this paginate... throws a "generated SQL too
@@ -100,7 +123,7 @@ class TraitBank
         raise "Can't convert #{literal.class} into a string: #{literal.inspect}"
       end
       if str.is_numeric?
-        str
+        str.sub(/^\+/, '')
       else
         "\"#{str.gsub(/\n/, " ").gsub(/\\/, "\\\\\\\\").gsub(/"/, "\\\"")}\""
       end
@@ -156,7 +179,7 @@ class TraitBank
     def create_mappings(resource)
       triples = []
       graph = resource.graph_name
-      resource.hierarchy.entries.select([:id, :identifier, :taxon_concept_id]).
+      resource.hierarchy.entries.has_identifier.select([:id, :identifier, :taxon_concept_id]).
                find_each do |entry|
         entry_uri = "#{graph}/taxa/#{EOL::Sparql.to_underscore(entry.identifier)}"
         page_uri = "http://eol.org/pages/#{entry.taxon_concept_id}"
@@ -169,8 +192,8 @@ class TraitBank
 
     def flatten_taxa(taxa)
       EOL.log_call
-      EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
-      taxa.to_a.in_groups_of(10_000, false) do |group|
+      # NOTE: 10_000 here was too high; lost connection to SQL.
+      taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
         TaxonConceptsFlattened.where(taxon_concept_id: group).
           find_each do |flat|
@@ -180,7 +203,7 @@ class TraitBank
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
         connection.insert_data(data: triples, graph_name: graph)
-        EOL.log("Completed #{group.count}...", prefix: ".")
+        EOL.log("Flattened #{group.size}/#{taxa.size}...", prefix: ".")
       end
     end
 
@@ -219,7 +242,9 @@ class TraitBank
             EOL.log("#{query[0..110].gsub(/\s+/m, " ")}...", prefix: "Q")
             put_query = true
           end
-          EOL.log("#{offset + results.count}", prefix: ".")
+          count = offset + results.count
+          EOL.log("paginating for more results: #{count}", prefix: ".") if
+            count % 10_000
           yield(results)
         end
         offset += limit
@@ -339,151 +364,6 @@ class TraitBank
         hash[:source] = source_row[:source].to_s if source_row
         hash
       end
-    end
-
-    # NOTE: this used to have a UNION, but I discovered there was exactly ONE
-    # trait in all of TB that actually matched it (and I guess it was old, ID
-    # was 1), so I removed it.
-    def measurements_query(resource)
-      "SELECT DISTINCT *
-        # measurements_query
-        WHERE {
-          GRAPH <#{resource.graph_name}> {
-            ?trait dwc:measurementType ?predicate .
-            ?trait dwc:measurementValue ?value .
-            OPTIONAL { ?trait dwc:measurementUnit ?units } .
-            OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
-          } .
-          {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?trait eol:measurementOfTaxon eolterms:true .
-            GRAPH <#{resource.mappings_graph_name}> {
-              ?taxon dwc:taxonConceptID ?page
-            }
-            OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?occurrence dwc:sex ?sex }
-          }
-        }"
-    end
-
-
-    # TODO: http://eol.org/known_uris should probably be a function somewhere.
-    def associations_query(resource)
-      "SELECT DISTINCT *
-        # associations_query
-        WHERE {
-          GRAPH <#{resource.mappings_graph_name}> {
-            ?taxon dwc:taxonConceptID ?page .
-            ?value dwc:taxonConceptID ?target_page
-          } .
-          GRAPH <#{resource.graph_name}> {
-            ?occurrence dwc:taxonID ?taxon .
-            ?target_occurrence dwc:taxonID ?value .
-            {
-              ?trait dwc:occurrenceID ?occurrence .
-              ?trait eol:targetOccurrenceID ?target_occurrence .
-              ?trait eol:associationType ?predicate
-            }
-            UNION
-            {
-              ?trait dwc:occurrenceID ?target_occurrence .
-              ?trait eol:targetOccurrenceID ?occurrence .
-              ?trait eol:associationType ?inverse
-            }
-          } .
-          OPTIONAL {
-            GRAPH <http://eol.org/known_uris> {
-              ?inverse owl:inverseOf ?predicate
-            }
-          }
-        }"
-    end
-
-    # NOTE: I tried to have this take multiple traits and use an IN. ...it works
-    # fine... MOST of the time. But there are SPECIFIC URIs that cause the time
-    # estimate to go through the roof (e.g., if
-    # <http://eol.org/resources/737/measurements/a62006f2ac1305d8b4eb9482cf3f6776>
-    # is IN THE SET, the whole query fails because it thinks it will take too
-    # long). I don't have time to figure out why, so we CRAWL through these one
-    # at a time. Sigh.
-    def metadata_query(resource, trait)
-      "SELECT DISTINCT *
-      # metadata_query
-      WHERE {
-        GRAPH <#{resource.graph_name}> {
-          {
-            ?trait ?predicate ?value .
-          } UNION {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?occurrence ?predicate ?value .
-          } UNION {
-            ?meta_trait eol:parentMeasurementID ?trait .
-            ?meta_trait dwc:measurementType ?predicate .
-            ?meta_trait dwc:measurementValue ?value .
-            OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .
-          } UNION {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?meta_trait dwc:occurrenceID ?occurrence .
-            ?meta_trait dwc:measurementType ?predicate .
-            ?meta_trait dwc:measurementValue ?value .
-            FILTER NOT EXISTS { ?meta_trait eol:measurementOfTaxon eolterms:true } .
-            OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .
-          } UNION {
-            ?meta_trait eol:associationID ?trait .
-            ?meta_trait dwc:measurementType ?predicate .
-            ?meta_trait dwc:measurementValue ?value .
-            OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .
-          } UNION {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:eventID ?event .
-            ?event ?predicate ?value .
-          } UNION {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?taxon ?predicate ?value .
-            FILTER (?predicate = dwc:scientificName)
-          }
-          FILTER (?predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, eolreference:referenceID,
-                                     eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
-                                     eol:associationType,
-                                     dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
-                  ) .
-          FILTER (?trait = <#{trait}>)
-        }
-      }"
-    end
-
-    # OLD: ?parent_uri ?identifier ?publicationType ?full_reference ?primaryTitle
-    # ?title ?pages ?pageStart ?pageEnd ?volume ?edition ?publisher ?authorList
-    # ?editorList ?created ?language ?uri ?doi ?localityName
-    def references_query(resource)
-      # {optional_reference_uris} removed because it never showed up on the old
-      # version of TB, and it's largely redundant. NOTE that storing
-      # full_reference everywhere it's used is quite redundant, but it's much,
-      # much easier to render, so I'm ignoring that.
-      "SELECT DISTINCT *
-       #references_query
-        WHERE {
-          GRAPH <#{resource.graph_name}> {
-            {
-              ?trait eolreference:referenceID ?reference .
-              ?reference a eolreference:Reference .
-              ?reference <#{TraitBank.full_reference_uri}> ?full_reference
-            }
-          }
-        }"
-    end
-
-    def optional_reference_uris
-      return @optional_reference_uris if @optional_reference_uris
-      @optional_reference_uris = []
-      Rails.configuration.optional_reference_uris.each do |var, url|
-        @optional_reference_uris << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
-      end
-      return "" if @optional_reference_uris.empty?
-      @optional_reference_uris.join(" ")
     end
   end
 end

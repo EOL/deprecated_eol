@@ -20,6 +20,7 @@ class Trait
       if rdf.first[:page].to_s =~ TraitBank.taxon_re
         id = $2.to_i
         @page = options[:taxa].find { |taxon| taxon.id == id }
+        @page ||= @source_set.taxa[id] unless @source_set.taxa.nil?
         @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
@@ -33,19 +34,57 @@ class Trait
         @predicate = association.to_s
       end
     end
+    make_point if @point.nil?
   end
 
   def inverse?
     return false unless association?
     if @page
       @page == subject_page
-    else
+    elsif object_page
       @source_set.id == object_page.id
+    else
+      false
     end
+  end
+
+  # This keeps the output from a terminal a sane length:
+  def to_s
+    set = @source_set ? @source_set.id : "[none]"
+    "<Trait @source_set_id=#{set} @predicate=#{predicate} @uri=#{uri} "\
+      "@point=#{point.id} @page=#{@page} @inverse=#{inverse?}>"
+  end
+
+  def source_set_id
+    @source_set.id
   end
 
   def anchor
     point.try(:anchor) || header_anchor
+  end
+
+  def make_point
+    res_id = resource.try(:id)
+    page_id = @page ? @page.id : @source_set.id
+    @point = DataPointUri.create(
+      uri: uri.to_s,
+      taxon_concept_id: page_id,
+      vetted_id: Vetted.trusted.id,
+      visibility_id: Visibility.visible.id,
+      class_type: "MeasurementOrFact",
+      predicate: predicate.to_s,
+      object: value_name,
+      unit_of_measure: units_name,
+      resource_id: resource.try(:id),
+      user_added_data_id: nil,
+      predicate_known_uri_id: predicate_uri.is_a?(KnownUri) ?
+        predicate_uri.id : nil,
+      object_known_uri_id: value_uri.is_a?(KnownUri) ? value_uri.id : nil,
+      unit_of_measure_known_uri_id: units_uri.is_a?(KnownUri) ?
+        units_uri.id : nil,
+    )
+    EOL.log("WARNING: Created missing DPURI #{uri} (#{@point.id})", prefix: "*")
+    EOL.log("WARNING: That DPURI had no resource!", prefix: "*") if res_id.nil?
   end
 
   def header_anchor
@@ -92,22 +131,29 @@ class Trait
     @subject_page ||= find_associated_taxon(TraitBank.subject_page_uri)
   end
 
+  def target_taxon
+    @target_taxon ||= @inverse ? subject_page : object_page
+  end
+
   def target_taxon_name
-    page = @inverse ? subject_page : object_page
-    page.title_canonical_italicized
+    target_taxon.title_canonical_italicized
   end
 
   def target_taxon_uri
-    "http://eol.org/pages/#{(@inverse ? subject_page : object_page).id}"
+    "http://eol.org/pages/#{target_taxon.id}"
   end
 
   def find_associated_taxon(which)
     str = rdf_value(which).try(:to_s)
-    return nil if str.nil?
+    return MissingConcept.new(which) if str.nil?
     id = str.sub(TraitBank.taxon_re, "\\2")
-    return nil if id.blank?
-    tc = TaxonConcept.find(id)
-    TaxonConcept.with_titles.find(tc)
+    return MissingConcept.new(str) if id.blank?
+    tc = @source_set.taxa[id.to_i]
+    if tc.nil?
+      tc = TaxonConcept.find(id)
+      tc = TaxonConcept.with_titles.find(tc)
+    end
+    tc
   end
 
   def categories
@@ -230,9 +276,10 @@ class Trait
     @predicate_uri ||= rdf_to_uri(@predicate)
   end
 
+  # TODO: we need a MissingSource...
   def resource
     return @resource if @resource
-    return nil if source_id.nil?
+    return nil unless source_id && sources
     @resource = sources.find { |source| source.id == source_id }
     if @resource.nil?
       EOL.log("JIT-loading resource #{source_id} (this is not good)")

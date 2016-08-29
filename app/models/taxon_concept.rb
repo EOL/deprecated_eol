@@ -53,6 +53,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :superceded_taxon_concepts, class_name: TaxonConcept.to_s, foreign_key: "supercedure_id"
   has_many :taxon_data_exemplars
 
+  has_one :page_json, inverse_of: :page, foreign_key: "page_id"
   has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
@@ -71,11 +72,15 @@ class TaxonConcept < ActiveRecord::Base
   # A bit of a cheat—we happen to know it will ONLY be unknown, not untrusted.
   scope :untrusted, -> { where(vetted_id: Vetted.unknown.id) }
   scope :with_title, -> { includes(preferred_entry: { hierarchy_entry:
-    { name: :ranked_canonical_form } }) }
+    { name: [:ranked_canonical_form, :canonical_form] } }) }
   scope :with_subtitle, -> {
     includes(preferred_common_names: [:name, :language])
   }
   scope :with_titles, -> { with_title.with_subtitle }
+  # This may seem redundant with :preferred_entry, but alas, it's a separate
+  # query, so we need both:
+  scope :with_hierarchies, -> {
+    includes(published_hierarchy_entries: :hierarchy) }
 
   attr_accessor :common_names_in_language
 
@@ -177,6 +182,31 @@ class TaxonConcept < ActiveRecord::Base
 
   def superceded?
     !supercedure_id.nil? && supercedure_id != 0
+  end
+
+  def can_be_previewed_by?(user)
+    return true if user.admin?
+    entries = hierarchy_entries.
+      includes(hierarchy: { resource: { content_partner: :user } })
+    users = begin
+      entries.map(&:hierarchy).map(&:resource).
+        map(&:content_partner).map(&:user_id)
+    rescue
+      return false
+    end
+    users.include?(user.id)
+  end
+
+  def self.map_supercedure(ids)
+    map = {}
+    TaxonConcept.with_titles.unsuperceded.where(id: ids).each do |concept|
+      map[concept.id] = concept
+    end
+    TaxonConcept.superceded.where(id: ids).map do |concept|
+      maps_to = TaxonConcept.with_titles.find(concept.supercedure_id)
+      map[concept.id] = maps_to unless maps_to.nil?
+    end
+    map
   end
 
   # this method is helpful when using preloaded taxon_concepts as preloading
@@ -443,23 +473,7 @@ class TaxonConcept < ActiveRecord::Base
   # italicized form.
 
   def to_s
-    "TaxonConcept ##{id}: #{title}"
-  end
-
-  # NOTE: We look for an ITIS entry first, because it is the most robust,
-  # detailed, and stable option. WHEN YOU CHANGE THIS (i.e.: when we get the
-  # so-called "Dynamic EOL Hierarchy"), please let Google know that you've done
-  # so: they will need to reindex things.
-  def to_jsonld
-    itis_or_other_entry = entry(Hierarchy.itis)
-    jsonld = { '@id' => KnownUri.taxon_uri(id),
-               '@type' => 'dwc:Taxon',
-               'dwc:scientificName' => itis_or_other_entry.name.string,
-               'dwc:taxonRank' => (itis_or_other_entry.rank) ? itis_or_other_entry.rank.label : nil }
-    if parent = itis_or_other_entry.parent
-      jsonld['dwc:parentNameUsageID'] = KnownUri.taxon_uri(parent.taxon_concept_id)
-    end
-    jsonld
+    "<TaxonConcept ##{id}: #{title_canonical}>"
   end
 
   def comment(user, body)

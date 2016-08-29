@@ -25,6 +25,8 @@ class DataObject < ActiveRecord::Base
   has_one :data_object_translation
   # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
+  has_one :visible_users_data_object, class_name: "UsersDataObject",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
   has_one :data_objects_link_type
   has_one :image_size
 
@@ -34,6 +36,12 @@ class DataObject < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
+  has_many :visible_data_objects_hierarchy_entries,
+    class_name: "DataObjectsHierarchyEntry",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
+  has_many :visible_curated_data_objects_hierarchy_entries,
+    class_name: "CuratedDataObjectsHierarchyEntry",
+    conditions: ["visibility_id = ?", Visibility.get_visible.id]
   has_many :all_curated_data_objects_hierarchy_entries, class_name: CuratedDataObjectsHierarchyEntry.to_s, source: :curated_data_objects_hierarchy_entries, foreign_key: :data_object_guid, primary_key: :guid
   has_many :comments, as: :parent
   has_many :data_objects_harvest_events
@@ -80,6 +88,17 @@ class DataObject < ActiveRecord::Base
 
   scope :images, -> { where(data_type_id: DataType.image.id) }
   scope :texts,  -> { where(data_type_id: DataType.text.id) }
+  scope :with_associations, -> do
+    includes(:data_objects_hierarchy_entries,
+     :curated_data_objects_hierarchy_entries,
+     :users_data_object)
+  end
+  scope :with_visible_associations, -> do
+    includes(:visible_data_objects_hierarchy_entries,
+     :visible_curated_data_objects_hierarchy_entries,
+     :visible_users_data_object)
+  end
+  scope :published, -> { where(published: true) }
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
@@ -339,6 +358,12 @@ class DataObject < ActiveRecord::Base
     user != nil
   end
 
+  def visible_associations_empty?
+    visible_data_objects_hierarchy_entries.empty? &&
+      visible_curated_data_objects_hierarchy_entries.empty? &&
+      visible_users_data_object.nil?
+  end
+
   def user
     @udo ||= users_data_object
     @udo_user ||= @udo.nil? ? nil : users_data_object.user
@@ -359,16 +384,19 @@ class DataObject < ActiveRecord::Base
   end
 
   def rate(user, new_rating)
-    if this_users_current_rating = rating_from_user(user)
-      if this_users_current_rating.rating != new_rating
-        this_users_current_rating.update_column(:rating, new_rating)
-        this_users_current_rating.update_column(:weight, user.rating_weight)
+    # NOTE: NOT using rating_from_user here because we need to get it from master:
+    user_rating = DataObject.with_master do
+      users_data_objects_ratings.where(user_id: user.id).first
+    end
+    if user_rating
+      if user_rating.rating != new_rating
+        user_rating.update_column(:rating, new_rating)
+        user_rating.update_column(:weight, user.rating_weight)
       end
     else
       UsersDataObjectsRating.create(data_object_guid: guid, user_id: user.id,
                                     rating: new_rating, weight: user.rating_weight)
     end
-
     users_data_objects_ratings.reload
     self.update_column(:data_rating, average_rating)
   end
@@ -386,7 +414,7 @@ class DataObject < ActiveRecord::Base
     return nil if u.is_a?(EOL::AnonymousUser)
     # more often than not ratings will have been preloaded, so a .detect
     # is faster than a .where here
-    users_data_objects_ratings.detect{ |udor| udor.user_id == u.id }
+    users_data_objects_ratings.detect { |udor| udor.user_id == u.id }
   end
 
   def safe_rating

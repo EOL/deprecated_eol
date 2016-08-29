@@ -76,15 +76,32 @@
     def paginate(q, options = {})
       page = options.delete(:page) || 1
       per_page = options.delete(:per_page) || 30
-      response = begin
-        connection.paginate(page, per_page, "select", params: options.merge(q: q))
-      rescue Timeout::Error => e
-        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{q}",
-          prefix: "!")
-        raise(e)
-      end
+      response = paginate_with_timeout(page, per_page, options.merge(q: q))
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
+      end
+      response
+    end
+
+    def paginate_with_timeout(page, per_page, params)
+      willing_to_try = 5
+      response = nil
+      while willing_to_try > 0
+        begin
+          response = connection.paginate(page, per_page, "select", params: params)
+          willing_to_try = 0
+        rescue Timeout::Error => e
+          EOL.log("SOLR TIMEOUT: pg#{page}(#{per_page}) q: #{params[:q]}",
+            prefix: "!")
+          wait_for_recovery(0)
+          willing_to_try -= 1
+          if willing_to_try > 0
+            EOL.log("Solr recovered; retrying #{willing_to_try} times...")
+          else
+            EOL.log("I GIVE UP!")
+            raise e
+          end
+        end
       end
       response
     end
@@ -125,13 +142,18 @@
     def wait_for_recovery(attempts)
       attempts ||= 0
       begin
+        # I want to see that it's STABLE and up...
+        try_recovery
+        sleep(1)
+        try_recovery
+        sleep(1)
         try_recovery
       rescue => e
         EOL.log("Solr still down (attempt #{attempts}), waiting...")
         attempts += 1
-        raise(e) if attempts >= 10
+        raise(e) if attempts >= 56
         sleep(attempts * 0.25)
-        wait_for_recovery
+        wait_for_recovery(attempts)
       end
     end
 

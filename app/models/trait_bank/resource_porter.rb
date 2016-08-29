@@ -38,15 +38,21 @@ class TraitBank
         end
       end
       EOL.log_return
+      @taxa = @taxa.to_a # Just make things easier from here on out...
       # Clear caches!
       @taxa.each do |id|
         Rails.cache.delete(PageTraits.cache_key(id))
+      end
+      @taxa.in_groups_of(5000, false) do |group|
+        PageJson.where(page_id: group).delete_all
+        # TODO: perhaps we should background a task here to re-create all of
+        # them.
       end
       @taxa
     end
 
     def build_traits
-      TraitBank.paginate(TraitBank.measurements_query(@resource)) do |results|
+      TraitBank::Old.paginate_measurements(resource: @resource) do |results|
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
@@ -65,7 +71,7 @@ class TraitBank
     end
 
     def build_associations
-      TraitBank.paginate(TraitBank.associations_query(@resource)) do |results|
+      TraitBank::Old.paginate_associations(resource: @resource) do |results|
         results.each do |row|
           # This is a sloppy way to ensure inverse relationships aren't added
           # twice, because inverse relationships are both stored in the traits
@@ -97,43 +103,43 @@ class TraitBank
       end
     end
 
-    def build_metadata
-      EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
-      @traits.each_with_index do |trait, index|
-        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
-        begin
-          TraitBank.connection.query(TraitBank.metadata_query(@resource, trait)).
-            each do |h|
-            # ?trait ?predicate ?meta_trait ?value ?units
-            if h[:units].blank?
-              add_meta(h, h[:predicate], :value)
-            else
-              @triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
-              val = TraitBank.uri?(h[:value]) ?
-                "<#{h[:value]}>" :
-                TraitBank.quote_literal(h[:value])
-              units = TraitBank.uri?(h[:units]) ?
-                "<#{h[:units]}>" :
-                # TODO: THIS SHOULD NOT HAPPEN. tell someone?
-                TraitBank.quote_literal(h[:units])
-              @triples << "<#{h[:meta_trait]}> a eol:trait ;"\
-                "<#{TraitBank.value_uri}> #{val} ;"\
-                "<#{TraitBank.unit_uri}> #{units}"
-            end
-          end
-        # This was causing a lot of trouble when I was attempting it:  :(
-        rescue => e
-          EOL.log("ERROR: #{e.message}")
-          raise e
+    def build_references
+      TraitBank::Old.paginate_references(resource: @resource) do |results|
+        results.each do |row|
+          @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
+            "#{TraitBank.quote_literal(row[:full_reference])}"
         end
       end
     end
 
-    def build_references
-      TraitBank.paginate(TraitBank.references_query(@resource)) do |results|
-        results.each do |row|
-          @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
-            "#{TraitBank.quote_literal(row[:full_reference])}"
+    def build_metadata
+      return if @traits.empty?
+      EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
+      traits = @traits.to_a
+      # If this is timing out (due to "estimated" run time), STOP ESTIMATING.
+      # Comment out the MaxQueryCostEstimationTime in your Virtuoso INI.
+      size = 250
+      group_number = 0
+      groups = (traits.size.to_f / size).ceil
+      traits.in_groups_of(size, false) do |trait_group|
+        EOL.log("metadata group #{group_number += 1}/#{groups}", prefix: ".")
+        TraitBank::Old.metadata_in_bulk(@resource, trait_group).each do |h|
+          # ?trait ?predicate ?meta_trait ?value ?units
+          if h[:units].blank?
+            add_meta(h, h[:predicate], :value)
+          else
+            @triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
+            val = TraitBank.uri?(h[:value]) ?
+              "<#{h[:value]}>" :
+              TraitBank.quote_literal(h[:value])
+            units = TraitBank.uri?(h[:units]) ?
+              "<#{h[:units]}>" :
+              # TODO: THIS SHOULD NOT HAPPEN. tell someone?
+              TraitBank.quote_literal(h[:units])
+            @triples << "<#{h[:meta_trait]}> a eol:trait ;"\
+              "<#{TraitBank.value_uri}> #{val} ;"\
+              "<#{TraitBank.unit_uri}> #{units}"
+          end
         end
       end
     end

@@ -22,6 +22,7 @@ class SearchTraits < TraitSet
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     @attribute = search_options[:attribute]
+    @id = @attribute
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
     required_equivalent_attributes = KnownUri.find_by_id(search_options[:required_equivalent_attributes]).uri unless
@@ -42,7 +43,7 @@ class SearchTraits < TraitSet
         required_equivalent_attributes.blank?
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?
-      @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless 
+      @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless
         search_options[:querystring].blank?
       @count_key = @key.sub('search', 'search/count')
       @key += "/page/#{@page}" unless @page == 1

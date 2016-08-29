@@ -217,7 +217,7 @@ class TaxonUserClassificationFilter
   # NOTE - this ONLY works on overview and media.
   # TODO - move this to a mixin, which we can then call on those two.
   def correct_bogus_exemplar_image
-    if image.nil? && ! @media.empty? && ! @media.first.map?
+    if image.nil? && ! @media.empty? && @media.first && ! @media.first.map?
       TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
       @image = nil # Reload it the next time you need it.
     end

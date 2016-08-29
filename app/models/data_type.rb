@@ -3,10 +3,13 @@ class DataType < ActiveRecord::Base
   uses_translations
 
   has_many :data_objects
+  has_many :translated_data_types
+  
   @@full_attribution_order = nil
 
   include Enumerated
-  enumerated :label, [ 'Text', 'Image', 'Sound', 'Video', 'GBIF Image', 'YouTube', 'Flash', 'IUCN', 'Map', 'Link' ]
+  enumerated :label, [ 'Text', 'Image', 'Sound', 'Video', 'GBIF Image',
+    'YouTube', 'Flash', 'IUCN', 'Map', 'Link' ]
 
   def self.create_enumerated
     enumeration_creator(
@@ -54,7 +57,8 @@ class DataType < ActiveRecord::Base
   end
 
   def self.video_type_ids
-    @@video_type_ids ||= [DataType.youtube.id, DataType.flash.id, DataType.video.id]
+    @@video_type_ids ||= [DataType.youtube.id, DataType.flash.id,
+      DataType.video.id]
   end
 
   def self.text_type_ids
@@ -69,8 +73,8 @@ class DataType < ActiveRecord::Base
     @@link_type_ids ||= [DataType.link.id]
   end
 
-  # Not all unique data types DISPLAY with their label... translations come from the DB on the labels we know we
-  # like:
+  # Not all unique data types DISPLAY with their label... translations come from
+  # the DB on the labels we know we like:
   def simple_type(language_iso_code = nil)
     if DataType.image_type_ids.include? id
       DataType.image.label(language_iso_code)

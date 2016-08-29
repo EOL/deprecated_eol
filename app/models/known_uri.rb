@@ -170,6 +170,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.taxon_uri(taxon_concept_or_id)
+    return nil if taxon_concept_or_id.nil?
     if taxon_concept_or_id.is_a?(TaxonConcept)
       UserAddedData::SUBJECT_PREFIX + taxon_concept_or_id.id.to_s
     elsif taxon_concept_or_id.is_a?(Fixnum) || taxon_concept_or_id.is_numeric?

@@ -137,9 +137,13 @@ lt:
   translated_ranks-label-rank_id-383: pošeimis
   translated_ranks-label-rank_id-494: gentis
   translated_ranks-label-rank_id-503: nereitinguotas
+  translated_ranks-label-rank_id-518: įvairovė
   translated_ranks-label-rank_id-51: klasė
   translated_ranks-label-rank_id-74: skyrius
   translated_ranks-label-rank_id-99: šeima
+  translated_resource_statuses-label-resource_status_id-10: Publikuota
+  translated_resource_statuses-label-resource_status_id-11: Laukiama Publikavimo
+  translated_resource_statuses-label-resource_status_id-12: Laukiama Publikavimo Atšaukimo
   translated_resource_statuses-label-resource_status_id-1: Įkeliama
   translated_resource_statuses-label-resource_status_id-2: Įkelta
   translated_resource_statuses-label-resource_status_id-3: Įkėlimas nepavyko
@@ -147,16 +151,25 @@ lt:
   translated_resource_statuses-label-resource_status_id-5: Patvirtintas
   translated_resource_statuses-label-resource_status_id-6: Tikrinimas nepavyko
   translated_resource_statuses-label-resource_status_id-7: Tvarkomi
+  translated_resource_statuses-label-resource_status_id-8: Apdorota
+  translated_resource_statuses-label-resource_status_id-9: Apdorojimas Nepavyko
   translated_service_types-label-service_type_id-2: Kita
+  translated_sort_styles-name-sort_style_id-1: Neseniai Pridėta
   translated_sort_styles-name-sort_style_id-2: Seniausi
   translated_sort_styles-name-sort_style_id-3: Abėcėlės tvarka
+  translated_sort_styles-name-sort_style_id-4: Atvirkštinė Abėcėlė
+  translated_sort_styles-name-sort_style_id-5: Turtingumas
   translated_sort_styles-name-sort_style_id-6: Reitingas
   translated_statuses-label-status_id-1: Įterpta
   translated_statuses-label-status_id-2: Atnaujinta
   translated_statuses-label-status_id-3: Nepakeista
+  translated_statuses-label-status_id-4: Pakartotinai panaudota
   translated_synonym_relations-label-synonym_relation_id-12: apima
   translated_synonym_relations-label-synonym_relation_id-14: su rašybos klaidomis
+  translated_synonym_relations-label-synonym_relation_id-19: priimtas pavadinimas
   translated_synonym_relations-label-synonym_relation_id-1: sinonimas
+  translated_synonym_relations-label-synonym_relation_id-20: duomenų bazės artifaktas
+  translated_synonym_relations-label-synonym_relation_id-21: kita, žiūrėti komentarus
   translated_synonym_relations-label-synonym_relation_id-23: klaidingai taikė
   translated_synonym_relations-label-synonym_relation_id-24: atmestas pavadinimas
   translated_synonym_relations-label-synonym_relation_id-2: bendrinis pavadinimas
@@ -164,31 +177,54 @@ lt:
     bazės artefaktas
   translated_synonym_relations-label-synonym_relation_id-31: nereikalingas pakeitimas
   translated_synonym_relations-label-synonym_relation_id-3: akronimas
+  translated_synonym_relations-label-synonym_relation_id-40: neprieinama, kita
+  translated_synonym_relations-label-synonym_relation_id-43: neleistinai pakelbta,
+    kita
+  translated_synonym_relations-label-synonym_relation_id-49: galiojantis pavadinimas
+  translated_synonym_relations-label-synonym_relation_id-50: galiojantis
   translated_synonym_relations-label-synonym_relation_id-51: priimtas
   translated_synonym_relations-label-synonym_relation_id-52: institucija
   translated_synonym_relations-label-synonym_relation_id-53: nepublikuotas pavadinimas
+  translated_synonym_relations-label-synonym_relation_id-54: subjektyvus sinonimas
+  translated_synonym_relations-label-synonym_relation_id-55: neteisinga institucijos
+    informacija
+  translated_synonym_relations-label-synonym_relation_id-56: neteisinga rašyba
   translated_synonym_relations-label-synonym_relation_id-57: rašybos alternatyvą
+  translated_synonym_relations-label-synonym_relation_id-61: objektyvus sinonimas
   translated_synonym_relations-label-synonym_relation_id-63: ne priimtas
+  translated_synonym_relations-label-synonym_relation_id-64: neteisingas
+  translated_table_of_contents-label-table_of_contents_id-13: Bendriniai Pavadinimai
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatūros šaltiniai
   translated_table_of_contents-label-table_of_contents_id-194: Dydis
   translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
   translated_table_of_contents-label-table_of_contents_id-221: Rizikos
   translated_table_of_contents-label-table_of_contents_id-225: Tinkle
+  translated_table_of_contents-label-table_of_contents_id-226: Turinio Partneriai
   translated_table_of_contents-label-table_of_contents_id-227: Ieškoti žiniatinklyje
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografijos
+  translated_table_of_contents-label-table_of_contents_id-24: Paaiškinimas
+  translated_table_of_contents-label-table_of_contents_id-251: Privalumai
   translated_table_of_contents-label-table_of_contents_id-267: Morfologija
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografija
   translated_table_of_contents-label-table_of_contents_id-285: Asociacijos
+  translated_table_of_contents-label-table_of_contents_id-286: Apsaugos Būsena
   translated_table_of_contents-label-table_of_contents_id-289: Evoliucija
+  translated_table_of_contents-label-table_of_contents_id-292: Atrodantys Taip Pat
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostinis Aprašymas
   translated_table_of_contents-label-table_of_contents_id-296: Valdymas
   translated_table_of_contents-label-table_of_contents_id-299: Švietimas
+  translated_table_of_contents-label-table_of_contents_id-2: Trumpa Santrauka
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedija
   translated_table_of_contents-label-table_of_contents_id-303: Pavadinimai ir taksonomija
   translated_table_of_contents-label-table_of_contents_id-304: Susiję pavadinimai
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimai
   translated_table_of_contents-label-table_of_contents_id-306: Puslapio statistiką
+  translated_table_of_contents-label-table_of_contents_id-307: Turinio Santrauka
+  translated_table_of_contents-label-table_of_contents_id-308: Išsamus Aprašymas
+  translated_table_of_contents-label-table_of_contents_id-309: Paplitimas
   translated_table_of_contents-label-table_of_contents_id-310: Valdymas
+  translated_table_of_contents-label-table_of_contents_id-311: Identifikacijos Ištekliai
   translated_table_of_contents-label-table_of_contents_id-312: Migracija
   translated_table_of_contents-label-table_of_contents_id-313: Ligos ir parazitai
   translated_table_of_contents-label-table_of_contents_id-314: Populiacijos biologija
@@ -196,6 +232,7 @@ lt:
     elgesys
   translated_table_of_contents-label-table_of_contents_id-316: Elgesys
   translated_table_of_contents-label-table_of_contents_id-318: Gyvavimo ciklas
+  translated_table_of_contents-label-table_of_contents_id-319: Gyvenimo Trukmė
   translated_table_of_contents-label-table_of_contents_id-320: Reprodukcija
   translated_table_of_contents-label-table_of_contents_id-321: Augimas
   translated_table_of_contents-label-table_of_contents_id-322: Fosilijų istorija
@@ -208,26 +245,38 @@ lt:
   translated_table_of_contents-label-table_of_contents_id-332: Genomas
   translated_table_of_contents-label-table_of_contents_id-333: Molekulinė biologija
   translated_table_of_contents-label-table_of_contents_id-334: Grėsmės
+  translated_table_of_contents-label-table_of_contents_id-335: Teisės aktai
   translated_table_of_contents-label-table_of_contents_id-336: Pastabos
   translated_table_of_contents-label-table_of_contents_id-337: Švietimas
   translated_table_of_contents-label-table_of_contents_id-338: Švietimo nuorodos
   translated_table_of_contents-label-table_of_contents_id-339: Švietimo ištekliai
+  translated_table_of_contents-label-table_of_contents_id-33: Tendencijos
+  translated_table_of_contents-label-table_of_contents_id-341: Pilietinis Mokslas
+  translated_table_of_contents-label-table_of_contents_id-342: Pilietinio Mokslo nuorodos
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage
+    Library
   translated_table_of_contents-label-table_of_contents_id-344: Duomenys
   translated_table_of_contents-label-table_of_contents_id-345: Duomenų šaltiniai
+  translated_table_of_contents-label-table_of_contents_id-346: Biomedicinos Terminai
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomija
   translated_table_of_contents-label-table_of_contents_id-348: Tipo informacija
   translated_table_of_contents-label-table_of_contents_id-34: Komentarai
   translated_table_of_contents-label-table_of_contents_id-3: Fizinis aprašymas
+  translated_table_of_contents-label-table_of_contents_id-41: Buveinė
   translated_table_of_contents-label-table_of_contents_id-4: Ekologija
   translated_table_of_contents-label-table_of_contents_id-5: Evoliucija ir sistematika
+  translated_table_of_contents-label-table_of_contents_id-6: Svarba Žmonėms ir Ekosistemoms
   translated_table_of_contents-label-table_of_contents_id-7: Nuorodos ir daugiau informacijos
   translated_table_of_contents-label-table_of_contents_id-8: Išsaugojimas
+  translated_untrust_reasons-label-untrust_reason_id-1: netinkamai identifikuotas
+  translated_untrust_reasons-label-untrust_reason_id-2: neteisingas/klaidinantis
   translated_untrust_reasons-label-untrust_reason_id-3: žemos kokybės
   translated_untrust_reasons-label-untrust_reason_id-4: Pasikartojantis
   translated_untrust_reasons-label-untrust_reason_id-5: Kita
   translated_user_identities-label-user_identity_id-1: entuziastas
   translated_user_identities-label-user_identity_id-2: studentas
   translated_user_identities-label-user_identity_id-3: pedagogas
+  translated_user_identities-label-user_identity_id-4: pilietis mokslininkas
   translated_user_identities-label-user_identity_id-5: profesionalus mokslininkas
   translated_vetted-label-vetted_id-0: Nežinomas
   translated_vetted-label-vetted_id-4: Nepatikimas

@@ -21,7 +21,7 @@ oc:
   translated_agent_roles-label-agent_role_id-11: Editor
   translated_agent_roles-label-agent_role_id-12: Enregistrador
   translated_agent_roles-label-agent_role_id-13: Font
-  translated_agent_roles-label-agent_role_id-14: Banca de donadas font
+  translated_agent_roles-label-agent_role_id-14: Basa de donadas font
   translated_agent_roles-label-agent_role_id-15: Punt de contacte
   translated_agent_roles-label-agent_role_id-16: Contributor
   translated_agent_roles-label-agent_role_id-1: Animator
@@ -44,7 +44,7 @@ oc:
   translated_collection_types-label-collection_type_id-11: Ligams
   translated_collection_types-label-collection_type_id-12: Literatura
   translated_collection_types-label-collection_type_id-13: Taxinomia
-  translated_collection_types-label-collection_type_id-14: Còdes barras moleculars
+  translated_collection_types-label-collection_type_id-14: Còdis barras moleculars
   translated_collection_types-label-collection_type_id-15: Descripcion
   translated_collection_types-label-collection_type_id-16: Imatges
   translated_collection_types-label-collection_type_id-17: Reparticion
@@ -56,7 +56,7 @@ oc:
   translated_collection_types-label-collection_type_id-22: Enregistraments sonòrs
   translated_collection_types-label-collection_type_id-23: Ligams
   translated_collection_types-label-collection_type_id-24: Literatura
-  translated_collection_types-label-collection_type_id-2: Còdes barras moleculars
+  translated_collection_types-label-collection_type_id-2: Còdis barras moleculars
   translated_collection_types-label-collection_type_id-3: Descripcion
   translated_collection_types-label-collection_type_id-4: Imatges
   translated_collection_types-label-collection_type_id-5: Reparticion
@@ -100,28 +100,28 @@ oc:
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
-  translated_licenses-description-license_id-1: Cap de drech pas reservat
-  translated_licenses-description-license_id-29: D'unes dreches reservats
-  translated_licenses-description-license_id-2: © Totes los dreches reservats
-  translated_licenses-description-license_id-30: D'unes dreches reservats
-  translated_licenses-description-license_id-31: D'unes dreches reservats
-  translated_licenses-description-license_id-32: D'unes dreches reservats
-  translated_licenses-description-license_id-33: D'unes dreches reservats
+  translated_licenses-description-license_id-1: Cap de dreit pas reservat
+  translated_licenses-description-license_id-29: D'unes dreits reservats
+  translated_licenses-description-license_id-2: © Totes los dreits reservats
+  translated_licenses-description-license_id-30: D'unes dreits reservats
+  translated_licenses-description-license_id-31: D'unes dreits reservats
+  translated_licenses-description-license_id-32: D'unes dreits reservats
+  translated_licenses-description-license_id-33: D'unes dreits reservats
   translated_licenses-description-license_id-34: Domeni public
   translated_licenses-description-license_id-35: Domeni public
-  translated_licenses-description-license_id-36: D'unes dreches reservats
-  translated_licenses-description-license_id-37: D'unes dreches reservats
-  translated_licenses-description-license_id-38: D'unes dreches reservats
+  translated_licenses-description-license_id-36: D'unes dreits reservats
+  translated_licenses-description-license_id-37: D'unes dreits reservats
+  translated_licenses-description-license_id-38: D'unes dreits reservats
   translated_licenses-description-license_id-39: Domeni public
-  translated_licenses-description-license_id-3: D'unes dreches reservats
-  translated_licenses-description-license_id-42: D'unes dreches reservats
+  translated_licenses-description-license_id-3: D'unes dreits reservats
+  translated_licenses-description-license_id-42: D'unes dreits reservats
   translated_licenses-description-license_id-43: Licéncia inaplicabla
-  translated_licenses-description-license_id-4: D'unes dreches reservats
-  translated_licenses-description-license_id-5: D'unes dreches reservats
-  translated_licenses-description-license_id-6: D'unes dreches reservats
-  translated_licenses-description-license_id-7: D'unes dreches reservats
-  translated_licenses-description-license_id-8: D'unes dreches reservats
-  translated_licenses-description-license_id-9: D'unes dreches reservats
+  translated_licenses-description-license_id-4: D'unes dreits reservats
+  translated_licenses-description-license_id-5: D'unes dreits reservats
+  translated_licenses-description-license_id-6: D'unes dreits reservats
+  translated_licenses-description-license_id-7: D'unes dreits reservats
+  translated_licenses-description-license_id-8: D'unes dreits reservats
+  translated_licenses-description-license_id-9: D'unes dreits reservats
   translated_ranks-label-rank_id-106: formulari
   translated_ranks-label-rank_id-107: forma
   translated_ranks-label-rank_id-112: gen
@@ -212,7 +212,7 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-18: nom acceptat provisòriament
   translated_synonym_relations-label-synonym_relation_id-19: nom acceptat
   translated_synonym_relations-label-synonym_relation_id-1: sinonim
-  translated_synonym_relations-label-synonym_relation_id-20: artefacte de la banca
+  translated_synonym_relations-label-synonym_relation_id-20: artefacte de la basa
     de donadas
   translated_synonym_relations-label-synonym_relation_id-21: autres, veire comentaris
   translated_synonym_relations-label-synonym_relation_id-22: varianta ortografica
@@ -226,8 +226,8 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinonim junior
   translated_synonym_relations-label-synonym_relation_id-2: nom vulgar
-  translated_synonym_relations-label-synonym_relation_id-30: indisponible, arteacte
-    de la banca de donadas
+  translated_synonym_relations-label-synonym_relation_id-30: indisponible, artefacte
+    de la basa de donadas
   translated_synonym_relations-label-synonym_relation_id-31: remplaçament superflú
   translated_synonym_relations-label-synonym_relation_id-32: combinason/nom subsequent
   translated_synonym_relations-label-synonym_relation_id-33: cauquilha de la literatura,
@@ -337,7 +337,7 @@ oc:
   translated_table_of_contents-label-table_of_contents_id-328: Biologia cellulara
   translated_table_of_contents-label-table_of_contents_id-329: Genetica
   translated_table_of_contents-label-table_of_contents_id-330: Sequéncias de nucleotids
-  translated_table_of_contents-label-table_of_contents_id-331: Còde barras
+  translated_table_of_contents-label-table_of_contents_id-331: Còdi barras
   translated_table_of_contents-label-table_of_contents_id-332: Genòmi
   translated_table_of_contents-label-table_of_contents_id-333: Biologia moleculara
   translated_table_of_contents-label-table_of_contents_id-334: Menaças

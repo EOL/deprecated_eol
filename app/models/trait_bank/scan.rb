@@ -56,7 +56,7 @@ class TraitBank
         end
         query += "?trait a eol:trait . "\
           "?trait dwc:measurementValue ?value . "
-        if options[:querystring] && querystring = options[:querystring].strip && ! querystring.blank?
+        if options[:querystring] && (querystring = options[:querystring].strip) && ! querystring.blank?
           if querystring.is_numeric?
             query <<  "FILTER(xsd:float(?value) = xsd:float(#{ querystring })) . "
           elsif EOL::Sparql.is_uri?(querystring)

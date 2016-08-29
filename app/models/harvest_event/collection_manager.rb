@@ -12,8 +12,8 @@ class HarvestEvent
     # TODO: something in this process is slow. Figure out what it is and speed
     # it up!
     def sync
-      EOL.log("collection_manager.rb#sync collection "\
-        "http://eol.org/collections/#{collection.id}")
+      EOL.log("HarvestEvent::CollectionManager.sync ("\
+        "http://eol.org/collections/#{collection.id})")
       update_attributes
       add_user_to_collection
       remove_collection_items_not_in_harvest
@@ -21,30 +21,34 @@ class HarvestEvent
         add_items_collection
       end
       collection.fix_item_count
+      EOL.log("reindexing collection", prefix: ".")
       EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
       if @event.published? && resource.preview_collection
+        EOL.log("removing old preview collection", prefix: ".")
         resource.preview_collection.users = []
         resource.preview_collection.destroy
       end
+      EOL.log_return
     end
 
     private
 
-    # TODO: break this method up.
     def add_items_collection
       EOL.log_call
-      data = Set.new()
+      data = []
       harvested_objects_not_already_in_collection.find_each do |object|
-        title = object.short_title.gsub("'", "''")
+        title = object.short_title.gsub("'", "''").gsub(/\\/, "\\\\\\")
         data << "'#{title}', 'DataObject', #{object.id}, #{collection.id}"
       end
       harvested_entries_not_already_in_collection.find_each do |entry|
-        data << "'#{entry.name.string.gsub("'", "''")}', 'TaxonConcept', "\
+        name = entry.name.string.gsub("'", "''").gsub(/\\/, "\\\\\\")
+        data << "'#{name}', 'TaxonConcept', "\
           "#{entry.taxon_concept_id}, #{collection.id}"
       end
       EOL::Db.bulk_insert(CollectionItem,
         [:name, :collected_item_type, :collected_item_id, :collection_id],
-        data.to_a, ignore: true)
+        data, ignore: true)
+      EOL.log_return
     end
 
     def harvested_objects_not_already_in_collection
@@ -52,6 +56,7 @@ class HarvestEvent
           "(data_objects_harvest_events.data_object_id = ci.collected_item_id "\
           "AND ci.collected_item_type = 'DataObject' AND ci.collection_id = "\
           "#{collection.id})").
+        includes(:data_type => :translated_data_types).
         where("ci.id IS NULL")
     end
 

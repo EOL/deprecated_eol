@@ -218,7 +218,7 @@ fr:
         uri: URI
         uri_type: Type d’URI
         value_is_text: Les valeurs ne seront pas des URIs, seulement du texte
-        value_is_verbatim: Les valeurs ne sont pas des nombres, seulement du texte
+        value_is_verbatim: Les valeurs ne seront pas des nombres, seulement du texte
       known_uri_relationship:
         from_known_uri_id: URI du sujet
         to_known_uri_id: URI cible
@@ -255,7 +255,7 @@ fr:
           ou les communautés de votre liste de suivi
         curation_on_my_watched_item: Actions du conservateur sur les objets, les taxons,
           les collections ou les communautés de votre liste de suivi
-        new_data_on_my_watched_item: Nouvelles contributions à des taxons dans votre
+        new_data_on_my_watched_item: Nouvelles contributions à des taxons de votre
           liste de suivi
         changes_to_my_watched_collection: Changements dans les collections de votre
           liste de suivi
@@ -277,7 +277,7 @@ fr:
         dwc_archive_url: URL de l’archive Darwin Core
         dataset_source_url: Source de données d’origine
         dataset_hosted_url: Ensemble de données source (copie locale)
-        harvest_events: Récolter les événements
+        harvest_events: Collecter les événements
         hierarchy: Hiérarchie
         language_id: Langue par défaut
         dataset_license_id: Licence
@@ -308,14 +308,14 @@ fr:
         title: Titre
       user:
         agreed_with_terms: Conditions de l’accord d’utilisation
-        api_key: Clé de l’IPA
+        api_key: Clé d’interface de programmation d’application
         bio: Biographie
         credentials: Certifications
         curator_level: Niveau de supervision
         curator_scope: Étendue de conservation
         disable_email_notifications: Ne m’envoyez AUCUNE mise à jour par courriel
         email: Adresse de courriel
-        email_confirmation: Répétez le courriel <small>(pour confirmation)</small>
+        email_confirmation: Répétez l’adresse courriel <small>(pour confirmation)</small>
         entered_password: Mot de passe
         entered_password_confirmation: Répétez le mot de passe <small>(pour confirmation)</small>
         family_name: Nom de famille
@@ -349,7 +349,9 @@ fr:
         blank: ne peut être laissé en blanc
         not_a_number: n’est pas un nombre
         not_an_integer: doit être un nombre entier
-        greater_than: doit être de valeur supérieure à %{count}
+        greater_than:
+          one: doit être supérieur à %{count}
+          other: doivent être supérieurs à %{count}
         greater_than_or_equal_to: doit être de valeur supérieure ou égale à %{count}
         equal_to: doit être de valeur égale à %{count}
         less_than: doit être de valeur inférieure à %{count}
@@ -399,14 +401,15 @@ fr:
               wrong_type: n’a pas le format requis, devrait être un fichier GZIP,
                 TAR, ZIP ou XML.
             dwc_archive_url:
-              inaccessible: est inaccessible, l’URL doit être accessible au public
+              inaccessible: est inaccessible, l’URL doit être accessible de manière
+                publique
               invalid: est invalide, devrait pointer vers un fichier TAR.GZIP, TAR.GZ,
                 TGZ ou ZIP.
         user_added_data:
           attributes:
             predicate:
               must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-                bien formé
+                bien formatté
               namespace: espace de noms utilisé non reconnu
             subject:
               must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
@@ -548,7 +551,7 @@ fr:
           un nouveau groupe'
         taxon_name_more: Par exemple, entrer Trochilidés ou Baleines. SEULES les sélections
           de la liste déroulante seront utilisées, ne modifiez pas le texte sans sélectionner
-          un résultat.
+          de résultat.
         taxa_found: Taxons trouvés
         total_results: 'Total des résultats : %{total}'
         unit: Unité de mesure
@@ -567,11 +570,12 @@ fr:
       harvest_event:
         began_at: Démarré
         completed_at: Terminé
-        first_published_at: Publié en premier
+        first_published_at: Publié pour la première fois
         publish_more: Marque l’événement de récolte pour la publication (le contenu
           ne sera pas rendu public immédiatement).
         published_at: Publié
         published_status: État
+        last_harvest_seconds: Prit %{time_in_words}
       hierarchy:
         browsable_more: Cochez <em>navigable</em> pour promouvoir cette hiérarchie
           parmi les principales hiérarchies navigables de l’EdlV.
@@ -596,7 +600,7 @@ fr:
           les utilisateurs courants de voir les versions de cet élément d’actualité
           dans toutes les langues.
         page_name: Nom unique <small>(caractères alphanumériques minuscules latins
-          ISO basique et souligné uniquement)</small>
+          ISO basique uniquement et soulignés)</small>
         page_name_more: Saisissez un identifiant unique, auto-descriptif, significatif
           et persistant pour cet élément d’information. Le nom que vous saisissez
           là sera utilisé pour générer l’URL pour cet élément d’information, c.à.d.
@@ -611,7 +615,7 @@ fr:
         accesspoint_url: URL du jeu de données
         accesspoint_url_existing_remove: Cette ressource est actuellement en cours
           de chargement depuis l’URL terminant <em>%{accesspoint_url}</em>. Téléversez
-          un fichier si vous voulez supprimer l’URL existante et charger la ressource
+          un fichier si vous voulez supprimer l’URL existante et chargez la ressource
           depuis ce fichier à la place (non recommandé).
         dataset: Jeu de données
         dataset_existing_replace: Le fichier <em>%{file_name}</em> est actuellement
@@ -637,8 +641,8 @@ fr:
         title: Nom de la ressource
       session:
         password: Mot de passe
-        remember_me: Me reconnecter automatiquement aux prochaines visites avec ce
-          navigateur durant 2 semaines
+        remember_me: Me reconnecter automatiquement lors des prochaines visites avec
+          ce navigateur et ce durant 2 semaines
         username_or_email: Nom d’utilisateur ou adresse de courriel
       translated_content_page:
         active_translation: Publié
@@ -5549,6 +5553,9 @@ fr:
   image_title_with_taxa: Image de %{taxa}
   image_title_without_taxa: Image d’un taxon inconnu
   images: Images
+  images_with_count:
+    one: '%{count} image'
+    other: '%{count} images'
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n’ont pas été revues.
   image_objects_page_number: page d’images
@@ -6263,6 +6270,9 @@ fr:
   preview_version_of_latest_published_data_object_title_link: Prévisualisation de
     %{link}
   preview: aperçu
+  previewing_unpublished_page: Cette page n'a pas été publiée. Vous avez un accès
+    privilégié pour voir son aperçu; les autres utilisateurs ne peuvent pas voir cette
+    page.
   previously_published: publié précédemment
   proceed_to_checkout_page: Passer à la Page de confirmation
   process_name: Nom du processus
@@ -7289,8 +7299,9 @@ fr:
     classé par :'
   you_can_edit_those_later_if_ne: Vous pourrez les modifier plus tard si nécessaire.
   you_can_identify_yourself_to_eol: 'Vous pouvez vous identifier sur l’EdlV en ajoutant
-    votre clé d’IPA à vos demandes (connectez-vous et générez votre clé dans votre
-    page de préférences) :'
+    votre clé d’IPA à vos demandes (connectez-vous et générez votre clé en ouvrant
+    votre profil EdlV en modification. La clé y sera enregistrée ; ouvrez votre profil
+    pour la modifier de nouveau et la retrouver plus tard) :'
   you_have_been_logged_in_as_username: Vous avez été connecté tant que %{username}
   you_have_been_logged_out: Vous avez été déconnecté.
   you_joined_community: Vous avez rejoint cette communauté avec succès.

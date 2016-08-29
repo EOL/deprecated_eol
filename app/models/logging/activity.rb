@@ -35,7 +35,7 @@ class Activity < LazyLoggingModel
         transact.update_attributes(activity_id: act.id)
       else
         # Doing this with raw sql to override the LoggingModel's default of using INSERT DELAYED
-        TranslatedActivity.connection.execute(ActiveRecord::Base.sanitize_sql_array(
+        TranslatedActivity.connection.execute(EOL::Db.sanitize_array(
           ['INSERT INTO translated_activities (name, activity_id, language_id) VALUES (?, ?, ?)',
             key, act.id, Language.english.id]
         ))

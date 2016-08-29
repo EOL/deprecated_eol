@@ -65,7 +65,7 @@ module EOL
             EOL.log("URI: #{uri.request_uri}", prefix: "!")
             EOL.log("User: #{username}", prefix: "!")
             EOL.log("Namespaces prefixes: #{namespaces_prefixes}", prefix: "!")
-            EOL.log("Query: #{query}", prefix: "!")
+            EOL.log("Query: #{query.gsub(/IN ([^)]+)/, "IN (...)")}", prefix: "!")
             EOL.log("Response: (#{response.message}) #{response.to_hash.inspect}",
               prefix: "!")
             EOL.log("Response Body: #{response.body}", prefix: "!") rescue nil

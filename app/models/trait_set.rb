@@ -1,15 +1,5 @@
 class TraitSet
-  PREFIXES = {
-    dc: 'http://purl.org/dc/terms/',
-    dwc: 'http://rs.tdwg.org/dwc/terms/',
-    eol: 'http://eol.org/schema/',
-    eolterms: 'http://eol.org/schema/terms/',
-    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
-    gbif: 'http://rs.gbif.org/terms/1.0/',
-    foaf: 'http://xmlns.com/foaf/0.1/'
-  }
-
-  attr_accessor :points, :glossary, :traits, :sources
+  attr_accessor :points, :glossary, :traits, :sources, :taxa, :id
 
   # YOU *NEED* TO IMPLEMENT #initialize ! See PageTraits for an example.
 
@@ -34,13 +24,17 @@ class TraitSet
   end
 
   def categories_need_other?
-    @need_other
+    @need_other ||= traits.any? { |t| t.categories.empty? }
   end
 
   # NOTE: Sorry this is complex, but: there are a lot of considerations for
   # sort!
   def traits_by_category(category)
-    subset = traits.select { |trait| trait.categories.include?(category) }
+    subset = if category == :other
+      traits.select { |trait| trait.categories.empty? }
+    else
+      traits.select { |trait| trait.categories.include?(category) }
+    end
     subset.sort_by do |trait|
       predicate = trait.predicate_name.try(:downcase)
       value_label = trait.value_name.try(:downcase)

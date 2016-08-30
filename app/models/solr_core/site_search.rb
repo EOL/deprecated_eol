@@ -104,60 +104,65 @@ class SolrCore
                      includes(:taxon_concept_metric, :flattened_ancestors,
                        taxon_concept_names: :name).where(id: batch).
                      each do |concept|
-          id = concept.id
-          is_appropriate = concept.vetted_id != Vetted.inappropriate.id
-          solr_strings = {}
-          concept.taxon_concept_names.map { |tcn| tcn.name.string }.uniq.
-            each do |str|
+          begin
+            id = concept.id
+            is_appropriate = concept.vetted_id != Vetted.inappropriate.id
+            solr_strings = {}
+            concept.taxon_concept_names.compact.map { |tcn| tcn.name.string }.
+                    uniq.each do |str|
               normal_string = SolrCore.string(str)
               solr_strings[str] = normal_string unless normal_string.empty?
             end
 
-          # Break up the TaxonConceptName objects by type. Order matters: each
-          # precludes the next.
-          names = concept.taxon_concept_names
-          (preferred_commons, names) = names.partition { |tcn| tcn.vern? && tcn.preferred? && Language.iso_code(tcn.language_id) }
-          (commons, names) = names.partition { |tcn| tcn.vern? && tcn.vetted_id != Vetted.untrusted.id && is_appropriate }
-          # Lose any remaining names with no entry attached:
-          names.delete_if { |tcn| tcn.source_hierarchy_entry_id.nil? || tcn.source_hierarchy_entry_id <= 0 }
-          (surrogates, names) = names.partition { |tcn| Name.is_surrogate_or_hybrid?(solr_strings[tcn.name.string]) }
-          (preferred_scientifics, synonyms) = names.partition { |tcn| tcn.preferred? }
+            # Break up the TaxonConceptName objects by type. Order matters: each
+            # precludes the next.
+            names = concept.taxon_concept_names
+            (preferred_commons, names) = names.partition { |tcn| tcn.vern? && tcn.preferred? && Language.iso_code(tcn.language_id) }
+            (commons, names) = names.partition { |tcn| tcn.vern? && tcn.vetted_id != Vetted.untrusted.id && is_appropriate }
+            # Lose any remaining names with no entry attached:
+            names.delete_if { |tcn| tcn.source_hierarchy_entry_id.nil? || tcn.source_hierarchy_entry_id <= 0 }
+            (surrogates, names) = names.partition { |tcn| Name.is_surrogate_or_hybrid?(solr_strings[tcn.name.string]) }
+            (preferred_scientifics, synonyms) = names.partition { |tcn| tcn.preferred? }
 
-          # Now pull out unique versions of the normalized names:
-          surrogates = surrogates.map { |tcn| solr_strings[tcn.name.string] }.uniq
-          preferred_scientifics = preferred_scientifics.map { |tcn| solr_strings[tcn.name.string] }.uniq
-          synonyms = synonyms.map { |tcn| solr_strings[tcn.name.string] }.uniq
-          scientifics = preferred_scientifics + synonyms
+            # Now pull out unique versions of the normalized names:
+            surrogates = surrogates.map { |tcn| solr_strings[tcn.name.string] }.uniq
+            preferred_scientifics = preferred_scientifics.map { |tcn| solr_strings[tcn.name.string] }.uniq
+            synonyms = synonyms.map { |tcn| solr_strings[tcn.name.string] }.uniq
+            scientifics = preferred_scientifics + synonyms
 
-          # Common names are slightly trickier—they need a language and they
-          # cannot be found in the scientific names...
-          preferred_commons_by_iso = {}
-          preferred_commons.each do |common|
-            string = solr_strings[common.name.string]
-            next if scientifics.include?(string)
-            preferred_commons_by_iso[Language.solr_iso_code(common.language_id)] = string
+            # Common names are slightly trickier—they need a language and they
+            # cannot be found in the scientific names...
+            preferred_commons_by_iso = {}
+            preferred_commons.each do |common|
+              string = solr_strings[common.name.string]
+              next if scientifics.include?(string)
+              preferred_commons_by_iso[Language.solr_iso_code(common.language_id)] = string
+            end
+            commons_by_iso = {}
+            commons.each do |common|
+              string = solr_strings[common.name.string]
+              next if scientifics.include?(string)
+              commons_by_iso[Language.solr_iso_code(common.language_id)] = string
+            end
+
+            # Now build the objects:
+            richness = concept.taxon_concept_metric.try(:richness_score)
+            base = {
+              resource_type:             "TaxonConcept",
+              resource_unique_key:       "TaxonConcept_#{id}",
+              resource_id:               id,
+              ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
+              richness_score:            richness
+            }
+            add_scientific_to_objects(base, surrogates, "Surrogate", 500)
+            add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)
+            add_scientific_to_objects(base, synonyms, "Synonym", 3)
+            add_common_to_objects(base, preferred_commons_by_iso, "PreferredCommonName", 2)
+            add_common_to_objects(base, commons_by_iso, "CommonName", 4)
+          rescue => e
+            EOL.log("WARN: Unable to index #{concept} for Site Search: #{e.message}",
+              prefix: "*")
           end
-          commons_by_iso = {}
-          commons.each do |common|
-            string = solr_strings[common.name.string]
-            next if scientifics.include?(string)
-            commons_by_iso[Language.solr_iso_code(common.language_id)] = string
-          end
-
-          # Now build the objects:
-          richness = concept.taxon_concept_metric.try(:richness_score)
-          base = {
-            resource_type:             "TaxonConcept",
-            resource_unique_key:       "TaxonConcept_#{id}",
-            resource_id:               id,
-            ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
-            richness_score:            richness
-          }
-          add_scientific_to_objects(base, surrogates, "Surrogate", 500)
-          add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)
-          add_scientific_to_objects(base, synonyms, "Synonym", 3)
-          add_common_to_objects(base, preferred_commons_by_iso, "PreferredCommonName", 2)
-          add_common_to_objects(base, commons_by_iso, "CommonName", 4)
         end
       end
     end

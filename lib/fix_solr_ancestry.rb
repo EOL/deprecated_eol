@@ -28,7 +28,10 @@ class FixSolrAncestry
         end
       end
       # NOTE these are ONLY deleted, not added (they are missing)
-      @solr.delete_batch(TaxonConcept, delete_these) unless delete_these.empty?
+      unless delete_these.empty?
+        EOL.log("Deleting #{delete_these.size} missing taxa from Solr")
+        @solr.delete_batch(TaxonConcept, delete_these)
+      end
       # NOT WORKING: Argh.
       # bad.each do |b|
       #   puts "resource_id:#{b[:resource_id]} AND resource_type:#{b[:resource_type]} AND keyword_type:#{b[:keyword_type]}"
@@ -39,7 +42,7 @@ class FixSolrAncestry
       # NOTE this method deletes the ids it needs to. Also NOTE that this will
       # re-load the taxa, somewhat inefficiently. Alas, I couldn't find a way to
       # just change a row and re-insert. It didn't work for some reason. :S
-      EOL.log("Deleting #{bad.size} Solr entries: #{bad.join(",")}")
+      EOL.log("Replacing #{bad.size} Solr entries: #{bad.join(",")}")
       @solr.insert_batch(TaxonConcept, bad) #.map { |b| b[:resource_id] })
     end
   end

@@ -124,16 +124,26 @@ module EOL
         fields = Array(fields)
         EOL.log("EOL::Db#bulk_insert #{rows.count} rows into #{table}",
           prefix: '.') unless options[:silent]
-        group_num = 0
-        rows = Array(rows)
-         = rows.size
+        in_groups_with_logged_time(Array(rows), 2000) do |group|
+          klass.connection.execute(
+            "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
+            "(`#{fields.join("`, `")}`) "\
+            "VALUES (#{group.join("), (")})"
+          )
+        end
+      end
+
+      # TODO: use this!
+      def in_groups_with_logged_time(rows, group_size, &block)
+        size = rows.size
         done = 0
         start = Time.now
-        group_size = 2000
+        group_num = 0
         groups = size / group_size
         groups += 1 unless size % group_size == 0
-        warn_threshold = 2000 * 50
+        warn_threshold = group_size * 50
         rows.in_groups_of(group_size, false) do |group|
+          yield(group)
           group_num += 1
           if size > warn_threshold && group_num % 10 == 1
             done += group.size
@@ -142,14 +152,10 @@ module EOL
             time_per_group = elapsed / group_num
             groups_remaining = groups - group_num
             time_remaining = (groups_remaining * time_per_group).to_i
-            EOL.log("group #{group_num += 1} (#{done}/#{size}, #{pct.round(3)}%, #{time_remaining}s remaining)",
+            EOL.log("group #{group_num} (#{done}/#{size}, "\
+              "#{pct.round(3)}%, #{time_remaining}s remaining)",
               prefix: ".")
           end
-          klass.connection.execute(
-            "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
-            "(`#{fields.join("`, `")}`) "\
-            "VALUES (#{group.join("), (")})"
-          )
         end
       end
 

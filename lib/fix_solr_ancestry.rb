@@ -1,6 +1,7 @@
 class FixSolrAncestry
   def self.run
-    paginator = SolrCore::TimedPaginator.new(SolrCore::SiteSearch.new,
+    @solr = SolrCore::SiteSearch.new
+    paginator = SolrCore::TimedPaginator.new(@solr,
       "ancestor_taxon_concept_id:[* TO *] AND resource_type:TaxonConcept")
     paginator.paginate do |docs|
       taxa = TaxonConcept.where(id: docs.map { |r| r["resource_id"] }).

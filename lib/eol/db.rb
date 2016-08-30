@@ -152,8 +152,20 @@ module EOL
             time_per_group = elapsed / group_num
             groups_remaining = groups - group_num
             time_remaining = (groups_remaining * time_per_group).to_i
+            time_string = if time_remaining < 60
+              "#{time_remaining}s"
+            elsif time_remaining < (60 * 60)
+              minutes = time_remaining / 60
+              seconds = time_remaining % 60
+              "#{minutes}m#{seconds}s"
+            else
+              minutes = time_remaining / 60
+              hours = minutes / 60
+              minutes = minutes % 60
+              "#{hours}h#{minutes}m"
+            end
             EOL.log("group #{group_num} (#{done}/#{size}, "\
-              "#{pct.round(3)}%, #{time_remaining}s remaining)",
+              "#{pct.round(3)}%, #{time_string} remaining)",
               prefix: ".")
           end
         end

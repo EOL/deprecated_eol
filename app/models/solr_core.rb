@@ -3,7 +3,7 @@ class SolrCore
   # Note the \s captures a lot of weird things (\v for example); the space
   # itself is fine (and that's what we replace it with), so "BAD" is a misnomer,
   # here.
-  BAD_CHARS_REGEX = /[;×\"'|\s]+/
+  BAD_CHARS_REGEX = /[;×\"'|\s\x00-\x1F]+/
   CLEAN_TEXT_REGEX = /^[\w \(\),\.&-]+$/
 
   class << self

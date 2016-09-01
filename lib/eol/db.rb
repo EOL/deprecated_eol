@@ -145,7 +145,7 @@ module EOL
         rows.in_groups_of(group_size, false) do |group|
           yield(group)
           group_num += 1
-          if size > warn_threshold && group_num % 10 == 1
+          if size > warn_threshold && group_num % 50 == 1
             done += group.size
             elapsed = Time.now - start
             pct = done / size.to_f * 100

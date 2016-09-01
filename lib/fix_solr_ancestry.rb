@@ -15,7 +15,7 @@ class FixSolrAncestry
           next
         end
         d_ancestors = doc["ancestor_taxon_concept_id"].sort
-        t_ancestors = taxon.flattened_ancestors.map(&:ancestor_id).sort
+        t_ancestors = taxon.flattened_ancestors.map(&:ancestor_id).sort.uniq
         # 0 never matters, just ignore it:
         d_ancestors.delete(0)
         t_ancestors.delete(0)

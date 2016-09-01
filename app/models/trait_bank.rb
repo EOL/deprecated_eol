@@ -195,7 +195,7 @@ class TraitBank
       # NOTE: 10_000 here was too high; lost connection to SQL.
       taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
-        TaxonConceptsFlattened.where(taxon_concept_id: group).
+        FlatTaxon.select("DISTINCT taxon_concept_id, ancestor_id").where(taxon_concept_id: group).
           find_each do |flat|
           # Note the *ancestor* might not be a page yet: (often isn't!)
           triples << "<http://eol.org/pages/#{flat.ancestor_id}> a eol:page"

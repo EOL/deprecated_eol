@@ -23,8 +23,8 @@ class Crawler
       Crawler::SiteMapIndexer.create
       offset = 0
       limit = 250
-      all_ids = TaxonConceptsFlattened.descendants_of(ancestor).
-        order(:taxon_concept_id).pluck(:taxon_concept_id)
+      all_ids = FlatConcept.descendants_of(ancestor).
+        order(:taxon_concept_id).pluck(:taxon_concept_id).sort.uniq
       begin
         ids = all_ids[offset..offset + limit]
         Resque.enqueue(Crawler, from: ids.first, to: ids.last,
@@ -43,7 +43,7 @@ class Crawler
                where(["id >= ? AND id <= ?", options["from"], options["to"]])
       if ancestor = options["ancestor"]
         taxa = taxa.joins(:flattened_ancestors).
-                    where(taxon_concepts_flattened: { ancestor_id: ancestor })
+                    where(flat_taxa: { ancestor_id: ancestor })
       end
       with_output_file(options) do |filename|
         count = taxa.count

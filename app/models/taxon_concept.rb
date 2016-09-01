@@ -45,12 +45,12 @@ class TaxonConcept < ActiveRecord::Base
   has_many :published_containing_collections, through: :collection_items, source: :collection, conditions: 'published = 1',
     select: 'collections.id, collections.name, collections.collection_items_count, special_collection_id, relevance, logo_file_name, logo_cache_url',
     include: :communities
-  has_many :preferred_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
-  has_many :preferred_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
-  has_many :denormalized_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1'
+  has_many :preferred_names, class_name: "TaxonConceptName", conditions: 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
+  has_many :preferred_common_names, class_name: "TaxonConceptName", conditions: 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
+  has_many :denormalized_common_names, class_name: "TaxonConceptName", conditions: 'taxon_concept_names.vern=1'
   has_many :users_data_objects
-  has_many :flattened_ancestors, class_name: TaxonConceptsFlattened.to_s
-  has_many :superceded_taxon_concepts, class_name: TaxonConcept.to_s, foreign_key: "supercedure_id"
+  has_many :flattened_ancestors, class_name: "FlatTaxon"
+  has_many :superceded_taxon_concepts, class_name: "TaxonConcept", foreign_key: "supercedure_id"
   has_many :taxon_data_exemplars
 
   has_one :page_json, inverse_of: :page, foreign_key: "page_id"
@@ -543,7 +543,8 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def flattened_ancestor_ids
-    @flattened_ancestor_ids ||= flattened_ancestors.map { |a| a.ancestor_id }
+    @flattened_ancestor_ids ||= flattened_ancestors.
+      map { |a| a.ancestor_id }.sort.uniq
   end
 
   def scientific_names_for_solr
@@ -789,7 +790,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def number_of_descendants
-    TaxonConceptsFlattened.descendants_of(id).count
+    FlatTaxon.descendants_of(id).count
   end
 
   def reindex

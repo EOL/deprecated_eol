@@ -57,7 +57,7 @@ namespace :taxon_concepts do
         data[:rank] = ranks[tcpe.published_hierarchy_entry.rank_id]
         data[:ancestor_taxon_concepts_ids] = HierarchyEntry.select(:taxon_concept_id).
           where(['id IN (?)',
-            tcpe.published_hierarchy_entry.flattened_ancestors.map(&:ancestor_id)]).
+            tcpe.published_hierarchy_entry.flattened_ancestors.map(&:ancestor_id).sort.uniq]).
           map(&:taxon_concept_id)
 
         data[:preferred_scientific_names] =

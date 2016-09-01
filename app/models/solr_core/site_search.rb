@@ -151,7 +151,7 @@ class SolrCore
               resource_type:             "TaxonConcept",
               resource_unique_key:       "TaxonConcept_#{id}",
               resource_id:               id,
-              ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
+              ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id).sort.uniq,
               richness_score:            richness
             }
             add_scientific_to_objects(base, surrogates, "Surrogate", 500)

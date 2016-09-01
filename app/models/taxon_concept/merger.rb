@@ -112,8 +112,9 @@ class TaxonConcept
         # algorithm is wrong.
         update_ignore_id(TaxonConceptName, new_id, old_id)
         update_ignore_id(DataObjectsTaxonConcept, new_id, old_id)
-        update_ignore_id(TaxonConceptsFlattened, new_id, old_id)
-        update_ignore_ancestor_id(TaxonConceptsFlattened, new_id, old_id)
+
+        update_ignore_id(FlatTaxon, new_id, old_id)
+        update_ignore_ancestor_id(FlatTaxon, new_id, old_id)
         move_traits(new_id, old_id)
         # Removing the old item is NOT handled by reindexing:
         @solr = SolrCore::SiteSearch.new
@@ -140,8 +141,8 @@ class TaxonConcept
         # algorithm is wrong.
         update_ignore_ids(TaxonConceptName, new_id, old_ids)
         update_ignore_ids(DataObjectsTaxonConcept, new_id, old_ids)
-        update_ignore_ids(TaxonConceptsFlattened, new_id, old_ids)
-        update_ignore_ancestor_ids(TaxonConceptsFlattened, new_id, old_ids)
+        update_ignore_ids(FlatTaxon, new_id, old_ids)
+        update_ignore_ancestor_ids(FlatTaxon, new_id, old_ids)
         old_ids.each do |old_id|
           move_traits(new_id, old_id)
         end

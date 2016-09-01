@@ -248,7 +248,8 @@ class SolrAPI
       data[taxon_concept.id] = {:common_name => taxon_concept.all_common_names,
                :preferred_scientific_name => [taxon_concept.title],
                :scientific_name => taxon_concept.all_scientific_names,
-               :ancestor_taxon_concept_id => taxon_concept.flattened_ancestors.map {|a| a.ancestor_id },
+               :ancestor_taxon_concept_id => taxon_concept.flattened_ancestors.
+                 map {|a| a.ancestor_id }.sort.uniq,
                :vetted_id => taxon_concept.vetted_id,
                :published => taxon_concept.published,
                :supercedure_id => taxon_concept.supercedure_id,

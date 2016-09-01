@@ -8,7 +8,7 @@ class Concept
   end
 
   def initialize(id)
-    @taxon_concept = TaxonConcept.with_titles.includes(published_hierarchy_entries: :flat_ancestors).find(id)
+    @taxon_concept = TaxonConcept.with_titles.includes(:flattened_ancestors, published_hierarchy_entries: :flat_ancestors).find(id)
   end
 
   def entry(id = nil)
@@ -34,7 +34,8 @@ class Concept
 
   def explain_entries
     grouped = entries.group_by(&:hierarchy)
-    string = ""
+    string = "## #{taxon_concept.title}"
+    string += "\n**ancestors**: #{taxon_concept.flattened_ancestors.map { |a| "[#{a.ancestor.title}](http://eol.org/pages/#{a.ancestor_id}) (via HE##{a.hierarchy_entry_id} in #{a.hierarchy.label})" }.join(", ") }"
 
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       if hierarchy.resource
@@ -44,7 +45,8 @@ class Concept
       end
       grouped[hierarchy].each do |he|
         string += "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) ```#{he.id}``` -- "
-        string += "**flat_ancestors**: #{he.flat_ancestors.map { |a| "[#{a.canonical_form.string}](http://eol.org/pages/#{a.taxon_concept_id}) ```#{a.id}```" }.join(", ")}\n"
+        string += "**flat_ancestors**: #{he.flat_ancestors.map { |a| "[#{a.canonical_form.string}](http://eol.org/pages/#{a.taxon_concept_id}) ```#{a.id}```" }.join(", ")}"
+        string += "\n"
       end
     end
     puts string

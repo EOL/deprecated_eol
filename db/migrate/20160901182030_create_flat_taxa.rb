@@ -7,7 +7,7 @@ class CreateFlatTaxa < ActiveRecord::Migration
       t.integer :ancestor_id, null: false
     end
     add_index :flat_taxa, :hierarchy_id
-    add_index :flat_taxa, :hierarchy_entry_id
+    add_index :flat_taxa, :taxon_concept_id
     add_index :flat_taxa, :ancestor_id
   end
 end

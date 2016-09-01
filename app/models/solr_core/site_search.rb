@@ -168,21 +168,21 @@ class SolrCore
     end
 
     def add_scientific_to_objects(base, names, type, weight)
-      return if names.empty?
+      return if names.compact.empty?
       @objects << base.merge(
         keyword_type: type,
-        keyword: names,
+        keyword: names.compact,
         language: 'sci',
         resource_weight: weight
       )
     end
 
     def add_common_to_objects(base, names_by_iso, type, weight)
-      return if names_by_iso.empty?
+      return if names_by_iso.compact.empty?
       @objects += names_by_iso.map do |iso, names|
         base.merge(
           keyword_type: type,
-          keyword: names,
+          keyword: names.compact,
           language: iso,
           resource_weight: weight
         )

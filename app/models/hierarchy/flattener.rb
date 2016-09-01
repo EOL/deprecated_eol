@@ -16,15 +16,6 @@ class Hierarchy
       @hierarchy = hierarchy
     end
 
-    # NOTE: we don't delete anything from TaxonConceptsFlattened, since that's
-    # not really possible given only a single hierarchy (the same relationships
-    # are likely to occur due to other hierarchies, so removing them would be
-    # incorrect). Thus we'll have to rely on that table being maintained by
-    # TaxonConcept.merge_ids, which _should_ be the only time that would be
-    # affected. ...That's probably _not_ a safe assumption, though: hierarchy
-    # entries that are unpublished _might_ also have an effect there. ...Would
-    # be best if we rebuilt that table periodically, even though doing so would
-    # be rather hairy! TODO
     def flatten
       EOL.log("Hierarchy::Flattener.flatten(#{@hierarchy.id}) "\
         "#{@hierarchy.label} (RID: #{@hierarchy.resource.try(:id)})", prefix: "#")
@@ -84,7 +75,7 @@ class Hierarchy
       @ancestry.keys.each do |child|
         @ancestry[child].each do |ancestor|
           @flat_entries << "#{@hierarchy.id},#{child},#{ancestor}"
-          @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor] || 0}"
+          @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor] || 0},#{@hierarchy.id},#{child}"
         end
       end
       # Without returning something simple, the return value is huge, slowing
@@ -106,10 +97,10 @@ class Hierarchy
           "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
       end
 
-      # TODO: Ideally, we would also build diffs for taxa... also, we never
-      # remove any!:
-      EOL::Db.bulk_insert(TaxonConceptsFlattened,
-      [ "taxon_concept_id", "ancestor_id" ], @flat_concepts, ignore: true)
+      FlatTaxon.where(hierarchy_id: @hierarchy.id).delete_all
+      EOL::Db.bulk_insert(FlatTaxa,
+      [ "taxon_concept_id", "ancestor_id", "hierarchy_id", "hierarchy_entry_id" ],
+        @flat_concepts, ignore: true)
     end
   end
 end

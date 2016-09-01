@@ -1,6 +1,5 @@
 class DataObject
   class Indexer
-
     if false
       # TEST:
       DataObject::Indexer.by_data_object_ids([26726692])
@@ -8,6 +7,7 @@ class DataObject
       a_ids = solr.paginate("data_object_id:26726692")["response"]["docs"].first["ancestor_id"]
       TaxonConcept.where(id: a_ids).with_title.map(&:title)
       # BAD RESULTS: ["Plantae", "Chromista", "Ochrophyta Cavalier-Smith, 1995", "Phaeophyceae", "Laminariales", "Lessoniaceae", "Khakista", "Bacillariophyceae Haeckel, 1878", "Cymbellales D. G. Mann, 1990", "Lessonia Bory de Saint-Vincent, 1825", "Echinella", "Lessonia", "<i>Gomphonema angusticephalum</i> E.Reichardt & Lange-Bertalot", "<i>Dictyochloropsis irregularis</i>", "<i>Frustulia bisulcata</i> R. Maillard", "<i>Lessonia nigrescens</i>", "Protozoa", "Gomphonemataceae Kützing 1844", "Phaeophyta", "Eukaryota", "Stramenopiles", "Heterokonta", "Biota", "Chromalveolata", "Px clade"]
+      # Same idea with data object 31471668 (supposed to be on page 328607) wrongly showing up on 2775704
     end
 
     def self.by_data_object_ids(data_object_ids)
@@ -154,10 +154,6 @@ class DataObject
       end
     end
 
-    # TODO: (LOW-PRIORITY) it w/b nice to use Sets, here, to avoid duplicates
-    # (which we get a lot of). Solr doesn't care, though, so... whatever. For
-    # now. NOTE that it's not just a case of turning them into Sets—you must
-    # then call #to_a on all of those sets just before dumping them into Solr!
     def add_association(dato, association, options = {})
       taxon_id = options[:taxon_id]
       type = options[:type]
@@ -186,7 +182,7 @@ class DataObject
           "data_objects_hierarchy_entries.vetted_id, "\
           "data_objects_hierarchy_entries.visibility_id, tcf.ancestor_id").
         joins(:hierarchy_entries).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
+        joins("LEFT JOIN flat_taxa tcf ON "\
           "(hierarchy_entries.taxon_concept_id = tcf.taxon_concept_id)").
         # NOTE: This check on NOT visible strikes me as odd... but the PHP code
         # did it in two places (granted, it could have been copy/pasted in
@@ -207,7 +203,7 @@ class DataObject
           "curated_data_objects_hierarchy_entries.vetted_id, "\
           "curated_data_objects_hierarchy_entries.visibility_id, tcf.ancestor_id").
         joins(curated_data_objects_hierarchy_entries: :hierarchy_entry).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
+        joins("LEFT JOIN flat_taxa tcf ON "\
           "(hierarchy_entries.taxon_concept_id = tcf.taxon_concept_id)").
         # NOTE: see the note on the where clause of #get_ancestries
         where(["(data_objects.published = 1 OR "\
@@ -225,7 +221,7 @@ class DataObject
           "users_data_objects.vetted_id, "\
           "users_data_objects.visibility_id, tcf.ancestor_id").
         joins(:users_data_object).
-        joins("LEFT JOIN taxon_concepts_flattened tcf ON "\
+        joins("LEFT JOIN flat_taxa tcf ON "\
           "(users_data_objects.taxon_concept_id = tcf.taxon_concept_id)").
         where(["data_objects.id IN (?)", data_object_ids])
     end
@@ -237,7 +233,7 @@ class DataObject
         # A modicum of brevity:
         taxon_id = dato["taxon_concept_id"]
         ancestor_id = dato["ancestor_id"]
-        @objects[dato.id][:ancestor_id] ||= [] # TODO: set?
+        @objects[dato.id][:ancestor_id] ||= []
         @objects[dato.id][:ancestor_id] << taxon_id if taxon_id
         @objects[dato.id][:ancestor_id] << ancestor_id if ancestor_id
         [ @vetted_prefix[dato["vetted_id"]],
@@ -317,6 +313,12 @@ class DataObject
     def objects_to_hashes
       EOL.log_call
       @objects.values.map do |object|
+        [ :ancestor_id, :trusted_ancestor_id, :unreviewed_ancestor_id,
+          :untrusted_ancestor_id, :inappropriate_ancestor_id,
+          :invisible_ancestor_id, :visible_ancestor_id, :preview_ancestor_id].
+            each do |key|
+          object[] = object[key].sort.uniq if object[key]
+        end
         object.delete(:instance).to_hash.merge(object)
       end
     end

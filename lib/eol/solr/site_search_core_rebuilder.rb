@@ -144,7 +144,7 @@ module EOL
           :include => [ :flattened_ancestors, { :published_hierarchy_entries => [ :name, { :scientific_synonyms => :name },
             { :common_names => [ :name, :language ] } ] } ],
           :select => { :taxon_concepts => :id, :names => [ :string, :ranked_canonical_form_id ], :languages => :iso_639_1,
-            :taxon_concepts_flattened => '*', :hierarchy_entries => [ :published, :visibility_id ] })
+            :flat_taxa => '*', :hierarchy_entries => [ :published, :visibility_id ] })
         taxon_concepts.each do |t|
           objects_to_send += t.keywords_to_send_to_solr_index
         end

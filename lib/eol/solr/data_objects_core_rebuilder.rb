@@ -34,12 +34,12 @@ module EOL
           i += limit
         end
       end
-      
+
       def self.remove_data_object(data_object)
         api = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
         api.delete_by_query("data_object_id:#{data_object.id}")
       end
-      
+
       def self.lookup_data_objects(start, limit)
         max = start + limit # TODO - pretty sure this is a fencepost error (should be -1), but don't care enough...
         objects_to_send = []
@@ -148,7 +148,7 @@ module EOL
           # TC ancestors
           if assoc.taxon_concept # sometimes in specs there isn't a concept for an entry...
             ancestor_tc_ids = []
-            ancestor_tc_ids += assoc.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
+            ancestor_tc_ids += assoc.taxon_concept.flattened_ancestors.collect(&:ancestor_id).sort.uniq
 
             ancestor_tc_ids.uniq.each do |tc_id|
               hash['ancestor_id'] ||= []

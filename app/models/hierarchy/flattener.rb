@@ -98,7 +98,7 @@ class Hierarchy
       end
 
       FlatTaxon.where(hierarchy_id: @hierarchy.id).delete_all
-      EOL::Db.bulk_insert(FlatTaxa,
+      EOL::Db.bulk_insert(FlatTaxon,
       [ "taxon_concept_id", "ancestor_id", "hierarchy_id", "hierarchy_entry_id" ],
         @flat_concepts, ignore: true)
     end

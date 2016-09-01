@@ -35,7 +35,15 @@ class Concept
   def explain_entries
     grouped = entries.group_by(&:hierarchy)
     string = "## #{taxon_concept.title}"
-    string += "\n**ancestors**: #{taxon_concept.flattened_ancestors.map { |a| "[#{a.ancestor.title}](http://eol.org/pages/#{a.ancestor_id}) (via HE##{a.hierarchy_entry_id} in #{a.hierarchy.label})" }.join(", ") }"
+    string += "\n**ancestors**: "
+    taxon_concept.flattened_ancestors.each do |a|
+      if a.ancestor
+        string += "[#{a.ancestor.title}](http://eol.org/pages/#{a.ancestor_id})"
+      else
+        string += "(*empty*)"
+      end
+      string += " (via HE##{a.hierarchy_entry_id} in #{a.hierarchy.label}) > "
+    end
 
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       if hierarchy.resource

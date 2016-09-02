@@ -233,7 +233,6 @@ class DataObjectsController < ApplicationController
   end
 
   def explain
-    @markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     @concepts = @data_object.associations.map(&:taxon_concept_id).
       map { |id| Concept.new(id) }
   end

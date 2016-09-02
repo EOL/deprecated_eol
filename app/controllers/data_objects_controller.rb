@@ -600,5 +600,4 @@ private
   def visibility_from_params(he)
     params["visibility_id_#{he.id}"] ? Visibility.find(params["visibility_id_#{he.id}"]) : nil
   end
-
 end

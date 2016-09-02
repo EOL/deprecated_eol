@@ -317,7 +317,7 @@ class DataObject
           :untrusted_ancestor_id, :inappropriate_ancestor_id,
           :invisible_ancestor_id, :visible_ancestor_id, :preview_ancestor_id].
             each do |key|
-          object[] = object[key].sort.uniq if object[key]
+          object[key] = object[key].sort.uniq if object[key]
         end
         object.delete(:instance).to_hash.merge(object)
       end

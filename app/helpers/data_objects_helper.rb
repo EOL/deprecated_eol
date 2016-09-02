@@ -1,6 +1,4 @@
 module DataObjectsHelper
-
-
   def link_to_full_size
     if @data_object.is_image?
       if @data_object.access_image_from_remote_server?(:orig)

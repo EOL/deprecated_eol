@@ -185,7 +185,7 @@ gem "rails3-jquery-autocomplete", "1.0.11",
 # An empathy test to see if you're a human, when creating an account.
 gem "recaptcha", require: "recaptcha/rails"
 # Render markdown (ATM only for admins)
-gem "redcarpet", "2.3.0", require: "redcarpet"
+gem "redcarpet", "~> 3.3.4", require: "redcarpet"
 
 # For background jobs, like email notifications and classification curation
 gem "resque", "1.25.2", require: "resque/server"

@@ -3,4 +3,4 @@
     - @concepts.each do |concept|
       %h1= concept.title.html_safe
       -# = markdown(concept.explain_entries)
-      %p= concept.explain_entries.gsub("\n", "</p><p>").html_safe
+      %pre= concept.explain_entries

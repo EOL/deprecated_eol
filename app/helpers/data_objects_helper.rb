@@ -1,4 +1,6 @@
+require 'redcarpet'
 module DataObjectsHelper
+
 
   def link_to_full_size
     if @data_object.is_image?
@@ -18,7 +20,7 @@ module DataObjectsHelper
     options = {
       filter_html:     true,
       hard_wrap:       true,
-      space_after_headers: true, 
+      space_after_headers: true,
       fenced_code_blocks: true
     }
 
@@ -28,8 +30,8 @@ module DataObjectsHelper
       disable_indented_code_blocks: true
     }
 
-    renderer = Redcarpet::Render::HTML.new(options)
-    markdown = Redcarpet::Markdown.new(renderer, extensions)
+    renderer = ::Redcarpet::Render::HTML.new(options)
+    markdown = ::Redcarpet::Markdown.new(renderer, extensions)
 
     markdown.render(text).html_safe
   end

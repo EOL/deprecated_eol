@@ -2,4 +2,4 @@
   %div.media
     - @concepts.each do |concept|
       %h1= "#{concept.title.html_safe}"
-      = @markdown.render(concept.explain_entries).html_safe
+      = @markdown.send(:render, concept.explain_entries).html_safe

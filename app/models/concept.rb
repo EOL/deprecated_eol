@@ -35,15 +35,16 @@ class Concept
   def explain_entries
     grouped = entries.group_by(&:hierarchy)
     string = "## #{taxon_concept.title}"
-    string += "\n**ancestors**: "
-    taxon_concept.flattened_ancestors.each do |a|
-      if a.ancestor
-        string += "[#{a.ancestor.title}](http://eol.org/pages/#{a.ancestor_id})"
-      else
-        string += "(*empty*)"
+    string += "\n##### ancestors:\n"
+    grouped_ancestors = taxon_concept.flattened_ancestors.group_by(&:ancestor_id)
+    grouped_ancestors.each do |aid, ancestors|
+      next if aid == 0
+      string += "\n[#{ancestors.first.ancestor.title}](http://eol.org/pages/#{ancestors.first.ancestor_id}/overview) via: "
+      ancestors.each do |a|
+        string += " [#{a.hierarchy.label}](http://eol.org/pages/#{a.hierarchy_entry.taxon_concept_id}/hierarchy_entries/#{a.hierarchy_entry_id}/overview)"
       end
-      string += " (via HE##{a.hierarchy_entry_id} in #{a.hierarchy.label}) > "
     end
+    string += "\n"
 
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       if hierarchy.resource
@@ -57,7 +58,7 @@ class Concept
         string += "\n"
       end
     end
-    puts string
+    string
   end
 
   def explain_rels(of_entry)

@@ -9,9 +9,29 @@ module DataObjectsHelper
       end
     end
   end
-  
+
   def sort_refs(references)
-    references.sort_by!{ |r| r.full_reference.to_s }    
+    references.sort_by!{ |r| r.full_reference.to_s }
   end
-  
+
+  def markdown(text)
+    options = {
+      filter_html:     true,
+      hard_wrap:       true,
+      space_after_headers: true, 
+      fenced_code_blocks: true
+    }
+
+    extensions = {
+      autolink:           true,
+      superscript:        true,
+      disable_indented_code_blocks: true
+    }
+
+    renderer = Redcarpet::Render::HTML.new(options)
+    markdown = Redcarpet::Markdown.new(renderer, extensions)
+
+    markdown.render(text).html_safe
+  end
+
 end

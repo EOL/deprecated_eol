@@ -1,6 +1,10 @@
 #main
   %div.media
+    %h1= @data_object.object_title.html_safe
+    %p= @data_object.id
+    - if @data_object.image?
+      .image
+        = link_to(image_tag(data_object.object_url, :alt => alt), @data_object.object_url)
     - @concepts.each do |concept|
-      %h1= concept.title.html_safe
       -# = markdown(concept.explain_entries)
       %pre= concept.explain_entries

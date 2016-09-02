@@ -4,7 +4,7 @@
     %p= @data_object.id
     - if @data_object.image?
       .image
-        = link_to(image_tag(@data_object.object_url, :alt => alt), @data_object.object_url)
+        = link_to(image_tag(@data_object.object_url), @data_object.object_url)
     - @concepts.each do |concept|
       -# = markdown(concept.explain_entries)
       %pre= concept.explain_entries

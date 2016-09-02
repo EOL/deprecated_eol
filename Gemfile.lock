@@ -285,6 +285,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     recaptcha (0.4.0)
+    redcarpet (3.3.4)
     redis (3.2.2)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -457,6 +458,7 @@ DEPENDENCIES
   rails3-jquery-autocomplete (= 1.0.11)!
   rails_autolink (= 1.1.5)
   recaptcha
+  redcarpet (~> 3.3.4)
   resque (= 1.25.2)
   rsolr (= 1.0.12)
   rspec-html-matchers (= 0.4.3)
@@ -480,4 +482,4 @@ DEPENDENCIES
   will_paginate (~> 3.0)
 
 BUNDLED WITH
-   1.10.6
+   1.12.5

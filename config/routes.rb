@@ -287,6 +287,7 @@ Eol::Application.routes.draw do
       get 'crop'
       get 'reindex'
       get 'delete'
+      get 'explain'
     end
     resources :comments
   end

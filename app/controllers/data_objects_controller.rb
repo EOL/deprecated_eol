@@ -3,12 +3,12 @@ class DataObjectsController < ApplicationController
   layout :data_objects_layout
   @@results_per_page = 20
 
-  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop, :reindex] # checks login only
+  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop, :reindex, :explain] # checks login only
   before_filter :load_data_object, except: [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
   before_filter :allow_login_then_submit, only: [:rate]
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, only: [:crop]
+  before_filter :restrict_to_admins_and_curators, only: [:crop, :explain]
   before_filter :restrict_to_admins_and_master_curators, only: [:reindex]
 
   # GET /data_objects/new
@@ -230,6 +230,11 @@ class DataObjectsController < ApplicationController
     @data_object.scrub!(current_user)
     log_action(@data_object, :delete, collect: false)
     redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
+  end
+
+  def explain
+    @concepts = @data_object.associations.map(&:taxon_concept_id).
+      map { |id| Concept.new(id) }
   end
 
   # GET /data_objects/:id

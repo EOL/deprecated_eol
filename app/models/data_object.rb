@@ -1383,6 +1383,17 @@ class DataObject < ActiveRecord::Base
     @solr = SolrCore::SiteSearch.new
     @solr.delete_item(self)
   end
+
+  def explain_associations
+    concepts = associations.map(&:taxon_concept_id).map { |id| Concept.new(id) }
+    string = ""
+    concepts.each do |concept|
+      string += "### #{concept.title}\n\n"
+      string += concept.explain_entries
+    end
+    string
+  end
+  
 private
 
   def source_url_is_valid

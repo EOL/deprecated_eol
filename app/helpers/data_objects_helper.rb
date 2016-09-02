@@ -1,4 +1,3 @@
-require 'redcarpet'
 module DataObjectsHelper
 
 

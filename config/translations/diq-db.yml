@@ -7,7 +7,7 @@
 # Author: Mirzali
 ---
 diq:
-  translated_activities-name-activity_id-19: profile
+  translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: itımadın niyo
   translated_activities-name-activity_id-51: bımocne
   translated_activities-name-activity_id-52: vıraze
@@ -44,7 +44,7 @@ diq:
   translated_audiences-label-audience_id-2: Malo hera
   translated_audiences-label-audience_id-3: Domani
   translated_collection_types-label-collection_type_id-10: Vengi
-  translated_collection_types-label-collection_type_id-11: Gırey
+  translated_collection_types-label-collection_type_id-11: Gıreyi
   translated_collection_types-label-collection_type_id-12: Literatur
   translated_collection_types-label-collection_type_id-13: Taxsonomi
   translated_collection_types-label-collection_type_id-14: Barkodê molekuleri
@@ -57,16 +57,16 @@ diq:
   translated_collection_types-label-collection_type_id-20: Molkekuler data
   translated_collection_types-label-collection_type_id-21: Name kerdış
   translated_collection_types-label-collection_type_id-22: Vengi
-  translated_collection_types-label-collection_type_id-23: Gırey
-  translated_collection_types-label-collection_type_id-24: Literatur
+  translated_collection_types-label-collection_type_id-23: Gıreyi
+  translated_collection_types-label-collection_type_id-24: Edebiyat
   translated_collection_types-label-collection_type_id-2: Molkekuler barkodi
   translated_collection_types-label-collection_type_id-3: Şınasnayış
   translated_collection_types-label-collection_type_id-4: Resımi
   translated_collection_types-label-collection_type_id-5: Vılakerdış
   translated_collection_types-label-collection_type_id-6: Halê mışewreyi
-  translated_collection_types-label-collection_type_id-7: Zanışiya nami
+  translated_collection_types-label-collection_type_id-7: Melumatê nameyi
   translated_collection_types-label-collection_type_id-8: Molkekuler data
-  translated_collection_types-label-collection_type_id-9: Name kerdış
+  translated_collection_types-label-collection_type_id-9: Namekerdış
   translated_contact_roles-label-contact_role_id-1: İrtibata sıfti
   translated_contact_roles-label-contact_role_id-2: İrtıbatê İdareyi
   translated_contact_roles-label-contact_role_id-3: İrtıbatê Tekniki
@@ -88,9 +88,9 @@ diq:
     fonksiyonê web sita)
   translated_contact_subjects-title-contact_subject_id-35: Umumi peyd rışten
   translated_content_partner_statuses-label-content_partner_status_id-1: Vınderde
-  translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
+  translated_content_partner_statuses-label-content_partner_status_id-2: Feal
   translated_content_partner_statuses-label-content_partner_status_id-3: Arşivya
-  translated_content_partner_statuses-label-content_partner_status_id-4: Aktiv niyo
+  translated_content_partner_statuses-label-content_partner_status_id-4: Feal niyo
   translated_content_tables-label-content_table_id-1: Detayi
   translated_data_types-label-data_type_id-10: Xerita
   translated_data_types-label-data_type_id-1: Resım
@@ -225,7 +225,7 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-289: Tekamıl
   translated_table_of_contents-label-table_of_contents_id-299: Terbiyet
   translated_table_of_contents-label-table_of_contents_id-2: Xulasa kılmeke
-  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipediya
   translated_table_of_contents-label-table_of_contents_id-303: Namey u Taksonomiye
   translated_table_of_contents-label-table_of_contents_id-305: Hemmeney
   translated_table_of_contents-label-table_of_contents_id-306: İstatistikê pele

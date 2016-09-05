@@ -374,7 +374,7 @@ zh-CN:
               blank: 不能为空，除非您提供一个数据集URL
               wrong_type: 类型错误，它应该是一个GZIP、TAR、ZIP或XML文件
             dwc_archive_url:
-              inaccessible: 无法访问，该URL必需可以公开访问
+              inaccessible: 无法访问，该URL必须可以公开访问
               invalid: 无效，它应指向一个TAR.GZIP、TAR.GZ、TGZ或ZIP文件
         user_added_data:
           attributes:
@@ -4863,7 +4863,7 @@ zh-CN:
   your_email_address: 您的电子邮件地址
   you_removed_the_member_from_the_community: 您已成功地从社区删除这个会员。
   your_ip_address: 您的IP地址
-  your_preferences: 你的系统设置
+  your_preferences: 您的参数设置
   your_rating: 您的评级
   youtube: YouTube
   youtube_video: YouTube视频

@@ -145,6 +145,7 @@ br:
         total_measurements: Muzulioù
         total_associations: Kevredigezhioù
         total_measurement_types: Doareoù muzuliañ
+        total_association_types: Seurt kevredigezhioù
         total_user_added_data: Roadennoù ouzhpennet gant an implijer
         total_data_records: Enrolladennoù roadennoù
       forum:

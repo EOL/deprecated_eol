@@ -134,10 +134,11 @@ class TaxonOverview < TaxonUserClassificationFilter
 private
 
   def after_initialize
-    loadables = load_media.push(load_summary).compact
+    loadables = load_media.compact
+    loadables << load_summary if load_summary
     TaxonUserClassificationFilter.preload_details(loadables, user)
     DataObject.preload_associations(loadables, { agents_data_objects: [ { agent: :user }, :agent_role ] })
-    @summary = loadables.pop
+    @summary = load_summary ? loadables.pop : nil
     @media = loadables
     correct_bogus_exemplar_image
   end

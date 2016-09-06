@@ -1,5 +1,5 @@
 class FixSolrAncestry
-  def self.run
+  def self.site_search
     @solr = SolrCore::SiteSearch.new
     paginator = SolrCore::TimedPaginator.new(@solr,
       "ancestor_taxon_concept_id:[* TO *] AND resource_type:TaxonConcept")

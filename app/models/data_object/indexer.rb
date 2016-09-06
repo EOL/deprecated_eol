@@ -39,7 +39,7 @@ class DataObject
         done += batch.size
         by_data_object_ids(batch.map(&:id))
         EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}",
-          prefix: ".") if done % 100_000 == 1
+          prefix: ".") if done % 100_000 == 0
       end
       EOL.log_return
     end

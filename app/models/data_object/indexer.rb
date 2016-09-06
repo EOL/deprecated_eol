@@ -14,6 +14,8 @@ class DataObject
     end
 
     if false
+      size = 8431322
+      done = 0
       start = Time.now
       batch = DataObject.select([:id, :published]).published.limit(1000)
       done += batch.size ; DataObject::Indexer.by_data_object_ids(batch.map(&:id))
@@ -21,6 +23,13 @@ class DataObject
     end
 
     def self.rebuild
+      EOL.log_call
+      reindex_published
+      delete_unpublished
+      EOL.log_return
+    end
+
+    def self.reindex_published
       EOL.log_call
       # NOTE: this count could take up to 20 seconds. Yeesh:
       size = DataObject.published.count
@@ -31,6 +40,15 @@ class DataObject
         by_data_object_ids(batch.map(&:id))
         EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}",
           prefix: ".") if batch_num % 10 == 1
+      end
+      EOL.log_return
+    end
+
+    def self.delete_unpublished
+      EOL.log_call
+      @solr = SolrCore::DataObjects.new
+      DataObject.select([:id, :published]).unpublished.find_in_batches do |batch|
+        @solr.delete_by_ids(batch.map(&:id))
       end
       EOL.log_return
     end

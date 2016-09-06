@@ -9,7 +9,8 @@ class SolrCore
     def delete_by_ids(ids)
       ids = Array(ids)
       exist_ids = []
-      ids.in_groups_of(1000, false) do |id_group|
+      # NOTE: Even 500 is too many; request too large. Careful!
+      ids.in_groups_of(300, false) do |id_group|
         q = id_group.map { |id| "data_object_id:#{id}" }.join(" OR ")
         response = @connection.paginate(1, 1000, "select", params: { q: q })
         exist_ids += response["response"]["docs"].map { |d| d["data_object_id"] }

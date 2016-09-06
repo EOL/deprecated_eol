@@ -71,7 +71,7 @@ class DataObject
       data_object_ids.in_groups_of(@batch_size, false) do |batch|
         num += 1
         EOL.log("DataObject::Indexer#index_batch #{num}/#{batch_count}",
-          prefix: '.')
+          prefix: '.') unless batch_count == 1
         index_batch(batch)
       end
       EOL.log_return
@@ -354,7 +354,7 @@ class DataObject
     end
 
     def objects_to_hashes
-      EOL.log_call
+      # EOL.log_call
       @objects.values.map do |object|
         [ :ancestor_id, :trusted_ancestor_id, :unreviewed_ancestor_id,
           :untrusted_ancestor_id, :inappropriate_ancestor_id,

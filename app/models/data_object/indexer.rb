@@ -8,6 +8,9 @@ class DataObject
       TaxonConcept.where(id: a_ids).with_title.map(&:title)
       # BAD RESULTS: ["Plantae", "Chromista", "Ochrophyta Cavalier-Smith, 1995", "Phaeophyceae", "Laminariales", "Lessoniaceae", "Khakista", "Bacillariophyceae Haeckel, 1878", "Cymbellales D. G. Mann, 1990", "Lessonia Bory de Saint-Vincent, 1825", "Echinella", "Lessonia", "<i>Gomphonema angusticephalum</i> E.Reichardt & Lange-Bertalot", "<i>Dictyochloropsis irregularis</i>", "<i>Frustulia bisulcata</i> R. Maillard", "<i>Lessonia nigrescens</i>", "Protozoa", "Gomphonemataceae Kützing 1844", "Phaeophyta", "Eukaryota", "Stramenopiles", "Heterokonta", "Biota", "Chromalveolata", "Px clade"]
       # Same idea with data object 31471668 (supposed to be on page 328607) wrongly showing up on 2775704
+      #
+      # Now doing this:
+      # DataObject::Indexer.by_data_object_ids([33224652])
     end
 
     def self.by_data_object_ids(data_object_ids)

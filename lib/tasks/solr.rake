@@ -27,7 +27,7 @@ namespace :solr do
   end
 
   desc "Rebuild the DataObjects Solr Core (media), in chunks (new code)"
-  task :rebuild_media => :environment
+  task :rebuild_media => :environment do
     DataObject::Indexer.rebuild
   end
 

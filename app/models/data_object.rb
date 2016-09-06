@@ -99,6 +99,7 @@ class DataObject < ActiveRecord::Base
      :visible_users_data_object)
   end
   scope :published, -> { where(published: true) }
+  scope :unpublished, -> { where(published: false) }
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
@@ -1393,7 +1394,7 @@ class DataObject < ActiveRecord::Base
     end
     string
   end
-  
+
 private
 
   def source_url_is_valid

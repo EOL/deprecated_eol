@@ -13,6 +13,28 @@ class DataObject
       # DataObject::Indexer.by_data_object_ids([33224652])
     end
 
+    if false
+      start = Time.now
+      batch = DataObject.select([:id, :published]).published.limit(1000)
+      done += batch.size ; DataObject::Indexer.by_data_object_ids(batch.map(&:id))
+      puts "DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}"
+    end
+
+    def self.rebuild
+      EOL.log_call
+      # NOTE: this count could take up to 20 seconds. Yeesh:
+      size = DataObject.published.count
+      done = 0
+      start = Time.now
+      DataObject.select([:id, :published]).published.find_in_batches do |batch|
+        done += batch.size
+        by_data_object_ids(batch.map(&:id))
+        EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}",
+          prefix: ".") if batch_num % 10 == 1
+      end
+      EOL.log_return
+    end
+
     def self.by_data_object_ids(data_object_ids)
       indexer = self.new
       indexer.by_data_object_ids(data_object_ids)

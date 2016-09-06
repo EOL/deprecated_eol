@@ -8,6 +8,24 @@ module EOL
       EOL::Sparql::VirtuosoClient.drop_all_graphs
     end
 
+    def remaining_time(start, done, size)
+      elapsed = Time.now - start
+      rate = elapsed / done
+      time_remaining = (rate * (size - done)).to_i
+      if time_remaining < 60
+        "#{time_remaining}s"
+      elsif time_remaining < (60 * 60)
+        minutes = time_remaining / 60
+        seconds = time_remaining % 60
+        "#{minutes}m#{seconds}s"
+      else
+        minutes = time_remaining / 60
+        hours = minutes / 60
+        minutes = minutes % 60
+        "#{hours}h#{minutes}m"
+      end
+    end
+
     # used to check if a user agent is a robot or not
     def allowed_user_agent?(user_agent)
       return true if user_agent.nil? # When you run specs, it's nil!

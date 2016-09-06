@@ -19,14 +19,19 @@ namespace :solr do
     Solr.stop
   end
 
-  desc 'Rebuild the data objects index'
+  desc 'Rebuild the All Solr indexes'
   task :rebuild_all  => :environment do |t, args|
-    puts "\n\nRebuilding DataObjects ...\n"
+    puts "\n\nRebuilding All Indexes...\n"
     EOL::Solr.rebuild_all
     puts "Complete\n\n"
   end
 
-  desc 'Rebuild the data objects index'
+  desc "Rebuild the DataObjects Solr Core (media), in chunks (new code)"
+  task :rebuild_media => :environment
+    DataObject::Indexer.rebuild
+  end
+
+  desc 'Rebuild the data objects index (OLD code)'
   task :rebuild_data_objects, [:data_object_id]  => :environment do |t, args|
     puts "\n\nPreparing and POSTing data_object XML document(s)...\n"
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild

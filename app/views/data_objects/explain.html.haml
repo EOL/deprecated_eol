@@ -2,10 +2,9 @@
   .media
     .main
       %h1= @data_object.object_title.html_safe
-      %p= @data_object.id
-      - if @data_object.image?
-        .image= link_to(image_tag(@data_object.thumb_or_object("580_360")), @data_object.object_url)
       .article.copy
+        - if @data_object.image?
+          .image= link_to(image_tag(@data_object.thumb_or_object("580_360")), @data_object.object_url)
         %p
           A data object can have many associations. Each association is a hieararchy entry, and the data object will appear on all that page
           %b

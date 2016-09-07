@@ -38,7 +38,7 @@ class DataObject
       notify = 100_001 # We want to see the first notification.
       start = Time.now
       query = DataObject.select([:id, :published]).published
-      query = query.where(["id > ?", first_id.to_i]) if first_id
+      query = query.where(["id >= ?", first_id.to_i]) if first_id
       query.find_in_batches do |batch|
         done += batch.size
         notify += batch.size

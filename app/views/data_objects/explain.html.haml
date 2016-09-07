@@ -4,6 +4,15 @@
     %p= @data_object.id
     - if @data_object.image?
       .image= link_to(image_tag(@data_object.thumb_or_object("580_360")), @data_object.object_url)
+    %p
+      A data object can have many associations. Each association is a hieararchy entry, and the data object will appear on all that page
+      %b
+        and all of that page's ancestors
+      \. Below are each of those associations (taxon concepts), followed by a list of their ancestors (each line has a link to the page where it will appear, then another link to the source entry that caused the association—helping you find the hierarchy entry responsible for the ancestor). These are then followed by a breakdown of each of the hierarchy entries associated with the page and some information about it.
+      Note that there is
+      %i
+        usually
+      only one association. ...Not many data objects have multiple associations.
     - @concepts.each do |concept|
       -# = markdown(concept.explain_entries)
       %pre= concept.explain_entries

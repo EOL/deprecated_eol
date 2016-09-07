@@ -44,7 +44,8 @@ class DataObject
         notify += batch.size
         by_data_object_ids(batch.map(&:id))
         if notify >= 100_000
-          EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}",
+          EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, "\
+            "#{EOL.remaining_time(start, done, size)} (id #{batch.first.id})",
             prefix: ".")
           notify = 0
         end

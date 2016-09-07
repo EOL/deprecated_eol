@@ -37,7 +37,7 @@ class DataObject
       # NOTE: this count could take up to 20 seconds. Yeesh:
       size = size_q.count
       done = 0
-      notify = 100_001 # We want to see the first notification.
+      notify = 20_001 # We want to see the first notification.
       start = Time.now
       query = DataObject.select([:id, :published]).published
       query = query.where(["id >= ?", first_id.to_i]) if first_id
@@ -45,7 +45,7 @@ class DataObject
         done += batch.size
         notify += batch.size
         by_data_object_ids(batch.map(&:id))
-        if notify >= 100_000
+        if notify >= 20_000
           EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, "\
             "#{EOL.remaining_time(start, done, size)} (id #{batch.first.id})",
             prefix: ".")

@@ -22,21 +22,24 @@ class DataObject
       puts "DataObject::Indexer.rebuild #{done}/#{size}, #{EOL.remaining_time(start, done, size)}"
     end
 
-    def self.rebuild
+    # start = 13071166 # <- That's where things broke, last time.
+    def self.rebuild(start = nil)
       EOL.log_call
-      reindex_published
+      reindex_published(start)
       delete_unpublished
       EOL.log_return
     end
 
-    def self.reindex_published
+    def self.reindex_published(first_id = nil)
       EOL.log_call
       # NOTE: this count could take up to 20 seconds. Yeesh:
       size = DataObject.published.count
       done = 0
       notify = 100_001 # We want to see the first notification.
       start = Time.now
-      DataObject.select([:id, :published]).published.find_in_batches do |batch|
+      query = DataObject.select([:id, :published]).published
+      query = query.where(["id > ?", first_id.to_i]) if first_id
+      query.find_in_batches do |batch|
         done += batch.size
         notify += batch.size
         by_data_object_ids(batch.map(&:id))
@@ -350,10 +353,9 @@ class DataObject
 
     def add_translations(data_object_ids)
       DataObjectTranslation.
-        select("data_object_id, original_data_object_id").
-        where(["data_object_id IN (?)", data_object_ids]).
-        find_each do |dot|
-        next unless @objects.has_key?(dot.data_object_id)
+          select("id, data_object_id, original_data_object_id").
+          where(["data_object_id IN (?)", data_object_ids]).find_each do |dot|
+        next unless @objects[dot.data_object_id]
         @objects[dot.data_object_id][:is_translation] = 1
       end
     end

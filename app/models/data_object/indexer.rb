@@ -32,8 +32,10 @@ class DataObject
 
     def self.reindex_published(first_id = nil)
       EOL.log_call
+      size_q = DataObject.published
+      size_q = size_q.where(["id >= ?", first_id.to_i]) if first_id
       # NOTE: this count could take up to 20 seconds. Yeesh:
-      size = DataObject.published.count
+      size = size_q.count
       done = 0
       notify = 100_001 # We want to see the first notification.
       start = Time.now

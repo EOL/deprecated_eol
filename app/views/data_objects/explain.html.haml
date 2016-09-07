@@ -15,4 +15,4 @@
       only one association. ...Not many data objects have multiple associations.
     - @concepts.each do |concept|
       -# = markdown(concept.explain_entries)
-      %pre= concept.explain_entries.to_html.html_safe
+      .concept_explanation= concept.explain_entries.to_html.html_safe

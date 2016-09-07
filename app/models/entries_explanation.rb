@@ -1,6 +1,11 @@
 class EntriesExplanation
   def initialize(taxon_concept, entries)
-    @page = { name: taxon_concept.title, ancestors: [], hierarchies: [] }
+    @page = {
+      name: taxon_concept.title,
+      url: "http://eol.org/pages/#{taxon_concept.id}/overview",
+      id: taxon_concept.id,
+      ancestors: [], hierarchies: []
+    }
     add_ancestors(taxon_concept)
     add_entries(entries)
   end
@@ -45,7 +50,7 @@ class EntriesExplanation
 
 
   def to_md
-    str = "\n\n## #{@page[:name]}"
+    str = "\n\n## [#{@page[:name]}](#{@page[:url]}) (#{page[:id]})"
     str += "\n##### ancestors:"
     @page[:ancestors].each do |ancestor|
       str += "\n[#{ancestor[:title]}](#{ancestor[:url]}) via: "
@@ -75,7 +80,7 @@ class EntriesExplanation
   end
 
   def to_html
-    str = "<h2>#{@page[:name]}</h2>"
+    str = "<h2><a href='#{@page[:url]}'>#{@page[:name]}</a> (#{@page[:id]})</h2>"
     str += "<h3>Ancestors:</h3>\n<p>Content associated with this page will also "\
       "appear on all of the following \"higher-level\" pages:</p><p><ul>\n"
     @page[:ancestors].each do |ancestor|
@@ -87,27 +92,28 @@ class EntriesExplanation
     end
     str += "</ul></p><p><br/></p><h3>Hierarchies</h3>\n<p>This taxon concept is "\
       "comprised of data from the following hierarchies, which have "\
-      "one or more entries directly associated with this concept:</p>\n<p><ul>\n"
+      "one or more entries directly associated with this concept:</p>\n<p>\n"
+    str += "  <ul>\n"
     @page[:hierarchies].each do |hierarchy|
       if resource = hierarchy[:resource]
-        str += "  <li><b><a href='#{resource[:url]}'>#{resource[:name]}</a></b> "\
+        str += "    <li><b><a href='#{resource[:url]}'>#{resource[:name]}</a></b> "\
           "Hierarchy label: \"#{hierarchy[:name]}\" (#{hierarchy[:id]})"
       else
-        str += "  <li><b>Hierarchy label: #{hierarchy[:name]}</b> [no resource "\
+        str += "    <li><b>Hierarchy label: #{hierarchy[:name]}</b> [no resource "\
           "available] (#{hierarchy[:id]})\n"
       end
-      str += "  <ul>\n"
+      str += "    <ul>\n"
       hierarchy[:entries].each do |he|
-        str += "    <li><i>#{he[:name]}</i> (<i>#{he[:canonical]}</i>) (#{he[:id]}) -- <b>flat_ancestors:</b> "
+        str += "      <li><i>#{he[:name]}</i> (<i>#{he[:canonical]}</i>) (#{he[:id]}) -- <b>flat_ancestors:</b> "
         he[:ancestors].each do |a|
           str += "<a href='#{a[:url]}'>#{a[:canonical]}</a> (#{a[:id]}) "
         end
         str += "(none)" if he[:ancestors].empty?
         str += "</li>\n"
       end
-      str += "  </ul>\n  </li>\n"
+      str += "    </ul>\n    </li>\n"
     end
-    str += "</ul></p><p><br/></p>\n"
+    str += "  </ul>\n</p>\n"
     str
   end
 

@@ -36,6 +36,7 @@ class DataObject
       size_q = size_q.where(["id >= ?", first_id.to_i]) if first_id
       # NOTE: this count could take up to 20 seconds. Yeesh:
       size = size_q.count
+      EOL.log("#{size} data objects to reindex...", prefix: ".")
       done = 0
       notify = 20_001 # We want to see the first notification.
       start = Time.now

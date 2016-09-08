@@ -27,10 +27,8 @@ class SolrCore
       raise "PROBLEM: no entries found!" if entries.size == 0
       if @ids.empty?
         delete("hierarchy_id:#{hierarchy.id}")
-        index_items(entries)
-      else
-        reindex_items(entries)
       end
+      reindex_items(entries)
     end
 
     def build_entry_ancestors(ancestry)

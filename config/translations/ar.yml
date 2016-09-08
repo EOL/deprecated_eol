@@ -971,6 +971,7 @@ ar:
       page_title: الإحصائيات
     data:
       menu_link: بيانات
+      page_header: إحصاءات البيانات
       page_title: إحصائيات
   forums:
     forums_heading: EOL منتديات

@@ -126,6 +126,17 @@ class Hierarchy < ActiveRecord::Base
     9999
   end
 
+  # NOTE: this assumes the "leaf" nodes *are* published.
+  def publish_parents
+    set = HierarchyEntry.where(hierarchy_id: id).published
+    while ids = set.pluck(:parent_id) do
+      ids.delete(0)
+      break if ids.empty?
+      set = HierarchyEntry.where(id: ids)
+      set.where(published: false).update_all(published: true)
+    end
+  end
+
   def flatten
     Hierarchy::Flattener.flatten(self)
   end

@@ -168,7 +168,7 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.preview(self)
   end
 
-  # NOTE: this is only called manually. Pleas keep.
+  # NOTE: this is only called manually. Please keep.
   def relate
     harvest_events.last.relate_new_hierarchy_entries
   end

@@ -181,6 +181,7 @@ class SolrCore
     def add_common_to_objects(base, names_by_iso, type, weight)
       return if names_by_iso.empty?
       @objects += names_by_iso.map do |iso, names|
+        names = Array(names)
         base.merge(
           keyword_type: type,
           keyword: names.compact,

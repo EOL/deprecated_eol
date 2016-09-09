@@ -21,7 +21,7 @@ class Background
     end
 
     def top_images_in_queue?
-      in_queue?(:php, CodeBridge, cmd, top_images)
+      in_queue?(:php, CodeBridge, "cmd", "top_images")
     end
 
     def stop_top_images

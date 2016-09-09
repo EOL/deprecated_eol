@@ -127,7 +127,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   # NOTE: this assumes the "leaf" nodes *are* published.
-  def publish_parents
+  def publish_ancestors
     set = HierarchyEntry.where(hierarchy_id: id).published
     while ids = set.pluck(:parent_id) do
       ids.delete(0)

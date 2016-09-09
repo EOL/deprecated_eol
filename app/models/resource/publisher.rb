@@ -7,32 +7,12 @@ class Resource
       publisher.publish(options)
     end
 
-    def self.preview(resource)
-      publisher = self.new(resource)
-      publisher.preview
-    end
-
     def initialize(resource)
       ActiveRecord::Base.with_master do
         @resource = resource
         @event = resource.harvest_events.last
         raise "No hierarchy!" unless @resource.hierarchy
       end
-    end
-
-    # A "light" version of publishing for resources that we keep in "preview
-    # mode" NOTE that we don't have "preview" for TraitBank. NOTE: This
-    # _requires_ that the flattened hierarchy have been rebuilt when this is
-    # called.
-    def preview
-      # Critically important to be reading master:
-      ActiveRecord::Base.with_master do
-        @resource.index_for_merges
-        @event.merge_matching_concepts
-        sync_collection
-        denormalize
-      end
-      true
     end
 
     # NOTE: yes, PHP used multiple transactions. I suppose it was to avoid
@@ -43,7 +23,6 @@ class Resource
     # capture that in another way. NOTE: This _requires_ that the flattened
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
-      was_previewed = options[:previewed]
       EOL.log("PUBLISH STARTING: #{@resource}", prefix: "{")
       unless options[:force]
         raise EOL::Exceptions::HarvestNotReady.new("Event already published!") if
@@ -55,14 +34,16 @@ class Resource
       end
       # Critically important to read from master!
       ActiveRecord::Base.with_master do
+        # PHP doesn't seem to be doing this anymore:
+        @resource.hierarchy.publish_ancestors
         @resource.flatten
         @event.publish_affected
         # NOTE: the next two steps comprise the lion's share of publishing time.
         # The indexing takes a bit more time than the merging.
-        @resource.index_for_merges unless was_previewed
-        @event.merge_matching_concepts unless was_previewed
+        @resource.index_for_merges
+        @event.merge_matching_concepts
         @resource.rebuild_taxon_concept_names
-        @event.sync_collection unless was_previewed
+        @event.sync_collection
         @resource.publish_traitbank
         @event.index
         @resource.mark_as_published

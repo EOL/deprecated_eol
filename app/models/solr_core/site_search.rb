@@ -168,6 +168,7 @@ class SolrCore
     end
 
     def add_scientific_to_objects(base, names, type, weight)
+      names = Array(names)
       return if names.compact.empty?
       @objects << base.merge(
         keyword_type: type,

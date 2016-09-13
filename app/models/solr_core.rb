@@ -20,7 +20,7 @@ class SolrCore
       return nil if text == 'NULL' # Can come from DB
       return text if text.is_numeric?
       return text.gsub(/\s+/, " ") if text =~ CLEAN_TEXT_REGEX
-      return I18n.transliterate(text) if text.is_utf8?
+      text = I18n.transliterate(text) if text.is_utf8?
       text.gsub(BAD_CHARS_REGEX, " ").gsub(/\s+/, " ").strip
     end
   end

@@ -32,25 +32,30 @@ class DataObject
 
     def self.reindex_published(first_id = nil)
       EOL.log_call
-      size_q = DataObject.published
-      size_q = size_q.where(["id >= ?", first_id.to_i]) if first_id
-      # NOTE: this count could take up to 20 seconds. Yeesh:
-      size = size_q.count
-      EOL.log("#{size} data objects to reindex...", prefix: ".")
-      done = 0
-      notify = 20_001 # We want to see the first notification.
-      start = Time.now
-      query = DataObject.select([:id, :published]).published
-      query = query.where(["id >= ?", first_id.to_i]) if first_id
-      query.find_in_batches do |batch|
-        done += batch.size
-        notify += batch.size
-        by_data_object_ids(batch.map(&:id))
-        if notify >= 20_000
-          EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, "\
-            "#{EOL.remaining_time(start, done, size)} (id #{batch.first.id})",
-            prefix: ".")
-          notify = 0
+      DataObject.with_master do
+        size_q = DataObject.published
+        size_q = size_q.where(["id >= ?", first_id.to_i]) if first_id
+        size = begin
+          size_q.count
+        rescue Mysql2::Error => e
+          2_280_989 # Sorry, manually added this 2016/09/13 ... :P
+        end
+        EOL.log("#{size} data objects to reindex...", prefix: ".")
+        done = 0
+        notify = 20_001 # We want to see the first notification.
+        start = Time.now
+        query = DataObject.select([:id, :published]).published
+        query = query.where(["id >= ?", first_id.to_i]) if first_id
+        query.find_in_batches do |batch|
+          done += batch.size
+          notify += batch.size
+          by_data_object_ids(batch.map(&:id))
+          if notify >= 20_000
+            EOL.log("DataObject::Indexer.rebuild #{done}/#{size}, "\
+              "#{EOL.remaining_time(start, done, size)} (id #{batch.first.id})",
+              prefix: ".")
+            notify = 0
+          end
         end
       end
       EOL.log_return

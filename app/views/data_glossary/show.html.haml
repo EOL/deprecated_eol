@@ -1,4 +1,4 @@
-- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 10.minutes) do
+- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 1.week) do
   - known_uris = KnownUri.glossary_terms
   #content
     #known_uris.site_column.glossary

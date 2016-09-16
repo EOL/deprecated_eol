@@ -174,7 +174,7 @@ class SolrCore
         keyword_type: type,
         keyword: names.compact,
         language: 'sci',
-        resource_weight: weight
+        resource_weight: weight.to_i
       )
     end
 
@@ -186,7 +186,7 @@ class SolrCore
           keyword_type: type,
           keyword: names.compact,
           language: iso,
-          resource_weight: weight
+          resource_weight: weight.to_i
         ) unless names.compact.empty?
       end
     end

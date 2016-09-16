@@ -20,7 +20,7 @@ class HarvestEvent
       index_collection_items_added do
         add_items_to_collection
       end
-      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
+      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection, resource: true)
       EOL.log_return
     end
 
@@ -62,19 +62,13 @@ class HarvestEvent
     end
 
     def collection
-      @collection ||= if @event.published? || @event.resource.auto_publish?
+      @collection ||= begin
         EOL.log_call
         if resource.collection.nil?
           resource.collection = create_collection_object
           resource.save
         end
         resource.collection
-      else
-        if resource.preview_collection.nil?
-          resource.preview_collection = create_collection_object
-          resource.save
-        end
-        resource.preview_collection
       end
     end
 
@@ -139,7 +133,6 @@ class HarvestEvent
     end
 
     def update_attributes
-      EOL.log_call
       collection.name = name
       collection.logo_cache_url = logo_url
       collection.description = description

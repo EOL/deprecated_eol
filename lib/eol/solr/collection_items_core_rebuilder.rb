@@ -2,17 +2,17 @@ module EOL
   module Solr
     class CollectionItemsCoreRebuilder
 
-      attr_accessor :solr_api, :objects_to_send_to_solr, :debug
+      attr_accessor :solr_api, :debug
 
       def self.begin_rebuild
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
         rebuilder.index_all_collection_items
       end
 
-      def self.reindex_collection(collection)
+      def self.reindex_collection(collection, options = {})
         EOL.log("reindexing collection #{collection.id}", prefix: "#")
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
-        rebuilder.index_collection(collection.id)
+        rebuilder.index_collection(collection.id, options)
         EOL.log("Counting items...", prefix: ".")
         # update collection items count
         collection.update_attributes(collection_items_count: collection.collection_items.count)
@@ -41,24 +41,24 @@ module EOL
 
       def initialize(options={})
         @solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
-        @objects_to_send_to_solr = []
         @debug = options[:debug]
       end
 
-      def index_collection(collection_id)
+      def index_collection(collection_id, options = {})
         return unless collection_id && collection_id.class == Fixnum
         remove_collection_by_id(collection_id)
-        result = Collection.connection.execute("SELECT id FROM collection_items WHERE collection_id = #{collection_id}")
-        index_collection_items_by_id(result.collect{ |r| r.first })
+        ids = CollectionItem.where(collection_id: collection_id).pluck(:id)
+        index_collection_items_by_id(ids, options)
       end
 
       def remove_collection_by_id(collection_id)
         solr_api.delete_by_query("collection_id:#{collection_id}")
       end
 
+      # NOTE: (I didn't write this, but:) YOU SHOULD NOT CALL THIS. Ewww.
       def index_all_collection_items
         solr_api.delete_all_documents
-        batch_size = 100000
+        batch_size = 100_000
         start = CollectionItem.first.id rescue 0
         max_id = CollectionItem.last.id rescue 0
         start_time = Time.now
@@ -70,26 +70,24 @@ module EOL
         end
       end
 
-      def index_collection_items_by_id(collection_item_ids)
-        return unless collection_item_ids && collection_item_ids.class == Array
-        collection_item_ids.each_slice(10000) do |batch_ids|
-          index_batch(batch_ids)
-        end
+      def index_collection_items_by_id(ids, options = {})
+        return if ids.blank?
+        ids.in_groups_of(10_000, false) { |batch| index_batch(batch, options) }
       end
 
       private
 
-      def index_batch(collection_item_ids)
-        return unless collection_item_ids && collection_item_ids.class == Array
-        self.objects_to_send_to_solr = []
-        lookup_data_objects(collection_item_ids)
-        lookup_taxon_concepts(collection_item_ids)
-        lookup_users(collection_item_ids)
-        lookup_collections(collection_item_ids)
-        lookup_communities(collection_item_ids)
-        solr_api.delete_by_ids(collection_item_ids, :commit => false)
-        unless self.objects_to_send_to_solr.blank?
-          solr_api.create(self.objects_to_send_to_solr)
+      def index_batch(ids, options = {})
+        return if ids.blank?
+        @objects = []
+        lookup_data_objects(ids)
+        lookup_taxon_concepts(ids)
+        lookup_users(ids) unless options[:resource]
+        lookup_collections(ids) unless options[:resource]
+        lookup_communities(ids) unless options[:resource]
+        solr_api.delete_by_ids(ids, :commit => false)
+        unless @objects.blank?
+          solr_api.create(@objects)
         end
       end
 
@@ -205,7 +203,7 @@ module EOL
             end
           end
 
-          self.objects_to_send_to_solr << {
+          @objects << {
             'collection_item_id'  => collection_item_id,
             'object_type'         => object_type,
             'object_id'           => object_id,
@@ -220,11 +218,10 @@ module EOL
           }
           # Don't even add the sort field unless it has something in it; it MUST be *missing* in order to sort last.
           # TODO - try passing nil if it's blank, perhaps that's enough for it to be missing.
-          self.objects_to_send_to_solr.last['sort_field'] = SolrAPI.text_filter(sort_field) unless sort_field.blank?
+          @objects.last['sort_field'] = SolrAPI.text_filter(sort_field) unless sort_field.blank?
           collection_ids_added[collection_item_id] = true
         end
       end
-
     end
   end
 end

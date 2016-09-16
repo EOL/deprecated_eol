@@ -118,8 +118,9 @@ module EOL
     end
 
     def log(msg, options = {})
+      now = Time.now.in_time_zone("Eastern Time (US & Canada)")
       diff = if @last_log_time
-        d = (Time.now - @last_log_time).round(2)
+        d = (now - @last_log_time).round(2)
         d == 0 ? "" : "(#{d})"
       else
         ""
@@ -128,11 +129,10 @@ module EOL
       # Have to use #error to get it to show up in production:
       # Apologies for the hard-coded time zone here, but it helps me report on
       # things properly:
-      time = Time.now.in_time_zone("Eastern Time (US & Canada)")
       Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
-        "#{time.strftime("%d-%H:%M:%S.%L")}#{diff} #{msg}")
+        "#{now.strftime("%d-%H:%M:%S.%L")}#{diff} #{msg}")
       Rails.logger.flush if Rails.logger.respond_to?(:flush)
-      @last_log_time = time
+      @last_log_time = now
     end
 
     # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to

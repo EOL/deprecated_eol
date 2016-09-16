@@ -216,6 +216,7 @@ class SolrCore
         # Interesting. I wonder how common this is?
         next if object.guid !~ MIN_CHAR_REGEX
         type_and_weight = @data_type_and_weight[object.data_type_id]
+        next unless type_and_weight # Skip anything of a type we don't know.
         data_types = ["DataObject"]
         extra_type = type_and_weight[:type]
         data_types << extra_type if !extra_type.blank?
@@ -263,7 +264,6 @@ class SolrCore
     end
 
     def set_data_type_and_weight
-      EOL.log_call
       @data_type_and_weight = {}
       DataType.sound_type_ids.each do |dt_id|
         @data_type_and_weight[dt_id] = { type: 'Sound', weight: 70 }

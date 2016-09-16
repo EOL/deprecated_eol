@@ -18,22 +18,15 @@ class HarvestEvent
       add_user_to_collection
       remove_collection_items_not_in_harvest
       index_collection_items_added do
-        add_items_collection
+        add_items_to_collection
       end
-      collection.fix_item_count
-      EOL.log("reindexing collection", prefix: ".")
       EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
-      if @event.published? && resource.preview_collection
-        EOL.log("removing old preview collection", prefix: ".")
-        resource.preview_collection.users = []
-        resource.preview_collection.destroy
-      end
       EOL.log_return
     end
 
     private
 
-    def add_items_collection
+    def add_items_to_collection
       EOL.log_call
       data = []
       harvested_objects_not_already_in_collection.find_each do |object|
@@ -48,7 +41,6 @@ class HarvestEvent
       EOL::Db.bulk_insert(CollectionItem,
         [:name, :collected_item_type, :collected_item_id, :collection_id],
         data, ignore: true)
-      EOL.log_return
     end
 
     def harvested_objects_not_already_in_collection

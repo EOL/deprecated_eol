@@ -126,10 +126,13 @@ module EOL
       end
       options[:prefix] ||= '*'
       # Have to use #error to get it to show up in production:
+      # Apologies for the hard-coded time zone here, but it helps me report on
+      # things properly:
+      time = Time.now.in_time_zone("Eastern Time (US & Canada)")
       Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
-        "#{Time.now.strftime("%d-%H:%M:%S.%L")}#{diff} #{msg}")
+        "#{time.strftime("%d-%H:%M:%S.%L")}#{diff} #{msg}")
       Rails.logger.flush if Rails.logger.respond_to?(:flush)
-      @last_log_time = Time.now
+      @last_log_time = time
     end
 
     # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to

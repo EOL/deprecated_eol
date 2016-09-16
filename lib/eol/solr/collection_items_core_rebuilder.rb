@@ -10,8 +10,10 @@ module EOL
       end
 
       def self.reindex_collection(collection)
+        EOL.log("reindexing collection #{collection.id}", prefix: "#")
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
         rebuilder.index_collection(collection.id)
+        EOL.log("Counting items...", prefix: ".")
         # update collection items count
         collection.update_attributes(collection_items_count: collection.collection_items.count)
       end
@@ -29,12 +31,12 @@ module EOL
 
       def self.remove_collection(collection)
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
-        rebuilder.remove_collection_by_id(collection.id)       
+        rebuilder.remove_collection_by_id(collection.id)
       end
 
       def self.remove_collection_items(items)
         rebuilder = EOL::Solr::CollectionItemsCoreRebuilder.new
-        rebuilder.solr_api.delete_by_ids(items.map(&:id))        
+        rebuilder.solr_api.delete_by_ids(items.map(&:id))
       end
 
       def initialize(options={})

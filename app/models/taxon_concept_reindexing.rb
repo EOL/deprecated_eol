@@ -14,7 +14,7 @@ class TaxonConceptReindexing
 
   def reindex
     # TODO: RandomHierarchyImage should be scanned and updated, too!
-    Rails.cache.delete(PageTraits.cache_key(@taxon_concept.id)) rescue nil
+    PageTraits.delete_caches(@taxon_concept.id) rescue nil
     @taxon_concept.disallow_large_curations unless @allow_large_tree # NOTE: this can raise an exception.
     begin
       @taxon_concept.lock_classifications

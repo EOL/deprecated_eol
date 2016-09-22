@@ -206,7 +206,7 @@ application.js: 3e3d70829fd5bfbcb03e8d77e2a8f3f4
 choose_sort_type.js: 71028161777f0ad6fe3deebe0bd2b1a6
 choose_taxa_data.js: 21245d5382715a8fe4925873a9146e82
 ckeditor/config.js: b797f6c4c638171ca38f71b92af01767
-cluster.js: 1c7721e93537925d8984e53b6e25857c
+cluster.js: f8c5f372fdc4c53adc600ce002df2936
 combobox.js: bd564fdf6080d5d24f613b2d321827ae
 comments.js: 74973fec49dfd06da735a3668423b5ac
 common-names.js: a83730031c3ed5cee713d74993b32f39
@@ -261,8 +261,8 @@ jquery.tools.min.js: 342e049733cfc76c2186f077a89ed621
 jquery_ujs.js: 6b07a28334742a85f46b7f32ebf4d586
 json_maps.js: 7ae56003a2dbb18d4b0facdacb512620
 known_uris.js: 26a2c4e4942bb2865c6edef40585bd4d
-maps.js: cf6680f8861341b361653997dd00d644
-maps_vendored.js: 2e9ef60dec7d1a822fd95ef92dca97a0
+maps.js: 1f93ff5c59f2332975af9f1355f0cbe2
+maps_vendored.js: 59fa2d09ff7b66c8693accbe7f29b1cc
 media.js: 0caa6e4c7eda1f5c71a4b5a217c47c42
 media_list.js: 5c9645a38e9f2e9d6e05e7d3a6fe5bae
 navigation.js: b76b3c8ada57ca346fe1d792bdcd5db0
@@ -287,10 +287,10 @@ worklist_curation.js: 4ca8e146e8c2f62e7f672a5d19021a50
 _discover.css: f3c0b2c5c9f343141e70019b9f64d8f4
 accessibility.css: 9068319f06d030c73c2fe4ea8fc27079
 admin.css: 127bb9c5a146f5cd30a7e49cbc533c96
-admin_pack.css: 8364ac49754b9108e6528ad89bfaa59b
+admin_pack.css: ec4bc76c0041839a4825a6cf3b7f6c74
 application-tl.css: 1cb713e12a28bdfa10574a029284cc91
-application.css: 4b7096d0035615653427c2438a9363cf
-application_pack.css: 35839c24a4e051c8cc291d9d4da3551e
+application.css: fc75cd4fc7b923ed0372556b07310c77
+application_pack.css: c1143f29881dc12d3b6465a390651e51
 buttons.css: 1bf989ffae9613d3b35e159e72c2d4f9
 calendar.css: 868ef27180b8b0ff64362f7ffb1bc07e
 choose_collect_target.css: 817419f220b94ad02f3d8acccb1e9e0e
@@ -362,7 +362,7 @@ wikipedia.css: 9fe75817baee7ffb12e8dc5ba5c8301b
 dragzoom/dragzoom_packed.js: ed7e23267075066ef6ec5619bd84695c
 dragzoom/keydragzoom_packed.js: eff1f4955c24331ab9da4edb43a0b3f9
 markerclusterer/markerclusterer.js: ef9c23d3603cbaa9cc58603d95917ea5
-markerclusterer/markerclusterer_compiled.js: ef3ca3b78ac695bfb4cc7f23f8f9b49d
+markerclusterer/markerclusterer_compiled.js: aa7b5fdec1bc52b4f199f51be3569646
 spiderfy/oms.js: e79442b11de3581a017345945fe7bd59
 spiderfy/oms.min.js: db8b22984def2330cd47da4b3ad812fd
 autocomplete-rails-uncompressed.js: 99d5d397adc537efdfa489e0514a026a

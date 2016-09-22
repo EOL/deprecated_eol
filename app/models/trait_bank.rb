@@ -29,7 +29,7 @@ class TraitBank
 
   class << self
     def cache_query(key, &block)
-      result = Rails.cache.fetch(key, expires_in: 1.day) do
+      result = Rails.cache.fetch(key, expires_in: 2.weeks) do
         begin
           yield
         rescue EOL::Exceptions::SparqlDataEmpty => e

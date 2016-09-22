@@ -3,6 +3,14 @@ class PageTraits < TraitSet
     "trait_bank/pages/#{id}"
   end
 
+  def self.delete_caches(id)
+    base_key = cache_key(id)
+    Rails.cache.delete(base_key)
+    Rails.cache.delete("#{base_key}/trait_uris")
+    Rails.cache.delete("#{base_key}/uris")
+    Rails.cache.delete("#{base_key}/page_ids")
+  end
+
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
     @id = id

@@ -2,6 +2,7 @@ class SearchTraits < TraitSet
   attr_accessor :pages, :page, :attribute, :key, :count_key
 
   def self.warm
+    populate
     EOL.log_call
     preds = TraitBank.predicates
     preds.each do |p|
@@ -22,6 +23,11 @@ class SearchTraits < TraitSet
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     @attribute = search_options[:attribute]
+    @populated = false
+  end
+
+  def populate
+    return if @populated
     @id = @attribute
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
@@ -79,9 +85,11 @@ class SearchTraits < TraitSet
       source_ids.delete(nil) # Just in case.
       @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
     end
+    @populated = true
   end
 
   def get_pages(uris)
+    populate
     ids = Set.new
     uris.each do |uri|
       if uri =~ TraitBank.taxon_re

@@ -1,35 +1,42 @@
 class TraitSet
   attr_accessor :points, :glossary, :traits, :sources, :taxa, :id
 
-  # YOU *NEED* TO IMPLEMENT #initialize ! See PageTraits for an example.
+  # YOU *NEED* TO IMPLEMENT #initialize and #populate ! See PageTraits for an
+  # example.
 
   def blank?
+    populate
     traits.blank?
   end
 
   def predicates
+    populate
     @predicates ||= Set.new(traits.map(&:predicate_uri).compact).
       sort_by(&:position)
   end
 
   def predicate_count
+    populate
     @predicate_count ||= predicates.count
   end
 
   def categories
     return @categories if @categories
+    populate
     @categories = Set.new(traits.flat_map(&:categories)).
       to_a.sort_by(&:view_order)
     @categories
   end
 
   def categories_need_other?
+    populate
     @need_other ||= traits.any? { |t| t.categories.empty? }
   end
 
   # NOTE: Sorry this is complex, but: there are a lot of considerations for
   # sort!
   def traits_by_category(category)
+    populate
     subset = if category == :other
       traits.select { |trait| trait.categories.empty? }
     else
@@ -51,6 +58,7 @@ class TraitSet
   # TODO: I forget whether KnownUris can be excluded from the overview. Check. I
   # don't think so (I think we rely on sort), so I haven't implemented that.
   def traits_overview
+    populate
     uris = predicates[0..OverviewTraits.max_rows]
     overview = traits.select { |trait| uris.include?(trait.predicate_uri) &&
       ! trait.excluded? }.group_by(&:predicate_uri)

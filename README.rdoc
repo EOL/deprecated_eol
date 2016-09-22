@@ -794,6 +794,7 @@ this will create as follows:
 </url>
 
 == How to update sitemap?
+
 just run the rake task:
 rake sitemap:refresh
 by this command a new sitemap will be generated based on the urls supplied in the sitemap.rb file.

@@ -6,39 +6,54 @@ class PageTraits < TraitSet
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
     @id = id
-    @rdf = TraitBank.cache_query(PageTraits.cache_key(id)) do
+    @populated = false
+  end
+
+  def populate
+    return if @populated
+    base_key = PageTraits.cache_key(id)
+    @rdf = TraitBank.cache_query(base_key) do
       TraitBank.page_with_traits(id)
     end
-    trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
-    @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
+    trait_uris = TraitBank.cache_query("#{base_key}/trait_uris") do
+      @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)
+    end
+    @points = DataPointUri.where(uri: trait_uris).
       includes(:comments, :taxon_data_exemplars)
-    uris = Set.new(@rdf.flat_map { |rdf|
-      rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
-    uris.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }
-    # TODO: associations. We need the names of those taxa.
-    @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
+    uris = TraitBank.cache_query("#{base_key}/uris") do
+      @rdf.flat_map do |rdf|
+        rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) }
+      end.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }.
+        map(&:to_s)
+    end
+    @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
-    page_ids = Set.new(@rdf.map { |rdf| rdf[:value].to_s =~
-      TraitBank.taxon_re ? $2 : nil }.compact).to_a
+    page_ids = TraitBank.cache_query("#{base_key}/page_ids") do
+      @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
+        compact.uniq
+    end
     @taxa = TaxonConcept.map_supercedure(page_ids) unless page_ids.blank?
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
-    source_ids = Set.new(@traits.map { |trait| trait.source_id })
-    source_ids.delete(nil) # It happens.
-    @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
+    source_ids = @traits.map { |trait| trait.source_id }.compact.uniq
+    @sources = Resource.where(id: source_ids).includes(:content_partner)
+    @populated = true
   end
 
   # NOTE: only used manually to fix problems with "Could not find a data point for [trait]"
   def pointless
+    populate
     traits.select { |t| t.point.nil? }
   end
 
   def jsonld
+    populate
     TraitBank::JsonLd.for_page(@id, self)
   end
 
   # Avoid a ton of output in the console:
   def to_s
+    populate
     "<PageTraits @id=#{id} @rdf=(#{@rdf.size}xTriple) "\
       "@points=(#{@points.size}xDataPointUri) "\
       "@glossary=(#{@glossary.size}xKnownUri) "\

@@ -103,10 +103,11 @@ class TraitBank
     # NOTE that this is stupid syntax, but it's what you have to do with Sparql.
     # Yes, it looks very redundant! NOTE: limit must be restricted as the SQL
     # query can get too long. Sigh. NOTE: ARGH! Doesn't work reliably in batches; must be done one at a time to work...
-    def delete(triples)
+    def delete(triples, graph_name = nil)
+      graph_name ||= graph
       # triple_string = triples.join(" . ")
       triples.each do |triple_string|
-        query = "WITH GRAPH <#{graph}> DELETE { #{triple_string} } "\
+        query = "WITH GRAPH <#{graph_name}> DELETE { #{triple_string} } "\
           "WHERE { #{triple_string} }"
         begin
           connection.query(query)
@@ -184,9 +185,22 @@ class TraitBank
         entry_uri = "#{graph}/taxa/#{EOL::Sparql.to_underscore(entry.identifier)}"
         page_uri = "http://eol.org/pages/#{entry.taxon_concept_id}"
         triples << "<#{entry_uri}> dwc:taxonConceptID <#{page_uri}>"
+
       end
       map_graph = resource.mappings_graph_name
-      EOL::Sparql.delete_graph(map_graph)
+      begin
+        EOL::Sparql.delete_graph(map_graph)
+      rescue Timeout::Error => e
+        EOL.log("WARNING: CLEAR GRAPH timed out, going around the long way...", prefix: "*")
+        good_triple_map = {}
+        triples.each { |t| good_triple_map[t.sub("dwc:taxonConceptID", "?p")] = true }
+        query = "SELECT DISTINCT(?s ?o) { GRAPH <#{map_graph}> { ?s ?p ?o } }"
+        paginate(query, limit: 100) do |results|
+          existing_triples = results.map { |r| "<#{r[:s]}> ?p <#{r[:o]}>" }
+          existing_triples.delete_if { |t| good_triple_map.has_key?(t) }
+          delete(existing_triples, map_graph)
+        end
+      end
       connection.insert_data(data: triples, graph_name: map_graph)
     end
 

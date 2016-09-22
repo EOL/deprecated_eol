@@ -351,7 +351,7 @@ zh-CN:
           attributes:
             rights_holder:
               blank: CC BY许可协议不能为空
-              inclusion: 公共领域授权协议必需为空
+              inclusion: 必须为公有领域许可协议留空
         harvest_event:
           attributes:
             publish:
@@ -455,7 +455,7 @@ zh-CN:
         refs: 参考资料<small>（每个参考资料一行）</small>
         refs_order: '*参考文献将按字母顺序排列'
         rights_holder: 权利持有人
-        rights_holder_more: 为这个数据指定一个拥有或管理权限的个人或组织。如果不填写此项，我们将认为您是除了公共域外的所有授权的权利所有者。公共域的许可不需要权利所有者。
+        rights_holder_more: 为这个数据指定一个拥有或管理权限的个人或组织。如果不填写此项，我们将认为您是除了公有域外的所有授权的权利所有者。公有领域许可协议不需要权利持有者。
         rights_statement: 权利声明
         rights_statement_more: 根据知识共享署名协议(CC-By)的版权使用说明，请<q cite=http://creativecommons.org/licenses/by/3.0>按照作者或版权所有者指定的规则</q>声明版权归属。
         source_url: 原始数据对象的URL
@@ -3339,8 +3339,8 @@ zh-CN:
   dato_new_edit_user_text_fieldset_content_header: 文章内容
   dato_new_edit_user_text_link_fieldset_content_header: 连接数据
   dato_new_edit_user_text_fieldset_information_header: 文章信息
-  dato_new_edit_user_text_form_tip: '"您的整篇文章将被添加到物种页。如果您不是一个管理员，这篇文章在被管理员审核之前将被标记为“未审核”。章节、文字、语言和版权许可是必填项(%{required_icon})，其他都是选填项。如果您选择了CC-BY（属性）许可，请附上版权持有人或者留空以使用您的全名。公共领域的许可证不需要版权持有人。想进一步了解请阅读<a
-    href=""%{add_article_help_url}"">添加文章帮助</a>。"'
+  dato_new_edit_user_text_form_tip: 您的整篇文章将被添加到分类单元。如果您不是馆长，它将被标记为“未审核”，直到一位馆长复核它。章节、文字、语言和版权许可是必填项（%{required_icon}），其他都是选填项。如果您选择了CC
+    BY（知识共享署名）许可协议，请附上版权持有人或者留空以使用您的全名。公有领域许可协议不需要权利持有者。想进一步了解请阅读<a href="%{add_article_help_url}">添加文章帮助</a>。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_missing_user_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_validation_error: 请确认您是否正确填完了表格。

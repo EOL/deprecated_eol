@@ -3954,8 +3954,8 @@ es:
     usarán la nueva repuesta en caché.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Estás seguro?
-  are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer
-    esta acción.
+  are_you_sure_this_action_cannot_be_undone: ¿Estás seguro? No se puede deshacer esta
+    acción.
   admin_login_confirmation: ¿Está seguro que desea identificarse en el registro de
     socios de contenido como %{name}?  Si hace esto, cerrará la sesión en el sitio
     Web como administrador.

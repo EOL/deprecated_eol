@@ -49,7 +49,7 @@ class SearchTraits < TraitSet
         required_equivalent_attributes.blank?
       @key += "/clade/#{@search_options[:clade]}" unless
         @search_options[:clade].blank?
-      @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless
+      @key += "/q/#{@search_options[:querystring].gsub(/\W/, '_')}" unless
         @search_options[:querystring].blank?
       @count_key = @key.sub('search', 'search/count')
       @key += "/page/#{@page}" unless @page == 1

@@ -22,17 +22,18 @@ class SearchTraits < TraitSet
     # required_equivalent_attributes: @required_equivalent_attributes,
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
-    @attribute = search_options[:attribute]
+    @search_options = search_options
+    @id = @attribute
+    @attribute = @search_options[:attribute]
     @populated = false
   end
 
   def populate
     return if @populated
-    @id = @attribute
-    @page = search_options[:page] || 1
-    @per_page = search_options[:per_page] || 100
-    required_equivalent_attributes = KnownUri.find_by_id(search_options[:required_equivalent_attributes]).uri unless
-       search_options[:required_equivalent_attributes].blank?
+    @page = @search_options[:page] || 1
+    @per_page = @search_options[:per_page] || 100
+    required_equivalent_attributes = KnownUri.find_by_id(@search_options[:required_equivalent_attributes]).uri unless
+       @search_options[:required_equivalent_attributes].blank?
     # NOTE ********************* IMPORTANT  !!!!! **********************
     # If you make changes to search, you MUST consider any necessary changes to
     # the cache key!!!
@@ -47,17 +48,17 @@ class SearchTraits < TraitSet
       @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
       @key += " & #{required_equivalent_attributes.gsub(/\W/, '_')}" unless
         required_equivalent_attributes.blank?
-      @key += "/clade/#{search_options[:clade]}" unless
-        search_options[:clade].blank?
+      @key += "/clade/#{@search_options[:clade]}" unless
+        @search_options[:clade].blank?
       @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless
-        search_options[:querystring].blank?
+        @search_options[:querystring].blank?
       @count_key = @key.sub('search', 'search/count')
       @key += "/page/#{@page}" unless @page == 1
       @key += "/per/#{@per_page}" unless @per_page == 100
-      @key += "/desc" if search_options[:sort] =~ /^desc$/i
+      @key += "/desc" if @search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
       @rdf = TraitBank.cache_query(@key) do
-        TraitBank::Scan.for(search_options)
+        TraitBank::Scan.for(@search_options)
       end
       @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
       trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
@@ -75,7 +76,7 @@ class SearchTraits < TraitSet
           predicate: @attribute)
       end
       total = TraitBank.cache_query(@count_key) do
-        TraitBank::Scan.trait_count(search_options)
+        TraitBank::Scan.trait_count(@search_options)
       end
       total = 0 if total.blank?
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|

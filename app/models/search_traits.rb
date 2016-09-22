@@ -2,7 +2,6 @@ class SearchTraits < TraitSet
   attr_accessor :pages, :page, :attribute, :key, :count_key
 
   def self.warm
-    populate
     EOL.log_call
     preds = TraitBank.predicates
     preds.each do |p|

@@ -1,7 +1,7 @@
 - cache("taxa/#{@traits.id}/traits_summary", expires_in: 2.weeks) do
   #data_summary.article
     .header
-      %h3= I18n.t(:data_summary_header_with_count, count: (@traits ? @traits.predicate_count : 0) )
+      %h3= I18n.t(:data_summary_header_with_count, count: (@traits ? @traits.predicate_count : 0) ).html_safe
       - if @traits.blank? && ! @range_data.blank?
         = link_to(raw(I18n.t(:see_all_data_summaries)), ranges_taxon_data_path(@taxon_page))
       - elsif ! @traits.blank?

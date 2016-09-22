@@ -4,7 +4,7 @@
     .site_column
       .hgroup
         %h1.scientific_name
-          = raw @scientific_name
+          = @scientific_name.html_safe
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
         - unless @preferred_common_name.blank?

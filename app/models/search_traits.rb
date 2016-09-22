@@ -29,6 +29,7 @@ class SearchTraits < TraitSet
 
   def populate
     return if @populated
+    @populated = true
     @page = @search_options[:page] || 1
     @per_page = @search_options[:per_page] || 100
     required_equivalent_attributes = KnownUri.find_by_id(@search_options[:required_equivalent_attributes]).uri unless
@@ -85,7 +86,6 @@ class SearchTraits < TraitSet
       source_ids.delete(nil) # Just in case.
       @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
     end
-    @populated = true
   end
 
   def get_pages(uris)

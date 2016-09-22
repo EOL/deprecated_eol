@@ -104,6 +104,7 @@ diq:
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Qet yew heqê cı nımıte niyo
   translated_licenses-description-license_id-29: Tay heqi nımıteyê
+  translated_licenses-description-license_id-2: '&#169; Heqi pêro nımnaye yê'
   translated_licenses-description-license_id-30: Tay heqi nımıteyê
   translated_licenses-description-license_id-31: Tay heqi nımıteyê
   translated_licenses-description-license_id-32: Tay heqi nımıteyê
@@ -115,6 +116,7 @@ diq:
   translated_licenses-description-license_id-38: Tay heqi nımıteyê
   translated_licenses-description-license_id-39: Malê Şari
   translated_licenses-description-license_id-3: Tay heqi nımıteyê
+  translated_licenses-description-license_id-42: Tay heqi nımıte yê
   translated_licenses-description-license_id-43: Lisans ravyarni niya
   translated_licenses-description-license_id-4: Tay heqi nımıteyê
   translated_licenses-description-license_id-5: Tay heqi nımıteyê
@@ -164,6 +166,10 @@ diq:
   translated_ranks-label-rank_id-517: varietay
   translated_ranks-label-rank_id-518: variety
   translated_ranks-label-rank_id-51: Sınıfe
+  translated_ranks-label-rank_id-562: nothogenus
+  translated_ranks-label-rank_id-563: nothospecies
+  translated_ranks-label-rank_id-564: nothosubspecies
+  translated_ranks-label-rank_id-565: nothovariety
   translated_ranks-label-rank_id-74: mıntıqe
   translated_ranks-label-rank_id-85: k
   translated_ranks-label-rank_id-86: k.
@@ -171,20 +177,33 @@ diq:
   translated_ranks-label-rank_id-92: kuf.
   translated_ranks-label-rank_id-99: kuflet
   translated_resource_statuses-label-resource_status_id-10: Hesreya
+  translated_resource_statuses-label-resource_status_id-11: Vınderde vılabyayışi
+  translated_resource_statuses-label-resource_status_id-12: Nêvınderde vılabyayışi
+  translated_resource_statuses-label-resource_status_id-13: Quweta Basaği
   translated_resource_statuses-label-resource_status_id-1: Bar beno
   translated_resource_statuses-label-resource_status_id-2: Bar biyo
+  translated_resource_statuses-label-resource_status_id-3: Dosya nêselagne
+  translated_resource_statuses-label-resource_status_id-4: Zerrek kırışiya ardoği
+    miyan
   translated_resource_statuses-label-resource_status_id-5: Biya araşt
+  translated_resource_statuses-label-resource_status_id-6: Araşt kersış nêbı
+  translated_resource_statuses-label-resource_status_id-7: Beno hewl
   translated_resource_statuses-label-resource_status_id-8: Karneyayo
+  translated_resource_statuses-label-resource_status_id-9: Hewl bıyayış nêbı
   translated_service_types-label-service_type_id-1: Transfer şemaya EOL'i
   translated_service_types-label-service_type_id-2: Zewbi
+  translated_sort_styles-name-sort_style_id-1: No peyra debyayey
   translated_sort_styles-name-sort_style_id-2: Tewr kehan
   translated_sort_styles-name-sort_style_id-3: Alfabetik
+  translated_sort_styles-name-sort_style_id-4: ters Alfabetik
   translated_sort_styles-name-sort_style_id-5: Dewlemendiye
   translated_sort_styles-name-sort_style_id-6: Nısbetkerden
   translated_statuses-label-status_id-1: Pırakerde
   translated_statuses-label-status_id-2: Rozeneya
   translated_statuses-label-status_id-3: Mevurne
   translated_statuses-label-status_id-4: Fına
+  translated_synonym_relations-label-synonym_relation_id-10: Gerbank pêmaney
+  translated_synonym_relations-label-synonym_relation_id-11: Leteyek
   translated_synonym_relations-label-synonym_relation_id-12: Tede esto
   translated_synonym_relations-label-synonym_relation_id-13: Nameyo xırab
   translated_synonym_relations-label-synonym_relation_id-14: Xetaya imlay

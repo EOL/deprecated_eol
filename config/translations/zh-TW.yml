@@ -561,7 +561,7 @@ zh-TW:
         change_date: 取得日期的統計數據
         download_csv: 以CSV格式下載
       harvest_event:
-        publish: 發布
+        publish: 發佈
       hierarchy:
         update: 更新階層
         request_publish: 要求將階層升級
@@ -4264,7 +4264,7 @@ zh-TW:
   publish_changes: 發布修改
   published: 已發布
   published_parens: (已發布)
-  publish: 發布
+  publish: 發佈
   publish_requested: 已要求發布
   punctuation_comma: ，
   punctuation_semi_colon: ；

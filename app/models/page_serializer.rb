@@ -118,6 +118,7 @@ class PageSerializer
           trait_hash[:term] = build_uri(trait.value_uri)
         else
           trait_hash[:literal] = trait.value_name
+          trait_hash[:object_page] = trait.target_taxon_uri
         end
         trait_hash
       end

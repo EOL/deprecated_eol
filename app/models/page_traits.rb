@@ -22,7 +22,7 @@ class PageTraits < TraitSet
   def populate
     return if @populated
     base_key = PageTraits.cache_key(@id)
-    EOL.log(PageTraits.cache_keys(@id).join(", "), "K")
+    EOL.log(PageTraits.cache_keys(@id).join(", "), prefix: "K")
     @rdf = TraitBank.cache_query(base_key) do
       TraitBank.page_with_traits(@id)
     end

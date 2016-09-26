@@ -647,9 +647,6 @@ Eol::Application.routes.draw do
   match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/
   match '/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
 
-  # Handle unmatched routes without a long ugly error in the log:
-  match '*unmatched_route', :to => 'application#raise_not_found!', :via => :all
-
   mount Ckeditor::Engine => "/ckeditor" # Required for rich-text editing.
 
 end

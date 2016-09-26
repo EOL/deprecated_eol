@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   unless Rails.application.config.consider_all_requests_local
     rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, with: :rescue_from_exception
     rescue_from ActionView::MissingTemplate, with: :rescue_from_exception
-    rescue_from ActionController::RoutingError, with: :rescue_from_exception
   end
 
   before_filter :original_request_params, except: [ :fetch_external_page_title ] # store unmodified copy of request params
@@ -471,12 +470,6 @@ class ApplicationController < ActionController::Base
   # TODO - review. This seems quite convoluted; it's certainly obfuscated.
   def rescue_from_exception(exception = env['action_dispatch.exception'])
     rescue_action_in_public(exception)
-  end
-
-  # Special method called by the last route:
-  def raise_not_found!
-    EOL.log("No route matches #{params[:unmatched_route]}")
-    raise ActionController::RoutingError.new("No route matches #{params[:unmatched_route]}")
   end
 
   # TODO - this doesn't belong in a controller. Move it to a lib or a model.

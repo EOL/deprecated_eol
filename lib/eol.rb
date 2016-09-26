@@ -117,6 +117,21 @@ module EOL
       end
     end
 
+    # The convention I TRY to use for prefixes:
+    # / => IP logging
+    # * => Warnings
+    # ! => Errors
+    # . => Progress on subroutines (NOT main calls)
+    # @ => Loop notification (for large loops)
+    # # => Method calls (though see log_call for a shortcut that usu. works)
+    # { => Going into a REALLY long call (e.g. publishing)
+    # } => Coming out of a REALLY long call
+    # C => Crawler summaries
+    # K => Cache keys (i.e.: keys I might want to manually clear)
+    # P => Publishing summaries
+    # Q => Query strings
+    # R => Reindexing summaries
+    # S => Search strings
     def log(msg, options = {})
       now = Time.now.in_time_zone("Eastern Time (US & Canada)")
       diff = if @last_log_time

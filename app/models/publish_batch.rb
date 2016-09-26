@@ -90,7 +90,7 @@ class PublishBatch
       @summary.each do |stat|
         summary += "\n[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}"
       end
-      EOL.log(summary, prefix: "<")
+      EOL.log(summary, prefix: "P")
     end
     EOL.log_return
   end

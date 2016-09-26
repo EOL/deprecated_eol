@@ -13,7 +13,7 @@ class CodeBridge
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
     EOL.log("RESQUE: CodeBridge#perform (#{Resque.size("notifications")} jobs)",
-      prefix: ">")
+      prefix: "{")
     if args['cmd'] == 'check_status_and_notify'
       with_error_handling(args) do
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
@@ -35,6 +35,7 @@ class CodeBridge
     else
       EOL.log("ERROR: NO command responds to #{args['cmd']}", prefix: "*")
     end
+    EOL.log("RESQUE: exiting", prefix: "}")
   end
 
   def self.with_error_handling(args, &block)

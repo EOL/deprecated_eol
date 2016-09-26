@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_ip
-    EOL.log("#{request.remote_ip}: #{params.inspect}", prefix: "/") # rescue nil
+    EOL.log("#{request.remote_ip}: #{params.inspect}", prefix: "/") rescue nil
   end
 
   def allow_login_then_submit

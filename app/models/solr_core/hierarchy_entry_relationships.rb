@@ -26,7 +26,7 @@ class SolrCore
       total = (entries.size / 1000.0).ceil
       entries.find_in_batches(batch_size: 1000) do |batch|
         index += 1
-        EOL.log("batch #{index}/#{total}") if index > 1
+        EOL.log("batch #{index}/#{total}", prefix: "@") if index > 1
         batch.each do |entry|
           relationships += entry.relationships_from.map(&:to_hash)
           relationships += entry.relationships_to.map(&:to_hash)

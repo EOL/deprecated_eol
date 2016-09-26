@@ -10,7 +10,7 @@ class PageTraits < TraitSet
   end
 
   def self.delete_caches(id)
-    cache_keys.each { |key| Rails.cache.delete(key) }
+    cache_keys(id).each { |key| Rails.cache.delete(key) }
   end
 
   # e.g.: pt = PageTraits.new(328598)

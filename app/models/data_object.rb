@@ -1193,7 +1193,7 @@ class DataObject < ActiveRecord::Base
     average = rating_summary.map { |score, votes| score * votes }.inject(:+) /
       total_ratings.to_f
     # Self-healing code:
-    if average != data_rating
+    if average.round(2) != data_rating.round(2)
       EOL.log("RATING: #{data_rating} -> #{average} for #{id}", prefix: "!")
       self.update_column(:data_rating, average) # Can't call method, loops!
     end

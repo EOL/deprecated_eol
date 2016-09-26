@@ -34,7 +34,8 @@ class TaxonConceptCacheClearing
     clear_preferred_entry
     clear_media_counts
     clear_images
-    Rails.cache.delete(PageTraits.cache_key(@taxon_concept.id))
+    PageTraits.delete_caches(@taxon_concept.id)
+    Rails.cache.delete("trait_bank/iucn_data/#{@taxon_concept.id}")
   end
 
   # TODO - test

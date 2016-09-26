@@ -473,7 +473,7 @@ class ApplicationController < ActionController::Base
     rescue_action_in_public(exception)
   end
 
-  # Special method called by Rails when routes are not matched.
+  # Special method called by the last route:
   def raise_not_found!
     EOL.log("No route matches #{params[:unmatched_route]}")
     raise ActionController::RoutingError.new("No route matches #{params[:unmatched_route]}")

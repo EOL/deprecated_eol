@@ -39,14 +39,14 @@ class TraitBank
       if result.nil? || result.blank?
         # Don't store empty results:
         Rails.cache.delete(key)
-      elsif result.is_a?(String)
-        EOL.log("TB.cache_query: #{key} (#{result[0..29]})")
-      elsif result.is_a?(Fixnum)
-        EOL.log("TB.cache_query: #{key} (#{result})")
-      elsif result.respond_to?(:size)
-        EOL.log("TB.cache_query: #{key} (#{result.size} results)")
-      else
-        EOL.log("TB.cache_query: uncountable result, sorry.")
+      # elsif result.is_a?(String)
+      #   EOL.log("TB.cache_query: #{key} (#{result[0..29]})")
+      # elsif result.is_a?(Fixnum)
+      #   EOL.log("TB.cache_query: #{key} (#{result})")
+      # elsif result.respond_to?(:size)
+      #   EOL.log("TB.cache_query: #{key} (#{result.size} results)")
+      # else
+      #   EOL.log("TB.cache_query: uncountable result, sorry.")
       end
       result
     end
@@ -89,15 +89,19 @@ class TraitBank
 
     # Even 100 is too many for this paginate... throws a "generated SQL too
     # long" error. Sigh.
-    def delete_resource(resource)
+    def delete_resource(resource, options = {})
       paginate(resource_predicates_query(resource), limit: 50) do |results|
         delete(results.map { |r| "<#{r[:s]}> ?s ?o" })
+      end
+      if options[:full]
+        uris = DataPointUri.where(resource_id: resource.id).pluck(:uri)
       end
     end
 
     def resource_predicates_query(resource)
       "SELECT DISTINCT(?s) { GRAPH <#{graph}> "\
-      "{ ?s <#{TraitBank.resource_uri}> <#{resource.graph_name}> } }"
+        "{ ?s <#{TraitBank.resource_uri}> "\
+        "<#{resource.is_a?(Fixnum) ? "http://eol.org/resources/#{resource}" : resource.graph_name}> } }"
     end
 
     # NOTE that this is stupid syntax, but it's what you have to do with Sparql.

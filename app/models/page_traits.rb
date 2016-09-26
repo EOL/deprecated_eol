@@ -3,12 +3,14 @@ class PageTraits < TraitSet
     "trait_bank/pages/#{id}"
   end
 
-  def self.delete_caches(id)
+  def self.cache_keys(id)
     base_key = cache_key(id)
-    Rails.cache.delete(base_key)
-    Rails.cache.delete("#{base_key}/trait_uris")
-    Rails.cache.delete("#{base_key}/uris")
-    Rails.cache.delete("#{base_key}/page_ids")
+    [base_key, "#{base_key}/trait_uris", "#{base_key}/uris",
+      "#{base_key}/page_ids"]
+  end
+
+  def self.delete_caches(id)
+    cache_keys.each { |key| Rails.cache.delete(key) }
   end
 
   # e.g.: pt = PageTraits.new(328598)
@@ -19,9 +21,10 @@ class PageTraits < TraitSet
 
   def populate
     return if @populated
-    base_key = PageTraits.cache_key(id)
+    base_key = PageTraits.cache_key(@id)
+    EOL.log(PageTraits.cache_keys(@id).join(", "), "K")
     @rdf = TraitBank.cache_query(base_key) do
-      TraitBank.page_with_traits(id)
+      TraitBank.page_with_traits(@id)
     end
     trait_uris = TraitBank.cache_query("#{base_key}/trait_uris") do
       @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)

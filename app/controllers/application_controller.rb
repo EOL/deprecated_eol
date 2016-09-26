@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_filter :original_request_params, except: [ :fetch_external_page_title ] # store unmodified copy of request params
   before_filter :global_warning, except: [ :fetch_external_page_title ]
   before_filter :check_user_agreed_with_terms, except: [ :fetch_external_page_title, :error ]
+  before_filter :log_ip, except: [ :fetch_external_page_title, :error ]
   before_filter :set_locale, except: [ :fetch_external_page_title ]
 
   prepend_before_filter :redirect_to_http_if_https
@@ -41,6 +42,10 @@ class ApplicationController < ActionController::Base
     I18n.locale = current_language.iso_639_1
   rescue
     I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
+  end
+
+  def log_ip
+    EOL.log("#{request.remote_ip}: #{params.inspect}", prefix: "/") # rescue nil
   end
 
   def allow_login_then_submit

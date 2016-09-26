@@ -73,7 +73,7 @@ class DataPointUri < ActiveRecord::Base
       new_attributes[:taxon_concept_id], new_attributes[:uri]
     )
     else
-      EOL.log("Missing, calling #new", prefix: '..')
+      EOL.log("Missing, calling #new", prefix: '.')
       data_point_uri = DataPointUri.new(new_attributes)
     end
     data_point_uri

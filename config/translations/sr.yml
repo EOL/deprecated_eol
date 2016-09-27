@@ -499,7 +499,7 @@ sr:
         create: Додај ресурс
         update: Ажурирај ресурс
         update_settings: Ажурирај поставке
-       force_harvest: Затражи наметнуто преузимање
+        force_harvest: Затражи наметнуто преузимање
       session:
         create: Пријава
         sign_in_with_google: Пријава преко Гугла

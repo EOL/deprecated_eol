@@ -766,7 +766,7 @@ mk:
         create: Додај ресурс
         update: Поднови ресурс
         update_settings: Поднови нагодувања
-       force_harvest: Побарај наметнато преземање
+        force_harvest: Побарај наметнато преземање
       session:
         create: Најава
         sign_in_with_facebook: Најава со Facebook

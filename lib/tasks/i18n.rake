@@ -20,11 +20,17 @@ namespace :i18n do
   task :to_redis => :environment do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
       next if file =~ /^qqq/ # These files are for comments only.
-      translations = YAML.load_file(File.join(lang_dir, file))
-      locale = translations.keys.first # There's only one.
-      puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
-      I18n.backend.store_translations(locale, translations[locale], escape: false)
-      I18n.backend.store.set(file, File.mtime(File.join(lang_dir, file)).to_s)
+      begin
+        translations = YAML.load_file(File.join(lang_dir, file))
+        locale = translations.keys.first # There's only one.
+        puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
+        I18n.backend.store_translations(locale, translations[locale], escape: false)
+        I18n.backend.store.set(file, File.mtime(File.join(lang_dir, file)).to_s)
+      rescue Psych::SyntaxError => e
+        error = "ERROR: Failed to parse #{file}: #{e.message}"
+        puts "  !! #{error}"
+        EOL.log(error, prefix: "!")
+      end
     end
   end
 

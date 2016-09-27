@@ -665,7 +665,7 @@ br:
         create: Ouzhpennañ ur mammenn
         update: Hizivaat ar mammenn
         update_settings: Arventennoù hizivaat
-       force_harvest: Goulenn kreñvañ an dastum
+        force_harvest: Goulenn kreñvañ an dastum
       session:
         create: Kevreañ
         sign_in_with_facebook: Kevreañ gant Facebook

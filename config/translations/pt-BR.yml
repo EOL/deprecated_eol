@@ -806,7 +806,7 @@ pt-BR:
         create: Adicionar recurso
         update: Atualizar recurso
         update_settings: Atualizar configurações
-       force_harvest: Pedir colheita forçada
+        force_harvest: Pedir colheita forçada
       session:
         create: Login
         sign_in_with_facebook: Login com o Facebook

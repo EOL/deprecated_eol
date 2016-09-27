@@ -832,7 +832,7 @@ es:
         create: Agregar recurso
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
-       force_harvest: Solicitud de forzar la recogida
+        force_harvest: Solicitud de forzar la recogida
       session:
         create: Iniciar sesión
         sign_in_with_facebook: Iniciar sesión con Facebook

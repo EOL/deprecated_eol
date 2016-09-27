@@ -712,7 +712,7 @@ cs:
         create: Přidat zdroj
         update: Aktualizovat zdroj
         update_settings: Aktualizovat nastavení
-       force_harvest: Vynucení sklizně
+        force_harvest: Vynucení sklizně
       session:
         create: Přihlásit se
         sign_in_with_facebook: Přihlásit se prostřednictvím Facebooku

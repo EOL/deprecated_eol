@@ -802,7 +802,7 @@ zh-Hans:
         create: "添加资源"
         update: "更新资源"
         update_settings: "更新设置"
-       force_harvest: "请求强制采集"
+        force_harvest: "请求强制采集"
       session:
         create: "登录"
         sign_in_with_facebook: "使用Facebook账号登录"

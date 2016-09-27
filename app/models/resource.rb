@@ -207,11 +207,11 @@ class Resource < ActiveRecord::Base
   def status_can_be_changed_to?(new_status)
     return false if resource_status == new_status
     if new_status == ResourceStatus.harvest_requested ||
-       new_status == ResourceStatus.harvest_tomorrow
+       new_status == ResourceStatus.harvest_tonight
       !resource_status.blank? &&
       [ ResourceStatus.processed, ResourceStatus.processing_failed, ResourceStatus.validated,
         ResourceStatus.validation_failed, ResourceStatus.published, ResourceStatus.harvest_requested,
-        ResourceStatus.harvest_tomorrow
+        ResourceStatus.harvest_tonight
       ].include?(resource_status)
     else
       true

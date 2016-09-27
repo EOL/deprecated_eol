@@ -213,10 +213,13 @@ class KnownUri < ActiveRecord::Base
 
   def self.glossary_terms
     cached('glossary_terms', expires: 2.weeks) do
-      KnownUri.includes(:toc_items).where(hide_from_glossary: false).delete_if { |ku|
-        ku.name.blank? ||
-        ( ku.measurement? &&
-          ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+      known_measurements = EOL::Sparql.connection.all_measurement_type_known_uris
+      hashed = {}
+      known_measurements.each { |uri| hashed[uri] = 1 }
+      KnownUri.includes(:toc_items).where(hide_from_glossary: false).
+      delete_if do |ku|
+        ku.name.blank? || ( ku.measurement? && ! hashed.has_key?(ku) )
+      end
     end
   end
 
@@ -235,12 +238,14 @@ class KnownUri < ActiveRecord::Base
   def self.by_uris(uris)
     build_cache_if_needed
     results = []
+    # ONLY URIs that are in the DB:
+    uris = KnownUri.where(uri: uris).pluck(:uri)
     uris.each { |uri| results << by_uri(uri) }.compact
     results
   end
 
   def self.build_cache_if_needed
-    if @cache.nil? || @cache_time < 1.week.ago
+    if @cache.nil? || @cache_time < 2.weeks.ago
       @cache ||= KnownUri.full.all
       @cache_time = Time.now
     end

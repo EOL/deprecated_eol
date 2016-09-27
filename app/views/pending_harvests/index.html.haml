@@ -28,7 +28,7 @@
               %tr{ id: "pending_harvest_#{pending_harvest.id}" }
                 %td= pending_harvest.title
                 %td=  !pending_harvest.last_harvest_seconds.nil? ? format_time(pending_harvest.last_harvest_seconds) : "-"
-                - partner = pending_harvest.partner
+                - partner = pending_harvest.content_partner
                 %td.remove= link_to(I18n.t(:remove), remove_harvest_request_content_partner_resource_path(partner, pending_harvest))
                 %td.move
                   = link_to(image_tag('arrow_way_up.gif', alt: I18n.t(:move_to_top), title: I18n.t(:move_to_top)), '#',

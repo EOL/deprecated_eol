@@ -21,6 +21,7 @@ lang_dir = Rails.root.join('config', 'translations')
 old_stores = []
 Dir.entries(lang_dir).grep(/yml$/).each do |file|
   next if file =~ /^qqq/
+  next if file =~ /-db.yml/ # These aren't in there!
   file_last_version = I18n.backend.store.get(file)
   file_current_version = File.mtime(File.join(lang_dir, file)).to_s
   if file_current_version != file_last_version

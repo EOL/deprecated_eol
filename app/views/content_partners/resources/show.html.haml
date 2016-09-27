@@ -103,8 +103,8 @@
               = I18n.t("helpers.label.resource.resource_status_id")
             %dd{ class: en_resource_status }
               = @resource.status_label
-              - if @resource.status_can_be_changed_to?(ResourceStatus.harvest_requested)
-                = button_to I18n.t("helpers.submit.resource.harvest_requested"), harvest_requested_content_partner_resource_path(@partner, @resource),
+              - if @resource.status_can_be_changed_to?(ResourceStatus.harvest_tonight)
+                = button_to I18n.t("helpers.submit.resource.harvest_tonight"), harvest_requested_content_partner_resource_path(@partner, @resource),
                   data: { confirm: I18n.t(:content_partner_resource_confirm_harvest_requested, resource_title: h(@resource.title)) }
             %dt
               = I18n.t("activerecord.attributes.resource.notes")

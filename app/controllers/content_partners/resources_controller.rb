@@ -116,9 +116,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.resource_status.blank? || @resource.resource_status == ResourceStatus.being_processed
       flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
                              resource_title: @resource.title, current_resource_status: @resource.status_label,
-                             requested_resource_status: Resource.harvest_requested.label)
+                             requested_resource_status: Resource.harvest_tonight.label)
     else
-      @resource.resource_status = ResourceStatus.harvest_requested
+      @resource.resource_status = ResourceStatus.harvest_tonight
       if @resource.save
         flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
                                 resource_status: @resource.status_label, resource_title: @resource.title)

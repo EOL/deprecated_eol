@@ -45,6 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def log_ip
+    return if params["action"] == "ping"
     EOL.log("#{request.remote_ip}: #{params.inspect}", prefix: "/") rescue nil
   end
 

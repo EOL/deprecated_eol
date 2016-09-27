@@ -17,7 +17,7 @@
                 %label= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
         %p.explain= I18n.t(:data_glossary_contribute, url: cms_page_url('contribute', anchor: 'data')).html_safe
         - a_to_zero.each do |letter|
-          - cache("glossary_in_lang_#{current_language.iso_code}/#{letter}", expires_in: 2.weeks)
+          - cache("glossary_in_lang_#{current_language.iso_code}/#{letter}", expires_in: 2.weeks) do
             %a{ name: letter }
             .chapter_marker
               %h3= letter == '0' ? '#' : letter

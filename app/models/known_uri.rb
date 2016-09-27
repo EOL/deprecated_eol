@@ -212,10 +212,12 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.glossary_terms
-    KnownUri.includes(:toc_items).where(hide_from_glossary: false).delete_if { |ku|
-      ku.name.blank? ||
-      ( ku.measurement? &&
-        ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+    cached('glossary_terms', expires: 2.weeks) do
+      KnownUri.includes(:toc_items).where(hide_from_glossary: false).delete_if { |ku|
+        ku.name.blank? ||
+        ( ku.measurement? &&
+          ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+    end
   end
 
   # NOTE - I am NOT using an alias_method_chain here because I cannot account

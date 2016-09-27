@@ -825,7 +825,7 @@ de:
         create: Quelle hinzufügen
         update: Quelle aktualisieren
         update_settings: Einstellungen aktualisieren
-        harvest_requested: Abruf anfragen
+       force_harvest: Abruf anfragen
       session:
         create: Anmelden
         sign_in_with_facebook: Mit Facebook anmelden

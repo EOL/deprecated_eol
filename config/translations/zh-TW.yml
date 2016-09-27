@@ -581,7 +581,7 @@ zh-TW:
         create: 新增資源
         update: 更新資源
         update_settings: 更新設定
-        harvest_requested: 要求強制彙集
+       force_harvest: 要求強制彙集
       session:
         create: 登入
         sign_in_with_facebook: 使用Facebook帳號登入

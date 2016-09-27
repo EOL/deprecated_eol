@@ -793,7 +793,7 @@ pms:
         create: Gionté n'arsorsa
         update: Agiorné l'arsorsa
         update_settings: Paràmeter d'agiornament
-        harvest_requested: Ciamé ëd forsé l'arcòlta
+       force_harvest: Ciamé ëd forsé l'arcòlta
       session:
         create: Rintré ant ël sistema
         sign_in_with_facebook: Ch'a rintra con Facebook

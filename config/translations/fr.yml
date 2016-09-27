@@ -834,7 +834,7 @@ fr:
         create: Ajouter une ressource
         update: Mettre à jour la ressource
         update_settings: Mettre à jour les paramètres
-        harvest_requested: Demander de forcer la récolte
+       force_harvest: Demander de forcer la récolte
       session:
         create: S’identifier
         sign_in_with_facebook: Connectez-vous avec Facebook

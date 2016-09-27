@@ -812,7 +812,7 @@ it:
         create: Aggiungi risorsa
         update: Aggiorna risorsa
         update_settings: Aggiorna impostazioni
-        harvest_requested: Richiedi di forzare la raccolta
+       force_harvest: Richiedi di forzare la raccolta
       session:
         create: Accedi
         sign_in_with_facebook: Accedi con Facebook

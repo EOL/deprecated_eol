@@ -737,7 +737,7 @@ ia:
         create: Adder ressource
         update: Actualisar ressource
         update_settings: Actualisar configurationes
-        harvest_requested: Requestar recolta fortiate
+       force_harvest: Requestar recolta fortiate
       session:
         create: Aperir session
         sign_in_with_facebook: Aperir session con Facebook

@@ -2411,7 +2411,7 @@ zh-Hant:
         update: 確認連線
       resource: 
         create: 新增資源
-        harvest_requested: 要求強制彙集
+       force_harvest: 要求強制彙集
         update: 更新資源
         update_settings: 更新設定
       session: 

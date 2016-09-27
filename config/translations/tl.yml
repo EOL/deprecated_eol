@@ -711,7 +711,7 @@ tl:
         create: Magdagdag ng napagkunan
         update: Isapanahon ang pinagkukunan
         update_settings: Isapanahon ang mga katakdaan
-        harvest_requested: Hilingin ang sapilitang pag-ani
+       force_harvest: Hilingin ang sapilitang pag-ani
       session:
         create: Lumagda't pumasok
         sign_in_with_facebook: Lumagda sa pamamagitan ng Facebook

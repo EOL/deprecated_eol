@@ -682,7 +682,7 @@ ms:
         create: Tambahkan sumber
         update: Kemas kini sumber
         update_settings: Kemaskinikan tetapan
-       force_harvest: Pohon pengutipan paksa
+        force_harvest: Pohon pengutipan paksa
       session:
         create: Daftar masuk
         sign_in_with_facebook: Log masuk dengan Facebook

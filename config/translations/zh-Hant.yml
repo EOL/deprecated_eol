@@ -4,20 +4,20 @@
 # Author: Dream
 # Author: Shangkuanlc
 # Author: Taieol
-zh-Hant: 
+zh-Hant:
   0_1_or_2: 0、1 或 2
   0_or_1: 0 或 1
   a_maximum_of_30_results_are_returned: 每頁最多可回報30個結果。這個參數讓您在相符合的結果超過30個的時候，能取得更多的結果頁面。
   a_pipe_delimited_list_of_licenses: 一個用'|'符號分隔的合約授權清單或是以'all'取得任何種類授權之下的物件。所有縮寫為cc-的授權都是 %{creative_commons_link} 的授權，請造訪他們的網站以取得他們提供的各類授權資訊。
   a_pipe_delimited_list_of_spm_info_item_subject_names: 用'概要'回報概要的文字(若是存在的話)、一個從 %{subjects_text} 清單(例如：TaxonBiology, FossilHistory)得到的以'|'符號分隔的主題名稱清單、或是以'all'取得任何主題之下的文字。永遠回報一個概要的文字作為第一個結果(若是在所給上下文情況之下存在的話)。
   a_taxon: 一個分類單元
-  a_total_of_comment_were_found_matching_your_criteria: 
+  a_total_of_comment_were_found_matching_your_criteria:
     one: 共有 %{count} 筆評論符合您的條件。
     other: 共有 %{count} 筆評論符合您的條件。
-  a_total_of_items_were_found_matching_your_criteria: 
+  a_total_of_items_were_found_matching_your_criteria:
     one: 共有 %{count} 個項目符合您的條件。
     other: 共有 %{count} 個項目符合您的條件。
-  a_total_of_terms_were_found_matching_your: 
+  a_total_of_terms_were_found_matching_your:
     one: 共有 %{count} 條術語符合您的條件。
     other: 共有 %{count} 條術語符合您的條件。
   about_eol: 關於EOL
@@ -33,37 +33,37 @@ zh-Hant:
   actions: 動作
   active: 活躍的
   active_colon: 活躍的：
-  activerecord: 
-    attributes: 
-      collection: 
+  activerecord:
+    attributes:
+      collection:
         additional_annotation_fields: 附加註釋欄位
         description: 典藏描述
         logo: 主要典藏影像
         name: 典藏名稱
         show_references: 參考文獻(文字或網址)
         sort_style_id: 預設排序方向
-      collection_item: 
+      collection_item:
         annotation: 註釋
         refs: 參考文獻
         sort_field: 排序依
-      collection_job: 
+      collection_job:
         overwrite: 取代重覆
-      comment: 
+      comment:
         body: 評論
-      community: 
+      community:
         description: 社群描述
         logo: 上傳一個logo
         name: 社群名稱
-      contact: 
+      contact:
         comments: 訊息
         contact_subject_id: 聯絡對象
         email: Email
         name: 姓名
-      content_page: 
+      content_page:
         active: 已發布
         page_name: 唯一的名稱
         sort_order: 排序
-      content_partner: 
+      content_partner:
         acronym: 計畫縮寫
         admin_notes: 管理附註
         auto_publish: 自動發布
@@ -79,20 +79,20 @@ zh-Hant:
         resources: 資源
         user_id: 管理者為
         vetted: 已審核
-      content_partner_agreement: 
+      content_partner_agreement:
         created_at: 建立於
         signed_by: 簽署者為
         signed_on_date: 簽署日期
-      content_partner_contact: 
+      content_partner_contact:
         email_reports_frequency_hours: Email報告頻率
-      data_object: 
+      data_object:
         bibliographic_citation: 書目引用
         description: 描述
         object_title: 標題
         rights_holder: 版權持有者
         rights_statement: 版權聲明
         source_url: 來源網址
-      eol_statistic: 
+      eol_statistic:
         active_curators: 活躍的管理者
         base_pages: 只含物種名稱的頁面
         collections_count: 典藏
@@ -155,35 +155,35 @@ zh-Hant:
         udo_published: 使用者提交的文字描述
         udo_published_by_curators: 管理者提交的文字描述
         udo_published_by_non_curators: 非管理者提交的文字描述
-      forum: 
+      forum:
         description: 描述<small>(選填)</small>
         forum_category_id: 分類
         name: 論壇名稱
-      forum_category: 
+      forum_category:
         description: 描述<small>(選填)</small>
         title: 分類名稱
-      forum_post: 
+      forum_post:
         subject: 主題
         text: 正文
-      forum_topic: 
+      forum_topic:
         subject: 主題
         text: 正文
-      harvest_event: 
+      harvest_event:
         resource: 資源
-      hierarchy: 
+      hierarchy:
         browsable: 可瀏覽
         complete: 完整
         description: 描述
         descriptive_label: 描述性標籤
         label: 標籤
         request_publish: 要求發布
-      name: 
+      name:
         string: 名稱
-      news_item: 
+      news_item:
         active: 已發布
         page_name: 唯一的名稱
         sort_order: 排序
-      notification: 
+      notification:
         changes_to_my_watched_collection: 在您觀察清單中典藏的變動
         changes_to_my_watched_community: 您觀察清單中社群的變動
         comment_on_my_collection: 對您所管理的典藏的評論
@@ -202,7 +202,7 @@ zh-Hant:
         new_data_on_my_watched_item: 在您觀察清單中類群的新內容
         new_manager_in_my_community: 您所管理的社群有另一位會員已成為新的管理者
         reply_to_comment: 對您所作評論的回覆
-      open_authentication: 
+      open_authentication:
         created_at: 已建立
         guid: 全球唯一識別碼(GUID)
         provider: 第三方提供者
@@ -211,7 +211,7 @@ zh-Hant:
         updated_at: 最後更新
         user_id: 使用者ID
         verified_at: 最後核對
-      resource: 
+      resource:
         accesspoint_url: 資料集網址
         auto_publish: 自動發布
         bibliographic_citation: 書目引用
@@ -228,20 +228,20 @@ zh-Hant:
         rights_statement: 預設版權聲明
         title: 資源名稱
         vetted: 已審核
-      translated_content_page: 
+      translated_content_page:
         active_translation: 已發布
         left_content: 導覽
         main_content: 正文
         meta_description: 後設資料描述
         meta_keywords: 後設資料關鍵字
         title: 標題
-      translated_news_item: 
+      translated_news_item:
         active_translation: 已發布
         body: 正文
         meta_description: 後設資料描述
         meta_keywords: 後設資料關鍵字
         title: 標題
-      user: 
+      user:
         agreed_with_terms: 使用協定條款
         api_key: API key
         bio: 個人簡介
@@ -261,11 +261,11 @@ zh-Hant:
         requested_curator_level_id: 所需管理層級
         tag_line: 標語
         username: 使用者名稱
-    errors: 
+    errors:
       format: "%{attribute} %{message}"
-      full_messages: 
+      full_messages:
         format: "%{attribute} %{message}"
-      messages: 
+      messages:
         accepted: 必須被接受
         blank: 必填
         confirmation: 和確認資料不符
@@ -273,14 +273,14 @@ zh-Hant:
         equal_to: 必須等於 %{count}
         even: 必須是偶數
         exclusion: 已被保留
-        greater_than: 
+        greater_than:
           one: 必須大於 %{count}
           other: 必須大於 %{count}
         greater_than_or_equal_to: 必須大於或等於 %{count}
         inaccessible: 無法存取
         inclusion: 未包含在清單中
         invalid: 是無效的
-        less_than: 
+        less_than:
           one: 必須小於 %{count}
           other: 必須小於 %{count}
         less_than_or_equal_to: 必須小於或等於 %{count}
@@ -289,67 +289,67 @@ zh-Hant:
         odd: 必須是奇數
         record_invalid: "驗證失敗: %{errors}"
         taken: 已被使用
-        too_long: 
+        too_long:
           one: 太長 (最多 %{count} 個字元)
           other: 太長 (最多 %{count} 個字元)
-        too_short: 
+        too_short:
           one: 太短 (最少 %{count} 個字元)
           other: 太短 (最少 %{count} 個字元)
         wrong_length: 長度錯誤 (應該是 %{count} 個字元)
         wrong_type: 類型錯誤
-      models: 
-        data_object: 
-          attributes: 
-            rights_holder: 
+      models:
+        data_object:
+          attributes:
+            rights_holder:
               blank: CC-BY授權是必填的
               inclusion: 公眾領域授權必須空的
-        harvest_event: 
-          attributes: 
-            publish: 
+        harvest_event:
+          attributes:
+            publish:
               inclusion: 只允許為最新、尚未被發布的彙集事件
         inaccessible: 此紀錄無法被儲存，因為它是無效的。請檢查驗證錯誤訊息，並重新送出。
-        open_authentications: 
+        open_authentications:
           guid_provider_must_be_unique: 此第三方帳號已和EOL帳號建立連結
           provider_user_id_must_be_unique: 每個第三方提供者只能有一個帳號和EOL帳號建立連結
-        resource: 
-          attributes: 
-            accesspoint_url: 
+        resource:
+          attributes:
+            accesspoint_url:
               blank: 必填，除非您上傳一個資源檔案以取代
               inaccessible: 無法存取，此網址必須讓民眾能存取
               invalid: 是無效的，應指向XML、XML.GZIP、XML.GZ或ZIP檔案
-            dataset: 
+            dataset:
               blank: 必填，除非您提供一個資料集URL以取代
               wrong_type: 是錯誤的類型，應是GZIP、TAR、ZIP或XML文件
-            dwc_archive_url: 
+            dwc_archive_url:
               inaccessible: 無法存取，此網址必須讓民眾能存取
               invalid: 是無效的，應指向TAR.GZIP、TAR.GZ、TGZ或ZIP檔案
-      template: 
+      template:
         body: 下列欄位驗證失敗：
-        header: 
+        header:
           one: 找到 %{count} 個驗證錯誤
           other: 找到 %{count} 個驗證錯誤
-    models: 
+    models:
       user: 帳號
   activity: 活動
   activity_log_empty: 尚無人提供更新。
   activity_log_empty_learn_more_link: 學習如何作出貢獻
-  activity_logs: 
-    collection_activity_log: 
-      add_editor: 
+  activity_logs:
+    collection_activity_log:
+      add_editor:
         an_unknown_user_of_an_unknown_collection: 一位不明使用者被添加為一個不明典藏的管理者。
         an_unknown_user_of_collection: 一位不明使用者被添加為 "%{collection} 典藏的管理者。
         an_unknown_user_of_it: 一位不明使用者被添加為管理者。
         user_of_an_unknown_collection: <strong>%{user}</strong> 被添加為一個不明典藏的管理者。
         user_of_collection: <strong>%{user}</strong> 被添加為 "%{collection}" 典藏的管理者。
         user_of_it: <strong>%{user}</strong> 被添加為管理者。
-      bulk_add: 
+      bulk_add:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: 一位不明使用者新增了大批項目至一個不明典藏。
         an_unknown_user_added_bulk_items_to_collection: 一位不明使用者新增了大批項目至 "%{collection}" 典藏。
         an_unknown_user_added_bulk_items_to_it: 一位不明使用者新增了大批的項目。
         user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> 新增了大批項目至一個不明典藏。
         user_added_bulk_items_to_collection: <strong>%{user}</strong> 新增了大批項目至 "%{collection}" 典藏。
         user_of_it: <strong>%{user}</strong> 新增了大批的項目。
-      collect: 
+      collect:
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一位不明使用者為一個不明典藏新增了一個未知項目。
         an_unknown_user_added_an_unknown_item_to_collection: 一位不明使用者為 "%{collection}" 典藏新增了一個未知項目。
         an_unknown_user_added_an_unknown_item_to_it: 一位不明使用者新增了一個未知項目。
@@ -362,21 +362,21 @@ zh-Hant:
         user_added_item_to_an_unknown_collection: <strong>%{user}</strong> 為一個不明典藏新增了 "%{item}"。
         user_added_item_to_collection: <strong>%{user}</strong> 為 "%{collection}" 典藏新增了 "%{item}"。
         user_added_item_to_it: <strong>%{user}</strong> 新增了 "%{item}"。
-      create: 
+      create:
         an_unknown_user_created_an_unknown_collection: 一位不明知使用者建立了一個不明典藏。
         an_unknown_user_created_collection: 一位不明使用者建立了 "%{collection}" 典藏。
         an_unknown_user_created_it: 一位不明使用者建立了它。
         user_created_an_unknown_collection: <strong>%{user}</strong> 建立了一個不明典藏。
         user_created_collection: <strong>%{user}</strong> 建立了 "%{collection}" 典藏。
         user_created_it: <strong>%{user}</strong> 建立了它。
-      other_actions: 
+      other_actions:
         an_unknown_user_modified_an_unknown_collection: 一位不明使用者修改了一個不明典藏。
         an_unknown_user_modified_collection: 一位不明使用者修改了 "%{collection}" 典藏。
         an_unknown_user_modified_it: 一位不明使用者做了修改，而明確的紀錄已遺失。
         user_modified_an_unknown_collection: <strong>%{user}</strong> 修改了一個不明典藏。
         user_modified_collection: <strong>%{user}</strong> 修改了 "%{collection}" 典藏。
         user_modified_it: <strong>%{user}</strong> 做了修改，但明確的紀錄已遺失。
-      remove: 
+      remove:
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: 一位不明使用者移除了一個不明典藏的一個未知項目。
         an_unknown_user_removed_an_unknown_item_from_collection: 一位不明使用者移除了 "%{collection}" 典藏的一個未知項目。
         an_unknown_user_removed_an_unknown_item_from_it: 一位不明使用者移除了一個未知項目。
@@ -389,15 +389,15 @@ zh-Hant:
         user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> 移除了一個不明典藏的 "%{item}"。
         user_removed_item_from_collection: <strong>%{user}</strong> 移除了 "%{collection}" 典藏的 "%{item}"。
         user_removed_item_from_it: <strong>%{user}</strong> 移除了 "%{item}"。
-      remove_all: 
+      remove_all:
         an_unknown_user_cleared_an_unknown_collection: 一位不明使用者移除了一個不明典藏的所有項目。
         an_unknown_user_cleared_collection: 一位不明知使用者移除了 "%{collection}" 典藏的所有項目。
         an_unknown_user_cleared_it: 一位不明使用者移除了所有的項目。
         user_cleared_an_unknown_collection: <strong>%{user}</strong> 移除了一個不明典藏的所有項目。
         user_cleared_collection: <strong>%{user}</strong> 移除了 "%{collection}" 典藏的所有項目。
         user_cleared_it: <strong>%{user}</strong> 移除了所有的項目。
-    community_activity_log: 
-      add_manager: 
+    community_activity_log:
+      add_manager:
         an_unknown_user_added_an_unknown_manager_to_an_unknown_community: 一位不明使用者為一個不明社群新增了一位不明管理者。
         an_unknown_user_added_an_unknown_manager_to_community: 一位不明使用者為 "%{community}munity}" 社群新增了一位不明管理者。
         an_unknown_user_added_manager_to_an_unknown_community: 一位不明使用者為一個不明社群新增了一位管理者 "%{manager}"。
@@ -406,43 +406,43 @@ zh-Hant:
         user_added_an_unknown_manager_to_community: <strong>%{user}</strong> 為 "%{community}" 社群新增了一位不明管理者。
         user_added_manager_to_an_unknown_community: <strong>%{user}</strong> 為一個不明社群新增了一位管理者 "%{manager}"。
         user_added_manager_to_community: <strong>%{user}</strong> 為 "%{community}" 社群新增了一位管理者 "%{manager}"。
-      change_description: 
+      change_description:
         an_unknown_user_changed_the_description_of_an_unknown_community: 一位不明使用者修改了一個不明社群的描述。
         an_unknown_user_changed_the_description_of_community: 一位不明使用者修改了 "%{community}" 社群的描述。
         user_changed_the_description_of_an_unknown_community: <strong>%{user}</strong> 修改了一個不明社群的描述。
         user_changed_the_description_of_community: <strong>%{user}</strong> 修改了 "%{community}" 社群的描述。
-      change_icon: 
+      change_icon:
         an_unknown_user_changed_the_icon_of_an_unknown_community: 一位不明使用者修改了一個不明社群的logo。
         an_unknown_user_changed_the_icon_of_community: 一位不明使用者修改了 "%{community}" 社群的logo。
         user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> 修改了一個不明社群的Logo。
         user_changed_the_icon_of_community: <strong>%{user}</strong> 修改了 "%{community}" 社群的Logo。
-      change_name: 
+      change_name:
         an_unknown_user_changed_the_name_of_an_unknown_community: 一位不明使用者修改了一個不明社群的名稱。
         an_unknown_user_changed_the_name_of_community: 一位不明使用者修改了 "%{community}" 社群的名稱。
         user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> 修改了一個不明社群的名稱。
         user_changed_the_name_of_community: <strong>%{user}</strong> 修改了 "%{community}" 社群的名稱。
-      create: 
+      create:
         an_unknown_user_created_an_unknown_community: 一位不明使用者建立了一個不明社群。
         an_unknown_user_created_community: 一位不明使用者建立了 "%{community}" 社群。
         user_created_an_unknown_community: <strong>%{user}</strong> 建立了一個不明社群。
         user_created_community: <strong>%{user}</strong> 建立了 "%{community}" 社群。
-      join: 
+      join:
         an_unknown_user_joined_an_unknown_community: 一位不明使用者加入了一個不明社群。
         an_unknown_user_joined_community: 一位不明使用者加入了 "%{community}" 社群。
         user_joined_an_unknown_community: <strong>%{user}</strong> 加入了一個不明社群。
         user_joined_community: <strong>%{user}</strong> 加入了 "%{community}" 社群。
-      leave: 
+      leave:
         an_unknown_user_left_an_unknown_community: 一位不明使用者離開了一個不明社群。
         an_unknown_user_left_community: 一位不明使用者離開了 "%{community}" 社群。
         user_left_an_unknown_community: <strong>%{user}</strong> 離開了一個不明社群。
         user_left_community: <strong>%{user}</strong> 離開了 "%{community}" 社群。
-      other_actions: 
+      other_actions:
         an_unknown_user_modified_an_unknown_community: 一位不明使用者修改了一個不明社群。
         an_unknown_user_modified_community: 一位不明使用者修改了 "%{community}" 社群。
         user_modified_an_unknown_community: <strong>%{user}</strong> 修改了一個不明社群。
         user_modified_community: <strong>%{user}</strong> 修改了 "%{community}" 社群。
-    curator_activity_log: 
-      add_association: 
+    curator_activity_log:
+      add_association:
         an_unknown_user_associated_an_older_data_object_to_an_unknown_association: 一位不明使用者在一個舊版本的 "%{data_object}" 和不明頁面之間新增了一個關聯。
         an_unknown_user_associated_an_older_data_object_to_association: 一位不明使用者在一個舊版本的 "%{data_object}" 和 "%{association}" 之間新增了一個關聯。
         an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: 一位不明使用者新增了一個不明關聯。
@@ -459,7 +459,7 @@ zh-Hant:
         user_associated_data_object_to_association: <strong>%{user}</strong> 在 "%{data_object}" 和 "%{association}" 之間新增了一個關聯。
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> 為一不明頁面新增了一個關聯。
         user_associated_it_to_association: <strong>%{user}</strong> 為 "%{association}" 新增了一個關聯。
-      add_common_name: 
+      add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: 一位不明使用者為一個不明頁面新增了一個不明語言的不明俗名。
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: 一位不明使用者新增了一個不明語言的不明俗名。
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: 一位不明使用者為 "%{taxon}" 新增了一個不明語言的不明俗名。
@@ -484,7 +484,7 @@ zh-Hant:
         user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> 為一個不明頁面新增了一個 %{language} 的俗名 "%{name}"。
         user_added_name_in_language_to_it: <strong>%{user}</strong> 新增了一個 %{language} 的俗名 "%{name}"。
         user_added_name_in_language_to_taxon: <strong>%{user}</strong> 為 "%{taxon}" 新增了一個 %{language} 的俗名 "%{name}"。
-      choose_exemplar_article: 
+      choose_exemplar_article:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 一位不明使用者挑選了一個舊版本的 "%{data_object}" 展現在一個不明頁面的概要中。
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 一位不明使用者挑選了 "%{data_object}" 展現在 "%{taxon}" 的概要中。
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: 一位不明使用者挑選了一篇不明的文章展現在一個不明頁面的概要中。
@@ -501,7 +501,7 @@ zh-Hant:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 挑選了 "%{data_object}" 展現在 "%{taxon}" 的概要中。
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 挑選了它展現在一個不明頁面的概要中。
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 挑選了它展現在 "%{taxon}" 的概要中。
-      choose_exemplar_image: 
+      choose_exemplar_image:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: 一位不明使用者將一個舊版本的 "%{data_object}" 設定為一個不明頁面的典範。
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: 一位不明使用者將 "%{data_object}" 設定為 "%{taxon}" 的典範。
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: 一位不明使用者設定了一個不明的典範image。
@@ -518,15 +518,15 @@ zh-Hant:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> 將 "%{data_object}" 設定為 "%{taxon}" 的典範。
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> 將它設定為一個不明頁面的典範。
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> 將它設定為 "%{taxon}" 的典範。
-      classification_curation: 
-        merge: 
+      classification_curation:
+        merge:
           an_unknown_user_merged_to_an_unknown_taxon: 一位不明使用者合併了二個不明頁面。
           an_unknown_user_merged_to_it: 一位不明使用者將另一頁面合併至這個頁面。
           an_unknown_user_merged_to_taxon: 一位不明使用者將另一頁面合併至 %{target}。
           user_merged_to_an_unknown_taxon: <strong>%{user}</strong> 合併了二個不明頁面。
           user_merged_to_it: <strong>%{user}</strong> 將另一頁面合併至這個頁面。
           user_merged_to_taxon: <strong>%{user}</strong> 將另一頁面合併至 %{target}。
-        move: 
+        move:
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: 一位不明使用者將一個不明頁面上的 %{classifications} 分類移動至另一個不明頁面。
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: 一位不明使用者將一個不明頁面上的 %{classifications} 分類移動至 %{target}。
           an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: 一位不明使用者將 %{classifications} 的分類移動至另一不明頁面。
@@ -539,13 +539,13 @@ zh-Hant:
           user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> 將 %{classifications} 的分類移動至 %{target}。
           user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong> 將 %{classifications} 的分類從 %{taxon} 移動至一個不明頁面。
           user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong> 將 %{classifications} 的分類從 %{taxon} 移動至 %{target}。
-        split: 
+        split:
           an_unknown_user_split_classifications_from_an_unknown_taxon: 一位不明使用者將一個不明頁面上的 %{classifications} 分類分出至 <a href='%{to}'>它們各自的頁面</a>。
           an_unknown_user_split_classifications_from_it: 一位不明使用者將 %{classifications} 的分類分出至 <a href='%{to}'>它們各自的頁面</a>。
           an_unknown_user_split_classifications_from_taxon: 一位不明使用者將 %{taxon} 的 %{classifications} 分類分出至 <a href='%{to}'>它們各自的頁面</a>。
           user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong> 將一個不明頁面上的 %{classifications} 分類分出至 <a href='%{to}'>它們各自的頁面</a>。
           user_split_classifications_from_taxon: <strong>%{user}</strong> 將 %{classifications} 的分類分出至 <a href='%{to}'>它們各自的頁面</a>。
-      crop: 
+      crop:
         an_unknown_user_cropped_an_older_data_object: 一位不明使用者修改了 "%{data_object}" 的縮圖影像。
         an_unknown_user_cropped_an_unknown_data_object: 一位不明使用者修改了一張不明影像的縮圖。
         an_unknown_user_cropped_data_object: 一位不明使用者修改了 "%{data_object}" 的縮圖影像。
@@ -554,7 +554,7 @@ zh-Hant:
         user_cropped_an_unknown_data_object: <strong>%{user}</strong> 修改了未知影像的縮圖。
         user_cropped_data_object: <strong>%{user}</strong> 修改了 "%{data_object}" 的縮圖影像。
         user_cropped_it: <strong>%{user}</strong> 修改了未知影像的縮圖。
-      hide: 
+      hide:
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在未知其上下文情況之下為隱藏的。
         an_unknown_user_hid_an_older_data_object_on_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在 "%{association}" 頁面上為隱藏的。
         an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: 一位不明使用者將一個不明的資料物件標記為在未知其上下文情況之下為隱藏的。
@@ -571,7 +571,7 @@ zh-Hant:
         user_hid_data_object_on_association: <strong>%{user}</strong> 將 "%{data_object}" 標記為在 "%{association}" 頁面上為隱藏的。
         user_hid_it_on_an_unknown_association: <strong>%{user}</strong> 將它標記為在未知其上下文情況之下為隱藏的。
         user_hid_it_on_association: <strong>%{user}</strong> 將它標記為在 "%{association}" 頁面上為隱藏的。
-      merge: 
+      merge:
         an_unknown_user_merged_entry_to_an_unknown_taxon: 一位不明使用者將 "%{provider}" 的分類移動至一個不明的分類單元。
         an_unknown_user_merged_entry_to_it: 一位不明使用者新增了 "%{provider}" 的分類。
         an_unknown_user_merged_entry_to_taxon: 一位不明使用者將 "%{provider}" 的分類移動至 "%{taxon}"。
@@ -584,7 +584,7 @@ zh-Hant:
         user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> 將一個不明的分類移動至一個不明的分類單元。
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> 新增了一個不明的分類。
         user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> 將一個不明的分類移動至 "%{taxon}"。
-      other_actions: 
+      other_actions:
         an_unknown_user_curated_an_older_data_object: 一位不明使用者管理了一個舊版本的 "%{data_object}"。
         an_unknown_user_curated_an_unknown_data_object: 一位不明使用者管理了一個不明的資料物件。
         an_unknown_user_curated_data_object: 一位不明使用者管理了 "%{data_object}"。
@@ -593,7 +593,7 @@ zh-Hant:
         user_curated_an_unknown_data_object: <strong>%{user}</strong> 管理了一個不明的資料物件。
         user_curated_data_object: <strong>%{user}</strong> 管理了 "%{data_object}"。
         user_curated_it: <strong>%{user}</strong> 管理了它，但明確的動作已遺失。
-      preferred_classification: 
+      preferred_classification:
         an_unknown_user_preferred_classification_on_an_unknown_taxon: 一位不明使用者將 "%{provider}" 提供的分類標記為一個不明分類單元的優先分類。
         an_unknown_user_preferred_classification_on_it: 一位不明使用者將 "%{provider}" 提供的分類標記為優先分類。
         an_unknown_user_preferred_classification_on_taxon: 一位不明使用者將 "%{provider}" 提供的分類標記為 "%{taxon}" 的優先分類。
@@ -608,7 +608,7 @@ zh-Hant:
         user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> 將一個不明的分類標記為 "%{taxon}" 的優先分類。
       reasons_to_hide: 隱藏的原因：%{reasons}
       reasons_to_untrust: 不信任的原因：%{reasons}
-      remove_association: 
+      remove_association:
         an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: 一位不明使用者移除了一個舊版本 "%{data_object}" 的一個關聯。
         an_unknown_user_disassociated_an_older_data_object_from_association: 一位不明使用者移除了 "%{data_object}" 和 "%{association}" 之間的一個關聯。
         an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: 一位不明使用者移除了一個不明關聯。
@@ -625,7 +625,7 @@ zh-Hant:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> 移除了 "%{data_object}" 和 "%{association}" 之間的一個關聯。
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> 移除了一不明頁面的一個關聯。
         user_disassociated_it_from_association: <strong>%{user}</strong> 移除了 "%{association}" 的一個關聯。
-      remove_common_name: 
+      remove_common_name:
         an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: 一位不明使用者從一個不明頁面移除了一個不明語言的俗名。
         an_unknown_user_removed_name_in_an_unknown_language_from_it: 一位不明使用者移除了一個不明語言的俗名。
         an_unknown_user_removed_name_in_an_unknown_language_from_taxon: 一位不明使用者從 "%{taxon}" 移除了一個不明語言的俗名。
@@ -638,7 +638,7 @@ zh-Hant:
         user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> 從一個不明頁面移除了一個 %{language} 的俗名。
         user_removed_name_in_language_from_it: <strong>%{user}</strong> 移除了一個 %{language} 的俗名。
         user_removed_name_in_language_from_taxon: <strong>%{user}</strong> 從 "%{taxon}" 移除了一個 %{language} 的俗名。
-      show: 
+      show:
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在未知其上下文情況之下為可見的。
         an_unknown_user_showed_an_older_data_object_on_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在 "%{association}" 頁面上為可見的。
         an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: 一位不明使用者將一個不明的資料物件標記為在未知其上下文情況之下為可見的。
@@ -655,7 +655,7 @@ zh-Hant:
         user_showed_data_object_on_association: <strong>%{user}</strong> 將 "%{data_object}" 標記為在 "%{association}" 頁面上為可見的。
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> 將它標記為在未知其上下文情況之下為可見的。
         user_showed_it_on_association: <strong>%{user}</strong> 將它標記為在 "%{association}" 頁面上為可見的。
-      split: 
+      split:
         an_unknown_user_split_entry_from_an_unknown_taxon: 一位不明使用者從一個不明的分類單元分出 "%{provider}" 的分類。
         an_unknown_user_split_entry_from_it: 一位不明使用者分隔了使用者 "%{provider}" 所提供的分類。
         an_unknown_user_split_entry_from_taxon: 一位不明使用者從 "%{taxon}" 分出使用者 "%{provider}" 所提供的分類。
@@ -668,7 +668,7 @@ zh-Hant:
         user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> 從一個不明的分類單元分出一個不明的分類。
         user_split_unknown_entry_from_it: 使用者<strong>%{user}</strong> 分隔了一個不明的分類。
         user_split_unknown_entry_from_taxon: 使用者<strong>%{user}</strong> 從 "%{taxon}" 分出一個不明的分類。
-      trust_common_name: 
+      trust_common_name:
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為已驗證的。
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為已驗證的。
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: 一位不明使用者將 "%{taxon}" 一個不明語言的不明俗名標記為已驗證的。
@@ -693,7 +693,7 @@ zh-Hant:
         user_trusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為已驗證的。
         user_trusted_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language} 的俗名 "%{name}" 標記為已驗證的。
         user_trusted_name_in_language_on_taxon: <strong>%{user}</strong> 將 "%{taxon}" 一個 %{language} 的俗名 "%{name}" 標記為已驗證的。
-      trusted: 
+      trusted:
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在未知其上下文情況之下為可信的。
         an_unknown_user_trusted_an_older_data_object_on_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在 "%{association}" 頁面上為可信的。
         an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: 一位不明使用者將一個不明的資料物件標記為在未知其上下文情況之下為可信的。
@@ -710,7 +710,7 @@ zh-Hant:
         user_trusted_data_object_on_association: <strong>%{user}</strong> 將 "%{data_object}" 標記為在 "%{association}" 頁面上為可信的。
         user_trusted_it_on_an_unknown_association: <strong>%{user}</strong> 將它標記為在未知其上下文情況之下為可信的。
         user_trusted_it_on_association: <strong>%{user}</strong> 將它標記為在 "%{association}" 頁面上為可信的。
-      unlock: 
+      unlock:
         merge_of_an_unknown_taxon_unlocked: 您最近要求的頁面合併已完成，但無法找到此頁面。
         merge_of_it_unlocked: 您最近要求在這個頁面上的合併已完成。
         merge_of_taxon_unlocked: 您最近要求 "%{taxon}" 的頁面合併已完成。
@@ -720,7 +720,7 @@ zh-Hant:
         split_of_an_unknown_taxon_unlocked: 您最近要求的分類拆解已完成，但無法找到此頁面。
         split_of_it_unlocked: 您最近要求在這個頁面上的分類拆解已完成，並且分類已移動至 <a href='%{to}'>它們各自的頁面</a>。
         split_of_taxon_unlocked: 您最近要求 "%{taxon}" 的分類拆解已完成，並且分類已移動至 <a href='%{to}'>它們各自的頁面</a>。
-      unlock_with_error: 
+      unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 您最近要求的頁面合併已<strong>失敗</strong>：%{error}。而且，無法找到受影響的頁面。
         merge_of_it_unlocked_with_error: 您最近要求在這個頁面上的合併已<strong>失敗</strong>：%{error}。
         merge_of_taxon_unlocked_with_error: 您最近要求 "%{taxon}" 的頁面合併已<strong>失敗</strong>：%{error}。
@@ -730,7 +730,7 @@ zh-Hant:
         split_of_an_unknown_taxon_unlocked_with_error: 您最近要求的分類拆解已<strong>失敗</strong>：%{error}。而且，無法找到受影響的頁面。
         split_of_it_unlocked_with_error: 您最近要求在這個頁面上的分類拆解已<strong>失敗</strong>：%{error}。
         split_of_taxon_unlocked_with_error: 您最近要求 "%{taxon}" 的分類拆解已<strong>失敗</strong>：%{error}。
-      unreview_common_name: 
+      unreview_common_name:
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為未審核的。
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為未審核的。
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: 一位不明使用者將 "%{taxon}" 一個不明語言的不明俗名標記為未審核的。
@@ -755,7 +755,7 @@ zh-Hant:
         user_unreviewed_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為未審核的。
         user_unreviewed_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language} 的俗名 "%{name}" 標記為未審核的。
         user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> 將 "%{taxon}" 一個 %{language} 的俗名 "%{name}" 標記為未審核的。
-      unreviewed: 
+      unreviewed:
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在未知其上下文情況之下為未審核的。
         an_unknown_user_unreviewed_an_older_data_object_on_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在 "%{association}" 頁面上為未審核的。
         an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: 一位不明使用者將一個不明的資料物件標記為在未知其上下文情況之下為未審核的。
@@ -772,7 +772,7 @@ zh-Hant:
         user_unreviewed_data_object_on_association: <strong>%{user}</strong> 將 "%{data_object}" 標記為在 "%{association}" 頁面上為未審核的。
         user_unreviewed_it_on_an_unknown_association: <strong>%{user}</strong> 將它標記為在未知其上下文情況之下為未審核的。
         user_unreviewed_it_on_association: <strong>%{user}</strong> 將它標記為在 "%{association}" 頁面上為未審核的。
-      untrust_common_name: 
+      untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為未驗證的。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為未驗證的。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 一位不明使用者將 "%{taxon}" 一個不明語言的不明俗名標記為未驗證的。
@@ -797,7 +797,7 @@ zh-Hant:
         user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> 將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
         user_untrusted_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
         user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> 將 "%{taxon}" 一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
-      untrusted: 
+      untrusted:
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在未知其上下文情況之下為不可信的。
         an_unknown_user_untrusted_an_older_data_object_on_association: 一位不明使用者將一個舊版本的 "%{data_object}" 標記為在 "%{association}" 頁面上為不可信的。
         an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: 一位不明使用者將一個不明的資料物件標記為在未知其上下文情況之下為不可信的。
@@ -944,38 +944,38 @@ zh-Hant:
   admin_user_delete_successful_notice: 使用者已被刪除
   admin_user_hide_successful_notice: 使用者已被隱藏
   admin_user_unhide_successful_notice: 使用者已被取消隱藏
-  admins: 
-    eol_statistics: 
-      content_partners: 
+  admins:
+    eol_statistics:
+      content_partners:
         menu_link: 內容合作夥伴
         page_header: 內容合作夥伴統計數據
         page_title: 管理：內容合作夥伴統計數據
-      curators: 
+      curators:
         menu_link: 蒐藏經理統計數據
         page_header: 蒐藏經理統計數據
         page_title: 管理：蒐藏經理統計數據
-      data_objects: 
+      data_objects:
         menu_link: 資料物件
         page_header: 資料物件統計數據
         page_title: 管理：資料物件統計數據
-      index: 
+      index:
         menu_link: 總體統計數據
         page_header: 總體統計數據
         page_title: 管理：總體統計數據
         table_caption: 在%{created_at_time}建立的網站總體統計數據
-      lifedesks: 
+      lifedesks:
         menu_link: LifeDesks
         page_header: LifeDesks統計數據
         page_title: 管理：LifeDesks統計數據
-      marine: 
+      marine:
         menu_link: 海洋生物統計數據
         page_header: EOL涵蓋的海洋生物
         page_title: 管理：海洋生物統計數據
-      page_richness: 
+      page_richness:
         menu_link: 資料豐富的頁面
         page_header: 資料豐富頁面統計數據
         page_title: 管理：資料豐富頁面統計數據
-      users_data_objects: 
+      users_data_objects:
         menu_link: 使用者提交的文字
         page_header: 使用者提交文字統計數據
         page_title: 管理：使用者提交文字統計數據
@@ -1016,8 +1016,8 @@ zh-Hant:
   anonymous_user_tag_line: 未登入
   any_integer: 任何整數
   any_string: 任何字串
-  api: 
-    docs: 
+  api:
+    docs:
       forum_beta_test_text: <a href="%{forums_link}">請點擊此處</a>以使用EOL新論壇的beta測試版本。歡迎您提供反饋意見。
   api_cache_time_to_live_parameter: 您希望將回應予以cache的秒數
   api_docs_collections_description: 如果提供了某個典藏的識別碼，這個API將會回報所有與此典藏相關的後設資料和包含的項目。此項目清單可以使用項目類型加以篩選，並以所列的屬性加以排序。有些項目將包含一個選填的'sort_field'屬性，此排序欄位(sort field)是使用者提供的一個字串，為某個典藏項目的特殊註釋；它可以是任何字元的字串，但如果是一個日期，則必須符合YYYY-MM-DD的格式。分類單元的項目將包含一個'richness_score'。豐富度是一個度規，由0和100之間的一個整數代表，數字高的表示一個頁面有各類來源的豐富內容。有關分類單元豐富度，請見一個分類單元頁面的更新標籤，例如：%{richness_url}。
@@ -1031,16 +1031,16 @@ zh-Hant:
   article_not_associated_with_any_published_entries: 這篇文章與任何已發布的分類單元都無關。
   article_of_taxon: 有關 %{taxon_name} 的文章
   article_rating: 文章評價
-  articles_in_languages_with_count: 
+  articles_in_languages_with_count:
     one: 這個頁面上的文章有 %{count} 種語言版本：
     other: 這個頁面上的文章有 %{count} 種語言版本：
-  articles_in_other_languages_with_count: 
+  articles_in_other_languages_with_count:
     one: 這個頁面上的文章有 %{count} 種其他語言版本：
     other: 這個頁面上的文章有 %{count} 種其他語言版本：
-  articles_with_count: 
+  articles_with_count:
     one: "%{count} 篇文章"
     other: "%{count} 篇文章"
-  as_of_time_there_were_unique_visitors: 
+  as_of_time_there_were_unique_visitors:
     one: 到 %{time} 為止，有 %{count} 位不重複訪客
     other: 到 %{time} 為止，有 %{count} 位不重複訪客
   assistive_details_header: 詳細資料
@@ -1064,16 +1064,16 @@ zh-Hant:
   associated_with_map_header: 在最新的一幅地圖上
   associated_with_sound_header: 在最新的一個聲音檔中
   associated_with_video_header: 在最新的一個影片中
-  association_hidden_for_taxa: 
+  association_hidden_for_taxa:
     one: 隱藏的：
     other: "Hidden for:"
-  association_trusted_for_taxa: 
+  association_trusted_for_taxa:
     one: 可信的：
     other: "Trusted for:"
-  association_unreviewed_for_taxa: 
+  association_unreviewed_for_taxa:
     one: 未審核的：
     other: "Unreviewed for:"
-  association_untrusted_for_taxa: 
+  association_untrusted_for_taxa:
     one: 不可信的：
     other: "Untrusted for:"
   associations_more_link: 更多 <span class="assistive"> 分類單元關聯 </span>
@@ -1095,7 +1095,7 @@ zh-Hant:
   back: 返回
   back_to_profile: 返回簡介
   began: 開始
-  belongs_in_count_communities: 
+  belongs_in_count_communities:
     one: 屬於 %{count} 個社群
     other: 屬於 %{count} 個社群
   bhl_publication: BHL出版物
@@ -1141,7 +1141,7 @@ zh-Hant:
   classification_already_preferred: 錯誤：這個分類已被標記為優先分類。
   classification_button_help: 請選擇最能代表下方現有頁面的分類，並點擊相對應的 "作為範例"。若要完全取消此動作，請點擊 “取消。
   classification_curation_pending: 管理待辦中；這個分類可能在最近會被移動至另一個頁面。
-  classification_curation_split_comment_with_count: 
+  classification_curation_split_comment_with_count:
     one: 這個頁面的 %{count} 個分類已被 <a href='%{url}'> 分出至它自己的頁面</a>。
     other: 這個頁面的 %{count} 個 分類已被 <a href='%{url}'> 分出至各自的頁面</a>。
   classification_from_agent: "%{agent} 提供的分類。"
@@ -1167,11 +1167,11 @@ zh-Hant:
   classifications_recognized_by_column_header: 認定者為
   classifications_split_column_header: 分出 / 移動
   classifications_split_one_classification_only: 請只選擇一個分類分出。其他分類可以在新頁面建立後再移動至新頁面。
-  classifications_summary_header_with_count: 
+  classifications_summary_header_with_count:
     one: 在 %{count} 個分類找到
     other: 在 %{count} 個分類找到
     zero: 此分類在EOL通常是不可見的
-  classifications_with_count: 
+  classifications_with_count:
     one: "%{count} 個分類"
     other: "%{count} 個分類"
   clear_all_non_species_pages: 清空所有的非物種頁面
@@ -1190,14 +1190,14 @@ zh-Hant:
   collect_items: 典藏項目
   collection_api_sort_field_notes: 如果包含了一個sort_field參數，只有其sort field和給的字串完全相符合的典藏項目會被回報
   collection_copy_choose_all_items_target_title: 從 "%{collection}" 複製所有的項目至：
-  collection_copy_choose_target_title_with_count: 
+  collection_copy_choose_target_title_with_count:
     one: 從 "%{collection}" 複製 %{count} 個項目至：
     other: 從 "%{collection}" 複製 %{count} 個項目至：
-  collection_copy_complete_with_count: 
+  collection_copy_complete_with_count:
     one: 從 %{from} 複製了 %{count} 個項目至 %{to}。
     other: 從 %{from} 一共複製了 %{count} 個項目至 %{to}。
   collection_created_notice: 成功建立了 <em>%{collection_name}</em> 典藏。
-  collection_created_with_count_notice: 
+  collection_created_with_count_notice:
     one: 成功建立了 <em>%{collection_name}</em> 典藏，包含 %{count} 筆典藏項目。
     other: 成功建立了 <em>%{collection_name}</em> 典藏，包含 %{count} 筆典藏項目。
   collection_delete_link: 永久刪除這個典藏
@@ -1208,15 +1208,15 @@ zh-Hant:
   collection_item_edit_by_javascript_not_authorized_error: 抱歉，您沒有編輯這個典藏項目的許可。如果您是此典藏的擁有者或編輯者，請重新載入此頁面，並確認您已經登入。
   collection_item_edit_page_title: 編輯 <em>%{collection_name}</em> 典藏中之項目
   collection_item_not_found_error: 無法找到那個典藏項目。
-  collection_items_count: 
+  collection_items_count:
     one: "%{count} 個項目"
     other: "%{count} 個項目"
     zero: 空白
   collection_move_choose_all_items_target_title: 從 "%{collection}" 移動所有的項目至：
-  collection_move_choose_target_title_with_count: 
+  collection_move_choose_target_title_with_count:
     one: 從 "%{collection}" 移動 %{count} 個項目至：
     other: 從 "%{collection}" 移動 %{count} 個項目至：
-  collection_move_complete_with_count: 
+  collection_move_complete_with_count:
     one: 從 %{from} 移動了 %{count} 個項目至 %{to}。
     other: 從 %{from} 一共移動了 %{count} 個項目至 %{to}。
   collection_name_cannot_be_blank: 典藏名稱為必填
@@ -1228,21 +1228,21 @@ zh-Hant:
   collection_not_updated_error: 抱歉，出現了錯誤，無法更新此典藏。
   collection_rating: 典藏評價
   collection_redindexed: 典藏已重新索引。
-  collection_remove_complete_with_count: 
+  collection_remove_complete_with_count:
     one: 從 %{from} 移除了 %{count} 個項目。
     other: 從 %{from} 移除了 %{count} 個項目。
   collection_updated_notice: 成功更新了 <em>%{collection_name}</em> 典藏。
   collection_was_added_to_community: "\"%{collection}\" 已被添加至這個社群。"
   collection_was_removed_by_owner: 這個典藏已被其擁有者移除。
-  collections: 
-    editors: 
-      show: 
+  collections:
+    editors:
+      show:
         meta_description: 生命大百科典藏 %{collection_name} 的管理者。
         meta_keywords: "%{collection_name} 管理者"
         meta_title: "%{collection_name} 管理者"
         tweet_text: "%{collection_name} 管理者"
-    inaturalists: 
-      show: 
+    inaturalists:
+      show:
         add_observations: 新增觀測資料
         meta_description: 用於EOL典藏 %{collection_name} 的iNaturalist觀測資料。
         meta_keywords: "%{collection_name} iNaturalist觀測資料"
@@ -1253,7 +1253,7 @@ zh-Hant:
         observer_with_link: "觀測者: %{observer_link}"
         recent_observations: 最近的觀測資料
         some_taxon: 某類群
-        taxa_observed: 
+        taxa_observed:
           one: 觀測到 %{count} 個分類單元
           other: 觀測到 %{count} 個分類群
         top_contributors: 熱門iNaturalist貢獻者
@@ -1261,13 +1261,13 @@ zh-Hant:
         view_all_observations_on_inaturalist: 瀏覽來自iNaturalist的 %{project_title} 的所有觀測資料
         view_more_observations_on_inaturalist: 瀏覽更多來自iNaturalist的 %{project_title} 的觀測資料
         view_project_on_inaturalist: 瀏覽來自iNaturalist的 %{project_title}
-    newsfeeds: 
-      show: 
+    newsfeeds:
+      show:
         meta_description: EOL典藏 %{collection_name} 的新聞、評論及會員活動。
         meta_keywords: "%{collection_name} 新聞"
         meta_title: "%{collection_name} 新聞"
         tweet_text: "%{collection_name} 新聞"
-    show: 
+    show:
       meta_description_default: 標題為 %{collection_name} 的生命大百科典藏。
       meta_description_default_focus_collection: 標題為 %{collection_name} 的生命大百科重點典藏。
       meta_description_default_watch_collection: 一份生命大百科觀察清單：%{collection_name}。
@@ -1276,10 +1276,10 @@ zh-Hant:
   collections_link: 典藏
   collections_page_title: 典藏
   collections_summary_empty: 這個頁面尚不屬於任何典藏。
-  collections_summary_header_with_count: 
+  collections_summary_header_with_count:
     one: 出現在 %{count} 個典藏中
     other: 出現在 %{count} 個典藏中
-  collections_with_count: 
+  collections_with_count:
     one: "%{count} 個典藏"
     other: "%{count} 個典藏"
   comment: 評論
@@ -1302,28 +1302,28 @@ zh-Hant:
   comments_filter: 評論
   comments_moderated: 清理後的評論
   comments_on: 評論
-  comments_with_count: 
+  comments_with_count:
     one: "%{count} 筆評論"
     other: "%{count} 筆評論"
   common_activities_by_logged_in: 登入使用者的常見活動。
   common_name: 俗名
   common_name_avg: 俗名之平均值
   common_name_exists: 此俗名 <em>%{name_string}</em> 已存在
-  common_names_with_count: 
+  common_names_with_count:
     one: "%{count} 個俗名"
     other: "%{count} 個俗名"
   common_user_activity_page_title: 常見的使用者活動
-  communities: 
-    collections: 
-      index: 
+  communities:
+    collections:
+      index:
         meta_description: 生命大百科社群 %{community_name} 收集的社群典藏。
         meta_keywords: "%{community_name} 典藏"
         meta_title: "%{community_name} 典藏"
         tweet_text: "%{community_name} 典藏"
-    newsfeeds: 
-      show: 
+    newsfeeds:
+      show:
         meta_keywords: "%{community_name}，生命大百科社群，%{community_name} newsfeed，%{community_name} 評論，%{community_name} 活動"
-    show: 
+    show:
       meta_description: 此生命大百科社群 %{community_name} 已被其擁有者移除
       meta_title: "%{community_name} 被擁有者移除"
   communities_filter: 社群
@@ -1332,33 +1332,33 @@ zh-Hant:
   communities_link: 社群
   communities_page_title: 社群
   communities_summary_empty: 這個分類單元尚未被任何社群做為其特色。
-  communities_summary_header_with_count: 
+  communities_summary_header_with_count:
     one: 屬於 %{count} 個社群
     other: 屬於 %{count} 個社群
   communities_that_can_edit_this_collection: 可以管理這個典藏的社群
-  communities_with_count: 
+  communities_with_count:
     one: "%{count} 個社群"
     other: "%{count} 個社群"
   community: 社群
   community_activity: 社群活動
   community_can_now_manage_this_collection: "\"%{community}\" 目前已有管理這個典藏的許可。"
-  community_contributions_with_count: 
+  community_contributions_with_count:
     one: "%{count} 個貢獻"
     other: "%{count} 個貢獻"
   community_description_default: 一個生命大百科社群。
   community_destroyed: 您已經刪除了這個社群。它將不再出現在分類單元頁面或搜尋中。
   community_empty_notice: 這個社群沒有會員。
   community_focus: 已管理的典藏
-  community_focus_items_with_count: 
+  community_focus_items_with_count:
     one: "%{count} 個項目"
     other: "%{count} 個項目"
   community_invitation_comment: 我希望能邀請您加入 "%{community}"。
   community_logo_alt_text: "%{community_name} 社群的Logo"
-  community_managers_with_count: 
+  community_managers_with_count:
     one: "%{count} 位社群管理者"
     other: "%{count} 位社群管理者"
   community_members: 社群會員
-  community_members_with_count: 
+  community_members_with_count:
     one: "%{count} 位社群會員"
     other: "%{count} 位社群會員"
   community_name_label: 社群名稱
@@ -1383,16 +1383,16 @@ zh-Hant:
   contact_us_link: 聯絡我們
   contact_us_submissions: "'聯絡我們'提交"
   contact_us_topics: "'聯絡我們'主題"
-  contacts: 
-    errors: 
+  contacts:
+    errors:
       message_not_sent: 抱歉，出現了錯誤，您的訊息未被送出。
-    new: 
+    new:
       page_title: 請留下您的回饋意見
-    notices: 
+    notices:
       message_sent: 感謝您提供回饋意見，您的訊息已送出給相關小組。
   containing_value: 包含 %{value}。
-  content: 
-    index: 
+  content:
+    index:
       header_news: EOL新聞
       meta_description: 生命大百科是一個致力於收集所有動植物生命的科學知識的史無前例工作，您可在此取得所有動物界及植物界所有生物的圖像、資訊和資料等。
       meta_keywords: 動物、動物圖像、動物資訊、植物、植物物種、植物圖像、植物資訊、植物誌、動物誌
@@ -1558,18 +1558,18 @@ zh-Hant:
   content_partner_update_unsuccessful_error: 抱歉，出現了錯誤，未能更新合作夥伴的詳細資料。
   content_partner_vetted_false: 未審核
   content_partner_vetted_true: 已審核
-  content_partners: 
-    edit: 
+  content_partners:
+    edit:
       meta_title: 編輯 %{partner_name}
-    index: 
+    index:
       meta_description: 生命大百科資料提供者及內容合作夥伴清單。
       meta_keywords: 生命大百科內容合作夥伴，生命大百科資料提供者
       meta_title: 內容合作夥伴
-    show: 
+    show:
       meta_description: "%{partner_name}. %{partner_description}"
       meta_keywords: "%{partner_name}，生命大百科內容合作夥伴"
-    statistics: 
-      show: 
+    statistics:
+      show:
         meta_description: 對 %{partner_name} 資料的使用統計。
         meta_keywords: "%{partner_name} 統計數據，%{partner_name} 網頁使用"
         meta_title: "%{partner_name} 統計數據"
@@ -1578,7 +1578,7 @@ zh-Hant:
   content_partners_link: 內容合作夥伴
   content_partners_page_description: 生命大百科的內容合作夥伴在自己的網站或資料庫中擁有大量有關生物多樣性的資訊，他們同時也透過EOL頁面和大家分享這些資訊。我們非常感謝他們對EOL使命的重要貢獻，並鼓勵您對他們做更深入的瞭解。<a href="%{more_url}">對成為一個內容合作夥伴作更深入瞭解。</a>
   content_partners_page_title: 內容合作夥伴
-  content_partners_with_count: 
+  content_partners_with_count:
     one: "%{count} 位內容合作夥伴"
     other: "%{count} 位內容合作夥伴"
   content_server_full_url: 內容伺服器Full URL
@@ -1598,17 +1598,17 @@ zh-Hant:
   content_upload_restrictions_note: (須小於10MB，上傳檔案將被原檔儲存，亦即影像尺寸不會被變動)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: 貢獻
-  copied_all_items_from_collection_with_count: 
+  copied_all_items_from_collection_with_count:
     one: 從 %{from} 複製了一個項目至這個典藏。
     other: 從 %{from} 複製了全部的 %{count} 個項目至這個典藏。
-  copied_all_items_to_collections: 
+  copied_all_items_to_collections:
     one: 從 %{name} 複製了全部的項目至 %{count} 個典藏。
     other: 從 %{name} 複製了全部的項目至 %{count} 個典藏。
-  copied_items_from_collection_with_count_notice: 
+  copied_items_from_collection_with_count_notice:
     one: 從 %{name} 複製了 %{count} 個項目。
     other: 從 %{name} 複製了 %{count} 個項目。
   copy: 複製
-  copy_items_to_a_new_collection_with_count: 
+  copy_items_to_a_new_collection_with_count:
     one: 複製 %{count} 個項目至一個新典藏
     other: 複製 %{count} 個項目至一個新典藏
   copy_of_name: "%{name}的副本"
@@ -1617,7 +1617,7 @@ zh-Hant:
   could_not_find_collection_error: 抱歉，無法找到那個典藏。
   could_not_find_user: 您不是這個社群的會員。
   count: 數量
-  count_results_for_search_term: 
+  count_results_for_search_term:
     one: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
     other: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
   create_a_collection: 建立一個典藏
@@ -1683,11 +1683,11 @@ zh-Hant:
   curator_status_changed_by: "%{user} 在 %{date} 修改了蒐藏經理狀態"
   curators: 蒐藏經理
   curators_empty: 我們的蒐藏經理者尚未對這個頁面採取任何動作。
-  curators_summary_header_with_count: 
+  curators_summary_header_with_count:
     one: 已由 %{count} 位蒐藏經理審核
     other: 已由 %{count} 位蒐藏經理審核
   curators_summary_learn_more_link: 瞭解如何管理
-  curators_with_count: 
+  curators_with_count:
     one: "%{count} 位蒐藏經理"
     other: "%{count} 位蒐藏經理"
   current_language: 語言：%{iso_code}
@@ -1705,8 +1705,8 @@ zh-Hant:
   data_object_not_associated_with_any_hierarchies: 這個資料物件與任何階層都無關。
   data_object_reference: 資料物件參考文獻
   data_object_undo_ignore: 從忽略清單中移除
-  data_objects: 
-    show: 
+  data_objects:
+    show:
       meta_description_article: 文章 - %{dato_description}
       meta_description_default: 來自 %{supplier} 的 %{dato_title}。
       meta_description_default_article: 來自 %{supplier} 的文章 - %{dato_title}。
@@ -1726,10 +1726,10 @@ zh-Hant:
   data_usage_reports: 資料使用報告
   date_caps: 日期
   date_uploaded: 上傳日期
-  datepicker: 
+  datepicker:
     close: 關閉
     current: 今天
-    day_names: 
+    day_names:
       - 星期日
       - 星期一
       - 星期二
@@ -1737,7 +1737,7 @@ zh-Hant:
       - 星期四
       - 星期五
       - 星期六
-    day_names_min: 
+    day_names_min:
       - 星期日
       - 星期一
       - 星期二
@@ -1745,7 +1745,7 @@ zh-Hant:
       - 星期四
       - 星期五
       - 星期六
-    day_names_short: 
+    day_names_short:
       - 星期日
       - 星期一
       - 星期二
@@ -1753,7 +1753,7 @@ zh-Hant:
       - 星期四
       - 星期五
       - 星期六
-    month_names: 
+    month_names:
       - 一月
       - 二月
       - 三月
@@ -1766,7 +1766,7 @@ zh-Hant:
       - 十月
       - 十一月
       - 十二月
-    month_names_short: 
+    month_names_short:
       - 一月
       - 二月
       - 三月
@@ -1885,7 +1885,7 @@ zh-Hant:
   encyclopedia_of_life: 生命大百科(Encyclopedia of Life)
   endorsed_by: 精選由
   endorsed_collections: 精選典藏
-  endorsed_collections_with_count: 
+  endorsed_collections_with_count:
     one: "%{count} 個精選典藏"
     other: "%{count} 個精選典藏"
   enter_in_a_search_term_users_a: 請輸入使用者正在搜尋的術語，然後是搜尋結果建議使用者該被轉到的分類單元/頁面ID；此分類單元/頁面ID可在您想要引導他們去的網頁網址中找到(例如：www.eol.org/pages/5 的分類單元/頁面ID是5)。若有的話，網頁名稱和第一張影像將被收集，並與搜尋結果一起儲存。
@@ -1908,41 +1908,41 @@ zh-Hant:
   eol_glossary: EOL詞彙表
   eol_news: EOL新聞
   eol_pages: 頁面
-  eol_statistics: 
+  eol_statistics:
     comparing_dates: <span class="assistive">比較</span> <span class="date_one">%{date_one}</span> <span class="assistive">和</span> <span class="date_two">%{date_two}</span>
-    content_partners: 
+    content_partners:
       menu_link: 內容合作夥伴
       page_header: 內容合作夥伴統計數據
       page_title: 統計數據
-    curators: 
+    curators:
       menu_link: 蒐藏經理統計數據
       page_header: 蒐藏經理統計數據
       page_title: 統計數據
-    data_objects: 
+    data_objects:
       menu_link: 資料物件
       page_header: 資料物件統計
       page_title: 統計數據
-    index: 
+    index:
       menu_link: 總體統計數據
       page_header: 總體統計數據
       page_title: 統計數據
-    lifedesks: 
+    lifedesks:
       menu_link: LifeDesks
       page_header: LifeDesks統計數據
       page_title: 統計數據
-    marine: 
+    marine:
       menu_link: 海洋統計數據
       page_header: EOL涵蓋的海洋生物
       page_title: 統計數據
-    page_richness: 
+    page_richness:
       menu_link: 資料豐富的頁面
       page_header: 資料豐富頁面統計數據
       page_title: 統計數據
-    users_data_objects: 
+    users_data_objects:
       menu_link: 使用者提交的文字
       page_header: 使用者提交文字統計數據
       page_title: 統計數據
-    warnings: 
+    warnings:
       stats_unavailable_for_date: 抱歉，無法取得 %{date} 的統計數據。請挑選其他日期
   error_401_description: 抱歉，您沒有使用那個URL的授權。
   error_401_page_title: 未授權的
@@ -1968,8 +1968,8 @@ zh-Hant:
   every_method_can_also_return_json_response: 每個方法也可藉由添加一個.json extension而回傳一個JSON回應。
   example_colon: 範例：
   exception: 例外
-  exceptions: 
-    security_violations: 
+  exceptions:
+    security_violations:
       administrators_only: 抱歉，僅限EOL管理者使用。
       default: 拒絕使用。
       hidden_user_login: 抱歉，那個帳號的登入已被禁用。
@@ -1990,7 +1990,7 @@ zh-Hant:
   external_report_click_year_to_proceed: 外部報告。請點擊年份進行。
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: 相關大學或學院系所的老師、 工作人員或研究生身份
-  failed_login_attempts_with_count: 
+  failed_login_attempts_with_count:
     one: (%{count} 次登入失敗)- 必須勾選使用者才能登入
     other: (%{count} 次登入失敗)- 必須勾選使用者才能登入
   false_label: 虛假的
@@ -2011,7 +2011,7 @@ zh-Hant:
   filter_by_status_untrusted_option: 不可信的
   filter_by_type: 按類型篩選
   filter_by_type_all_option: 所有類型
-  filter_by_type_all_option_with_count: 
+  filter_by_type_all_option_with_count:
     one: 所有類型 (%{count})
     other: 所有類型 (%{count})
   filter_by_type_collection_option: 典藏
@@ -2019,7 +2019,7 @@ zh-Hant:
   filter_by_type_community_option: 社群
   filter_by_type_content_page_option: 關於EOL
   filter_by_type_image_option: 影像
-  filter_by_type_image_option_with_count: 
+  filter_by_type_image_option_with_count:
     one: Images (%{count})
     other: Images (%{count})
   filter_by_type_link_option: 連結
@@ -2027,7 +2027,7 @@ zh-Hant:
   filter_by_type_object_curated_option: 已管理的物件
   filter_by_type_photosynth_option: Photosynths
   filter_by_type_sound_option: 聲音
-  filter_by_type_sound_option_with_count: 
+  filter_by_type_sound_option_with_count:
     one: (%{count}) 個聲音檔
     other: (%{count}) 個聲音檔
   filter_by_type_taxa_comment_option: 分類群評論
@@ -2035,7 +2035,7 @@ zh-Hant:
   filter_by_type_text_option: 文章
   filter_by_type_user_option: 使用者
   filter_by_type_video_option: 影片
-  filter_by_type_video_option_with_count: 
+  filter_by_type_video_option_with_count:
     one: (%{count}) 個影片
     other: (%{count}) 個影片
   filter_media: 篩選多媒體
@@ -2067,17 +2067,17 @@ zh-Hant:
   forgot_password_form_helper: 請注意：重設密碼的email<EM>常</ em>會被email篩選程式標記為'垃圾郵件'。如果您在一個小時內未收到您的email，請檢查您的垃圾郵件資料夾。
   forgot_password_form_username_or_email_blank_error: 請輸入使用者名稱或email地址以重設您的密碼。
   form_validation_errors_for_attribute_assistive: 這個元素有個驗證錯誤
-  forums: 
+  forums:
     actions: 動作
     administration: 管理部門
-    buttons: 
+    buttons:
       delete: 刪除
       edit: 編輯
       link: 連結
       move_down: "&darr;"
       move_up: "&uarr;"
       reply: 回覆
-    categories: 
+    categories:
       create: 建立一個類別
       create_failed: 抱歉，出現了錯誤，無法新增此類別
       create_successful: 成功建立了類別
@@ -2100,7 +2100,7 @@ zh-Hant:
     move_successful: 成功移動了論壇
     no_topics: 這個論壇無主題
     post_by_user_at_time: 人：%{user}，時：%{time}
-    posts: 
+    posts:
       close_window: 關閉
       create: 張貼新文
       create_failed: 抱歉，出現了錯誤，無法新增此貼文
@@ -2114,7 +2114,7 @@ zh-Hant:
       permalink_to_this_post: 這篇貼文的permalink：
       post_has_been_deleted: 這篇貼文已被刪除
       post_written_by_user: "%{user} 寫："
-      posts_with_count: 
+      posts_with_count:
         one: 發表 %{count} 筆貼文
         other: 發表 %{count} 筆貼文
       replying_to_post: 回覆給：
@@ -2123,7 +2123,7 @@ zh-Hant:
       update_successful: 成功更新了貼文
     posts_heading: 貼文
     replies: 回覆
-    topics: 
+    topics:
       create: 開始新主題
       create_failed: 抱歉，出現了錯誤，無法新增此主題
       create_successful: 成功建立了主題
@@ -2181,30 +2181,30 @@ zh-Hant:
   has_untrusted_your_image: 已將您的影像標記為不可信的。
   hello_user: "%{user}，您好"
   help: 說明
-  helpers: 
-    label: 
-      collection: 
+  helpers:
+    label:
+      collection:
         view_style_id: 預設瀏覽
-      collection_item: 
+      collection_item:
         annotation: 註釋
         refs: 參考文獻 <small>(參考文獻每一筆放一行)</small>
         sort_field: 按<small>(日期 YYYY.MM.DD、數字或文字)</small>排序
         sort_field_show: 排序值：
-      comment: 
+      comment:
         body_edit: 編輯評論
-      contact: 
+      contact:
         comments: 您的訊息
         contact_subject_id: 主題
         email: 您的email地址
         name: 您的姓名
-      content_page: 
+      content_page:
         active: 已發布
         active_more: 已發布的網頁將被公開。如您不想讓一般使用者瀏覽這個頁面的任何一個語言版本，請取消<em>已發布</em>的勾選。
         page_name: 唯一的名稱 <small>(僅小寫的ISO基本拉丁字元及底線)</small>
         page_name_more: 請為這個頁面輸入唯一、自我描述、有意義及永久性的識別碼。您所輸入的名稱將被用來產生此頁面的網址，例如：唯一的名稱 <em>terms_of_use</em> 會被轉為網址 <em>http://eol.org/info/terms_of_use</em>
         parent_content_page_id: 父頁面
         parent_content_page_id_more: 隨意選擇一個父頁面讓這個頁面嵌入其下
-      content_partner: 
+      content_partner:
         created_at: 已註冊
         current_agreement: 目前的協議
         description_of_data: 資料描述<small>(私人的)</small>
@@ -2219,12 +2219,12 @@ zh-Hant:
         oldest_published_harvest_event: 首次發布的
         is_public_more: 公開的內容合作夥伴簡介每個人都可見到，這些夥伴的資訊亦已包含在合作夥伴清單中。取消勾選則合作夥伴的詳細資料不會顯示於清單中，且其簡介將只對內容合作夥伴的建立者及EOL管理者開放。
         user_id: 內容合作夥伴詳細資料的管理者為
-      content_partner_agreement: 
+      content_partner_agreement:
         mou_url: 協議文件的網址 <small>(選填)</small>
         mou_url_more: 可選填包含這個合作夥伴協議書的文件的網址，而此文件將優先於其他任何協議書文字。如果您希望將此文件(例如：一個PDF檔案)儲存於EOL的內容伺服器，請先 <a href="%{upload_content_url}">上傳該文件</a>></a> 以取得網址。
-      content_partner_contact: 
+      content_partner_contact:
         email_reports_frequency_hours_more: 當對您的資料或對與您資料集有關聯的分類單元頁面出現評論或有管理者動作時，才會發送email報告給您。
-      data_object: 
+      data_object:
         bibliographic_citation: 書目引用
         bibliographic_citation_more: 建議以參考文獻書目的形式引用這個資料，包含細節以能清晰辨別此資料。
         description: 文字 <small>(允許某些HTML標記)</small>
@@ -2238,44 +2238,44 @@ zh-Hant:
         rights_statement_more: 根據創用CC姓名標示(CC-BY)授權的使用權限說明，請依照 <q cite="http://creativecommons.org/licenses/by/3.0"> 作者或版權所有者指定的規則</q>聲明版權歸屬。
         source_url: 原始資料物件的網址
         toc_item: 子章節
-      data_object_link: 
+      data_object_link:
         description: 描述<small>（允許某些HTML標記）</small>
         link_type: 類別
         source_url: 連結的網址：
         toc_item: 主題
-      eol_statistic: 
+      eol_statistic:
         date_one: 日期
         date_two: 日期
         download_all: 全部 <small>(包含所有頁面的紀錄)</small>
-      google_analytics_partner_summaries: 
+      google_analytics_partner_summaries:
         page_views: 頁面瀏覽量 <small>(頁面造訪次數)</small>
         taxa_pages: 頁面 <small>(頁數)</small>
         taxa_pages_viewed: 被瀏覽頁面數 <small>(訪客瀏覽過的頁面數目)</small>
         time_on_page: 頁面停留總時間<small>(小時)</small>
         unique_page_views: 不重複的頁面瀏覽量<small>(瀏覽頁面的訪客數目)</small>
-      harvest_event: 
+      harvest_event:
         began_at: 已開始
         completed_at: 已完成
         first_published_at: 首次發布
         publish_more: 標記彙集狀態為可發布，內容不會立即對民眾公開。
         published_at: 已發布
         published_status: 狀態
-      hierarchy: 
+      hierarchy:
         browsable_more: 勾選'可瀏覽'使這個階層成為EOL一個可瀏覽的主要階層。
         browsable_status_with_colon: 可瀏覽狀態：
         complete: 已管理
         complete_more: 已管理的階層假設每一筆輸入都是唯一的，也就是說：名稱字串若相同會被認為是異物同名。<strong>警告：除非您確認此階層的異物同名狀態，否則請不要修改這個屬性，這麼做可能會破壞資料的完整性。</strong>
         request_publish: 已要求發布
         request_publish_more: 標示是否有一待辦要求想將這個階層提升為EOL一個可瀏覽的主要階層。
-      news_item: 
+      news_item:
         active: 已發布
         active_more: 已發布的新聞項目將在選擇的時間被公開。如您不想讓一般使用者瀏覽這個新聞項目的任何一個語言版本，請取消<em>已發布</em>的勾選。
         page_name: 唯一的名稱 <small>(僅小寫的ISO基本拉丁字元及底線)</small>
         page_name_more: 請為這個新聞項目輸入唯一、自我描述、有意義及永久性的識別碼。您所輸入的名稱將被用來產生此新聞項目的網址，例如：唯一的名稱<em>new_version_of_eol</em>會被轉為網址 <em>http://eol.org/news/new_version_of_eol</em>。
-      open_authentication: 
+      open_authentication:
         connect: 新增
         connected: 已連結
-      resource: 
+      resource:
         accesspoint_url: 資料集的網址
         accesspoint_url_existing_remove: 這個資源正由此URL網址端 <em>%{accesspoint_url}</em> 被載入。如果您想移除現有的網址而改從檔案載入資源，請上傳這個檔案(不推薦)。
         administration_settings: 管理的設定 <small>(只有EOL管理者可見)</small>
@@ -2294,11 +2294,11 @@ zh-Hant:
         resource_url_or_file_upload: 上傳資源檔案
         resource_url_or_file_url: 由網址載入資源
         title: 資源名稱
-      session: 
+      session:
         password: 密碼
         remember_me: 請在2個星期內維持我的登入
         username_or_email: 使用者名稱或email地址
-      translated_content_page: 
+      translated_content_page:
         active_translation: 已發布
         active_translation_more: 除非網頁本身尚未被發布，否則已發布的翻譯將被公開。如您不想讓一般使用者瀏覽這個版本的頁面，請取消<em>已發布</em>的勾選。
         language_id: 語言
@@ -2307,7 +2307,7 @@ zh-Hant:
         meta_description_more: 提供一個簡短描述，摘要頁面內容的關鍵概念。這個描述有時會被Web搜尋引擎用來檢查關聯性及列於搜尋結果中。
         meta_keywords_more: 輸入最能反映頁面內容的字和片語清單，其間以逗號分隔。Web搜尋引擎有時會使用這些關鍵字和片語來評估此頁面與搜尋術語的關聯性。
         title_more: 這個內容的標題將會顯示在頁面的首標區域。此標題應包含一些與內容最相關的關鍵字。
-      translated_news_item: 
+      translated_news_item:
         active_translation: 已發布
         active_translation_more: 除非新聞本身尚未被發布，否則已發布的翻譯將被公開。如您不想讓一般使用者瀏覽此版本的新聞，請取消<em>已發布</em>的勾選。
         body_more: 在正文區輸入新聞內容。使用 <em>格式</em> dropdown選擇合適的語義文字元素，例如：選擇 <em>Heading 2</em> 作為第二級標題。附註：<em>Heading 1</em> 已預留為新聞標題，因此正文區的標題是以 <em>Heading 2</em> 開始。選擇 <em>Source</em> 以切換至HTML原始碼瀏覽，它讓您可人工插入和編輯HTML。
@@ -2315,7 +2315,7 @@ zh-Hant:
         meta_description_more: 提供一個簡短描述，總結新聞內容的關鍵概念。這個描述有時會被Web搜尋引擎用來檢查關聯性及列於搜尋結果中。
         meta_keywords_more: 輸入最能反映新聞內容的字和片語清單，其間以逗號分隔。Web搜尋引擎有時會使用這些關鍵字和片語來評估此新聞與搜尋術語的關聯性。
         title_more: 這個新聞的標題將會顯示在頁面的首標區域。此標題應包含一些與內容最相關的關鍵字。
-      user: 
+      user:
         agreed_with_terms: 我同意 <a href="%{terms_url}"> 使用條款</a>
         api_key_more: 請查閱更多有關 <a href="%{api_docs_url}"> 為您的API calls添加一個key</a>。
         bio: 關於我
@@ -2353,82 +2353,82 @@ zh-Hant:
         user_identities: 我是
         username: 使用者名稱<small>（4-32 個字元）</small>
         username_or_email: 使用者名稱或email地址
-      wikipedia_queue: 
+      wikipedia_queue:
         revision_url: 修訂版的網址 <small>（例如：http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
         revision_url_more: 若您輸入一個維基百科修訂版的網址，表示您要求EOL視此份修訂版本為已通過審核。如果EOL目前已有該份文章，將被修訂版取代。
-    select: 
+    select:
       prompt: 請選擇
-    submit: 
+    submit:
       cancel: 取消
-      collection_item: 
+      collection_item:
         update: 儲存
-      contact: 
+      contact:
         new: 送出回饋意見
-      content_page: 
+      content_page:
         create: 建立頁面
         edit: 編輯
         preview: 預覽
         update: 更新頁面
-      content_partner: 
+      content_partner:
         create: 建立內容合作夥伴
         update: 儲存內容合作夥伴資訊
-      content_partner_agreement: 
+      content_partner_agreement:
         agree: 同意內容合作夥伴條款
         create: 建立新協議
         update: 更新協議
-      content_partner_contact: 
+      content_partner_contact:
         create: 新增連絡方式
         destroy: 刪除連絡方式
         update: 更新連絡方式
       create: 建立 %{model}
-      data_object: 
+      data_object:
         create: 新增文章
         create_text: 新增文章
         update: 儲存文章
-      data_object_link: 
+      data_object_link:
         create: 新增連結
         update: 儲存連結
-      eol_statistic: 
+      eol_statistic:
         change_date: 取得日期的統計數據
         download_csv: 以CSV格式下載
       filter_sort: 篩選及排序
-      harvest_event: 
+      harvest_event:
         publish: 發布
-      hierarchy: 
+      hierarchy:
         request_publish: 要求將階層升級
         update: 更新階層
-      name: 
+      name:
         create: 新增名稱
         update: 更新名稱
-      news_item: 
+      news_item:
         create: 建立新聞專案
         edit: 編輯
         preview: 預覽
         update: 更新新聞項目
-      open_authentication: 
+      open_authentication:
         create: 連線
         destroy: 斷線
         update: 確認連線
-      resource: 
+      resource:
         create: 新增資源
-       force_harvest: 要求強制彙集
+        force_harvest: 要求強制彙集
         update: 更新資源
         update_settings: 更新設定
-      session: 
+      session:
         create: 登入
         sign_in_with_facebook: 使用Facebook帳號登入
         sign_in_with_google: 使用Google帳號登入
         sign_in_with_twitter: 使用Twitter帳號登入
         sign_in_with_yahoo: 使用Yahoo帳號登入
       submit: 儲存 %{model}
-      translated_content_page: 
+      translated_content_page:
         create: 新增翻譯
         update: 儲存對翻譯的修改
-      translated_news_item: 
+      translated_news_item:
         create: 新增翻譯
         update: 儲存對翻譯的修改
       update: 更新 %{model}
-      user: 
+      user:
         create: 建立帳號
         curation_application: 立即申請
         curation_privileges: 提交要求
@@ -2440,7 +2440,7 @@ zh-Hant:
         sign_up_with_twitter: 在Twitter註冊
         sign_up_with_yahoo: 在Yahoo註冊
         update: 儲存簡介資訊
-      wikipedia_queue: 
+      wikipedia_queue:
         create: 提交要求
   here: 這裡
   hidden: 隱藏的
@@ -2484,10 +2484,10 @@ zh-Hant:
   images: 影像
   images_in_red_are_not_trusted: 紅色標記的影像是不可信的。
   images_in_yellow_are_not_reviewed: 黃色標記的影像是未經審核的。
-  images_sort_worklist_note: 
+  images_sort_worklist_note:
     one: 影像是依照EOL輸入的時間排序，最新的項目最先展示。在這個工作清單中有 %{count} 張影像。
     other: 影像是依照EOL輸入的時間排序，最新的項目最先展示。在這個工作清單中有 %{count} 張影像。
-  images_with_count: 
+  images_with_count:
     one: "%{count} 張影像"
     other: "{count} 張影像"
   import_once: 再輸入一次
@@ -2545,7 +2545,7 @@ zh-Hant:
   items_no_copy_none_selected_warning: 沒有項目被選擇，因此沒有項目被複製。若想將項目複製到另一個典藏，請先在清單中您想複製的項目旁的方框中勾選。
   items_no_move_none_selected_warning: 沒有項目被選擇，因此沒有項目被移動。若想將項目移動到另一個典藏，請先在清單中您想移動的項目旁的方框中勾選。
   items_no_remove_none_selected_warning: 沒有項目被選擇，因此沒有項目被移除。若想將項目從典藏中移除，請先在清單中您想移除的項目旁的方框中勾選。
-  items_with_count_semi_colon: 
+  items_with_count_semi_colon:
     one: "%{count} 個項目；"
     other: "%{count} 個項目；"
   iucn_red_list_status_advisory_information: 這個連結將帶您至國際自然保育聯盟(IUCN)的網站，在此網站您可以從IUCN瀕危物種紅皮書中找到更多資訊。
@@ -2566,9 +2566,9 @@ zh-Hant:
   languages: 語言
   last_updated: 最後更新
   last_updated_time_ago: 最後一次更新是 %{time_passed} 之前
-  layouts: 
-    v2: 
-      application: 
+  layouts:
+    v2:
+      application:
         about_link_citing: 引用EOL
         about_link_contact_us: 聯絡我們
         about_link_discover: 發現
@@ -2666,7 +2666,7 @@ zh-Hant:
   link_name: 連結名稱
   link_not_associated_with_any_published_entries: 這個連結與任何已發布的分類單元都無關。
   link_rating: 連結評價
-  links_with_count: 
+  links_with_count:
     one: "%{count} 個連結"
     other: "%{count} 個連結"
   list_newsletter_emails: 列出newsletter emails
@@ -2703,7 +2703,7 @@ zh-Hant:
   make_user_an_editor_title: 允許 %{user} 管理以下典藏
   manage_your_profile: 管理您的簡介
   managed_by: 管理者為
-  managed_collections_with_count: 
+  managed_collections_with_count:
     one: "%{count} 個被管理的典藏"
     other: "%{count} 個被管理的典藏"
   manager_endorse_collections_suggestion: 要在這個社群頁面上介紹一個典藏，請將此特色典藏新增至此社群所管理的任何典藏集。
@@ -2717,11 +2717,11 @@ zh-Hant:
   maps_empty: 這個頁面尚無人提供地圖。
   maps_empty_contribute_instructions: 瞭解如何向EOL提供地圖。
   maps_image_maps_header: 標記為'地圖'的多媒體文件
-  maps_with_count: 
+  maps_with_count:
     one: "%{count} 幅地圖"
     other: "%{count} 幅地圖"
   march_of_life_thumbnail_title: March of Life：
-  matching_users_found_with_count: 
+  matching_users_found_with_count:
     one: 共找到 %{count} 位使用者符合您的條件。
     other: 共找到 %{count} 位使用者符合您的條件。
   max_collection_items_error: 抱歉，您的要求超出了典藏項目最大限制的 %{max} 個。
@@ -2731,27 +2731,27 @@ zh-Hant:
   media_list_empty_search: 沒有檢索到符合您搜尋條件的多媒體資料。
   media_summary_empty: 這個頁面尚無人提供影像。
   media_summary_empty_contribute_instructions: 瞭解如何向EOL提供影像。
-  media_with_count: 
+  media_with_count:
     one: "%{count} 筆多媒體"
     other: "%{count} 筆多媒體"
   member_of: 隸屬於
   member_of_professional_society_credential_option: 一個專業社群的會員
-  members: 
-    index: 
+  members:
+    index:
       meta_description: 生命大百科社群 %{community_name} 的會員。
       meta_keywords: "%{community_name} 會員"
       meta_title: "%{community_name} 會員"
       tweet_text: "%{community_name} 會員"
-    show: 
+    show:
       meta_description: "%{member_name} 是生命大百科社群 %{community_name} 的會員。"
       meta_keywords: 社群會員 %{member_name}
       meta_title: "%{member_name} %{community_name} 的會員"
       tweet_text: "%{member_name} %{community_name} 的會員"
   members_like_you: 像您這樣的會員
-  members_with_count: 
+  members_with_count:
     one: "%{count} 位會員"
     other: "%{count} 位會員"
-  members_with_count_semi_colon: 
+  members_with_count_semi_colon:
     one: "%{count} 位會員；"
     other: "%{count} 位會員；"
   merge_concepts: 合併概念
@@ -2766,18 +2766,18 @@ zh-Hant:
   method: 方法
   method_to_get_metadata_about_the_hierarchy: 如果提供了一個階層的識別碼，這個方法會回報有關此階層的後設資料及列出其root分類群
   methods: 方法
-  mobile: 
-    contents: 
+  mobile:
+    contents:
       explore_eol: 探索EOL
       full_site: 整個網站
       home: 首頁
       species: 物種
       taxa: 分類群
-    search: 
+    search:
       no_results_found: 未找到結果
       results: 結果
       suggestions: 建議
-    taxa: 
+    taxa:
       community: 社群
       details: 細節
       images: 影像
@@ -2794,25 +2794,25 @@ zh-Hant:
       videos: 影片
   moderator_colon: 版主：
   monthly: 每月
-  more_children_with_count: 
+  more_children_with_count:
     one: 還有 %{count} 個...
     other: 還有 %{count} 個...
-  more_siblings_with_count: 
+  more_siblings_with_count:
     one: 還有 %{count} 個同級的...
     other: 還有 %{count} 個同級的...
   most_active_members: 最活躍的會員
   move: 移動
   move_down: 往下移
-  move_items_to_a_new_collection_with_count: 
+  move_items_to_a_new_collection_with_count:
     one: 將 %{count} 個項目移動至一個新典藏
     other: 將 %{count} 個項目移動至一個新典藏
   move_to_bottom: 移動至最下方
   move_to_top: 移動至最上方
   move_up: 向上移
-  moved_all_items_to_collections: 
+  moved_all_items_to_collections:
     one: 將所有項目從 %{name} 移動至 %{count} 個典藏。
     other: 將所有項目從 %{name} 移動至 %{count} 個典藏。
-  moved_items_from_collection_with_count_notice: 
+  moved_items_from_collection_with_count_notice:
     one: 從 %{name} 移來 %{count} 個項目。
     other: 從 %{name} 移來 %{count} 個項目。
   multimedia_links: 多媒體連結
@@ -2861,8 +2861,8 @@ zh-Hant:
   news_item_date_as_shown_to_user: 對使用者顯示的新聞項目時間(僅在Rss feed中顯示時間)：
   news_item_is_visible_on_website_after_this_time: 新聞項目在此時間後可在網站上見到：
   news_item_title: 新聞項目
-  news_items: 
-    index: 
+  news_items:
+    index:
       meta_keywords: EOL新聞，生命大百科新聞
       meta_title: EOL新聞
       page_title: EOL新聞
@@ -2915,12 +2915,12 @@ zh-Hant:
   notification_frequency_weekly: 每週
   notifications_and_messages_review_notice: 請審核將以email發送給您的通知。
   notifications_tab_name: 通知
-  notifier: 
+  notifier:
     activity_log_empty: 蒐藏經理最近沒有動作。
-    activity_on_content_partner_content: 
+    activity_on_content_partner_content:
       message: "這封e-mail是由生命大百科(EOL)自動發出，摘要內容合作夥伴 %{partner_full_name} (%{partner_profile_url}) 提供給EOL的內容的近期評論及管理者動作。因為您被列為 %{partner_full_name}的聯絡人，所以接到此份報告。\n\n如果您有任何疑問或需要協助登入您的EOL會員帳號，請聯絡 %{species_pages_group_email}。\n\n\n管理者活動：\n%{curator_activity_log}\n\n對資料物件的評論：\n%{data_object_comments}\n\n對與您資料相關的頁面所作評論：\n%{page_comments}"
       subject: 內容合作夥伴 %{partner_full_name} 提供給生命大百科的內容的近期活動摘要
-    activity_on_user_content: 
+    activity_on_user_content:
       message: "這封e-mail是由生命大百科(EOL)自動發出，摘要您使用 %{members_username} 會員帳號新增給EOL內容方面的近期評論及管理者動作。\n\n如果您有任何疑問或需要協助登入您的EOL會員帳號，請聯絡 %{species_pages_group_email}。\n\n\n管理者活動:\n%{curator_activity_log}\n\n對資料物件的評論：\n%{data_object_comments}\n\n對與您資料相關的頁面所作評論：\n%{page_comments}"
       subject: 您新增至生命大百科內容方面的近期活動摘要
     activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 為 %{object_name} (%{object_url})\n%{action_date} 新增了關聯：\n%{taxon_name} (%{taxon_url})。"
@@ -2932,53 +2932,53 @@ zh-Hant:
     activity_user_removed_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url}) 從 %{object_name} (%{object_url})\n%{action_date} 移除了關聯：\n%{taxon_name} (%{taxon_url})。"
     activity_user_removed_association_on_date: "%{curator_level} %{users_name} (%{users_url}) 從 %{object_name} (%{object_url})\n%{action_date} 移除了不明關聯。"
     comments_empty: 沒有近期評論。
-    contact_us_auto_response: 
+    contact_us_auto_response:
       message: "感謝您聯絡生命大百科計畫，您的評論已被送往相關工作小組。\n\n我們感激您的回饋意見。"
       subject: 感謝您聯絡生命大百科
-    contact_us_message: 
+    contact_us_message:
       message: "以下給EOL的訊息是經由'聯絡我們'的表單提交：\nFrom: %{from_name}\nE-mail：%{from_email}\n主題： %{subject}\n\n%{message}"
       subject: 給EOL的訊息：%{title}
-    content_partner_created: 
+    content_partner_created:
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 建立了內容合作夥伴 %{partner_full_name}， 細節如下：\n\n使用者：%{user_full_name}\nE-mail：%{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴簡介URL：%{partner_profile_url}\n建立時間：%{partner_created_at_date}"
       subject: EOL使用者 %{user_full_name} 建立了內容合作夥伴 %{partner_full_name}
-    content_partner_resource_created: 
+    content_partner_resource_created:
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 為內容合作夥伴 %{partner_full_name} 添加了一個新資源 %{resource_title}，細節如下：\n\n使用者：%{user_full_name}\nE-mail：%{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴資源URL：%{partner_resources_url}\n\n資源：%{resource_title}\n資源URL：%{resource_url}\n建立時間：%{resource_created_at_date}\n狀態: %{resource_status}"
       subject: EOL使用者 %{user_full_name} 將新資源 %{resource_title} 新增至內容合作夥伴 %{partner_full_name}
-    content_partner_resource_harvest_requested_request: 
+    content_partner_resource_harvest_requested_request:
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 要求強制彙集內容合作夥伴 %{partner_full_name} 的資源 %{resource_title}，細節如下：\n\n使用者: %{user_full_name}\nE-mail：%{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴資源URL：%{partner_resources_url}\n\n資源：%{resource_title}\n資源URL：%{resource_url}\n更新時間：%{resource_updated_at_date}\n狀態：%{resource_status}"
       subject: EOL使用者 %{user_full_name} 要求強制彙集內容合作夥伴 %{partner_full_name} 的資源 %{resource_title}
-    content_partner_resource_hierarchy_publish_request: 
+    content_partner_resource_hierarchy_publish_request:
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 要求將與內容合作夥伴 %{partner_full_name} 的資源 %{resource_title} 有關的階層提升(已發布)為在EOL可瀏覽的階層，細節如下：\n\n使用者: %{user_full_name}\nE-mail： %{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴資源URL：%{partner_resources_url}\n\n資源：%{resource_title}\n資源URL：%{resource_url}\n編輯階層URL：%{hierarchy_edit_url}"
       subject: EOL使用者 %{user_full_name} 要求將內容合作夥伴 %{partner_full_name} 的資源 %{resource_title} 提升階層
-    content_partner_statistics_reminder: 
+    content_partner_statistics_reminder:
       message: 這封e-mail提醒通知是由生命大百科自動發出。對於 %{partner_full_name} 提供給EOL的資料，其 %{year}年 %{month} 月的網路使用統計請見 %{partner_statistics_url}。
       subject: "%{year} 年 %{month} 月，%{partner_full_name} 的生命大百科使用統計提醒通知"
-    curator_approved: 
+    curator_approved:
       message: "感謝您申請管理者權限 %{curator_level}；您的要求已被批准。\n\n若您希望得到更多管理訊息及您可使用的功能方面的資訊，請見http://eol.org/curators."
       subject: 您要求的生命大百科管理者權限 %{curator_level} 已被批准
     greeting_dear_name_with_comma: 親愛的 %{name}：
     signature_basic: 生命大百科團隊
     signature_with_contact_us_link: "如果您遭遇任何問題，請在 %{url} 聯絡我們。\n\n生命大百科團隊"
     signature_with_species_pages_group_contact: "如果您有任何疑問，請在 %{species_pages_group_email} 聯絡我們。\n\n生命大百科團隊"
-    unsubscribed_to_notifications: 
+    unsubscribed_to_notifications:
       message: "您已經成功退訂了來自生命大百科的通知。您可以修改您的email設定或在 <a href='%{email_prefs_url}'> 的通知偏好設置頁面上訂閱這些通知</a>。\n\n若您想對如何使用EOL做更深入瞭解，包括如何建立EOL典藏、參與EOL社群及貢獻內容等，請見我們的說明頁面 http://eol.org/help."
       subject: 抱歉您要離開...
-    user_activated: 
+    user_activated:
       message: "歡迎來到生命大百科(EOL)並感謝您的註冊。請注意，您的使用者名稱是 %{username}，您的個人簡介網址是 %{profile_url}。您可以在http://eol.org/login登入您的帳號。\n\n若您想對如何使用EOL做更深入瞭解，包括如何建立EOL典藏、參與EOL社群及貢獻內容等，請見我們的說明頁面 http://eol.org/help."
       subject: 您的生命大百科帳號已被啟動
-    user_activated_with_open_authentication: 
+    user_activated_with_open_authentication:
       message: "歡迎來到生命大百科(EOL)並感謝您的註冊。請注意，您是以 %{oauth_provider} 的名義註冊，表示您允許EOL在做確認時可以使用您的基本資訊。您在EOL的個人簡介網址是 %{profile_url}。您可以在 http://eol.org/login 使用帳號 %{oauth_provider} 登入您的EOL帳號。\n\n若您想對如何使用EOL做更深入瞭解，包括如何建立EOL典藏、參與EOL社群及貢獻內容等，請見我們的說明頁面 http://eol.org/help."
       subject: 您的生命大百科帳號已被啟動
     user_commented_on_something_date_body: "%{curator_level} %{users_name} (%{users_url}) 評論：\n%{commented_on_name} (%{commented_on_url})\n%{comment_date}:\n%{comment_body}"
-    user_message: 
+    user_message:
       subject: 來自生命大百科的一筆訊息
-    user_recover_account: 
+    user_recover_account:
       message: "生命大百科 (http://eol.org)收到一個恢復您帳號的要求。如果您沒有發出此項要求，請忽略此email。\n\n以下連結提供您單次有效登入，讓您可以修改帳號密碼或新增一個connected帳號可以在未來使用以做登入：\n\n%{temporary_login_url}\n\n。請注意，這個連結24小時後將失效，若您屆時仍然不能登入您的帳號，可以在 %{recover_account_url} 要求一個新的臨時登入連結。"
       subject: 恢復您的生命大百科帳號
-    user_updated_email_preferences: 
+    user_updated_email_preferences:
       message: "這是自動發出的EOL系統通知。使用者 %{user_full_name} (%{user_profile_url}) 更新了他們的email地址或郵寄清單偏好設置。\n\n之前的偏好：\nE-mail：%{previous_email}\n郵寄清單偏好設置：%{previous_mailing_list_preference}\n\n更新為：\nE-mail：%{updated_email}\n郵寄清單偏好設置：%{updated_mailing_list_preference}\n更新： %{updated_at}"
       subject: EOL使用者 %{user_full_name} 修改了email地址或郵寄清單偏好設置
-    user_verification: 
+    user_verification:
       message: "感謝您在生命大百科註冊。以下連結將確認您希望完成註冊並啟動您的帳號：\n\n%{verification_url}\n\n一旦您的帳號被啟動，您將會收到一封確認的email訊息。"
       subject: 請確認您對生命大百科帳號的申請
   nucleotide_sequences: 核苷酸序列
@@ -3030,13 +3030,13 @@ zh-Hant:
   or_move_them_to_existing_collection: 或者將它們移動至一個已存在的典藏
   original: 原始：
   original_object: 原始物件
-  other_collection_items_with_count: 
+  other_collection_items_with_count:
     one: "%{count} 個其它項目"
     other: "%{count} 個其它項目"
-  other_community_items_with_count: 
+  other_community_items_with_count:
     one: "%{count} 個其它項目"
     other: "%{count} 個其它項目"
-  other_taxa_with_count: 
+  other_taxa_with_count:
     one: "%{count} 個其它分類單元"
     other: "%{count} 個其它分類單元"
   other_us_dollars_amount: 其它：US$
@@ -3060,18 +3060,18 @@ zh-Hant:
   pages_curator_section_link: 蒐藏經理
   pages_method_description: 用一個EOL頁面識別碼而回報那個頁面的學名，同時可選擇性的回報跟認定頁面上描述分類單元的階層相關的資訊，如俗名、多媒體(文字、影像、影片)和參考文獻。
   pages_title: 參考文獻
-  pages_with_count: 
+  pages_with_count:
     one: "%{count}"
     other: "%{count}"
   pages_with_pictures_and_text: 有圖像和文字的頁面
   pages_with_pictures_or_text: 有圖像或文字的頁面
   pagination_next: 下一頁
-  pagination_next_with_count: 
+  pagination_next_with_count:
     one: 請見下 %{count} 頁
     other: 請見下 %{count} 頁
   pagination_page_number: 第 %{number} 頁
   pagination_previous: 上一頁
-  pagination_previous_with_count: 
+  pagination_previous_with_count:
     one: 請見上 %{count} 頁
     other: 請見上 %{count} 頁
   parameters: 參數
@@ -3082,7 +3082,7 @@ zh-Hant:
   password_colon: 密碼：
   password_must_be_4to16_characters: 密碼長度必須介於4到16個字元之間。
   pause: 暫停
-  people_with_count: 
+  people_with_count:
     one: "%{count} 個人"
     other: "%{count} 個人"
   percentage_of_children_with_images: 有影像的子節點的百分比
@@ -3093,7 +3093,7 @@ zh-Hant:
   permission_granted: 授予權限
   permission_revoked: 撤銷權限
   permissions_list_header: EOL權限
-  permissions_users_count: 
+  permissions_users_count:
     one: "%{count} 位使用者"
     other: "%{count} 位使用者"
   person_rating: 人物評價
@@ -3150,7 +3150,7 @@ zh-Hant:
   rank_recognized_by_agent: "%{rank} 被 %{agent} 認定"
   rank_recognized_by_agent_colon: <b>%{rank}</b> 被 %{agent} 認定
   rank_recognized_by_from_source: 在 %{source}中，%{rank} 被 %{agent} 認定
-  rated_by_count_people: 
+  rated_by_count_people:
     one: 來自 %{count} 個人
     other: 來自 %{count} 個人
   rating_added_notice: 成功新增了評價。
@@ -3158,26 +3158,26 @@ zh-Hant:
   rating_not_added_error: 抱歉，出現了錯誤，無法添加此評價。
   recaptcha: 請輸入下方您見到的兩個字
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha字元</a> 不符合，請您再試一次。
-  recent_activities: 
-    index: 
+  recent_activities:
+    index:
       list_header: 最近7天
       meta_keywords: EOL社群活動、EOL近期活動、EOL活動
       meta_title: EOL社群活動
       page_title: EOL社群活動
-  recent_activity: 
-    bulk_collection_activity_with_count: 
+  recent_activity:
+    bulk_collection_activity_with_count:
       one: 有 1 筆對 %{to} 的更新
       other: 有 %{count} 筆對 %{to} 的更新
-    bulk_comments_on_you_with_count: 
+    bulk_comments_on_you_with_count:
       one: 有 1 筆對 <a href='%{url}' style='color:#195184'> 您的簡介的新評論</a>
       other: 有 %{count} 筆對 <a href='%{url}' style='color:#195184'> 您的簡介的新評論</a>
-    bulk_community_activity_with_count: 
+    bulk_community_activity_with_count:
       one: 有 1 筆對 %{to} 的更新
       other: 有 %{count} 筆對 %{to} 的更新
-    bulk_community_joins_with_count: 
+    bulk_community_joins_with_count:
       one: 有 1 位新會員加入了 %{community}
       other: 有 %{count} 位新會員加入了 %{community}
-    bulk_curation_with_count: 
+    bulk_curation_with_count:
       one: 蒐藏經理對 %{to} 做了 1 項改進
       other: 蒐藏經理者對 %{to} 做了 %{count} 項改進
     collection_activity_by_user: <b>%{user_name}</b> 對 <b>%{collection_name}</b> 典藏執行了 %{activity_name}。
@@ -3216,7 +3216,7 @@ zh-Hant:
   record_not_found: "[未找到紀錄]"
   references_cabs_colon: 參考文獻：
   reindex_page_button: 重新索引頁面
-  related_names_with_count: 
+  related_names_with_count:
     one: "%{count} 個相關名稱"
     other: "%{count} 個相關名稱"
   related_organizations: 相關機構
@@ -3224,7 +3224,7 @@ zh-Hant:
   remove_curatorship_colon: 移除蒐藏經理身份：
   remove_data_object_association: 移除關聯
   remove_membership: 移除會員身份
-  removed_count_items_from_collection_notice: 
+  removed_count_items_from_collection_notice:
     one: "%{count} 個項目已從此典藏中移除。"
     other: "%{count} 個項目已從此典藏中移除。"
   reply: 回覆
@@ -3296,32 +3296,32 @@ zh-Hant:
   search_term_reports_title: 搜尋術語報告
   search_the_site: 搜尋此網站
   see_all_activity_combinations: 瀏覽5分鐘內所有活動的組合。
-  see_all_classifications_with_count_html: 
+  see_all_classifications_with_count_html:
     one: 瀏覽 <span class="assistive">%{count} 個此分類單元包含在內並已被認可的分類系統。</span>
     other: 瀏覽總計 <span class="assistive">%{count} 個此分類單元包含在內並已被認可的分類系統。</span>
-  see_all_collections_with_count_html: 
+  see_all_collections_with_count_html:
     one: 瀏覽 <span class="assistive">%{count} 個此頁面包含在內的典藏。</span>
     other: 瀏覽總計 <span class="assistive">%{count} 個此頁面包含在內的典藏。</span>
-  see_all_comments_with_count_for_link_or_rate: 
+  see_all_comments_with_count_for_link_or_rate:
     one: 瀏覽此連結的 %{count} 筆評論或評分
     other: 瀏覽此連結的總計 %{count} 筆評論或評分
-  see_all_comments_with_count_for_text_or_rate: 
+  see_all_comments_with_count_for_text_or_rate:
     one: 瀏覽這篇文章的 %{count} 筆評論或評分
     other: 瀏覽這篇文章的總計 %{count} 筆評論或評分
-  see_all_communities_with_count_html: 
+  see_all_communities_with_count_html:
     one: 瀏覽以這個頁面為特色的 <span class="assistive">%{count} 個社群。</span>
     other: 瀏覽以這個頁面為特色的總計 <span class="assistive">%{count} 個社群。</span>
-  see_all_editors_with_count: 
+  see_all_editors_with_count:
     one: 瀏覽 %{count} 位管理者
     other: 瀏覽總計 %{count} 位管理者
-  see_all_featured_collections_with_count: 
+  see_all_featured_collections_with_count:
     one: 瀏覽 %{count} 個特色典藏。
     other: 瀏覽總計 %{count} 個特色典藏。
   see_all_maps_link: 瀏覽所有地圖
   see_all_media_link: 瀏覽所有媒體
   see_all_of_your_collections: 瀏覽您的所有典藏
   see_all_of_your_communities: 瀏覽您的所有社群
-  see_all_updates_with_count_html: 
+  see_all_updates_with_count_html:
     one: 瀏覽這個頁面的 <span class="assistive">%{count} 個更新。</span>
     other: 瀏覽這個頁面的總計 <span class="assistive">%{count} 個更新。</span>
   see_notes: 請見附註
@@ -3335,13 +3335,13 @@ zh-Hant:
   send: 發送
   send_contact_email: 發送聯絡人Email
   send_email_colon: 發送email：
-  sent_invitations_to_users: 
+  sent_invitations_to_users:
     one: 已邀請 %{users}。
     other: 已邀請 %{users}。
   sep_emails_with_commas_note: (用逗號分隔多個email地址)
   server_ip_address: 伺服器IP位址
-  sessions: 
-    new: 
+  sessions:
+    new:
       login_with_eol_authentication_header: 或使用您的EOL憑證登入：
       login_with_facebook_assistive: 使用您的Facebook憑證登入EOL。
       login_with_google_assistive: 使用您的Google憑證登入EOL。
@@ -3354,7 +3354,7 @@ zh-Hant:
   set_as_exemplar: 設為典範
   share_a_collection: 分享一個典藏
   show: 顯示
-  show_all_other_classifications_with_count: 
+  show_all_other_classifications_with_count:
     one: 顯示 %{count} 個其他不能瀏覽的分類系統
     other: 顯示 %{count} 個其他不能瀏覽的分類系統
   show_data_from_all_content_partners: 移除分類系統篩選
@@ -3414,7 +3414,7 @@ zh-Hant:
   sound_of: 的聲音
   sound_of_taxon: 有關 %{taxon_name} 的聲音
   sound_rating: 聲音評價
-  sounds_with_count: 
+  sounds_with_count:
     one: "%{count} 個聲音檔"
     other: "%{count} 個聲音檔"
   source_and_additional_information: 來源和附加資訊
@@ -3436,7 +3436,7 @@ zh-Hant:
   spm_category: SPM(物種簡介模型)類別
   spm_category_objects_count: SPM(物種簡介模型)類別 - 物件的數量
   spm_category_partner_count: SPM(物種簡介模型)類別 - 合作夥伴的數量
-  stars_with_count: 
+  stars_with_count:
     one: "%{count} 個星星"
     other: "%{count} 個星星"
   started: 已開始
@@ -3456,7 +3456,7 @@ zh-Hant:
   survey_link: 參與我們的調查
   switch_language_advisory_information: 切換此網站語言至 %{language_label}
   synonym: 同物異名
-  synonyms_with_count: 
+  synonyms_with_count:
     one: "%{count} 個同物異名"
     other: "%{count} 個同物異名"
   table_column_header_actions: 動作
@@ -3469,13 +3469,13 @@ zh-Hant:
   task_status_active_option: 啟動中
   task_status_curated_option: 已管理
   task_status_ignored_option: 已忽略
-  tasks_with_count: 
+  tasks_with_count:
     one: 找到 %{count} 件工作
     other: 找到 %{count} 件工作
-  taxa: 
-    communities: 
-      collections: 
-        hierarchy_entry: 
+  taxa:
+    communities:
+      collections:
+        hierarchy_entry:
           meta_description: 典藏包含 %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: 典藏包含 %{preferred_common_name} (%{scientific_name})；該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: "%{scientific_name} 典藏，%{scientific_name} 觀測，%{hierarchy_provider} 典藏，%{hierarchy_provider} 觀測，%{hierarchy_provider} 標本"
@@ -3489,8 +3489,8 @@ zh-Hant:
         meta_title: "%{scientific_name} 的典藏"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的典藏"
         tweet_text: "%{scientific_name} 的典藏"
-      curators: 
-        hierarchy_entry: 
+      curators:
+        hierarchy_entry:
           meta_title: "%{scientific_name} 的管理者；該分類是由 %{hierarchy_provider} 提供"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的專家；該分類是由 %{hierarchy_provider} 提供"
           tweet_text: " %{scientific_name} 的蒐藏經理；該分類是由 %{hierarchy_provider} 提供"
@@ -3500,8 +3500,8 @@ zh-Hant:
         meta_title: "%{scientific_name} 的蒐藏經理"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的專家"
         tweet_text: "%{scientific_name} 的蒐藏經理"
-      index: 
-        hierarchy_entry: 
+      index:
+        hierarchy_entry:
           meta_description: 分享您對 %{scientific_name} 的資訊及專長；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: 分享您對 %{preferred_common_name} (%{scientific_name}) 的資訊及專長；該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: "%{scientific_name} 社群，%{hierarchy_provider}"
@@ -3515,9 +3515,9 @@ zh-Hant:
         meta_title: 對 %{scientific_name} 感興趣的使用者
         meta_title_with_common_name: 對 %{preferred_common_name} (%{scientific_name}) 感興趣的使用者
         tweet_text: 對 %{scientific_name} 感興趣的使用者
-    details: 
-      index: 
-        hierarchy_entry: 
+    details:
+      index:
+        hierarchy_entry:
           meta_description: 生命大百科有關 %{scientific_name} 的資訊；該分類是由 %{hierarchy_provider} 提供
           meta_description_no_data: 由 %{hierarchy_provider} 提供分類的 %{scientific_name}，EOL沒有相關資訊；EOL邀請您提供 {scientific_name} 的資料如保育、分布、生態、棲地及形態等。
           meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的資訊；該分類是由 %{hierarchy_provider} 提供。包含 %{scientific_name} 的 %{chapter_list} 資訊。
@@ -3536,9 +3536,9 @@ zh-Hant:
         meta_title: 有關 %{scientific_name} 的資訊
         meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name}) 的資訊
         tweet_text: 有關 %{scientific_name} 的資訊
-    literature: 
-      bhl: 
-        hierarchy_entry: 
+    literature:
+      bhl:
+        hierarchy_entry:
           meta_description: 生命大百科中有關 %{scientific_name} 的BHL文獻及資訊；該分類是由 %{hierarchy_provider} 提供。閱讀生命大百科中有關 %{scientific_name} 的BHL (生物多樣性資產圖書館)文章。
           meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 亦即 %{scientific_name} 的BHL文獻及資訊；該分類是由 %{hierarchy_provider} 提供。閱讀生命大百科中有關 %{preferred_common_name} 的BHL (生物多樣性資產圖書館)文章。
           meta_title: 有關 %{scientific_name} 的BHL文獻；該分類是由 %{hierarchy_provider} 提供
@@ -3547,8 +3547,8 @@ zh-Hant:
         meta_title: 對 %{scientific_name} 的BHL引用
         meta_title_with_common_name: 對 %{preferred_common_name} (%{scientific_name}) 的BHL參考文獻
         tweet_text: 來自#BHL的有關 %{scientific_name} 的文獻
-      show: 
-        hierarchy_entry: 
+      show:
+        hierarchy_entry:
           meta_title: 有關 %{scientific_name} 的文獻；該分類是由 %{hierarchy_provider} 提供
           meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name}) 的書籍；該分類是由 %{hierarchy_provider} 提供
           tweet_text: 有關 %{scientific_name} 的文獻；該分類是由 %{hierarchy_provider} 提供
@@ -3559,9 +3559,9 @@ zh-Hant:
         meta_title: 有關 %{scientific_name} 的文章和書籍
         meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name}) 的文章和書籍
         tweet_text: 有關 %{scientific_name} 的文章和書籍
-    maps: 
-      show: 
-        hierarchy_entry: 
+    maps:
+      show:
+        hierarchy_entry:
           meta_description: 有關 %{scientific_name} 在全球何處分布和何處為原生地的地理資訊；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: "%{preferred_common_name} 在何處找到？它們存活於何處？有關 %{scientific_name} 在全球何處分布和何處為原生地的地理資訊；該分類是由 %{hierarchy_provider} 提供。"
           meta_title: "%{scientific_name} 的地圖；該分類是由 %{hierarchy_provider} 提供"
@@ -3576,9 +3576,9 @@ zh-Hant:
         meta_title: "%{scientific_name} 的地圖"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的地圖"
         tweet_text: "%{scientific_name} 的地圖"
-    media: 
-      index: 
-        hierarchy_entry: 
+    media:
+      index:
+        hierarchy_entry:
           meta_description: "%{scientific_name} 的圖像及影片；該分類是由 %{hierarchy_provider} 提供。"
           meta_description_with_common_name: "%{preferred_common_name} 亦即 %{scientific_name} 的照片、影片及聲音；該分類是由 %{hierarchy_provider} 提供。"
           meta_keywords: "%{scientific_name} 的照片，%{scientific_name} 的影片，%{scientific_name} 的聲音"
@@ -3595,9 +3595,9 @@ zh-Hant:
         meta_title: "%{scientific_name} 的圖像、影片及聲音 - %{scientific_name} 的影像、照片、電影及聲音"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的圖像、影片及聲音 - %{preferred_common_name} (%{scientific_name}) 的影像、照片、電影及聲音"
         tweet_text: "%{scientific_name} 的圖像、影片及聲音"
-    names: 
-      common_names: 
-        hierarchy_entry: 
+    names:
+      common_names:
+        hierarchy_entry:
           meta_description: 與 %{scientific_name} 相關的俗名；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: "%{scientific_name} 的一個俗名是 {preferred_common_name}。找出與 %{scientific_name} 相關的其他俗名；該分類是由 %{hierarchy_provider} 提供。"
           meta_keywords: "%{scientific_name} 的俗名"
@@ -3612,8 +3612,8 @@ zh-Hant:
         meta_title: "%{scientific_name} 的俗名"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的俗名"
         tweet_text: "%{scientific_name} 的俗名"
-      index: 
-        hierarchy_entry: 
+      index:
+        hierarchy_entry:
           meta_description: "%{scientific_name} 的分類法及學名；該分類是由 %{hierarchy_provider} 提供。"
           meta_description_with_common_name: "%{preferred_common_name} 亦即 %{scientific_name} 的分類法及學名；該分類是由 %{hierarchy_provider} 提供。"
           tweet_text: 與 %{scientific_name} 有關的名稱；該分類是由 %{hierarchy_provider} 提供
@@ -3622,8 +3622,8 @@ zh-Hant:
         meta_title: "%{scientific_name} 的分類資訊 - 生物分類及名稱"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的分類資訊 - 生物分類及名稱"
         tweet_text: "%{scientific_name} 的分類資訊"
-      synonyms: 
-        hierarchy_entry: 
+      synonyms:
+        hierarchy_entry:
           meta_description: 與 %{scientific_name} 相關的同物異名；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: 與 %{scientific_name} 亦即俗名為 %{preferred_common_name} 相關的同物異名；該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: "%{scientific_name} 的同物異名"
@@ -3638,8 +3638,8 @@ zh-Hant:
         meta_title: "%{scientific_name} 的同物異名"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的同物異名"
         tweet_text: "%{scientific_name} 的同物異名"
-    overview: 
-      hierarchy_entry: 
+    overview:
+      hierarchy_entry:
         meta_description: 生命大百科中有關 %{scientific_name} 的資訊總結；該分類是由 %{hierarchy_provider} 認定
         meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 亦即 %{scientific_name} 的資訊總結；該分類是由 %{hierarchy_provider} 認定
         meta_keywords: 由 %{hierarchy_provider} 認定的 %{scientific_name}，由 %{hierarchy_provider} 分類的 %{scientific_name}
@@ -3654,35 +3654,35 @@ zh-Hant:
       meta_title: "%{scientific_name} - 有關 %{scientific_name} 的資訊"
       meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - 有關 %{preferred_common_name} 的資訊"
       tweet_text: 有關 %{scientific_name} 的資訊
-    resources: 
-      biomedical_terms: 
-        hierarchy_entry: 
+    resources:
+      biomedical_terms:
+        hierarchy_entry:
           tweet_text: "%{scientific_name} 的生物醫學術語；該分類是由 %{hierarchy_provider} 提供"
         meta_title: "%{scientific_name} 的生物醫學術語"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的生物醫學術語"
         tweet_text: "%{scientific_name} 的生物醫學術語"
-      education: 
-        hierarchy_entry: 
+      education:
+        hierarchy_entry:
           meta_title: "%{scientific_name} 的學習工具；該分類是由 %{hierarchy_provider} 提供"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的學習工具；該分類是由 %{hierarchy_provider} 提供"
           tweet_text: "%{scientific_name} 的學習工具；該分類是由 %{hierarchy_provider} 提供"
         meta_title: "%{scientific_name} 的教育資源"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的教育資源"
         tweet_text: "%{scientific_name} 的教育資源"
-      identification_resources: 
-        hierarchy_entry: 
+      identification_resources:
+        hierarchy_entry:
           tweet_text: "%{scientific_name} 的鑑定資源；該分類是由 %{hierarchy_provider} 提供"
         meta_title: "%{scientific_name} 的鑑定資源"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的鑑定資源"
         tweet_text: "%{scientific_name} 的鑑定資源"
-      nucleotide_sequences: 
-        hierarchy_entry: 
+      nucleotide_sequences:
+        hierarchy_entry:
           tweet_text: "%{scientific_name} 的核苷酸序列；該分類是由 %{hierarchy_provider} 提供"
         meta_title: "%{scientific_name} 的核苷酸序列"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的核苷酸序列"
         tweet_text: "%{scientific_name} 的核苷酸序列"
-      show: 
-        hierarchy_entry: 
+      show:
+        hierarchy_entry:
           meta_description: 有關 %{scientific_name} 的資料提供者及資料來源的清單；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name: 有關 %{preferred_common_name} (%{scientific_name}) 的資料提供者及資料來源的清單；該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: "%{scientific_name} 資料提供者，%{scientific_name} 資料來源"
@@ -3697,9 +3697,9 @@ zh-Hant:
         meta_title: "%{scientific_name} 的內容資源"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的內容資源"
         tweet_text: "%{scientific_name} 的內容資源"
-    updates: 
-      show: 
-        hierarchy_entry: 
+    updates:
+      show:
+        hierarchy_entry:
           meta_title: "%{scientific_name} 的更新；該分類是由 %{hierarchy_provider} 提供"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的更新；該分類是由 %{hierarchy_provider} 提供"
           tweet_text: "%{scientific_name} 的更新；該分類是由 %{hierarchy_provider} 提供"
@@ -3710,8 +3710,8 @@ zh-Hant:
         meta_title: 有關 %{scientific_name} 的評論
         meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name}) 的評論
         tweet_text: 有關 %{scientific_name} 的評論
-      statistics: 
-        hierarchy_entry: 
+      statistics:
+        hierarchy_entry:
           meta_title: "%{scientific_name} 的統計數據；該分類是由 %{hierarchy_provider} 提供"
           meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的統計數據；該分類是由 %{hierarchy_provider} 提供"
           tweet_text: "%{scientific_name} 的豐富度數值；該分類是由 %{hierarchy_provider} 提供"
@@ -3723,7 +3723,7 @@ zh-Hant:
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的豐富度"
         tweet_text: "%{scientific_name} 的豐富度數值"
   taxa_column_header: 分類群
-  taxa_with_count: 
+  taxa_with_count:
     one: "%{count} 個分類單元"
     other: "%{count} 個分類群"
   taxon: 分類單元
@@ -3777,7 +3777,7 @@ zh-Hant:
   text_summary_empty: 這個頁面尚無人提供簡短的總結。
   text_summary_empty_header: 簡短的總結
   text_summary_more_link: 閱讀完整的輸入項目
-  text_with_count: 
+  text_with_count:
     one: "%{count} 篇文章"
     other: "%{count} 篇文章"
   thank_you: 感謝您
@@ -3856,18 +3856,18 @@ zh-Hant:
   toc: 目錄
   toc_entry_col_header: 目錄輸入項目
   toc_no_longer_available: 目錄資訊不再可用
-  too_many_descendants_to_curate_with_count: 
+  too_many_descendants_to_curate_with_count:
     one: 錯誤：您的管理無法通過自動化系統處理；共有 %{count} 個子分類單元，超過最大允許值。
     other: 錯誤：您的管理無法通過自動化系統處理；共有 %{count} 個子分類單元，超過最大允許值。
   topic: 主題
   topic_area: 主題區
   topics_avilable_to_contact_us_info: 以下主題區可從'聯絡我們'的頁面取得。您可以增加或編輯主題區和相對應的email地址。所有修改都是立即的。
   total: 全部
-  total_comments_have_been_submitted: 
+  total_comments_have_been_submitted:
     one: "%{count} 個評論已提交於 %{string}"
     other: 總計 %{count} 個評論已提交於 %{string}
   total_distinct_searches: 不同的搜尋總計：
-  total_items_with_count: 
+  total_items_with_count:
     one: "%{count} 個項目"
     other: 總計 %{count} 個項目
   total_searches: 全部搜尋次數：
@@ -3890,7 +3890,7 @@ zh-Hant:
   type: 類型
   unable_to_copy_items_to_collection_error: 抱歉，我們無法複製典藏項目至 %{name}。
   unable_to_determine_title: 無法確定這個網頁的標題
-  unable_to_invite_users_to_community_with_count: 
+  unable_to_invite_users_to_community_with_count:
     one: 此邀請無法被送至 %{list}。
     other: 這些邀請無法被送至 %{list}。
   unique_page_views_th: 不重複的頁面瀏覽量
@@ -3899,7 +3899,7 @@ zh-Hant:
   unknown_hierarchy: 不明階層
   unknown_type_not_associated_with_any_published_entries: 這筆資料與任何已發布的分類單元都無關。
   unpublished: 未發布的
-  unpublished_collections_with_count: 
+  unpublished_collections_with_count:
     one: "%{count} 個隱藏的典藏"
     other: "%{count} 個隱藏的典藏"
   unreviewed: 未審核的
@@ -3940,47 +3940,47 @@ zh-Hant:
   user_activity_click_on_the_numbers: 請點擊數字以見到各個活動feed。
   user_activity_page_title: 使用者活動
   user_activity_report_intro: 使用者活動報告。請選擇一個特定的使用者以見到他的活動；活動是以其建立的時間反序排列。請選擇'全部'以見到所有使用者的活動，再點擊'搜尋'以繼續(使用您瀏覽器的'返回'按鈕以返回此處)。
-  user_activity_stats_articles_added: 
+  user_activity_stats_articles_added:
     one: 已新增 %{count} 篇文章
     other: 已新增 %{count} 篇文章
   user_activity_stats_articles_added_dropdown: 新增的文章
-  user_activity_stats_comment_submitted: 
+  user_activity_stats_comment_submitted:
     one: 已提交 %{count} 筆評論
     other: 已提交 %{count} 筆評論
-  user_activity_stats_common_names_added: 
+  user_activity_stats_common_names_added:
     one: 已新增 %{count} 個俗名
     other: 已新增 %{count} 個俗名
-  user_activity_stats_common_names_curated: 
+  user_activity_stats_common_names_curated:
     one: 已管理 %{count} 個俗名
     other: 已管理 %{count} 個俗名
-  user_activity_stats_common_names_removed: 
+  user_activity_stats_common_names_removed:
     one: 已刪除 %{count} 個俗名
     other: 已刪除 %{count} 個俗名
   user_activity_stats_header: 活動
-  user_activity_stats_objects_curated: 
+  user_activity_stats_objects_curated:
     one: 已管理 %{count} 個物件
     other: 已管理 %{count} 個物件
   user_activity_stats_objects_curated_dropdown: 已管理的物件
-  user_activity_stats_preferred_classifications_selected: 
+  user_activity_stats_preferred_classifications_selected:
     one: 已選擇 %{count} 個優先分類系統
     other: 已選擇 %{count} 個優先分類系統
-  user_activity_stats_selected_articles_for_overview: 
+  user_activity_stats_selected_articles_for_overview:
     one: 已為概要選擇 %{count} 篇文章
     other: 已為概要選擇 %{count} 篇文章
-  user_activity_stats_set_exemplar: 
+  user_activity_stats_set_exemplar:
     one: "%{count} 個影像設為範例"
     other: "%{count} 個影像設為範例"
-  user_activity_stats_taxa_commented: 
+  user_activity_stats_taxa_commented:
     one: 已評論 %{count} 個分類單元
     other: 已評論 %{count} 個分類單元
-  user_activity_stats_taxa_comments: 
+  user_activity_stats_taxa_comments:
     one: "%{count} 筆分類群評論"
     other: "%{count} 筆分類群評論"
   user_activity_stats_taxa_comments_dropdown: 分類群評論
-  user_activity_stats_taxa_curated: 
+  user_activity_stats_taxa_curated:
     one: 管理了 %{count} 個分類單元
     other: 管理了 %{count} 個分類群
-  user_activity_stats_wikipedia_nominated: 
+  user_activity_stats_wikipedia_nominated:
     one: 提名了 %{count} 篇維基百科文章
     other: 提名了 %{count} 篇維基百科文章
   user_agent: 使用者代理人
@@ -4002,10 +4002,10 @@ zh-Hant:
   user_no_longer_has_manager_access_to_collection: "%{user} 不再擁有對 \"%{collection}\" 的管理者權限。"
   user_pending_notifications_assitive: <span class="assistive">通知</span>
   user_pending_notifications_comments_assistive: <span class="assistive">評論</span>
-  user_pending_notifications_comments_with_count_assistive: 
+  user_pending_notifications_comments_with_count_assistive:
     one: "%{count}<span class=\"assistive\"> 筆評論</span>"
     other: "%{count}<span class=\"assistive\"> 筆評論</span>"
-  user_pending_notifications_with_count_assitive: 
+  user_pending_notifications_with_count_assitive:
     one: "%{count}<span class=\"assistive\"> 個通知</span>"
     other: "%{count}<span class=\"assistive\"> 個通知</span>"
   user_response: 使用者回應
@@ -4017,34 +4017,34 @@ zh-Hant:
   username: 使用者名稱
   username_colon: 使用者名稱：
   username_taken: "%{name} 名稱已被使用"
-  users: 
-    activities: 
-      show: 
+  users:
+    activities:
+      show:
         meta_description: "%{user_full_name} 的管理活動及評論"
         meta_title: "%{user_full_name} 活動"
         tweet_text: "%{user_full_name} 活動"
-    collections: 
-      index: 
+    collections:
+      index:
         meta_description: 由 %{user_full_name} 管理的典藏。
         meta_title: "%{user_full_name} 典藏"
         tweet_text: "%{user_full_name} 典藏"
-    communities: 
-      index: 
+    communities:
+      index:
         meta_description: "%{user_full_name} 所屬的社群。"
         meta_title: "%{user_full_name} 社群"
         tweet_text: "%{user_full_name} 社群"
-    content_partners: 
-      index: 
+    content_partners:
+      index:
         meta_description: "%{user_full_name} 內容合作夥伴的關係。"
         meta_title: "%{user_full_name} 內容合作夥伴"
         tweet_text: "%{user_full_name} 內容合作夥伴"
-    edit: 
+    edit:
       form_tip_account: 要登入EOL，您需要使用者名稱和密碼，或者您可以連結至第三方帳號。如果您沒有一個連結帳號，您的使用者名稱和密碼即為必填項目；但是如果您想要修改現有的密碼，在此請只單獨輸入一個新密碼。所有使用者都必須有 (%{required_icon}) email地址和優先語言資料。
       form_tip_account_oauth: 所有使用者都必須有 %{required_icon} email地址和優先語言資料。
       form_tip_curation: 資歷和研究範圍對助理蒐藏經理而言是選填項目，但對專業和高階蒐藏經理而言是必填項目 %{required_icon}
       form_tip_profile: 有 %{required_icon} 標記的項目對一般使用者而言是選填項目，但對管理者而言是必填項目。
       form_tip_profile_oauth: 名字為必填，其他有 %{required_icon} 標記的項目對一般使用者而言是選填項目，但對管理者而言是必填項目。
-    new: 
+    new:
       complete_registration_header: 完成您的EOL註冊
       create_user_header: 建立一個新的 <abbr title="Encyclopedia of Life">EOL</abbr> 帳號
       create_user_with_eol_authentication_header: 或提供新資歷：
@@ -4053,31 +4053,31 @@ zh-Hant:
       sign_up_with_google_assistive: 請使用您的Google憑證在EOL註冊。
       sign_up_with_twitter_assistive: 請使用您的Twitter憑證在EOL註冊。
       sign_up_with_yahoo_assistive: 請使用您的Yahoo憑證在EOL註冊。
-    newsfeeds: 
-      activity: 
+    newsfeeds:
+      activity:
         meta_title: "%{user_full_name} 的活動饋送"
         tweet_text: "%{user_full_name} 的活動饋送"
       activity_link: 活動
-      comments: 
+      comments:
         meta_description: 訂閱使用者%{user_full_name} 的評論。
         meta_title: 使用者%{user_full_name} 的評論
         tweet_text: 使用者%{user_full_name} 的評論
       comments_link: 評論
       newsfeed_link: newsfeed
-      show: 
+      show:
         meta_description: "%{user_full_name} 的新聞、活動更新及評論。"
         meta_title: "%{user_full_name} Newsfeed"
         tweet_text: "%{user_full_name} newsfeed"
-    notifications: 
-      edit: 
+    notifications:
+      edit:
         page_description: 下方顯示的所有更新資訊(除了EOL newsletter)，都可以取得於您的 <a href="%{user_newsfeed_link}">EOL newsfeed</a> ；但有許多使用者也希望能透過email得知他們特別關注的某些活動的訊息。您可以依照個人偏好，使用下方的按鈕設定EOL發送emails給您的頻率。
         page_title: 通知設定
-      update: 
+      update:
         notification_settings_successfully_updated: 成功更新了通知的設定
         sorry_notification_settings_could_not_be_updated: 抱歉，無法更新通知的設定
-    open_authentications: 
-      errors: 
-        facebook: 
+    open_authentications:
+      errors:
+        facebook:
           add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Facebook帳號至您的EOL帳號；您的Facebook帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Facebook帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證 <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Facebook帳號。如果您尚無EOL帳號，請 <a href="%{register_url}">完成您的EOL註冊</a> 以建立帳號
           missing_attributes: 抱歉，在取得您Facebook的詳細資料時發生了問題。
@@ -4086,7 +4086,7 @@ zh-Hant:
           not_authorized_to_login: 抱歉，我們沒有以您的Facebook帳號為您登入EOL的授權
           not_authorized_to_signup: 抱歉，我們沒有以您的Facebook帳號為您在EOL註冊的授權。
           signup_failed_account_already_connected: 抱歉，我們不能用您的Facebook帳號為您建立一個新的EOL帳號，您的Facebook帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
-        google: 
+        google:
           add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Google帳號至您的EOL帳號；您的Google帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Google帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證 <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Google帳號。如果您尚無EOL帳號，請 <a href="%{register_url}">完成您的EOL註冊</a> 以建立帳號
           missing_attributes: 抱歉，在取得您Facebook的詳細資料時發生了問題。
@@ -4099,7 +4099,7 @@ zh-Hant:
         not_authorized_to_add_authentication: 抱歉，我們沒有連結那個帳號的授權。
         not_authorized_to_login: 抱歉，我們沒有以該帳號為您登入EOL的授權。
         remove_connection_failed: 抱歉，出現了錯誤，我們無法移除此連結。
-        twitter: 
+        twitter:
           add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Twitter帳號至您的EOL帳號；您的Twitter帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Twitter帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證 <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Twitter帳號。如果您尚無EOL帳號，請 <a href="%{register_url}">完成您的EOL註冊</a> 以建立帳號。
           missing_attributes: 抱歉，在取得您Twitter的詳細資料時發生了問題。
@@ -4108,7 +4108,7 @@ zh-Hant:
           not_authorized_to_login: 抱歉，我們沒有以您的Twitter帳號為您登入EOL的授權。
           not_authorized_to_signup: 抱歉，我們沒有以您的Twitter帳號為您在EOL註冊的授權。
           signup_failed_account_already_connected: 抱歉，我們無法用您的Twitter帳號為您建立一個新的EOL帳號；您的Twitter帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
-        yahoo: 
+        yahoo:
           add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Yahoo!帳號至您的EOL帳號；您的Yahoo!帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Yahoo!帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證 <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Yahoo!帳號。如果您尚無EOL帳號，請 <a href="%{register_url}">完成您的EOL註冊</a> 以建立帳號。
           missing_attributes: 抱歉，在取得您Yahoo!的詳細資料時發生了問題。
@@ -4119,36 +4119,36 @@ zh-Hant:
           signup_failed_account_already_connected: 抱歉，我們不能用您的Yahoo!帳號為您建立一個新的EOL帳號；您的Yahoo!帳號已連結至一個 <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
       facebook: Facebook
       google: Google
-      index: 
+      index:
         connected_last_verified: 已連結；最後確認是於 %{time_passed} 之前；
         connected_unverified: 已連結；未確認；
         not_connected: 未連結；
         page_description: 管理第三方帳號的連結，您可以藉以登入EOL。
         page_title: 連結帳號
         return_link: 返回編輯簡介。
-      notices: 
-        facebook: 
+      notices:
+        facebook:
           new_authentication_added: Facebook的認證已被添加至您的帳號。
           removed_connection: 我們已成功移除了EOL與您Facebook帳號之間的連結。要完全解除您Facebook帳號與EOL之間的未來互動，您必須去Facebook修改您的帳號設定。
-        google: 
+        google:
           new_authentication_added: Google的認證已被添加至您的帳號。
           removed_connection: 我們已成功移除了EOL與您Google帳號之間的連結。要完全解除您Google帳號與EOL之間的未來互動，您必須去Google修改您的帳號設定。
-        twitter: 
+        twitter:
           new_authentication_added: Twitter的認證已被添加至您的帳號。
           removed_connection: 我們已成功移除了EOL與您Twitter帳號之間的連結。要完全解除您Twitter帳號與EOL之間的未來互動，您必須去Twitter修改您的帳號設定。
-        yahoo: 
+        yahoo:
           new_authentication_added: Yahoo!的認證已被添加至您的帳號。
           removed_connection: 我們已成功移除了EOL與您Yahoo!帳號之間的連結。要完全解除您Yahoo!帳號與EOL之間的未來互動，您必須去Yahoo!修改您的帳號設定。
       twitter: Twitter
-      warnings: 
+      warnings:
         no_way_to_login: 您不再有任何連結帳號。除非您新增一個連結帳號或新增一個EOL使用者名稱和密碼，否則您將無法登回EOL。
       yahoo: Yahoo!
-    pending: 
+    pending:
       header: 感謝您的註冊！
       verify_email_instructions: <strong>請確認您的email地址</strong>，有一筆確認訊息已被發送至您所提供的email地址。要完成註冊過程並成為一位EOL會員，請您點擊該email中包含的連結，謝謝您！
       verify_email_tip: 請注意：啟動帳戶的email<EM>常</ em>會被email篩選程式標記為'垃圾郵件'。如果您在一個小時內未收到您的email，請檢查您的垃圾郵件資料夾。
-    recover_account: 
-      errors: 
+    recover_account:
+      errors:
         temporary_login_user_not_found: 抱歉，無法找到您要恢復的EOL帳號，請申請一個新的email以恢復您的帳號。
         token_expired_or_invalid: 抱歉，臨時性登入連結已過期或無效，請申請一個新的email以恢復您的帳號。
         unable_to_update_token: 抱歉，出現了錯誤，email未被發送，請您再試一次。
@@ -4156,26 +4156,26 @@ zh-Hant:
       form_header: 恢復帳號
       form_tip: 要恢復您的EOL帳號，請輸入與該帳號相關的email地址。如果您在一個小時內沒有收到一封'恢復帳號'的email，請檢查您的垃圾郵件資料夾。
       meta_title: 恢復帳號
-      notices: 
+      notices:
         recovery_email_sent: 包含'恢復帳號'詳細說明的郵件已被發送。如果您在一個小時內沒有收到此封email，請添加 %{from_address} 至安全寄件者清單中，並檢查您的垃圾郵件篩選程式。
         temporarily_logged_in_update_authentication_details: 您被允許臨時登入以恢復帳號，請修改您的密碼或更新您的連結帳號以確認您可以成功登入。
-    recover_account_choose_account: 
-      errors: 
+    recover_account_choose_account:
+      errors:
         user_not_found_choose_again: 抱歉，出現了錯誤，email未被發送，請選擇您想恢復使用的帳號，再試一次。
       form_header: 恢復帳號
       form_tip: 有數個以email地址 <em>%{email}</em> 註冊的帳號，請選擇您想恢復使用的帳號。
       legend_choose_account: 選擇帳號
-    show: 
+    show:
       meta_description: "%{user_full_name} 的生命大百科中會員簡介。"
       meta_description_curator: "%{curator_level} %{user_full_name} 的生命大百科中會員簡介"
-    unsubscribe_notifications: 
+    unsubscribe_notifications:
       already_unsubscribed: 您已經退訂了通知。
       unsubscribe_notifications_failed: 抱歉，出現了錯誤，使用者無法退訂通知。
       unsubscribed_notifications_successfully: 您已經成功退訂了通知
   users_about_me_header: 關於我
   users_content_partners_header: 內容合作夥伴
   users_content_partners_information: EOL的內容合作夥伴們是經由EOL與全世界分享生物多樣性資料的個人或機構。更深入瞭解有關<a href="%{more_url}">EOL內容合作夥伴</a>。
-  users_content_partners_with_count: 
+  users_content_partners_with_count:
     one: "%{count} 位現有內容合作夥伴"
     other: "%{count} 位現有內容合作夥伴"
   users_curation_header: 管理者資格
@@ -4183,7 +4183,7 @@ zh-Hant:
   users_form_curation_header: 管理者資格
   users_form_profile_info_header: 公開的簡介資訊
   users_form_tip: 所有使用者都必須有使用者名稱，其它有 %{required_icon} 標記的項目對一般使用者而言是選填項目，但對管理者而言是必填項目。
-  users_member_of_count_communities: 
+  users_member_of_count_communities:
     one: "%{count} 個社群的會員"
     other: "%{count} 個社群的會員"
   users_my_info_header: 我的資訊
@@ -4206,7 +4206,7 @@ zh-Hant:
   video_of_taxon: 有關 %{taxon_name} 的影片
   video_rating: 影片評價
   video_title_not_available_in_language: 沒有 %{language} 的標題
-  videos_with_count: 
+  videos_with_count:
     one: "%{count} 個影片"
     other: "%{count} 個影片"
   view_added_text: 瀏覽新增文字
@@ -4265,7 +4265,7 @@ zh-Hant:
   wikipedia_queue_new_intro: 提交維基百科文章的修訂版，EOL將把它當成一個已審核的文字物件對待。
   wikipedia_queue_new_page_title: 要求輸入一篇維基百科文章
   will_find_taxon_pages_matching_the_search_term: 如果搜尋術語和優先名稱、同物異名或俗名完全相符時，就能找到分類單元頁面
-  will_paginate: 
+  will_paginate:
     next_label: 下一頁
     previous_label: 前一頁
   worklist: 工作清單

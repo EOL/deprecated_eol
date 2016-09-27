@@ -670,7 +670,7 @@ nb:
         create: Legg til ressurs
         update: Oppdater ressurs
         update_settings: Oppdater innstillinger
-       force_harvest: Be om påtvunget datahøsting
+        force_harvest: Be om påtvunget datahøsting
       session:
         create: Logg inn
         sign_in_with_facebook: Logg inn med Facebook

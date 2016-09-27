@@ -808,7 +808,7 @@ en:
         create: "Add resource"
         update: "Update resource"
         update_settings: "Update settings"
-       force_harvest: "Request Harvest"
+        force_harvest: "Request Harvest"
         harvest_tonight: "Harvest Tonight"
       session:
         create: "Sign in"

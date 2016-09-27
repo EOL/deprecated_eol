@@ -411,7 +411,7 @@ sr-Latn:
         create: Dodaj resurs
         update: Ažuriraj resurs
         update_settings: Ažuriraj postavke
-       force_harvest: Zatraži nametnuto preuzimanje
+        force_harvest: Zatraži nametnuto preuzimanje
       session:
         create: Prijava
       translated_content_page:

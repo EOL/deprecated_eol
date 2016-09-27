@@ -113,11 +113,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       @resource = @partner.resources.find(params[:id])
     end
     access_denied unless current_user.can_update?(@resource)
-    if @resource.resource_status.blank? || @resource.resource_status == ResourceStatus.being_processed
-      flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
-                             resource_title: @resource.title, current_resource_status: @resource.status_label,
-                             requested_resource_status: Resource.harvest_tonight.label)
-    else
+    if @resource.status_can_be_changed_to?(ResourceStatus.harvest_tonight)
       @resource.resource_status = ResourceStatus.harvest_tonight
       if @resource.save
         flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
@@ -126,6 +122,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
         flash.now[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
                                    resource_status: @resource.status_label, resource_title: @resource.title)
       end
+    else
+      flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
+                             resource_title: @resource.title, current_resource_status: @resource.status_label,
+                             requested_resource_status: Resource.harvest_tonight.label)
     end
     store_location request.referer unless request.referer.blank?
     redirect_back_or_default content_partner_resources_path(@partner)

@@ -146,7 +146,7 @@ module EOL
       def all_measurement_type_uris
         # NOTE: THIS STILL TAKE A LOOOOONG TIME TO RUN... about a minute! :S
         return Rails.cache.fetch("known_uris/measurements/show_in_gui/uris",
-          expires_in: 1.week) do
+          expires_in: 2.weeks) do
           EOL::Sparql::Client.if_connection_fails_return([]) do
             result = query("
               SELECT DISTINCT ?uri WHERE {
@@ -159,18 +159,18 @@ module EOL
         end
 
         # TODO: re-write this, the query always times out and is overloading the system.
-        self.class.cache_fetch_with_local_timeout(
-          self.class.cache_key("all_measurement_type_uris"), :expires_in => 1.day) do
-          counts_of_all_measurement_type_uris.map { |k,v| k }
-        end
+        # self.class.cache_fetch_with_local_timeout(
+        #   self.class.cache_key("all_measurement_type_uris"), :expires_in => 2.weeks) do
+        #   counts_of_all_measurement_type_uris.map { |k,v| k }
+        # end
       end
 
       def all_measurement_type_known_uris
         uris = self.class.cache_fetch_with_local_timeout(
-          self.class.cache_key("all_measurement_type_known_uris"), :expires_in => 1.day) do
+          self.class.cache_key("all_measurement_type_known_uris"), :expires_in => 2.weeks) do
             all_uris = all_measurement_type_uris
             all_known_uris = KnownUri.by_uris(all_uris)
-            all_uris.map { |uri| all_known_uris.compact.detect { |kn| kn.uri == uri } }
+            all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
         end
         # If that list is empty, it indicates that Virtuoso is broken. Don't
         # cache this (or any) value, otherwise it will be blank for 24 hours!
@@ -186,7 +186,7 @@ module EOL
         remember_cached_taxon(taxon_concept.id)
         self.class.cache_fetch_with_local_timeout(
           self.class.clade_cache_key(taxon_concept.id),
-          :expires_in => 1.day) do
+          :expires_in => 2.weeks) do
           all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).map { |k,v| k }
           all_known_uris = KnownUri.by_uris(all_uris)
           all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
@@ -208,7 +208,7 @@ module EOL
       def counts_of_all_value_known_uris_by_type
         self.class.cache_fetch_with_local_timeout(
           self.class.cache_key("counts_of_all_value_known_uris_by_type"),
-          :expires_in => 1.day) do
+          :expires_in => 2.weeks) do
             counts = counts_of_all_value_uris_by_type
             Hash[
               KnownUri.by_uris(counts.keys.compact).map do |kuri|

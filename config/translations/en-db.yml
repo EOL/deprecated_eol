@@ -165,7 +165,7 @@ en-db:
   translated_resource_statuses-label-resource_status_id-10: "Published"
   translated_resource_statuses-label-resource_status_id-11: "Publish Pending"
   translated_resource_statuses-label-resource_status_id-12: "Unpublish Pending"
-  translated_resource_statuses-label-resource_status_id-13: "Force Harvest"
+  translated_resource_statuses-label-resource_status_id-13: "Harvest Requested"
   translated_resource_statuses-label-resource_status_id-1: "Uploading"
   translated_resource_statuses-label-resource_status_id-2: "Uploaded"
   translated_resource_statuses-label-resource_status_id-3: "Upload Failed"

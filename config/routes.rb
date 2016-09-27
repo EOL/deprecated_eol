@@ -227,8 +227,8 @@ Eol::Application.routes.draw do
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
     resources :resources, :controller => 'content_partners/resources' do
       member do
-        get 'force_harvest', :controller => 'content_partners/resources'
-        post 'force_harvest', :controller => 'content_partners/resources'
+        get 'harvest_requested', :controller => 'content_partners/resources'
+        post 'harvest_requested', :controller => 'content_partners/resources'
       end
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'
       resources :hierarchies, controller: 'content_partners/resources/hierarchies', only: [:edit, :update]  do

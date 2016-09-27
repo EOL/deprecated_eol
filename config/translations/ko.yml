@@ -645,7 +645,7 @@ ko:
         create: 자료 추가
         update: 자료 업데이트
         update_settings: 설정 업데이트
-        force_harvest: 강제로 수확 요청
+        harvest_requested: 강제로 수확 요청
       session:
         create: 로그인
         sign_in_with_facebook: Facebook으로 로그인
@@ -1189,7 +1189,7 @@ ko:
         자료 URL: %{resource_url}
         만든 날짜: %{resource_created_at_date}
         상태: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: '%{user_full_name} EOL 사용자가 %{partner_full_name} 콘텐츠 파트너에 속하는 %{resource_title}
         자료에 대한 강제 수확을 요청했습니다'
       message: |-
@@ -3519,7 +3519,7 @@ ko:
   content_partner_resource_collections_header: 모음집
   content_partner_resource_collection_header: 모음집을 게시함
   content_partner_resource_collection_show_link: 게시한 모음집 보기
-  content_partner_resource_confirm_force_harvest: '%{resource_title} 자료를 강제 수확하겠습니까?'
+  content_partner_resource_confirm_harvest_requested: '%{resource_title} 자료를 강제 수확하겠습니까?'
   content_partner_resource_create_successful_notice: '콘텐츠 파트너 자료 자세한 정보를 성공적으로 추가했습니다.
     자료 데이터의 현재 상태: %{resource_status}'
   content_partner_resource_create_unsuccessful_error: 죄송합니다, 오류가 발생해 자료를 추가하지 못했습니다.

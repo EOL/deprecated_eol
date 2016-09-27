@@ -806,7 +806,7 @@ pt-BR:
         create: Adicionar recurso
         update: Atualizar recurso
         update_settings: Atualizar configurações
-        force_harvest: Pedir colheita forçada
+        harvest_requested: Pedir colheita forçada
       session:
         create: Login
         sign_in_with_facebook: Login com o Facebook
@@ -1403,7 +1403,7 @@ pt-BR:
         URL do recurso: %{resource_url}
         Criado: %{resource_created_at_date}
         Estado: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Usuário EOL %{user_full_name} solicitou uma promoção na hierarquia
         para o recurso %{resource_title} pertencente ao parceiro de conteúdo %{partner_full_name}
       message: |-

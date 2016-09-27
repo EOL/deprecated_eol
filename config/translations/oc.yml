@@ -790,7 +790,7 @@ oc:
         create: Apondre una ressorsa
         update: Metre a jorn la ressorsa
         update_settings: Metre a jorn los paramètres
-        force_harvest: Demandar de forçar la collècta
+        harvest_requested: Demandar de forçar la collècta
       session:
         create: S’identificar
         sign_in_with_facebook: Connectatz-vos amb Facebook
@@ -1395,7 +1395,7 @@ oc:
         URL de la ressorsa : %{resource_url}
         Creada lo : %{resource_created_at_date}
         Estat : %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: L’utilizaire de l’EdlV %{user_full_name} a demandat una recòlta forçada
         per la ressorsa %{resource_title} qu'aparten al partenari de contengut %{partner_full_name}
       message: |-
@@ -4446,7 +4446,7 @@ oc:
   content_partner_resource_collections_header: Colleccions
   content_partner_resource_collection_header: Colleccion publicada
   content_partner_resource_collection_show_link: Afichar la colleccion publicada
-  content_partner_resource_confirm_force_harvest: Sètz forçar la recòlta de las ressorsas
+  content_partner_resource_confirm_harvest_requested: Sètz forçar la recòlta de las ressorsas
     %{resource_title}?
   content_partner_resource_create_successful_notice: 'Las informacions sus la ressorsa
     del partenari son estadas apondudas. Estatut actual de la ressorsa : %{resource_status}'

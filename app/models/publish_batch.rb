@@ -82,7 +82,7 @@ class PublishBatch
       else
         EOL.log("Nothing was published; skipping denormalization", prefix: "!")
       end
-      summary = "\n## PUBLISHING SUMMARY, "
+      summary = "## PUBLISHING SUMMARY, "
       # Apologies for the hard-coded time zone here, but it helps me report on
       # things properly:
       summary += Time.now.in_time_zone("Eastern Time (US & Canada)").
@@ -90,8 +90,10 @@ class PublishBatch
       @summary.each do |stat|
         summary += "\n[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}"
       end
-      EOL.log(summary, prefix: "P")
+      EOL.log("\n\n#{summary}\n", prefix: "P")
       AdminMailer.harvest_complete(summary).deliver
+      # HAAAA-A-A-A-A-ACKITY HACK HACK! ...More reliable than email, though:
+      User.first.update_attribute(:bio, summary)
     end
     EOL.log_return
   end

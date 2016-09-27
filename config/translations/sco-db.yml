@@ -174,7 +174,7 @@ sco:
   translated_resource_statuses-label-resource_status_id-10: Published
   translated_resource_statuses-label-resource_status_id-11: Publish Pendin
   translated_resource_statuses-label-resource_status_id-12: Onpublish Pendin
-  translated_resource_statuses-label-resource_status_id-13: Force Harvest
+  translated_resource_statuses-label-resource_status_id-13: Harvest Requested
   translated_resource_statuses-label-resource_status_id-1: Uplaidin
   translated_resource_statuses-label-resource_status_id-2: Uplaided
   translated_resource_statuses-label-resource_status_id-3: Uplaid Failed

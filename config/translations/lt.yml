@@ -1327,7 +1327,7 @@ lt:
         Resurso URL: %{resource_url}
         Sukurtas: %{resource_created_at_date}
         Būsena: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: EOL vartotojas %{user_full_name} paprašė priverstinio resurso %{resource_title}
         surinkimo, kuris priklauso turinio partneriui %{partner_full_name}
       message: |-

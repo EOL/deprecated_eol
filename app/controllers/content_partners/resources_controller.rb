@@ -105,9 +105,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @meta_data = { title: I18n.t(:content_partner_resource_page_title, :content_partner_name => @partner.full_name, :resource_name => @resource.title) }
   end
 
-  # GET /content_partners/:content_partner_id/resources/:id/force_harvest
-  # POST /content_partners/:content_partner_id/resources/:id/force_harvest
-  def force_harvest
+  # GET /content_partners/:content_partner_id/resources/:id/harvest_requested
+  # POST /content_partners/:content_partner_id/resources/:id/harvest_requested
+  def harvest_requested
     ContentPartner.with_master do
       @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
       @resource = @partner.resources.find(params[:id])
@@ -116,9 +116,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.resource_status.blank? || @resource.resource_status == ResourceStatus.being_processed
       flash[:error] = I18n.t(:content_partner_resource_status_update_illegal_transition_error,
                              resource_title: @resource.title, current_resource_status: @resource.status_label,
-                             requested_resource_status: Resource.force_harvest.label)
+                             requested_resource_status: Resource.harvest_requested.label)
     else
-      @resource.resource_status = ResourceStatus.force_harvest
+      @resource.resource_status = ResourceStatus.harvest_requested
       if @resource.save
         flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
                                 resource_status: @resource.status_label, resource_title: @resource.title)

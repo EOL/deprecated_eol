@@ -834,7 +834,7 @@ fr:
         create: Ajouter une ressource
         update: Mettre à jour la ressource
         update_settings: Mettre à jour les paramètres
-        force_harvest: Demander de forcer la récolte
+        harvest_requested: Demander de forcer la récolte
       session:
         create: S’identifier
         sign_in_with_facebook: Connectez-vous avec Facebook
@@ -1440,7 +1440,7 @@ fr:
         URL de la ressource : %{resource_url}
         Créée le : %{resource_created_at_date}
         État : %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: L’utilisateur de l’EdlV %{user_full_name} a demandé une récolte forcée
         pour la ressource %{resource_title} appartenant au partenaire de contenu %{partner_full_name}
       message: |-
@@ -4514,7 +4514,7 @@ fr:
   content_partner_resource_collections_header: Collections
   content_partner_resource_collection_header: Collection publiée
   content_partner_resource_collection_show_link: Afficher la collection publiée
-  content_partner_resource_confirm_force_harvest: Êtes-vous sûr de vouloir forcer
+  content_partner_resource_confirm_harvest_requested: Êtes-vous sûr de vouloir forcer
     la récolte des ressources %{resource_title}?
   content_partner_resource_create_successful_notice: 'Les informations sur la ressource
     du partenaire ont été ajoutés. Statut actuel de la ressource : %{resource_status}'

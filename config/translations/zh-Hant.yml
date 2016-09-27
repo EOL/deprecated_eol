@@ -1484,7 +1484,7 @@ zh-Hant:
   content_partner_resource_collection_header: 已發布的典藏
   content_partner_resource_collection_show_link: 瀏覽已發布的典藏
   content_partner_resource_collections_header: 典藏
-  content_partner_resource_confirm_force_harvest: 您確定要強制彙集資源 %{resource_title} 嗎?
+  content_partner_resource_confirm_harvest_requested: 您確定要強制彙集資源 %{resource_title} 嗎?
   content_partner_resource_create_successful_notice: 成功新增了內容合作夥伴資源的詳細資料。資源資料的目前狀態是：%{resource_status}。
   content_partner_resource_create_unsuccessful_error: 抱歉，出現了錯誤，未能新增此資源。
   content_partner_resource_dataset_details_header: 資料集
@@ -2411,7 +2411,7 @@ zh-Hant:
         update: 確認連線
       resource: 
         create: 新增資源
-        force_harvest: 要求強制彙集
+        harvest_requested: 要求強制彙集
         update: 更新資源
         update_settings: 更新設定
       session: 
@@ -2944,7 +2944,7 @@ zh-Hant:
     content_partner_resource_created: 
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 為內容合作夥伴 %{partner_full_name} 添加了一個新資源 %{resource_title}，細節如下：\n\n使用者：%{user_full_name}\nE-mail：%{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴資源URL：%{partner_resources_url}\n\n資源：%{resource_title}\n資源URL：%{resource_url}\n建立時間：%{resource_created_at_date}\n狀態: %{resource_status}"
       subject: EOL使用者 %{user_full_name} 將新資源 %{resource_title} 新增至內容合作夥伴 %{partner_full_name}
-    content_partner_resource_force_harvest_request: 
+    content_partner_resource_harvest_requested_request: 
       message: "這是為物種頁面小組自動發出的EOL系統通知。使用者 %{user_full_name} 要求強制彙集內容合作夥伴 %{partner_full_name} 的資源 %{resource_title}，細節如下：\n\n使用者: %{user_full_name}\nE-mail：%{user_email}\n簡介URL：%{user_profile_url}\n\n合作夥伴：%{partner_full_name}\n合作夥伴資源URL：%{partner_resources_url}\n\n資源：%{resource_title}\n資源URL：%{resource_url}\n更新時間：%{resource_updated_at_date}\n狀態：%{resource_status}"
       subject: EOL使用者 %{user_full_name} 要求強制彙集內容合作夥伴 %{partner_full_name} 的資源 %{resource_title}
     content_partner_resource_hierarchy_publish_request: 

@@ -64,13 +64,13 @@ class Notifier < ActionMailer::Base
       from: $NO_REPLY_EMAIL_ADDRESS )
   end
 
-  def content_partner_resource_force_harvest_request(partner, resource, user)
+  def content_partner_resource_harvest_requested_request(partner, resource, user)
     @partner = partner
     @resource = resource
     @user = user
     mail(
       subject: I18n.t(:subject, partner_full_name: partner.full_name, resource_title: resource.title,
-                           user_full_name: user.full_name, scope: [:notifier, :content_partner_resource_force_harvest_request]),
+                           user_full_name: user.full_name, scope: [:notifier, :content_partner_resource_harvest_requested_request]),
       to: $SPECIES_PAGES_GROUP_EMAIL_ADDRESS,
       from: $NO_REPLY_EMAIL_ADDRESS )
   end

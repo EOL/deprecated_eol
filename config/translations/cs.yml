@@ -712,7 +712,7 @@ cs:
         create: Přidat zdroj
         update: Aktualizovat zdroj
         update_settings: Aktualizovat nastavení
-        force_harvest: Vynucení sklizně
+        harvest_requested: Vynucení sklizně
       session:
         create: Přihlásit se
         sign_in_with_facebook: Přihlásit se prostřednictvím Facebooku
@@ -1252,7 +1252,7 @@ cs:
         URL zdroje: %{resource_url}
         Vytvořeno: %{resource_created_at_date}
         Stav: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: EOL uživatel %{user_full_name} si vyžádal stažení dat ze zdroje %{resource_title}
         patřícího spolutvůrci obsahu %{partner_full_name}
       message: |-

@@ -807,7 +807,7 @@ nl:
         create: Bron toevoegen
         update: Bron bijwerken
         update_settings: Instellingen bijwerken
-        force_harvest: Verzoek geforceerd ophalen
+        harvest_requested: Verzoek geforceerd ophalen
       session:
         create: Aanmelden
         sign_in_with_facebook: Aanmelden met Facebook
@@ -1407,7 +1407,7 @@ nl:
         Bron-URL: %{resource_url}
         Aangemaakt op: %{resource_created_at_date}
         Status: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: De EOL-gebruiker %{user_full_name} heeft gevraagd om een import voor
         de bron %{resource_title} van de contentpartner %{partner_full_name}
       message: |-
@@ -4506,7 +4506,7 @@ nl:
   content_partner_resource_collections_header: Verzamelingen
   content_partner_resource_collection_header: Gepubliceerde verzameling
   content_partner_resource_collection_show_link: Gepubliceerde verzameling bekijken
-  content_partner_resource_confirm_force_harvest: Weet u zeker dat u het bijwerken
+  content_partner_resource_confirm_harvest_requested: Weet u zeker dat u het bijwerken
     van de bron %{resource_title} wilt forceren?
   content_partner_resource_create_successful_notice: 'De brongegevens voor de contentpartner
     zijn toegevoegd. De huidige status van de brongegevens: %{resource_status}.'

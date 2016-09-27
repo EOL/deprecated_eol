@@ -136,8 +136,8 @@ describe ContentPartners::ResourcesController do
     end
   end
 
-#  describe 'GET and POST force_harvest' do
-#    it 'should change resource status to force harvest only if user can update resource and state transition is allowed'
+#  describe 'GET and POST harvest_requested' do
+#    it 'should change resource status to harvest requested only if user can update resource and state transition is allowed'
 #    it 'should redirect back or default on success'
 #  end
 #

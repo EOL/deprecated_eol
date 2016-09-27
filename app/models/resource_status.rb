@@ -6,7 +6,7 @@ class ResourceStatus < ActiveRecord::Base
   include Enumerated
   enumerated :label, [
     'Being Processed',
-    'Force Harvest',
+    'Harvest Requested',
     'Moved to Content Server',
     'Processed',
     'Processing Failed',
@@ -17,7 +17,8 @@ class ResourceStatus < ActiveRecord::Base
     'Validation Failed',
     'Published',
     'Obsolete',
-    'Harvest Failed'
+    'Harvest Failed',
+    'Harvest Tonight'
   ]
 
 end

@@ -131,6 +131,27 @@ class ContentPartners::ResourcesController < ContentPartnersController
     redirect_back_or_default content_partner_resources_path(@partner)
   end
 
+  # NOTE: Errr... Long story about why this sets it to "harvest requested" when
+  # you're removing the request, but this is *actually* undoing a "harvest
+  # tonight", and I didn't want to rename it everywhere...
+  def remove_harvest_request
+    ContentPartner.with_master do
+      @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
+      @resource = @partner.resources.find(params[:id])
+    end
+    access_denied unless current_user.can_update?(@resource)
+    @resource.resource_status = ResourceStatus.harvest_requested
+    if @resource.save
+      flash[:notice] = I18n.t(:content_partner_resource_status_update_successful_notice,
+                              resource_status: @resource.status_label, resource_title: @resource.title)
+    else
+      flash.now[:error] = I18n.t(:content_partner_resource_status_update_unsuccessful_error,
+                                 resource_status: @resource.status_label, resource_title: @resource.title)
+    end
+    store_location request.referer unless request.referer.blank?
+    redirect_back_or_default content_partner_resources_path(@partner)
+  end
+
   def destroy
     partner = ContentPartner.find(params[:content_partner_id], include: [:resources])
     resource = partner.resources.find(params[:id])

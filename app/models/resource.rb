@@ -182,18 +182,13 @@ class Resource < ActiveRecord::Base
     resource_status == ResourceStatus.processed
   end
 
+  # NOTE: this is fairly useless now, but it's a placeholder for more intricate
+  # decision-making later, if needed. It USED to make sure the status was in a
+  # particular set, but I decided to make this a your-gun-your-foot policy,
+  # since it's restricted to admins anyway.
   def status_can_be_changed_to?(new_status)
     return false if resource_status == new_status
-    if new_status == ResourceStatus.harvest_requested ||
-       new_status == ResourceStatus.harvest_tonight
-      !resource_status.blank? &&
-      [ ResourceStatus.processed, ResourceStatus.processing_failed, ResourceStatus.validated,
-        ResourceStatus.validation_failed, ResourceStatus.published, ResourceStatus.harvest_requested,
-        ResourceStatus.harvest_tonight
-      ].include?(resource_status)
-    else
-      true
-    end
+    true
   end
 
   def self.iucn_structured_data

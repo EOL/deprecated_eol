@@ -228,6 +228,8 @@ Eol::Application.routes.draw do
     resources :resources, :controller => 'content_partners/resources' do
       member do
         get 'harvest_requested', :controller => 'content_partners/resources'
+        # NOTE: no, not restful; I'm hacking this and don't want to make it a resource:
+        get 'remove_harvest_request', :controller => 'content_partners/resources'
         post 'harvest_requested', :controller => 'content_partners/resources'
       end
       resources :harvest_events, :only => [:index, :update], :controller => 'content_partners/resources/harvest_events'

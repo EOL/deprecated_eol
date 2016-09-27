@@ -39,30 +39,8 @@ class Resource < ActiveRecord::Base
   scope :harvested, -> { where("harvested_at IS NOT NULL") }
   scope :unharvested, -> { where("harvested_at IS NULL") }
   # This is, of course, ridiculous. But it's what is used in PHP, sooo...
-  scope :ready, -> do
-    where(
-      "resource_status_id = #{ResourceStatus.harvest_requested.id} OR "\
-      "("\
-        "harvested_at IS NULL AND ("\
-          "resource_status_id = #{ResourceStatus.validated.id} OR "\
-          "resource_status_id = #{ResourceStatus.validation_failed.id} OR "\
-          "resource_status_id = #{ResourceStatus.processing_failed.id}"\
-        ") "\
-      ") OR ( "\
-        "refresh_period_hours != 0 AND "\
-        "DATE_ADD(harvested_at, "\
-          "INTERVAL(refresh_period_hours) HOUR) <= NOW() AND "\
-        "resource_status_id IN ("\
-          "#{ResourceStatus.upload_failed.id}, "\
-          "#{ResourceStatus.validated.id}, "\
-          "#{ResourceStatus.validation_failed.id}, "\
-          "#{ResourceStatus.processed.id}, "\
-          "#{ResourceStatus.processing_failed.id}, "\
-          "#{ResourceStatus.published.id}"\
-        ")"\
-      ")"
-    )
-  end
+  scope :ready,
+    -> { where(resource_status_id: ResourceStatus.harvest_tonight.id) }
   scope :failed,
     -> { where(resource_status_id: ResourceStatus.harvest_failed.id) }
   scope :harvestable, -> { where(harvestable: true) }

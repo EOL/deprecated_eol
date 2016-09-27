@@ -1,4 +1,4 @@
-- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 1.week) do
+- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 2.weeks) do
   - known_uris = KnownUri.glossary_terms
   #content
     #known_uris.site_column.glossary
@@ -17,10 +17,11 @@
                 %label= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
         %p.explain= I18n.t(:data_glossary_contribute, url: cms_page_url('contribute', anchor: 'data')).html_safe
         - a_to_zero.each do |letter|
-          %a{ name: letter }
-          .chapter_marker
-            %h3= letter == '0' ? '#' : letter
-          %ul.glossary
-            - uris_for_this_chapter = known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
-            - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
-              = render('known_uris/definition', { known_uri: ku, top_link: true, attribution: true, search_link: true, glossary_permalink: true })
+          - cache("glossary_in_lang_#{current_language.iso_code}/#{letter}", expires_in: 2.weeks)
+            %a{ name: letter }
+            .chapter_marker
+              %h3= letter == '0' ? '#' : letter
+            %ul.glossary
+              - uris_for_this_chapter = known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
+              - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
+                = render('known_uris/definition', { known_uri: ku, top_link: true, attribution: true, search_link: true, glossary_permalink: true })

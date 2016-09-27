@@ -22,6 +22,7 @@
             %tr.header
               %th= I18n.t(:actions)
               %th= I18n.t(:last_harvest_duration)
+              %th= I18n.t(:remove)
               %th.move= I18n.t(:move)
           %tbody
             - @pending_harvests.each do |pending_harvest|

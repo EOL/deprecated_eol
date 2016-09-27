@@ -779,7 +779,7 @@ uk:
         create: Додати ресурс
         update: Оновити ресурс
         update_settings: Оновити налаштування
-        force_harvest: Запитати урожай
+        harvest_requested: Запитати урожай
       session:
         create: Увійти
         sign_in_with_facebook: Увійти за допомогою Facebook
@@ -1374,7 +1374,7 @@ uk:
         URL ресурсів: %{resource_url}
         Створено: %{resource_created_at_date}
         Статус: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Користувач %{user_full_name} запитав урожай для ресурсу  %{resource_title},
         який належить партнеру по вмісту %{partner_full_name}
       message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\".
@@ -4285,7 +4285,7 @@ uk:
   content_partner_resource_collections_header: Колекції
   content_partner_resource_collection_header: Опубліковано колекцію
   content_partner_resource_collection_show_link: Переглянути опубліковану колекцію
-  content_partner_resource_confirm_force_harvest: Ви впевнені, що хочете запустити
+  content_partner_resource_confirm_harvest_requested: Ви впевнені, що хочете запустити
     збір даних з ресурсу %{resource_title}?
   content_partner_resource_create_successful_notice: 'Деталі про ресурс партнера по
     контенту успішно додано. Поточний статус даних ресурсу: %{resource_status}.'

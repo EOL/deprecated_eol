@@ -666,7 +666,7 @@ zh-CN:
         create: 添加资源
         update: 更新资源
         update_settings: 更新设置
-        force_harvest: 请求强制采集
+        harvest_requested: 请求强制采集
       session:
         create: 登录
         sign_in_with_facebook: 使用Facebook账号登录
@@ -1229,7 +1229,7 @@ zh-CN:
         资源URL: %{resource_url}
         创建时间: %{resource_created_at_date}
         状态: %{resource_status}"
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: EOL用户 %{user_full_name} 要求强制采集内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}
       message: |-
         "这是EOL系统为物种页面组自动发送的通告。用户 %{user_full_name} 请求强制采集属于内容合作伙伴 %{partner_full_name}的资源%{resource_title},细节如下:
@@ -3015,7 +3015,7 @@ zh-CN:
   content_partner_resource_collections_header: 收藏
   content_partner_resource_collection_header: 已发布的收藏
   content_partner_resource_collection_show_link: 查看已发布的收藏
-  content_partner_resource_confirm_force_harvest: 您确定要强制采集资源%{resource_title}吗?
+  content_partner_resource_confirm_harvest_requested: 您确定要强制采集资源%{resource_title}吗?
   content_partner_resource_create_successful_notice: 已成功添加内容合作伙伴资源详细信息。资源数据的当前状态是：
     {resource_status} %。
   content_partner_resource_create_unsuccessful_error: 抱歉，出现了一个错误，资源未能添加。

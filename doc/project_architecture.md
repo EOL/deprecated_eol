@@ -78,7 +78,7 @@ database, to be (possibly) re-used (and/or refined) for another project later.
 
 A curator (or a partner) would create a resource associated with a partner
 account. That specifies a harvest source (which could be a connector) and
-frequency, and allows a force harvest.
+frequency, and allows a harvest requested.
 
 ## media
 

@@ -711,7 +711,7 @@ tl:
         create: Magdagdag ng napagkunan
         update: Isapanahon ang pinagkukunan
         update_settings: Isapanahon ang mga katakdaan
-        force_harvest: Hilingin ang sapilitang pag-ani
+        harvest_requested: Hilingin ang sapilitang pag-ani
       session:
         create: Lumagda't pumasok
         sign_in_with_facebook: Lumagda sa pamamagitan ng Facebook
@@ -1188,7 +1188,7 @@ tl:
         URL ng Napagkunan: %{resource_url}
         Nilikha noong: %{resource_created_at_date}
         Katayuan: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Humiling ang tagagamit ng EOL na si %{user_full_name} ng isang sapilitang
         pag-ani para sa napagkukunang %{resource_title} na pag-aari ng kawaksi sa
         nilalaman na si %{partner_full_name}
@@ -4042,7 +4042,7 @@ tl:
   content_partner_resource_collection_header: Nalathalang kalipunan
   content_partner_resource_collection_show_link: Tingnan ang kalipunang nalathala
     na
-  content_partner_resource_confirm_force_harvest: Nakatitiiyak ka bang nais mong pilitin
+  content_partner_resource_confirm_harvest_requested: Nakatitiiyak ka bang nais mong pilitin
     ang pag-ani ng napagkunang %{resource_title}?
   content_partner_resource_create_successful_notice: 'Matagumpay na naidagdag ang
     mga detalye ng napagkunan ng kawaksi ng nilalaman. Pangkasalukuyang katayuan ng

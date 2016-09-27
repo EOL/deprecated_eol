@@ -670,7 +670,7 @@ nb:
         create: Legg til ressurs
         update: Oppdater ressurs
         update_settings: Oppdater innstillinger
-        force_harvest: Be om påtvunget datahøsting
+        harvest_requested: Be om påtvunget datahøsting
       session:
         create: Logg inn
         sign_in_with_facebook: Logg inn med Facebook
@@ -1209,7 +1209,7 @@ nb:
         Ressurs-webadresse: %{resource_url}
         Opprettet: %{resource_created_at_date}
         Status: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: EO-brukeren %{user_full_name} har bedt om en påtvunget datahøsting
         av ressursen %{resource_title} som tilhører innholdspartneren %{partner_full_name}
       message: |-
@@ -3534,7 +3534,7 @@ nb:
   content_partner_resource_auto_publish_false: Nei
   content_partner_resource_collections_header: Samlinger
   content_partner_resource_collection_header: Publisert samling
-  content_partner_resource_confirm_force_harvest: Er du sikker på at du vil påtvinge
+  content_partner_resource_confirm_harvest_requested: Er du sikker på at du vil påtvinge
     datahøstingen av ressursen %{resource_title}?
   content_partner_resource_dataset_details_header: Datasett
   content_partner_resource_edit_link: Rediger

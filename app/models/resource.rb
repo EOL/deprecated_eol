@@ -34,14 +34,14 @@ class Resource < ActiveRecord::Base
   has_many :data_point_uris , dependent: :destroy
 
   scope :by_priority, -> { order(:position) }
-  scope :force_harvest,
-    -> { where(resource_status_id: ResourceStatus.force_harvest.id) }
+  scope :harvest_requested,
+    -> { where(resource_status_id: ResourceStatus.harvest_requested.id) }
   scope :harvested, -> { where("harvested_at IS NOT NULL") }
   scope :unharvested, -> { where("harvested_at IS NULL") }
   # This is, of course, ridiculous. But it's what is used in PHP, sooo...
   scope :ready, -> do
     where(
-      "resource_status_id = #{ResourceStatus.force_harvest.id} OR "\
+      "resource_status_id = #{ResourceStatus.harvest_requested.id} OR "\
       "("\
         "harvested_at IS NULL AND ("\
           "resource_status_id = #{ResourceStatus.validated.id} OR "\
@@ -207,7 +207,7 @@ class Resource < ActiveRecord::Base
   def status_can_be_changed_to?(new_status)
     return false if resource_status == new_status
     case new_status
-      when ResourceStatus.force_harvest
+      when ResourceStatus.harvest_requested
         !resource_status.blank? &&
         [ResourceStatus.processed, ResourceStatus.processing_failed, ResourceStatus.validated,
          ResourceStatus.validation_failed, ResourceStatus.published].include?(resource_status)

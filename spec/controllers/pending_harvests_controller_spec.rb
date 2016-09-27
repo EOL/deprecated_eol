@@ -47,7 +47,7 @@ describe PendingHarvestsController do
 
     context 'check on ready (pending) resources' do
       it 'should get the ready resources only' do
-        res = Resource.gen(license_id: @license.id, language_id: @lang.id, content_partner: @content_partner, resource_status_id: ResourceStatus.force_harvest.id)
+        res = Resource.gen(license_id: @license.id, language_id: @lang.id, content_partner: @content_partner, resource_status_id: ResourceStatus.harvest_requested.id)
         expect(Resource.ready.size).to eq(1)
       end
     end

@@ -682,7 +682,7 @@ ms:
         create: Tambahkan sumber
         update: Kemas kini sumber
         update_settings: Kemaskinikan tetapan
-        force_harvest: Pohon pengutipan paksa
+        harvest_requested: Pohon pengutipan paksa
       session:
         create: Daftar masuk
         sign_in_with_facebook: Log masuk dengan Facebook
@@ -1219,7 +1219,7 @@ ms:
         URL Sumber: %{resource_url}
         Dicipta: %{resource_created_at_date}
         Status: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Pengguna EOL, %{user_full_name} memohon kutipan paksa untuk sumber
         %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}
       message: |-
@@ -2746,7 +2746,7 @@ ms:
   content_partner_resource_collections_header: Koleksi
   content_partner_resource_collection_header: Koleksi yang disiarkan
   content_partner_resource_collection_show_link: Lihat koleksi yang disiarkan
-  content_partner_resource_confirm_force_harvest: Adakah anda benar-benar ingin mengutip
+  content_partner_resource_confirm_harvest_requested: Adakah anda benar-benar ingin mengutip
     paksa sumber %{resource_title}?
   content_partner_resource_create_successful_notice: 'Butiran sumber rakan kongsi
     kandungan berjaya diisikan. Status data sumber semasa: %{resource_status}'

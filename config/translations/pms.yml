@@ -793,7 +793,7 @@ pms:
         create: Gionté n'arsorsa
         update: Agiorné l'arsorsa
         update_settings: Paràmeter d'agiornament
-        force_harvest: Ciamé ëd forsé l'arcòlta
+        harvest_requested: Ciamé ëd forsé l'arcòlta
       session:
         create: Rintré ant ël sistema
         sign_in_with_facebook: Ch'a rintra con Facebook
@@ -1405,7 +1405,7 @@ pms:
         Adrëssa an sl'aragnà dl'arsorsa: %{resource_url}
         Creà ël: %{resource_created_at_date}
         Stat: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: L'utent ëd L'EdV %{user_full_name} a l'ha ciamà n'arcòlta forsà për
         l'arsorsa %{resource_title} ch'a aparten al cambrada ëd contnù %{partner_full_name}
       message: |-
@@ -4454,7 +4454,7 @@ pms:
   content_partner_resource_collections_header: Colession
   content_partner_resource_collection_header: Colession publicà
   content_partner_resource_collection_show_link: Smon-e la colession publicà
-  content_partner_resource_confirm_force_harvest: É-lo sigur ëd vorèj sforsé la cujìa
+  content_partner_resource_confirm_harvest_requested: É-lo sigur ëd vorèj sforsé la cujìa
     dl'arsorsa %{resource_title}?
   content_partner_resource_create_successful_notice: 'Ij detaj an sl''arsorsa dël
     cambrada ëd contnù a son ëstàit giontà për da bin. Stat atual dij dàit dl''arsorsa:

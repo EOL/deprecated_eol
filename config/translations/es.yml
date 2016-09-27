@@ -832,7 +832,7 @@ es:
         create: Agregar recurso
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
-        force_harvest: Solicitud de forzar la recogida
+        harvest_requested: Solicitud de forzar la recogida
       session:
         create: Iniciar sesión
         sign_in_with_facebook: Iniciar sesión con Facebook
@@ -1427,7 +1427,7 @@ es:
         URL del recurso: %{resource_url}
         Creado el: %{resource_created_at_date}
         Estado: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: El usuario de EOL %{user_full_name} solicitó una ´recogida forzada
         para el recurso %{resource_title} perteneciente al socio de contenido %{partner_full_name}
       message: |-
@@ -4525,7 +4525,7 @@ es:
   content_partner_resource_collections_header: Colecciones
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ver la colección publicada
-  content_partner_resource_confirm_force_harvest: ¿Está seguro que desea forzar la
+  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar la
     recogida del recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalles de recurso de socio
     de contenido agregados exitosamente. Estado actual de los datos de recurso: %{resource_status}.'

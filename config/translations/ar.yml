@@ -688,7 +688,7 @@ ar:
         create: إضافة مصدر
         update: تحديث المصدر
         update_settings: تحديث الإعدادات
-        force_harvest: طلب التجميع الإجباري للبيانات
+        harvest_requested: طلب التجميع الإجباري للبيانات
       session:
         create: ادخل
         sign_in_with_facebook: قم بتسجيل الدخول عن طريق Facebook
@@ -1176,7 +1176,7 @@ ar:
         الشريك:  %{partner_full_name}\nعنوان موارد الشريك:  %{partner_resources_url}\n\nالمورد:
         \ %{resource_title}\nعنوان المورد:  %{resource_url}\nتاريخ الإنشاء: %{resource_created_at_date}\n\nالحالة:
         %{resource_status}"
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: قام مستخدم موسوعة الحياة %{user_full_name} بطلب جمع إجباري لمورد %{resource_title}
         التابع لشريك المحتوى %{partner_full_name}
       message: "هذا نظام إشعار آلي من موسوعة الحياة إلى فريق عمل صفحات الأنواع. قام
@@ -3709,7 +3709,7 @@ ar:
   content_partner_resource_collections_header: المجموعات
   content_partner_resource_collection_header: المجموعة المنشورة
   content_partner_resource_collection_show_link: عرض المجموعة المنشورة
-  content_partner_resource_confirm_force_harvest: هل أنت متأكد من رغبتك في تنفيذ جمع
+  content_partner_resource_confirm_harvest_requested: هل أنت متأكد من رغبتك في تنفيذ جمع
     مورد %{resource_title} إجباريًا؟
   content_partner_resource_create_successful_notice: 'تم إضافة معلومات مصدر شريك المحتوى
     بنجاح. الحالة الحالية لبيانات المصدر:  %{resource_status}.'

@@ -788,7 +788,7 @@ gl:
         create: Engadir un recurso
         update: Actualizar o recurso
         update_settings: Actualizar a configuración
-        force_harvest: Solicitar a colleita forzada
+        harvest_requested: Solicitar a colleita forzada
       session:
         create: Acceder
         sign_in_with_facebook: Accede co Facebook
@@ -1385,7 +1385,7 @@ gl:
         URL do recurso: %{resource_url}
         Creación: %{resource_created_at_date}
         Estado: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: O usuario %{user_full_name} da EOL solicitou forzar a colleita do recurso
         %{resource_title} pertencente ao socio de contidos %{partner_full_name}
       message: |-
@@ -4403,7 +4403,7 @@ gl:
   content_partner_resource_collections_header: Coleccións
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ollar a colección publicada
-  content_partner_resource_confirm_force_harvest: Estás seguro de querer forzar a
+  content_partner_resource_confirm_harvest_requested: Estás seguro de querer forzar a
     colleita do recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Engadíronse correctamente os
     detalles do recurso do socio de contidos. Estado actual dos datos do recurso:

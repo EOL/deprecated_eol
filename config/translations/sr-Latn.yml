@@ -411,7 +411,7 @@ sr-Latn:
         create: Dodaj resurs
         update: Ažuriraj resurs
         update_settings: Ažuriraj postavke
-        force_harvest: Zatraži nametnuto preuzimanje
+        harvest_requested: Zatraži nametnuto preuzimanje
       session:
         create: Prijava
       translated_content_page:
@@ -547,7 +547,7 @@ sr-Latn:
         Adresa resursa: %{resource_url}
         Napravljeno: %{resource_created_at_date}
         Status: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: '%{user_full_name} zatraži nametnuto preuzimanje za resurs %{resource_title}
         partnera %{partner_full_name}'
       message: |-
@@ -1255,7 +1255,7 @@ sr-Latn:
   content_partner_resource_collections_header: Zbirke
   content_partner_resource_collection_header: Objavljena zbirka
   content_partner_resource_collection_show_link: Pogledaj objavljenu zbirku
-  content_partner_resource_confirm_force_harvest: Želite li da nametnete preuzimanje
+  content_partner_resource_confirm_harvest_requested: Želite li da nametnete preuzimanje
     resursa %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalji resursa partnera za
     sadržaj su dodati. Trenutni status podataka resursa: %{resource_status}.'

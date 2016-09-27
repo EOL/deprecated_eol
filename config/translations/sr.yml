@@ -499,7 +499,7 @@ sr:
         create: Додај ресурс
         update: Ажурирај ресурс
         update_settings: Ажурирај поставке
-        force_harvest: Затражи наметнуто преузимање
+        harvest_requested: Затражи наметнуто преузимање
       session:
         create: Пријава
         sign_in_with_google: Пријава преко Гугла
@@ -718,7 +718,7 @@ sr:
         Адреса ресурса: %{resource_url}
         Направљено: %{resource_created_at_date}
         Статус: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: '%{user_full_name} затражи наметнуто преузимање за ресурс %{resource_title}
         партнера %{partner_full_name}'
       message: |-
@@ -1602,7 +1602,7 @@ sr:
   content_partner_resource_collections_header: Збирке
   content_partner_resource_collection_header: Објављена збирка
   content_partner_resource_collection_show_link: Погледај објављену збирку
-  content_partner_resource_confirm_force_harvest: Желите ли да наметнете преузимање
+  content_partner_resource_confirm_harvest_requested: Желите ли да наметнете преузимање
     ресурса %{resource_title}?
   content_partner_resource_create_successful_notice: 'Детаљи ресурса партнера за садржај
     су додати. Тренутни статус података ресурса: %{resource_status}.'

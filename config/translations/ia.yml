@@ -737,7 +737,7 @@ ia:
         create: Adder ressource
         update: Actualisar ressource
         update_settings: Actualisar configurationes
-        force_harvest: Requestar recolta fortiate
+        harvest_requested: Requestar recolta fortiate
       session:
         create: Aperir session
         sign_in_with_facebook: Aperir session con Facebook
@@ -1126,7 +1126,7 @@ ia:
         URL del ressource: %{resource_url}
         Create le: %{resource_created_at_date}
         Stato: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Le usator %{user_full_name} de EOL requestava un recolta fortiate pro
         le ressource %{resource_title} pertinente al partner de contento %{partner_full_name}
       message: |-
@@ -2417,7 +2417,7 @@ ia:
   content_partner_resource_collections_header: Collectiones
   content_partner_resource_collection_header: Collection publicate
   content_partner_resource_collection_show_link: Vider collection publicate
-  content_partner_resource_confirm_force_harvest: Es tu secur de voler fortiar le
+  content_partner_resource_confirm_harvest_requested: Es tu secur de voler fortiar le
     recolta del ressource %{resource_title}?
   content_partner_resource_create_successful_notice: 'Le detalios sur le ressource
     del partner ha essite addite. Stato actual del datos del ressource: %{resource_status}'

@@ -433,7 +433,7 @@ da:
         create: Tilføj kilde
         update: Opdater kilde
         update_settings: Opdater indstillinger
-        force_harvest: Anmod om gennemtvunget datatilgang
+        harvest_requested: Anmod om gennemtvunget datatilgang
       session:
         create: Log ind
       translated_content_page:

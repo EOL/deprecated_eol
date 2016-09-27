@@ -802,7 +802,7 @@ ru:
         create: Добавить ресурс
         update: Обновить ресурс
         update_settings: Обновить настройки
-        force_harvest: Запросить урожай
+        harvest_requested: Запросить урожай
       session:
         create: Вход
         sign_in_with_facebook: Войти с помощью Facebook
@@ -1400,7 +1400,7 @@ ru:
         Ресурсов URL: %{resource_url}
         Создано: %{resource_created_at_date}
         Статус: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: Пользователь %{user_full_name} запросил урожай для ресурса %{resource_title},
         который принадлежит партнеру по содержанию %{partner_full_name}
       message: |-
@@ -2551,7 +2551,7 @@ ru:
   content_partner_resource_collections_header: Коллекции
   content_partner_resource_collection_header: Опубликованная коллекция
   content_partner_resource_collection_show_link: Посмотреть опубликованную колекцию
-  content_partner_resource_confirm_force_harvest: Вы уверены, что хотите ускорить
+  content_partner_resource_confirm_harvest_requested: Вы уверены, что хотите ускорить
     сбор данных с ресурса %{resource_title}?
   content_partner_resource_create_successful_notice: 'Детали ресурса партнера контента
     успешно добавлены. Текущий статус данных ресурса: %{resource_status}.'

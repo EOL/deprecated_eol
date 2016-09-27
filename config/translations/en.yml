@@ -808,7 +808,7 @@ en:
         create: "Add resource"
         update: "Update resource"
         update_settings: "Update settings"
-        force_harvest: "Request force harvest"
+        harvest_requested: "Request harvest requested"
       session:
         create: "Sign in"
         sign_in_with_facebook: "Sign in with Facebook"
@@ -1301,9 +1301,9 @@ en:
     content_partner_resource_created:
       subject: "EOL user %{user_full_name} added new resource %{resource_title} to content partner %{partner_full_name}"
       message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} added a new resource %{resource_title} to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nCreated: %{resource_created_at_date}\nStatus: %{resource_status}"
-    content_partner_resource_force_harvest_request:
-      subject: "EOL user %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}"
-      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested a force harvest for resource %{resource_title} belonging to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nUpdated: %{resource_updated_at_date}\nStatus: %{resource_status}"
+    content_partner_resource_harvest_requested_request:
+      subject: "EOL user %{user_full_name} requested a harvest requested for resource %{resource_title} belonging to content partner %{partner_full_name}"
+      message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested a harvest requested for resource %{resource_title} belonging to content partner %{partner_full_name}, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nUpdated: %{resource_updated_at_date}\nStatus: %{resource_status}"
     content_partner_resource_hierarchy_publish_request:
       subject: "EOL user %{user_full_name} requested a hierarchy promotion for resource %{resource_title} belonging to content partner %{partner_full_name}"
       message: "This is an automated EOL system notification for the Species Pages Group. User %{user_full_name} requested that a hierarchy associated with resource %{resource_title}, belonging to content partner %{partner_full_name}, be promoted (published) to a browsable hierarchy on EOL, details follow:\n\nUser: %{user_full_name}\nE-mail: %{user_email}\nProfile URL: %{user_profile_url}\n\nPartner: %{partner_full_name}\nPartner Resources URL: %{partner_resources_url}\n\nResource: %{resource_title}\nResource URL: %{resource_url}\nEdit hierarchy URL: %{hierarchy_edit_url}\n"
@@ -3138,7 +3138,7 @@ en:
   content_partner_resource_collections_header: "Collections"
   content_partner_resource_collection_header: "Published collection"
   content_partner_resource_collection_show_link: "View published collection"
-  content_partner_resource_confirm_force_harvest: "Are you sure you want to force the harvest of resource %{resource_title}?"
+  content_partner_resource_confirm_harvest_requested: "Are you sure you want to force the harvest of resource %{resource_title}?"
   content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
   content_partner_resource_validation_finish_notice: "Content partner resource validation is finished and its status is %{resource_status}."

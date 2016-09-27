@@ -812,7 +812,7 @@ it:
         create: Aggiungi risorsa
         update: Aggiorna risorsa
         update_settings: Aggiorna impostazioni
-        force_harvest: Richiedi di forzare la raccolta
+        harvest_requested: Richiedi di forzare la raccolta
       session:
         create: Accedi
         sign_in_with_facebook: Accedi con Facebook
@@ -1418,7 +1418,7 @@ it:
         URL risorsa: %{resource_url}
         Creata il: %{resource_created_at_date}
         Stato: %{resource_status}
-    content_partner_resource_force_harvest_request:
+    content_partner_resource_harvest_requested_request:
       subject: L'utente EOL %{user_full_name} ha richiesto di forzare la raccolta
         per la risorsa %{resource_title} appartenente al partner di contenuti %{partner_full_name}
       message: "Questa è una notifica automatica del sistema EOL per il Gruppo Pagine
@@ -4487,7 +4487,7 @@ it:
   content_partner_resource_collections_header: Collezioni
   content_partner_resource_collection_header: Collezione pubblicata
   content_partner_resource_collection_show_link: Vedi collezione pubblicata
-  content_partner_resource_confirm_force_harvest: Sei sicuro di voler forzare la raccolta
+  content_partner_resource_confirm_harvest_requested: Sei sicuro di voler forzare la raccolta
     dati della risorsa %{resource_title}?
   content_partner_resource_create_successful_notice: 'I dettagli sulla risorsa fornita
     dal Partner di contenuti è stata aggiunta con successo. Stato attuale della risorsa:

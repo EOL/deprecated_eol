@@ -46,7 +46,8 @@ class ApplicationController < ActionController::Base
 
   def log_ip
     return if params["action"] == "ping"
-    EOL.log("#{request.remote_ip}: #{params.inspect}", prefix: "/") rescue nil
+    user = logged_in? ? current_user.id : "[anon]"
+    EOL.log("#{request.remote_ip} (#{user}): #{params.inspect}", prefix: "/") rescue nil
   end
 
   def allow_login_then_submit

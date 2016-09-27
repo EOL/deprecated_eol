@@ -91,6 +91,7 @@ class PublishBatch
         summary += "\n[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}"
       end
       EOL.log(summary, prefix: "P")
+      AdminMailer.harvest_complete(summary).deliver
     end
     EOL.log_return
   end

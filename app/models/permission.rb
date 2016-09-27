@@ -6,7 +6,7 @@ class Permission < ActiveRecord::Base
   has_many :users, through: :permissions_users
 
   include Enumerated
-  enumerated :name, ['edit permissions', 'beta test', 'see data', 'edit cms']
+  enumerated :name, ['edit permissions', 'beta test', 'see data', 'edit cms', 'harvest notifications']
 
   KNOWN_PERMISSIONS = [ :edit_permissions, :beta_test, :see_data, :edit_cms ]
 

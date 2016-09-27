@@ -779,7 +779,7 @@ uk:
         create: Додати ресурс
         update: Оновити ресурс
         update_settings: Оновити налаштування
-       force_harvest: Запитати урожай
+        force_harvest: Запитати урожай
       session:
         create: Увійти
         sign_in_with_facebook: Увійти за допомогою Facebook

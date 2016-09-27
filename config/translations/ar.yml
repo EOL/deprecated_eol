@@ -688,7 +688,7 @@ ar:
         create: إضافة مصدر
         update: تحديث المصدر
         update_settings: تحديث الإعدادات
-       force_harvest: طلب التجميع الإجباري للبيانات
+        force_harvest: طلب التجميع الإجباري للبيانات
       session:
         create: ادخل
         sign_in_with_facebook: قم بتسجيل الدخول عن طريق Facebook

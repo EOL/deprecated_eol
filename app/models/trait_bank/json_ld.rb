@@ -73,7 +73,9 @@ class TraitBank::JsonLd
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
       traits ||= PageTraits.new(concept.id).traits
-      feed["traits"] = traits.map { |trait| for_trait(trait, page_url) }
+      feed["traits"] = traits ?
+        traits.map { |trait| for_trait(trait, page_url) } :
+        []
       feed
     end
 

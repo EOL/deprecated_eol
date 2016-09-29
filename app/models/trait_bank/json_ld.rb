@@ -115,8 +115,10 @@ class TraitBank::JsonLd
 
     def page_context(glossary)
       ld = { "@context" => {} }
-      glossary.each do |uri|
-        ld["@context"][uri.name] = uri.uri
+      if glossary
+        glossary.each do |uri|
+          ld["@context"][uri.name] = uri.uri
+        end
       end
       ld
     end

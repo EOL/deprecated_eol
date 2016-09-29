@@ -1400,7 +1400,8 @@ pt-PT:
   classifications_split_column_header: Separar / Mover
   classifications_summary_header_with_count:
     zero: EOL não tem classificações para este táxon
-    other: um=Encontrado em %{count} classificação
+    one: Encontrado em %{count} classificação
+    other: Encontrado em %{count} classificações
   cms_available_in_languages: 'Esta página está disponível em:'
   cms_missing_content_title: Falta a tradução
   cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível

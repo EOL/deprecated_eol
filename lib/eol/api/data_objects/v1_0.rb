@@ -77,7 +77,11 @@ module EOL
           end
           return return_hash unless params[:details] == true
 
-          image_sizes = data_object.image_size if data_object.image?
+          if data_object.image?
+            image_sizes = data_object.image_size
+            image_sizes = DataObject.joins(:image_size).where(guid: data_object.guid).order('id desc').first.image_size unless image_sizes
+          end
+
           if image_sizes
             return_hash['height']               = image_sizes.height unless image_sizes.height.blank?
             return_hash['width']                = image_sizes.width unless image_sizes.width.blank?

@@ -9,6 +9,13 @@ class PageSerializer
     # Next was pid = 19831
     # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
+      name = Rails.root.join("public", "store-#{pid}.json").to_s
+      File.unlink(name) if File.exist?(name)
+      page = get_page_data(pid)
+      File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
+    end
+    
+    def get_page_data(pid)
       user = EOL::AnonymousUser.new(Language.default)
       # First, get it with supercedure:
       concept = TaxonConcept.find(pid)
@@ -155,10 +162,7 @@ class PageSerializer
           base_url: url
         }]
       end
-
-      name = Rails.root.join("public", "store-#{concept.id}.json").to_s
-      File.unlink(name) if File.exist?(name)
-      File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
+      return page
     end
 
     def get_language(object)
@@ -176,7 +180,8 @@ class PageSerializer
       return nil unless node
       {
         resource: resource,
-        rank: node.rank.label,
+        node_id: node.id,
+        rank: node.rank.try(:label),
         page_id: node.taxon_concept_id,
         scientific_name: node.italicized_name,
         canonical_form: node.title_canonical_italicized,

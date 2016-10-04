@@ -32,6 +32,7 @@
 # Author: Rbcastroc
 # Author: Rubenwap
 # Author: Ryo567
+# Author: SamanthaNguyen
 # Author: Sampalahnuk
 # Author: Shirayuki
 # Author: Toliño
@@ -581,6 +582,7 @@ es:
           no se hará público inmediatamente.
         published_at: Publicado
         published_status: Estado
+        last_harvest_seconds: Tardó %{time_in_words}
       hierarchy:
         browsable_more: Compruebe la navegabilidad para promover esta jerarquía hasta
           convertirla en una de las principales jerarquías navegables en EOL.
@@ -5555,8 +5557,8 @@ es:
   image_title_without_taxa: Imagen de un taxón desconocido
   images: Imágenes
   images_with_count:
-    one: '%{count} Imagen'
-    other: '%{count} Imágenes'
+    one: '%{count} imagen'
+    other: '%{count} imágenes'
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
   image_objects_page_number: página de imágenes
@@ -5669,6 +5671,8 @@ es:
   known_uris_none: Nadie ha agregado URIs de este tipo.
   known_uris_page_title: URIs para datos en EOL
   known_uris_sorted: Orden actualizada.
+  pending_harvests_none: No hay ninguna cosecha pendiente ahora
+  pending_harvests_title: Cosechas pendientes
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -6410,6 +6414,8 @@ es:
   save: Guardar
   scientific_name: Nombre científico
   sci_name_avg_table_head: Media del nombre científico
+  scrub_user_button: limpiar usuario
+  scrub_user_notice: Usuario limpiado correctamente.
   scrub_user_warning: 'ADVERTENCIA: esto eliminará TODO el contenido agregado por
     el usuario y NO SE PUEDE DESHACER. ¿Estás SEGURO?'
   search: Buscar
@@ -7272,9 +7278,10 @@ es:
   you_are_viewing_this_rank_as_classified_by: 'Está viendo este %{rank} como clasificados
     por:'
   you_can_edit_those_later_if_ne: Puede editar eso posteriormente si es necesario.
-  you_can_identify_yourself_to_eol: 'Usted se puede identificar ante EOL si agrega
-    su llave API a sus solicitudes (inicie una sesión y genere su llave API en su
-    página de preferencias):'
+  you_can_identify_yourself_to_eol: 'Puedes identificarte en EOL mediante la adición
+    de tu clave de API a tus solicitudes (inicia sesión y genera tu clave abriendo
+    tu perfil EOL para editar. La clave se guardará aquí; abre tu perfil para editar
+    de nuevo para recuperarla más tarde):'
   you_have_been_logged_in_as_username: Ha iniciado sesión como %{username}
   you_have_been_logged_out: Hemos cerrado su sesión.
   you_joined_community: Se ha unido exitosamente a esta comunidad.

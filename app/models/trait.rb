@@ -142,6 +142,11 @@ class Trait
   def target_taxon_uri
     "http://eol.org/pages/#{target_taxon.id}"
   end
+  
+  def target_taxon_image
+    exemplar = target_taxon.published_exemplar_image
+    exemplar.original_image.sub("_orig.jpg", "") if exemplar
+  end
 
   def find_associated_taxon(which)
     str = rdf_value(which).try(:to_s)

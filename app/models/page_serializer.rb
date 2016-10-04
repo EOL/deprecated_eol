@@ -119,6 +119,7 @@ class PageSerializer
         else
           trait_hash[:literal] = trait.value_name
           trait_hash[:object_page] = trait.target_taxon_uri
+          trait_hash[:object_page_image] = trait.target_taxon_image
         end
         trait_hash
       end
@@ -130,32 +131,32 @@ class PageSerializer
         }
       end
 
-      if concept.page_feature.map_json?
-        page[:json_map] = true
-      end
-
-      map = concept.get_one_map_from_solr.first
-      if map
-        lic = article.license
-        b_cit = article.bibliographic_citation
-        b_cit = nil if b_cit.blank?
-        resource = build_resource(map.resource)
-        url = map.original_image.sub("_orig.jpg", "")
-        page[:maps] = [{
-          guid: map.guid,
-          resource_pk: map.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(map),
-          bibliographic_citation: b_cit,
-          owner: map.owner,
-          name: map.best_title,
-          source_url: map.source_url,
-          base_url: url
-        }]
-      end
+      # if concept.page_feature.map_json?
+        # page[:json_map] = true
+      # end
+# 
+      # map = concept.get_one_map_from_solr.first
+      # if map
+        # lic = article.license
+        # b_cit = article.bibliographic_citation
+        # b_cit = nil if b_cit.blank?
+        # resource = build_resource(map.resource)
+        # url = map.original_image.sub("_orig.jpg", "")
+        # page[:maps] = [{
+          # guid: map.guid,
+          # resource_pk: map.identifier,
+          # provider_type: "Resource",
+          # provider: resource,
+          # license: { name: lic.title, source_url: lic.source_url,
+            # icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
+          # language: get_language(map),
+          # bibliographic_citation: b_cit,
+          # owner: map.owner,
+          # name: map.best_title,
+          # source_url: map.source_url,
+          # base_url: url
+        # }]
+      # end
 
       name = Rails.root.join("public", "store-#{concept.id}.json").to_s
       File.unlink(name) if File.exist?(name)

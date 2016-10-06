@@ -899,8 +899,8 @@ pt-PT:
         page_title: 'Administração: Estatísticas de Textos Enviados pelo Utilizador'
   api:
     docs:
-      forum_beta_test_text: <a href="%{forums_link}">Clique aqui</a> para acessar
-        a versão beta dos novos fóruns EOL. O seu feedback é bem-vindo.
+      forum_beta_test_text: <a href="%{forums_link}">Clique aqui</a> para aceder à
+        versão beta dos novos fóruns EOL. Agradecemos os seus comentários.
   contacts:
     errors:
       message_not_sent: Desculpe, ocorreu um erro, a sua mensagem não foi enviada.
@@ -1123,8 +1123,8 @@ pt-PT:
   0_1_or_2: 0, 1 ou 2
   about_eol: Sobre a EOL
   account_information: Informações sobre a conta
-  account_registered_but_not_ready_try_later: Sua conta está registrada, mas não está
-    pronto para acessar. Por favor, tente novamente em cinco minutos.
+  account_registered_but_not_ready_try_later: A sua conta está registada, mas ainda
+    não lhe pode aceder. Tente novamente dentro de cinco minutos, por favor.
   action: Ação
   action_not_available_error: Desculpe, essa ação não está disponível.
   actions: Ações
@@ -1814,17 +1814,17 @@ pt-PT:
   dato_new_edit_user_text_fieldset_content_header: Conteúdo do artigo
   dato_new_edit_user_text_fieldset_information_header: Informação do artigo
   dato_new_edit_user_text_form_tip: O seu artigo completo será publicado na página
-    táxon. Se não é um curador, este será marcado como "não revisto" até que um curador
-    o reveja. Subcapítulo, texto, idioma e licença são necessários (%{required_icon}),
-    todos os outros campos são opcionais. Se selecionar um CC BY (Atribuição) de licença),
+    táxon. Se não é um curador, o artigo será marcado como "não revisto" até que um
+    curador o reveja. Subcapítulo, texto, idioma e licença são necessários (%{required_icon}),
+    todos os outros campos são opcionais. Se selecionar um CC BY (Atribuição de licença),
     por favor, inclua o titular dos direitos ou deixe em branco para utilizar o seu
     nome completo. As licenças de Domínio Público não necessitam de um titular de
-    direitos. Para obter mais assistência leia <a href="%{add_article_help_url}">ajuda
-    para adicionar artigo</a>.
+    direitos. Para mais informação leia <a href="%{add_article_help_url}">ajuda para
+    adicionar artigo</a>.
   dato_create_user_text_missing_taxon_id_exception: Não é possível criar um texto
-    DataObject ou UsersDataObject se a identificação táxon for nula.
+    DataObject ou UsersDataObject se a identificação do táxon for nula.
   dato_create_user_text_missing_user_exception: Não é possível criar um texto DataObject
-    ou UsersDataObject se a identificação táxon for nula.
+    ou UsersDataObject se a identificação do táxon for nula.
   dato_update_users_text_not_owner_exception: Somente o autor original do conteúdo
     deste texto pode editá-lo.
   dato_edit_text_button: Editar este artigo

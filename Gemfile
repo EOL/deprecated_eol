@@ -206,3 +206,4 @@ gem "will_paginate", "~> 3.0" # Used ALL OVER THE SITE for pagination.
 gem "execjs", "2.0.2"  # needed to run rake tasks in cron
 gem 'rack-cors', require: 'rack/cors' #needed to enable CORs for EOL API
 gem 'cached_key_value_store'
+gem 'quiet_safari'

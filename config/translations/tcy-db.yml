@@ -1,0 +1,183 @@
+# Messages for Tulu (ತುಳು)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: VASANTH S.N.
+# Author: Vishwanatha Badikana
+---
+tcy:
+  translated_activities-name-activity_id-19: ಪ್ರೊಫೈಲ್
+  translated_activities-name-activity_id-50: ಇಸ್ವಾಸೊ ಅತ್ತಾಂದಿನ
+  translated_activities-name-activity_id-51: ತೊಜ್ಪಾವು
+  translated_activities-name-activity_id-52: ಸೃಸ್ಟಿಸಾಲೆ
+  translated_activities-name-activity_id-53: ದೆಂಗಾವು
+  translated_activities-name-activity_id-54: ಪರಿಸ್ಕರನೆ ಮಲ್ಪುಲೆ
+  translated_activities-name-activity_id-55: ಉಚಿತೊ ಅತ್ತಾಂದಿನ
+  translated_activities-name-activity_id-56: ಮಾಜಾಲೆ
+  translated_activities-name-activity_id-57: ದರೊ
+  translated_activities-name-activity_id-58: ನಂಬುಗೆದ
+  translated_activities-name-activity_id-59: ಪರಿಸೀಲನೆ ಮಲ್ಪಂದಿನ
+  translated_activities-name-activity_id-63: ಸಂಗ್ರಹೊ ಮಲ್ಪು
+  translated_activities-name-activity_id-64: ದೆಪ್ಪುಲೆ
+  translated_agent_roles-label-agent_role_id-10: ಯೋಜನೆಲು
+  translated_agent_roles-label-agent_role_id-11: ಪ್ರಕಾಶಕೆ
+  translated_agent_roles-label-agent_role_id-12: ವರದಿಗಾರೆ
+  translated_agent_roles-label-agent_role_id-13: ಆಕರೊ
+  translated_agent_roles-label-agent_role_id-14: ಮೂಲೊ ದತ್ತಕೋಸೊ
+  translated_agent_roles-label-agent_role_id-15: ಸಂಪರ್ಕೊಗು ಜನೊ
+  translated_agent_roles-label-agent_role_id-16: ಕಾನಿಕೆ ಕೊರ್ನಾರ್
+  translated_agent_roles-label-agent_role_id-1: ಅನಿಮೇಟರ್
+  translated_agent_roles-label-agent_role_id-21: ಒದಗಬುನಕುಲು
+  translated_agent_roles-label-agent_role_id-22: ಅನುವಾದಕೆರ್
+  translated_agent_roles-label-agent_role_id-23: ವಿಜ್ಞಾನೊ ವಿಮರ್ಸೆ ಮಲ್ತಿನಾರ್
+  translated_agent_roles-label-agent_role_id-24: ಬಾಸೆ ವಿಮರ್ಸೆ ಮಲ್ತಿನಾರ್
+  translated_agent_roles-label-agent_role_id-2: ಬರೆತಿನಾರ್
+  translated_agent_roles-label-agent_role_id-3: ಸಂಕಲನೊ ಮಲ್ತಿನಾರ್
+  translated_agent_roles-label-agent_role_id-4: ರಚನೆ ಮಲ್ಪುನಾರ್
+  translated_agent_roles-label-agent_role_id-5: ಸ್ರಿಸ್ಟಿಕರ್ತೆ
+  translated_agent_roles-label-agent_role_id-6: ನಿರ್ದೇಸಕೆ
+  translated_agent_roles-label-agent_role_id-7: ಸಂಪಾದಕೆ
+  translated_agent_roles-label-agent_role_id-8: ವಿವರಣೆ ಮಲ್ಪುನಾರ್
+  translated_agent_roles-label-agent_role_id-9: ಪಟೊ ದೆಪ್ಪುನಾರ್
+  translated_audiences-label-audience_id-1: ತೆರಿದ್ ಬಳಕೆ ಮಲ್ಪುನಾರ್
+  translated_audiences-label-audience_id-2: ಸಾಮಾನ್ಯೊ ಜನೊ
+  translated_audiences-label-audience_id-3: ಜೋಕ್ಲು
+  translated_collection_types-label-collection_type_id-10: ಸಬ್ದೊಲು
+  translated_collection_types-label-collection_type_id-11: ಕೊಂಡಿಲು
+  translated_collection_types-label-collection_type_id-12: ಸಾಹಿತ್ಯೊ
+  translated_collection_types-label-collection_type_id-13: ಜೀವಿ ವರ್ಗೀಕರಣ
+  translated_collection_types-label-collection_type_id-14: ಅಣು ಸಂಬಂಧಿ ಸಂಕೇತ ಪಟ್ಟಿಲು
+  translated_collection_types-label-collection_type_id-15: ವಿವರಣೆ
+  translated_collection_types-label-collection_type_id-16: ಚಿತ್ರೊಲು
+  translated_collection_types-label-collection_type_id-17: ಕೃಪೆ
+  translated_collection_types-label-collection_type_id-18: ಸಂರಕ್ಷಣೆದ ಸ್ಥಿತಿ
+  translated_collection_types-label-collection_type_id-19: ಪುದರ್‍ದ ಮಾಹಿತಿ
+  translated_collection_types-label-collection_type_id-1: ಜೀವಿ ವರ್ಗೀಕರಣ
+  translated_collection_types-label-collection_type_id-20: ಅಣು ಸಂಬಂಧಿ ದತ್ತಾಂಶೋ
+  translated_collection_types-label-collection_type_id-21: ಅಭಿದಾನ
+  translated_collection_types-label-collection_type_id-22: ಸಬ್ದೊಲು
+  translated_collection_types-label-collection_type_id-23: ಕೊಂಡಿಲು
+  translated_collection_types-label-collection_type_id-24: ಸಾಹಿತ್ಯೊ
+  translated_collection_types-label-collection_type_id-2: ಅಣು ಸಂಬಂಧಿ ಸಂಕೇತ ಪಟ್ಟಿಲು
+  translated_collection_types-label-collection_type_id-3: ವಿವರಣೆ
+  translated_collection_types-label-collection_type_id-4: ಚಿತ್ರೊಲು
+  translated_collection_types-label-collection_type_id-5: ವಿತರಣೆ
+  translated_collection_types-label-collection_type_id-6: ಸಂರಕ್ಷಣೆದ ಸ್ಥಿತಿ
+  translated_collection_types-label-collection_type_id-7: ಪುದರ್‍ದ ಮಾಹಿತಿ
+  translated_collection_types-label-collection_type_id-8: ಅಣು ಸಂಬಂಧಿ ದತ್ತಾಂಶೋ
+  translated_collection_types-label-collection_type_id-9: ಅಭಿದಾನ
+  translated_contact_roles-label-contact_role_id-1: ಪ್ರಾಥಮಿಕ ಸಂಪರ್ಕೊ
+  translated_contact_roles-label-contact_role_id-2: ‍‍ಆಡಳಿತಾತ್ಮಕ ಸಂಪರ್ಕೊ
+  translated_contact_roles-label-contact_role_id-3: ತಾಂತ್ರಿಕ ಸಂಪರ್ಕೊ
+  translated_contact_subjects-title-contact_subject_id-24: ಸದಸ್ಯತ್ವ ಬೊಕ್ಕ ನೋಂದಣಿ
+  translated_contact_subjects-title-contact_subject_id-25: ಉಪಯೋಗದ ನಿಬಂಧನೆಲು ಬೊಕ್ಕ
+    ಪರವಾನಗಿ
+  translated_contact_subjects-title-contact_subject_id-26: ಕಲಿಕೆ ಬುಕ್ಕೊ ಶಿಕ್ಷಣೊ
+  translated_contact_subjects-title-contact_subject_id-27: ಇಸಯೊ ಪಾಲ್ ದೆತೊನ್‍ನಾರ್
+  translated_contact_subjects-title-contact_subject_id-28: ಇಸಯೊ ದೆನೊನ್‍ನಾರೆನ ಸಹಾಯೊ
+  translated_contact_subjects-title-contact_subject_id-29: ಮೇಲ್ವಿಚಾರೆಕೆರೆ ಬೆಂಬಲೊ
+  translated_contact_subjects-title-contact_subject_id-30: ಸರಿ ಮಲ್ಪುಲೆ(ಅಚ್ಚರೊ(spelling)
+    ಬುಕ್ಕೊ ಯಾಕರೊನೊ, ಚಿತ್ರೊಲು, ಮಾಯಿತಿ)
+  translated_contact_subjects-title-contact_subject_id-31: ಚಿತ್ರೊಲು, ಈಡಿಯೊಲು ಬುಕ್ಕೊ
+    ದನಿನ್ ಕೊರ್ಲೆ
+  translated_contact_subjects-title-contact_subject_id-32: ಮಾದ್ಯಮೊದ ಬೇಡಿಕೆಲು(ಸಂದರ್ಸನೊ,
+    ಪತ್ರಿಕೆಡ್ ನಾಡಾಟೊ, ಚಿನ್ನೆದ ಬೇಡಿಕೆ)
+  translated_contact_subjects-title-contact_subject_id-33: ದುಡ್ಡುದ ಸಹಾಯೊ ಕೊರ್ಲೆ
+  translated_contact_subjects-title-contact_subject_id-34: ತಾಂತ್ರಿಕ ಪ್ರಸ್ನೆಲು(ನಾಡಾಟೊದ
+    ಸಮಸ್ಯೆ, ವೆಬ್‍ಸೈಟ್‍ದ ಕಾರ್ಯೊ)
+  translated_contact_subjects-title-contact_subject_id-35: ಸಾಮಾನ್ಯ ಪ್ರತಿಕ್ರಿಯೆ
+  translated_content_partner_statuses-label-content_partner_status_id-1: ಬಾಕಿ
+  translated_content_partner_statuses-label-content_partner_status_id-2: ಚುರುಕು
+  translated_content_partner_statuses-label-content_partner_status_id-3: ಆರ್ಕೈವ್
+  translated_content_partner_statuses-label-content_partner_status_id-4: ನಿಸ್ಕ್ರೀಯೊ
+  translated_content_tables-label-content_table_id-1: ವಿವರೊ
+  translated_data_types-label-data_type_id-10: ನಕ್ಷೆ
+  translated_data_types-label-data_type_id-1: ಚಿತ್ರೊ
+  translated_data_types-label-data_type_id-2: ಸಬ್ದೊ
+  translated_data_types-label-data_type_id-3: ಪಟ್ಯೊ
+  translated_data_types-label-data_type_id-4: ವೀಡಿಯೊ
+  translated_data_types-label-data_type_id-5: GBIF ಚಿತ್ರೊ
+  translated_data_types-label-data_type_id-6: ಐಯುಸಿಎನ್
+  translated_data_types-label-data_type_id-7: ಫ್ಲ್ಯಾಶ್
+  translated_data_types-label-data_type_id-8: ಯೂ ಟೂಬ್
+  translated_licenses-description-license_id-1: ಒವ್ವೇ ಹಕ್ಕ್‌ನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಜಿ
+  translated_licenses-description-license_id-29: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-2: '&#169; ಮಾಂತ ಹಕ್ಕ್‌ಲೆನ್ ಕಾಪದ್ ದೀಡ್‍ದ್ಂಡ್'
+  translated_licenses-description-license_id-30: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-31: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-32: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-33: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-34: ಸಾರ್ವಜನಿಕೊ ಕ್ಷೇತ್ರೊ
+  translated_licenses-description-license_id-35: ಸಾರ್ವಜನಿಕೊ ಕ್ಲೇತ್ರೊ
+  translated_licenses-description-license_id-36: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-37: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-38: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-39: ಸಾರ್ವಜನಿಕೊ ಕ್ಷೇತ್ರೊ
+  translated_licenses-description-license_id-3: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-42: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-43: ಪರವಾನಿಗೆ ಅನ್ವಯಿಸವುಜಿ
+  translated_licenses-description-license_id-4: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-5: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-6: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-7: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-8: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_licenses-description-license_id-9: ಕೆಲವು ಹಕ್ಕ್‌ಲೆನ್ ಕಾತ್‍ದೀಡ್ದ್‌ಂಡ್
+  translated_ranks-label-rank_id-106: ರೂಪೊ
+  translated_ranks-label-rank_id-107: ರೂಪೊ
+  translated_ranks-label-rank_id-112: ಮಾಹಿತಿ
+  translated_ranks-label-rank_id-113: ಮಾಹಿತಿ
+  translated_ranks-label-rank_id-118: ಕುಲೊ
+  translated_ranks-label-rank_id-169: ನಿಮ್ನದರ್ಜೆ
+  translated_ranks-label-rank_id-175: ನಿಮ್ನಪ್ರಭೇದೊಲು
+  translated_ranks-label-rank_id-183: ಸಾಮ್ರಾಜ್ಯೊ
+  translated_ranks-label-rank_id-266: ದರ್ಜೆ
+  translated_ranks-label-rank_id-280: ಇಬಾಗೊ
+  translated_ranks-label-rank_id-313: ಪಂಗಡೊ
+  translated_ranks-label-rank_id-314: ಪಂಗಡೊ.
+  translated_ranks-label-rank_id-317: ಇಬಾಗೊ
+  translated_ranks-label-rank_id-324: ಸರಣಿ
+  translated_ranks-label-rank_id-332: ಎಸ್‍ಪಿ
+  translated_ranks-label-rank_id-333: ಎಸ್‍ಪಿ.
+  translated_ranks-label-rank_id-335: ಪ್ರಾಭೇದಲು
+  translated_ranks-label-rank_id-352: ಉಪ ಕುಟುಂಬೊ
+  translated_ranks-label-rank_id-370: ಉಪವರ್ಗೊ
+  translated_ranks-label-rank_id-375: ಉಪಶಾಖೆ
+  translated_ranks-label-rank_id-383: ಉಪಕುಟುಂಬೊ
+  translated_ranks-label-rank_id-390: ಸಬ್‌ಜಿನ್
+  translated_ranks-label-rank_id-391: ಸಬ್‍ಜಿನ್.
+  translated_ranks-label-rank_id-394: ಉಪಜಾತಿ
+  translated_ranks-label-rank_id-396: ಉಪಸಾಮ್ರಾಜ್ಯೊ
+  translated_ranks-label-rank_id-51: ವರ್ಗೊ
+  translated_ranks-label-rank_id-562: ಸಂಕರಜಾತಿ
+  translated_ranks-label-rank_id-563: ಸಂಕರಪ್ರಭೇದೊ
+  translated_ranks-label-rank_id-564: ಸಂಕರ ಉಪಪ್ರಭೇದೊ
+  translated_ranks-label-rank_id-565: ಸಂಕರವೈವಿದ್ಯೊ
+  translated_ranks-label-rank_id-74: ಇಬಾಗೊ
+  translated_ranks-label-rank_id-85: ಎಫ್
+  translated_ranks-label-rank_id-86: ಎಫ್.
+  translated_ranks-label-rank_id-91: ಫ್ಯಾಮ್
+  translated_ranks-label-rank_id-92: ಫ್ಯಾಮ್.
+  translated_ranks-label-rank_id-99: ಕುಟುಮೊ
+  translated_resource_statuses-label-resource_status_id-10: ಪ್ರಕಟೊ ಆಯಿನ
+  translated_resource_statuses-label-resource_status_id-11: ಪ್ರಕಟಣೆಗ್ ಬಾಕಿ
+  translated_resource_statuses-label-resource_status_id-12: ಪ್ರಕಟಣೆ ಮಲ್ಪಂದೆ ಬಾಕಿ
+  translated_resource_statuses-label-resource_status_id-13: ಒತ್ತಾಯೊದ ಕೊಯ್ಲ್
+  translated_resource_statuses-label-resource_status_id-1: ದಿಂಜೊಂತುಂಡು...
+  translated_resource_statuses-label-resource_status_id-2: ದಿಂಜಾದ್ ಆಂಡ್
+  translated_resource_statuses-label-resource_status_id-3: ದಿಂಜಾವುನ ಸೋತ್ಂಡ್
+  translated_resource_statuses-label-resource_status_id-4: ಇಸಯೊನು ಸರ್ವರ್‍ಗ್ ಸೇರಾದ್
+    ಆತ್ಂಡ್
+  translated_resource_statuses-label-resource_status_id-5: ಮಾನ್ಯೊ ಮಲ್ತಿನ
+  translated_resource_statuses-label-resource_status_id-6: ಮಾನ್ಯೊ ಸೊತ್ಂಡ್
+  translated_resource_statuses-label-resource_status_id-7: ಪರಿಸ್ಕರನೆಡ್ ಉಂಡು
+  translated_resource_statuses-label-resource_status_id-8: ಪರಿಸ್ಕರನೆ ಆತ್ಂಡ
+  translated_resource_statuses-label-resource_status_id-9: ಪರಿಸ್ಕರನೆ ಸೋತ್ಂಡ್
+  translated_untrust_reasons-label-untrust_reason_id-5: ಬೇತೆ
+  translated_vetted-label-vetted_id-0: ಗೊತ್ತಿಜ್ಜಾಂದಿನ
+  translated_vetted-label-vetted_id-4: ನಂಬುಗೆದ ಅತ್ತಾಂದಿನ
+  translated_view_styles-name-view_style_id-1: ಪಟ್ಟಿ
+  translated_view_styles-name-view_style_id-2: ಗೆಲರಿ
+  translated_view_styles-name-view_style_id-3: ಟಿಪ್ಪಣಿ
+  translated_visibilities-label-visibility_id-0: ತೋಜುಜಿ
+  translated_visibilities-label-visibility_id-1: ತೋಜುಂಡು
+  translated_visibilities-label-visibility_id-2: ಮುನ್ನೋಟೊ
+...

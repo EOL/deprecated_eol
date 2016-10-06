@@ -13,6 +13,7 @@
 # Author: Luckas
 # Author: Macofe
 # Author: Malafaya
+# Author: Mansil
 # Author: McDutchie
 # Author: Polyethylen
 # Author: SandroHc
@@ -29,7 +30,7 @@ pt-PT:
       collection:
         name: Nome da coleção
         description: Descrição da coleção
-        sort_style_id: Direção de ordenação por defeito
+        sort_style_id: Direção de ordenação predefinida
         logo: Imagem principal da coleção
         additional_annotation_fields: Campos adicionais de anotação
         show_references: Referências (Texto ou URL)
@@ -52,16 +53,16 @@ pt-PT:
         name: Nome
       content_page:
         page_name: Nome único
-        sort_order: Ordem de classificação
+        sort_order: Ordem da ordenação
         active: Publicado
       content_partner:
         acronym: Abreviatura do projeto
-        auto_publish: Auto-publicar
+        auto_publish: Publicar Automaticamente
         admin_notes: Notas de administração
         content_partner_status: Estado do projeto
         created_at: Criado
         description: Descrição do projeto
-        display_name: Nome apresentado
+        display_name: Nome a exibir
         full_name: Nome do projeto
         homepage: URL do projeto
         id: ID
@@ -517,10 +518,9 @@ pt-PT:
         q_placeholder: Introduza uma palavra, frase ou número
         q_placeholder_disabled: Faixa introduzida, valor específico desabilitado
         q_more: Por exemplo, heterotrófico.
-        taxon_name: Grupo de taxonomia
-        taxon_name_with_val: 'Grupo de taxonomia: %{val}'
-        taxon_name_placeholder: Introduza o nome do grupo de taxonomia para o grupo
-          selecionado
+        taxon_name: Grupo táxon
+        taxon_name_with_val: 'Grupo táxon: %{val}'
+        taxon_name_placeholder: Introduza o nome do grupo táxon para o grupo selecionado
         taxon_name_placeholder_value_removed: '%{taxon_group} removido, selecione
           novo grupo'
         taxon_name_more: Por exemplo, insira Trochilidae ou Baleias. APENAS seleções
@@ -899,8 +899,8 @@ pt-PT:
         page_title: 'Administração: Estatísticas de Textos Enviados pelo Utilizador'
   api:
     docs:
-      forum_beta_test_text: <a href="%{forums_link}">Clique aqui</a> para acessar
-        a versão beta dos novos fóruns EOL. O seu feedback é bem-vindo.
+      forum_beta_test_text: <a href="%{forums_link}">Clique aqui</a> para aceder à
+        versão beta dos novos fóruns EOL. Agradecemos os seus comentários.
   contacts:
     errors:
       message_not_sent: Desculpe, ocorreu um erro, a sua mensagem não foi enviada.
@@ -1033,7 +1033,7 @@ pt-PT:
   notifier:
     activity_log_empty: Nenhuma ação recente pelos curadores.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url}) marcou como não confiável:
+      %{curator_level} %{users_name} (%{users_url}) marcado como confiável:
       %{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_on_date: |-
@@ -1041,7 +1041,7 @@ pt-PT:
       %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
-      %{curator_level} %{users_name} (%{users_url}) marcou como não confiável:
+      %{curator_level} %{users_name} (%{users_url}) marcado como não confiável:
       %{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
@@ -1086,6 +1086,12 @@ pt-PT:
     collection_download_ready:
       message: Pode ver esta e outras descargas visitando a <a href="%{download_link}">tabulação
         de descargas de dados em teu perfil</a>.
+  taxa:
+    names:
+      index:
+        meta_title: Informação Taxonómica para %{scientific_name} - Nomes e  Calssificação
+          Biológica
+        tweet_text: Informação Taxonómica para %{scientific_name}
   users:
     data_downloads:
       empty: Você não tem nenhum download. Pode <a href='%{data_search_url}'>pesquisar
@@ -1117,8 +1123,8 @@ pt-PT:
   0_1_or_2: 0, 1 ou 2
   about_eol: Sobre a EOL
   account_information: Informações sobre a conta
-  account_registered_but_not_ready_try_later: Sua conta está registrada, mas não está
-    pronto para acessar. Por favor, tente novamente em cinco minutos.
+  account_registered_but_not_ready_try_later: A sua conta está registada, mas ainda
+    não lhe pode aceder. Tente novamente dentro de cinco minutos, por favor.
   action: Ação
   action_not_available_error: Desculpe, essa ação não está disponível.
   actions: Ações
@@ -1311,8 +1317,8 @@ pt-PT:
   associated_with_image_header: Na mais recente imagem
   associated_with_sound_header: No mais recente áudio
   associated_with_video_header: No mais recente vídeo
-  associations_more_link: mais <span class="assistive">associações de taxon</span>
-  a_taxon: um taxon
+  associations_more_link: mais <span class="assistive">associações de táxon</span>
+  a_taxon: uma táxon
   attribute: Atributo
   audio_current_time_assistive: Com JavaScript habilitado, isto indicará a atual posição
     de reprodução do ficheiro de áudio em minutos e segundos.
@@ -1385,6 +1391,7 @@ pt-PT:
     of Life, disponível em <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>.
     Consultado em 15 Jan 2009.
   citing_link: Citando
+  clade: Grupo Taxonómico
   classification_summary_section_header: Classificação
   classification_tree_header: Classificação
   classifications_exemplar_column_header: Exemplar
@@ -1392,7 +1399,8 @@ pt-PT:
   classifications_recognized_by_column_header: Reconhecido por
   classifications_split_column_header: Separar / Mover
   classifications_summary_header_with_count:
-    one: 'Encontrado em %{count} classificação '
+    zero: EOL não tem classificações para este táxon
+    one: Encontrado em %{count} classificação
     other: Encontrado em %{count} classificações
   cms_available_in_languages: 'Esta página está disponível em:'
   cms_missing_content_title: Falta a tradução
@@ -1474,8 +1482,8 @@ pt-PT:
   community_contributions_with_count:
     one: '%{count} Contribuição'
     other: '%{count} Contribuições'
-  community_destroyed: Eliminou esta comunidade. Ela não aparecerá mais em páginas
-    taxonómicas ou em pesquisas.
+  community_destroyed: Eliminou esta comunidade. Esta não aparecerá mais nas páginas
+    táxon ou em pesquisas.
   community_empty_notice: Esta comunidade não tem membros.
   community_focus: Coleções geridas
   community_focus_items_with_count:
@@ -1508,7 +1516,7 @@ pt-PT:
     que dispensam o seu tempo a rever conteúdo na EOL, assegurando que o que vê está
     correto e é de boa qualidade.
   community_removed_by_owner: Esta coleção foi retirada pelo seu proprietário.
-  communities_summary_empty: Este taxon ainda não foi destacado em nenhuma comunidade.
+  communities_summary_empty: Este táxon ainda não foi destacado em qualquer comunidade.
   communities_summary_header_with_count:
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
@@ -1663,12 +1671,12 @@ pt-PT:
   content_partner_statistics_empty: Nenhuma estatística para %{month_name} %{year}.
   content_partner_statistics_month_label: Mês
   content_partner_statistics_year_label: Ano
-  content_partner_statistics_summary_caption: Resumo das estatísticas de uso para
-    uma página de taxon contendo conteúdo fornecido por %{partner_name} relativo ao
-    uso total do site da EOL.
+  content_partner_statistics_summary_caption: Resumo das estatísticas de utilização
+    para as páginas táxon, contendo o conteúdo fornecido por %{partner_name} relativo
+    à utilização total do site da Web EOL.
   content_partner_statistics_link: Estatísticas de uso
-  content_partner_statistics_taxa_page_caption: Estatísticas de uso detalhadas para
-    páginas de taxon contendo conteúdo fornecido por %{partner_name}.
+  content_partner_statistics_taxa_page_caption: Estatísticas de utilização detalhadas
+    para as páginas táxon, contendo o conteúdo fornecido por %{partner_name}.
   content_partner_statistics_column_header_taxa_page_page_views: Vistas de página
   content_partner_statistics_column_header_taxa_page_unique_page_views: Vistas de
     página únicas
@@ -1805,14 +1813,18 @@ pt-PT:
   dato_create_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser adicionado.
   dato_new_edit_user_text_fieldset_content_header: Conteúdo do artigo
   dato_new_edit_user_text_fieldset_information_header: Informação do artigo
-  dato_new_edit_user_text_form_tip: O seu artigo será marcado como "por rever" até
-    que um curador o reveja. Se for um curador, o seu artigo pode ser publicado directamente
-    à página do taxon. O campo do Texto marcado com um ponto (%{required_icon}) é
-    obrigatório.
-  dato_create_user_text_missing_taxon_id_exception: Não é possível contruir um texto
-    DataObject ou UsersDataObject se o identificador do taxon for nulo.
-  dato_create_user_text_missing_user_exception: Não é possível contruir um texto DataObject
-    ou UsersDataObject se o identificador do taxon for nulo.
+  dato_new_edit_user_text_form_tip: O seu artigo completo será publicado na página
+    táxon. Se não é um curador, o artigo será marcado como "não revisto" até que um
+    curador o reveja. Subcapítulo, texto, idioma e licença são necessários (%{required_icon}),
+    todos os outros campos são opcionais. Se selecionar um CC BY (Atribuição de licença),
+    por favor, inclua o titular dos direitos ou deixe em branco para utilizar o seu
+    nome completo. As licenças de Domínio Público não necessitam de um titular de
+    direitos. Para mais informação leia <a href="%{add_article_help_url}">ajuda para
+    adicionar artigo</a>.
+  dato_create_user_text_missing_taxon_id_exception: Não é possível criar um texto
+    DataObject ou UsersDataObject se a identificação do táxon for nula.
+  dato_create_user_text_missing_user_exception: Não é possível criar um texto DataObject
+    ou UsersDataObject se a identificação do táxon for nula.
   dato_update_users_text_not_owner_exception: Somente o autor original do conteúdo
     deste texto pode editá-lo.
   dato_edit_text_button: Editar este artigo
@@ -1844,7 +1856,7 @@ pt-PT:
   details_title: Detalhes
   did_you_mean: 'Você quis dizer: %{suggestions} ?'
   disabled_for_now: DESABILITADO POR AGORA
-  discover_link: Descobrir
+  discover_link: Educação
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar
     datas registadas desconhecidas (usuários da V1, todos anteriores a 5 de janeiro
     de 2009)
@@ -2002,7 +2014,7 @@ pt-PT:
     Google e acesso necessário)
   google: Google
   google_images: Google Imagens
-  grant_manager_link: Conceder papel de gestor
+  grant_manager_link: Conceder função de gestor
   grant_full_curator_link: Conceder
   has_already_been_taken: já não está disponível.
   has_colon: 'Tem:'
@@ -2022,8 +2034,9 @@ pt-PT:
   home_page_link_advisory_information: Este link vai levá-lo à página inicial da Enciclopédia
     da Vida
   id: ID
-  check_this_to_browse_eol_by_the_hierarchy: se esta caixa estiver marcada, a hierarquia
-    será uma opção para os utilizadores navegarem pela EOL
+  check_this_to_browse_eol_by_the_hierarchy: (se esta caixa estiver selecionada, a
+    classificação será mostrada no separador dos nomes sem ter de "Mostrar Todas as
+    Classificações"
   image: Imagem
   image_is_no_longer_available: A imagem não está mais disponível
   image_not_found: Imagem não encontrada

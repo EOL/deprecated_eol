@@ -30,10 +30,10 @@ class DataFileMaker
     def self.move_user_files_to_bottom(data_file_id)
       user_id = DataSearchFile.find(data_file_id).user_id rescue nil
       if user_id
-        user_pending_files_ids = DataSearchFile.where(user_id: user_id).pending.pluck(:id)
+        user_pending_files_ids = DataSearchFile.where("user_id = #{user_id} and id != #{data_file_id}").pending.pluck(:id)
         user_pending_files_ids.each do |file_id|
-          found = Resque.dequeue(DataFileMaker,data_file_id: file_id)
-          Resque.enqueue(DataFileMaker,data_file_id: file_id) unless found.zero?
+          Resque.dequeue(DataFileMaker,data_file_id: file_id)
+          Resque.enqueue(DataFileMaker,data_file_id: file_id)
         end
       end
     end

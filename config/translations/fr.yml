@@ -2139,7 +2139,7 @@ fr:
           sur %{preferred_common_name}, données pour %{preferred_common_name}
         meta_title: Richesse de %{scientific_name}
         meta_title_with_common_name: Richesse de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Score d’abondance pour %{scientific_name}
+        tweet_text: Indice d’abondance pour %{scientific_name}
   users:
     activities:
       show:
@@ -6416,7 +6416,7 @@ fr:
   rights: Droits
   rights_holder: Détenteur des droits
   rights_statement: Déclaration des droits
-  richness_score: Indicateur de richesse
+  richness_score: Indice de richesse
   save_comment_lowercase: enregistrer le commentaire
   save_curated_association_submit_button: Publier l’association
   save_email_settings: Sauvegarder les préférences de courriel
@@ -7321,7 +7321,8 @@ fr:
     vos liens car ils sont tous équivalents.
   you_must_be_comfortable: Vous devez être à l’aise avec le HTML si vous souhaitez
     créer des liens hypertexte ou utiliser la mise en forme.
-  your_browser_does_not_support: Votre navigateur ne supporte pas la vidéo HTML5.
+  your_browser_does_not_support: Votre navigateur ne prend pas en charge la vidéo
+    HTML5.
   your_email_address: Votre adresse de courriel
   you_removed_the_member_from_the_community: Vous avez supprimé ce membre de la communauté
     avec succès.

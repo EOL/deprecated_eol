@@ -6,6 +6,7 @@
 # Author: Jezevec
 # Author: Mr. Richard Bolla
 # Author: Reaperman
+# Author: Zbyso23
 ---
 cs:
   translated_activities-name-activity_id-19: profil
@@ -73,6 +74,8 @@ cs:
   translated_contact_subjects-title-contact_subject_id-25: Podmínky užití a licence
   translated_contact_subjects-title-contact_subject_id-26: Výuka a vzdělávání
   translated_contact_subjects-title-contact_subject_id-27: Staňte se obsahovým partnerem
+  translated_contact_subjects-title-contact_subject_id-33: Finanční dar
+  translated_contact_subjects-title-contact_subject_id-35: Obecná zpětná vazba
   translated_content_partner_statuses-label-content_partner_status_id-1: Zatím nevyřízeno
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktivní
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivované
@@ -178,6 +181,7 @@ cs:
   translated_synonym_relations-label-synonym_relation_id-12: zahrnuje
   translated_synonym_relations-label-synonym_relation_id-14: špatný pravopis
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-16: nejednoznačné synonymum
   translated_synonym_relations-label-synonym_relation_id-19: schválené jméno
   translated_synonym_relations-label-synonym_relation_id-1: synonymum
   translated_synonym_relations-label-synonym_relation_id-20: artefakt databáze
@@ -201,6 +205,7 @@ cs:
   translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-50: platné
   translated_synonym_relations-label-synonym_relation_id-51: schváleno
+  translated_synonym_relations-label-synonym_relation_id-52: orgán
   translated_synonym_relations-label-synonym_relation_id-53: nepublikované jméno
   translated_synonym_relations-label-synonym_relation_id-56: chybný pravopis
   translated_synonym_relations-label-synonym_relation_id-57: pravopisná alternativa

@@ -307,6 +307,7 @@ zh-CN:
       format: '%{attribute} %{message}'
       template:
         header:
+          one: 发现%{count}个验证错误
           other: 发现%{count}个验证错误
         body: 以下字段验证失败：
       messages:
@@ -320,18 +321,22 @@ zh-CN:
         empty: 不能为空
         blank: 不能为空
         too_long:
+          one: 太长了（最多%{count}个字符）
           other: 太长了（最多%{count}个字符）
         too_short:
+          one: 太短了（最少%{count}个字符）
           other: 太短了（最少%{count}个字符）
         wrong_length: 长度错误（应为%{count}个字符）
         not_a_number: 不是一个数字
         not_an_integer: 必需是整数
         greater_than:
-          other: 必需大于%{count}
+          one: 必须大于%{count}
+          other: 必须大于%{count}
         greater_than_or_equal_to: 必需大于或等于%{count}
         equal_to: 必需等于%{count}
         less_than:
-          other: 必需小于%{count}
+          one: 必须小于%{count}
+          other: 必须小于%{count}
         less_than_or_equal_to: 必需小于或等于%{count}
         odd: 必需是奇数
         even: 必需是偶数
@@ -346,7 +351,7 @@ zh-CN:
           attributes:
             rights_holder:
               blank: CC BY许可协议不能为空
-              inclusion: 公共领域授权协议必需为空
+              inclusion: 必须为公有领域许可协议留空
         harvest_event:
           attributes:
             publish:
@@ -369,7 +374,7 @@ zh-CN:
               blank: 不能为空，除非您提供一个数据集URL
               wrong_type: 类型错误，它应该是一个GZIP、TAR、ZIP或XML文件
             dwc_archive_url:
-              inaccessible: 无法访问，该URL必需可以公开访问
+              inaccessible: 无法访问，该URL必须可以公开访问
               invalid: 无效，它应指向一个TAR.GZIP、TAR.GZ、TGZ或ZIP文件
         user_added_data:
           attributes:
@@ -450,7 +455,7 @@ zh-CN:
         refs: 参考资料<small>（每个参考资料一行）</small>
         refs_order: '*参考文献将按字母顺序排列'
         rights_holder: 权利持有人
-        rights_holder_more: 为这个数据指定一个拥有或管理权限的个人或组织。如果不填写此项，我们将认为您是除了公共域外的所有授权的权利所有者。公共域的许可不需要权利所有者。
+        rights_holder_more: 为这个数据指定一个拥有或管理权限的个人或组织。如果不填写此项，我们将认为您是除了公有域外的所有授权的权利所有者。公有领域许可协议不需要权利持有者。
         rights_statement: 权利声明
         rights_statement_more: 根据知识共享署名协议(CC-By)的版权使用说明，请<q cite=http://creativecommons.org/licenses/by/3.0>按照作者或版权所有者指定的规则</q>声明版权归属。
         source_url: 原始数据对象的URL
@@ -832,7 +837,8 @@ zh-CN:
         recent_observations: 最近的观测
         some_taxon: 未知的观测
         taxa_observed:
-          other: '%{count}类事物已被观察'
+          one: '%{count}个分类单元已被观察'
+          other: '%{count}个分类群已被观察'
         top_contributors: 热门iNaturalist贡献者
         tweet_text: '%{collection_name} iNaturalist观测'
         view_all_observations_on_inaturalist: 查看来自iNaturalist的%{project_title}的所有观测记录
@@ -990,7 +996,9 @@ zh-CN:
       no_subject: （没有主题）
       permalink_to_this_post: 这篇文章的固定链接：
       close_window: 关闭
-      posts_with_count: '%{count}条帖子'
+      posts_with_count:
+        one: '%{count}条帖子'
+        other: '%{count}条帖子'
     topics:
       create: 开启一个新话题
       no_posts: 此话题中木有帖子
@@ -1330,17 +1338,23 @@ zh-CN:
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
     resource_validation: 来源：%{resource} 已完成确认
     bulk_comments_with_count:
+      one: 有1条关于%{on}的新评论
       other: 有%{count}条关于%{on}的新评论
     bulk_comments_on_you_with_count:
-      other: '有 %{count}条关于<a href=''%{url}'' style=''color:#195184''>个人信息</a>的新评论 '
+      one: 有1条关于<a href='%{url}' style='color:#195184'>您的个人信息</a>的新评论
+      other: '有%{count}条关于<a href=''%{url}'' style=''color:#195184''>您的个人信息</a>的新评论 '
     bulk_curation_with_count:
-      other: '管理员对%{to}进行了 %{count}项改进 '
+      one: 馆长对%{to}进行了1项改进
+      other: 馆长对%{to}进行了%{count}项改进
     bulk_collection_activity_with_count:
-      other: 有 %{count}条关于%{to}的更新
+      one: 有1条关于%{to}的更新
+      other: 有%{count}条关于%{to}的更新
     bulk_community_activity_with_count:
-      other: 有 %{count}条关于%{to}的更新
+      one: 有1条关于%{to}的更新
+      other: 有%{count}条关于%{to}的更新
     bulk_community_joins_with_count:
-      other: '%{count} 个新会员加入 %{community}'
+      one: 1个新会员已加入%{community}
+      other: '%{count}个新会员已加入%{community}'
     default_subject: 最近在EOL上的活动
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
@@ -1736,6 +1750,7 @@ zh-CN:
         meta_title: '%{user_full_name}数据下载'
         tweet_text: '%{user_full_name}数据下载'
       header_with_count:
+        one: 数据下载
         other: '%{count}次数据下载'
       empty: 您没有下载。您可以<a href='%{data_search_url}'>搜索数据</a>并请求下载结果。
       download: 下载
@@ -2608,6 +2623,7 @@ zh-CN:
   an_unknown_user: 一个未知用户
   annotation_cabs_colon: 注释：
   annotations_with_count:
+    one: '%{count}段释文'
     other: '%{count}段释文'
   annotation_submit: 发表评论
   annotation_body_default: 加入问题或评论……
@@ -2633,20 +2649,31 @@ zh-CN:
   are_you_sure_this_action_cannot_be_undone: 您确定吗？本次操作不能恢复。
   admin_login_confirmation: 您确定要以%{name}登录到内容合作伙伴注册表？如此，您的管理员登录状态将注销。
   article_from: 文章来自
+  article_secondary_description_with_others_count:
+    zero: '%{taxon}的描述'
+    one: '%{taxon}的描述和%{count}个其他分类单元'
+    other: '%{taxon}的描述和%{count}个其他分类群'
   article_more_about: 深入了解这篇文章的详细信息
   articles_with_count:
+    one: '%{count}篇文章'
     other: '%{count}篇文章'
   articles_in_languages_with_count:
-    other: 本页文章有 %{count} 种语言版本：
+    one: 本页文章有%{count}种语言版本：
+    other: 本页文章有%{count}种语言版本：
   articles_in_other_languages_with_count:
-    other: 本页文章还有 %{count} 种其他语言版本：
+    one: 本页文章还有%{count}种其他语言版本：
+    other: 本页文章还有%{count}种其他语言版本：
   as_of_time_there_were_unique_visitors:
-    other: 截止到%{time}，有 %{count} 位唯一身份访问者
+    one: 截止到%{time}，有%{count}位唯一身份访问者
+    other: 截止到%{time}，有%{count}位唯一身份访问者
   a_total_of_comment_were_found_matching_your_criteria:
-    other: 总共 %{count}条评论与您的标准匹配。
+    one: 总共%{count}条评论与您的标准匹配。
+    other: 总共%{count}条评论与您的标准匹配。
   a_total_of_items_were_found_matching_your_criteria:
+    one: 总共%{count}项与您的标准匹配。
     other: 总共%{count}项与您的标准匹配。
   a_total_of_terms_were_found_matching_your:
+    one: 总共%{count}条术语与您的标准匹配。
     other: 总共%{count}条术语与您的标准匹配。
   assistive_overview_header: 概述
   assistive_data_header: 事实与信息
@@ -2671,12 +2698,16 @@ zh-CN:
   associated_with_sound_header: 在最近的音频中
   associated_with_video_header: 在最近的视频中
   association_trusted_for_taxa:
+    one: 信任为：
     other: 信任为：
   association_unreviewed_for_taxa:
+    one: 未评论至：
     other: 未评论至：
   association_untrusted_for_taxa:
+    one: 不信任为：
     other: 不信任为：
   association_hidden_for_taxa:
+    one: 隐藏为：
     other: 隐藏为：
   associations_more_link: 更多<span class=assistive>类群关联</span>
   a_taxon: 一个分类单元
@@ -2699,7 +2730,8 @@ zh-CN:
   back_to_profile: 返回到信息页
   began: 开始
   belongs_in_count_communities:
-    other: 属于 %{count}个社区
+    one: 属于%{count}个社区
+    other: 属于%{count}个社区
   beta_warning_header: 您正在使用测试功能
   beta_warning_body: 多数用户不能查看或使用此功能，因为它仍在开发中。性能和数据可能无法预测，但我们邀请您探索。请在您评估了我们的数据性能后填写我们的<a
     href='https://www.surveymonkey.com/s/9FDTDQP'>调查</a>。
@@ -2759,6 +2791,9 @@ zh-CN:
   citing_link: 引用
   clade: 分类组
   classification_already_preferred: 错误：该分类系统已被标为首选系统。
+  classification_curation_split_comment_with_count:
+    one: 来自此页面的%{count}个分类已被<a href='%{url}'>拆分到它自己的页面上</a>。
+    other: 来自此页面的%{count}个分类已被<a href='%{url}'>拆分到它自己的页面上</a>。
   classification_from_agent: 来自%{agent}的分类。
   classification_from_agent_chosen_by_curator: 由%{curator}选择的%{agent}提供的分类
   classification_from_agent_chosen_by_curator_see_more: 来自%{agent}由%{curator}选择的分类——<a
@@ -2814,15 +2849,16 @@ zh-CN:
   collection_item_edit_by_javascript_not_authorized_error: 抱歉，您没有权限编辑此收藏的条目。如果您是该收藏的拥有者或编辑者，请重新载入该页面，并确认您已登录。
   collection_items_count:
     zero: 空
+    one: '%{count}项'
     other: '%{count}项'
   collection_items_duplicate_ids: 不能从重复的ID %{type}:(%{values})创建收藏
   collection_items_missing_values: ' collected_item_id/collected_item_type不能为零in:%{item}'
   collection_copy_complete_with_count:
-    one: 从%{from}复制%{count}个项目至%{to}。
-    other: 从%{from}复制共计%{count}个项目至%{to}。
+    one: 已从%{from}复制%{count}个项目至%{to}。
+    other: 已从%{from}复制共计%{count}个项目至%{to}。
   collection_move_complete_with_count:
     one: 已从%{from}移动%{count}个项目至%{to}。
-    other: 已从%{from}移动%{count}个项目至%{to}。
+    other: 已从%{from}移动共计%{count}个项目至%{to}。
   collection_remove_complete_with_count:
     one: 已从%{from}移除%{count}个项目。
     other: 已从%{from}移除%{count}个项目。
@@ -3115,6 +3151,9 @@ zh-CN:
   content_summary_table_type_unreviewed_text_row: 未审核文本项的数量
   content_type: 内容类型
   contribute: 贡献
+  copied_all_items_from_collection_with_count:
+    one: 从%{from}复制了1个项目至此收藏。
+    other: 从%{from}复制了所有%{count}个项目至此收藏。
   copied_items_from_collection_with_count_notice:
     other: ' 从%{name}中拷贝%{count}项。'
   copy: 副本
@@ -3213,6 +3252,9 @@ zh-CN:
     P. Sloan 基金会、John D. and Catherine T. MacArthur 基金会和全世界任何国家的EOL用户为EOL可计算的数据功能发展提供资金。TraitBank的更多信息请<a
     href="%{contact_traitbank_path}">联络EOL秘书处</a>。</p>
   data_results_only_for_search: “%{search_term}”的TraitBank结果
+  data_search_limit:
+    one: 数据搜索结果将下载为每个文件%{count}条记录。
+    other: 数据搜索结果将下载为每个文件%{count}条记录。
   data_about_this_record: 关于此记录的数据
   data_column_tc_id: EOL页面ID
   data_column_sci_name: 学名
@@ -3297,8 +3339,8 @@ zh-CN:
   dato_new_edit_user_text_fieldset_content_header: 文章内容
   dato_new_edit_user_text_link_fieldset_content_header: 连接数据
   dato_new_edit_user_text_fieldset_information_header: 文章信息
-  dato_new_edit_user_text_form_tip: '"您的整篇文章将被添加到物种页。如果您不是一个管理员，这篇文章在被管理员审核之前将被标记为“未审核”。章节、文字、语言和版权许可是必填项(%{required_icon})，其他都是选填项。如果您选择了CC-BY（属性）许可，请附上版权持有人或者留空以使用您的全名。公共领域的许可证不需要版权持有人。想进一步了解请阅读<a
-    href=""%{add_article_help_url}"">添加文章帮助</a>。"'
+  dato_new_edit_user_text_form_tip: 您的整篇文章将被添加到分类单元。如果您不是馆长，它将被标记为“未审核”，直到一位馆长复核它。章节、文字、语言和版权许可是必填项（%{required_icon}），其他都是选填项。如果您选择了CC
+    BY（知识共享署名）许可协议，请附上版权持有人或者留空以使用您的全名。公有领域许可协议不需要权利持有者。想进一步了解请阅读<a href="%{add_article_help_url}">添加文章帮助</a>。
   dato_create_user_text_missing_taxon_id_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_missing_user_exception: 如果物种ID为空，则不能创建文字数据项或用户数据项。
   dato_create_user_text_validation_error: 请确认您是否正确填完了表格。
@@ -3643,7 +3685,8 @@ zh-CN:
   image_title_with_taxa: '%{taxa}的图像'
   images: 图像
   images_with_count:
-    other: '%{count}张图像'
+    one: '%{count}个图片'
+    other: '%{count}个图片'
   images_in_red_are_not_trusted: 红色标记图像是不可信的。
   images_in_yellow_are_not_reviewed: 黄色标记图像是未经审核的。
   image_objects_page_number: 图片页面
@@ -4086,6 +4129,7 @@ zh-CN:
   page_urls: '页面 URL(s):'
   pages_title: 参考文献
   pages_with_count:
+    one: '%{count}'
     other: '%{count}'
   page_statistics_and_tools: 页面统计和工具
   pages_with_pictures_and_text: 有图片和文本的页面
@@ -4819,7 +4863,7 @@ zh-CN:
   your_email_address: 您的电子邮件地址
   you_removed_the_member_from_the_community: 您已成功地从社区删除这个会员。
   your_ip_address: 您的IP地址
-  your_preferences: 你的系统设置
+  your_preferences: 您的参数设置
   your_rating: 您的评级
   youtube: YouTube
   youtube_video: YouTube视频

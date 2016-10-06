@@ -534,6 +534,7 @@ oc:
           serà pas rendut public immediatament).
         published_at: Publicat
         published_status: Estat
+        last_harvest_seconds: Pres %{time_in_words}
       hierarchy:
         browsable_more: Marcatz <em>navigable</em> per promòure aquesta ierarquia
           demest las principalas ierarquias navigablas de l’EdlV.
@@ -5168,6 +5169,7 @@ oc:
   id: Identificant
   reindex_data_object_button: Reïndexar l’objècte
   reindex_page_button: Reïndexar la pagina
+  reindex_users_button: Reïndexar los comptadors utilizaire
   image: Imatge
   image_cropped_notice: L’imatge es estat rosegat corrèctament.
   image_crop_failed_error: O planhèm, una error s'es produita, l'imatge a pas pogut
@@ -5882,6 +5884,7 @@ oc:
   save: Publicar
   scientific_name: Nom scientific
   sci_name_avg_table_head: Nom scientific mejan
+  scrub_user_button: netejar l'utilizaire
   search: Recercar
   search_by_term_page_title: 'Recercar : %{term}'
   search_for_comments_containing_the_text: 'Recercar los comentaris que contenon lo

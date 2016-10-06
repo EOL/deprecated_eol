@@ -22,7 +22,7 @@
 uk:
   activerecord:
     models:
-      user: Акаунт
+      user: обліковий запис
     attributes:
       collection:
         name: Назва колекції
@@ -315,8 +315,10 @@ uk:
       format: '%{attribute} %{message}'
       template:
         header:
-          one: знайдено %{count} помилку перевірки
-          other: знайдено %{count} помилок перевірки
+          one: Знайдено %{count} помилку перевірки
+          few: Знайдено %{count} помилки перевірки
+          many: Знайдено %{count} помилок перевірки
+          other: Знайдено %{count} помилки перевірки
         body: 'Деякі поля заповнені невірно:'
       messages:
         taken: вже взято
@@ -330,20 +332,28 @@ uk:
         blank: не може бути порожнім
         too_long:
           one: занадто довге (максимум %{count} символ)
-          other: занадто довге (максимум %{count} символи)
+          few: занадто довге (максимум %{count} символи)
+          many: занадто довге (максимум %{count} символів)
+          other: занадто довге (максимум %{count} символу)
         too_short:
-          one: закоротке (мінімум - %{count} character)
-          other: закоротке (мінімум - %{count} символів)
+          one: закоротке (мінімум %{count} символ)
+          few: закоротке (мінімум %{count} символи)
+          many: закоротке (мінімум %{count} символів)
+          other: закоротке (мінімум %{count} символу)
         wrong_length: невірна довжина (має бути %{count} знаків)
         not_a_number: не є числом
         not_an_integer: має бути ціле число
         greater_than:
           one: має бути більше ніж %{count}
+          few: має бути більше ніж %{count}
+          many: має бути більше ніж %{count}
           other: має бути більше ніж %{count}
         greater_than_or_equal_to: має бути не менше ніж %{count}
         equal_to: має дорівнювати %{count}
         less_than:
           one: має бути менше ніж %{count}
+          few: має бути менше ніж %{count}
+          many: має бути менше ніж %{count}
           other: має бути менше ніж %{count}
         less_than_or_equal_to: має бути не більше ніж %{count}
         odd: має бути непарним
@@ -954,8 +964,10 @@ uk:
         recent_observations: Недавні Спостереження
         some_taxon: Щось
         taxa_observed:
-          one: в спостереженні %{count} таксон
-          other: в спостереженні %{count} таксони
+          one: '%{count} спостережений таксон'
+          few: '%{count}спостережені таксони'
+          many: '%{count} спостережених таксонів'
+          other: '%{count} спостереженого таксона'
         top_contributors: Найактивніші дописувачі iNaturalist
         tweet_text: Спостереження iNaturalist для %{collection_name}
         view_all_observations_on_inaturalist: Переглянути всі спостереження %{project_title}
@@ -1129,6 +1141,8 @@ uk:
       close_window: закрити
       posts_with_count:
         one: '%{count} публікація'
+        few: '%{count} публікації'
+        many: '%{count} публікацій'
         other: '%{count} публікації'
     topics:
       create: Створити нову тему
@@ -1479,24 +1493,30 @@ uk:
       style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
     resource_validation: 'Перевірку ресурсу: %{resource} завершено'
     bulk_comments_with_count:
-      one: Новий коментар на %{on}}
-      other: '%{count} нові коментарі на %{on}'
+      one: '%{count} новий коментар на %{on}'
+      few: '%{count} нові коментарі на %{on}'
+      many: '%{count} нових коментарів на %{on}'
+      other: '%{count} нового коментаря на %{on}'
     bulk_comments_on_you_with_count:
-      one: Новий коментар у <a href='%{url}' style='color:#195184'>вашому профілі</a>
-      other: '%{count} нові коментарі у <a href=''%{url}'' style=''color:#195184''>вашому
+      one: '%{count} новий коментар у <a href=''%{url}'' style=''color:#195184''>Вашому
+        профілі</a>'
+      other: '%{count} нові коментарі у <a href=''%{url}'' style=''color:#195184''>Вашому
         профілі</a>'
     bulk_curation_with_count:
-      one: Куратори внесли поліпшення у %{to}
-      other: Куратори внесли %{count} поліпшення у %{to}
+      one: Куратори внесли %{count} поліпшення в %{to}
+      few: Куратори внесли %{count} поліпшення в %{to}
+      many: Куратори внесли %{count} поліпшень у %{to}
+      other: Куратори внесли %{count} поліпшення в %{to}
     bulk_collection_activity_with_count:
-      one: Оновлення до %{to}
-      other: '%{count} оновлення до  %{to}'
+      one: Було %{count} оновлення %{to}
+      few: Було %{count} оновлення %{to}
+      many: Було %{count} оновлень %{to}
+      other: Було %{count} оновлення %{to}
     bulk_community_activity_with_count:
-      one: Оновлення до %{to}
-      other: '%{count} оновлення до  %{to}'
-    bulk_community_joins_with_count:
-      one: Новий член приєднався до %{community}
-      other: '%{count} нові члени приєдналися до %{community}'
+      one: Було %{count} оновлення %{to}
+      few: Було %{count} оновлення %{to}
+      many: Було %{count} оновлень %{to}
+      other: Було %{count} оновлення %{to}
     default_subject: Останні дії на EOL
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
@@ -2053,8 +2073,9 @@ uk:
         meta_title: Завантаження даних користувачем %{user_full_name}
         tweet_text: завантаження даних користувачем %{user_full_name}
       header_with_count:
-        one: Завантаження даних
-        other: '%{count} Завантаження даних'
+        one: '%{count} завантаження даних'
+        few: '%{count} завантаження даних'
+        other: '%{count} завантажень даних'
       empty: У вас немає завантажень. Ви можете <a href='%{data_search_url}'>шукати
         дані</a> і подати запит на завантаження результатів.
       empty_taxa_collection: Не знайдено особливостей для цієї колекції
@@ -3682,9 +3703,6 @@ uk:
   amount: Сума
   an_unknown_user: Невідомий користувач
   annotation_cabs_colon: 'Анотація:'
-  annotations_with_count:
-    one: '%{count} анотація'
-    other: '%{count} анотації'
   annotation_submit: опублікувати коментар
   annotation_note: Коментарі будуть поширені через постачальників даних (за наявності).
   annotation_body_default: додавати питання або коментарі...
@@ -3736,31 +3754,12 @@ uk:
   admin_login_confirmation: Ви впевнені, що хочете увійти в реєстр контент партнерів
     як %{name}? Якщо ви зробите це, то ви вийдете з веб-сайту в якості адміністратора.
   article_from: стаття з
-  article_secondary_description_with_others_count:
-    one: Опису таксону %{taxon} і ще %{count} іншого таксону
-    zero: Опис таксону %{taxon}
-    other: Опис таксону %{taxon} і ще %{count} інших таксонів
   article_more_about: Дізнатися більше про цю статтю
   articles_with_count:
     one: '%{count} стаття'
+    few: '%{count} статті'
+    many: '%{count} статей'
     other: '%{count} статті'
-  articles_in_languages_with_count:
-    one: 'Статті з цієї сторінки доступні на %{count}  мові:'
-    other: 'Статті з цієї сторінки доступні на %{count} мовах:'
-  articles_in_other_languages_with_count:
-    one: 'Статті з цієї сторінки доступні на %{count} іншій мові:'
-    other: 'Статті з цієї сторінки доступні на %{count} інших мовах:'
-  as_of_time_there_were_unique_visitors:
-    other: Станом на %{time} був %{count} унікальний відвідувач
-  a_total_of_comment_were_found_matching_your_criteria:
-    one: Всього знайдено %{count} коментар, який відповідає вашим умовам.
-    other: Всього знайдено %{count} коментарі, які відповідають вашим умовам.
-  a_total_of_items_were_found_matching_your_criteria:
-    one: Всього знайдено %{count} елемент, який відповідає вашим умовам.
-    other: Всього знайдено %{count} елементи, які відповідають вашим умовам.
-  a_total_of_terms_were_found_matching_your:
-    one: Всього знайдено %{count} термін, який відповідає вашим умовам.
-    other: Всього знайдено %{count} терміни, які відповідають вашим умовам.
   assistive_overview_header: Огляд
   assistive_data_header: Факти & інформація
   assistive_media_header: Медіа
@@ -3787,20 +3786,24 @@ uk:
     сторінки(ок).
   association_trusted_for_taxa:
     one: 'Довірено для:'
+    few: 'Довірено для:'
+    many: 'Довірено для:'
     other: 'Довірено для:'
   association_unreviewed_for_taxa:
-    few: 'Неперевірені для:'
-    many: 'Неперевірених для:'
-    one: 'Неперевірена для:'
-    other: 'Неперевіреного для:'
+    one: 'Неперевірено для:'
+    few: 'Неперевірено для:'
+    many: 'Неперевірено для:'
+    other: 'Неперевірено для:'
   association_untrusted_for_taxa:
     one: 'Недовірено для:'
+    few: 'Недовірено для:'
+    many: 'Недовірено для:'
     other: 'Недовірено для:'
   association_hidden_for_taxa:
-    few: 'Приховані для:'
-    many: 'Прихованих для:'
-    one: 'Прихований для:'
-    other: 'Прихованого для:'
+    few: 'Приховано для:'
+    many: 'Приховано для:'
+    one: 'Приховано для:'
+    other: 'Приховано для:'
   associations_more_link: інші <span class="assistive">асоціації таксону</span>
   a_taxon: таксон
   attribute: Атрибут
@@ -3830,6 +3833,9 @@ uk:
   back_to_profile: Назад до профілю
   began: Початок
   belongs_in_count_communities:
+    one: Належить до %{count} спільноти
+    few: Належить до %{count} спільнот
+    many: Належить до %{count} спільнот
     other: Належить до %{count} спільноти
   beta_warning_header: Ви використовуєте функцію бета-тестування
   beta_warning_body: Більшість користувачів не можуть бачити або використовувати цю
@@ -3905,10 +3911,12 @@ uk:
   classification_curation_pending: Очікує курирування. Ця класифікації може бути переміщена
     до іншої сторінки у найближчому майбутньому.
   classification_curation_split_comment_with_count:
-    one: '%{count} класифікацію з цієї сторінки вже <a href=''%{url}''>виділено на
-      свою окрему сторінку</a>.'
-    other: '%{count} класифікації з цієї сторінки вже <a href=''%{url}''>виділені
-      на свою окрему сторінку</a>.'
+    one: '%{count} класифікацію з цієї сторінки вже <a href=''%{url}''>відокремлено
+      на її власну, окрему сторінку</a>.'
+    few: '%{count} класифікації з цієї сторінки вже <a href=''%{url}''>відокремлено
+      на її власну, окрему сторінку</a>.'
+    other: '%{count} класифікацій з цієї сторінки вже <a href=''%{url}''>відокремлено
+      на її власну, окрему сторінку</a>.'
   classification_from_agent: Класифікація від %{agent}.
   classification_from_agent_chosen_by_curator: Класифікація від агента %{agent} вибрана
     куратором %{curator}.
@@ -3962,11 +3970,13 @@ uk:
   classifications_summary_header_with_count:
     zero: ЕЖ не має класифікацій для цього таксона
     one: Знайдено в %{count} класифікації
-    other: Знайдено в %{count} класифікаціях
+    few: Знайдено в %{count} класифікаціях
+    many: Знайдено в %{count} класифікаціях
+    other: Знайдено в %{count} класифікації
   classifications_with_count:
+    one: '%{count} класифікація'
     few: '%{count} класифікації'
     many: '%{count} класифікацій'
-    one: '%{count} класифікація'
     other: '%{count} класифікації'
   clear_all_non_species_pages: Очистити усі сторінки, які не для видів
   clear_entire_cache_store: Очистити усе сховище кешу
@@ -4004,8 +4014,12 @@ uk:
   collection_created_with_count_notice:
     one: Колекцію <em>%{collection_name}</em> успішно створено з %{count} колекційним
       елементом.
-    other: Колекцію <em>%{collection_name}</em> успішно створено з %{count} колекційними
+    few: Колекцію <em>%{collection_name}</em> успішно створено з %{count} колекційними
       елементами.
+    many: Колекцію <em>%{collection_name}</em> успішно створено з %{count} колекційними
+      елементами.
+    other: Колекцію <em>%{collection_name}</em> успішно створено з %{count} колекційного
+      елемента
   collection_delete_link: Остаточно вилучити цю колекцію
   collection_destroyed: Колекцію вилучено.
   collection_removed: Колекцію %{collection} вилучено.
@@ -4021,32 +4035,43 @@ uk:
     для редагування цього елемента колекції. Якщо ви є власником колекції або редактором,
     будь ласка, поновіть сторінку і перевірте, що ви увійшли.
   collection_items_count:
-    one: '%{count} елемент'
     zero: Порожньо
-    other: '%{count} елементи'
+    one: '%{count} елемент'
+    few: '%{count} елементи'
+    many: '%{count} елементів'
+    other: '%{count} елемента'
   collection_items_duplicate_ids: Не вдалося створити колекцію з копії ідентифікатора
     %{type}:(%{values})
   collection_items_missing_values: ' collected_item_id/collected_item_type не можуть
     бути порожніми у: %{item}'
   collection_copy_complete_with_count:
-    one: Скопійовано %{count} елемент із %{from} до %{to}.}
-    other: Скопійовано всього %{count} елементи із %{from} до %{to}.}
+    one: Скопійовано %{count} елемент із %{from} до %{to}.
+    few: Скопійовано всього %{count} елементи з %{from} до %{to}.
+    many: Скопійовано всього %{count} елементів із %{from} до %{to}.
+    other: Скопійовано %{count} елемента з %{from} до %{to}.
   collection_move_complete_with_count:
     one: Переміщено %{count} елемент із %{from} до %{to}.
-    other: Переміщено всього %{count} елементи із %{from} до %{to}.
+    few: Переміщено всього %{count} елементи з %{from} до %{to}.
+    other: Переміщено всього %{count} елементів із %{from} до %{to}.
   collection_remove_complete_with_count:
     one: Вилучено %{count} елемент із %{from}.
-    other: Вилучено всього %{count} елементи із %{from}.
+    few: Вилучено всього %{count} елементи із %{from}.
+    many: Вилучено всього %{count} елементів із %{from}.
+    other: Вилучено %{count} елемента з %{from}.
   collection_copy_choose_all_items_target_title: 'Копіювати всі елементи з "%{collection}"
     на:'
   collection_move_choose_all_items_target_title: 'Перемістити всі елементи з "%{collection}"
     на:'
   collection_copy_choose_target_title_with_count:
-    one: 'Копіювати %{count} елемент із "%{collection}" до:'
-    other: 'Копіювати %{count} елементи із "%{collection}" до:'
+    one: 'Копіювати %{count} елемент із «%{collection}» до:'
+    few: 'Копіювати %{count} елементи з «%{collection}» до:'
+    many: 'Копіювати %{count} елементів із «%{collection}» до:'
+    other: 'Копіювати %{count} елемента з «%{collection}» до:'
   collection_move_choose_target_title_with_count:
-    one: 'Перемістити %{count} елемент із "%{collection}" до:'
-    other: 'Перемістити %{count} елементи із "%{collection}" до:'
+    one: 'Перемістити %{count} елемент із «%{collection}» до:'
+    few: 'Перемістити %{count} елементи з «%{collection}» до:'
+    many: 'Перемістити %{count} елементів із «%{collection}» до:'
+    other: 'Перемістити %{count} елемента з «%{collection}» до:'
   collection_name_cannot_be_blank: Ім'я колекції не може бути порожнім
   collection_name_label: Назва колекції
   collection_newsfeed: Стрічка новин колекції
@@ -4069,9 +4094,14 @@ uk:
   collections_summary_empty: Ця сторінка ще не перебуває в жодній колекції.
   collections_summary_header_with_count:
     one: Перебуває в %{count} колекції
-    other: Перебуває в %{count} колекціях
+    few: Перебуває в %{count} колекціях
+    many: Перебуває в %{count} колекціях
+    other: Перебуває в %{count} колекції
   collections_with_count:
-    other: '%{count} колекція'
+    one: '%{count} колекція'
+    few: '%{count} колекції'
+    many: '%{count} колекцій'
+    other: '%{count} колекції'
   comment: Коментар
   comment_added_notice: Коментар успішно доданий.
   comment_body_label: Ваш коментар
@@ -4098,9 +4128,9 @@ uk:
   comments_on: Коментарі
   comments_page_title: Коментарі на %{parent}
   comments_with_count:
+    one: '%{count} коментар'
     few: '%{count} коментарі'
     many: '%{count} коментарів'
-    one: '%{count} коментар'
     other: '%{count} коментаря'
   common_activities_by_logged_in: Загальна діяльність зареєстрованих користувачів.
   common_name_avg: Загальні назви в середньому
@@ -4108,10 +4138,14 @@ uk:
   common_name_exists: Загальна назва <em>%{name_string}</em> вже існує
   common_names_with_count:
     one: '%{count} загальна назва'
-    other: '%{count} загальні назви'
+    few: '%{count} загальні назви'
+    many: '%{count} загальних назв'
+    other: '%{count} загальної назви'
   common_user_activity_page_title: Загальна діяльність користувачів
   communities_with_count:
     one: '%{count} спільнота'
+    few: '%{count} спільноти'
+    many: '%{count} спільнот'
     other: '%{count} спільноти'
   communities_filter: Громади
   communities_link: Громади
@@ -4122,8 +4156,10 @@ uk:
   community: Спільнота
   community_activity: Діяльність співтовариства
   community_contributions_with_count:
-    one: '%{count} Внесок'
-    other: '%{count} Внески'
+    one: '%{count} внесок'
+    few: '%{count} внески'
+    many: '%{count} внесків'
+    other: '%{count} внеску'
   community_destroyed: Ви видалили цю спільноту. Вона більше не відображатиметься
     на сторінках таксону або в пошуках.
   community_description_default: Громада Енциклопедії Життя.
@@ -4131,16 +4167,22 @@ uk:
   community_focus: Керовані колекції
   community_focus_items_with_count:
     one: '%{count} елемент'
-    other: '%{count} елементи'
+    few: '%{count} елементи'
+    many: '%{count} елементів'
+    other: '%{count} елемента'
   community_invitation_comment: Я хотів би запросити вас приєднатися до "%{community}".
   community_logo_alt_text: Логотип для спільноти %{community_name}
   community_managers_with_count:
     one: '%{count} менеджер спільноти'
-    other: '%{count} менеджери спільнот'
+    few: '%{count} менеджери спільноти'
+    many: '%{count} менеджерів спільноти'
+    other: '%{count} менеджера спільноти'
   community_members: Члени спільноти
   community_members_with_count:
     one: '%{count} член спільноти'
-    other: '%{count} членів спільноти'
+    few: '%{count} члени спільноти'
+    many: '%{count} членів спільноти'
+    other: '%{count} члена спільноти'
   community_name_label: Назва спільноти
   community_newsfeed: Канал новин спільноти
   community_no_longer_has_manager_access_to_collection: «%{community}» більше не має
@@ -4164,6 +4206,9 @@ uk:
   community_removed_by_owner: Це співтовариство було вилучено його власником.
   communities_summary_empty: Цей таксон ще не був показаний у будь-яких спільнотах.
   communities_summary_header_with_count:
+    one: Належить до %{count} спільноти
+    few: Належить до %{count} спільнот
+    many: Належить до %{count} спільнот
     other: Належить до %{count} спільноти
   completed: Готово
   completed_colon: 'Завершено:'
@@ -4429,10 +4474,10 @@ uk:
     внесок у місію ЕЖ і заохочуємо Вас дізнатися про них більше. Дізнайтеся більше
     також про те, <a href="%{more_url}">як стати контент-партнером.</a>
   content_partners_with_count:
-    few: '%{count} партнери вмісту'
-    many: '%{count} партнерів вмісту'
-    one: '%{count} партнер вмісту'
-    other: '%{count} партнера вмісту'
+    one: '%{count} контент-партнер'
+    few: '%{count} контент-партнери'
+    many: '%{count} контент-партнерів'
+    other: '%{count} контент-партнера'
   content_server_full_url: Повна URL-адреса сервера вмісту
   content_servers: Сервери вмісту
   content_setting_colon: 'Параметр вмісту:'
@@ -4457,18 +4502,20 @@ uk:
   content_type: Тип вмісту
   contribute: Внесок
   copied_all_items_from_collection_with_count:
+    one: Скопійовано %{count} елемент з %{from} до цієї колекції.
     few: Скопійовано всі %{count} елементи з %{from} до цієї колекції.
     many: Скопійовано всі %{count} елементів з %{from} до цієї колекції.
-    one: Скопійовано %{count} елемент з %{from} до цієї колекції.
-    other: Скопійовано усі %{count} елемента з %{from} до цієї колекції.
+    other: Скопійовано %{count} елемента з %{from} до цієї колекції.
   copied_all_items_to_collections:
-    one: Скопійовано усі елементи із %{name} до %{count} колекції.
-    other: Скопійовано усі елементи із %{name} до %{count} колекцій.
+    one: Скопійовано всі елементи з %{name} до %{count} колекції.
+    few: Скопійовано всі елементи з %{name} до %{count} колекцій.
+    many: Скопійовано всі елементи з %{name} до %{count} колекцій.
+    other: Скопійовано всі елементи з %{name} до %{count} колекції.
   copied_items_from_collection_with_count_notice:
-    few: Скопійовано %{count} елементи із %{name}.
-    many: Скопійовано %{count} елементів із %{name}.
     one: Скопійовано %{count} елемент із %{name}.
-    other: Скопійовано %{count} елемента із %{name}.
+    few: Скопійовано %{count} елементи з %{name}.
+    many: Скопійовано %{count} елементів із %{name}.
+    other: Скопійовано %{count} елемента з %{name}.
   copy: Копія
   copy_of_name: Копія %{name}
   copy_items_to_a_new_collection_with_count:
@@ -4488,7 +4535,10 @@ uk:
     one: '%{count} результат для <em>%{search_term}</em>'
     other: '%{count} результату для <em>%{search_term}</em>'
   count_results_for_traitbank:
-    other: '%{count} результат із TraitBank'
+    one: '%{count} результат із TraitBank'
+    few: '%{count} результати з TraitBank'
+    many: '%{count} результатів із TraitBank'
+    other: '%{count} результату із TraitBank'
   create_account: створити обліковий запис
   create_a_new_collection: Створити нову колекцію
   create_community_unsuccessful_error: Вибачте, виникла помилка, ваше співтовариство
@@ -4575,11 +4625,15 @@ uk:
   curators_empty: Наші куратори ще не здійснили жодної дії на цій сторінці.
   curators_summary_header_with_count:
     one: Перевірено %{count} куратором
-    other: Перевірено %{count} кураторами
+    few: Перевірено %{count} кураторами
+    many: Перевірено %{count} кураторами
+    other: Перевірено %{count} куратора
   curators_summary_learn_more_link: Дізнайтеся, як курувати
   curators_with_count:
     one: '%{count} куратор'
-    other: '%{count} куратори'
+    few: '%{count} куратори'
+    many: '%{count} кураторів'
+    other: '%{count} куратора'
   your_current_rating_0_of_5: 'Ваш поточний рейтинг: 0 із 5'
   your_current_rating_1_of_5: 'Ваш поточний рейтинг: 1 із 5'
   your_current_rating_2_of_5: 'Ваш поточний рейтинг: 2 з 5'
@@ -4613,7 +4667,9 @@ uk:
   data_results_only_for_search: Результати пошуку в TraitBank для «%{search_term}»
   data_search_limit:
     one: Результати пошуку даних будуть завантажені як %{count} запис на файл.
-    other: Результати пошуку даних будуть завантажені як %{count} записи на файл.
+    few: Результати пошуку даних будуть завантажені як %{count} записи на файл.
+    many: Результати пошуку даних будуть завантажені як %{count} записів на файл.
+    other: Результати пошуку даних будуть завантажені як %{count} запису на файл.
   data_about_this_record: Дані про цей запис
   data_column_tc_id: ІД сторінки ЕЖ
   data_column_sci_name: Наукова назва
@@ -4647,7 +4703,7 @@ uk:
     можливість завантаження даних</a>.
   data_link_to_record: Посилання на цей запис
   data_logging_active: Журналювання даних активне
-  data_master_database_colon: 'Основні бази даних:'
+  data_master_database_colon: 'Майстер даних:'
   data_metadata_subtable_summary: Додаткові дані про цей факт.
   data_measurement_subtable_summary: Додаткові дані про вимірювання цього факту.
   data_object: Об'єкт даних
@@ -4659,6 +4715,8 @@ uk:
   data_object_undo_ignore: видалити зі списку ігнорування
   data_object_toc_items_list:
     one: З'являється під %{quoted_toc_titles}
+    few: З'являється під %{quoted_toc_titles}
+    many: З'являється під %{quoted_toc_titles}
     other: З'являється під %{quoted_toc_titles}
   data_overview_table_caption: Характерні дані
   data_point_uri_source_missing: джерело відсутнє
@@ -4707,8 +4765,14 @@ uk:
       search_value_or_range_header: Пошук певного значення або діапазону
       search_within_taxon_group_header: Пошук у межах групи таксона
       search_within_taxon_group_intro_with_count:
+        one: Пошук у межах групи таксона наразі обмежений до груп, що містять менше
+          %{count} таксона. <a href="%{contact_us_tech_url}">Зв'яжіться з нами</a>,
+          щоб дізнатися більше про пошук у більших групах.
+        few: Пошук у межах групи таксона наразі обмежений до груп, що містять менше
+          %{count} таксонів <a href="%{contact_us_tech_url}">Зв'яжіться з нами</a>,
+          щоб дізнатися більше про пошук у більших групах.
         other: Пошук у межах групи таксона наразі обмежений до груп, що містять менше
-          %{count} таксонів. <a href="%{contact_us_tech_url}">Зв'яжіться з нами</a>,
+          %{count} таксонів <a href="%{contact_us_tech_url}">Зв'яжіться з нами</a>,
           щоб дізнатися більше про пошук у більших групах.
       sort_header: Сортувати результати
     notice:
@@ -4723,16 +4787,22 @@ uk:
   data_search_attribute: Шукати в TraitBank записи з даними %{attribute}
   data_search_destroyed: Ця робота більше не буде оброблятися.
   data_search_files_with_count:
-    few: '%{count} завантажені дані'
-    many: '%{count} завантажених даних'
-    one: '%{count} завантажене дане'
-    other: '%{count} завантажені дані'
+    one: '%{count} завантаження даних'
+    few: '%{count} завантаження даних'
+    many: '%{count} завантажень даних'
+    other: '%{count} завантаження даних'
   data_search_row_hidden: Куратор приховав цей рядок даних.
   data_server_unavailable: Дані про ЕЖ тимчасово недоступні. Будь ласка, завітайте
     пізніше. Вибачте за завдані незручності.
   data_show_n_more_rows: Показати понад 10 рядків...
   data_subtab_about: Про
   data_subtab_glossary: Глосарій для %{taxon}
+  data_summary_header_with_count:
+    zero: ЕЖ не має даних про особливості
+    one: ЕЖ має дані про %{count} особливість
+    few: ЕЖ має дані про %{count} особливості
+    many: ЕЖ має дані про %{count} особливостей
+    other: ЕЖ має дані про %{count} особливості
   data_summary_ranges_header_with_count: Енциклопедія життя має зведені дані
   data_tab_curator_exemplar: Цей рядок вже додано у вкладку Огляду
   data_tab_curator_excluded: Цей рядок вже вилучено з вклаждки Огляду
@@ -4816,11 +4886,20 @@ uk:
   did_you_mean: 'Ви мали на увазі: %{suggestions} ?'
   disabled_for_now: ВИМКНЕНО
   discover_link: Освіта
+  displaying_numerical_range_eol_records_with_count:
+    one: Відображення %{count} запису в ЕЖ
+    few: Відображення %{start_number} &ndash; %{end_number} з %{count} записів в ЕЖ
+    many: Відображення %{start_number} &ndash; %{end_number} з %{count} записів в
+      ЕЖ
+    other: Відображення %{count} запису в ЕЖ
   donate_link: Пожертвувати
   done_already: Уже зроблено
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не показувати
+    невідомі дати реєстрації (V1-користувачі, всі, що зареєструвалися до 5 січня 2009)
   do_you_want_to_be_a_curator: Ви хочете бути куратором
   download_wav_file: Завантажити файл WAV
   download_data: Завантажити дані
+  download_collection_data: Завантажити дані
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Коментар не збережено: здається, ви вже опублікували
     цей коментар. Ви натиснули кнопку ''Надіслати коментар'' двічі?'
@@ -4869,7 +4948,10 @@ uk:
   endorsed_by: Рекомендовано
   endorsed_collections: Вибрані колекції
   endorsed_collections_with_count:
-    other: '%{count} вибрана колекція'
+    one: '%{count} вибрана колекція'
+    few: '%{count} вибрані колекції'
+    many: '%{count} вибраних колекцій'
+    other: '%{count} вибраної колекції'
   enter_in_a_search_term_users_a: Введіть пошуковий термін, яким користувачі користуються
     при пошуку, а тоді ID таксона/сторінки, на яку вони мали б скеровуватись як на
     пропозицію для цього пошукового терміна. Ідентифікатор таксона/сторінки можна
@@ -5006,6 +5088,7 @@ uk:
       error_editing_someone_account: Вибачте, Ви можете редагувати лише свій власний
         обліковий запис
       can_not_edit_permissions: Вибачте, Ви не можете редагувати права
+      collection_job_not_valid: Недійсне завдання колекції
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи
     не будуть показані на сторінках огляду таксону.
   expand_all_children: розгорнути усіх нащадків
@@ -5022,12 +5105,34 @@ uk:
   facebook: Facebook
   faculty_staff_or_grad_student_credential_option: факультет, співробітник або аспірант
     у відповідному департаменті, університеті або коледжі
+  failed_login_attempts_with_count:
+    one: (%{count} невдала спроба входу) — треба поставити галочку, щоб користувач
+      міг увійти в систему
+    few: (%{count} невдалі спроби входу) — треба поставити галочку, щоб користувач
+      міг увійти в систему
+    many: (%{count} невдалих спроб входу) — треба поставити галочку, щоб користувач
+      міг увійти в систему
+    other: (%{count} невдалої спроби входу) — треба поставити галочку, щоб користувач
+      міг увійти в систему
   false_label: Хибність
   family_name_colon: 'Назва сім''ї:'
   feedback: Зворотний зв'язок
   file: Файл
+  file_download_pending: Створення завантаження потребує трохи додаткового часу, тож
+    ми започаткували фонове завдання для цього. Ви можете  <a href='%{link}'>перевірити
+    статус цього завдання</a> в будь-який час.
+  file_download_ready: ЕЖ завершила створення файлу пошуку даних для Вашого запиту
+    «%{query}». Ви можете <a href='%{file}'>завантажити його в будь-який час протягом
+    наступних декількох днів</a>.
+  file_download_refreshing: Оновлення завантаження Вимагає трохи додаткового часу,
+    тож ми започаткували фонове завдання для цього. Ви можете <a href='%{link}'>перевірити
+    статус цього завдання</a> в будь-який час.
   file_id: ІД файлу
   file_size: Розмір файлу
+  filed_under_label_with_date: Подано %{date} як %{label}
+  fill_in_a_message_below_to_send_email_to_user: 'Заповніть повідомлення нижче, щоб
+    відправити електронного листа цьому користувачеві з цього сайту. Повідомлення
+    буде надіслано після надсилання форми:'
   filter_button: Фільтр
   filter_by_day: Фільтрувати за днем
   filter_by_subject: Фільтрувати за темою
@@ -5041,6 +5146,8 @@ uk:
   filter_by_type_all_option: Всі типи
   filter_by_type_all_option_with_count:
     one: Усі типи (%{count})
+    few: Усі типи (%{count})
+    many: Усі типи (%{count})
     other: Усі типи (%{count})
   filter_by_type_collection_option: Колекції
   filter_by_type_community_option: Громади
@@ -5048,20 +5155,21 @@ uk:
   filter_by_type_image_option: Зображення
   filter_by_type_image_option_with_count:
     one: Зображення (%{count})
-    other: Зображень (%{count})
+    few: Зображення (%{count})
+    many: Зображення (%{count})
+    other: Зображення (%{count})
   filter_by_type_data_option: Особливості
   filter_by_type_link_option: Посилання
   filter_by_type_text_option: Статті
   filter_by_type_user_option: Люди
   filter_by_type_photosynth_option: Photosynths
   filter_by_type_sound_option: Звуки
-  filter_by_type_sound_option_with_count:
-    one: Звук (%{count})
-    other: Звуки (%{count})
   filter_by_type_taxon_concept_option: Таксони
   filter_by_type_video_option: Відео
   filter_by_type_video_option_with_count:
     one: Відео (%{count})
+    few: Відео (%{count})
+    many: Відео (%{count})
     other: Відео (%{count})
   filter_by_type_comment_option: Коментарі
   filter_by_type_object_curated_option: Куровані об'єкти
@@ -5077,33 +5185,53 @@ uk:
   filtered_information: Оброблена інформація
   taxon_concept_search_keyword:
     one: таксон
-    other: таксони
+    few: таксони
+    many: таксони
+    other: таксона
   image_search_keyword:
     one: зображення
+    few: зображення
+    many: зображення
     other: зображення
   video_search_keyword:
     one: відео
+    few: відео
+    many: відео
     other: відео
   sound_search_keyword:
     one: аудіо
+    few: аудіо
+    many: аудіо
     other: аудіо
   text_search_keyword:
     one: стаття
+    few: статті
+    many: статті
     other: статті
   data_search_keyword:
     one: особливість
+    few: особливості
+    many: особливості
     other: особливості
   link_search_keyword:
     one: посилання
+    few: посилання
+    many: посилання
     other: посилання
   user_search_keyword:
     one: особа
-    other: люди
+    few: особи
+    many: особи
+    other: особи
   community_search_keyword:
     one: спільнота
+    few: спільноти
+    many: спільноти
     other: спільноти
   collection_search_keyword:
     one: колекція
+    few: колекції
+    many: колекції
     other: колекції
   find_taxa_submit_button: знайти таксони
   flash_notice_redirected_from_search_html: Ви потрапили сюди, здійснюючи пошук <em>%{search_string}</em>.
@@ -5115,8 +5243,12 @@ uk:
   flickr: Flickr
   focus_collection_edit: Вам дозволено редагування колекцій цієї спільноти безпосередньо
     на сторінці редагування кожної колекції.
+  focus_list_newsfeed: Стрічка новин для списку основних тем
   forgot_password: Забули пароль
   forgot_password_form_cancel: Скасувати
+  forgot_password_form_choose_username_instructions: Є декілька облікових записів,
+    зареєстрованих з електронною адресою <em>%{email}</em>, будь ласка, виберіть один
+    обліковий запис, для якого треба скинути пароль.
   forgot_password_form_choose_username_legend: Виберіть обліковий запис
   forgot_password_form_choose_username_blank_error: Будь ласка, виберіть обліковий
     запис, для якого ви хочете відновити пароль.
@@ -5130,9 +5262,14 @@ uk:
   forgot_password_cannot_find_user_from_username_or_email_error: На жаль, там не немає
     облікових записів користувачів із зазначеним іменем користувача або електронною
     поштою <em>%{username_or_email}</em>.
+  for_example_for_the_taxon_element_for_a_node: Наприклад, для елемента таксона для
+    вузла в ієрархії ITIS, dc:identifier буде ITIS TSN. Елемент dwct:taxonID містить
+    <i>ідентифікатор ЕЖ</i>, що має бути використаний в API %{link}.
+  for_images_to_reference_parens: (для зображень, на які треба послатися)
   for_pdfs_and_docs_parens: (для PDF-файлів і документів)
   form_validation_errors_for_attribute_assistive: Існує помилка перевірки на цьому
     елементі
+  fragment_caching_enabled: Кешування фрагментів увімкнено
   frequency: Частота
   frequency_daily: Щодня
   frequency_monthly: Щомісяця
@@ -5141,12 +5278,32 @@ uk:
   friendly_url: Дружні URL
   from_community: від спільноти  %{community}
   from_communities: 'від громад: %{communities}'
+  full_content_url: URL-адреса повного контенту
   gbif_map: GBIF карта
+  general_site_admin: загальний адміністратор сайту
+  georeference_records_colon: 'Записи геоприв''язки:'
   get_help_choosing_a_subject: Отримати допомогу при виборі теми
   get_help_choosing_a_subchapter: Отримати допомогу при виборі підтеми
   get_more_tasks: отримати більше завдань
+  given_name_colon: 'Ім''я:'
+  data_object_api_description: Якщо вказаний ідентифікатор для об'єкту даних, цей
+    API поверне всі метадані про об'єкт, надані ЕЖ її контент-партнером. Контент-партнер
+    цитується в першому елементі агента і має роль «партнер».
+  given_the_vast_number: Зважаючи на незмірну кількість наукових та загальних назв
+    (загалом близько 20 мільйонів), дуже важко подати користувачеві саме ті види,
+    які він сподівається знайти. Наприклад, є декілька видів птахів з англомовною
+    назвою «Robin» (American Robin, Alpine Robin, Smoky Robin), і  декілька видів
+    риб з назвою «Robin», а також таксономіст з прізвищем Робін, який надав назви
+    десяткам різних видів. Ми включили параметр «exact», щоб виводилися лише результати,
+    що точно відповідають пошуковому терміну, але ми не можемо гарантувати, що виведені
+    таксони є саме тими таксонами, які Ви сподівалися відшукати. Ми постійно стараємось
+    вдосконалити релевантність наших пошукових результатів, тож можна сподіватися
+    на деякі покращення пошукової системи вже в близькому майбутньому.
+  gives_access_to_a_single_hierarchy_indexed_by_eol: надає доступ до єдиної ієрархії,
+    індексованої ЕЖ, та її внутрішніх взаємовідносин.
   gives_access_to_a_single_hierarchy_descendants_by_eol: надає доступ до нащадків
     для єдиного ієрархічного запису
+  global_access_tagline: Глобальний доступ до знань про життя на Землі
   global_navigation: загальне меню
   glossary: Глосарій
   glossary_subhead: Глосарій
@@ -5159,12 +5316,20 @@ uk:
   google: Google
   google_images: Google Зображення
   google_scholar: Google Академія
+  grant_manager_link: Надати роль менеджера
   grant_permission: дозвіл
   grant_full_curator_link: Дозвіл
   harvest_id: ІД збору
   harvesting_processes_log: Журнал процесів збору
   harvests_for: Збори для %{resource}
+  harvest_resource: Збір даних з ресурсу
+  harvest_duration: Тривалість збору даних станом на зараз
+  has_already_been_taken: вже прийнято.
   has_colon: 'Має:'
+  has_curated_your_image: позначив Ваше зображення як куроване
+  has_hidden_your_image: приховав Ваше зображення
+  has_trusted_your_image: позначив Ваше зображення як довірене
+  has_untrusted_your_image: зняв позначку про довіру з Вашого зображення
   hello_user: Привіт %{user}
   help: довідка
   here: тут
@@ -5172,17 +5337,53 @@ uk:
   hidden_comment: прихований коментар
   hide: приховати
   hierarchy: Ієрархія
+  hierarchy_entry_switch_missing_id_error: Вибачте, вибрану сторінку запису ієрархії
+    знайти не вдалося через відсутність ідентифікатора.
   hierarchy_node_missing: На жаль, відсутні дані для цього вузла.
+  hierarchy_roots_colon: 'Корені ієрархії:'
   hierarchy_updated: Ієрархія оновлена
   hierarchies_title: Ієрархії
   home: Головна
   home_page_cache_last_cleared_on: Кеш головної сторінки востаннє очищено %{date}
   home_page_link_advisory_information: Це посилання переадресує вас на головну сторінку
     веб-сайту Енциклопедії життя
+  however_there_are_summaries: Однак, <a href='%{summary_url}'>ЕЖ підсумовує дані
+    з підгруп</a>.
   html_format: (Формат HTML)
+  html_format_with_left_col: (HTML-формат, введіть лише якщо Ви хочете мати лівий
+    стовпець на сторінці, в іншому випадку залиште порожнім)
   content_upload_url: http://%{domain}%{upload_attachment}
+  content_upload_restrictions_note: (розмір має бути менш як 10 MB, файл буде збережений
+    як завантаження, тобто не буде виконано жодних змін вимірів зображення)
   id: ІД
+  if_checked_and_user_is_saved: Якщо поставити галочку й зберегти користувача, то
+    його обґрунтування, сферу діяльності, інформацію про затвердження та вибрані клади
+    буде вилучено, і користувач більше не відображатиметься як куратор. Вам слід додати
+    примітку нижче, щоб зазначити причину. Жодної інформації користувачеві надіслано
+    не буде.
+  if_multiple_media_objects_are_returned: 'Якщо будуть виведено багато медіаоб''єктів,
+    список сортуватиметься за типом об''єкта. В межах кожного об''єкта сортування
+    елементів відбувається за статусом перевірки (''Довірений'' &gt; ''Неперервірений''
+    &gt; ''Недовірений''), а далі — за рейтингом даних. Однак, у випадку з певними
+    типами даних, певні елементи отримують найвищий пріоритет: якщо один з цих елементів
+    виводиться, він буде розташований на першому місці. У випадку зображень, зображення
+    екземплярів мають найвищий пріоритет. У випадку з типами текстів, найвищий пріоритет
+    має текст загального огляду.'
+  if_the_details_parameter_is_not_set: Якщо параметр «details» не встановлено, то
+    виведені будуть лише ідентифікатор об'єкта даних, тип даних та суб'єкт у випадку
+    статей. Тип даних матиме значення зі словника типів ресурсу %{linka}. Текстовий
+    суб'єкт буде одним із %{linkb}.
+  check_this_to_browse_eol_by_the_hierarchy: (Якщо цю галочку буде встановлено, класифікації
+    будуть відображені у вкладці назв без потреби натискати «Показати всі класифікації».)
+  return_content_by_vettedness: Якщо «перевірці» надається значення «1», то виведено
+    буде лише довірений контент. Якщо «перевірка» має значення «2», то виведено буде
+    лише довірений та неперевірений контент (недовірений контент виведено не буде).
+    Якщо «перевірка» має значення «3», то виведено буде лише неперевірений контент.
+    Якщо «перевірка» має значення «4», то виведено буде лише недовірений контент.
+    Стандартним значенням є виведення всього доступного контенту.
+  reindex_data_object_button: Переіндексувати об'єкт
   reindex_page_button: Переіндексувати сторінку
+  reindex_users_button: Переіндексувати підрахунок користувачів
   image: Зображення
   image_cropped_notice: Зображення обрізане успішно.
   image_crop_failed_error: Вибачте, сталася помилка, сторінка не може бути обрізана.
@@ -5190,17 +5391,32 @@ uk:
   image_map_from: карта від
   image_not_found: Зображення не знайдено
   image_object: Зображення об'єкта
+  image_objects_will_contain_two_mediaurl_elements: Об'єкти зображень міститимуть
+    два елементи «mediaURL» — першим є URL-адреса зображення на веб-сайті постачальника,
+    а другим є URL-адреса кешованої версії медіафайлу, збереженої на сервері ЕЖ. Версія
+    зображення в ЕЖ матиме змінений розмір (зі збереженням пропорцій), якщо оригінальне
+    зображення мало понад 460 пікселів у ширину та 345 пікселів у висоту.
   image_title_with_taxa: Зображення %{taxa}
   image_title_without_taxa: Зображення невідомого таксону
   images: зображення
   images_with_count:
+    one: '%{count} зображення'
+    few: '%{count} зображення'
+    many: '%{count} зображень'
     other: '%{count} зображення'
   images_in_red_are_not_trusted: Зображення у червоному кольорі - ненадійні.
   images_in_yellow_are_not_reviewed: Зображення у жовтому кольорі - неперевірені.
+  image_objects_page_number: сторінка зображень
+  import_once: Імпортувати один раз
+  import_ontology: Імпортувати онтологію
+  inappropriate: Недоречний
+  inaturalist_tab_label: Спостереження iNaturalist
   include_all_metadata: включати всі метадані для об'єктів даних
   including_traitbank_count:
     one: ', включно з %{count} властивістю в TraitBank'
-    other: ', включно з %{count} властивостями в TraitBank'
+    few: ', включно з %{count} властивостями в TraitBank'
+    many: ', включно з %{count} властивостями в TraitBank'
+    other: ', включно з %{count} властивості в TraitBank'
   in_collection: в колекції
   in_community: у спільноті
   indexed: Індексовані
@@ -5209,6 +5425,7 @@ uk:
   information_for_any_audience: Інформація для будь-якої аудиторії
   information_intended_for_beginners: Інформація, призначена для початківців
   information_intended_for_experts: Інформація, призначена для фахівців
+  in_providing_its_content_to_eo: Надаючи свій контент ЕЖ,
   in_this_data_type: 'у цьому %{data_type}:'
   insufficient_privileges_to_add_common_names: На жаль, ви не маєте достатніх прав
     на додавання загальних назв.
@@ -5267,7 +5484,9 @@ uk:
     тих елементів у списку, які Ви хотіли б вилучити.
   items_with_count_semi_colon:
     one: '%{count} елемент;'
-    other: '%{count} елементи;'
+    few: '%{count} елементи;'
+    many: '%{count} елементів;'
+    other: '%{count} елемента;'
   iucn_red_list_status_advisory_information: Це посилання приведе Вас на веб-сайт
     Міжнародного союзу охорони природи (МСОП), де Ви зможете знайти більше інформації
     про створений МСОП Червоний список видів, яким загрожує вимирання.
@@ -5366,9 +5585,13 @@ uk:
   limits_the_number_of_returned_video_objects: обмежує число повернутих об'єктів відео
   limits_the_number_of_returned_sound_objects: обмежує число повернутих звукових об'єкти
   limits_the_number_of_returned_map_objects: обмежує число повернутих об'єктів мапи
+  limits_the_number_of_returned_iucn_objects: включити об'єкти статусу з Червоного
+    списку МСОП
+  limits_the_returned_to_a_specific_language: надає результати вказаною мовою.
   link_more_about: Докладніше про це посилання
   link_name: Назва посилання
   link_to_this_term: посилання на цей термін
+  link_to_top_of_page: вгору
   links_with_count:
     few: '%{count} посилання'
     many: '%{count} посилань'
@@ -5376,7 +5599,15 @@ uk:
     other: '%{count} посилання'
   list_newsletter_emails: список розсилання листів
   listing_collections: Лістинг колекцій
+  list_of_activity_combinations: Список комбінацій діяльності за п'ятихвилинний період
+  lists_the_identifiers_for_all_hierarchies: виводить список ідентифікаторів для усіх
+    ієрархій, постачених контент-партнерами.
   literature: Література
+  literature_bhl_information: Подану бібліографію згенеровано автоматичними сервісами.
+    BHL використовує таксономічні розумні інструменти для визначення розташування,
+    перевірки й запису наукових назв, вказаних у тексті кожної оцифрованої сторінки
+    в цифровій колекції BHL.
+  literature_bhl_link: Переглянути відкриту бібліографію в BHL
   literature_empty: Посилання не знайдено.
   literature_header: Посилання
   literature_links: Літературні посилання
@@ -5385,17 +5616,38 @@ uk:
   location: Місцезнаходження
   location_colon: 'Місце:'
   login_required_button: Потрібний вхід
+  logging_database_colon: 'Журналювання:'
   login: увійти
+  login_header: Увійдіть під своїм обліковим записом в <abbr title="Encyclopedia of
+    Life">ЕЖ</abbr>
   login_hidden_user_message: Обліковий запис %{given_name} більше не активний
   login_or_create_account: Увійти або створити обліковий запис
   login_to_the_website_as: Увійти на сайт як %{username}
   logo_header: Логотип
+  logo_type_error: Логотип не є дійсним типом зображення (має бути PNG або JPEG).
   logout: Вихід
-  main_database_colon: 'Основне:'
+  looking_up_url: Пошук URL-адреси...
+  main_content_area: 'Область основного контенту:'
+  main_database_colon: 'Основна:'
+  main_master_database_colon: 'Основний майстер:'
+  maintained_by: підтримується
+  major_heading: Основний заголовок
+  make_an_editor: зробити менеджером
+  make_user_an_editor_title: Дозволити %{user} керувати вказаними колекціями
   manage_your_profile: Управління вашим профілем
+  managed_by: Керується
+  managed_collections_with_count:
+    one: '%{count} керована колекція'
+    few: '%{count} керовані колекції'
+    many: '%{count} керованих колекцій'
+    other: '%{count} керованої колекції'
+  manager_endorse_collections_suggestion: Щоб показати цю колекцію як вибрану на цій
+    сторінці спільноти, додайте вибрану колекцію до будь-якої з керованих колекцій
+    спільноти.
   manager_parens: (менеджер)
   map_from: карта від
   master_curators_may_add_data: 'Куратори майстри можуть додавати дані:'
+  map_objects_page_number: Сторінка карт
   maps_with_count:
     few: '%{count} карти'
     many: '%{count} карт'
@@ -5403,17 +5655,30 @@ uk:
     other: '%{count} карти'
   maps_empty: Ніхто ще не вніс жодних карт на цю сторінку.
   maps_empty_contribute_instructions: Дізнайтеся, як вносити карти у ЕЖ.
+  maps_image_maps_header: Медіафайли, позначені як «карти»
+  matching_users_found_with_count:
+    one: Всього знайдено %{count} користувача, що відповідає Вашим умовам.
+    few: Всього знайдено %{count} користувачів, що відповідають Вашим умовам.
+    many: Всього знайдено %{count} користувачів, що відповідають Вашим умовам.
+    other: Всього знайдено %{count} користувача, що відповідає Вашим умовам.
   media: Медіа
   media_list_empty_contribute_instructions: Дізнайтеся, як вносити медіадані у ЕЖ.
   media_with_count:
     one: '%{count} медіафайл'
-    other: '%{count} медіафайли'
+    few: '%{count} медіафайли'
+    many: '%{count} медіафайлів'
+    other: '%{count} медіафайлу'
   media_summary_empty: Ніхто ще не додав будь-яких зображень до цієї сторінки.
   media_summary_empty_contribute_instructions: Дізнайтеся, як додавати зображення
     до ЕЖ.
   member_of_professional_society_credential_option: член професійного товариства
   member_of: учасник
   members_like_you: Учасники, як Ви
+  members_with_count:
+    one: '%{count} учасник'
+    few: '%{count} учасники'
+    many: '%{count} учасників'
+    other: '%{count} учасника'
   merge_concepts: злиття понять
   merge_data: злиття класифікацій
   message_colon: 'Повідомлення:'
@@ -5428,17 +5693,37 @@ uk:
   missing_interpolation_argument_error: '[неповний переклад]'
   monthly: Щомісячно
   more_children_with_count:
+    one: Ще %{count}...
+    few: Ще %{count}...
+    many: Ще %{count}...
     other: Ще %{count}...
   more_siblings_with_count:
     one: Ще %{count} сиблінг...
-    other: Ще %{count} сиблінги...
+    few: Ще %{count} сиблінги...
+    many: Ще %{count} сиблінгів...
+    other: Ще %{count} сиблінга...
   more_taxa_with_attribute: побачити всі таксони з цим атрибутом
   most_active_members: Найактивніші учасники
   move: Перемістити
   move_down: Перемістити вниз
+  move_items_to_a_new_collection_with_count:
+    one: Перемістити %{count} елемент до нової колекції
+    few: Перемістити %{count} елементи до нової колекції
+    many: Перемістити %{count} елементів до нової колекції
+    other: Перемістити %{count} елемента до нової колекції
   move_to_bottom: перемістити вниз
   move_to_top: перемістити вгору
   move_up: Перемістити вгору
+  moved_all_items_from_collection_with_count:
+    one: Переміщено %{count} елемент із %{from} до цієї колекції.
+    few: Переміщено %{count} елементи з %{from} до цієї колекції.
+    many: Переміщено всі %{count} елементів із %{from} до цієї колекції.
+    other: Переміщено %{count} елемента з %{from} до цієї колекції.
+  moved_items_from_collection_with_count_notice:
+    one: Переміщено %{count} елемент із %{name}.
+    few: Переміщено %{count} елементи з %{name}.
+    many: Переміщено %{count} елементів із %{name}.
+    other: Переміщено %{count} елемента з %{name}.
   multimedia_links: Мультимедійні Посилання
   must_provide_search_term_error: Ви повинні ввести пошуковий термін.
   must_be_less_than_128_characters_long: повинні містити менше 128 символів.
@@ -5595,6 +5880,8 @@ uk:
   pages_title: Посилання
   pages_with_count:
     one: '%{count}'
+    few: '%{count}'
+    many: '%{count}'
     other: '%{count}'
   page_statistics_and_tools: сторінка статистики та інструменти
   pages_with_pictures_and_text: сторінки з ілюстраціями та текстом
@@ -5605,7 +5892,17 @@ uk:
   pages_admin_section_link: Адміністратори
   pagination_page_number: Сторінка %{number}
   pagination_next: Наступний
+  pagination_next_with_count:
+    one: див. %{count} наступний
+    few: див. %{count} наступних
+    many: див. %{count} наступних
+    other: див. %{count} наступного
   pagination_previous: Попередній
+  pagination_previous_with_count:
+    one: див. %{count} попередній
+    few: див. %{count} попередніх
+    many: див. %{count} попередніх
+    other: див. %{count} попереднього
   parameters: Параметри
   partner_information: Інформація для партнерів
   partner_page: сторінка партнера
@@ -5615,10 +5912,10 @@ uk:
   password_colon: 'Пароль:'
   pause: пауза
   people_with_count:
-    few: '%{count} людини'
-    many: '%{count} людей'
-    one: '%{count} людина'
-    other: '%{count} людини'
+    one: '%{count} особа'
+    few: '%{count} особи'
+    many: '%{count} осіб'
+    other: '%{count} особи'
   percentage_of_descendants_with_images: відсоток нащадків із зображеннями
   percentage_of_descendants_with_text: відсоток нащадків із текстом
   permalink: Постійне посилання
@@ -5675,6 +5972,11 @@ uk:
   rails_databases: Бази даних Rails
   rails_environment: Середовище Rails
   range: Діапазон
+  rated_by_count_people:
+    one: від %{count} особи
+    few: від %{count} осіб
+    many: від %{count} осіб
+    other: від %{count} особи
   rating_added_notice: Рейтинг був успішно доданий.
   rating_learn_more_link: Що таке рейтинг
   rating_not_added_error: Вибачте, сталася помилка, рейтинг неможливо додати.
@@ -5690,6 +5992,11 @@ uk:
   record_not_found: '[запис не знайдено]'
   reference: Посилання
   references_cabs_colon: 'Примітки:'
+  related_names_with_count:
+    one: '%{count} пов''язана назва'
+    few: '%{count} пов''язані назви'
+    many: '%{count} пов''язаних назв'
+    other: '%{count} пов''язаної назви'
   related_organizations: Пов'язані організації
   remove_data_object_association: Видалити асоціацію
   remove_membership: Видалити членство
@@ -5698,6 +6005,11 @@ uk:
   required: Обов'язково
   revoke_full_curator_link: Відкликати
   revoke_permission: відкликати
+  removed_count_items_from_collection_notice:
+    one: '%{count} елемент було вилучено з цієї колекції.'
+    few: '%{count} елементи було вилучено з цієї колекції.'
+    many: '%{count} елементів було вилучено з цієї колекції.'
+    other: '%{count} елемента було вилучено з цієї колекції.'
   request: Запит
   required_form_element: Обов'язково
   resource: Ресурс
@@ -5705,6 +6017,11 @@ uk:
     weekly: Щотижня
     monthly: Щомісячно
     quarterly: Щоквартально
+    hours_with_count:
+      one: '%{count} година'
+      few: '%{count} години'
+      many: '%{count} годин'
+      other: '%{count} години'
   resource_hint_dataset_source_url: (URL першоджерела набору даних, таких як стаття
     або дослідження)
   resource_hint_dataset_rights: (застосовується для даних <i>в цілому</i>; не застосовується
@@ -5714,6 +6031,11 @@ uk:
   resources: Ресурси
   response_formats: Формати відповіді
   response: Відповідь
+  resque_pending_job_count:
+    one: Є %{count} заплановане завдання в черзі «%{queue}».
+    few: Є %{count} заплановані завдання в черзі «%{queue}».
+    many: Є %{count} запланованих завдань у черзі «%{queue}».
+    other: Є %{count} запланованого завдання в черзі «%{queue}».
   results_per_page: 'Результатів на сторінці:'
   results: Результати
   return: повернути
@@ -5746,6 +6068,34 @@ uk:
   search_the_site: Пошук по сайту
   see_all_of_your_collections: Переглянути всі Ваші колекції
   see_all_of_your_communities: Переглянути всі ваші громади
+  see_all_classifications_with_count_html:
+    one: Перегляньте <span class="assistive">%{count} затверджену класифікацію, в
+      якій цей таксон з'являється.</span>
+    few: Перегляньте <span class="assistive">%{count} затверджені класифікації, в
+      яких цей таксон з'являється.</span>
+    many: Перегляньте <span class="assistive">%{count} затверджених класифікацій,
+      в яких цей таксон з'являється.</span>
+    other: Перегляньте <span class="assistive">%{count} затвердженої класифікації,
+      в якій цей таксон з'являється.</span>
+  see_all_comments_with_count_for_link_or_rate:
+    one: перегляньте %{count} коментар до цього посилання або зазначте його рейтинг
+    few: перегляньте %{count} коментарі до цього посилання або зазначте його рейтинг
+    many: перегляньте %{count} коментарів до цього посилання або зазначте його рейтинг
+    other: перегляньте %{count} коментаря до цього посилання або зазначте його рейтинг
+  see_all_communities_with_count_html:
+    one: Перегляньте <span class="assistive">%{count} спільноту, що містить цю сторінку
+      як вибрану.</span>
+    few: Перегляньте <span class="assistive">%{count} спільноти, що містять цю сторінку
+      як вибрану.</span>
+    many: Перегляньте <span class="assistive">%{count} спільнот, що містять цю сторінку
+      як вибрану.</span>
+    other: Перегляньте <span class="assistive">%{count} спільноти, що містить цю сторінку
+      як вибрану.</span>
+  see_all_updates_with_count_html:
+    one: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>
+    few: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>
+    many: Перегляньте <span class="assistive">%{count} оновлень для цієї сторінки.</span>
+    other: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>
   see_all_media_link: Переглянути усі медіа
   see_all_maps_link: Переглянути усі мапи
   see_in_data_glossary: переглянути увесь глосарій даних

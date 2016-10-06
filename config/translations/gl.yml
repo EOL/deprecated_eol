@@ -1185,7 +1185,7 @@ gl:
   layouts:
     application:
       header_about: Acerca da EOL
-      header_learn_more: Máis información
+      header_learn_more: Aprende máis sobre
       header_questions: Máis información
       about_link_what_is_eol: Que é a EOL?
       about_link_traitbank: Que é o TraitBank?
@@ -2105,7 +2105,7 @@ gl:
         meta_title: Descargas de datos de %{user_full_name}
         tweet_text: Descargas de datos de %{user_full_name}
       header_with_count:
-        one: Descarga de datos
+        one: descarga de datos
         other: '%{count} descargas de datos'
       empty: Non tes descargas. Podes <a href='%{data_search_url}'>procurar datos</a>
         e solicitar a descarga dos resultados.
@@ -2129,7 +2129,7 @@ gl:
       row_count: Reconto
       search_again: procurar outra vez
       file_not_processed: Este ficheiro aínda non foi procesado,
-      contact_us: por favor, contacte con nós para obter axuda
+      contact_us: por favor, contacta con nós para obter axuda
     edit:
       form_tip_account: Para acceder ao sistema da EOL necesitas un nome de usuario
         e un contrasinal; tamén podes conectarte mediante unha conta de terceiros.
@@ -3022,13 +3022,13 @@ gl:
           mostralo na vista xeral de "%{taxon}".
       data_point_uri:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un usuario descoñecido
-          define datos como exemplar nunha páxina descoñecida.
-        an_unknown_user_set_exemplar_data_on_taxon: Un usuario descoñecido define
-          datos como exemplar en "%{taxon}".
-        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> define
-          datos como exemplar nunha páxina descoñecida.
-        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> define datos como
-          exemplar en "%{taxon}".
+          definiu datos como exemplares nunha páxina descoñecida.
+        an_unknown_user_set_exemplar_data_on_taxon: Un usuario descoñecido definiu
+          datos como exemplares en "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> definiu
+          datos como exemplares nunha páxina descoñecida.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> definiu datos como
+          exemplares en "%{taxon}".
         an_unknown_user_hide_data_on_an_unknown_taxon: Un usuario descoñecido elixiu
           ocultar datos nunha páxina descoñecida.
         an_unknown_user_hide_data_on_taxon: Un usuario descoñecido elixiu ocultar
@@ -4819,10 +4819,10 @@ gl:
       refine_search_header: Refine a súa busca(opcional)
       search_suggestions_header: Non está seguro por onde comezar?
       search_suggestions_subheader_colon: 'Probe unha das seguintes buscas de datos:'
-      search_suggestion_whale_mass: Que baleas pesan máis de 10 000 kg?
-      search_suggestion_diatom_shape: Cales son as distintas formas de diatomeas?
-      search_suggestion_cavity_nests: Que especies constrúen nidos en cavidades?
-      search_suggestion_blue_flowers: Que plantas teñen flores de cor azul?
+      search_suggestion_whale_mass: Que baleas pesan máis de 10 000 quilogramos?
+      search_suggestion_diatom_shape: Cales son as distintas formas das diatomeas?
+      search_suggestion_cavity_nests: Que especies constrúen niños en cavidades?
+      search_suggestion_blue_flowers: Que prantas teñen flores de cor azul?
       search_tools_show_link: Mostrar opcións de busca
       search_tools_hide_link: Ocultar opcións de busca
       search_value_or_range_header: Buscar un valor específico ou un rango
@@ -6815,8 +6815,8 @@ gl:
     other: '%{count} elementos'
   total_searches: 'Procuras totais:'
   total: Total
-  traitbank_banner: <strong>Introdución de <a href='/traitbank'>TraitBank</a>:</strong>
-    procura de millóns de datos en EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Aprender
+  traitbank_banner: <strong>Presentamos o <a href='/traitbank'>TraitBank</a>:</strong>
+    procura millóns de datos na EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Aprender
     máis</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Procura de datos</a>
   translation_deleted: Borrouse a tradución
   translation_information_header: Información sobre a tradución

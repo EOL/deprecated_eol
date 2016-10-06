@@ -6204,6 +6204,8 @@ nl:
   preview_changes: Voorvertoning van de wijzigingen
   preview_version_of_latest_published_data_object_title_link: Voorvertoning van %{link}
   preview: voorvertoning
+  previewing_unpublished_page: Deze pagina is niet gepubliceerd. U hebt toegang tot
+    een voorbeeld; andere gebruikers kunnen deze pagina niet zien.
   previously_published: eerder gepubliceerd
   proceed_to_checkout_page: Afrekenen
   process_name: Procesnaam
@@ -7199,8 +7201,10 @@ nl:
     door:'
   you_can_edit_those_later_if_ne: U kunt ze later bewerken als u dat wilt.
   you_can_identify_yourself_to_eol: 'U kunt zichzelf bij EOL identificeren door uw
-    API-sleutel toe te voegen aan verzoeken (meld u aan en maak uw sleutel aan in
-    de pagina voor voorkeuren):'
+    API-sleutel toe te voegen aan verzoeken (meld u aan en maak uw sleutel aan door
+    het openen van uw voorkeuren voor EOL in bewerkingsmodus. Uw sleutel wordt hier
+    opgeslagen; om de API-sleutel later nog eens te bekijken, opent u uw voorkeuren
+    voor EOL opnieuw in bewerkingsmodus):'
   you_have_been_logged_in_as_username: U bent aangemeld als %{username}
   you_have_been_logged_out: U bent afgemeld.
   you_joined_community: U lid bent geworden van deze gemeenschap.

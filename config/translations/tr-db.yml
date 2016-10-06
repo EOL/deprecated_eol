@@ -8,6 +8,7 @@
 # Author: Incelemeelemani
 # Author: Karduelis
 # Author: Sae1962
+# Author: Trockya
 # Author: Ugcan
 # Author: Zafertorun
 ---
@@ -69,7 +70,7 @@ tr:
   translated_collection_types-label-collection_type_id-4: Resimler
   translated_collection_types-label-collection_type_id-5: Dağıtım
   translated_collection_types-label-collection_type_id-6: Korunma durumu
-  translated_collection_types-label-collection_type_id-7: isim bilgisi
+  translated_collection_types-label-collection_type_id-7: İsim bilgisi
   translated_collection_types-label-collection_type_id-8: Moleküler veri
   translated_collection_types-label-collection_type_id-9: Adlandırma
   translated_contact_roles-label-contact_role_id-1: Birincil İletişim
@@ -102,8 +103,7 @@ tr:
   translated_data_types-label-data_type_id-3: Metin
   translated_data_types-label-data_type_id-4: Video
   translated_data_types-label-data_type_id-5: GBIF Resmi
-  translated_data_types-label-data_type_id-6: Dünya Doğa ve Doğal Kaynakları Koruma
-    Birliği (IUCN)
+  translated_data_types-label-data_type_id-6: DKB
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Hiçbir hakkı saklı değildir
@@ -131,6 +131,7 @@ tr:
   translated_ranks-label-rank_id-106: form
   translated_ranks-label-rank_id-107: forma
   translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: gen.
   translated_ranks-label-rank_id-118: cins
   translated_ranks-label-rank_id-169: infra takım
   translated_ranks-label-rank_id-175: infra türler
@@ -166,6 +167,7 @@ tr:
   translated_ranks-label-rank_id-85: |2-
 
     f
+  translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-99: aile
   translated_resource_statuses-label-resource_status_id-11: Yayınlama beklemede
   translated_resource_statuses-label-resource_status_id-12: Yayınlamama beklemede
@@ -254,6 +256,9 @@ tr:
   translated_table_of_contents-label-table_of_contents_id-7: Referanslar ve daha fazla
     bilgi
   translated_table_of_contents-label-table_of_contents_id-8: Koruma
+  translated_untrust_reasons-label-untrust_reason_id-1: Yanlış tanımlanmış
+  translated_untrust_reasons-label-untrust_reason_id-3: düşük kalite
+  translated_untrust_reasons-label-untrust_reason_id-5: Diğer
   translated_user_identities-label-user_identity_id-1: meraklı kişi
   translated_user_identities-label-user_identity_id-2: öğrenci
   translated_user_identities-label-user_identity_id-3: eğitimci
@@ -265,5 +270,7 @@ tr:
   translated_view_styles-name-view_style_id-1: Liste
   translated_view_styles-name-view_style_id-2: Sergi
   translated_view_styles-name-view_style_id-3: Açıklamalı
+  translated_visibilities-label-visibility_id-0: Görünmez
+  translated_visibilities-label-visibility_id-1: Görünür
   translated_visibilities-label-visibility_id-2: Ön izleme
 ...

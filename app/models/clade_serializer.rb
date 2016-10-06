@@ -1,5 +1,6 @@
 class CladeSerializer
   class << self
+    # e.g.: CladeSerializer.store_clade_starting_from(7662)  => Carnivora
     def store_clade_starting_from(pid)
       batch_size = 100
       file_name = Rails.root.join("public", "store-#{pid}-clade.json").to_s

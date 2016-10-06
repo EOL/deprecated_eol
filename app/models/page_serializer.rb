@@ -14,7 +14,7 @@ class PageSerializer
       page = get_page_data(pid)
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
     end
-    
+
     def get_page_data(pid)
       user = EOL::AnonymousUser.new(Language.default)
       # First, get it with supercedure:
@@ -108,27 +108,31 @@ class PageSerializer
       end
 
       traits = PageTraits.new(concept.id).traits
-      page[:traits] = traits.map do |trait|
-        source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
-          find { |v| v !~ /resources\/\d/ }
-        # TODO: metadata ...but we don't *need* it yet.
-        trait_hash = {
-          resource: build_resource(trait.resource),
-          resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
-          predicate: build_uri(trait.predicate_uri),
-          source: source
-        }
-        if trait.units_uri
-          trait_hash[:measurement] = trait.value_name
-          trait_hash[:units] = build_uri(trait.units_uri)
-        elsif trait.value_uri.is_a?(KnownUri)
-          trait_hash[:term] = build_uri(trait.value_uri)
-        elsif trait.association?
-          trait_hash[:object_page_id] = trait.target_taxon.id
-        else
-          trait_hash[:literal] = trait.value_name
+      if traits.blank?
+        page[:traits] = []
+      else
+        page[:traits] = traits.map do |trait|
+          source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
+            find { |v| v !~ /resources\/\d/ }
+          # TODO: metadata ...but we don't *need* it yet.
+          trait_hash = {
+            resource: build_resource(trait.resource),
+            resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
+            predicate: build_uri(trait.predicate_uri),
+            source: source
+          }
+          if trait.units_uri
+            trait_hash[:measurement] = trait.value_name
+            trait_hash[:units] = build_uri(trait.units_uri)
+          elsif trait.value_uri.is_a?(KnownUri)
+            trait_hash[:term] = build_uri(trait.value_uri)
+          elsif trait.association?
+            trait_hash[:object_page_id] = trait.target_taxon.id
+          else
+            trait_hash[:literal] = trait.value_name
+          end
+          trait_hash
         end
-        trait_hash
       end
 
       page[:collections] = concept.collections.map do |col|

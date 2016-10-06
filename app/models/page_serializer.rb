@@ -148,8 +148,8 @@ class PageSerializer
 
       map = concept.get_one_map_from_solr.first
       if map
-        lic = article.license
-        b_cit = article.bibliographic_citation
+        lic = map.license
+        b_cit = map.bibliographic_citation
         b_cit = nil if b_cit.blank?
         resource = build_resource(map.resource)
         url = map.original_image.sub("_orig.jpg", "")

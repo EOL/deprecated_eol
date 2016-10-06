@@ -50,7 +50,7 @@ class EntriesExplanation
 
 
   def to_md
-    str = "\n\n## [#{@page[:name]}](#{@page[:url]}) (#{page[:id]})"
+    str = "\n\n## [#{@page[:name]}](#{@page[:url]}) (#{@page[:id]})"
     str += "\n##### ancestors:"
     @page[:ancestors].each do |ancestor|
       str += "\n[#{ancestor[:title]}](#{ancestor[:url]}) via: "

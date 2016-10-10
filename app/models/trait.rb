@@ -145,7 +145,11 @@ class Trait
   
   def target_taxon_image
     exemplar = target_taxon.published_exemplar_image
-    exemplar.original_image.sub("_orig.jpg", "") if exemplar
+    if exemplar
+      exemplar.original_image.sub("_orig.jpg", "")
+    else
+      nil
+    end 
   end
 
   def find_associated_taxon(which)

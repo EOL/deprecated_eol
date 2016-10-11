@@ -142,7 +142,7 @@ class PageSerializer
         }
       end
 
-      if concept.page_feature.map_json?
+      if concept.page_feature && concept.page_feature.map_json?
         page[:json_map] = true
       end
 

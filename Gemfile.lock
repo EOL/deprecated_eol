@@ -250,6 +250,8 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    quiet_safari (1.0.0)
+      railties (>= 3.1.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -452,6 +454,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
+  quiet_safari
   rack-cors
   rack-ssl (= 1.3.3)
   rails (= 3.2.18)

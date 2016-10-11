@@ -49,8 +49,6 @@ class KnownUri < ActiveRecord::Base
 
   acts_as_list
 
-  # uses_translations
-
   self.per_page = 100
 
   belongs_to :vetted
@@ -67,12 +65,12 @@ class KnownUri < ActiveRecord::Base
   has_and_belongs_to_many :toc_items
 
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted,
-    :translated_known_uri,   :translated_known_uris_attributes, :toc_items,
-    :toc_item_ids, :definition, :uri_type, :uri_type_id,   :translations,
-    :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
-    :attribution,   :ontology_information_url, :ontology_source_url, :position,
-    :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary, :value_is_verbatim, :hide_from_gui
+  :translated_known_uri, :translated_known_uris_attributes, :toc_items,
+  :toc_item_ids, :definition, :uri_type, :uri_type_id, :exclude_from_exemplars,
+  :name, :known_uri_relationships_as_subject, :attribution,
+  :ontology_information_url, :ontology_source_url, :position, :group_by_clade,
+  :clade_exemplar, :exemplar_for_same_as, :value_is_text, :hide_from_glossary,
+  :value_is_verbatim, :hide_from_gui, :name, :definition, :comment, :attribution
 
   accepts_nested_attributes_for :translated_known_uris
 

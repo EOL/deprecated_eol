@@ -336,7 +336,11 @@ class KnownUrisController < ApplicationController
           known_uri.translations.destroy_all
           # add in the definitions for each defined language
           attributes_by_language.each do |language, translation_fields|
-            TranslatedKnownUri.create(translation_fields.merge(known_uri: known_uri, language: language))
+            if language == Language.english # English is stored right on the model:
+              known_uri.update_attributes(translation_fields)
+            else
+              TranslatedKnownUri.create(translation_fields.merge(known_uri: known_uri, language: language))
+            end
           end
         end
       end

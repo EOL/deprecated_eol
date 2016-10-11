@@ -13,10 +13,10 @@
                 = image_tag("v2/logo.png", :alt => "", :style => "border: none;")
             %tr
               %td{:align => "left", :style => "color: #3f4b56; background: #fff;"}
-                %p
+                %h3
                   Notes (these paste nicely into HipChat or GitHub Comments):
 
-                %p= @summary
+                %pre= @summary
             %tr
               %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #f8fcff;'}
                 = link_to image_tag("v2/logo_footer.png", :alt => "", :style => "border: none; float: right;"), root_url, :style => 'text-decoration: none;'

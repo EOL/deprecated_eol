@@ -49,7 +49,7 @@ class KnownUri < ActiveRecord::Base
 
   acts_as_list
 
-  uses_translations
+  # uses_translations
 
   self.per_page = 100
 

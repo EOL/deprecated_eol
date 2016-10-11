@@ -39,11 +39,15 @@ class PageTraits < TraitSet
     end
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
-    page_ids = TraitBank.cache_query("#{base_key}/page_ids") do
-      @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
+    @taxa = TraitBank.cache_query("#{base_key}/taxa") do
+      page_ids = @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
         compact.uniq
+      if page_ids.blank?
+        {}
+      else
+        TaxonConcept.map_supercedure(page_ids)
+      end
     end
-    @taxa = TaxonConcept.map_supercedure(page_ids) unless page_ids.blank?
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = @traits.map { |trait| trait.source_id }.compact.uniq

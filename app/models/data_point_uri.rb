@@ -59,9 +59,7 @@ class DataPointUri < ActiveRecord::Base
     metadata_rows.each do |row|
       if row[:attribute] == UserAddedDataMetadata::LICENSE_URI &&
         license = License.find_by_source_url(row[:value].to_s)
-        row[:value] = KnownUri.new(uri: row[:value],
-          translations: [ TranslatedKnownUri.
-            new(name: license.title, language: language) ])
+        row[:value] = KnownUri.new(uri: row[:value], name: license.title)
       end
     end
     metadata_rows

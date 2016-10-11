@@ -33,10 +33,7 @@
             %tr{ id: "known_uri_#{known_uri.id}", class: klass }
               -# NOTE - the <wbr/> tags create optional line breaks. ...it makes this look much better with REALLY long URIs.
               %td.uri{class: known_uri.exclude_from_exemplars? ? 'excluded' : nil }= known_uri.uri.gsub('/', '/<wbr/>').html_safe
-              - if known_uri.translated_known_uris.map(&:language_id).include?(current_language.id)
-                %td= known_uri.name
-              - else
-                %td.untranslated= I18n.t(:known_uri_missing_translation)
+              %td= known_uri.name
               %td= known_uri.uri_type.name
               %td
                 - cats = known_uri.toc_items.map(&:label).join('<br />')

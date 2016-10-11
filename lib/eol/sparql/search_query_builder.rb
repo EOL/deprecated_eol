@@ -129,7 +129,7 @@ module EOL
           f = filter_values(@querystring)
           if @required_equivalent_values
             @required_equivalent_values.each do |req|
-              q = TranslatedKnownUri.find_by_known_uri_id(req.to_i).name
+              q = KnownUri.find(req.to_i).name
               f += " || #{filter_values(q)}"
             end
           end

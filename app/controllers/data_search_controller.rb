@@ -88,12 +88,10 @@ class DataSearchController < ApplicationController
     end
 
     if ! options[:q].blank?
-      tku = TranslatedKnownUri.find_by_name(@querystring)
-      ku = tku.known_uri if tku
-      if ku
+      if ku = KnownUri.find_by_name(@querystring)
         @equivalent_values = get_equivalents(ku.uri)
-        equivalent_values_ids = @equivalent_values.map{|eq| eq.id.to_s}
-        @required_equivalent_values = @required_equivalent_values.map{|eq| eq if equivalent_values_ids.include?(eq) }.compact if @required_equivalent_values
+        equivalent_values_ids = @equivalent_values.map{ |eq| eq.id.to_s }
+        @required_equivalent_values = @required_equivalent_values.map{ |eq| eq if equivalent_values_ids.include?(eq) }.compact if @required_equivalent_values
       end
     end
 

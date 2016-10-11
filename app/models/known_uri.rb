@@ -92,7 +92,7 @@ class KnownUri < ActiveRecord::Base
   scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
   scope :show_in_gui, -> { where(hide_from_gui: false) }
   scope :full, -> { includes(:toc_items, :known_uri_relationships_as_subject,
-    :known_uri_relationships_as_target, :translated_known_uris) }
+    :known_uri_relationships_as_target) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -126,10 +126,6 @@ class KnownUri < ActiveRecord::Base
     build_cache_if_needed
   end
 
-  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because
-  # we end up with a lot of stale URIs that aren't really used.  ...So I'm
-  # calling it from Sparql:
-  #
   # TODO - I'm not sure #all_measurement_type_known_uris searches user-added
   # data points.  :| That *might* be intentional (to exclude them from search
   # options), but I'm not aware of that requirement; if so, that query will need
@@ -480,8 +476,13 @@ private
   end
 
   def self.search_by_name(term, language)
-    TranslatedKnownUri.where(language_id: language.id).
-      where("name like ? ","%#{term.strip}%").includes(:known_uri).map(&:known_uri).compact.uniq
+    if language == Language.english
+      KnownUri.where(["name LIKE ?", "%#{term.strip}%"])
+    else
+      TranslatedKnownUri.where(language_id: language.id).
+        where(["name LIKE ? ", "%#{term.strip}%"]).includes(:known_uri).
+        map(&:known_uri).compact.uniq
+    end
   end
 
 end

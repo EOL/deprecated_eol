@@ -4,9 +4,9 @@ class PageTraits < TraitSet
   end
 
   def self.cache_keys(id)
-    base_key = cache_key(id)
-    [base_key, "#{base_key}/trait_uris", "#{base_key}/uris",
-      "#{base_key}/page_ids"]
+    @base_key = cache_key(id)
+    [@base_key, "#{@base_key}/trait_uris", "#{@base_key}/uris",
+      "#{@base_key}/page_ids"]
   end
 
   def self.delete_caches(id)
@@ -17,21 +17,26 @@ class PageTraits < TraitSet
   def initialize(id)
     @id = id
     @populated = false
+    @base_key = PageTraits.cache_key(@id)
+  end
+
+  def jsonld_key
+    "#{@base_key}/jsonld"
   end
 
   def populate
     return if @populated
-    base_key = PageTraits.cache_key(@id)
+
     EOL.log(PageTraits.cache_keys(@id).join(", "), prefix: "K")
-    @rdf = TraitBank.cache_query(base_key) do
+    @rdf = TraitBank.cache_query(@base_key) do
       TraitBank.page_with_traits(@id)
     end
-    trait_uris = TraitBank.cache_query("#{base_key}/trait_uris") do
+    trait_uris = TraitBank.cache_query("#{@base_key}/trait_uris") do
       @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)
     end
     @points = DataPointUri.where(uri: trait_uris).
-      includes(:comments, :taxon_data_exemplars)
-    uris = TraitBank.cache_query("#{base_key}/uris") do
+      includes(:taxon_data_exemplars)
+    uris = TraitBank.cache_query("#{@base_key}/uris") do
       @rdf.flat_map do |rdf|
         rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) }
       end.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }.
@@ -39,7 +44,7 @@ class PageTraits < TraitSet
     end
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
-    @taxa = TraitBank.cache_query("#{base_key}/taxa") do
+    @taxa = TraitBank.cache_query("#{@base_key}/taxa") do
       page_ids = @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
         compact.uniq
       if page_ids.blank?

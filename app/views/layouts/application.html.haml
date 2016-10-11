@@ -120,10 +120,11 @@
       = render '/layouts/footer'
       = yield :footer
     = javascript_include_tag 'head.load.min'
-    - if @jsonld
-      %script{ type: 'application/ld+json' }
-        :plain
-          #{@jsonld}
+    = if @page_traits
+      - cache(@page_traits.jsonld_key, expires_in: 2.weeks) do
+        %script{ type: 'application/ld+json' }
+          :plain
+            #{@page_traits.jsonld}
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS
       :javascript
         var _gaq = _gaq || [];

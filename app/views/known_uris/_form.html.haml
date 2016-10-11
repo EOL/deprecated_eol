@@ -1,72 +1,70 @@
 = content_for :head do
   = stylesheet_link_tag "known_uris"
 = form_for known_uri do |f|
-  = f.fields_for :translated_known_uris, translated_known_uri do |nested|
-    = validation_errors_for(known_uri)
-    = nested.hidden_field :language_id
-    %fieldset.primary
-      %dl
-        %dt= f.label :uri
-        %dd= f.text_field :uri, placeholder: I18n.t('known_uris.uri_placeholder_text')
-        %dt= nested.label :name
-        %dd= nested.text_field :name, placeholder: I18n.t('known_uris.name_placeholder_text')
-    %fieldset
-      %dl
-        %dt= nested.label :definition
-        %dd= nested.text_area :definition, rows: 3, placeholder: I18n.t('known_uris.definition_placeholder_text')
-        %dt= nested.label :comment
-        %dd= nested.text_area :comment, rows: 3, placeholder: I18n.t('known_uris.comment_placeholder_text')
-        %dt= f.label :uri_type
-        %dd
-          = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name, known_uri.uri_type_id)
-        %dt= f.label :exclude_from_exemplars
-        %dd
-          = f.check_box :exclude_from_exemplars
+  = validation_errors_for(known_uri)
+  %fieldset.primary
+    %dl
+      %dt= f.label :uri
+      %dd= f.text_field :uri, placeholder: I18n.t('known_uris.uri_placeholder_text')
+      %dt= f.label :name
+      %dd= f.text_field :name, placeholder: I18n.t('known_uris.name_placeholder_text')
+  %fieldset
+    %dl
+      %dt= f.label :definition
+      %dd= f.text_area :definition, rows: 3, placeholder: I18n.t('known_uris.definition_placeholder_text')
+      %dt= f.label :comment
+      %dd= f.text_area :comment, rows: 3, placeholder: I18n.t('known_uris.comment_placeholder_text')
+      %dt= f.label :uri_type
+      %dd
+        = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name, known_uri.uri_type_id)
+      %dt= f.label :exclude_from_exemplars
+      %dd
+        = f.check_box :exclude_from_exemplars
+        = I18n.t(:yes_answer)
+      %dt= f.label :toc_items
+      %dd
+        %ul
+          - TocItem.for_uris(current_language).each do |toc_item|
+            %li
+              %label
+                = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
+                = toc_item.label
+  %fieldset
+    %dl
+      %dt= f.label :attribution
+      %dd= f.text_area :attribution, rows: 3, placeholder: I18n.t('known_uris.attribution_placeholder_text')
+      %dt= f.label :ontology_information_url
+      %dd= f.text_field :ontology_information_url, placeholder: I18n.t('known_uris.ontology_information_url_placeholder_text')
+      %dt= f.label :ontology_source_url
+      %dd= f.text_field :ontology_source_url, placeholder: I18n.t('known_uris.ontology_source_url_placeholder_text')
+      %dt= f.label :group_by_clade
+      %dd
+        %label
+          = f.check_box :group_by_clade
           = I18n.t(:yes_answer)
-        %dt= f.label :toc_items
-        %dd
-          %ul
-            - TocItem.for_uris(current_language).each do |toc_item|
-              %li
-                %label
-                  = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
-                  = toc_item.label
-    %fieldset
-      %dl
-        %dt= nested.label :attribution
-        %dd= nested.text_area :attribution, rows: 3, placeholder: I18n.t('known_uris.attribution_placeholder_text')
-        %dt= f.label :ontology_information_url
-        %dd= f.text_field :ontology_information_url, placeholder: I18n.t('known_uris.ontology_information_url_placeholder_text')
-        %dt= f.label :ontology_source_url
-        %dd= f.text_field :ontology_source_url, placeholder: I18n.t('known_uris.ontology_source_url_placeholder_text')
-        %dt= f.label :group_by_clade
-        %dd
-          %label
-            = f.check_box :group_by_clade
-            = I18n.t(:yes_answer)
-        %dt= f.label :clade_exemplar
-        %dd
-          %label
-            = f.check_box :clade_exemplar
-            = I18n.t(:yes_answer)
-        %dt= f.label :value_is_text
-        %dd
-          %label
-            = f.check_box :value_is_text
-            = I18n.t(:yes_answer)
-        %dt= f.label :value_is_verbatim
-        %dd
-          %label
-            = f.check_box :value_is_verbatim
-            = I18n.t(:yes_answer)
-        %dt= f.label :hide_from_glossary
-        %dd
-          %label
-            = f.check_box :hide_from_glossary
-            = I18n.t(:yes_answer)
-    %fieldset.actions
-      = f.submit I18n.t(:save)
-      = link_to I18n.t(:cancel), known_uris_url
+      %dt= f.label :clade_exemplar
+      %dd
+        %label
+          = f.check_box :clade_exemplar
+          = I18n.t(:yes_answer)
+      %dt= f.label :value_is_text
+      %dd
+        %label
+          = f.check_box :value_is_text
+          = I18n.t(:yes_answer)
+      %dt= f.label :value_is_verbatim
+      %dd
+        %label
+          = f.check_box :value_is_verbatim
+          = I18n.t(:yes_answer)
+      %dt= f.label :hide_from_glossary
+      %dd
+        %label
+          = f.check_box :hide_from_glossary
+          = I18n.t(:yes_answer)
+  %fieldset.actions
+    = f.submit I18n.t(:save)
+    = link_to I18n.t(:cancel), known_uris_url
 - unless known_uri.new_record?
   .known_uri__relationships
     .header

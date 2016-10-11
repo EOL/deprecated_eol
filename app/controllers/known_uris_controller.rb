@@ -13,18 +13,17 @@ class KnownUrisController < ApplicationController
   layout 'basic'
 
   def index
-    wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }
+    @known_uris = KnownUri.show_in_gui.
+      includes([:uri_type, :toc_items,
+        known_uri_relationships_as_subject: :to_known_uri])
     if params[:category_id]
-      wheres[:known_uris_toc_items] = { toc_item_id: params[:category_id] } if params[:category_id]
+      @known_uris = @known_uris.where(known_uris_toc_items: { toc_item_id: params[:category_id] }) if params[:category_id]
     else
       @uri_type ||= params.has_key?(:uri_type_id) ? UriType.find(params[:uri_type_id]) : UriType.measurement
-      wheres[:uri_type_id] = @uri_type.id
+      @known_uris = @known_uris.where(uri_type_id: @uri_type.id)
     end
-    @known_uris = KnownUri.show_in_gui.
-      includes([:uri_type, :toc_items, :translated_known_uris,
-        known_uri_relationships_as_subject: :to_known_uri]).
-      where(wheres).
-      paginate(page: params[:page], order: 'known_uris.position', per_page: 500)
+    @known_uris = @known_uris.paginate(page: params[:page],
+      order: 'known_uris.position', per_page: 500)
     respond_to do |format|
       format.html do
       end
@@ -95,7 +94,6 @@ class KnownUrisController < ApplicationController
 
   def new
     @known_uri = KnownUri.new
-    @translated_known_uri = @known_uri.translated_known_uris.build(language: current_language)
   end
 
   def create
@@ -118,7 +116,6 @@ class KnownUrisController < ApplicationController
 
   def edit
     @known_uri = KnownUri.find(params[:id], include: [ :toc_items, :known_uri_relationships_as_subject ] )
-    @translated_known_uri = @known_uri.translations.detect{ |t| t.language == current_language } || @known_uri.translated_known_uris.build(language: current_language)
   end
 
   def sort
@@ -333,7 +330,7 @@ class KnownUrisController < ApplicationController
           known_uri = KnownUri.find_or_create_by_uri(uri,
             hide_from_glossary: hide_from_glossary, uri_type_id: uri_type_id)
           # delete any existing definitions as they will be replaced
-          known_uri.translations.destroy_all
+          known_uri.translated_known_uris.destroy_all
           # add in the definitions for each defined language
           attributes_by_language.each do |language, translation_fields|
             if language == Language.english # English is stored right on the model:
@@ -348,8 +345,7 @@ class KnownUrisController < ApplicationController
   end
 
   def search_known_uris_by_name_or_uri(term)
-    @known_uris = KnownUri.where([ "uri LIKE ?", "%#{term}%" ]) +
-      TranslatedKnownUri.where([ "name LIKE ?", "%#{params[:term]}%" ]).includes(:known_uri).collect(&:known_uri).compact
+    @known_uris = KnownUri.where([ "uri LIKE ? OR name LIKE ?", "%#{term}%", "%#{term}%" ])
   end
 
   def lookup_predicate

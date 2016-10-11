@@ -285,15 +285,12 @@ class TraitBank
 
     # Returns an array of [id (a string), uri, name] arrays
     def predicates_rows
-      EOL.pluck_fields([:known_uri_id, :uri, :name],
-        TranslatedKnownUri.joins(:known_uri).
-          where(language_id: Language.english.id,
-            known_uris: { uri: predicates_uris}).
-          where("name IS NOT NULL AND name != ''").order("name")).
-        map do |string|
+      q = KnownUri.where(uri: predicates_uris).
+        where("name IS NOT NULL AND name != ''").
+        order("name")
+      EOL.pluck_fields([:id, :uri, :name], q).map do |string|
         string.split(',', 3)
       end
-
     end
 
     def predicates_uris

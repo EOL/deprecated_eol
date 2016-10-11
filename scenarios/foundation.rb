@@ -279,13 +279,8 @@ ActiveRecord::Base.transaction do
                                      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
       old_instance
     else
-      KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],
+      KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id], name: params[:name]
         vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
-    end
-    begin
-      TranslatedKnownUri.create(known_uri: instance, name: params[:name], language: Language.english)
-    rescue ActiveRecord::RecordNotUnique =>  e
-      # Don't care; it's already there.
     end
     instance
   end

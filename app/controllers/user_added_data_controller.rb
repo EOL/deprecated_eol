@@ -111,11 +111,10 @@ class UserAddedDataController < ApplicationController
 
   # NOTE that this only takes the first one it finds.
   def convert_to_uri(name)
-    return nil unless TranslatedKnownUri.exists?(name: name, language_id: current_language.id)
-    turi = TranslatedKnownUri.where(name: name, language_id: current_language.id).first
-    return nil unless turi.known_uri && ! turi.known_uri.uri.blank?
-    uri = turi.known_uri.uri
-    uri
+    return nil unless KnownUri.exists?(name: name)
+    turi = KnownUri.where(name: name).first
+    return nil if known_uri.uri.blank?
+    known_uri.uri
   end
 
   def add_uri_to_session(uri)

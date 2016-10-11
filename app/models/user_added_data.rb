@@ -136,8 +136,8 @@ class UserAddedData < ActiveRecord::Base
   end
 
   def convert_known_uri(which)
-    tku = TranslatedKnownUri.find_by_name(which)
-    return tku ? tku.known_uri.uri : which
+    tku = KnownUri.find_by_name(which)
+    return tku ? tku.uri : which
   end
 
   def sparql

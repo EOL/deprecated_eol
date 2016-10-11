@@ -36,11 +36,11 @@
               %td
               %td.uri= known_uri.uri
               %td
-                = raw(known_uri.translations.select{ |t| !t.name.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> <span class='rdfs:label'>#{t.name}</span>" }.join('<br/>'))
+                %span{ class: "rdfs:label" }= known_uri.name
               %td
-                = raw(known_uri.translations.select{ |t| !t.definition.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> #{t.definition}" }.join('<br/>'))
+                %span{ class: "rdfs:label" }= known_uri.definition
               %td
-                = raw(known_uri.translations.select{ |t| !t.comment.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> #{t.comment}" }.join('<br/>'))
+                %span{ class: "rdfs:label" }= known_uri.comment
               - (metadata_attributes_populated.length - 3).times do
                 %td
       %dl

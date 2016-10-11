@@ -9,7 +9,6 @@ class Taxa::DataController < TaxaController
   # GET /pages/:taxon_id/data/index
   def index
     @page_traits = PageTraits.new(@taxon_concept.id)
-    @jsonld = @page_traits.jsonld
   end
 
   # TODO: unimplemented.

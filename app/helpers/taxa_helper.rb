@@ -285,4 +285,52 @@ module TaxaHelper
       end
     end
   end
+
+  def defn(known_uri, options = {})
+    return if known_uri.nil?
+    return unless known_uri.is_a?(KnownUri)
+    options.reverse_merge!(
+      search_link: false,
+      top_link: false,
+      glossary_link: false,
+      attribution: false,
+      glossary_permalink: false
+    )
+    haml_tag "span.info" do
+      haml_tag "ul.glossary" do
+        haml_tag(:li, id: known_uri.anchor, data: { toc_id: known_uri.toc_items.collect(&:id).join(' ') }) do
+          haml_tag(:dt, known_uri.name)
+          unless known_uri.definition.blank?
+            haml_tag(:dd, known_uri.definition.add_missing_hyperlinks.html_safe)
+          end
+          if options[:attribution] && ! known_uri.attribution.blank?
+            haml_tag("dd.attribution", known_uri.attribution.add_missing_hyperlinks.html_safe)
+          end
+          haml_tag("dd.uri", known_uri.uri)
+          haml_tag "ul.helpers" do
+            if options[:top_link]
+              haml_tag(:li, link_to(I18n.t(:link_to_top_of_page), '#'))
+            end
+            if options[:glossary_link]
+              haml_tag(:li, link_to(I18n.t(:see_in_data_glossary),
+                data_glossary_url(anchor: known_uri.anchor), class: :glossary,
+                data: { anchor: known_uri.anchor, tab_link_message: I18n.t(:see_in_glossary_tab) }))
+            elsif options[:glossary_permalink]
+              haml_tag(:li, link_to(I18n.t(:link_to_this_term),
+                data_glossary_url(anchor: known_uri.anchor), class: :glossary,
+                data: { anchor: known_uri.anchor }))
+            end
+            if options[:search_link] && known_uri.measurement?
+              haml_tag(:li, link_to(I18n.t(:more_taxa_with_attribute),
+                data_search_path(attribute: known_uri.uri, sort: 'desc')))
+            end
+            if current_user.is_admin?
+              haml_tag("li.hover", link_to(I18n.t(:edit),
+                edit_known_uri_path(known_uri)))
+            end
+          end
+        end
+      end
+    end
+  end
 end

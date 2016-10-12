@@ -62,6 +62,7 @@ class PageTraits < TraitSet
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     EOL.debug("Sources...", prefix: ".")
     build_sources
+    EOL.debug("Done initializing.", prefix: ".")
     @populated = true
   end
 

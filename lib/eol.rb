@@ -151,7 +151,7 @@ module EOL
     end
 
     # A bit of a HACK (clearly)...
-    def debug(msg, options)
+    def debug(msg, options = {})
       @debug ||= ENV["LOCAL_IP"] && ENV["LOCAL_IP"] == "10.252.248.30:8084"
       return unless @debug
       log(msg, options)

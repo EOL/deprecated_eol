@@ -77,8 +77,10 @@
             - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
             -# using the instance methods as opposed to scopes allows us to use
             -# preloaded taxon_data_exemplars
+            - EOL.debug("Check exemplars", prefix: "V")
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
+            - EOL.debug("start row", prefix: "V")
             - if first
               - classes << 'first'
               - type_index += 1
@@ -87,6 +89,7 @@
             %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true, type: type_index.nil? ? nil : "type_#{type_index}" } }
               %th.predicate{ id: header_id }
                 - if first
+                  - EOL.debug("first of type", prefix: "V")
                   %a.info_icon
                     \&nbsp;
                   .term
@@ -96,6 +99,7 @@
                       %span.stat= trait.statistical_method_names.join(", ")
                     = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
               %td.val{ headers: header_id, id: "#{header_id}_d" }
+                - EOL.debug("value", prefix: "V")
                 %span.fold
                   = link_to(image_tag("arrow_fold_down.png",
                     alt: I18n.t(:data_row_additional_detail_alt)),
@@ -107,17 +111,20 @@
                   = format_value(trait).html_safe
                   = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
               %td.source
+                - EOL.debug("source", prefix: "V")
                 %span.source
                   - if trait.resource
                     = link_to(trait.resource.content_partner.name, trait.partner)
                   - else
                     = link_to("See original source", trait.source_url)
               %td.comment
+                - EOL.debug("comments", prefix: "V")
                 %span.comments
                   - if true
                     &nbsp;
             %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
               %td{ colspan: 4 }
+                - EOL.debug("meta", prefix: "V")
                 .metadata
                   %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
                     %caption.title= I18n.t(:data_about_this_record)
@@ -158,6 +165,7 @@
                       - link = taxon_data_url(@taxon_page, anchor: trait.point.anchor)
                       %td= link_to link, link
                 .actions
+                  - EOL.debug("actions", prefix: "V")
                   %ul
                     %li
                       - if trait.content_partner
@@ -166,7 +174,8 @@
                           trait.content_partner))
                       - else
                         = I18n.t(:data_point_uri_source_missing)
-                  -if current_user.min_curator_level?(:full) || logged_in?
+                  - if current_user.min_curator_level?(:full) || logged_in?
+                    - EOL.debug("curator", prefix: "V")
                     .additional_commands.clearfix
                       - if current_user.min_curator_level?(:full) || logged_in?
                         - if current_user.min_curator_level?(:full)

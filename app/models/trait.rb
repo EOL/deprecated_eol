@@ -4,7 +4,6 @@ class Trait
   SOURCE_RE = TraitBank::SOURCE_RE
 
   def initialize(rdf, source_set, options = {})
-    EOL.debug("calling Trait#initialize")
     @rdf = rdf
     @source_set = source_set
     if options.has_key?(:predicate)

@@ -43,6 +43,7 @@ class SearchTraits < TraitSet
       @points = []
       @glossary = []
       @sources = []
+      @sources_map = []
       @traits = [].paginate
     else
       @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
@@ -86,6 +87,7 @@ class SearchTraits < TraitSet
       source_ids = Set.new(@traits.map { |trait| trait.source_id })
       source_ids.delete(nil) # Just in case.
       @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
+      build_sources
     end
   end
 

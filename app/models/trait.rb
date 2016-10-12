@@ -4,6 +4,7 @@ class Trait
   SOURCE_RE = TraitBank::SOURCE_RE
 
   def initialize(rdf, source_set, options = {})
+    EOL.debug("calling Trait#initialize")
     @rdf = rdf
     @source_set = source_set
     if options.has_key?(:predicate)
@@ -278,15 +279,7 @@ class Trait
 
   # TODO: we need a MissingSource...
   def resource
-    return @resource if @resource
-    return nil unless source_id && sources
-    @resource = sources.find { |source| source.id == source_id }
-    if @resource.nil?
-      EOL.log("JIT-loading resource #{source_id} (this is not good)")
-      @resource = Resource.where(id: source_id).includes(:content_partner).first
-      sources += @resource if sources && @resource
-    end
-    @resource
+    @resource ||= sources_map[source_id]
   end
 
   def rdf_to_uri(rdf)
@@ -347,6 +340,10 @@ class Trait
 
   def sources
     @source_set.sources
+  end
+
+  def sources_map
+    @source_set.sources_map
   end
 
   def statistical_method_rdfs

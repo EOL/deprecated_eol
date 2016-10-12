@@ -1,5 +1,5 @@
 class TraitSet
-  attr_accessor :points, :glossary, :traits, :sources, :taxa, :id
+  attr_accessor :points, :glossary, :traits, :sources, :sources_map, :taxa, :id
 
   # YOU *NEED* TO IMPLEMENT #initialize and #populate ! See PageTraits for an
   # example.
@@ -66,5 +66,12 @@ class TraitSet
       overview[uri] = OverviewTraits.new(overview[uri])
     end
     overview
+  end
+
+  def build_sources
+    source_ids = @traits.map { |trait| trait.source_id }.compact.uniq
+    @sources = Resource.where(id: source_ids).includes(:content_partner)
+    @sources_map = {}
+    source_ids.each { |id| @sources_map[id] = @sources.find { |s| s.id == id } }
   end
 end

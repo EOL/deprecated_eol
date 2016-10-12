@@ -28,11 +28,12 @@ class PageTraits < TraitSet
   def populate
     return if @populated
     EOL.log(PageTraits.cache_keys(@id).join(", "), prefix: "K")
-    EOL.debug("Virtuoso...", prefix: ".")
     @rdf = TraitBank.cache_query(@base_key) do
+      EOL.debug("Virtuoso...", prefix: ".")
       TraitBank.page_with_traits(@id)
     end
     trait_uris = TraitBank.cache_query("#{@base_key}/trait_uris") do
+      EOL.debug("Trait URIs...", prefix: ".")
       @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)
     end
     EOL.debug("data point uris...", prefix: ".")
@@ -47,8 +48,8 @@ class PageTraits < TraitSet
     EOL.debug("Glossary...", prefix: ".")
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
-    EOL.debug("Relationships...")
     @taxa = TraitBank.cache_query("#{@base_key}/taxa") do
+      EOL.debug("Relationships...")
       page_ids = @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
         compact.uniq
       if page_ids.blank?

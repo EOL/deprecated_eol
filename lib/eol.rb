@@ -150,6 +150,13 @@ module EOL
       @last_log_time = now
     end
 
+    # A bit of a HACK (clearly)...
+    def debug(msg, options)
+      @debug ||= ENV["LOCAL_IP"] && ENV["LOCAL_IP"] == "10.252.248.30:8084"
+      return unless @debug
+      log(msg, options)
+    end
+
     # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to
     # type that when I needed it. :\ NOTE: You really don't _need_ the single-pk
     # version of this. You just want to #pluck(:id) in those cases. I only keep it

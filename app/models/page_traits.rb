@@ -16,6 +16,7 @@ class PageTraits < TraitSet
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
     @id = id
+    EOL.debug("calling PageTraits#initialize(#{id})")
     @populated = false
     @base_key = PageTraits.cache_key(@id)
   end
@@ -26,14 +27,15 @@ class PageTraits < TraitSet
 
   def populate
     return if @populated
-
     EOL.log(PageTraits.cache_keys(@id).join(", "), prefix: "K")
+    EOL.debug("Virtuoso...", prefix: ".")
     @rdf = TraitBank.cache_query(@base_key) do
       TraitBank.page_with_traits(@id)
     end
     trait_uris = TraitBank.cache_query("#{@base_key}/trait_uris") do
       @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)
     end
+    EOL.debug("data point uris...", prefix: ".")
     @points = DataPointUri.where(uri: trait_uris).
       includes(:taxon_data_exemplars)
     uris = TraitBank.cache_query("#{@base_key}/uris") do
@@ -42,8 +44,10 @@ class PageTraits < TraitSet
       end.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }.
         map(&:to_s)
     end
+    EOL.debug("Glossary...", prefix: ".")
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
+    EOL.debug("Relationships...")
     @taxa = TraitBank.cache_query("#{@base_key}/taxa") do
       page_ids = @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
         compact.uniq
@@ -53,10 +57,11 @@ class PageTraits < TraitSet
         TaxonConcept.map_supercedure(page_ids)
       end
     end
+    EOL.debug("Build Traits...", prefix: ".")
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
-    source_ids = @traits.map { |trait| trait.source_id }.compact.uniq
-    @sources = Resource.where(id: source_ids).includes(:content_partner)
+    EOL.debug("Sources...", prefix: ".")
+    build_sources
     @populated = true
   end
 

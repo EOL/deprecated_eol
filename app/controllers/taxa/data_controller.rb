@@ -8,6 +8,7 @@ class Taxa::DataController < TaxaController
 
   # GET /pages/:taxon_id/data/index
   def index
+    EOL.debug("DataController#index", prefix: "#")
     @page_traits = PageTraits.new(@taxon_concept.id)
   end
 

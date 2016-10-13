@@ -21,6 +21,7 @@
 # Author: Jacobo
 # Author: Jcfidy
 # Author: Jgauthier
+# Author: Koavf
 # Author: Larjona
 # Author: Macofe
 # Author: McDutchie
@@ -835,6 +836,7 @@ es:
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
         force_harvest: Solicitud de forzar la recogida
+        harvest_tonight: Cosecha Esta Noche
       session:
         create: Iniciar sesión
         sign_in_with_facebook: Iniciar sesión con Facebook
@@ -4527,8 +4529,8 @@ es:
   content_partner_resource_collections_header: Colecciones
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ver la colección publicada
-  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar la
-    recogida del recurso %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar
+    la recogida del recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalles de recurso de socio
     de contenido agregados exitosamente. Estado actual de los datos de recurso: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Lo sentimos, ha ocurrido un
@@ -4828,6 +4830,9 @@ es:
   your_current_rating_5_of_5: 'Tu calificación actual: 5 de 5'
   your_watch_collection: tu lista de seguimiento
   current_language: 'Idioma: %{iso_code}'
+  current_harvest_event: La cosecha evento de "%{resource_title}" corrió "%{period}"
+    horas
+  currently_running_harvesting: Actualmente Corriendo Cosechando
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
   create_download_data_file: Crear archivo
   institutional_sponsors: Patrocinadores institucionales
@@ -5479,6 +5484,7 @@ es:
   harvesting_processes_log: Registro de procesos de recogida
   harvests_for: Recogidas de %{resource}
   harvest_resource: Recolectando recursos
+  harvest_duration: La cosecha de duración hasta ahora
   has_already_been_taken: ya ha sido tomado.
   has_colon: 'Tiene:'
   has_curated_your_image: ha supervisado tu imagen
@@ -5673,6 +5679,8 @@ es:
   known_uris_sorted: Orden actualizada.
   pending_harvests_none: No hay ninguna cosecha pendiente ahora
   pending_harvests_title: Cosechas pendientes
+  pause_pending_harvests: Pausa cosechando
+  resume_pending_harvests: Reanudar cosechando
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -5680,6 +5688,7 @@ es:
     los que está disponible el contenido del sitio, para cambiar el idioma actual
     seleccione un idioma alternativo de esta lista.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: La Duración De La Última Cosecha
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hace %{time_passed}
   learn_about_collections: ¿Cómo puedo crear una?
@@ -6016,6 +6025,8 @@ es:
   no_comments_have_been_left_yet: Aún no se ha dejado ningún comentario.
   no_errors_are_available: No hay ningún error disponible.
   no_harvesting_logs_for_this_da: No hay registros de recogida para esta fecha
+  no_harvesting_events_running_now: No hay eventos de cosechando que se están ejecutando
+    ahora
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
   no_news_items_for_month_and_year: No hubo ninguna noticia en %{month_and_year}
   none: ninguno

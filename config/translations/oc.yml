@@ -4447,8 +4447,8 @@ oc:
   content_partner_resource_collections_header: Colleccions
   content_partner_resource_collection_header: Colleccion publicada
   content_partner_resource_collection_show_link: Afichar la colleccion publicada
-  content_partner_resource_confirm_harvest_requested: Sètz forçar la recòlta de las ressorsas
-    %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Sètz forçar la recòlta de las
+    ressorsas %{resource_title}?
   content_partner_resource_create_successful_notice: 'Las informacions sus la ressorsa
     del partenari son estadas apondudas. Estatut actual de la ressorsa : %{resource_status}'
   content_partner_resource_create_unsuccessful_error: O planhèm, una error s'es produita,

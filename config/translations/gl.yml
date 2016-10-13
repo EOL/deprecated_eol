@@ -4403,8 +4403,8 @@ gl:
   content_partner_resource_collections_header: Coleccións
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ollar a colección publicada
-  content_partner_resource_confirm_harvest_requested: Estás seguro de querer forzar a
-    colleita do recurso %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Estás seguro de querer forzar
+    a colleita do recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Engadíronse correctamente os
     detalles do recurso do socio de contidos. Estado actual dos datos do recurso:
     %{resource_status}.'

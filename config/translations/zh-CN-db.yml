@@ -179,7 +179,7 @@ zh-CN:
   translated_resource_statuses-label-resource_status_id-10: 已发布的
   translated_resource_statuses-label-resource_status_id-11: 发布待定
   translated_resource_statuses-label-resource_status_id-12: 未发布待定
-  translated_resource_statuses-label-resource_status_id-13: 强制采集
+  translated_resource_statuses-label-resource_status_id-13: 已请求采集
   translated_resource_statuses-label-resource_status_id-1: 正在上传
   translated_resource_statuses-label-resource_status_id-2: 已上传
   translated_resource_statuses-label-resource_status_id-3: 上传失败

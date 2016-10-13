@@ -812,7 +812,8 @@ it:
         create: Aggiungi risorsa
         update: Aggiorna risorsa
         update_settings: Aggiorna impostazioni
-        force_harvest: Richiedi di forzare la raccolta
+        force_harvest: Richiedi raccolta
+        harvest_tonight: Raccolta stanotte
       session:
         create: Accedi
         sign_in_with_facebook: Accedi con Facebook
@@ -4487,8 +4488,8 @@ it:
   content_partner_resource_collections_header: Collezioni
   content_partner_resource_collection_header: Collezione pubblicata
   content_partner_resource_collection_show_link: Vedi collezione pubblicata
-  content_partner_resource_confirm_harvest_requested: Sei sicuro di voler forzare la raccolta
-    dati della risorsa %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Sei sicuro di voler forzare
+    la raccolta dati della risorsa %{resource_title}?
   content_partner_resource_create_successful_notice: 'I dettagli sulla risorsa fornita
     dal Partner di contenuti è stata aggiunta con successo. Stato attuale della risorsa:
     %{resource_status}.'

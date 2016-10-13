@@ -163,6 +163,7 @@ sv:
   translated_ranks-label-rank_id-99: familj
   translated_resource_statuses-label-resource_status_id-10: Publicerad
   translated_resource_statuses-label-resource_status_id-11: Publicering pågår
+  translated_resource_statuses-label-resource_status_id-13: Datainsamling begärd
   translated_resource_statuses-label-resource_status_id-1: Laddar upp
   translated_resource_statuses-label-resource_status_id-2: Uppladdat
   translated_resource_statuses-label-resource_status_id-3: Uppladdning misslyckades

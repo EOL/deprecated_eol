@@ -3710,8 +3710,8 @@ ar:
   content_partner_resource_collections_header: المجموعات
   content_partner_resource_collection_header: المجموعة المنشورة
   content_partner_resource_collection_show_link: عرض المجموعة المنشورة
-  content_partner_resource_confirm_harvest_requested: هل أنت متأكد من رغبتك في تنفيذ جمع
-    مورد %{resource_title} إجباريًا؟
+  content_partner_resource_confirm_harvest_requested: هل أنت متأكد من رغبتك في تنفيذ
+    جمع مورد %{resource_title} إجباريًا؟
   content_partner_resource_create_successful_notice: 'تم إضافة معلومات مصدر شريك المحتوى
     بنجاح. الحالة الحالية لبيانات المصدر:  %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة المصدر

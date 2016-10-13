@@ -41,7 +41,7 @@
               %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
             %ul.glossary
               - @page_traits.glossary.sort_by { |kn| kn.name.downcase }.each do |known_uri|
-                - defn(known_uri, glossary_link: true, attribution: true, search_link: true)
+                - glossary_define(known_uri, glossary_link: true, attribution: true, search_link: true)
     .help_text
       %p= t(:data_disclaimer,
           traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),

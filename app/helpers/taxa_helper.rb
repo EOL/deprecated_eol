@@ -286,7 +286,7 @@ module TaxaHelper
     end
   end
 
-  def glossary_define(uri, options = {})
+  def glossary_define(known_uri, options = {})
     return if known_uri.nil?
     return unless known_uri.is_a?(KnownUri)
     options.reverse_merge!(
@@ -335,7 +335,7 @@ module TaxaHelper
 
   def defn(known_uri, options = {})
     haml_tag "span.info" do
-      glossary_define(uri, options = {})
+      glossary_define(known_uri, options = {})
     end
   end
 end

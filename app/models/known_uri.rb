@@ -207,13 +207,14 @@ class KnownUri < ActiveRecord::Base
 
   def self.glossary_terms
     cached('glossary_terms', expires: 2.weeks) do
-      known_measurements = EOL::Sparql.connection.all_measurement_type_known_uris
-      hashed = {}
-      known_measurements.each { |uri| hashed[uri] = 1 }
+      # known_measurements = EOL::Sparql.connection.all_measurement_type_known_uris
+      # hashed = {}
+      # known_measurements.each { |uri| hashed[uri] = 1 }
       KnownUri.includes(:toc_items).where(hide_from_glossary: false).
-      delete_if do |ku|
-        ku.name.blank? || ( ku.measurement? && ! hashed.has_key?(ku) )
-      end
+        where("name IS NOT NULL AND name != ''")
+      # delete_if do |ku|
+      #   ku.name.blank? || ( ku.measurement? && ! hashed.has_key?(ku) )
+      # end
     end
   end
 

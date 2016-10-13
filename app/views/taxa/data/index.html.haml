@@ -50,7 +50,8 @@
       - categories = @page_traits.categories
       - categories << :other if @page_traits.categories_need_other?
       - categories.each do |category|
-        - cache("taxa/#{@taxon_page.id}/data/category/#{category.label}", expires_in: 2.weeks) do
+        - toc_id = category == :other ? "other" : category.id
+        - cache("taxa/#{@taxon_page.id}/data/category/#{toc_id}", expires_in: 2.weeks) do
           .header_underlined
             %h3= category == :other ? I18n.t(:other_category_subtab) : category.label
           - last_predicate_group = nil
@@ -58,7 +59,6 @@
           -# it's not clear to me (I haven't looked at JS, maybe it's there) what it
           -# is ultimately used for other than creating a class on the node...
           - type_index = 0
-          - toc_id = category == :other ? "other" : category.id
           %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
             taxon: @taxon_page.scientific_name),
             data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => toc_id } }

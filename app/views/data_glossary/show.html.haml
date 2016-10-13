@@ -24,4 +24,4 @@
             %ul.glossary
               - uris_for_this_chapter = known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
               - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
-                = render('known_uris/definition', { known_uri: ku, top_link: true, attribution: true, search_link: true, glossary_permalink: true })
+                - defn(ku, top_link: true, attribution: true, search_link: true, glossary_permalink: true)

@@ -22,6 +22,9 @@ class KnownUrisController < ApplicationController
       @uri_type ||= params.has_key?(:uri_type_id) ? UriType.find(params[:uri_type_id]) : UriType.measurement
       @known_uris = @known_uris.where(uri_type_id: @uri_type.id)
     end
+    if params[:name]
+      @known_uris = @known_uris.where("name LIKE \"%#{params[:name]}%\"")
+    end
     @known_uris = @known_uris.paginate(page: params[:page],
       order: 'known_uris.position', per_page: 500)
     respond_to do |format|

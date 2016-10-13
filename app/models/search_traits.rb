@@ -58,7 +58,7 @@ class SearchTraits < TraitSet
       @key += "/per/#{@per_page}" unless @per_page == 100
       @key += "/desc" if @search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
-      EOL.log(@key, "K")
+      EOL.log(@key, prefix: "K")
       @rdf = TraitBank.cache_query(@key) do
         TraitBank::Scan.for(@search_options)
       end

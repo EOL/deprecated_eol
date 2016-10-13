@@ -41,7 +41,7 @@
               %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
             %ul.glossary
               - @page_traits.glossary.sort_by { |kn| kn.name.downcase }.each do |known_uri|
-                = defn(known_uri, glossary_link: true, attribution: true, search_link: true)
+                - defn(known_uri, glossary_link: true, attribution: true, search_link: true)
     .help_text
       %p= t(:data_disclaimer,
           traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
@@ -101,7 +101,7 @@
                         = trait.predicate_name
                         - if trait.statistical_method?
                           %span.stat= trait.statistical_method_names.join(", ")
-                        = defn(trait.predicate_uri, search_link: true, glossary_link: true)
+                        - defn(trait.predicate_uri, search_link: true, glossary_link: true)
                   %td.val{ headers: header_id, id: "#{header_id}_d" }
                     %span.fold
                       = link_to(image_tag("arrow_fold_down.png",
@@ -112,7 +112,7 @@
                     .term{ data: { term: trait.value_uri }}
                       - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                       = format_value(trait).html_safe
-                      = defn(trait.value_uri, search_link: true, glossary_link: true)
+                      - defn(trait.value_uri, search_link: true, glossary_link: true)
                   %td.source
                     %span.source
                       - if trait.resource
@@ -138,18 +138,18 @@
                               %th{id: "#{row_id}_h"}
                                 - if pred.is_a?(KnownUri)
                                   = pred.name
-                                  = defn(pred, search_link: true, glossary_link: true)
+                                  - defn(pred, search_link: true, glossary_link: true)
                                 - else
                                   = pred
                               %td{id: "#{row_id}_d"}
                                 - vals.each do |val|
                                   - if val.is_a?(KnownUri)
                                     = val.name
-                                    = defn(val, search_link: true, glossary_link: true)
+                                    - defn(val, search_link: true, glossary_link: true)
                                   - elsif val.is_a?(Hash)
                                     - if val[:value].is_a?(KnownUri)
                                       = val[:value].name
-                                      = defn(val[:value], search_link: true, glossary_link: true)
+                                      - defn(val[:value], search_link: true, glossary_link: true)
                                     - else
                                       = raw val[:value].add_missing_hyperlinks
                                     - if val[:units].is_a?(KnownUri)

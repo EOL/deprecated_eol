@@ -34,6 +34,7 @@ Eol::Application.routes.draw do
   match '/info/naturesbest2012' => redirect("/collections/54659")
   match '/info/naturesbest2013' => redirect("/collections/103870")
   match '/info/naturesbest2015' => redirect("/collections/119460")
+  match '/info/naturesbest2016' => redirect("/collections/127330")
   match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')

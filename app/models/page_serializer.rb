@@ -5,7 +5,7 @@ class PageSerializer
     # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
-    # NOTE: I've been testing with PageSerializer.store_page_id(328598).
+    # NOTE: I've been testing with: PageSerializer.store_page_id(328598)
     # Next was pid = 19831
     # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
@@ -107,7 +107,9 @@ class PageSerializer
         }]
       end
 
-      traits = PageTraits.new(concept.id).traits
+      pt = PageTraits.new(concept.id)
+      pt.populate
+      traits = pt.traits
       if traits.blank?
         page[:traits] = []
       else

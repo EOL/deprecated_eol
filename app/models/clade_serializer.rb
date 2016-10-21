@@ -19,14 +19,12 @@ class CladeSerializer
           end
 
           EOL.log("Serializing #{descendant_page[:taxon_concept_id]}...")
-          clade_pages << (PageSerializer.get_page_data(descendant_page[:taxon_concept_id])).to_json + ","
-          # remove last comma:
-          clade_pages[-1].chomp!(',') if index == TaxonConcept.find(pid).number_of_descendants
+          clade_pages << (PageSerializer.get_page_data(descendant_page[:taxon_concept_id])).to_json
         end
         EOL.log("Done.")
 
         if !clade_pages.blank?
-          file.write(clade_pages.join("\n"))
+          file.write(clade_pages.join(",\n"))
         end
         file.write("]\n")
       end

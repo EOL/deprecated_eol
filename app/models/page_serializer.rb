@@ -35,6 +35,53 @@ class PageSerializer
 
       page[:native_node] = build_node(node, resource)
 
+      pt = PageTraits.new(concept.id)
+      pt.populate
+      traits = pt.traits
+      if traits.blank?
+        page[:traits] = []
+      else
+        page[:traits] = traits.map do |trait|
+          source = nil
+          trait_hash = {
+            resource: build_resource(trait.resource),
+            resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
+            predicate: build_uri(trait.predicate_uri),
+            metadata: trait.meta.flat_map do |pair|
+              predicate = build_uri(pair.first)
+              pair.second.map do |value|
+                meta_hash = {
+                  predicate: predicate
+                }
+                if value.is_a?(String)
+                  source = value
+                elsif value[:units]
+                  meta_hash[:measurement] = value[:value]
+                  meta_hash[:units] = build_uri(value[:units])
+                elsif value[:value].is_a?(KnownUri)
+                  meta_hash[:term] = build_uri(value[:value])
+                else
+                  meta_hash[:literal] = value[:value]
+                end
+                meta_hash
+              end
+            end
+          }
+          trait_hash[:source] = source if source
+          if trait.units_uri
+            trait_hash[:measurement] = trait.value_name
+            trait_hash[:units] = build_uri(trait.units_uri)
+          elsif trait.value_uri.is_a?(KnownUri)
+            trait_hash[:term] = build_uri(trait.value_uri)
+          elsif trait.association?
+            trait_hash[:object_page_id] = trait.target_taxon.id
+          else
+            trait_hash[:literal] = trait.value_name
+          end
+          trait_hash
+        end
+      end
+
       preferred_langs = {}
       page[:vernaculars] = concept.preferred_common_names.map do |cn|
         lang = get_language(cn)
@@ -105,53 +152,6 @@ class PageSerializer
           body: article.description_linked || article.description,
           sections: article.toc_items.map { |ti| build_section(ti) }
         }]
-      end
-
-      pt = PageTraits.new(concept.id)
-      pt.populate
-      traits = pt.traits
-      if traits.blank?
-        page[:traits] = []
-      else
-        page[:traits] = traits.map do |trait|
-          source = nil
-          trait_hash = {
-            resource: build_resource(trait.resource),
-            resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
-            predicate: build_uri(trait.predicate_uri),
-            metadata: trait.meta.flat_map do |pair|
-              predicate = build_uri(pair.first)
-              pair.second.map do |value|
-                meta_hash = {
-                  predicate: predicate
-                }
-                if value.is_a?(String)
-                  source = value
-                elsif value[:units]
-                  meta_hash[:measurement] = value[:value]
-                  meta_hash[:units] = build_uri(value[:units])
-                elsif value[:value].is_a?(KnownUri)
-                  meta_hash[:term] = build_uri(value[:value])
-                else
-                  meta_hash[:literal] = value[:value]
-                end
-                meta_hash
-              end
-            end
-          }
-          trait_hash[:source] = source if source
-          if trait.units_uri
-            trait_hash[:measurement] = trait.value_name
-            trait_hash[:units] = build_uri(trait.units_uri)
-          elsif trait.value_uri.is_a?(KnownUri)
-            trait_hash[:term] = build_uri(trait.value_uri)
-          elsif trait.association?
-            trait_hash[:object_page_id] = trait.target_taxon.id
-          else
-            trait_hash[:literal] = trait.value_name
-          end
-          trait_hash
-        end
       end
 
       page[:collections] = concept.collections.map do |col|

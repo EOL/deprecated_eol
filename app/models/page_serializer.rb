@@ -78,7 +78,7 @@ class PageSerializer
           owner: i.owner,
           name: i.best_title,
           source_url: i.source_url,
-          description: i.description_linked,
+          description: i.description_linked || i.description,
           base_url: url
         }
       end
@@ -102,7 +102,7 @@ class PageSerializer
           owner: article.owner,
           name: article.best_title,
           source_url: article.source_url,
-          body: article.description_linked,
+          body: article.description_linked || article.description,
           sections: article.toc_items.map { |ti| build_section(ti) }
         }]
       end
@@ -112,14 +112,29 @@ class PageSerializer
         page[:traits] = []
       else
         page[:traits] = traits.map do |trait|
-          source = trait.rdf_values("http://purl.org/dc/terms/source").map(&:to_s).
-            find { |v| v !~ /resources\/\d/ }
-          # TODO: metadata ...but we don't *need* it yet.
           trait_hash = {
             resource: build_resource(trait.resource),
             resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
             predicate: build_uri(trait.predicate_uri),
-            source: source
+            metadata: trait.meta.flat_map do |pair|
+              predicate = build_uri(pair.first)
+              pair.second.map do |value|
+                meta_hash = {
+                  predicate: predicate
+                }
+                if value.is_a?(String)
+                  trait_hash[:source] = value
+                elsif value[:units]
+                  meta_hash[:measurement] = value[:value]
+                  meta_hash[:units] = build_uri(value[:units])
+                elsif value[:value].is_a?(KnownUri)
+                  meta_hash[:term] = build_uri(value[:value])
+                else
+                  meta_hash[:literal] = value[:value]
+                end
+                meta_hash
+              end
+            end
           }
           if trait.units_uri
             trait_hash[:measurement] = trait.value_name

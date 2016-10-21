@@ -114,6 +114,7 @@ class PageSerializer
         page[:traits] = []
       else
         page[:traits] = traits.map do |trait|
+          source = nil
           trait_hash = {
             resource: build_resource(trait.resource),
             resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
@@ -125,7 +126,7 @@ class PageSerializer
                   predicate: predicate
                 }
                 if value.is_a?(String)
-                  trait_hash[:source] = value
+                  source = value
                 elsif value[:units]
                   meta_hash[:measurement] = value[:value]
                   meta_hash[:units] = build_uri(value[:units])
@@ -138,6 +139,7 @@ class PageSerializer
               end
             end
           }
+          trait_hash[:source] = source if source
           if trait.units_uri
             trait_hash[:measurement] = trait.value_name
             trait_hash[:units] = build_uri(trait.units_uri)

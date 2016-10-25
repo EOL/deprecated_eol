@@ -48,13 +48,15 @@ class PageSerializer
         images = entry.data_objects.select do |i|
           i.published? && i.data_type_id == DataType.image.id
         end
+        puts "*" * 100
+        puts "Entry #{entry.id}"
         images.each do |i|
           # i = images.first
+          puts "Image #{i.id}"
           lic = i.license
           b_cit = i.bibliographic_citation
           b_cit = nil if b_cit.blank?
           url = i.original_image.sub("_orig.jpg", "")
-          default_agent =
           # NOTE: this will NOT include relationships added by curators. I don't
           # care. This is just "test" data.
           page[:media] << { guid: i.guid,
@@ -205,8 +207,12 @@ class PageSerializer
     def get_language(object)
       return "eng" unless object.language_id
       cached(:languages, object.language_id) do
-        l_code = object.language.iso_639_3
-        l_code.blank? ? "eng" : l_code
+        if object.language
+          l_code = object.language.iso_639_3
+          l_code.blank? ? "eng" : l_code
+        else
+          "eng"
+        end
       end
     end
 

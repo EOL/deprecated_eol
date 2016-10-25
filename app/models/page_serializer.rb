@@ -32,9 +32,59 @@ class PageSerializer
             name: [ :ranked_canonical_form, canonical_form: :name ] ] ]
         ).first
       # Test with pid = 328598 (Raccoon)
+      # Or with pid = 1033083 (House Centipede)
       page = { id: concept.id, moved_to_node_id: nil }
       node = concept.entry
       resource = build_resource(node.hierarchy.resource)
+
+      pt = PageTraits.new(concept.id)
+      pt.populate
+      traits = pt.traits
+      if traits.blank?
+        page[:traits] = []
+      else
+        page[:traits] = traits.map do |trait|
+          src = nil
+          trait_hash = {
+            resource: build_resource(trait.resource),
+            resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
+            predicate: build_uri(trait.predicate_uri),
+            metadata: trait.meta.flat_map do |pair|
+              if pair.first.uri == "http://purl.org/dc/terms/source"
+                src = pair.second.join(",")
+                next
+              end
+              predicate = build_uri(pair.first)
+              pair.second.map do |value|
+                meta_hash = {
+                  predicate: predicate
+                }
+                if value.is_a?(String) &&
+                  meta_hash[:literal] = value
+                elsif value[:units]
+                  meta_hash[:measurement] = value[:value]
+                  meta_hash[:units] = build_uri(value[:units])
+                elsif value[:value].is_a?(KnownUri)
+                  meta_hash[:term] = build_uri(value[:value])
+                end
+                meta_hash
+              end
+            end.compact
+          }
+          trait_hash[:source] = src if src
+          if trait.units_uri
+            trait_hash[:measurement] = trait.value_name
+            trait_hash[:units] = build_uri(trait.units_uri)
+          elsif trait.value_uri.is_a?(KnownUri)
+            trait_hash[:term] = build_uri(trait.value_uri)
+          elsif trait.association?
+            trait_hash[:object_page_id] = trait.target_taxon.id
+          else
+            trait_hash[:literal] = trait.value_name
+          end
+          trait_hash
+        end
+      end
 
       taxon_name = concept.title_canonical_italicized
       page[:media] = []
@@ -78,53 +128,6 @@ class PageSerializer
       end
 
       page[:native_node] = build_node(node, resource)
-
-      pt = PageTraits.new(concept.id)
-      pt.populate
-      traits = pt.traits
-      if traits.blank?
-        page[:traits] = []
-      else
-        page[:traits] = traits.map do |trait|
-          source = nil
-          trait_hash = {
-            resource: build_resource(trait.resource),
-            resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
-            predicate: build_uri(trait.predicate_uri),
-            metadata: trait.meta.flat_map do |pair|
-              predicate = build_uri(pair.first)
-              pair.second.map do |value|
-                meta_hash = {
-                  predicate: predicate
-                }
-                if value.is_a?(String)
-                  source = value
-                elsif value[:units]
-                  meta_hash[:measurement] = value[:value]
-                  meta_hash[:units] = build_uri(value[:units])
-                elsif value[:value].is_a?(KnownUri)
-                  meta_hash[:term] = build_uri(value[:value])
-                else
-                  meta_hash[:literal] = value[:value]
-                end
-                meta_hash
-              end
-            end
-          }
-          trait_hash[:source] = source if source
-          if trait.units_uri
-            trait_hash[:measurement] = trait.value_name
-            trait_hash[:units] = build_uri(trait.units_uri)
-          elsif trait.value_uri.is_a?(KnownUri)
-            trait_hash[:term] = build_uri(trait.value_uri)
-          elsif trait.association?
-            trait_hash[:object_page_id] = trait.target_taxon.id
-          else
-            trait_hash[:literal] = trait.value_name
-          end
-          trait_hash
-        end
-      end
 
       preferred_langs = {}
       page[:vernaculars] = concept.preferred_common_names.map do |cn|

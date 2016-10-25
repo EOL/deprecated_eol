@@ -10,6 +10,8 @@ class License < ActiveRecord::Base
 
   has_many :data_objects
   has_many :resources
+  
+  has_one :translated_license
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
 

@@ -463,10 +463,11 @@ class DataObject < ActiveRecord::Base
     @resource = data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.resource rescue (harvest_events.last.resource rescue nil)
   end
 
-  # 'owner' chooses someone responsible for this data object in order of preference
-  # this method returns [OwnerName, OwnerUser || nil]
+  # 'owner' chooses someone responsible for this data object in order of
+  # preference this method returns [OwnerName, OwnerUser || nil]
   def owner
-    return translated_from.owner if data_object_translation # Use the original owner when translated. TODO - image only?
+    # Use the original owner when translated. TODO - image only?
+    return translated_from.owner if data_object_translation
     if rights_holder_for_display.blank?
       unless agents_data_objects.empty?
         AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
@@ -898,15 +899,21 @@ class DataObject < ActiveRecord::Base
   # NOTE - if you plan on calling this, you are behooved by adding object_title
   # and data_type_id to your selects. TODO: THIS IS A VIEW HELPER, not an
   # instance method. :| :| :| :|
-  def best_title
-    return safe_object_title.html_safe unless safe_object_title.blank?
-    return toc_items.first.label.html_safe unless ! text? || toc_items.blank? || toc_items.first.label.nil?
-    return image_title_with_taxa.html_safe if image?
+  def best_title(taxon_name = nil)
+    safe_title = safe_object_title
+    return safe_title.html_safe unless safe_title.blank?
+    toc_title = usable_toc_title
+    return usable_toc_title.html_safe if usable_toc_title
+    return image_title_with_taxa(taxon_name).html_safe if image?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
   end
   alias :summary_name :best_title
   alias :collected_name :best_title
+
+  def usable_toc_title
+    text? && ! toc_items.blank? && toc_items.first.label
+  end
 
   # NOTE - if you plan on calling this, you are behooved by adding object_title
   # to your selects. You MUST select description and data_type_id. TODO - this
@@ -1404,8 +1411,9 @@ private
   end
 
   # This is relatively expensive... but accurate.
-  def image_title_with_taxa
+  def image_title_with_taxa(taxon_name = nil)
     return @image_title_with_taxa if @image_title_with_taxa
+    return taxon_name if taxon_name
     all_data_object_taxa = uncached_data_object_taxa(published: true)
     visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
     if visible_data_object_taxa.empty?

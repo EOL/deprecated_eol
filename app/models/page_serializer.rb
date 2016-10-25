@@ -6,7 +6,7 @@ class PageSerializer
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
     # NOTE: I've been testing with: PageSerializer.store_page_id(328598)
-    # Next was pid = 19831
+    # Next was PageSerializer.store_page_id(1033083)
     # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
       name = Rails.root.join("public", "store-#{pid}.json").to_s
@@ -98,11 +98,8 @@ class PageSerializer
         images = entry.data_objects.select do |i|
           i.published? && i.data_type_id == DataType.image.id
         end
-        puts "*" * 100
-        puts "Entry #{entry.id}"
         images.each do |i|
           # i = images.first
-          puts "Image #{i.id}"
           lic = i.license
           b_cit = i.bibliographic_citation
           b_cit = nil if b_cit.blank?

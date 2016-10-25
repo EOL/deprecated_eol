@@ -1,9 +1,12 @@
 class CladeSerializer
   class << self
-    # e.g.: CladeSerializer.store_clade_starting_from(7662)  => Carnivora
+    # e.g.: CladeSerializer.store_clade_starting_from(7662) => Carnivora
+    # e.g.: CladeSerializer.store_clade_starting_from(7665) => Procyonidae (smaller)
+
     def store_clade_starting_from(pid)
       batch_size = 100
       file_name = Rails.root.join("public", "store-#{pid}-clade.json").to_s
+      EOL.log("Storing clade...", prefix: "{")
       File.open(file_name, "wb") do |file|
         file.write("[")
         index = 0
@@ -14,14 +17,14 @@ class CladeSerializer
 
           if index % batch_size == 0
             puts "  #{index}..."
-            file.write(clade_pages.join("\n"))
+            file.write(clade_pages.join(",\n"))
             clade_pages = []
           end
 
           EOL.log("Serializing #{descendant_page[:taxon_concept_id]}...")
-          clade_pages << (PageSerializer.get_page_data(descendant_page[:taxon_concept_id])).to_json
+          clade_pages << JSON.pretty_generate(PageSerializer.get_page_data(descendant_page[:taxon_concept_id]))
         end
-        EOL.log("Done.")
+        EOL.log("Done.", prefix: "}")
 
         if !clade_pages.blank?
           file.write(clade_pages.join(",\n"))

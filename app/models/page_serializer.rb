@@ -23,15 +23,57 @@ class PageSerializer
       concept = TaxonConcept.where(id: concept.id).
         includes(
           :collections,
-          preferred_common_names: [ name: [ canonical_form: :name ] ],
+          published_hierarchy_entries: [ data_objects:
+            [ :data_object_translation, :agents_data_objects, { license: :translated_license } ],
+            hierarchy: { resource: :content_partner } ],
+          preferred_common_names: [ name: [ canonical_form: :name ], language: :translated_language ],
           preferred_entry: [ hierarchy_entry: [ :rank, hierarchy: [ :resource ],
             flattened_ancestors: [ ancestor: [ name: [ canonical_form: :name ] ] ],
-            name: [ canonical_form: :name ] ] ]
+            name: [ :ranked_canonical_form, canonical_form: :name ] ] ]
         ).first
       # Test with pid = 328598 (Raccoon)
       page = { id: concept.id, moved_to_node_id: nil }
       node = concept.entry
       resource = build_resource(node.hierarchy.resource)
+
+      taxon_name = concept.title_canonical_italicized
+      page[:media] = []
+      entries = concept.published_hierarchy_entries.select { |e| ! e.data_objects.empty? }
+      entries.each do |entry|
+        # entry = entries.first
+        resource = build_resource(entry.hierarchy.resource)
+        # NOTE: currently the slowest part of this process: having to dig
+        # through all of this stuff rather than including it with the concept,
+        # above:
+        images = entry.data_objects.select do |i|
+          i.published? && i.data_type_id == DataType.image.id
+        end
+        images.each do |i|
+          # i = images.first
+          lic = i.license
+          b_cit = i.bibliographic_citation
+          b_cit = nil if b_cit.blank?
+          url = i.original_image.sub("_orig.jpg", "")
+          default_agent =
+          # NOTE: this will NOT include relationships added by curators. I don't
+          # care. This is just "test" data.
+          page[:media] << { guid: i.guid,
+            resource_pk: i.identifier,
+            provider_type: "Resource",
+            provider: resource,
+            license: { name: lic.title, source_url: lic.source_url,
+              icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
+            language: get_language(i),
+            # TODO: skipping location here
+            bibliographic_citation: b_cit,
+            owner: i.owner,
+            name: i.best_title(taxon_name),
+            source_url: i.source_url,
+            description: i.description_linked || i.description,
+            base_url: url
+          }
+        end
+      end
 
       page[:native_node] = build_node(node, resource)
 
@@ -91,43 +133,6 @@ class PageSerializer
         }
         preferred_langs[lang] = true if cn.preferred?
         hash
-      end
-
-      # Bah! Direct relationships were NOT working, so I'm using Solr, which is
-      # horrible and indicates a deep problem. TODO: THIS WILL NOT WORK !!!
-      # ...when you start grabbing higher-level taxa AND their children.
-      # ...Well, it'll work... but it will contain many many duplicates.
-      media = concept.data_objects_from_solr(
-        ignore_translations: true,
-        return_hierarchically_aggregated_objects: true,
-        page: 1, per_page: 100,
-        data_type_ids: DataType.image_type_ids )
-
-      # NOTE: these were NOT pre-loaded, so we could limit them. Also note that
-      # the curated_data_objects_hierarchy_entry CANNOT be preloaded here, since
-      # it's invoked via GUID, not by ID (though the relationship could probably
-      # be rewritten, that's out of scope, here.)
-      page[:media] = media.map do |i|
-        lic = i.license
-        b_cit = i.bibliographic_citation
-        b_cit = nil if b_cit.blank?
-        url = i.original_image.sub("_orig.jpg", "")
-        resource = build_resource(i.resource)
-        { guid: i.guid,
-          resource_pk: i.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(i),
-          # TODO: skipping location here
-          bibliographic_citation: b_cit,
-          owner: i.owner,
-          name: i.best_title,
-          source_url: i.source_url,
-          description: i.description_linked || i.description,
-          base_url: url
-        }
       end
 
       article = concept.overview_text_for_user(user)
@@ -190,36 +195,51 @@ class PageSerializer
       return page
     end
 
+    def cached(key, id, &block)
+      @caches ||= {}
+      @caches[key] ||= {}
+      return @caches[key][id] if @caches[key].has_key?(id)
+      @caches[key][id] = yield
+    end
+
     def get_language(object)
-      return "eng" unless object.language
-      l_code = object.language.iso_639_3
-      l_code.blank? ? "eng" : l_code
+      return "eng" unless object.language_id
+      cached(:languages, object.language_id) do
+        l_code = object.language.iso_639_3
+        l_code.blank? ? "eng" : l_code
+      end
     end
 
     def build_resource(resource)
       return nil if resource.nil?
-      { name: resource.title, partner: resource.content_partner.name }
+      cached(:resources, resource.id) do
+        { name: resource.title, partner: resource.content_partner.name }
+      end
     end
 
     def build_node(node, resource)
       return nil unless node
-      {
-        resource: resource,
-        node_id: node.id,
-        rank: node.rank.try(:label),
-        page_id: node.taxon_concept_id,
-        scientific_name: node.italicized_name,
-        canonical_form: node.title_canonical_italicized,
-        resource_pk: node.identifier,
-        source_url: node.source_url,
-        parent: build_node(node.parent, resource)
-      }
+      cached(:nodes, node.id) do
+        {
+          resource: resource,
+          node_id: node.id,
+          rank: node.rank.try(:label),
+          page_id: node.taxon_concept_id,
+          scientific_name: node.italicized_name,
+          canonical_form: node.title_canonical_italicized,
+          resource_pk: node.identifier,
+          source_url: node.source_url,
+          parent: build_node(node.parent, resource)
+        }
+      end
     end
 
     def build_section(toc_item)
       return nil if toc_item.nil?
-      { parent: build_section(toc_item.parent), position: toc_item.view_order,
-        name: toc_item.label }
+      cached(:sections, toc_item.id) do
+        { parent: build_section(toc_item.parent), position: toc_item.view_order,
+          name: toc_item.label }
+      end
     end
 
     def build_uri(known_uri)
@@ -231,13 +251,15 @@ class PageSerializer
           is_hidden_from_overview: true,
           is_hidden_from_glossary: true }
       else
-        { uri: known_uri.uri,
-          name: known_uri.name,
-          definition: known_uri.definition,
-          comment: known_uri.comment,
-          attribution: known_uri.attribution,
-          is_hidden_from_overview: known_uri.exclude_from_exemplars,
-          is_hidden_from_glossary: known_uri.hide_from_glossary }
+        cached(:uris, known_uri.id) do
+          { uri: known_uri.uri,
+            name: known_uri.name,
+            definition: known_uri.definition,
+            comment: known_uri.comment,
+            attribution: known_uri.attribution,
+            is_hidden_from_overview: known_uri.exclude_from_exemplars,
+            is_hidden_from_glossary: known_uri.hide_from_glossary }
+        end
       end
     end
   end

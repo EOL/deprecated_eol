@@ -64,7 +64,13 @@ class Trait
   end
 
   def make_point
-    res_id = resource.try(:id)
+    # NOTE: if it IS a string, then we
+    res_id = nil
+    if resource.is_a?(String)
+      EOL.log("WARNING: Attempting to add a data point for missing resoruce...", prefix: "*")
+    else
+      res_id = resource.try(:id)
+    end
     page_id = @page ? @page.id : @source_set.id
     @point = DataPointUri.create(
       uri: uri.to_s,
@@ -75,7 +81,7 @@ class Trait
       predicate: predicate.to_s,
       object: value_name,
       unit_of_measure: units_name,
-      resource_id: resource.try(:id),
+      resource_id: res_id,
       user_added_data_id: nil,
       predicate_known_uri_id: predicate_uri.is_a?(KnownUri) ?
         predicate_uri.id : nil,
@@ -84,7 +90,7 @@ class Trait
         units_uri.id : nil,
     )
     EOL.log("WARNING: Created missing DPURI #{uri} (#{@point.id})", prefix: "*")
-    EOL.log("WARNING: That DPURI had no resource!", prefix: "*") if res_id.nil?
+    @point
   end
 
   def header_anchor

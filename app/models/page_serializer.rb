@@ -1,7 +1,7 @@
 class PageSerializer
   class << self
     # TODO:
-    # * references. ...not for this version, buy mark it as TODO.
+    # * references. ...not for this version, but mark it as TODO.
     # * TODO attributions. Crappy. ...i think we can skip it for the very first version, but soon
     # * ratings are also TODO, though lower priority.
     # * TODO: Think about page content positions. :S
@@ -55,6 +55,8 @@ class PageSerializer
               if pair.first.uri == "http://purl.org/dc/terms/source"
                 src = pair.second.join(",")
                 next
+              elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/measurementUnit"
+                next
               end
               predicate = build_uri(pair.first)
               pair.second.map do |value|
@@ -81,6 +83,7 @@ class PageSerializer
             trait_hash[:term] = build_uri(trait.value_uri)
           elsif trait.association?
             trait_hash[:object_page] = { id: trait.target_taxon.id,
+              node: build_node(trait.target_taxon.entry, resource)
               scientific_name: trait.target_taxon.title,
               canonical_form: trait.target_taxon.title_canonical_italicized }
           else

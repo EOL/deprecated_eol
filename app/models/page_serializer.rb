@@ -83,7 +83,7 @@ class PageSerializer
             trait_hash[:term] = build_uri(trait.value_uri)
           elsif trait.association?
             trait_hash[:object_page] = { id: trait.target_taxon.id,
-              node: build_node(trait.target_taxon.entry, resource)
+              node: build_node(trait.target_taxon.entry, resource),
               scientific_name: trait.target_taxon.title,
               canonical_form: trait.target_taxon.title_canonical_italicized }
           else

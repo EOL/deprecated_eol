@@ -10,24 +10,15 @@ class CladeSerializer
       File.open(file_name, "wb") do |file|
         file.write("[")
         index = 0
-        clade_pages = []
-
+        clade_page = nil
         TaxonConceptsFlattened.descendants_of(pid).find_each(batch_size: batch_size) do |descendant_page|
-          index += 1
-
-          if index % batch_size == 0
-            puts "  #{index}..."
+          if clade_page
             file.write(",\n")
-            file.write(clade_pages.join(",\n"))
-            clade_pages = []
+            file.write(clade_page)
           end
-
-          clade_pages << JSON.pretty_generate(PageSerializer.get_page_data(descendant_page[:taxon_concept_id]))
+          clade_page = JSON.pretty_generate(PageSerializer.get_page_data(descendant_page[:taxon_concept_id]))
         end
-
-        if !clade_pages.blank?
-          file.write(clade_pages.join(",\n"))
-        end
+        file.write(clade_page + "\n") if clade_page
         file.write("]\n")
       end
       File.chmod(0644, file_name)

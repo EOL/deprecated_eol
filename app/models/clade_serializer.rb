@@ -17,6 +17,7 @@ class CladeSerializer
 
           if index % batch_size == 0
             puts "  #{index}..."
+            file.write(",\n")
             file.write(clade_pages.join(",\n"))
             clade_pages = []
           end

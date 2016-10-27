@@ -88,6 +88,7 @@ class DataObject < ActiveRecord::Base
 
   scope :images, -> { where(data_type_id: DataType.image.id) }
   scope :texts,  -> { where(data_type_id: DataType.text.id) }
+  scope :media, -> {where(data_type_id:  DataType.media_type_ids)}
   scope :with_associations, -> do
     includes(:data_objects_hierarchy_entries,
      :curated_data_objects_hierarchy_entries,

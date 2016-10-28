@@ -73,13 +73,13 @@ class Hierarchy
         page: page, per_page: @per_page)
       sleep(0.3) # Less of a hit to production, please!
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 250
+      if rhead["QTime"] && rhead["QTime"].to_i > 350
+        EOL.log("SLOW relator request took #{rhead["QTime"]}ms", prefix: ".")
         if rhead["q"] && ! rhead["q"].blank?
           EOL.log("relator query: #{rhead["q"]}", prefix: ".")
         else
           EOL.log("header: #{rhead.inspect}")
         end
-        EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
       if page == 1 && response["response"] && response["response"]["numFound"]
         EOL.log("Total of #{response["response"]["numFound"]} entries")
@@ -113,7 +113,7 @@ class Hierarchy
       # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
       sleep(0.3)
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 200
+      if rhead["QTime"] && rhead["QTime"].to_i > 300
         EOL.log("SLOW (#{rhead["QTime"]}ms): #{query}", prefix: "!")
       end
       matching_entries_from_solr = response["response"]["docs"]

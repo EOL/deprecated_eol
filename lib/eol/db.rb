@@ -141,7 +141,7 @@ module EOL
         group_num = 0
         groups = size / group_size
         groups += 1 unless size % group_size == 0
-        warn_threshold = group_size * 50
+        warn_threshold = group_size * 20
         rows.in_groups_of(group_size, false) do |group|
           yield(group)
           group_num += 1

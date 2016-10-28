@@ -99,10 +99,6 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  def harvest
-    Resource::Harvester.harvest(self)
-  end
-
   # TODO: This assumes one to one relationship between user and content partner
   # and will need to be modified when we move to many to many
   def can_be_created_by?(user)

@@ -28,7 +28,9 @@ class SolrCore
       if @ids.empty?
         delete("hierarchy_id:#{hierarchy.id}")
       end
-      reindex_items(entries)
+      EOL::Db.in_groups_with_logged_time(entries, 10_000) do |group|
+        reindex_items(group)
+      end
     end
 
     def build_entry_ancestors(ancestry)

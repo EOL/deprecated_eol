@@ -39,7 +39,7 @@ class Resource
         @resource.flatten
         @event.publish_affected
         # NOTE: the next two steps comprise the lion's share of publishing time.
-        # The indexing takes a bit more time than the merging.
+        # The indexing (usually) takes considerably more time than the merging.
         @resource.index_for_merges
         @event.merge_matching_concepts
         @resource.rebuild_taxon_concept_names

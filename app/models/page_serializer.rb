@@ -268,6 +268,7 @@ class PageSerializer
 
     def build_uri(known_uri)
       return nil if known_uri.nil?
+      return nil if known_uri.is_a?(String)
       if known_uri.is_a?(UnknownUri)
         { uri: known_uri.uri,
           name: known_uri.uri.sub(/^.*\//, "").underscore.humanize,

@@ -54,27 +54,29 @@ class PageSerializer
             predicate: build_uri(trait.predicate_uri),
             metadata: trait.meta.flat_map do |pair|
               if pair.first.uri == "http://purl.org/dc/terms/source"
-                src = pair.second.join(",")
-                next
+                src = pair.second.join(", ")
+                nil
               elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/measurementUnit"
-                next
-              elsif pair.first.uri =~ /scientific_name$/
-                next
-              end
-              predicate = build_uri(pair.first)
-              pair.second.map do |value|
-                meta_hash = {
-                  predicate: predicate
-                }
-                if value.is_a?(String) &&
-                  meta_hash[:literal] = value
-                elsif value[:units]
-                  meta_hash[:measurement] = value[:value]
-                  meta_hash[:units] = build_uri(value[:units])
-                elsif value[:value].is_a?(KnownUri)
-                  meta_hash[:term] = build_uri(value[:value])
+                nil
+              elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/scientificName"
+                sci_name = pair.second.join(", ")
+                nil
+              else
+                predicate = build_uri(pair.first)
+                pair.second.map do |value|
+                  meta_hash = {
+                    predicate: predicate
+                  }
+                  if value.is_a?(String)
+                    meta_hash[:literal] = value
+                  elsif value[:units]
+                    meta_hash[:measurement] = value[:value]
+                    meta_hash[:units] = build_uri(value[:units])
+                  elsif value[:value].is_a?(KnownUri)
+                    meta_hash[:term] = build_uri(value[:value])
+                  end
+                  meta_hash
                 end
-                meta_hash
               end
             end.compact
           }

@@ -90,7 +90,7 @@ class PageSerializer
             trait_hash[:units] = build_uri(trait.units_uri)
           elsif trait.value_uri.is_a?(KnownUri)
             trait_hash[:term] = build_uri(trait.value_uri)
-          elsif trait.association? && trait.target_taxon
+          elsif trait.association? && ! trait.target_taxon.is_a?(MissingConcept)
             trait_hash[:object_page] = { id: trait.target_taxon.id,
               node: build_node(trait.target_taxon.entry, resource),
               scientific_name: trait.target_taxon_name,

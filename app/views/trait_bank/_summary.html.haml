@@ -1,4 +1,4 @@
-- cache("taxa/#{@traits.id}/traits_summary", expires_in: 2.weeks) do
+- cache("taxa/#{@traits.respond_to?(:id) ? @traits.id : "empty" }/traits_summary", expires_in: 2.weeks) do
   #data_summary.article
     .header
       %h3= I18n.t(:data_summary_header_with_count, count: (@traits ? @traits.predicate_count : 0) ).html_safe

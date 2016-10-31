@@ -238,6 +238,7 @@ class PageSerializer
 
     def build_resource(resource)
       return nil if resource.nil?
+      return nil if resource.is_a?(String)
       cached(:resources, resource.id) do
         { name: resource.title, partner: resource.content_partner.name }
       end

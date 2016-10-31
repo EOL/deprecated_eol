@@ -5,6 +5,6 @@
     = text_field_tag('collection_name', '', data: { default: I18n.t(:create_a_new_collection) }, size: 24, class: 'clear_on_focus' )
   - unless @collection_job.collection == current_user.watch_collection
     = render 'collections_list_item',
-      { collection: current_user.watch_collection, has_item: @item && current_user.watch_collection.has_item?(@item), f: f }
+      { collection: current_user.watch_collection, f: f }
   - collections.reject { |c| c == current_user.watch_collection || c == @collection_job.collection }.each do |collection|
-    = render 'collections_list_item', { :collection => collection, :has_item => collection.has_item?(@item), f: f }
+    = render 'collections_list_item', { :collection => collection, f: f }

@@ -15,14 +15,14 @@ class CladeSerializer
       taxa.find_each(batch_size: batch_size) do |descendant_page|
         batch << JSON.pretty_generate(PageSerializer.get_page_data(descendant_page[:taxon_concept_id]))
         if batch.size >= batch_size
-          stored += flush(batch, part += 1)
+          stored += flush(pid, batch, part += 1)
           batch = []
         end
       end
       EOL.log("CLS: Done (#{stored} pages from Page ID #{pid}).", prefix: "}")
     end
 
-    def flush(batch, part)
+    def flush(pid, batch, part)
       file_name = Rails.root.join("public", "store-clade-#{pid}-part#{part}.json").to_s
       EOL.log("CLS: Flushing #{batch.size} pages into #{file_name}...", prefix: "..")
       File.open(file_name, "wb") do |file|

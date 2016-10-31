@@ -14,6 +14,7 @@ class PageSerializer
       File.unlink(name) if File.exist?(name)
       page = get_page_data(pid)
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
+      File.chmod(0644, name)
       EOL.log("Done", prefix: "#")
     end
 
@@ -87,11 +88,11 @@ class PageSerializer
             trait_hash[:units] = build_uri(trait.units_uri)
           elsif trait.value_uri.is_a?(KnownUri)
             trait_hash[:term] = build_uri(trait.value_uri)
-          elsif trait.association?
+          elsif trait.association? && trait.target_taxon
             trait_hash[:object_page] = { id: trait.target_taxon.id,
               node: build_node(trait.target_taxon.entry, resource),
-              scientific_name: trait.target_taxon.title,
-              canonical_form: trait.target_taxon.title_canonical_italicized }
+              scientific_name: trait.target_taxon_name,
+              canonical_form: trait.target_taxon_name }
           else
             trait_hash[:literal] = trait.value_name
           end

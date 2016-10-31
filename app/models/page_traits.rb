@@ -27,7 +27,7 @@ class PageTraits < TraitSet
 
   def populate
     return if @populated
-    EOL.log(PageTraits.cache_keys(@id).join(", "), prefix: "K")
+    EOL.log("BUILD TRAITS: to clear use PageTraits.delete_caches(#{@id})", prefix: "K")
     @rdf = TraitBank.cache_query(@base_key) do
       EOL.debug("Virtuoso...", prefix: ".")
       TraitBank.page_with_traits(@id)
@@ -45,11 +45,9 @@ class PageTraits < TraitSet
       end.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }.
         map(&:to_s)
     end
-    EOL.debug("Glossary...", prefix: ".")
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
     @taxa = TraitBank.cache_query("#{@base_key}/taxa") do
-      EOL.debug("Relationships...")
       page_ids = @rdf.map { |rdf| rdf[:value].to_s =~ TraitBank.taxon_re ? $2 : nil }.
         compact.uniq
       if page_ids.blank?
@@ -58,12 +56,9 @@ class PageTraits < TraitSet
         TaxonConcept.map_supercedure(page_ids)
       end
     end
-    EOL.debug("Build Traits...", prefix: ".")
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
-    EOL.debug("Sources...", prefix: ".")
     build_sources
-    EOL.debug("Done initializing.", prefix: ".")
     @populated = true
   end
 

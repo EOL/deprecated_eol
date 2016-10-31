@@ -13,9 +13,12 @@ class PageSerializer
       name = Rails.root.join("public", "store-#{pid}.json").to_s
       File.unlink(name) if File.exist?(name)
       page = get_page_data(pid)
+      EOL.log("Serialized #{pid}: Traits: #{page[:traits].size}, "\
+        "media: #{page[:media].size}, "\
+        "vernaculars: #{page[:vernaculars].size}, "\
+        "collections: #{page[:collections].size}", prefix: ".")
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
       File.chmod(0644, name)
-      EOL.log("Done", prefix: "#")
     end
 
     def get_page_data(pid)
@@ -101,7 +104,6 @@ class PageSerializer
           trait_hash
         end
       end
-      EOL.log("Traits: #{page[:traits].size}", prefix: ".")
 
       taxon_name = concept.title_canonical_italicized
       page[:media] = []
@@ -140,7 +142,6 @@ class PageSerializer
           }
         end
       end
-      EOL.log("Media: #{page[:media].size}", prefix: ".")
 
       page[:native_node] = build_node(node, resource)
 
@@ -154,7 +155,6 @@ class PageSerializer
         preferred_langs[lang] = true if cn.preferred?
         hash
       end
-      EOL.log("Vernaculars: #{page[:vernaculars].size}", prefix: ".")
 
       article = concept.overview_text_for_user(user)
       if(article)
@@ -186,7 +186,6 @@ class PageSerializer
           icon: col.logo_url
         }
       end
-      EOL.log("collections: #{page[:collections].size}", prefix: ".")
 
       if concept.page_feature && concept.page_feature.map_json?
         page[:json_map] = true

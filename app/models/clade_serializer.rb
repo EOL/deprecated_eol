@@ -4,8 +4,8 @@ class CladeSerializer
     # e.g.: CladeSerializer.store_clade_starting_from(7665) => Procyonidae (smaller)
 
     def store_clade_starting_from(pid)
-      part = 1
-      batch_size = 100
+      part = 0
+      batch_size = 50
       stored = 0
       taxa = TaxonConceptsFlattened.descendants_of(pid)
       batch = []

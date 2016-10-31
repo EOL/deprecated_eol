@@ -47,6 +47,7 @@ class PageSerializer
       else
         page[:traits] = traits.map do |trait|
           src = nil
+          sci_name = nil
           trait_hash = {
             resource: build_resource(trait.resource),
             resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
@@ -56,6 +57,8 @@ class PageSerializer
                 src = pair.second.join(",")
                 next
               elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/measurementUnit"
+                next
+              elsif pair.first.uri =~ /scientific_name$/
                 next
               end
               predicate = build_uri(pair.first)
@@ -76,6 +79,7 @@ class PageSerializer
             end.compact
           }
           trait_hash[:source] = src if src
+          trait_hash[:scientific_name] = sci_name if sci_name
           if trait.units_uri
             trait_hash[:measurement] = trait.value_name
             trait_hash[:units] = build_uri(trait.units_uri)
@@ -104,7 +108,7 @@ class PageSerializer
         # through all of this stuff rather than including it with the concept,
         # above:
         images = entry.data_objects.select do |i|
-          i.published? && i.data_type_id == DataType.image.id
+          i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map?
         end
         images.each do |i|
           # i = images.first

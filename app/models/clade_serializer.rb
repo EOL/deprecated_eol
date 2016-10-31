@@ -5,7 +5,7 @@ class CladeSerializer
 
     def store_clade_starting_from(pid)
       batch_size = 100
-      file_name = Rails.root.join("public", "store-#{pid}-clade.json").to_s
+      file_name = Rails.root.join("public", "store-clade-#{pid}.json").to_s
       EOL.log("Storing clade...", prefix: "{")
       File.open(file_name, "wb") do |file|
         file.write("[")
@@ -22,6 +22,7 @@ class CladeSerializer
         file.write("]\n")
       end
       File.chmod(0644, file_name)
+      EOL.log("Done storing clade: #{file_name}", prefix: "{")
     end
   end
 end

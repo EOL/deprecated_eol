@@ -52,19 +52,19 @@ class PageSerializer
           trait_hash = {
             resource: build_resource(trait.resource),
             resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
-            predicate: build_uri(trait.predicate_uri),
-            metadata: trait.meta.flat_map do |pair|
-              if pair.first.uri == "http://purl.org/dc/terms/source"
-                src = pair.second.join(", ")
-                nil
-              elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/measurementUnit"
-                nil
-              elsif pair.first.uri == "http://rs.tdwg.org/dwc/terms/scientificName"
-                sci_name = pair.second.join(", ")
-                nil
+            predicate: build_uri(trait.predicate_uri)
+          }
+          trait.meta.each do |pred, vals|
+            begin
+              if pred.uri == "http://purl.org/dc/terms/source"
+                src = vals.join(", ")
+              elsif pred.uri == "http://rs.tdwg.org/dwc/terms/measurementUnit"
+                # nothing
+              elsif pred.uri == "http://rs.tdwg.org/dwc/terms/scientificName"
+                sci_name = vals.join(", ")
               else
-                predicate = build_uri(pair.first)
-                pair.second.map do |value|
+                predicate = build_uri(pred)
+                vals.map do |value|
                   meta_hash = {
                     predicate: predicate
                   }
@@ -76,11 +76,13 @@ class PageSerializer
                   elsif value[:value].is_a?(KnownUri)
                     meta_hash[:term] = build_uri(value[:value])
                   end
-                  meta_hash
+                  trait_hash[:metadata] << meta_hash
                 end
               end
-            end.compact
-          }
+            rescue NoMethodError => e
+              # Nothing...
+            end
+          end
           trait_hash[:source] = src if src
           trait_hash[:scientific_name] = sci_name if sci_name
           if trait.units_uri

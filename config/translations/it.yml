@@ -442,7 +442,7 @@ it:
       contact:
         comments: Il tuo messaggio
         contact_subject_id: Oggetto
-        email: Il tuo indirizzo e-mail
+        email: Il tuo indirizzo email
         name: Il tuo nome
       content_page:
         active: Pubblicato
@@ -7274,7 +7274,7 @@ it:
   your_email_address: Il tuo indirizzo email
   you_removed_the_member_from_the_community: Hai rimosso con successo questo membro
     dalla comunità.
-  your_ip_address: Il tuo Indirizzo IP
+  your_ip_address: Il tuo indirizzo IP
   your_preferences: Le tue preferenze
   your_rating: Il tuo voto
   youtube: YouTube

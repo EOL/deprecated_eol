@@ -18,6 +18,7 @@
 # Author: INS Pirat
 # Author: Ilnur efende
 # Author: Iluvatar
+# Author: Irus
 # Author: Jackie
 # Author: Kaganer
 # Author: Katunchik
@@ -802,7 +803,7 @@ ru:
         create: Добавить ресурс
         update: Обновить ресурс
         update_settings: Обновить настройки
-        force_harvest: Запросить урожай
+        force_harvest: Урожай Запросу
       session:
         create: Вход
         sign_in_with_facebook: Войти с помощью Facebook

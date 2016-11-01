@@ -788,7 +788,8 @@ gl:
         create: Engadir un recurso
         update: Actualizar o recurso
         update_settings: Actualizar a configuración
-        force_harvest: Solicitar a colleita forzada
+        force_harvest: Solicitar a colleita
+        harvest_tonight: Colleita esta noite
       session:
         create: Acceder
         sign_in_with_facebook: Accede co Facebook

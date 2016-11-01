@@ -208,7 +208,7 @@ es:
         clade_exemplar: Usar como modelo de rango de grupo taxonómico
         description: Descripción
         exclude_from_exemplars: Excluir del resumen
-        group_by_clade: Usar para rangos de grupos taxonómicos
+        group_by_clade: Usar para intervalos de grupos taxonómicos
         hide_from_glossary: Ocultar a partir de los datos del glosario
         name: Nombre
         toc_items: Categorías

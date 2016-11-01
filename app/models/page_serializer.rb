@@ -9,7 +9,6 @@ class PageSerializer
     # Next was PageSerializer.store_page_id(1033083)
     # ...It's very slow. ...but that's EOL. :|
     def store_page_id(pid)
-      EOL.log("Serializing #{pid}...", prefix: "#")
       name = Rails.root.join("public", "store-#{pid}.json").to_s
       File.unlink(name) if File.exist?(name)
       page = get_page_data(pid)
@@ -39,6 +38,8 @@ class PageSerializer
         ).first
       # Test with pid = 328598 (Raccoon)
       # Or with pid = 1033083 (House Centipede)
+      taxon_name = concept.title_canonical_italicized
+      EOL.log("Serializing #{pid} (#{taxon_name})...", prefix: "#")
       page = { id: concept.id, moved_to_node_id: nil }
       node = concept.entry
       resource = build_resource(node.hierarchy.resource)
@@ -117,7 +118,6 @@ class PageSerializer
         end
       end
 
-      taxon_name = concept.title_canonical_italicized
       page[:media] = []
       entries = concept.published_hierarchy_entries.select { |e| ! e.data_objects.empty? }
       entries.each do |entry|

@@ -89,6 +89,7 @@ class PageSerializer
                   elsif value[:value].is_a?(KnownUri)
                     meta_hash[:term] = build_uri(value[:value])
                   end
+                  trait_hash[:metadata] ||= []
                   trait_hash[:metadata] << meta_hash
                 end
               end

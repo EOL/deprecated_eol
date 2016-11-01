@@ -29,14 +29,11 @@ class PageTraits < TraitSet
     return if @populated
     EOL.log("BUILD TRAITS: to clear use PageTraits.delete_caches(#{@id})", prefix: "K")
     @rdf = TraitBank.cache_query(@base_key) do
-      EOL.debug("Virtuoso...", prefix: ".")
       TraitBank.page_with_traits(@id)
     end
     trait_uris = TraitBank.cache_query("#{@base_key}/trait_uris") do
-      EOL.debug("Trait URIs...", prefix: ".")
       @rdf.map { |trait| trait[:trait] }.uniq.map(&:to_s)
     end
-    EOL.debug("data point uris...", prefix: ".")
     @points = DataPointUri.where(uri: trait_uris).
       includes(:taxon_data_exemplars)
     uris = TraitBank.cache_query("#{@base_key}/uris") do

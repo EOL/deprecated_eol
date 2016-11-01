@@ -52,6 +52,9 @@ class PageSerializer
         page[:traits] = traits.map do |trait|
           src = nil
           sci_name = nil
+          stat_m = nil
+          sex = nil
+          lifestage = nil
           trait_hash = {
             resource: build_resource(trait.resource),
             resource_pk: trait.uri.to_s.gsub(/.*\//, ""),
@@ -65,6 +68,12 @@ class PageSerializer
                 # nothing
               elsif pred.uri == "http://rs.tdwg.org/dwc/terms/scientificName"
                 sci_name = vals.join(", ")
+              elsif pred.uri == "http://eol.org/schema/terms/statisticalMethod"
+                stat_m = trait.statistical_method_names.join(", ")
+              elsif pred.uri == "http://rs.tdwg.org/dwc/terms/lifeStage"
+                lifestage = trait.life_stage_name # TODO: crap. This should really be a URI (I think).
+              elsif pred.uri == "http://rs.tdwg.org/dwc/terms/sex"
+                sex = trait.sex_name
               else
                 predicate = build_uri(pred)
                 vals.map do |value|
@@ -88,6 +97,9 @@ class PageSerializer
           end
           trait_hash[:source] = src if src
           trait_hash[:scientific_name] = sci_name if sci_name
+          trait_hash[:statistical_method] = stat_m if stat_m
+          trait_hash[:sex] = sex if sex
+          trait_hash[:lifestage] = lifestage if lifestage
           if trait.units_uri
             trait_hash[:measurement] = trait.value_name
             trait_hash[:units] = build_uri(trait.units_uri)

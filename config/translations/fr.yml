@@ -336,6 +336,8 @@ fr:
     errors:
       format: '%{attribute} %{message}'
       template:
+        header: '%{count}  {{PLURAL:%{count}|one=erreur de validation trouvée|erreurs
+          de validation trouvées}}'
         body: 'Les champs suivants n’ont pas été validés :'
       messages:
         taken: est déjà pris
@@ -347,6 +349,9 @@ fr:
         accepted: doit être accepté
         empty: ne peut pas être vide
         blank: ne peut être laissé en blanc
+        too_long: est trop long (%{count} caractère{{PLURAL:%{count}|one=|s}} maximum)
+        too_short: est trop court (%{count} caractère{{PLURAL:%{count}|one=|s}} minimum)
+        wrong_length: n’a pas la longueur requise (il faut %{count} caractère{{PLURAL:%{count}|one=|s}})
         not_a_number: n’est pas un nombre
         not_an_integer: doit être un nombre entier
         greater_than:
@@ -3970,9 +3975,17 @@ fr:
   articles_in_languages_with_count:
     one: 'Les articles sur cette page sont disponibles en %{count} langue :'
     other: 'Les articles sur cette page sont disponibles en %{count} langues :'
+  articles_in_other_languages_with_count: 'Les articles sur cette page sont disponibles
+    en %{count} {{PLURAL:%{count}|one=autre langue|autres langues}} :'
   as_of_time_there_were_unique_visitors:
     one: À %{time}, il y avait %{count} visiteur unique
     other: À %{time}, il y avait %{count} visiteurs uniques
+  a_total_of_comment_were_found_matching_your_criteria: Un total de %{count} commentaire{{PLURAL:%{count}|one
+    =|s}} a été trouvé correspondant à vos critères.
+  a_total_of_items_were_found_matching_your_criteria: Un total de %{count} élément{{PLURAL:%{count}|one
+    =|s}} a été trouvé correspondant à vos critères.
+  a_total_of_terms_were_found_matching_your: Un total de %{count} terme{{PLURAL:%{count}|one
+    =|s}} a été trouvé correspondant à vos critères.
   assistive_overview_header: Vue d’ensemble
   assistive_data_header: Faits & Informations
   assistive_media_header: Média
@@ -4222,6 +4235,8 @@ fr:
     éléments de la collection dont le champ de tri correspond exactement à la chaîne
     fournie seront renvoyés
   collection_create_failure: La création de la collection a échoué.
+  collection_created_with_count_notice: La collection <em>%{collection_name}</em>
+    a été créée avec succès et contient %{count} élément{{PLURAL:%{count}|one=|s}}.
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
   collection_removed: La collection %{collection} est supprimée.
@@ -4357,7 +4372,10 @@ fr:
     other: '%{count} éléments'
   community_invitation_comment: Je t’invite à rejoindre "%{community}".
   community_logo_alt_text: Logo pour la communauté %{community_name}
+  community_managers_with_count: '%{count} gestionnaire{{PLURAL:%{count}|one=|s}}
+    de communauté'
   community_members: Membres de la communauté
+  community_members_with_count: '%{count} membre{{PLURAL:%{count}|one=|s}} de la communauté'
   community_name_label: Nom de la communauté
   community_newsfeed: Fil d’actualités de la communauté
   community_no_longer_has_manager_access_to_collection: La communauté «  %{community}
@@ -4674,6 +4692,7 @@ fr:
     Nous apprécions vivement leurs apports critiques à la mission de l’EdlV et nous
     vous encourageons à en apprendre plus sur eux. En savoir plus sur <a href="%{more_url}">les
     partenaires de contenu</a>.
+  content_partners_with_count: '%{count} partenaire{{PLURAL:%{count}|one=|s}} de contenu'
   content_server_full_url: URL complète du serveur de contenu
   content_servers: Serveurs de contenu
   content_setting_colon: 'Paramètres de contenu :'
@@ -4702,14 +4721,20 @@ fr:
   copied_all_items_to_collections:
     one: Tous les éléments copiés de %{name} vers %{count} collection.
     other: Tous les éléments copiés de %{name} vers les %{count} collections.
+  copied_items_from_collection_with_count_notice: '%{count} {{PLURAL:%{count}|one=élément
+    a été copié|éléments ont été copiés}} depuis %{name}.'
   copy: Copier
   copy_of_name: Copie de %{name}
+  copy_items_to_a_new_collection_with_count: Copier %{count} élément{{PLURAL:%{count}|one=|s}}
+    dans une nouvelle collection
   copyright: 'COPYRIGHT (droits d’auteur) :'
   correct_donation_message_with_link: Si cette information n’est pas correcte, veuillez
     <a href='%{link}'>revenir en arrière</a> pour faire les modifications.
   could_not_find_collection_error: Désolé, impossible de trouver cette collection.
   could_not_find_user: Vous n'êtes pas un membre de cette communauté.
   count: Quantité
+  count_results_for_search_term: '%{count} {{PLURAL:%{count}|one=résultat trouvé|résultats
+    trouvés}} for <em>%{search_term}</em>'
   count_results_for_traitbank:
     one: '%{count} résultat dans TraitBank'
     other: '%{count} résultats dans TraitBank'
@@ -5129,6 +5154,8 @@ fr:
   encyclopedia_of_life: Encyclopédie de la Vie
   endorsed_by: Présenté par
   endorsed_collections: Collections en vedette
+  endorsed_collections_with_count: '%{count} {{PLURAL:%{count}|one=collection approuvée|collections
+    approuvées}}'
   enter_in_a_search_term_users_a: Saisissez un terme de recherche que les utilisateurs
     recherchent et, ensuite, l’identifiant du taxon/page cible vers lequel ils devraient
     être dirigés comme suggestion pour cette recherche. L’identifiant du taxon/page

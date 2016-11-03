@@ -4643,8 +4643,12 @@ pms:
   copied_all_items_to_collections:
     one: Tuti j'element copià da %{name} a %{count} colession.
     other: Tuti j'element copià da %{name} a %{count} colession.
+  copied_items_from_collection_with_count_notice: '%{count} {{PLURAL:%{count}|one=element
+    a l''é stàit copià|élément a son ëstàit copià}} da %{name}.'
   copy: Copié
   copy_of_name: Còpia ëd %{name}
+  copy_items_to_a_new_collection_with_count: Copié %{count} {{PLURAL:|one=%{count}|%{count}}}
+    element an na neuva colession
   copyright: 'DRIT D''AUTOR:'
   correct_donation_message_with_link: Si st'anformassion a l'é nen giusta, për piasì
     <a href='%{link}'>torné andré</a> për fé le modìfiche.

@@ -2269,6 +2269,8 @@ ia:
     one: '%{count} gerente del communitate'
     other: '%{count} gerentes del communitate'
   community_members: Membros del communitate
+  community_members_with_count: '{{PLURAL|one=%{count} membro del communitate|%{count}
+    membros del communitate'
   community_name_label: Nomine del communitate
   community_newsfeed: Syndication de novas del communitate
   community_no_longer_has_manager_access_to_collection: '"%{community}" non plus ha

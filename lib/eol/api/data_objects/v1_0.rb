@@ -80,7 +80,8 @@ module EOL
 
           if data_object.image?
             image_sizes = data_object.image_size
-            image_sizes = DataObject.joins(:image_size).where(guid: data_object.guid).order('id desc').first.image_size unless image_sizes
+            i = DataObject.joins(:image_size).where(guid: data_object.guid).order('id desc').first
+            image_sizes = i.image_size if image_sizes.nil? && i
           end
 
           if image_sizes

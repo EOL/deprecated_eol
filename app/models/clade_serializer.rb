@@ -36,7 +36,7 @@ class CladeSerializer
         if batch.size >= batch_size
           if options[:resume_from] && part <= options[:resume_from]
             part += 1
-            EOL.log("Skipping part #{part}", prefix ".")
+            EOL.log("Skipping part #{part}", prefix: ".")
           else
             stored += flush(pid, batch, part += 1)
           end

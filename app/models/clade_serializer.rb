@@ -12,6 +12,11 @@ class CladeSerializer
 
     def store_clade_starting_from(pid, options = {})
       part = 0
+      # e.g.:
+      # grep '^  \"id\":' public/store-clade-1642-part77.json | tail -n 1
+      # > log/serial.log ; nohup bundle exec rails runner -e production
+      # "CladeSerializer.store_clade_starting_from(1642, last_part: 77,
+      # last_id: 115681)" > log/serial.log &
       if options[:last_part]
         part = options[:last_part]
       end

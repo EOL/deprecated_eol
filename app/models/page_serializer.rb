@@ -130,6 +130,7 @@ class PageSerializer
         images = entry.data_objects.select do |i|
           i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map?
         end
+        images ||= []
         images.each do |i|
           # i = images.first
           lic = i.license
@@ -170,7 +171,7 @@ class PageSerializer
       end
 
       article = concept.overview_text_for_user(user)
-      if(article)
+      if (article)
         lic = article.license
         b_cit = article.bibliographic_citation
         b_cit = nil if b_cit.blank?

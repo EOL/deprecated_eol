@@ -12,34 +12,31 @@ class CladeSerializer
 
     def store_clade_starting_from(pid, options = {})
       part = 0
+      if options[:last_part]
+        part = options[:last_part]
+      end
       batch_size = 50
       stored = 0
       taxa = TaxonConceptsFlattened.descendants_of(pid)
+      if options[:last_id]
+        taxa = taxa.where(["taxon_concept_id > ?", options[:last_id]])
+      end
       batch = []
       EOL.log("CLS: Storing clade starting from Page ID #{pid}...", prefix: "{")
 
       clade_page = nil
       taxa.find_each(batch_size: batch_size) do |descendant_page|
         tid = descendant_page[:taxon_concept_id]
-        if options[:resume_from] && part <= options[:resume_from]
-          batch << :nothing
-        else
-          data = PageSerializer.get_page_data(tid)
-          batch << begin
-            JSON.pretty_generate(data)
-          rescue
-            EOL.log("CLS: There was an error writing page #{tid}, skipping...", prefix: "!")
-            EOL.log("#{data.inspect}", prefix: "=")
-            "{\"_comment\": \"There was an error processing page #{tid}.\"}"
-          end
+        data = PageSerializer.get_page_data(tid)
+        batch << begin
+          JSON.pretty_generate(data)
+        rescue
+          EOL.log("CLS: There was an error writing page #{tid}, skipping...", prefix: "!")
+          EOL.log("#{data.inspect}", prefix: "=")
+          "{\"_comment\": \"There was an error processing page #{tid}.\"}"
         end
         if batch.size >= batch_size
-          if options[:resume_from] && part <= options[:resume_from]
-            part += 1
-            EOL.log("Skipping part #{part}", prefix: ".")
-          else
-            stored += flush(pid, batch, part += 1)
-          end
+          stored += flush(pid, batch, part += 1)
           batch = []
         end
       end

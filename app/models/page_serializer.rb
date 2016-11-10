@@ -134,7 +134,7 @@ class PageSerializer
         images.each do |i|
           begin
             # i = images.first
-            lic = i.license
+            lic = i.license || License.cc_by
             b_cit = i.bibliographic_citation
             b_cit = nil if b_cit.blank?
             url = i.original_image.sub("_orig.jpg", "")
@@ -176,7 +176,7 @@ class PageSerializer
 
       article = concept.overview_text_for_user(user)
       if (article)
-        lic = article.license
+        lic = article.license || License.cc_by
         b_cit = article.bibliographic_citation
         b_cit = nil if b_cit.blank?
         resource = build_resource(article.resource)
@@ -211,7 +211,7 @@ class PageSerializer
 
       map = concept.get_one_map_from_solr.first
       if map
-        lic = map.license
+        lic = map.license || License.cc_by
         b_cit = map.bibliographic_citation
         b_cit = nil if b_cit.blank?
         resource = build_resource(map.resource)

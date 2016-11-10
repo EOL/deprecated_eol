@@ -128,32 +128,36 @@ class PageSerializer
         # through all of this stuff rather than including it with the concept,
         # above:
         images = entry.data_objects.select do |i|
-          i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map?
+          i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map? && i.original_image
         end
         images ||= []
         images.each do |i|
-          # i = images.first
-          lic = i.license
-          b_cit = i.bibliographic_citation
-          b_cit = nil if b_cit.blank?
-          url = i.original_image.sub("_orig.jpg", "")
-          # NOTE: this will NOT include relationships added by curators. I don't
-          # care. This is just "test" data.
-          page[:media] << { guid: i.guid,
-            resource_pk: i.identifier,
-            provider_type: "Resource",
-            provider: resource,
-            license: { name: lic.title, source_url: lic.source_url,
-              icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
-            language: get_language(i),
-            # TODO: skipping location here
-            bibliographic_citation: b_cit,
-            owner: i.owner,
-            name: i.best_title(taxon_name),
-            source_url: i.source_url,
-            description: i.description_linked || i.description,
-            base_url: url
-          }
+          begin
+            # i = images.first
+            lic = i.license
+            b_cit = i.bibliographic_citation
+            b_cit = nil if b_cit.blank?
+            url = i.original_image.sub("_orig.jpg", "")
+            # NOTE: this will NOT include relationships added by curators. I don't
+            # care. This is just "test" data.
+            page[:media] << { guid: i.guid,
+              resource_pk: i.identifier,
+              provider_type: "Resource",
+              provider: resource,
+              license: { name: lic.title, source_url: lic.source_url,
+                icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
+              language: get_language(i),
+              # TODO: skipping location here
+              bibliographic_citation: b_cit,
+              owner: i.owner,
+              name: i.best_title(taxon_name),
+              source_url: i.source_url,
+              description: i.description_linked || i.description,
+              base_url: url
+            }
+          rescue => e
+            EOL.log("Unable to convert image #{i.id}, skipping: #{e.message}", prefix: "!")
+          end
         end
       end
 

@@ -9,6 +9,7 @@
 # Author: Hwangjy9
 # Author: Hym411
 # Author: Idh0854
+# Author: Jerrykim306
 # Author: Jskang
 # Author: Kurousagi
 # Author: Priviet
@@ -645,7 +646,7 @@ ko:
         create: 자료 추가
         update: 자료 업데이트
         update_settings: 설정 업데이트
-        force_harvest: 강제로 수확 요청
+        force_harvest: 수확 요청
       session:
         create: 로그인
         sign_in_with_facebook: Facebook으로 로그인

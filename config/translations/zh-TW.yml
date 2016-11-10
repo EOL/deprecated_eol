@@ -5,6 +5,7 @@
 # Author: Cwlin0416
 # Author: Dream
 # Author: Hkjacksonhk
+# Author: Kly
 # Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: Shangkuanlc
@@ -148,6 +149,7 @@ zh-TW:
         total_measurement_types: 測量模式
         total_association_types: 關聯類型
         total_user_added_data: 使用者新增的資料
+        total_data_records: 資料記錄
       forum:
         forum_category_id: 分類
         name: 論壇名稱
@@ -180,6 +182,12 @@ zh-TW:
         toc_items: 分類
         uri: URI
         uri_type: URI形式
+        value_is_text: 內容不能是URL，只能是文字
+        value_is_verbatim: 內容不能是數字，只能是文字
+      known_uri_relationship:
+        from_known_uri_id: 主題URI
+        to_known_uri_id: 目標URI
+        to_known_uri: 目標URI
       open_authentication:
         created_at: 已建立
         guid: 全球唯一識別碼(GUID)
@@ -220,6 +228,7 @@ zh-TW:
         dataset: 資料集檔案
         description: 資源描述
         dwc_archive_url: 達爾文核心集檔案網址
+        dataset_source_url: 原始資料來源
         harvest_events: 彙集事件
         hierarchy: 階層
         language_id: 預設語言
@@ -237,6 +246,8 @@ zh-TW:
         meta_keywords: 後設資料關鍵字
         meta_description: 後設資料描述
         title: 標題
+      translated_known_uri:
+        definition: 定義
       translated_news_item:
         active_translation: 已發布
         body: 正文
@@ -395,6 +406,15 @@ zh-TW:
         source_url: 連結的網址：
         toc_item: 主題
         link_type: 類別
+      data_search:
+        max: 最高值
+        max_with_val: 最高值：%{val}
+        max_placeholder: 輸入一個數字
+        min: 最低值
+        min_with_val: 最低值：%{val}
+        min_placeholder: 輸入一個數字
+        taxon_name: 分類群組
+        taxon_name_with_val: 分類群組：%{val}
       eol_statistic:
         date_one: 日期
         date_two: 日期
@@ -610,6 +630,7 @@ zh-TW:
         create: 提交要求
   will_paginate:
     next_label: 下一頁
+    page_gap: '&hellip;'
     previous_label: 前一頁
   datepicker:
     day_names:
@@ -713,6 +734,7 @@ zh-TW:
       page_title: 請留下您的回饋意見
   collections:
     download_taxa_data:
+      attribute_header: 屬性
       select_all_checkbox: 全選
     show:
       meta_description_default: 標題為 %{collection_name} 的生命大百科典藏。
@@ -848,6 +870,8 @@ zh-TW:
       page_title: 統計數據
     data:
       menu_link: 資料
+      page_header: 資料統計
+      page_title: 統計
   forums:
     forums_heading: EOL論壇
     last_post: 最後的貼文
@@ -915,6 +939,12 @@ zh-TW:
       create_failed: 抱歉，出現了錯誤，無法新增此主題
       delete_successful: 成功刪除了主題
       delete_failed_not_empty: 主題非空白，因而無法被刪除
+  known_uris:
+    uri_placeholder_text: 例如： http://purl.org/dc/terms/contributor
+    name_placeholder_text: 例如：參與者
+    ontology_information_url_placeholder_text: 例如： http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: 例如： http://dublincore.org/2012/06/14/dcterms.rdf
+    select: 選擇
   layouts:
     application:
       header_about: 關於EOL
@@ -922,7 +952,7 @@ zh-TW:
       header_questions: 請提供更多資料
       about_link_what_is_eol: EOL是什麼？
       about_link_eol_blog: EOL部落格
-      about_link_discover: 發現
+      about_link_discover: 教育
       about_link_statistics: 統計數據
       about_link_glossary: 詞彙表
       about_link_podcasts: Podcasts
@@ -953,6 +983,7 @@ zh-TW:
       learn_more_link_protists: 原生生物
       learn_more_link_archaea: 古生菌
       learn_more_link_viruses: 病毒
+      learn_more_link_algae: 藻類
       questions_link_biodiversity: 什麼是生物多樣性？
       questions_link_species: 什麼是一個物種？
       questions_link_discovering_species: 物種如何被發現？
@@ -1342,8 +1373,8 @@ zh-TW:
           meta_title: 有關 %{scientific_name} 的資訊；該分類是由 %{hierarchy_provider} 提供
           meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name})
             的資訊；該分類是由 %{hierarchy_provider} 提供
-          tweet_text: 有關 %{scientific_name} 的資訊；該分類是由 %{hierarchy_provider} 提供
-        meta_description: 生命大百科中有關 %{scientific_name} 的資訊
+          tweet_text: 有關 %{scientific_name} 的條目；該分類是由 %{hierarchy_provider} 提供
+        meta_description: 生命大百科中有關 %{scientific_name} 的摘要和條目
         meta_description_no_data: 生命大百科中沒有 %{scientific_name} 的相關資訊；EOL邀請您提供 %{scientific_name}
           的資訊如保育、分布、生態、棲地及形態等。
         meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的資訊。包含 %{chapter_list}
@@ -1355,10 +1386,10 @@ zh-TW:
           的資訊如保育、分布、生態、棲地及形態等。
         meta_description_with_common_name_with_chapter_list: 生命大百科中有關 %{preferred_common_name}
           的資訊，其學名是 %{scientific_name}。包含 %{chapter_list} 的資訊。
-        meta_title: 有關 %{scientific_name} 的資訊
+        meta_title: 有關 %{scientific_name} 的資訊和文章
         meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name})
-          的資訊
-        tweet_text: 有關 %{scientific_name} 的資訊
+          的資訊和文章
+        tweet_text: 有關 %{scientific_name} 的文章
     literature:
       bhl:
         hierarchy_entry:
@@ -1623,7 +1654,24 @@ zh-TW:
         meta_title: '%{user_full_name} 內容合作夥伴'
         tweet_text: '%{user_full_name} 內容合作夥伴'
     data_downloads:
+      index:
+        meta_title: '%{user_full_name}資料下載'
+        tweet_text: '%{user_full_name}資料下載'
+      header_with_count:
+        one: 個資料下載
+        other: '%{count}個資料下載'
+      download: 下載
+      page_title: 資料下載
+      query_head: 查詢
+      attribute_head: 屬性
+      created_head: 已建立
+      is_complete: 是
+      is_not_complete: 否
+      processing: 處理中
+      error: 此檔案有些錯誤
       refresh: 重新整理
+      search_again: 再次搜尋
+      file_not_processed: 此檔案尚未處理，
     edit:
       form_tip_account: 要登入EOL，您需要使用者名稱和密碼，或者您可以連結至第三方帳號。如果您沒有一個連結帳號，您的使用者名稱和密碼即為必填項目；但是如果您想要修改現有的密碼，在此請只單獨輸入一個新密碼。所有使用者都必須有
         (%{required_icon}) email地址和優先語言資料。
@@ -1778,6 +1826,9 @@ zh-TW:
       already_unsubscribed: 您已經退訂了通知。
       unsubscribed_notifications_successfully: 您已經成功退訂了通知
       unsubscribe_notifications_failed: 抱歉，出現了錯誤，使用者無法退訂通知。
+  user_added_data:
+    edit_data_header: 編輯您的資料
+    edit_metadata_header: 編輯元數據
   this_article_cannot_be_curated_because_unpublished: 這篇文章不能被管理，因為它尚未被發布。
   this_article_is_unpublished: 這篇文章尚未被發布。
   this_image_cannot_be_curated_because_unpublished: 這張影像不能被管理，因為它尚未被發布。
@@ -2565,7 +2616,7 @@ zh-TW:
         move_of_it_unlocked: 您最近要求在這個頁面上的分類移動已完成。
         move_of_taxon_unlocked: 您最近要求 "%{taxon}" 的分類移動已完成。
         split_of_an_unknown_taxon_unlocked: 您最近要求的分類拆解已完成，但無法找到此頁面。
-        split_of_it_unlocked: 您最近要求在這個頁面上的分類拆解已完成，並且分類已移動至 <a href='%{to}'>它們各自的頁面</a>。
+        split_of_it_unlocked: 您最近要求在這個頁面上的分類拆解已完成，並且分類已移動至 <a href='%{to}'>它們各自的頁面</a>；頁面將重新編入索引並需要長達25個小時來完成。
         split_of_taxon_unlocked: 您最近要求 "%{taxon}" 的分類拆解已完成，並且分類已移動至 <a href='%{to}'>它們各自的頁面</a>。
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 您最近要求的頁面合併已<strong>失敗</strong>：%{error}。而且，無法找到受影響的頁面。
@@ -2588,6 +2639,15 @@ zh-TW:
         user_cropped_data_object: <strong>%{user}</strong> 修改了 "%{data_object}" 的縮圖影像。
         an_unknown_user_cropped_it: 一位不明使用者修改了一張未知影像的縮圖。
         user_cropped_it: <strong>%{user}</strong> 修改了未知影像的縮圖。
+      user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: 一個不明用戶添加資料至不明頁面。
+        an_unknown_user_create_data_on_taxon: 一個不明用戶添加資料至"%{taxon}"。
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong>添加資料不明頁面。
+        user_create_data_on_taxon: <strong>%{user}</strong>添加資料至"%{taxon}"。
+        an_unknown_user_update_data_on_an_unknown_taxon: 一個不明用戶更新資料至不明頁面。
+        an_unknown_user_update_data_on_taxon: 一個不明用戶更新資料至%{taxon}。
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong>更新資料至不明頁面。
+        user_update_data_on_taxon: <strong>%{user}</strong>更新資料至%{taxon}"。
       other_actions:
         an_unknown_user_curated_an_older_data_object: 一位不明使用者管理了一個舊版本的 "%{data_object}"。
         an_unknown_user_curated_an_unknown_data_object: 一位不明使用者管理了一個不明的資料物件。
@@ -2634,6 +2694,7 @@ zh-TW:
   add_link_to_page_button: 新增一個連結
   add_new_association_link: 添加新關聯
   add_new_tag_suggestion: 添加新標籤建議
+  add_new_known_uri_link: 添加一個新的URI
   add_page: 新增頁面
   add_sub_chapter: 新增子章節
   add_to_a_community: 新增至一個社群
@@ -2747,6 +2808,7 @@ zh-TW:
   all: 所有的
   all_apis_return_by_default_an_xml_response: 所有的API都被預設為回傳一個XML response。不加一個format
     extension也可叫出API方法以取得XML response，而添加一個XML extension將給予相同的回應：
+  all_articles: 所有文章
   all_categories: 全部
   all_changes: 所有修改
   all_collections: 所有典藏
@@ -2962,6 +3024,7 @@ zh-TW:
   clear_entire_cache_store: 清空整個暫存資料夾
   clear_species_page: 清空物種頁面
   cms_available_in_languages: 這個頁面可用的語言版本為：
+  cms_editor: 內容管理系統編輯器
   cms_missing_content_title: 無翻譯
   cms_missing_content_message: 抱歉，這個頁面沒有所選的語言 %{selected_language} 版。
   curator_admin_index_help: 請點擊一個使用者名稱以瀏覽此使用者之詳細個人簡介。在使用者簡介的介面上，您可以修改支序層級的管理者許可。如果資歷沒有被全部顯示，您可以點擊以擴展並顯示全部資歷。
@@ -3211,6 +3274,7 @@ zh-TW:
   content_partner_resource_create_successful_notice: 成功新增了內容合作夥伴資源的詳細資料。資源資料的目前狀態是：%{resource_status}。
   content_partner_resource_create_unsuccessful_error: 抱歉，出現了錯誤，未能新增此資源。
   content_partner_resource_dataset_details_header: 資料集
+  content_partner_resource_delete_with_type_link: 刪除所有事物
   content_partner_resource_description_empty: 尚未為這個資源產生描述資訊。
   content_partner_resource_edit_link: 編輯
   content_partner_resource_edit_subheader: 編輯資源
@@ -3412,11 +3476,13 @@ zh-TW:
   your_watch_collection: 您的觀察清單
   current_language: 語言：%{iso_code}
   currently_in_eol: 目前在生命大百科中
+  create_download_data_file: 建立檔案
   currently_published: 目前已發布
   daily: 每日
   darwin_core: 達爾文核心集
   dashboard: Dashboard
   data: 資料
+  data_column_tc_id: 生命大百科頁面ID
   data_database_colon: 資料：
   data_logging_active: 資料日誌啟動中
   data_master_database_colon: Data Master：
@@ -3425,6 +3491,13 @@ zh-TW:
   data_object_reference: 資料物件參考文獻
   data_object_ignore: 忽略這個項目
   data_object_undo_ignore: 從忽略清單中移除
+  data_overview_table_caption: 特徵資料
+  data_point_uri_source_missing: 來源遺失
+  data_search:
+    form:
+      search_tools_show_link: 顯示搜尋項目
+      search_tools_hide_link: 隱藏搜尋項目
+  data_show_n_more_rows: 顯示NNN更多...
   data_subtab_about: 關於
   data_usage_reports: 資料使用報告
   date_caps: 日期
@@ -3479,6 +3552,7 @@ zh-TW:
   do_you_want_to_be_a_curator: 您想成為一位蒐藏經理嗎
   download_wav_file: 下載WAV檔案
   download_data: 下載資料
+  download_collection_data: 下載資料
   dublin_core: 都柏林核心集
   duplicate_comment_warning: 未能儲存評論：您似乎已貼過這筆評論。...您是否點擊了兩次'貼評論'的按鈕？
   duplicate_items_were_ignored: 重複的項目已被忽略。
@@ -3573,7 +3647,19 @@ zh-TW:
       min_master_curators_only: 抱歉，限EOL蒐藏經理使用；最低層級是高階蒐藏經理。
       min_full_curators_only: 抱歉，限EOL蒐藏經理使用；最低層級是專業蒐藏經理。
       min_assistant_curators_only: 抱歉，限EOL蒐藏經理使用；最低層級是助理蒐藏經理。
+      only_admins_can_view_content_pages: 很抱歉，僅有管理員可以檢視內容頁面
+      only_admins_can_view_translated_content_pages: 很抱歉，僅有管理員可以檢視已翻譯的內容頁面
+      only_admins_can_edit_forums: 很抱歉，僅有管理員可編輯討論區
+      must_be_logged_in: 很抱歉，您必須登入
+      only_admins_can_read_hidden_news_items: 很抱歉，僅有管理員可以閱讀隱藏的新聞項目
+      only_admins_can_read_hidden_translated_news_items: 很抱歉，僅有管理員可以閱讀已翻譯的隱藏新聞項目
+      can_not_access_unpublished_taxon: 很抱歉，您不能存取尚未發佈的分類
+      only_data_owner_can_edit: 很抱歉，僅有資料的擁有者可編輯此
+      only_data_owner_can_delete: 很抱歉，僅有資料的擁有者可刪除此
+      error_editing_someone_account: 很抱歉，您只能編輯屬於您的帳號
+      can_not_edit_permissions: 很抱歉，您沒有編輯權限
   expand_all_children: 擴展所有子節點
+  expired: 逾期
   explore: 探索
   explore_what_we_know_about_taxon: 探索EOL所瞭解的 %{taxon}。
   export_curator_csv_link: '[以CSV格式匯出所有管理者]'
@@ -3741,12 +3827,15 @@ zh-TW:
   image_not_found: 未找到影像
   image_object: 影像物件
   image_objects_will_contain_two_mediaurl_elements: 影像物件將包含兩個'mediaURL'元素 - 第一個是提供者網站上影像的URL，第二個是儲存於EOL伺服器上媒體其快取版本的網址。若原始影像的寬度超過460像素或高度超過345像素，此影像的EOL版本會被調整(保持長寬比)。
+  image_title_with_taxa: '%{taxa}的圖像'
+  image_title_without_taxa: 不明分類的圖像
   images: 影像
   images_with_count:
     one: '%{count} 張影像'
     other: '{count} 張影像'
   images_in_red_are_not_trusted: 紅色標記的影像是不可信的。
   images_in_yellow_are_not_reviewed: 黃色標記的影像是未經審核的。
+  image_objects_page_number: 圖像頁面
   import_once: 再輸入一次
   inappropriate: 不合適的
   inaturalist_tab_label: iNaturalist觀測
@@ -3816,6 +3905,7 @@ zh-TW:
   keep_split_entry_from_this_entry: 和這個輸入項目分開
   key: Key
   known_uri_category_header: 分類
+  known_uri_updated: URI已更新。
   label: 標籤
   language: 語言：
   languages: 語言
@@ -4078,6 +4168,7 @@ zh-TW:
   no_items_were_copied_to_collections_error: 沒有項目被複製至此典藏：%{names}。
   no_news_items_for_month_and_year: '%{month_and_year} 沒有新聞項目'
   none: 無
+  "no": 否
   num_content_partners: 內容合作夥伴編號
   num_data_objects: 資料物件編號
   no_record_found_matching_your_criteria: 未找到符合您條件的紀錄。
@@ -4142,6 +4233,7 @@ zh-TW:
   object_visibility_invisible_option: 隱藏的
   older_version_of_latest_published_data_object_title_link: 舊版本的 %{link}
   other_version_links: 其他版本：%{version_links}
+  other_category_subtab: 其它
   percentage_of_children_with_images: 有影像的子節點的百分比
   percentage_of_children_with_text: 有文字的子節點的百分比
   number_of_taxa_at_this_entry: 在這個輸入項目的分類群數量
@@ -4276,6 +4368,7 @@ zh-TW:
   quarterly: 每季
   rails_databases: Rails資料庫
   rails_environment: Rails環境
+  range: 範圍
   rank_recognized_by_agent: '%{rank} 被 %{agent} 認定'
   rank_recognized_by_from_source: 在 %{source}中，%{rank} 被 %{agent} 認定
   rank_recognized_by_agent_colon: <b>%{rank}</b> 被 %{agent} 認定
@@ -4285,16 +4378,20 @@ zh-TW:
   rating_added_notice: 成功新增了評價。
   rating_learn_more_link: 瞭解評價
   rating_not_added_error: 抱歉，出現了錯誤，無法添加此評價。
-  recaptcha: 請輸入下方您見到的兩個字
+  reading_from_ontology: 正從<a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>讀取
+  recaptcha: 請輸入下方您見到的兩個字詞或數字
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha字元</a>
     不符合，請您再試一次。
   recent_updates: 最近更新
   recently_visited: 最近訪問過
+  recently_used_link: 最近使用
   recipients: 收件人
   recognized_by_from_source: '%{source} 中的%{recognized_by}'
   recognized_by_as_a_rank: '%{recognized_by} 認定是一個 %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} 在 %{source} 中認定是一個 %{taxon_rank}'
+  record_count: 記錄統計
   record_not_found: '[未找到紀錄]'
+  reference: 參考文獻
   references_cabs_colon: 參考文獻：
   related_names_with_count:
     one: '%{count} 個相關名稱'
@@ -4319,9 +4416,15 @@ zh-TW:
   reset_password_instructions_sent_to_user_notice: 重新設定您的帳號 <em>%{username}</em> 密碼的說明已發送至您的email位址。
   reset_password_token_expired_error: 抱歉，您的密碼未被重新設定。提供的連結已過期，請重新填寫和提交忘記密碼的表單以取得一個新連結。
   resource: 資源
+  resource_import_frequency:
+    once: 匯入一次
+    hours_with_count:
+      one: '%{count}個小時'
+      other: '%{count}個小時'
   resources: 資源
   response_formats: 回應的格式
   response: 回應
+  resque_status_header: Resque狀態：
   results_per_page: 每個頁面的結果：
   results: 結果
   results_offset: 顯示<em>%{for}</em>總共%{total}筆結果中的第{%from} - {%to}筆
@@ -4430,6 +4533,7 @@ zh-TW:
   show_email_message_area: '[顯示email訊息區]'
   show_full_tree: 顯示完整的樹...
   show_in_overview: 在概要中顯示
+  show_more_row_data_link: 更多
   show_status_message: 顯示狀態訊息
   show_tasks: 顯示工作
   show_warning_message: 顯示警告訊息
@@ -4463,6 +4567,7 @@ zh-TW:
   sort_by_alphabetical_option: 由A到Z
   sort_by_reverse_alphabetical_option: 由Z到A
   sort_by_recently_added_option: 最近新增的
+  sort_by_recently_updated_option: 最近更新
   sort_by_status_option: 狀態
   sort_by_title_ascending: 標題的A到Z
   sort_by_title_descending: 標題的Z到A
@@ -4477,12 +4582,14 @@ zh-TW:
   sound_file: 聲音檔
   sound_from: 聲音來自
   sound_object: 聲音物件
+  sound_objects_page_number: 音效頁面
   sound_of: 的聲音
   sounds_with_count:
     one: '%{count} 個聲音檔'
     other: '%{count} 個聲音檔'
   source_information_header: 來源資訊
   source_and_additional_information: 來源和附加資訊
+  source: 來源
   source_colon: 來源：
   source_url: 來源網址
   special_collection: 專題典藏
@@ -4492,7 +4599,7 @@ zh-TW:
   species_profile_model_dato_count_title: 物種簡介模型 - 資料物件數量
   species_profile_model: 物種簡介模型
   species: 物種
-  split_into_new_concept: 分出至新頁面
+  split_into_new_concept: 切分至新頁面
   split_cancelled: 取消分出操作
   split_classification_instructions: 要從這個EOL頁面上移除此階層輸入項目，您必須在下一步選擇最能代表此頁面該有的階層輸入項目，這樣未來的彙集工作就會將這兩個階層輸入項目完全分開。
   split_pending: 這個分出的操作將需要一段時間；在完成工作之前，這個頁面會被鎖定，不能再做進一步的分類編輯。當過程結束時，您將收到一封email，它會出現在此頁面的newsfeed裡。
@@ -4585,6 +4692,7 @@ zh-TW:
   test: 測試。
   test_it_out: 測試它
   text_object: 文字物件
+  text_objects_page_number: 文字頁面
   text: 文字
   text_capital: 文字
   text_summary_empty: 這個頁面尚無人提供簡短的總結。
@@ -4597,14 +4705,14 @@ zh-TW:
   thanks_for_your_time: 感謝您的時間，
   thank_you_for_your_generous_support: 感謝您的大力支持！
   thank_you: 感謝您
-  the_amount_entered_was: 登記的總量為：美金 %{number}
+  the_amount_entered_was: 輸入的金額為：美金 %{number}
   the_comment_was_successfully_updated: 成功更新了評論。
   the_comment_was_successfully_deleted: 成功刪除了評論。
   the_content_could_not_be_displ: 內容無法被顯示。
   the_content_was_updated: 內容已更新。
   the_cp_count_info: 此數目為在各自的SPM(物種簡介模型)主題類別中發布了資料物件的內容合作夥伴總數。
   the_count_represents_the_total: 此數目為在各自的SPM(物種簡介模型)主題類別中發布的資料物件總數。
-  hierarchies_entries_description: 生命大百科並非基於單一個分類階層來建立它的頁面，而是將許多系統索引，並彼此作比較。因此，任何EOL網頁都可能會涉及來自不同分類階層的多個節點中的資料。這個API提供途徑到單一的階層和其內部關係。請參考有關頁面API的文檔，以得到如何取用和一個特定EOL頁面相對應其它階層的資訊。taxonConceptID欄位包含EOL頁面識別碼，可用於頁面API裡。
+  hierarchies_entries_description: 生命大百科並非基於單一個分類階層來建立它的頁面，而是將許多系統索引，並彼此作比較。因此，任何EOL網頁都可能會涉及來自不同分類階層的多個節點中的資料。這個API提供途徑到單一的階層和其內部關係。請參考有關頁面API的文檔，以得到如何取用和一個特定EOL頁面相對應其它階層的資訊。「taxonConceptID」欄位包含EOL頁面識別碼，可用於頁面API裡。
   hierarchies_description: 生命大百科並非基於單一個分類階層來建立它的頁面，而是將許多系統索引，並彼此作比較。這個API列出有關分類階層的後設資料，例如資料提供者名稱和來源網址，以及分類樹上所有根分類群的分類群。
   the_file_was_uploaded: 此檔案已上傳。
   the_following_bibliography: 以下書目是將我們內容合作夥伴提供的所有參考文獻整合一起而產生。也許會有重複。
@@ -4738,6 +4846,7 @@ zh-TW:
   uploaded_content: 上傳的內容
   uploaded_on: 上傳於
   upload: 上傳
+  uri: URI
   url: 網址
   url_not_accessible: 這個網址無法存取
   us_dollars_100: 100美元
@@ -4770,6 +4879,7 @@ zh-TW:
   user_activity_stats_common_names_removed:
     one: 已刪除 %{count} 個俗名
     other: 已刪除 %{count} 個俗名
+  user_activity_stats_data_added_dropdown: 資料已增加
   user_activity_stats_header: 活動
   user_activity_stats_objects_curated:
     one: 已管理 %{count} 個物件
@@ -4797,6 +4907,7 @@ zh-TW:
   user_activity_stats_wikipedia_nominated:
     one: 提名了 %{count} 篇維基百科文章
     other: 提名了 %{count} 篇維基百科文章
+  new_uri_warning: 您所想要添加的項目不適用於生命大百科。
   user_agent: 使用者代理
   user_already_active_notice: 您的帳號已經啟動，請登入。
   user_comments: 使用者評論
@@ -4865,6 +4976,7 @@ zh-TW:
   vetted: 已審核
   video_from: 影片來自
   video_object: 影片物件
+  video_objects_page_number: 影片頁面
   video_title_not_available_in_language: 沒有 %{language} 的標題
   videos_with_count:
     one: '%{count} 個影片'

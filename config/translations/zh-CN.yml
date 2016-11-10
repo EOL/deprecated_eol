@@ -1500,8 +1500,8 @@ zh-CN:
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为
             %{scientific_name}没有提供任何资讯。EOL 邀请你提供有关 %{preferred_common_name} ({scientific_name}
             %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
-          meta_description_with_common_name_with_chapter_list: '"关于%{preferred_common_name}的信息,学名是
-            %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}的信息。"'
+          meta_description_with_common_name_with_chapter_list: 有关%{preferred_common_name}的描述和条目，学名是
+            %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}。
           meta_title: 有关%{scientific_name}由%{hierarchy_provider}分类的摘要和条目
           meta_title_with_common_name: 关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由
             %{hierarchy_provider}提供)

@@ -796,7 +796,7 @@ oc:
         create: Apondre una ressorsa
         update: Metre a jorn la ressorsa
         update_settings: Metre a jorn los paramètres
-        force_harvest: Demandar de forçar la collècta
+        force_harvest: Demandar una recòlta
       session:
         create: S’identificar
         sign_in_with_facebook: Connectatz-vos amb Facebook

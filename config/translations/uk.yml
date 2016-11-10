@@ -1521,6 +1521,7 @@ uk:
       one: '%{count} новий учасник приєднався до %{community}'
       few: '%{count} нові учасники приєдналися до %{community}'
       many: '%{count} нових учасників приєдналися до %{community}'
+      other: '%{count} нових учасників приєдналися до %{community}'
     default_subject: Останні дії на EOL
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
@@ -3711,6 +3712,7 @@ uk:
     one: '%{count} анотація'
     few: '%{count} анотації'
     many: '%{count} анотацій'
+    other: '%{count} анотацій'
   annotation_submit: опублікувати коментар
   annotation_note: Коментарі будуть поширені через постачальників даних (за наявності).
   annotation_body_default: додавати питання або коментарі...
@@ -3767,6 +3769,7 @@ uk:
     one: Опис таксона %{taxon} і ще %{count} іншого таксона
     few: Опис таксона %{taxon} і ще %{count} інших таксонів
     many: Опис таксона %{taxon} і ще %{count} інших таксонів
+    other: Опис таксона %{taxon} і ще %{count} інших таксонів
   article_more_about: Дізнатися більше про цю статтю
   articles_with_count:
     one: '%{count} стаття'
@@ -3777,26 +3780,32 @@ uk:
     one: 'Статті з цієї сторінки доступні %{count}  мовою:'
     few: 'Статті з цієї сторінки доступні %{count} мовами:'
     many: 'Статті з цієї сторінки доступні %{count} мовами:'
+    other: 'Статті з цієї сторінки доступні %{count} мовами:'
   articles_in_other_languages_with_count:
     one: 'Статті з цієї сторінки доступні %{count} іншою мовою:'
     few: 'Статті з цієї сторінки доступні %{count} іншими мовами:'
     many: 'Статті з цієї сторінки доступні %{count} іншими мовами:'
+    other: 'Статті з цієї сторінки доступні %{count} іншими мовами:'
   as_of_time_there_were_unique_visitors:
     one: Станом на %{time} був %{count} унікальний відвідувач
     few: Станом на %{time} було %{count} унікальні відвідувачі
     many: Станом на %{time} було %{count} унікальних відвідувачів
+    other: Станом на %{time} було %{count} унікальних відвідувачів
   a_total_of_comment_were_found_matching_your_criteria:
     one: Всього знайдено %{count} коментар, що відповідає Вашим умовам.
     few: Всього знайдено %{count} коментарі, що відповідають Вашим умовам.
     many: Всього знайдено %{count} коментарів, що відповідають Вашим умовам.
+    other: Всього знайдено %{count} коментарів, що відповідають Вашим умовам.
   a_total_of_items_were_found_matching_your_criteria:
     one: Всього знайдено %{count} елемент, що відповідає Вашим умовам.
     few: Всього знайдено %{count} елементи, що відповідають Вашим умовам.
     many: Всього знайдено %{count} елементів, що відповідають Вашим умовам.
+    other: Всього знайдено %{count} елементів, що відповідають Вашим умовам.
   a_total_of_terms_were_found_matching_your:
     one: Всього знайдено %{count} термін, що відповідає Вашим умовам.
     few: Всього знайдено %{count} терміни, що відповідають Вашим умовам.
     many: Всього знайдено %{count} термінів, що відповідають Вашим умовам.
+    other: Всього знайдено %{count} термінів, що відповідають Вашим умовам.
   assistive_overview_header: Огляд
   assistive_data_header: Факти & інформація
   assistive_media_header: Медіа
@@ -5204,7 +5213,8 @@ uk:
   filter_by_type_sound_option_with_count:
     one: Аудіо (%{count})
     few: Аудіо (%{count})
-    many: few=Аудіо (%{count})
+    many: Аудіо (%{count})
+    other: Аудіо (%{count})
   filter_by_type_taxon_concept_option: Таксони
   filter_by_type_video_option: Відео
   filter_by_type_video_option_with_count:
@@ -6136,7 +6146,8 @@ uk:
     zero: Перегляньте вкладку даних <span class="assistive">для цього таксона.</span>
     one: Перегляньте <span class="assistive">%{count} особливість цього таксона.</span>
     few: Перегляньте <span class="assistive">%{count} особливості цього таксона.</span>
-    many: one=Перегляньте <span class="assistive">%{count} особливостей цього таксона.</span>
+    many: Перегляньте <span class="assistive">%{count} особливостей цього таксона.</span>
+    other: Перегляньте <span class="assistive">%{count} особливостей цього таксона.</span>
   see_all_updates_with_count_html:
     one: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>
     few: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>

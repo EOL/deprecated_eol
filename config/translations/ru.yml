@@ -1676,12 +1676,15 @@ ru:
           meta_title_with_common_name: Факты о %{preferred_common_name} (%{scientific_name}
             по классификации %{hierarchy_provider})
           tweet_text: Факты о %{scientific_name} по классификации %{hierarchy_provider}
-        meta_description: данные, включая параметры и свойства для .Вычислительные
-          данные для  из научных работ, предоставленых исследователями.
+        meta_description: '%{scientific_name} факты, в том числе измерений и черты
+          характера для %{scientific_name}. Вычислимые данные для %{scientific_name}
+          результаты научных исследований, представленные учеными.'
         meta_description_no_data: Энциклопедии Жизни ничего не известно о %{scientific_name}.
           ЭЖ предлагает Вам внести свой вклад, описав %{scientific_name}.
-        meta_description_with_common_name: данные, включая параметры и свойства для
-          . Вычислительные данные для из научных работ, предоставленных исследователями.
+        meta_description_with_common_name: '%{preferred_common_name} факты, в том
+          числе измерений и черты характера для %{preferred_common_name} (научно известный
+          как %{scientific_name}). Вычислимые данные для %{scientific_name} результаты
+          научных исследований, представленные учеными.'
         meta_description_with_common_name_no_data: Какой-либо информации по %{preferred_common_name}
           (или {scientific_name}) в Энциклопедии Жизни не найдено. ЭЖ предлагает Вам
           внести свой вклад, рассказав о %{preferred_common_name} (%{scientific_name}).
@@ -1690,10 +1693,15 @@ ru:
           %{scientific_name},факт о %{scientific_name},факт о %{scientific_name},особенность
           %{scientific_name},особенность %{scientific_name},анализ %{scientific_name},анализ
           %{scientific_name}
-        meta_keywords_with_common_name: данные, данные о, свойства, свойства , параметры,
-          параметры для, данные, данные о, свойства, свойства, параметры, параметры
-          для,данные, данные о, свойства, свойства , параметры, параметры для, данные,
-          данные о, свойства, свойства, параметры, параметры для,
+        meta_keywords_with_common_name: '%{preferred_common_name} факты,факты о %{preferred_common_name},%{preferred_common_name}
+          черты характера,черты %{preferred_common_name},%{preferred_common_name}
+          мерки,мерки для %{preferred_common_name},%{scientific_name} факты,факты
+          о %{scientific_name},%{scientific_name} черты характера,черты %{scientific_name},%{scientific_name}
+          мерки,мерки для %{scientific_name},%{preferred_common_name} факт,факт %{preferred_common_name},%{preferred_common_name}
+          черта,черта %{preferred_common_name},%{preferred_common_name} измерения,измерения
+          для %{preferred_common_name},%{scientific_name} то,то о %{scientific_name},%{scientific_name}
+          черта,черта %{scientific_name},%{scientific_name} измерения,измерения для
+          %{scientific_name}'
         meta_title: Измерения и факты о %{scientific_name}
         meta_title_with_common_name: Анализ и факты о %{preferred_common_name} (%{scientific_name})
         tweet_text: Факты о %{scientific_name}
@@ -1708,15 +1716,17 @@ ru:
           meta_description_with_common_name: Описания и статьи о %{preferred_common_name},
             известные в науке как %{scientific_name} классифицируются как %{hierarchy_provider}
             в Энциклопедии Жизни.
-          meta_description_with_common_name_no_data: 'Нет доступных статей для  ,так
-            же известных как , классифицированные как в Энциклопедии Жизни. Вы можете
-            внести свой вклад в Энциклопедии Жизни и написать такие статьи как: охрана
-            природы, распространение, экология, среда обитания,морфология и многое
-            другое.'
-          meta_description_with_common_name_with_chapter_list: Описание статей о ,известное
-            среди ученных как, классифицированный в Энциклопедии Жизни. Состоит из
+          meta_description_with_common_name_no_data: Нет статьи доступны для %{preferred_common_name}
+            также известный как %{scientific_name} как классифицируются %{hierarchy_provider}
+            в "Энциклопедии жизни". ЭОЛ приглашает Вас внести свой вклад в статьях
+            о %{preferred_common_name} (%{scientific_name}) такие, как сохранение,
+            распространение, Экология, среда обитания, морфологии и многое другое.
+          meta_description_with_common_name_with_chapter_list: Описания и статьи о
+            %{preferred_common_name}, научно известный как %{scientific_name} как
+            классифицируются %{hierarchy_provider} в Энциклопедии жизни. Включает
+            в себя %{chapter_list}.
           meta_title: Описания и статьи о %{scientific_name}, классифицированные как
-            {hierarchy_provider}
+            %{hierarchy_provider}
           meta_title_with_common_name: Описание и статьи о %{preferred_common_name}
             (%{scientific_name}, классифицированной как %{hierarchy_provider})
           tweet_text: Статьи о %{scientific_name}, классифицированной как %{hierarchy_provider}

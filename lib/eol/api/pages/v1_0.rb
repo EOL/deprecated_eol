@@ -160,18 +160,21 @@ module EOL
           # NOTE: we need to honor supercedure, so this is slower than ideal:
           taxon_concepts = params[:id].split(",").map do |id|
             super_id = TaxonConcept.find(id).try(:id)
-            TaxonConcept.with_titles.find(super_id) if super_id
+            taxon_concept = TaxonConcept.with_titles.find(super_id) if super_id
+            {id: id, taxon: taxon_concept}
           end.compact
+
           if (params[:batch] || taxon_concepts.count > 1)
-            batch_concepts = []
+            batch_concepts = {}
             taxon_concepts.each do |taxon_concept|
-              raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
-              raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept.id}\" is no longer available") unless taxon_concept.published?
-              batch_concepts.push(prepare_hash(taxon_concept, params))
+              tc = taxon_concept[:taxon]
+              raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless tc
+              raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept[:id]}\" is no longer available") unless tc.published?
+              batch_concepts[taxon_concept[:id]] = prepare_hash(taxon_concept, params.merge(batch: true))
             end
             batch_concepts
           else
-            taxon_concept = taxon_concepts.first
+            taxon_concept = taxon_concepts.first[:taxon]
             raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
             raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept.id}\" is no longer available") unless taxon_concept.published?
             prepare_hash(taxon_concept, params)
@@ -193,8 +196,9 @@ module EOL
           val.blank? ? DEFAULT_OBJECTS_NUMBER : val.to_i
         end
 
-        def self.prepare_hash(taxon_concept, params={})
+        def self.prepare_hash(taxon_hash, params={})
           return_hash = {}
+          taxon_concept = params[:batch] ? taxon_hash[:taxon] : taxon_hash
           unless taxon_concept.nil?
             return_hash['identifier'] = taxon_concept.id
             return_hash['scientificName'] = taxon_concept.entry.name.string
@@ -261,11 +265,6 @@ module EOL
             end
           end
 
-          if params[:batch]
-            batch_hash = {}
-            batch_hash[taxon_concept.id] = return_hash
-            return batch_hash
-          end
           return return_hash
         end
 

@@ -1,4 +1,4 @@
-- cache("taxa/#{@taxon_page.id}/data_index", expires_in: 2.weeks) do
+- cache("taxa/#{@taxon_page.id}/data_index/#{current_language}", expires_in: 2.weeks) do
   #tabs_sidebar.data
     %ul.tabs.with_icons{ class: 'subtabs' }
       %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)

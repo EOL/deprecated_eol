@@ -3397,6 +3397,10 @@ ar:
   classification_already_preferred: 'خطأ: تم تعليم هذا التنصيف كمفضل مسبقا.'
   classification_curation_pending: غير مراجع. قد ينتقل ذلك التصنيف إلى صفحة أخرى في
     القريب العاجل.
+  classification_curation_split_comment_with_count: '{{PLURAL| واحد= تم فصل %{count}
+    تصنيف عن تلك الصفحة ونقله إلى صفحة خاصة به <a href=''%{url}''>split onto its own
+    page</a>. | تم فصل %{count} تصنيفات عن تلك الصفحة ونقلها إلى صفحات خاصة بهم <a
+    href=''%{url}''>split onto its own page</a>.'
   classification_from_agent: تصنيف مقدم من %{agent}.
   classification_from_agent_chosen_by_curator: تصنيف من %{agent} قام بأختياره %{curator}.
   classification_from_agent_chosen_by_curator_see_more: تصنيف مقدم من %{agent} تم
@@ -3710,8 +3714,8 @@ ar:
   content_partner_resource_collections_header: المجموعات
   content_partner_resource_collection_header: المجموعة المنشورة
   content_partner_resource_collection_show_link: عرض المجموعة المنشورة
-  content_partner_resource_confirm_harvest_requested: هل أنت متأكد من رغبتك في تنفيذ جمع
-    مورد %{resource_title} إجباريًا؟
+  content_partner_resource_confirm_harvest_requested: هل أنت متأكد من رغبتك في تنفيذ
+    جمع مورد %{resource_title} إجباريًا؟
   content_partner_resource_create_successful_notice: 'تم إضافة معلومات مصدر شريك المحتوى
     بنجاح. الحالة الحالية لبيانات المصدر:  %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة المصدر
@@ -4502,6 +4506,7 @@ ar:
     المهددة بالانقراض الصادرة عن الاتحاد الدولي لحفظ الطبيعة والموارد الطبيعية
   link_more_about: تعرف على المزيد عن ذلك الرابط
   link_name: اسم الرابط
+  links_with_count: '{{PLURAL| واحد= رابط %{count} |%{count} رابط'
   list_newsletter_emails: ادرج رسائل النشرات الإخبارية الإلكترونية.
   listing_collections: عرض المجموعات
   list_of_activity_combinations: قائمة بتركيبات النشاط خلال خمس دقائق

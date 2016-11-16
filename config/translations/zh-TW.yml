@@ -1198,6 +1198,8 @@ zh-TW:
     contact_us_link: 如果您遭遇任何問題，請在 <a href='http://eol.org/contact_us' style='color:#195184'>
       聯絡我們</a>。
     see_all_activity: 請在 <a href='%{activity_url}' style='color:#195184'> 您的使用者newsfeed頁面上瀏覽您之前的所有活動</a>。
+    bulk_comments_with_count: '{{PLURAL|one=有 1 筆對 %{on} 的新評論|有 %{count} 筆對 %{on}
+      的新評論'
     bulk_comments_on_you_with_count:
       one: 有 1 筆對 <a href='%{url}' style='color:#195184'> 您的簡介的新評論</a>
       other: 有 %{count} 筆對 <a href='%{url}' style='color:#195184'> 您的簡介的新評論</a>
@@ -3204,7 +3206,8 @@ zh-TW:
   content_partner_resource_collections_header: 典藏
   content_partner_resource_collection_header: 已發布的典藏
   content_partner_resource_collection_show_link: 瀏覽已發布的典藏
-  content_partner_resource_confirm_harvest_requested: 您確定要強制彙集資源 %{resource_title} 嗎?
+  content_partner_resource_confirm_harvest_requested: 您確定要強制彙集資源 %{resource_title}
+    嗎?
   content_partner_resource_create_successful_notice: 成功新增了內容合作夥伴資源的詳細資料。資源資料的目前狀態是：%{resource_status}。
   content_partner_resource_create_unsuccessful_error: 抱歉，出現了錯誤，未能新增此資源。
   content_partner_resource_dataset_details_header: 資料集
@@ -3971,6 +3974,8 @@ zh-TW:
   move_to_bottom: 移動至最下方
   move_to_top: 移動至最上方
   move_up: 向上移
+  moved_all_items_from_collection_with_count: '{{PLURAL|one=將 %{count} 個項目從 %{from}
+    移動至這個典藏。|將 %{count} 個項目從 %{from} 移動至這個典藏。'
   moved_all_items_to_collections:
     one: 將所有項目從 %{name} 移動至 %{count} 個典藏。
     other: 將所有項目從 %{name} 移動至 %{count} 個典藏。

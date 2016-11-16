@@ -807,7 +807,8 @@ nl:
         create: Bron toevoegen
         update: Bron bijwerken
         update_settings: Instellingen bijwerken
-        force_harvest: Verzoek geforceerd ophalen
+        force_harvest: Verzoek ophalen
+        harvest_tonight: Vanavond ophalen
       session:
         create: Aanmelden
         sign_in_with_facebook: Aanmelden met Facebook

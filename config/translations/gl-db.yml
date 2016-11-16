@@ -1,6 +1,7 @@
 # Messages for Galician (galego)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Elisardojm
 # Author: Toliño
 # Author: Vivaelcelta
 ---
@@ -176,7 +177,7 @@ gl:
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Pendente de publicación
   translated_resource_statuses-label-resource_status_id-12: Pendente de anular a publicación
-  translated_resource_statuses-label-resource_status_id-13: Forzar a colleita
+  translated_resource_statuses-label-resource_status_id-13: Colleita solicitada
   translated_resource_statuses-label-resource_status_id-1: Subindo
   translated_resource_statuses-label-resource_status_id-2: Cargado
   translated_resource_statuses-label-resource_status_id-3: Erro de carga

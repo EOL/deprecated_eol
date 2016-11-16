@@ -826,6 +826,7 @@ de:
         update: Quelle aktualisieren
         update_settings: Einstellungen aktualisieren
         force_harvest: Abruf anfragen
+        harvest_tonight: Heute Abend anfragen
       session:
         create: Anmelden
         sign_in_with_facebook: Mit Facebook anmelden
@@ -4652,8 +4653,8 @@ de:
   content_partner_resource_collections_header: Sammlungen
   content_partner_resource_collection_header: Veröffentlichte Sammlung
   content_partner_resource_collection_show_link: Veröffentlichte Sammlung ansehen
-  content_partner_resource_confirm_harvest_requested: Sind Sie sicher, dass Sie den Datenabruf
-    bei Quelle %{resource_title} erzwingen möchten?
+  content_partner_resource_confirm_harvest_requested: Sind Sie sicher, dass Sie den
+    Datenabruf bei Quelle %{resource_title} erzwingen möchten?
   content_partner_resource_create_successful_notice: 'Die Informationen zur Quelle
     des Inhaltspartners wurde erfolgreich hinzugefügt. Der aktuelle Status der Quellendaten:
     %{resource_status}.'

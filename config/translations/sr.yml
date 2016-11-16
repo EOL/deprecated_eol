@@ -377,7 +377,7 @@ sr:
       session:
         password: Лозинка
         remember_me: Запамти ме на овом прегледачу две недеље
-        username_or_email: Корисничко име или е-адреса
+        username_or_email: Корисничко име или имејл адреса
       translated_content_page:
         active_translation: Објављено
         active_translation_more: Објављени преводи ће бити јавно доступни, осим ако
@@ -450,7 +450,7 @@ sr:
         tag_line: 'Мото или наслов <small>пример: „Љубитељ птица“</small>'
         user_identities: Јесам
         username: Корисничко име <small>(4-32 знака)</small>
-        username_or_email: Корисничко име или е-адреса
+        username_or_email: Корисничко име или имејл адреса
       wikipedia_queue:
         revision_url: Адреса измене <small>(нпр. https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931)</small>
         revision_url_more: Ако унесете адресу измене с Википедије, захтевате од EOL-а
@@ -1096,7 +1096,7 @@ sr:
     на:'
   admin_content_partners_notifications_statistics_reminder_header: Подсетник за статистику
     посећености
-  admin_content_partners_notifications_statistics_reminder_description: 'Шаље е-поруку
+  admin_content_partners_notifications_statistics_reminder_description: 'Шаље имејл
     свим партнерима за садржај, обавештавајући их да од сада могу да погледају статистике
     посећености својих података од прошлог месеца. Напомена: ручно покретање овог
     обавештења је привремено решење, и као такво би требало да се уклони из увођења
@@ -1942,7 +1942,7 @@ sr:
   editors_tab_label: Управници
   email: Имејл
   email_colon: 'Имејл:'
-  email_recipients: Примаоци е-порука
+  email_recipients: Примаоци имејла
   eol_curator_activity_email_message: Кустос <a href='%{profile_url}'>%{curator_full_name}</a>
     %{action} на <a href='%{data_object_url}'>EOL-у</a>%{comment}
   encyclopedia_of_life: Енциклопедија живота
@@ -2912,8 +2912,8 @@ sr:
   sign_in_remember_me_disallowed_for_admins_notice: Због сигурносних разлога, администратори
     не могу да користе могућност „запамти ме“.
   sign_in_successful_notice: Пријављени сте.
-  sign_in_unsuccessful_error: Не могу да вас пријавим. Корисничко име, е-адреса или
-    лозинка није исправна.
+  sign_in_unsuccessful_error: Не могу да вас пријавим. Корисничко име, имејл адреса
+    или лозинка није исправна.
   sign_out: Одјава
   site_cms: Сајт CMS
   site_information: Подаци о сајту
@@ -3460,7 +3460,7 @@ sr:
     су све истоветне.
   you_must_be_comfortable: Морате познавати HTML ако желите да правите хипервезе или
     да користите обликовање.
-  your_email_address: Ваша е-адреса
+  your_email_address: Ваша имејл адреса
   you_removed_the_member_from_the_community: Уклонили сте овог члана из заједнице.
   your_ip_address: Ваша ИП адреса
   your_preferences: Поставке

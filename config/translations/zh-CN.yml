@@ -671,7 +671,8 @@ zh-CN:
         create: 添加资源
         update: 更新资源
         update_settings: 更新设置
-        force_harvest: 请求强制采集
+        force_harvest: 请求采集
+        harvest_tonight: 今晚采集
       session:
         create: 登录
         sign_in_with_facebook: 使用Facebook账号登录
@@ -1238,21 +1239,21 @@ zh-CN:
         创建时间: %{resource_created_at_date}
         状态: %{resource_status}"
     content_partner_resource_harvest_requested_request:
-      subject: EOL用户 %{user_full_name} 要求强制采集内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}
+      subject: EOL用户%{user_full_name}请求了采集属于内容提供者%{partner_full_name}的资源%{resource_title}的请求
       message: |-
-        "这是EOL系统为物种页面组自动发送的通告。用户 %{user_full_name} 请求强制采集属于内容合作伙伴 %{partner_full_name}的资源%{resource_title},细节如下:
+        这是EOL系统为物种页面组自动发送的通告。用户%{user_full_name}请求采集属于内容合作伙伴%{partner_full_name}的资源%{resource_title}的请求，详情如下：
 
-        用户: %{user_full_name}
-        电子邮件: %{user_email}
-        介绍URL: %{user_profile_url}
+        用户：%{user_full_name}
+        电子邮件：%{user_email}
+        介绍URL：%{user_profile_url}
 
-        合作伙伴: %{partner_full_name}
-        合作伙伴资源URL: %{partner_resources_url}
+        合作伙伴：%{partner_full_name}
+        合作伙伴资源URL：%{partner_resources_url}
 
-        资源: %{resource_title}
-        资源URL: %{resource_url}
-        更新时间: %{resource_updated_at_date}
-        状态: %{resource_status}"
+        资源：%{resource_title}
+        资源URL：%{resource_url}
+        更新时间：%{resource_updated_at_date}
+        状态：%{resource_status}
     content_partner_resource_hierarchy_publish_request:
       subject: EOL用户 %{user_full_name} 要求升级内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}的分类系统
       message: |-
@@ -2412,6 +2413,7 @@ zh-CN:
         user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为未复核。
         user_unreviewed_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为未复核。
       preferred_classification:
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: 未知用户标记了未知分类为未知分类单元优先。
         an_unknown_user_preferred_classification_on_an_unknown_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为一个未知类群的首选系统。
         an_unknown_user_preferred_classification_on_it: 一个未知用户将 “%{provider}”提供的分类系统标为首选系统。
         an_unknown_user_preferred_classification_on_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为

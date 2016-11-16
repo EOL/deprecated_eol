@@ -4,6 +4,7 @@
 # Author: George Animal
 # Author: Katja
 # Author: Kghbln
+# Author: Metalhead64
 # Author: Nipsky
 ---
 de:
@@ -181,7 +182,7 @@ de:
     noch aus
   translated_resource_statuses-label-resource_status_id-12: Veröffentlichung steht
     noch aus
-  translated_resource_statuses-label-resource_status_id-13: Abruf erzwingen
+  translated_resource_statuses-label-resource_status_id-13: Abruf angefragt
   translated_resource_statuses-label-resource_status_id-1: Am Hochladen …
   translated_resource_statuses-label-resource_status_id-2: Hochgeladen
   translated_resource_statuses-label-resource_status_id-3: Hochladen fehlgeschlagen

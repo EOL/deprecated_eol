@@ -299,6 +299,8 @@ oc:
     errors:
       format: '%{attribute} %{message}'
       template:
+        header: '%{count}  {{PLURAL:%{count}|one=error de validacion trobada|errors
+          de validacion trobadas}}'
         body: 'Los camps seguents son pas estats validats :'
       messages:
         taken: es ja pres
@@ -310,6 +312,9 @@ oc:
         accepted: deu èsser acceptat
         empty: pòt pas èsser void
         blank: pòt pas èsser daissat en blanc
+        too_long: es tròp long (%{count} caractèr{{PLURAL:%{count}|one=|s}} maximum)
+        too_short: es tròp cort (%{count} caractèr{{PLURAL:%{count}|one=|s}} minimum)
+        wrong_length: a pas la longor requesida (cal %{count} caractèr{{PLURAL:%{count}|one=|s}})
         not_a_number: es pas un nombre
         not_an_integer: deu èsser un nombre entièr
         greater_than: deu èsser de valor superiora a %{count}
@@ -3920,9 +3925,17 @@ oc:
   articles_in_languages_with_count:
     one: 'Los articles sus aquesta pagina son disponibles en %{count} lenga :'
     other: 'Los articles sus aquesta pagina son disponibles en %{count} lengas :'
+  articles_in_other_languages_with_count: 'Los articles sus aqueste pagina son disponibles
+    en %{count} {{PLURAL:%{count}|one=autra lenga|autras lengas}} :'
   as_of_time_there_were_unique_visitors:
     one: A %{time}, i aviá %{count} visitor unic
     other: A %{time}, i aviá %{count} visitors unics
+  a_total_of_comment_were_found_matching_your_criteria: Un total de %{count} comentari{{PLURAL:%{count}|one
+    =|s}} es estat trobat que correspondon a vòstres critèris.
+  a_total_of_items_were_found_matching_your_criteria: Un total de %{count} element{{PLURAL:%{count}|one
+    =|s}} es estat trobat que correspondon a vòstres critèris.
+  a_total_of_terms_were_found_matching_your: Un total de %{count} tèrme{{PLURAL:%{count}|one
+    =|s}} es estat trobat que correspondon a vòstres critèris.
   assistive_overview_header: Vista d'ensemble
   assistive_data_header: Faits & Informacions
   assistive_media_header: Mèdia
@@ -4165,6 +4178,8 @@ oc:
   collection_api_sort_field_notes: Se un paramètre sort_field es inclús, sols los
     elements de la colleccion que lo camp de triada correspond exactament a la cadena
     provesida seràn renviats
+  collection_created_with_count_notice: La colleccion <em>%{collection_name}</em>
+    es estada creada amb succès e conten %{count} element{{PLURAL:%{count}|one=|s}}.
   collection_delete_link: Suprimir definitivament aquesta colleccion.
   collection_destroyed: La colleccion es estada suprimida.
   collection_removed: La colleccion %{collection} es suprimida.
@@ -4292,7 +4307,10 @@ oc:
     other: '%{count} elements'
   community_invitation_comment: Te convidi a rejónher "%{community}".
   community_logo_alt_text: Lògo per la comunautat %{community_name}
+  community_managers_with_count: '%{count} gestionari{{PLURAL:%{count}|one=|s}} de
+    comunautat'
   community_members: Membres de la comunautat
+  community_members_with_count: '%{count} membre{{PLURAL:%{count}|one=|s}} de la comunautat'
   community_name_label: Nom de la comunautat
   community_newsfeed: Fial d’actualitats de la comunautat
   community_no_longer_has_manager_access_to_collection: La comunautat «  %{community}
@@ -4447,8 +4465,8 @@ oc:
   content_partner_resource_collections_header: Colleccions
   content_partner_resource_collection_header: Colleccion publicada
   content_partner_resource_collection_show_link: Afichar la colleccion publicada
-  content_partner_resource_confirm_harvest_requested: Sètz forçar la recòlta de las ressorsas
-    %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Sètz forçar la recòlta de las
+    ressorsas %{resource_title}?
   content_partner_resource_create_successful_notice: 'Las informacions sus la ressorsa
     del partenari son estadas apondudas. Estatut actual de la ressorsa : %{resource_status}'
   content_partner_resource_create_unsuccessful_error: O planhèm, una error s'es produita,
@@ -4581,6 +4599,7 @@ oc:
     sites Internet o dins lors basas de donadas, que partejan tanben amb l’EdlV. Presam
     vivament lors apòrts critics a la mission de l’EdlV e vos encoratjam a n'aprene
     mai sus eles. Ne saber mai suls <a href="%{more_url}">partenaris de contengut</a>.
+  content_partners_with_count: '%{count} partenari{{PLURAL:%{count}|one=|s}} de contengut'
   content_server_full_url: URL completa del servidor de contengut
   content_servers: Servidors de contengut
   content_setting_colon: 'Paramètres de contengut :'
@@ -4603,14 +4622,20 @@ oc:
   copied_all_items_to_collections:
     one: Un element copiat de %{name} cap a %{count} colleccion.
     other: Totes los elements copiats de  de %{name} cap a %{count} colleccions.
+  copied_items_from_collection_with_count_notice: '%{count} {{PLURAL:%{count}|one=element
+    es estat copiat|elements son estats copiats}} dempuèi %{name}.'
   copy: Copiar
   copy_of_name: Còpia de %{name}
+  copy_items_to_a_new_collection_with_count: Copiar %{count} element{{PLURAL:%{count}|one=|s}}
+    dins una novèla colleccion
   copyright: 'COPYRIGHT (dreits d’autor) :'
   correct_donation_message_with_link: Se aquesta informacion es pas corrècta, <a href='%{link}'>tornatz
     en arrièr</a> per far las modificacions.
   could_not_find_collection_error: O planhèm, impossible de trobar aquesta colleccion.
   could_not_find_user: Sètz pas un membre d'aquesta comunautat.
   count: Quantitat
+  count_results_for_search_term: '%{count} {{PLURAL:%{count}|one=resultat trobat|resultats
+    trobats}} per <em>%{search_term}</em>'
   count_results_for_traitbank:
     one: '%{count} resultat dins TraitBank'
     other: '%{count} resultats dins TraitBank'
@@ -4912,6 +4937,8 @@ oc:
   encyclopedia_of_life: Enciclopèdia de la Vida
   endorsed_by: Presentat per
   endorsed_collections: Colleccions a la una
+  endorsed_collections_with_count: '%{count} {{PLURAL:%{count}|one=colleccion aprovada|colleccions
+    aprovadas}}'
   eol_administration_console: Consòla d’administracion de l’EdlV
   eol_api_data_objects: 'IPA de l’EdlV : objèctes de donadas'
   eol_api_colon: 'IPA de l’EdlV :'

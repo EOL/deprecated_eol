@@ -766,7 +766,8 @@ mk:
         create: Додај ресурс
         update: Поднови ресурс
         update_settings: Поднови нагодувања
-        force_harvest: Побарај наметнато преземање
+        force_harvest: Побарај преземање
+        harvest_tonight: Преземи ноќеска
       session:
         create: Најава
         sign_in_with_facebook: Најава со Facebook
@@ -4293,8 +4294,8 @@ mk:
   content_partner_resource_collections_header: Збирки
   content_partner_resource_collection_header: Објавена збирка
   content_partner_resource_collection_show_link: Погл. објавената збирка
-  content_partner_resource_confirm_harvest_requested: Дали сте сигурни дека сакате да
-    наметнете преземање на ресурсот %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Дали сте сигурни дека сакате
+    да наметнете преземање на ресурсот %{resource_title}?
   content_partner_resource_create_successful_notice: 'Подробностите за ресурсот на
     соучесникот се успешно додадени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не

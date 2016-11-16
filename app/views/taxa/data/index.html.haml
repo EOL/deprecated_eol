@@ -1,7 +1,7 @@
 - EOL.debug("app/views/taxa/data/index.html.haml", prefix: "V")
-- cache("taxa/#{@taxon_page.id}/data_index", expires_in: 2.weeks) do
+- cache("taxa/#{@taxon_page.id}/data_index/#{current_language}", expires_in: 2.weeks) do
   - EOL.debug("(not cached)", prefix: "V")
-  - cache("taxa/#{@taxon_page.id}/data/sidebar", expires_in: 2.weeks) do
+  - cache("taxa/#{@taxon_page.id}/data/sidebar/#{current_language}", expires_in: 2.weeks) do
     #tabs_sidebar.data
       %ul.tabs.with_icons{ class: 'subtabs' }
         %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
@@ -34,7 +34,7 @@
           register_path: new_user_path,
           login_path: login_path(return_to: request.original_url))
     - unless @page_traits.blank?
-      - cache("taxa/#{@taxon_page.id}/data/glossary", expires_in: 2.weeks) do
+      - cache("taxa/#{@taxon_page.id}/data/glossary/#{current_language}", expires_in: 2.weeks) do
         - unless @page_traits.glossary.blank?
           .glossary_subtab{ style: 'display: none' }
             .header_underlined
@@ -51,7 +51,7 @@
       - categories << :other if @page_traits.categories_need_other?
       - categories.each do |category|
         - toc_id = category == :other ? "other" : category.id
-        - cache("taxa/#{@taxon_page.id}/data/category/#{toc_id}", expires_in: 2.weeks) do
+        - cache("taxa/#{@taxon_page.id}/data/category/#{toc_id}/#{current_language}", expires_in: 2.weeks) do
           .header_underlined
             %h3= category == :other ? I18n.t(:other_category_subtab) : category.label
           - last_predicate_group = nil
@@ -63,7 +63,7 @@
             taxon: @taxon_page.scientific_name),
             data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => toc_id } }
             - @page_traits.traits_by_category(category).each do |trait|
-              - cache("taxa/#{@taxon_page.id}/data/traits/#{trait.point.anchor}", expires_in: 2.weeks) do
+              - cache("taxa/#{@taxon_page.id}/data/traits/#{trait.point.anchor}/#{current_language}", expires_in: 2.weeks) do
                 - EOL.debug("trait: #{trait.point.anchor}", prefix: "V")
                 - if trait.point.nil?
                   %tr.data
@@ -125,7 +125,7 @@
                         &nbsp;
                 %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
                   %td{ colspan: 4 }
-                    - cache("taxa/#{@taxon_page.id}/data/traits/#{trait.point.anchor}/meta", expires_in: 2.weeks) do
+                    - cache("taxa/#{@taxon_page.id}/data/traits/#{trait.point.anchor}/meta/#{current_language}", expires_in: 2.weeks) do
                       -# - EOL.debug("meta", prefix: "V")
                       .metadata
                         %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }

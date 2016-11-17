@@ -2395,6 +2395,13 @@ zh-CN:
         user_trusted_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为可信任。
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: 未知用户使用%{language}在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 未知用户使用未知语言在“%{taxon}”将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: 未知用户使用%{language}在“%{taxon}”将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: 未知用户在未知页面将%{language}的常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: 未知用户使用未知语言在“%{taxon}”将常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_language_on_taxon: 未知用户在“%{taxon}”标记%{language}的常用名“%{name}”为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 未知用户使用%{language}将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 未知用户使用未知语言将常用名“%{name}”标记为不受信任。
@@ -4168,6 +4175,7 @@ zh-CN:
   permission_granted: 权限已授予。
   permission_revoked: 权限已撤销。
   permissions_users_count:
+    one: '%{count}位用户'
     other: '%{count}位用户'
   personal_profile_menu: 个人信息
   personal_space: 个人空间

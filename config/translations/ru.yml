@@ -21,6 +21,7 @@
 # Author: Irus
 # Author: Jackie
 # Author: Kaganer
+# Author: Kareyac
 # Author: Katunchik
 # Author: Lunacy1911
 # Author: Lvova
@@ -1873,6 +1874,12 @@ ru:
             а затем подключите Вашу учетную запись Google в настройках Вашего профиля
             EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
             в EOL</a> для получения учетной записи.
+          missing_attributes: К сожалению, произошла ошибка при доступе Ваших данных
+            в Google.
+          new_authentication_not_added: К сожалению, произошла ошибка, мы не могли
+            подключить Ваш аккаунт Google.
+          not_authorized_to_add_authentication: К сожалению, у нас нет авторизации
+            для подключения Вашей учетной записи Google.
         twitter:
           login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
             записи Twitter  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
@@ -1880,6 +1887,12 @@ ru:
             а затем подключите Вашу учетную запись Twitter в настройках Вашего профиля
             EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
             в EOL</a> для получения учетной записи.
+          missing_attributes: К сожалению, произошла ошибка при доступе Ваших данные
+            в Twitter.
+          new_authentication_not_added: К сожалению, произошла ошибка, мы не могли
+            подключить свой аккаунт в Twitter.
+          not_authorized_to_add_authentication: К сожалению, у нас нет разрешения
+            на подключение Вашего аккаунта в Twitter.
         yahoo:
           login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
             записи Yahoo!  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
@@ -1946,6 +1959,7 @@ ru:
     additional_fields: Данные об этой записи
     edit_data_header: Редактировать ваши данные
     add_metadata_header: Дополнительная информация
+    edit_metadata_header: Редактирование метаданных
     create_successful: Данные были успешно добавлены
     create_failed: 'Не удаётся добавить ваши данные: %{errors}'
     delete_successful: Данные успешно удалены

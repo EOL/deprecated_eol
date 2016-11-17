@@ -789,7 +789,8 @@ uk:
         create: Додати ресурс
         update: Оновити ресурс
         update_settings: Оновити налаштування
-        force_harvest: Запитати урожай
+        force_harvest: Запит на урожай
+        harvest_tonight: Урожай сьогодні
       session:
         create: Увійти
         sign_in_with_facebook: Увійти за допомогою Facebook
@@ -3712,7 +3713,7 @@ uk:
     one: '%{count} анотація'
     few: '%{count} анотації'
     many: '%{count} анотацій'
-    other: '%{count} анотацій'
+    other: '%{count} анотації'
   annotation_submit: опублікувати коментар
   annotation_note: Коментарі будуть поширені через постачальників даних (за наявності).
   annotation_body_default: додавати питання або коментарі...
@@ -5707,6 +5708,7 @@ uk:
   maps_empty: Ніхто ще не вніс жодних карт на цю сторінку.
   maps_empty_contribute_instructions: Дізнайтеся, як вносити карти у ЕЖ.
   maps_image_maps_header: Медіафайли, позначені як «карти»
+  march_of_life_thumbnail_title: 'Марш життя:'
   matching_users_found_with_count:
     one: Всього знайдено %{count} користувача, що відповідає Вашим умовам.
     few: Всього знайдено %{count} користувачів, що відповідають Вашим умовам.
@@ -6147,7 +6149,7 @@ uk:
     one: Перегляньте <span class="assistive">%{count} особливість цього таксона.</span>
     few: Перегляньте <span class="assistive">%{count} особливості цього таксона.</span>
     many: Перегляньте <span class="assistive">%{count} особливостей цього таксона.</span>
-    other: Перегляньте <span class="assistive">%{count} особливостей цього таксона.</span>
+    other: Перегляньте <span class="assistive">%{count} особливості цього таксона.</span>
   see_all_updates_with_count_html:
     one: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>
     few: Перегляньте <span class="assistive">%{count} оновлення для цієї сторінки.</span>

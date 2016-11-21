@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Idh0854
+# Author: Jerrykim306
 # Author: Ykhwong
 # Author: 아라
 ---
@@ -173,7 +174,7 @@ ko:
   translated_resource_statuses-label-resource_status_id-10: 게시함
   translated_resource_statuses-label-resource_status_id-11: 게시 보류 중
   translated_resource_statuses-label-resource_status_id-12: 게시 안 함 보류 중
-  translated_resource_statuses-label-resource_status_id-13: 강제 수확
+  translated_resource_statuses-label-resource_status_id-13: 수확 요청됨
   translated_resource_statuses-label-resource_status_id-1: 올리는 중
   translated_resource_statuses-label-resource_status_id-2: 올려짐
   translated_resource_statuses-label-resource_status_id-3: 올리기 실패

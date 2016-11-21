@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Cwlin0416
 # Author: Dream
+# Author: Kly
 # Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: Taieol
@@ -76,7 +77,7 @@ zh-TW:
   translated_contact_subjects-title-contact_subject_id-26: 學習與教育
   translated_contact_subjects-title-contact_subject_id-27: 成為內容合作夥伴
   translated_contact_subjects-title-contact_subject_id-28: 內容合作夥伴支援
-  translated_contact_subjects-title-contact_subject_id-29: 管理者支援
+  translated_contact_subjects-title-contact_subject_id-29: 策展人支援
   translated_contact_subjects-title-contact_subject_id-30: 修改(拼法和文法、影像、資訊)
   translated_contact_subjects-title-contact_subject_id-31: 提供影像、錄影或音檔
   translated_contact_subjects-title-contact_subject_id-32: 媒體需求(採訪、新聞界咨訊、標章需求)
@@ -174,7 +175,7 @@ zh-TW:
   translated_resource_statuses-label-resource_status_id-10: 已發佈
   translated_resource_statuses-label-resource_status_id-11: 發佈工作待辦
   translated_resource_statuses-label-resource_status_id-12: 未發佈工作待辦
-  translated_resource_statuses-label-resource_status_id-13: 強制彙集
+  translated_resource_statuses-label-resource_status_id-13: 彙集已請求
   translated_resource_statuses-label-resource_status_id-1: 上傳中
   translated_resource_statuses-label-resource_status_id-2: 已上傳
   translated_resource_statuses-label-resource_status_id-3: 上傳失敗
@@ -268,7 +269,7 @@ zh-TW:
   translated_table_of_contents-label-table_of_contents_id-14: 國際自然保育聯盟(IUCN)
   translated_table_of_contents-label-table_of_contents_id-17: 參考文獻
   translated_table_of_contents-label-table_of_contents_id-194: 尺寸
-  translated_table_of_contents-label-table_of_contents_id-1: 概述
+  translated_table_of_contents-label-table_of_contents_id-1: 概要
   translated_table_of_contents-label-table_of_contents_id-218: 擴散
   translated_table_of_contents-label-table_of_contents_id-221: 風險
   translated_table_of_contents-label-table_of_contents_id-225: 網路上

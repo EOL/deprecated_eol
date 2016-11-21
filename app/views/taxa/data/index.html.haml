@@ -1,26 +1,19 @@
 - EOL.debug("app/views/taxa/data/index.html.haml", prefix: "V")
 - cache("taxa/#{@taxon_page.id}/data_index/#{current_language}", expires_in: 2.weeks) do
-  - EOL.debug("(not cached)", prefix: "V")
-  - cache("taxa/#{@taxon_page.id}/data/sidebar/#{current_language}", expires_in: 2.weeks) do
-    #tabs_sidebar.data
-      %ul.tabs.with_icons{ class: 'subtabs' }
-        %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
-        - EOL.debug("blank?", prefix: "V")
-        - unless @page_traits.blank?
-          - EOL.debug("each category", prefix: "V")
-          - @page_traits.categories.each do |category|
-            - EOL.debug("category #{category.label}", prefix: "V")
-            -# TODO: the class needs to be active if its toc_id was passed in...
-            %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
-          -# TODO: range data, which we do not have yet.
-          - EOL.debug("other...", prefix: "V")
-          - if @page_traits.categories_need_other?
-            %li= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_page, toc_id: "other")
-          - unless @page_traits.glossary.blank?
-            %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, '#'
-        -# TODO: This class needs to be start_section if the glossary tab is missing.
-        %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
-  - EOL.debug("(main container)", prefix: "V")
+  #tabs_sidebar.data
+    %ul.tabs.with_icons{ class: 'subtabs' }
+      %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
+      - unless @page_traits.blank?
+        - @page_traits.categories.each do |category|
+          -# TODO: the class needs to be active if its toc_id was passed in...
+          %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
+        -# TODO: range data, which we do not have yet.
+        - if @page_traits.categories_need_other?
+          %li= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_page, toc_id: "other")
+        - unless @page_traits.glossary.blank?
+          %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, '#'
+      -# TODO: This class needs to be start_section if the glossary tab is missing.
+      %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
   .main_container#taxon_data
     %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
     .about_subtab{ style: 'display: none' }

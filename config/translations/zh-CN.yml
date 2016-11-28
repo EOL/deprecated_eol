@@ -807,6 +807,7 @@ zh-CN:
     download_taxa_data:
       attribute_header: 属性
       select_all_checkbox: 全选
+      collection_download_under_processing: 收藏下载现已开始处理。当下载完成时，将向您发送一封电子邮件
       user_downloaded_collection: 用于%{collection_name}的数据下载
     show:
       meta_description_default: 标题为 %{collection_name} 的生物大百科全书合集。

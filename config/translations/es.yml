@@ -5880,7 +5880,7 @@ es:
   more_taxa_with_attribute: Ver todos los taxones con este atributo
   most_active_members: Miembros más activos
   move: Trasladar
-  move_down: Mover hacia abajo
+  move_down: Bajar
   added_classifications_ready: Los datos de las clasificaciones seleccionadas están
     listos para desplazarse a otra página. Para completar el proceso, selecciona "dividir
     en una nueva página" o ve a la pestaña de nombres de la página donde pondrías
@@ -5890,7 +5890,7 @@ es:
     other: Trasladar %{count} elementos a una nueva colección
   move_to_bottom: Trasladar al final
   move_to_top: Trasladar al principio
-  move_up: Mover hacia arriba
+  move_up: Subir
   moved_all_items_from_collection_with_count:
     one: Mueve %{count} elemento de %{from} a esta colección.
     other: Mueve todos los %{count} elementos de %{from} a esta colección.

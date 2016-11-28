@@ -470,6 +470,7 @@ zh-TW:
         taxon_name_placeholder: 輸入分類群組名稱至選擇群組
         taxon_name_placeholder_value_removed: '%{taxon_group}已移除，請選擇新的群組'
         taxon_name_more: 例如輸入蜂鳥或鯨魚。僅有從下拉選單的選項可被使用，請不要未選擇一個結果來編輯文字。
+        taxa_found: 找到分類
         total_results: 全體結果：%{total}
         unit: 測量單位
       eol_statistic:
@@ -489,6 +490,7 @@ zh-TW:
         publish_more: 標記彙集狀態為可發布，內容不會立即對民眾公開。
         published_at: 已發布
         published_status: 狀態
+        last_harvest_seconds: 已取得%{time_in_words}
       hierarchy:
         browsable_more: 勾選'可瀏覽'使這個階層成為EOL一個可瀏覽的主要階層。
         browsable_status_with_colon: 可瀏覽狀態：
@@ -1005,10 +1007,12 @@ zh-TW:
   known_uris:
     add_a_relationship: 添加關聯
     equivalent_to: 等效關係
+    import_successful: 本體項目已成功匯入
     more_than_one_field_mapped_to_type: 超過一個的屬性被映射至「%{type}」
     no_results: 沒有所選擇統計內容的結果
     no_relationships: 沒有找到用於此URL的關聯。
     please_select_field_types: 請為各個屬性選擇一個映射
+    please_select_category_for_stats: 請選擇一個分類來檢視統計內容。
     please_select_uris_to_import: 請選擇URI導入
     relationships: 關聯
     relationships_from_this_uri: 由此URI導出的相連關係
@@ -1039,7 +1043,7 @@ zh-TW:
       about_link_eol_blog: EOL部落格
       about_link_discover: 教育
       about_link_statistics: 統計數據
-      about_link_glossary: 詞彙表
+      about_link_glossary: 術語表
       about_link_podcasts: Podcasts
       about_link_donate: 資助EOL
       about_link_citing: 引用EOL
@@ -1086,6 +1090,7 @@ zh-TW:
     footer:
       google_plus: 在Google+的生命大百科
     taxa:
+      search_within_clade: 以演化支搜尋
       search_traitbank: 搜尋TraitBank
   members:
     index:
@@ -1285,9 +1290,9 @@ zh-TW:
     user_recover_account:
       subject: 恢復您的生命大百科帳號
       message: |-
-        生命大百科 (http://eol.org)收到一個恢復您帳號的要求。如果您沒有發出此項要求，請忽略此email。
+        生命大百科 (http://eol.org)收到一個恢復您帳號的要求。如果您沒有發出此項要求，請忽略此電郵。
 
-        以下連結提供您單次有效登入，讓您可以修改帳號密碼或新增一個connected帳號可以在未來使用以做登入：
+        以下連結提供您單次有效登入，讓您可以修改帳號密碼或新增一個連接帳號可以在未來使用以做登入：
 
         %{temporary_login_url}
 
@@ -1317,7 +1322,7 @@ zh-TW:
     intro: 這是您於 %{time} 在EOL的活動摘要
     intro_immediately: '%{name} 您好 —'
     intro_weekly: 這是您於 %{ending} 的前一周在EOL的活動摘要
-    unsubscribe: 登入並在 <a href='%{email_prefs_url}' style='color:#195184'> 的通知偏好設置頁面上修改您的email設定</a>
+    unsubscribe: 登入並在 <a href='%{email_prefs_url}' style='color:#195184'> 的通知偏好設置頁面上修改您的電郵設定</a>
       或是不需登入而在 <a href='%{unsubscribe_url}' style='color:#195184'> 退訂EOL的所有自動通知</a>。
     contact_us_link: 如果您遭遇任何問題，請在 <a href='http://eol.org/contact_us' style='color:#195184'>
       聯絡我們</a>。
@@ -1379,6 +1384,7 @@ zh-TW:
   recent_activity_mailer:
     data_search_file_download_ready:
       subject: 您的生命大百科搜尋已準備好下載
+      message: 您可查看此和其它下載透過觀看<a href='%{download_link}'>在您個人檔案中的資料標籤</a>。
       header: 您的下載已完成！
     collection_download_ready:
       subject: 您的生命大百科收藏選擇屬性已準備好下載
@@ -1456,6 +1462,10 @@ zh-TW:
         tweet_text: '%{scientific_name} 的策展人'
     data:
       index:
+        hierarchy_entry:
+          meta_description: 在生命大百科上經由%{hierarchy_provider}分類的有關%{scientific_name}實情
+        meta_title: 關於%{scientific_name}的測量和實情
+        meta_title_with_common_name: 關於%{preferred_common_name}%{scientific_name}的測量和實情
         tweet_text: 有關%{scientific_name}的實情
     details:
       index:
@@ -1658,7 +1668,10 @@ zh-TW:
           meta_title_with_common_name: '%{preferred_common_name} （%{scientific_name}
             分類自 %{hierarchy_provider}）'
         meta_description: 在生命大百科的%{scientific_name}訊息。
+        meta_description_with_common_name: 在%{preferred_common_name}的訊息，在生命大百科中科學上稱為%{scientific_name}。
+        meta_keywords: 在 %{scientific_name}的訊息，%{scientific_name}訊息
         meta_title: '%{scientific_name} - 在%{scientific_name}的訊息'
+        meta_title_with_common_name: '%{preferred_common_name}（%{scientific_name}）-在%{preferred_common_name}的訊息'
         tweet_text: 在%{scientific_name}的訊息
     resources:
       show:
@@ -1799,7 +1812,7 @@ zh-TW:
       contact_us: 請聯絡我們來獲得協助
     edit:
       form_tip_account: 要登入EOL，您需要使用者名稱和密碼，或者您可以連結至第三方帳號。如果您沒有一個連結帳號，您的使用者名稱和密碼即為必填項目；但是如果您想要修改現有的密碼，在此請只單獨輸入一個新密碼。所有使用者都必須有
-        (%{required_icon}) email地址和優先語言資料。
+        (%{required_icon}) 電子郵件地址和優先語言資料。
       form_tip_account_oauth: 所有使用者都必須有 %{required_icon} email地址和優先語言資料。
       form_tip_profile: 有 %{required_icon} 標記的項目對一般使用者而言是選填項目，但對策展人而言是必填項目。
       form_tip_profile_oauth: 名字為必填，其他有 %{required_icon} 標記的項目對一般使用者而言是選填項目，但對策展人而言是必填項目。
@@ -2919,10 +2932,12 @@ zh-TW:
   admin_notes_not_visible_to_user: 管理員附註(使用者見不到)：
   admin_information: 這是EOL V2的新管理主控台。我們正在從V1轉移管理功能的過程中，如果您所尋找的管理部分未被列出，請至 <a href="/administrator">
     V1的管理主控台</a>。
+  admin_options_warning: 於此更改可能需花費10分鐘來產生效果
   admin_option_all_users_can_see_data: 所有用戶可不需權限許可來查看資料
   admin_link: 概要
   admin_page_title: 管理：概要
   admin_resource_delete_confirmation: 您確定要刪除此資源？此命令會花費較長的時間來執行，您可能會在執行此操作期間出現逾時情況；所以出現該情況時不要重新提交此操作。
+  admin_simple_actions_header: 簡易行為：
   admin_spam_delete: 刪除Spam
   admin_statistics_link: 統計數據
   admin_translated_content_page_create_successful_notice: 翻譯已新增至 <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -2996,6 +3011,9 @@ zh-TW:
   amount: 數量
   an_unknown_user: 一位不明使用者
   annotation_cabs_colon: 註釋：
+  annotations_with_count:
+    one: '%{count}個通知'
+    other: '%{count}個通知'
   annotation_submit: 發表評論
   annotation_note: 評論將會被與資料提供者共享（如果為可用）。
   annotation_body_default: 添加一個提問或評論…
@@ -3021,6 +3039,10 @@ zh-TW:
   are_you_sure_this_action_cannot_be_undone: 您確定嗎？這個動作將無法被恢復。
   admin_login_confirmation: 您確定要以 %{name} 登入至內容合作夥伴的註冊處嗎？如此，您將被登出管理者的網站。
   article_from: 文章來自
+  article_secondary_description_with_others_count:
+    zero: '%{taxon}的描述'
+    one: '%{taxon}和%{count}個其它分類的描述'
+    other: '%{taxon}和%{count}個其它分類的描述'
   article_more_about: 對這篇文章做更深入瞭解
   articles_with_count:
     one: '%{count} 篇文章'
@@ -3232,6 +3254,8 @@ zh-TW:
     one: '%{count} 個項目'
     zero: 空白
     other: '%{count} 個項目'
+  collection_items_duplicate_ids: 無法從一個重複ID%{type}：（%{values}）來創建一個收藏
+  collection_items_missing_values: ' collected_item_id/collected_item_type在：%{item}不能為零'
   collection_copy_complete_with_count:
     one: 從 %{from} 複製了 %{count} 個項目至 %{to}。
     other: 從 %{from} 一共複製了 %{count} 個項目至 %{to}。
@@ -3475,6 +3499,7 @@ zh-TW:
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出現了錯誤，未能更新資源
     %{resource_title} 的彙集事件。
   content_partner_resource_page_title: 生命大百科 - %{content_partner_name}  - %{resource_name}
+  content_partner_resource_will_be_deleted: 任何由此資源%{resource_title}的彙集將會被刪除，請允許使用24個小時來作處理。
   content_partner_resource_hierarchy_browsable: 可瀏覽的
   content_partner_resource_hierarchy_complete_true: 這個階層設定為<strong>已管理</strong>。已管理的階層假設每一筆輸入項目都是唯一的，也就是說：名稱字串若相同會被認為是異物同名。
   content_partner_resource_hierarchy_complete_false: 這個階層未被設定為已管理。相同的輸入項目可能會被認為是同一概念。
@@ -3583,6 +3608,9 @@ zh-TW:
   count_results_for_search_term:
     one: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
     other: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
+  count_results_for_traitbank:
+    one: '%{count}個TraitBank結果'
+    other: '%{count}個TraitBank結果'
   create_account: 建立一個帳號
   create_a_new_collection: 建立一個新典藏
   create_community_unsuccessful_error: 抱歉，出現了錯誤，未能建立您的社群。請確認所有的欄位都正確完成。
@@ -3656,18 +3684,23 @@ zh-TW:
   your_current_rating_5_of_5: 您目前的評價：5/5
   your_watch_collection: 您的觀察清單
   current_language: 語言：%{iso_code}
+  current_harvest_event: 自%{resource_title}的彙集事件運作了%{period}小時
+  currently_running_harvesting: 目前運作的彙集
   currently_in_eol: 目前在生命大百科中
   create_download_data_file: 建立檔案
+  institutional_sponsors: 贊助機構
   currently_published: 目前已發布
   daily: 每日
   darwin_core: 達爾文核心集
   dashboard: Dashboard
   data: 資料
   data_about_subtab_header: 有關在生命大百科的資料
+  data_results_only_for_search: 「%{search_term}」的TraitBank結果
   data_about_this_record: 有關此記錄的資料
   data_column_tc_id: 生命大百科頁面ID
   data_column_sci_name: 學名
   data_column_common_name: 俗名
+  data_column_classification_summary: 分類摘要
   data_column_measurement: 測量
   data_column_value: 值
   data_column_measurement_uri: 測量URI
@@ -3683,6 +3716,8 @@ zh-TW:
   data_column_raw_units: 原始單位（直接來自來源）
   data_column_raw_units_uri: 原始單位URI（標準化）
   data_database_colon: 資料：
+  data_glossary: 資料術語表
+  data_glossary_contribute: 要貢獻用於此術語表的新項目，可考慮<a href=%{url}>上傳資料</a>。
   data_link_to_record: 連結至此記錄
   data_logging_active: 資料日誌啟動中
   data_master_database_colon: Data Master：
@@ -3694,12 +3729,16 @@ zh-TW:
   data_object_reference: 資料物件參考文獻
   data_object_ignore: 忽略這個項目
   data_object_undo_ignore: 從忽略清單中移除
+  data_object_toc_items_list:
+    one: 顯示於%{quoted_toc_titles}之下
+    other: 顯示於%{quoted_toc_titles}之下
   data_overview_table_caption: 特徵資料
   data_point_uri_source_missing: 來源遺失
   data_point_uri_summary_name: 關於%{taxon}的資料
   data_provided_by_user: 提供由%{whom}
   data_ranges: 資料摘要
   data_ranges_subheader: 用於此分類群組的資料摘要
+  data_reference_subtable_summary: 有關此實情的額外參考文獻
   data_row_exemplar_added: 添加至概要。
   data_row_exemplar_removed: 從概要移除。
   data_row_add_exemplar_button: 添加至概要
@@ -3736,6 +3775,7 @@ zh-TW:
       search_within_taxon_group_header: 以分類群組來搜尋
       sort_header: 排序結果
   data_search_link: 搜尋生命大百科上的科學資料
+  data_search_attribute: 在TraitBank搜尋帶有%{attribute}資料的記錄
   data_search_destroyed: 此工作將不再被處理。
   data_search_files_with_count:
     one: '%{count}次資料下載'
@@ -3744,7 +3784,14 @@ zh-TW:
   data_server_unavailable: 在生命大百科的資料臨時無法使用，請稍候再試。對於造成的不便我們深表歉意。
   data_show_n_more_rows: 顯示NNN更多...
   data_subtab_about: 關於
+  data_subtab_glossary: 用於%{taxon}的術語表
+  data_summary_header_with_count:
+    zero: 生命大百科沒有特徵資料
+    one: 生命大百科有用於1個特徵的資料
+    other: 生命大百科有用於%{count}個特徵的資料
   data_summary_ranges_header_with_count: 生命大百科擁有摘要資料
+  data_tab_curator_exemplar: 此列已添加至概要標籤。
+  data_tab_curator_excluded: 此列已從概要標籤移除。
   data_tab_curator_key_exemplar: '%{image}已添加至<a href=''%{link}''>概要</a>'
   data_tab_curator_key_excluded: '%{image}已從<a href=''%{link}''>概要</a>移除'
   data_usage_reports: 資料使用報告
@@ -3799,6 +3846,9 @@ zh-TW:
   did_you_mean: 您的意思是：%{suggestions} ？
   disabled_for_now: 目前禁用
   discover_link: 教育
+  displaying_numerical_range_eol_records_with_count:
+    one: 顯示%{count}個記錄在生命大百科上
+    other: 顯示%{start_number} &ndash;%{count}個裡的%{end_number}個記錄在生命大百科上
   donate_link: 捐助
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不要顯示不明之註冊日期(V1使用者，全都在2009年1月5日前)
@@ -3855,6 +3905,7 @@ zh-TW:
   eol_api: EOL API
   eol_api_hierarchies: EOL API：階層
   eol_api_hierarchy_entries: EOL API：階層輸入項目
+  eol_api_hierarchy_entries_descendants: 生命大百科API：階級項目的後代
   eol_api_pages: EOL API：頁面
   eol_api_ping: EOL API：Ping
   eol_api_provider_hierarchies: EOL API：提供者階層
@@ -3868,6 +3919,8 @@ zh-TW:
   error_log_detail: 錯誤日誌詳細資料
   error_log: 錯誤日誌
   error_logging_active: 錯誤日誌記錄中
+  error_violates_tos: 您的內容似乎違反了生命大百科服務條款。如果您認為這是一場誤會，請聯絡我們已取得協助。
+  error_revoking_editor_on_watch_collection: 編輯者不可從觀察收藏裡移除
   error_401_page_title: 未授權的
   error_401_description: 抱歉，您沒有使用那個URL的授權。
   error_403_page_title: 禁止
@@ -4075,7 +4128,7 @@ zh-TW:
   gives_access_to_a_single_hierarchy_indexed_by_eol: 開放EOL已索引的單一階層及其內部關聯。
   global_access_tagline: 為全球提供有關地球上生命的知識
   global_navigation: 全球導覽
-  glossary: 用語表
+  glossary: 術語表
   glossary_subhead: 用語表
   go_back: 返回
   go: 啟動
@@ -4091,6 +4144,8 @@ zh-TW:
   harvest_id: 彙集ID
   harvesting_processes_log: 彙集過程之日誌
   harvests_for: 為 %{resource} 之彙集
+  harvest_resource: 彙集資源
+  harvest_duration: 至今的彙集期間
   has_already_been_taken: 已被取用。
   has_colon: 有：
   has_curated_your_image: 已管理了您的影像
@@ -4112,6 +4167,7 @@ zh-TW:
   home: 首頁
   home_page_cache_last_cleared_on: 首頁之快取上次在 %{date} 清空
   home_page_link_advisory_information: 這個連結將帶您至生命大百科網站之首頁
+  however_there_are_summaries: 然而，<a href='%{summary_url}'>來自子群組的生命大百科總結資料</a>。
   html_format: (HTML格式)
   html_format_with_left_col: (HTML格式，若您希望頁面上有一左欄則請輸入，否則請不要填寫)
   content_upload_url: http://%{domain}%{upload_attachment}
@@ -4121,7 +4177,7 @@ zh-TW:
   if_the_details_parameter_is_not_set: 如果沒有設定'細節'參數，則只會回報資料物件識別碼和資料類型，若是文章的話，會回報主題。資料類型將是從
     %{linka} 資源類型詞彙來的數值，文字主題則將是 %{linkb} 中的一個。
   check_this_to_browse_eol_by_the_hierarchy: （如果此框有被勾選，則分類將被顯示於名稱標籤上，而不需要"顯示所有分類"。）
-  return_content_by_vettedness: 如果'已審核'之值為'1'，則僅回報可信的內容；如果'已審核'之值為'2'，則僅回報可信和未審核的內容(不會回報不可信內容)。預設是回報所有內容。
+  return_content_by_vettedness: 如果'已審核'之值為'1'，則僅回報可信的內容；如果'已審核'之值為'2'，則僅回報可信和未審核的內容(不會回報不可信內容)。如果'已審核'之值為'3'，僅回報未審核內容。如果'已審核'之值為'4'，僅回報不可信內容。預設是回報所有內容。
   reindex_data_object_button: 重新索引物件
   reindex_page_button: 重新索引頁面
   reindex_users_button: 重建用戶總數索引
@@ -4143,9 +4199,13 @@ zh-TW:
   images_in_yellow_are_not_reviewed: 黃色標記的影像是未經審核的。
   image_objects_page_number: 圖像頁面
   import_once: 再輸入一次
+  import_ontology: 匯入本體
   inappropriate: 不合適的
   inaturalist_tab_label: iNaturalist觀測
   include_all_metadata: 包含資料物件的所有後設資料
+  including_traitbank_count:
+    one: ，包含%{count}個TraitBank屬性
+    other: ，包含%{count}個TraitBank屬性
   in_collection: 在典藏中
   in_community: 在社群中
   indexed: 已索引
@@ -4180,6 +4240,7 @@ zh-TW:
   item_type_taxon: 分類單元
   item_type_video: 影片
   item_type_article_assistive: 這個項目是一篇文章
+  item_type_cms_page_assistive: 此項目是有關生命大百科的訊息內容
   item_type_collection_assistive: 這個項目是一個典藏
   item_type_community_assistive: 這個項目是一個社群
   item_type_image_assistive: 這個項目是一張影像
@@ -4226,11 +4287,16 @@ zh-TW:
   known_uris_none: 沒有人添加此類型的URI
   known_uris_page_title: 用於在生命大百科上資料的URI
   known_uris_sorted: 順序已更新。
+  pending_harvests_none: 現在沒有待定中的彙集
+  pending_harvests_title: 待定彙集
+  pause_pending_harvests: 暫停彙集
+  resume_pending_harvests: 恢復彙集
   label: 標籤
   language: 語言：
   languages: 語言
   language_selector_advisory_information: 以下是此網站內容使用的語言清單，若您想改變目前的語言，請從這個清單選擇另一種語言。
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: 上一次彙集期間
   last_updated: 最後更新
   last_updated_time_ago: 最後一次更新是 %{time_passed} 之前
   learn_about_collections: 如何建立一個典藏？
@@ -4287,6 +4353,8 @@ zh-TW:
   limits_the_returned_to_a_specific_language: 以指定的語系來提供結果
   link_more_about: 深入瞭解這個連結
   link_name: 連結名稱
+  link_to_this_term: 連結至此項目
+  link_to_top_of_page: 頂端
   links_with_count:
     one: '%{count} 個連結'
     other: '%{count} 個連結'
@@ -4381,6 +4449,7 @@ zh-TW:
   more_siblings_with_count:
     one: 還有 %{count} 個同級的...
     other: 還有 %{count} 個同級的...
+  more_taxa_with_attribute: 查看所有帶有此屬性的分類
   most_active_members: 最活躍的會員
   move: 移動
   move_down: 往下移
@@ -4482,6 +4551,7 @@ zh-TW:
   newsfeed_help_for_profile: 此EOL個人資訊Newsfeed包含其它會員寫給所有者的評論、EOL社群的邀請、及收集與此所有者EOL追蹤清單中相關項目的更新。
   newsfeed_help_for_taxon: 此EOL分類單元頁面的Newsfeed收集與在其頁面上顯示的項目相關的更新，包含策展人的動作和來自EOL使用者的評論。
   newsfeed_help_for_watchlist: 此EOL追蹤清單Newsfeed收集與此所有者EOL追蹤清單中相關項目的更新，包含其所有者的活動。
+  newsletter_banner: 成為生命大百科社群的一員&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>今天就開始訂閱生命大百科新聞吧！</a>
   new_upload: 新的上傳
   new_user: 新使用者
   next: 下一個
@@ -4493,6 +4563,7 @@ zh-TW:
   no_comments_have_been_left_yet: 尚無人留下評論。
   no_errors_are_available: 查無錯誤。
   no_harvesting_logs_for_this_da: 這個日期沒有彙集日誌
+  no_harvesting_events_running_now: 目前沒有運作中的彙集事件
   no_items_were_copied_to_collections_error: 沒有項目被複製至此典藏：%{names}。
   no_news_items_for_month_and_year: '%{month_and_year} 沒有新聞項目'
   none: 無
@@ -4541,6 +4612,7 @@ zh-TW:
   object: 物件
   object_curated: 已管理的物件
   objects_curated: 已管理的物件
+  object_removed: （此物件已從資料庫移除）
   object_status: 物件狀態
   object_status_all_option: 所有
   object_status_trusted_option: 可信的
@@ -4564,6 +4636,8 @@ zh-TW:
   older_version_of_latest_published_data_object_title_link: 舊版本的 %{link}
   other_version_links: 其他版本：%{version_links}
   other_category_subtab: 其它
+  other_measurements_from_this_record: 其它來自此記錄的測量
+  ontology_uri: 本體URI
   percentage_of_children_with_images: 有影像的子節點的百分比
   percentage_of_children_with_text: 有文字的子節點的百分比
   number_of_taxa_at_this_entry: 在這個輸入項目的分類群數量
@@ -4628,6 +4702,9 @@ zh-TW:
   pagination_previous_with_count:
     one: 請見上 %{count} 頁
     other: 請見上 %{count} 頁
+  pagination_range_with_count:
+    one: =顯示%{count}個記錄
+    other: 顯示%{count}中的%{start_number} &ndash; %{end_number}
   parameters: 參數
   partner_information: 合作夥伴資訊
   partner_page: 合作夥伴頁面
@@ -4670,6 +4747,7 @@ zh-TW:
   preview_changes: 預覽修改
   preview_version_of_latest_published_data_object_title_link: '%{link} 的預覽版本'
   preview: 預覽
+  previewing_unpublished_page: 此頁面未發佈。您擁有特殊訪問權限來預覽它；其他用戶不可查看此頁面。
   previously_published: 之前發布的
   proceed_to_checkout_page: 前往Checkout頁面
   process_name: 處理過程名稱
@@ -4760,17 +4838,22 @@ zh-TW:
   response_formats: 回應的格式
   response: 回應
   resque_status_header: Resque狀態：
+  resque_pending_job_count:
+    one: 有%{count}個待定工作在"%{queue}"佇列。
+    other: 有%{count}個待定工作在"%{queue}"佇列。
   results_per_page: 每個頁面的結果：
   results: 結果
-  results_offset: 顯示<em>%{for}</em>總共%{total}筆結果中的第{%from} - {%to}筆
+  results_offset: <em>%{for}</em>的結果，%{total}中%{to}的%{from}
   return_common_names_for_the_page_taxon: 回報此頁面分類單元的所有俗名
   return: 回報
   return_all_common_names_for_this_taxon: 回報這個分類單元的所有俗名
   return_all_synonyms_for_this_taxon: 回報這個分類單元的所有同物異名
   return_references_for_the_page_taxon: 回報此頁面分類單元的所有參考文獻
+  return_synonyms_for_the_page_taxon: 回傳所有頁面分類的同物異名
   returns_all_metadata_about_a_particular_collection: 回報一個特殊典藏的所有後設資料以及此典藏中被EOL索引的項目
   returns_all_metadata_about_a_particular_data_object: 回報有關一個被EOL索引的特殊資料物件的所有後設資料(文字、影像或影片)
   returns_either_a_positive_or_negative_response: 回報一個肯定的回應(表示APIs可被運用)，或是回報一個否定的回應或不做任何回應(表示APIs在那時不能被運用)。
+  returns_either_a_batch_or_not: 回傳批量或否
   revisions: 修訂
   rights: 版權
   rights_holder: 版權所有者
@@ -4848,7 +4931,10 @@ zh-TW:
   see_all_editors_with_count:
     one: 瀏覽 %{count} 位管理者
     other: 瀏覽總計 %{count} 位管理者
+  see_in_data_glossary: 瀏覽完整資料術語表
+  see_in_glossary_tab: 在術語標籤裡查看
   see_notes: 請見附註
+  see_more_on_the_data_tab: 查看更多資料標籤
   see_this_record_in_virtuoso: 查看在Virtuoso的記錄
   select_a_hierarchy_around_whic: 請選擇用以組織內容總結的一個階層：
   select_an_item_from_the_menu: 請從選單中選擇一個項目
@@ -4909,6 +4995,7 @@ zh-TW:
   sort_by_rating_option: 評價
   sort_by_richness_option: 豐富度
   sort_by_alphabetical_option: 由A到Z
+  sort_by_hierarchy_publish_request_option: 層及發佈請求
   sort_by_reverse_alphabetical_option: 由Z到A
   sort_by_recently_added_option: 最近新增的
   sort_by_recently_updated_option: 最近更新
@@ -5005,6 +5092,7 @@ zh-TW:
   taxon_citizen_science_link: 公民科學連結
   taxon_citizen_science_resources_empty: 本頁尚無人提供公民科學之連結。
   taxon_concept_stats: 分類觀統計
+  taxon_data_overview_empty: 尚未有人貢獻出用於%{taxon}的資料記錄。
   taxon_data_header: 關於 %{taxon} 的資料
   taxon_details_empty: 這個頁面尚無人提供詳細資料。
   taxon_details_empty_in_this_language: 這個頁面尚無人提供本語言的詳細資料。
@@ -5152,6 +5240,7 @@ zh-TW:
   translation_saved: 翻譯已被儲存
   translations_submit: 瀏覽翻譯
   trigger_search_term_entered_by: 觸發由使用者輸入的搜尋術語
+  "true": 真
   true_label: 真
   truncated_comment_omission: '... <a href=''%{link}''>more</a>'
   truncated_comment_omission_linkless: '...'
@@ -5277,6 +5366,7 @@ zh-TW:
     <strong>%{user}</strong> 對在 <a href='%{data_object_link}'> 生命大百科網站上您提供的影像做了評論：
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong>在資料上的評論已被移除。
+  user_count_reindexed: 用戶總數已被重新索引
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 使用者 ID
   user_index_intro: 下方顯示所有在此系統註了冊的網路使用者；以其註冊的時間反序排列。請注意：在EOL V2版本(2009年1月5日)之前註冊的使用者沒有註冊日期。請點擊一個使用者名稱以編輯那個使用者。
@@ -5357,6 +5447,7 @@ zh-TW:
   view_error_log: 瀏覽錯誤日誌
   view_full_size_image: 瀏覽全尺寸的影像
   view_harvesting_log: 瀏覽資料彙集日誌
+  view_current_harvesting: 檢視目前彙集
   view_article_source: 瀏覽文章來源
   view_image_source: 瀏覽影像來源
   view_image_map_source: 瀏覽地圖來源
@@ -5410,7 +5501,7 @@ zh-TW:
   you_are_not_authorized_to_perform_this_action: 您沒有權限執行這個動作。
   you_are_viewing_this_rank_as_classified_by: 您正在瀏覽這個 %{rank} 分類提供者為：
   you_can_edit_those_later_if_ne: 如果需要，您可以稍後再編輯它們。
-  you_can_identify_yourself_to_eol: 您可以藉由在您的要求中添加您API key的方式，向EOL辨別您的身份(登入後在您的偏好頁面上產生您的key)：
+  you_can_identify_yourself_to_eol: 您可以藉由在您的要求中添加您API密鑰的方式，向EOL辨別您的身份(登入後在您開啟偏好頁面時編輯產生您的密鑰。密鑰將存保存於此；並在您事後開啟偏好頁面編輯時可再次取回)：
   you_have_been_logged_in_as_username: 您已經被以使用者名稱 %{username} 登入
   you_have_been_logged_out: 您已經被登出。
   you_joined_community: 您已經成功加入了這個社群。

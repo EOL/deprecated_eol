@@ -221,8 +221,8 @@ zh-CN:
         sort_order: 排序顺序
         active: 已发布
       notification:
-        reply_to_comment: 你的评论的回复
-        comment_on_my_profile: 关于你的简介的评论
+        reply_to_comment: 对您的评论做出的一条回复
+        comment_on_my_profile: 关于您的简介的评论
         comment_on_my_contribution: 关于你的贡献的评论和/或管理操作
         comment_on_my_collection: 关于你管理的收藏的评论
         comment_on_my_community: 关于你加入的小组的评论
@@ -412,7 +412,7 @@ zh-CN:
       comment:
         body_edit: 编辑评论
       contact:
-        comments: 你的信息
+        comments: 您的消息
         contact_subject_id: 主题
         email: 您的电子邮件地址
         name: 您的名字
@@ -1395,7 +1395,7 @@ zh-CN:
     data_search_file_download_ready:
       subject: 您的EOL 搜索已做好下载准备
       message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
-      header: 你的下载已就绪！
+      header: 您的下载已就绪！
     collection_download_ready:
       subject: 已准备好下载您的EOL收藏中选定的属性
       message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
@@ -4865,7 +4865,7 @@ zh-CN:
   you_can_identify_yourself_to_eol: 通过在您的请求中添加您的API密钥，您可以向EOL确认您自己的身份（登录后，通过打开您的EOL编辑配置文件生成您的密钥。密钥将在此保存；日后再次打开您的编辑配置文件即可取回）：
   you_have_been_logged_in_as_username: 您已经以用户名%{username}登录
   you_have_been_logged_out: 您已登出。
-  you_joined_community: 你已经成功加入该小组。
+  you_joined_community: 您已经成功加入该小组。
   you_left_community: 您已成功地离开这个社区。
   you_may_upload_static_files_fo: 您可以在这里上载用于CMS的静态文件（例如PDF、word文档、图像等）。但是不应该在这里上载物种页面的内容，它仅用于非物种页面（例如招聘广告、通讯、备忘录等）。对于备忘录和通讯的PDF文件，如果您愿意，可以链接到“友好的URL”（它将自动定向到“完整的URL地址”）。对于嵌在页面中且加了
     &lt;img&gt; 标签的图像文件，您必须使用“完整内容的URL”。刷新网页时，“完整内容的URL”可能显示不同的内容服务器编号（例如“content2.eol.org”，“content3.eol.org”等）。这是正常的，您可以在创建您的链接时使用任意一个，因为它们都是等同的。

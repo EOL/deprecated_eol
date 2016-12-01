@@ -800,6 +800,7 @@ zh-TW:
     download_taxa_data:
       attribute_header: 屬性
       select_all_checkbox: 全選
+      collection_download_under_processing: 收藏下載正進行處理中。在下載完成時將會寄發一封電子郵件給您
       user_downloaded_collection: 用於%{collection_name}的資料下載
     show:
       meta_description_default: 標題為 %{collection_name} 的生命大百科典藏。
@@ -1024,6 +1025,9 @@ zh-TW:
     unrecognized_association_types: 無法識別的關聯類型URI
     uri_placeholder_text: 例如： http://purl.org/dc/terms/contributor
     name_placeholder_text: 例如：參與者
+    definition_placeholder_text: 例如：一個有責任、對資源作出貢獻的實體。
+    comment_placeholder_text: 例如：一個貢獻者的例子包含個人、組織、或一個服務。
+    attribution_placeholder_text: 例如：來自都柏林核心；請查看http://dublincore.org/usage/terms/history/#contributorT-001。
     ontology_information_url_placeholder_text: 例如： http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: 例如： http://dublincore.org/2012/06/14/dcterms.rdf
     select_a_preferred_uri_for_this_group: 選擇一個優先的URI
@@ -1388,6 +1392,7 @@ zh-TW:
       header: 您的下載已完成！
     collection_download_ready:
       subject: 您的生命大百科收藏選擇屬性已準備好下載
+      message: 您可查看此和其它下載透過觀看<a href='%{download_link}'>在您個人檔案中的資料標籤</a>。
       header: 您的收藏下載已準備好！
   sessions:
     new:
@@ -1464,6 +1469,10 @@ zh-TW:
       index:
         hierarchy_entry:
           meta_description: 在生命大百科上經由%{hierarchy_provider}分類的有關%{scientific_name}實情
+          meta_title: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
+          meta_title_with_common_name: 有關%%{preferred_common_name}（%{scientific_name}）的實情由%{hierarchy_provider}分類
+          tweet_text: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
+        meta_description_no_data: 生命大百科中沒有用於%{scientific_name}的實情。生命大百科邀請您貢獻關於%{scientific_name}的實情。
         meta_title: 關於%{scientific_name}的測量和實情
         meta_title_with_common_name: 關於%{preferred_common_name}%{scientific_name}的測量和實情
         tweet_text: 有關%{scientific_name}的實情
@@ -1637,25 +1646,25 @@ zh-TW:
         tweet_text: '%{scientific_name} 的俗名'
       synonyms:
         hierarchy_entry:
-          meta_description: 與 %{scientific_name} 相關的同物異名；該分類是由 %{hierarchy_provider}
+          meta_description: 與 %{scientific_name} 相關的同種異名；該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: 與 %{scientific_name} 亦即俗名為 %{preferred_common_name}
             相關的同物異名；該分類是由 %{hierarchy_provider} 提供。
-          meta_keywords: '%{scientific_name} 的同物異名'
-          meta_keywords_with_common_name: '%{preferred_common_name} 同物異名，%{scientific_name}
+          meta_keywords: '%{scientific_name} 的同種異名'
+          meta_keywords_with_common_name: '%{preferred_common_name} 同種異名，%{scientific_name}
             同物異名'
           meta_title: '%{scientific_name} 的同物異名；該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的同物異名；該分類是由 %{hierarchy_provider} 提供'
+            的同種異名；該分類是由 %{hierarchy_provider} 提供'
           tweet_text: '%{scientific_name} 的同物異名；該分類是由 %{hierarchy_provider} 提供'
-        meta_description: '%{scientific_name} 的同物異名'
+        meta_description: '%{scientific_name} 的同種異名'
         meta_description_with_common_name: '%{preferred_common_name} 的同物異名，其學名是 %{scientific_name}。'
-        meta_keywords: '%{scientific_name} 的同物異名'
+        meta_keywords: '%{scientific_name} 的同種異名'
         meta_keywords_with_common_name: '%{preferred_common_name} 的同物異名，%{scientific_name}
-          的同物異名'
+          的同種異名'
         meta_title: '%{scientific_name} 的同物異名'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-          的同物異名'
+          的同種異名'
         tweet_text: '%{scientific_name} 的同物異名'
     overview:
       show:
@@ -1667,6 +1676,7 @@ zh-TW:
           meta_title: '%{scientific_name} 分類由 %{hierarchy_provider}'
           meta_title_with_common_name: '%{preferred_common_name} （%{scientific_name}
             分類自 %{hierarchy_provider}）'
+          tweet_text: '%{scientific_name}的概述由%{hierarchy_provider}所分類'
         meta_description: 在生命大百科的%{scientific_name}訊息。
         meta_description_with_common_name: 在%{preferred_common_name}的訊息，在生命大百科中科學上稱為%{scientific_name}。
         meta_keywords: 在 %{scientific_name}的訊息，%{scientific_name}訊息
@@ -1807,6 +1817,7 @@ zh-TW:
       processing: 處理中
       error: 此檔案有些錯誤
       refresh: 重新整理
+      row_count: 數量
       search_again: 再次搜尋
       file_not_processed: 此檔案尚未處理，
       contact_us: 請聯絡我們來獲得協助
@@ -1979,6 +1990,7 @@ zh-TW:
     update_successful: 資料已成功更新
     update_failed: 無法更新您的資料：%{errors}
   data_search_files:
+    file_ready_for_download: 您最近請求對於「%{known_uri_label}」的搜尋現在可於<a href='%{download_url}'>%{download_url}</a>下載。
     from: 最低值
     to: 最高值
     unit_uri: 測量單位
@@ -2847,6 +2859,7 @@ zh-TW:
   add_a_new_topic_area: 添加一個新主題領域
   add_a_new_user: 添加一個新使用者
   add_a_taxon_association_label: 新增一條分類單元的關聯
+  add_another_metadata_field: 添加新的元數據字段
   add_article_instead: 而是新增一篇文章
   add_article_to_page_button: 新增一篇文章
   add_association_submit_button: 新增關聯
@@ -3072,7 +3085,7 @@ zh-TW:
   assistive_names_classifications_header: 分類
   assistive_names_common_header: 俗名
   assistive_names_related_header: 相關名稱
-  assistive_names_synonyms_header: 同物異名
+  assistive_names_synonyms_header: 同種異名
   assistive_maps_header: 地圖
   assistive_taxon_community_header: 社群
   assistive_updates_header: 更新
@@ -3086,6 +3099,7 @@ zh-TW:
   associated_with_map_header: 在最新的一幅地圖上
   associated_with_sound_header: 在最新的一個聲音檔中
   associated_with_video_header: 在最新的一個影片中
+  association_added_flash: 關聯已添加。這可能需要花費數分鐘來更新頁面。
   association_trusted_for_taxa:
     one: 可信的：
     other: 'Trusted for:'
@@ -3122,6 +3136,8 @@ zh-TW:
     one: 屬於 %{count} 個社群
     other: 屬於 %{count} 個社群
   beta_warning_header: 您正在使用測試功能
+  beta_warning_body: 因為此功能仍在開發中，大部份用戶不可查看或使用。雖然性能和資料不可預測，但我們邀請您探索。在您已檢閱了我們資料性能後請填寫我們的<a
+    href='https://www.surveymonkey.com/s/9FDTDQP'>調查</a>。
   beta_warning_note_header: 備註：
   bhl: 生物多樣性資產圖書館(BHL)
   bhl_partner_footer: 參訪生物多樣性資產圖書館
@@ -3477,6 +3493,7 @@ zh-TW:
     嗎?
   content_partner_resource_create_successful_notice: 成功新增了內容合作夥伴資源的詳細資料。資源資料的目前狀態是：%{resource_status}。
   content_partner_resource_create_unsuccessful_error: 抱歉，出現了錯誤，未能新增此資源。
+  content_partner_resource_validation_finish_notice: 內容合作夥伴資源驗證已完成且狀態為%{resource_status}。
   content_partner_resource_dataset_details_header: 資料集
   content_partner_resource_delete_with_type_link: 刪除所有事物
   content_partner_resource_description_empty: 尚未為這個資源產生描述資訊。
@@ -3530,6 +3547,7 @@ zh-TW:
   content_partner_resource_status_update_unsuccessful_error: 抱歉，出現了錯誤，無法更新資源 %{resource_title}
     的狀態為 %{resource_status}。
   content_partner_resource_update_successful_notice: 成功更新了內容合作夥伴資源的詳細資料。resource data的目前狀態是：%{resource_status}。
+  content_partner_resource_update_successful: 內容合作夥伴資源細節已成功更新。
   content_partner_resource_update_unsuccessful_error: 抱歉，出現了錯誤，未能更新此資源的詳細資料。
   content_partner_resource_upload_unsuccessful_error: 抱歉，出現了錯誤，此資源的詳細資料已被更新，但是資源本身未能上傳：%{resource_status}。
   content_partner_resource_url_or_dataset_not_both_error: 對每個資源而言，您只能在資料集URL或檔案兩者之間取其一。為這個被描述的資源，請確定您要提供一個網址或上傳一個檔案。更多的資源可以在之後添加。
@@ -3578,7 +3596,7 @@ zh-TW:
   content_summary_table_caption: 總結有關 %{taxon_name} 及其在 %{hierarchy_label} 中子分類單元的內容。
   content_summary_table_summary: 這個表格包含了不同狀態的內容的計數。
   content_summary_table_type_status_column_header: 內容類型和狀態
-  content_summary_table_count_column_header: 總數
+  content_summary_table_count_column_header: 數量
   content_summary_table_type_descendants_row: 子分類單元的數量
   content_summary_table_type_trusted_images_row: 已審核影像的數量
   content_summary_table_type_unreviewed_images_row: 未審核影像的數量
@@ -3604,7 +3622,7 @@ zh-TW:
   correct_donation_message_with_link: 如果這筆資訊不正確，請您 <a href='%{link}'>返回</a> 以修改。
   could_not_find_collection_error: 抱歉，無法找到那個典藏。
   could_not_find_user: 您不是這個社群的會員。
-  count: 總數
+  count: 數量
   count_results_for_search_term:
     one: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
     other: 找到 %{count} 筆有關 <em>%{search_term}</em> 的結果
@@ -3696,6 +3714,9 @@ zh-TW:
   data: 資料
   data_about_subtab_header: 有關在生命大百科的資料
   data_results_only_for_search: 「%{search_term}」的TraitBank結果
+  data_search_limit:
+    one: 資料搜尋結果將會下載為每個檔案%{count}個記錄。
+    other: 資料搜尋結果將會下載為每個檔案%{count}個記錄。
   data_about_this_record: 有關此記錄的資料
   data_column_tc_id: 生命大百科頁面ID
   data_column_sci_name: 學名
@@ -3715,6 +3736,7 @@ zh-TW:
   data_column_units_uri: 單位URI（標準化）
   data_column_raw_units: 原始單位（直接來自來源）
   data_column_raw_units_uri: 原始單位URI（標準化）
+  data_column_source: 提供者
   data_database_colon: 資料：
   data_glossary: 資料術語表
   data_glossary_contribute: 要貢獻用於此術語表的新項目，可考慮<a href=%{url}>上傳資料</a>。
@@ -3736,11 +3758,13 @@ zh-TW:
   data_point_uri_source_missing: 來源遺失
   data_point_uri_summary_name: 關於%{taxon}的資料
   data_provided_by_user: 提供由%{whom}
+  data_provided_by_content_partner: 提供者：%{whom}
   data_ranges: 資料摘要
   data_ranges_subheader: 用於此分類群組的資料摘要
   data_reference_subtable_summary: 有關此實情的額外參考文獻
   data_row_exemplar_added: 添加至概要。
   data_row_exemplar_removed: 從概要移除。
+  data_row_excluded_from_overview_notice: 注意：此列已從概要中排除。
   data_row_add_exemplar_button: 添加至概要
   data_row_remove_exemplar_button: 從概要移除
   data_row_additional_detail_assistive: 載入此實情的元數據
@@ -3773,8 +3797,11 @@ zh-TW:
       search_tools_hide_link: 隱藏搜尋項目
       search_value_or_range_header: 搜尋一個特別的值或範圍
       search_within_taxon_group_header: 以分類群組來搜尋
+      search_within_taxon_group_intro_with_count:
+        other: 帶有群組分類的搜尋目前被限制要少於%{count}個分類群組。<a href="%{contact_us_tech_url}">聯絡我們</a>來查出更多有關搜尋更大的群組。
       sort_header: 排序結果
   data_search_link: 搜尋生命大百科上的科學資料
+  data_search_explanation: 使用生命大百科的資料搜尋來找出觀察裡符合%{term}的項目，<br />測量和其它科學論斷。
   data_search_attribute: 在TraitBank搜尋帶有%{attribute}資料的記錄
   data_search_destroyed: 此工作將不再被處理。
   data_search_files_with_count:
@@ -3858,6 +3885,7 @@ zh-TW:
   download_collection_data: 下載資料
   dublin_core: 都柏林核心集
   duplicate_comment_warning: 未能儲存評論：您似乎已貼過這筆評論。...您是否點擊了兩次'貼評論'的按鈕？
+  duplicate_text_warning: 文字未能儲存：這似乎是因為您已發佈過此篇文章，...您是否重複點擊了「新增文章」按鍵兩次？
   duplicate_items_were_ignored: 重複的項目已被忽略。
   each_method_documentation_page_has_formatted_responses: 每個方法的文件頁面都有以XML和JSON格式回應的範例。
   edit_comment: 編輯評論
@@ -3960,10 +3988,12 @@ zh-TW:
       missing_edit_acess_to_forum_post: 很抱歉，僅有管理員或文章發佈者可編輯此論壇文章內容
       missing_delete_acess_to_forum_post: 很抱歉，僅有管理員或文章發佈者可刪除此論壇文章內容
       missing_set_article_as_exemplar_privilege: 很抱歉，僅有策展人可設定條目為範本
+      missing_delete_access_to_synonym: 很抱歉，僅有代理人可刪除此同種異名
       missing_delete_access_to_data_search_file: 很抱歉，僅有管理員、高階策展人、或檔案持有者可刪除此檔案
       missing_permission_to_view_open_authentications: 很抱歉，僅有管理員和帳號擁有者可以查看用於此帳號的開放認證
       missing_permission_to_add_open_authentications: 很抱歉，僅有管理員和帳號擁有者可以添加用於此帳號的開放認證
       admins_and_joined_only_can_read: 很抱歉，您必須加入此收藏才能觀看
+      error_revoking_editor_on_watch_collection: 很抱歉，編輯者不可從觀察收藏裡移除
       error_revoking_editor_on_an_empty_community: 很抱歉，編輯者不能從一個空社群裡移除
       only_managers_can_edit_community: 很抱歉，僅有管理者可編輯此社群
       only_managers_can_delete_community: 很抱歉，僅有管理者可刪除此社群
@@ -3979,6 +4009,7 @@ zh-TW:
       error_editing_someone_account: 很抱歉，您只能編輯屬於您的帳號
       can_not_edit_permissions: 很抱歉，您沒有編輯權限
       collection_job_not_valid: 收藏工作無效
+  excluded_icon_tip: 標記著%{excluded_icon}排除標示的列將不會顯示於分類概要頁面。
   expand_all_children: 擴展所有子節點
   expired: 逾期
   expires_in_colon: 逾期於：
@@ -3999,6 +4030,7 @@ zh-TW:
   family_name_colon: 科名：
   feedback: 回饋意見
   file: 檔案
+  file_download_ready: 生命大百科已完成創建用於您%{query}中的查詢之資料搜尋檔案。您可以在幾天後<a href='%{file}'>隨時下載該內容</a>。
   file_id: 檔案ID
   file_size: 檔案大小
   filed_under_label_with_date: 以 %{label} 標籤在 %{date} 歸檔
@@ -4180,7 +4212,7 @@ zh-TW:
   return_content_by_vettedness: 如果'已審核'之值為'1'，則僅回報可信的內容；如果'已審核'之值為'2'，則僅回報可信和未審核的內容(不會回報不可信內容)。如果'已審核'之值為'3'，僅回報未審核內容。如果'已審核'之值為'4'，僅回報不可信內容。預設是回報所有內容。
   reindex_data_object_button: 重新索引物件
   reindex_page_button: 重新索引頁面
-  reindex_users_button: 重建用戶總數索引
+  reindex_users_button: 重建用戶數量索引
   image: 影像
   image_cropped_notice: 成功裁剪了影像。
   image_crop_failed_error: 抱歉，出現了錯誤，無法裁剪影像。
@@ -4492,14 +4524,14 @@ zh-TW:
   names_common_list_by_language_assistive_header: 按語言排列的俗名
   names_curation_column_header: 管理
   names_et_al: '%{names} 等人'
-  names_explanation: 科學家們試圖描述一個單一的'生命之樹'，反映萬物的演化關係。但是，他們對演化關係的認知會隨著持續的發現而改變，對物種的分類和命名也會有不同的見解。EOL提供幾種不同的科學'分類系統'以反映這些改變和分歧觀點。有些物種曾經不止一次被命名，這些重複的命名都被列為此物種的同物異名。EOL另也提供不同地區及不同語言有關此物種的俗名。
+  names_explanation: 科學家們試圖描述一個單一的'生命之樹'，反映萬物的演化關係。但是，他們對演化關係的認知會隨著持續的發現而改變，對物種的分類和命名也會有不同的見解。EOL提供幾種不同的科學'分類系統'以反映這些改變和分歧觀點。有些物種曾經不止一次被命名，這些重複的命名都被列為此物種的同種異名。EOL另也提供不同地區及不同語言有關此物種的俗名。
   names_name_column_header: 名稱
   names_parents_column_header: 父節點
   names_preferred_column_header: 優先
   names_relationship_column_header: 關係
   names_sources_column_header: 來源
   names_status_column_header: 狀態
-  names_synonyms_empty: 這個分類單元尚無相關的同物異名。
+  names_synonyms_empty: 這個分類單元尚無相關的同種異名。
   curator_colon: 策展人：
   mobile:
     contents:
@@ -4797,8 +4829,9 @@ zh-TW:
   recognized_by_from_source: '%{source} 中的%{recognized_by}'
   recognized_by_as_a_rank: '%{recognized_by} 認定是一個 %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} 在 %{source} 中認定是一個 %{taxon_rank}'
-  record_count: 記錄總數
+  record_count: 記錄數量
   record_not_found: '[未找到紀錄]'
+  recount_collection_items_done: 已結束重新計算收藏項目。
   redirect_url_ok_title_unavailable: 重定向URL可行，標題不可用
   reference: 參考文獻
   references_cabs_colon: 參考文獻：
@@ -4834,6 +4867,9 @@ zh-TW:
     hours_with_count:
       one: '%{count}個小時'
       other: '%{count}個小時'
+  resource_hint_dataset_source_url: （資料集原始來源的URL，例如一篇論文或研究調查）
+  resource_hint_dataset_rights: （套用到<i>全體</i>資料集，不適用在所有管轄範圍）
+  resource_hint_default_rights: （以 <i>在</i>資料集裡的項目為默認來套用）
   resources: 資源
   response_formats: 回應的格式
   response: 回應
@@ -4847,9 +4883,9 @@ zh-TW:
   return_common_names_for_the_page_taxon: 回報此頁面分類單元的所有俗名
   return: 回報
   return_all_common_names_for_this_taxon: 回報這個分類單元的所有俗名
-  return_all_synonyms_for_this_taxon: 回報這個分類單元的所有同物異名
+  return_all_synonyms_for_this_taxon: 回報這個分類單元的所有同種異名
   return_references_for_the_page_taxon: 回報此頁面分類單元的所有參考文獻
-  return_synonyms_for_the_page_taxon: 回傳所有頁面分類的同物異名
+  return_synonyms_for_the_page_taxon: 回傳所有頁面分類的同種異名
   returns_all_metadata_about_a_particular_collection: 回報一個特殊典藏的所有後設資料以及此典藏中被EOL索引的項目
   returns_all_metadata_about_a_particular_data_object: 回報有關一個被EOL索引的特殊資料物件的所有後設資料(文字、影像或影片)
   returns_either_a_positive_or_negative_response: 回報一個肯定的回應(表示APIs可被運用)，或是回報一個否定的回應或不做任何回應(表示APIs在那時不能被運用)。
@@ -4888,7 +4924,7 @@ zh-TW:
   search_field_preferred_common_name: 優先俗名
   search_field_preferred_scientific: 優先學名
   search_field_surrogate: 代替
-  search_field_synonym: 同物異名
+  search_field_synonym: 同種異名
   search_placeholder: 搜尋EOL ...
   search_suggestion_admin_intro: 這個區域是用來產生給使用者的搜尋建議，指明使用者正在搜尋的術語以及建議他們該去的頁面。所建議的結果一定是出現在其它結果的上方。對於一個搜尋術語，可以有多個建議。
   search_suggestion_created: 成功建立了搜尋建議。
@@ -4920,6 +4956,10 @@ zh-TW:
     one: 瀏覽以這個頁面為特色的 <span class="assistive">%{count} 個社群。</span>
     other: 瀏覽以這個頁面為特色的總計 <span class="assistive">%{count} 個社群。</span>
   see_all_data_summaries: 查看所有<span class="assistive">此分類的資料摘要。</span>
+  see_all_data_with_count_html:
+    zero: 查看<span class="assistive">用於此分類</span>的資料標籤。
+    one: 查看<span class="assistive">用於此分類的 %{count}個特徵</span>。</span>
+    other: 查看全部<span class="assistive">用於此分類的 %{count}個特徵</span>。</span>
   see_all_featured_collections_with_count:
     one: 瀏覽 %{count} 個特色典藏。
     other: 瀏覽總計 %{count} 個特色典藏。
@@ -5028,7 +5068,7 @@ zh-TW:
   special_collection: 專題典藏
   special_collections_cannot_be_destroyed: 這個典藏是唯一與其社群相關的典藏，因而不能被刪除。
   species_curated: 已管理的物種
-  species_profile_model_cp_count_title: 物種簡介模型 - 內容合作夥伴總數
+  species_profile_model_cp_count_title: 物種簡介模型 - 內容合作夥伴數量
   species_profile_model_dato_count_title: 物種簡介模型 - 資料物件數量
   species_profile_model: 物種簡介模型
   species: 物種
@@ -5038,7 +5078,7 @@ zh-TW:
   split_pending: 這個分出的操作將需要一段時間；在完成工作之前，這個頁面會被鎖定，不能再做進一步的分類編輯。當過程結束時，您將收到一封email，它會出現在此頁面的newsfeed裡。
   split_only_possible_with_all_classifications: 雖然您有將分類系統分出的權限，但是在動作被允許之前，您必須 <a href='%{link}'>
     顯示所有的分類系統</a>。
-  spm_category_objects_count: SPM(物種簡介模型)類別 - 物件的總數
+  spm_category_objects_count: SPM(物種簡介模型)類別 - 物件的數量
   spm_category_partner_count: SPM(物種簡介模型)類別 - 合作夥伴的數量
   spm_category: SPM(物種簡介模型)類別
   stars_with_count:
@@ -5064,10 +5104,10 @@ zh-TW:
   supplier_colon: 提供者：
   survey_link: 參與我們的調查
   switch_language_advisory_information: 切換此網站語言至 %{language_label}
-  synonym: 同物異名
+  synonym: 同種異名
   synonyms_with_count:
-    one: '%{count} 個同物異名'
-    other: '%{count} 個同物異名'
+    one: '%{count} 個同種異名'
+    other: '%{count} 個同種異名'
   table_column_header_actions: 動作
   table_of_contents_breakdown: 目錄明細
   table_of_contents_breakdown_title: 目錄明細
@@ -5092,6 +5132,7 @@ zh-TW:
   taxon_citizen_science_link: 公民科學連結
   taxon_citizen_science_resources_empty: 本頁尚無人提供公民科學之連結。
   taxon_concept_stats: 分類觀統計
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a>匯集來自許多提供者的資料記錄。用於%{taxon}的資料記錄尚未有人貢獻。
   taxon_data_overview_empty: 尚未有人貢獻出用於%{taxon}的資料記錄。
   taxon_data_header: 關於 %{taxon} 的資料
   taxon_details_empty: 這個頁面尚無人提供詳細資料。
@@ -5366,7 +5407,7 @@ zh-TW:
     <strong>%{user}</strong> 對在 <a href='%{data_object_link}'> 生命大百科網站上您提供的影像做了評論：
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong>在資料上的評論已被移除。
-  user_count_reindexed: 用戶總數已被重新索引
+  user_count_reindexed: 用戶數量已被重新索引
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 使用者 ID
   user_index_intro: 下方顯示所有在此系統註了冊的網路使用者；以其註冊的時間反序排列。請注意：在EOL V2版本(2009年1月5日)之前註冊的使用者沒有註冊日期。請點擊一個使用者名稱以編輯那個使用者。
@@ -5408,7 +5449,7 @@ zh-TW:
     one: '%{count} 位現有內容合作夥伴'
     other: '%{count} 位現有內容合作夥伴'
   users_curation_header: 策展人資格
-  user_counts_refresh_daily: '*總數每天都會刷新'
+  user_counts_refresh_daily: '*數量每天都會刷新'
   users_form_account_header: 您的帳號
   users_form_curation_header: 策展人資格
   users_form_profile_info_header: 公開的簡介資訊
@@ -5489,7 +5530,7 @@ zh-TW:
   wikipedia_queue_new_instructions_step_four: 從您的瀏覽器中複製修訂版本網址，然後將其貼到此處顯示的維基百科輸入申請單中。修訂版本網址看起來應該像：<a
     rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: 要求輸入一篇維基百科文章
-  will_find_taxon_pages_matching_the_search_term: 如果搜尋術語和標題、同物異名或俗名完全相符時，就能找到分類單元頁面
+  will_find_taxon_pages_matching_the_search_term: 如果搜尋術語和標題、同種異名或俗名完全相符時，就能找到分類單元頁面
   would_you_like_to_become_a_curator_notice: 你想成為策展人嗎？您可以在 <a href='%{url}'> 您的個人簡介頁面上</a>做此要求。
   worklist: 工作清單
   xml_response: XML回應

@@ -33,7 +33,7 @@
             .header_underlined
               %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
             %ul.glossary
-              - @page_traits.glossary.sort_by { |kn| kn.name.downcase }.each do |known_uri|
+              - @page_traits.glossary.sort_by { |kn| kn.name.downcase rescue '' }.each do |known_uri|
                 - glossary_define(known_uri, glossary_link: true, attribution: true, search_link: true)
     .help_text
       %p= t(:data_disclaimer,
@@ -130,14 +130,14 @@
                             %tr
                               %th{id: "#{row_id}_h"}
                                 - if pred.is_a?(KnownUri)
-                                  = pred.name
+                                  = pred.name  rescue " "
                                   -# - defn(pred, search_link: true, glossary_link: true)
                                 - else
                                   = pred
                               %td{id: "#{row_id}_d"}
                                 - vals.each do |val|
                                   - if val.is_a?(KnownUri)
-                                    = val.name
+                                    = val.name  rescue " "
                                     -# - defn(val, search_link: true, glossary_link: true)
                                   - elsif val.is_a?(Hash)
                                     - if val[:value].is_a?(KnownUri)

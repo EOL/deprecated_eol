@@ -299,11 +299,11 @@ module TaxaHelper
 
     haml_tag "ul.glossary" do
       haml_tag(:li, id: known_uri.anchor, data: { toc_id: known_uri.toc_items.collect(&:id).join(' ') }) do
-        haml_tag(:dt, known_uri.name)
-        unless known_uri.definition.blank?
+        haml_tag(:dt, (known_uri.name rescue  " "))
+        unless (known_uri.definition.blank? rescue true)
           haml_tag(:dd, known_uri.definition.add_missing_hyperlinks.html_safe)
         end
-        if options[:attribution] && ! known_uri.attribution.blank?
+        if options[:attribution] && ! (known_uri.attribution.blank? rescue true) 
           haml_tag("dd.attribution", known_uri.attribution.add_missing_hyperlinks.html_safe)
         end
         haml_tag("dd.uri", known_uri.uri)

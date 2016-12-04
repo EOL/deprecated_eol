@@ -267,7 +267,7 @@ class Trait
   alias :content_partner :partner
 
   def predicate_name
-    predicate_uri.try(:name)
+    predicate_uri.try(:name) rescue " "
   end
 
   def predicate_group
@@ -364,7 +364,7 @@ class Trait
   end
 
   def statistical_method_names
-    statistical_methods.map(&:name)
+    statistical_methods.map{|k| k.name rescue " "} #(&:name)
   end
 
   def to_hash
@@ -384,7 +384,7 @@ class Trait
   end
 
   def units_name
-    units_uri.try(:name)
+    units_uri.try(:name)  rescue " "
   end
 
   # NOTE: does not apply to associations (at all)

@@ -1469,10 +1469,17 @@ zh-TW:
       index:
         hierarchy_entry:
           meta_description: 在生命大百科上經由%{hierarchy_provider}分類的有關%{scientific_name}實情
+          meta_description_no_data: 生命大百科中沒有經由%{hierarchy_provider}所分類%{scientific_name}的可用實情。生命大百科邀請您貢獻關於%{scientific_name}的實情。
+          meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 的實情，其學名是
+            %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
+          meta_description_with_common_name_no_data: 生命大百科中沒有經由%{hierarchy_provider}所分類之%{preferred_common_name}亦即%{scientific_name}的實情；生命大百科邀請您提供有關
+            %{preferred_common_name}（%{scientific_name}）的資料與實情。
           meta_title: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
           meta_title_with_common_name: 有關%%{preferred_common_name}（%{scientific_name}）的實情由%{hierarchy_provider}分類
           tweet_text: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
         meta_description_no_data: 生命大百科中沒有用於%{scientific_name}的實情。生命大百科邀請您貢獻關於%{scientific_name}的實情。
+        meta_description_with_common_name_no_data: 生命大百科中沒有%{preferred_common_name}亦即%{scientific_name}的實情內容；生命大百科邀請您提供
+          %{preferred_common_name}（%{scientific_name}）的實情。
         meta_title: 關於%{scientific_name}的測量和實情
         meta_title_with_common_name: 關於%{preferred_common_name}%{scientific_name}的測量和實情
         tweet_text: 有關%{scientific_name}的實情
@@ -3737,6 +3744,10 @@ zh-TW:
   data_column_raw_units: 原始單位（直接來自來源）
   data_column_raw_units_uri: 原始單位URI（標準化）
   data_column_source: 提供者
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a>彙整來自許多提供者的資料記錄。選擇一行來獲得有關記錄的更多細節、或嘗試<a
+    href="%{traitbank_search_path}">搜尋TraitBank</a>。
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>彙整來自許多提供者的資料記錄。選擇一行來獲得有關記錄的更多細節、或嘗試<a
+    href="%{traitbank_search_path}">以%{taxon_name}搜尋</a>.
   data_database_colon: 資料：
   data_glossary: 資料術語表
   data_glossary_contribute: 要貢獻用於此術語表的新項目，可考慮<a href=%{url}>上傳資料</a>。
@@ -3800,6 +3811,9 @@ zh-TW:
       search_within_taxon_group_intro_with_count:
         other: 帶有群組分類的搜尋目前被限制要少於%{count}個分類群組。<a href="%{contact_us_tech_url}">聯絡我們</a>來查出更多有關搜尋更大的群組。
       sort_header: 排序結果
+    notice:
+      clade_too_big: 很抱歉，因內容過大顯示結果沒有被%{taxon_name}給過濾。請選擇較小的群組或<a href="%{contactus_tech_path}">聯絡我們</a>獲得協助。
+      clade_has_no_data: 尚未有人貢獻用於%{taxon_name}的資料記錄。<a href="%{contribute_path}">了解如何貢獻</a>。
   data_search_link: 搜尋生命大百科上的科學資料
   data_search_explanation: 使用生命大百科的資料搜尋來找出觀察裡符合%{term}的項目，<br />測量和其它科學論斷。
   data_search_attribute: 在TraitBank搜尋帶有%{attribute}資料的記錄

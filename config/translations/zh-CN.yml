@@ -434,7 +434,7 @@ zh-CN:
         latest_published_harvest_event: 最近发布
         logo_current: 当前标志：
         logo_new: 上传新标志：
-        notes: 项目注释<small>（非公开）</small>
+        notes: 项目注释<small>（私有）</small>
         oldest_published_harvest_event: 首次发布
         is_public_more: 公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。
         user_id: 内容合作伙伴信息管理
@@ -1637,7 +1637,7 @@ zh-CN:
         meta_keywords: '%{scientific_name}的异名'
         meta_keywords_with_common_name: '"%{preferred_common_name}的异名,  %{scientific_name}的异名"'
         meta_title: '%{scientific_name}的异名'
-        meta_title_with_common_name: ' %{preferred_common_name}的异名 (%{scientific_name})'
+        meta_title_with_common_name: '%{preferred_common_name}的异名（%{scientific_name}）'
         tweet_text: '%{scientific_name}的异名'
     overview:
       show:
@@ -2432,6 +2432,13 @@ zh-CN:
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为
           “%{taxon}”的首选系统。
       classification_curation:
+        split:
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong>从未知页面拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
+          user_split_classifications_from_taxon: <strong>%{user}</strong>从%{taxon}拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
+          user_split_classifications_from_it: <strong>%{user}</strong>拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: 一个未知的用户合并了两个未知页面。
           an_unknown_user_merged_to_taxon: 一个未知的用户合并了另一个页面至%{target}。
@@ -3050,7 +3057,7 @@ zh-CN:
   content_partner_overview_link: 合作伙伴综述
   content_partner_overview_link_back_to: 返回合作伙伴概述
   content_partner_profile_menu: 内容合作伙伴信息
-  content_partner_public_false: 私有的
+  content_partner_public_false: 私有
   content_partner_public_true: 公开的
   content_partner_registered_time_ago: 在%{time_passed}前注册；
   content_partner_reports: 内容合作伙伴报告
@@ -3853,6 +3860,8 @@ zh-CN:
   literature_bhl_link: 查看从BHL中找到的文献目录
   literature_empty: 未找到参考文献。
   literature_header: 参考文献
+  literature_links: 文献链接
+  literature_links_link: 文献链接
   literature_references: 参考文献
   location: 地点
   location_colon: 地点：
@@ -3958,7 +3967,7 @@ zh-CN:
   names_common_list_by_language_assistive_header: 按语言排列的俗名
   names_curation_column_header: 管理
   names_et_al: '"%{names},等"'
-  names_explanation: '"科学家们试图描绘出一棵能够反映生命之间进化关系的""生命之树""。但人们对进化关系的认知在不断发展,对物种的命名和分类也有不同的见解。EOL提供了不同的科学分类体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。"'
+  names_explanation: 科学家们试图描绘出一棵能够反映生命之间进化关系的“生命之树”。然而，人们对进化关系的认知在不断发展，对物种的命名和分类也有不同的见解。EOL提供了不同的科学“分类”体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。
   names_name_column_header: 名称
   names_parents_column_header: 父节点
   names_preferred_column_header: 首选
@@ -4074,6 +4083,7 @@ zh-CN:
   nucleotide_sequences_proteins_link: 查看NCBI中的蛋白质和核酸序列
   object_curation: 数据项管理
   object: 数据项
+  object_curated: 对象已成为馆长。
   objects_curated: 已管理的数据项
   object_removed: （此对象已从数据库中移除）
   object_status: 数据项状态
@@ -4159,6 +4169,9 @@ zh-CN:
   pagination_previous: 上一页
   pagination_previous_with_count:
     other: 查看上%{count}页
+  pagination_range_with_count:
+    one: 显示%{count}条记录
+    other: 显示%{start_number}~%{end_number}条记录，共%{count}条
   parameters: 参数
   partner_information: 合作伙伴信息
   partner_page: 合作伙伴页面
@@ -4471,6 +4484,8 @@ zh-CN:
   submitted_colon: 已提交：
   suggested_result_page_id: '建议结果页面的ID:'
   suggested_results_avg: 建议结果平均数
+  suggested_vocab_add: 推荐词
+  suggested_vocab_remove: 移除推荐
   summary_thumbnail_title: 摘要：
   supplier: 提供者
   supplier_allcaps: 提供者：
@@ -4537,6 +4552,7 @@ zh-CN:
   terms_of_use_link: 使用条款与隐私
   term_for_search_admin_ui: 项
   test: 测试。
+  test_it_out: 测试出来
   text_object: 文本对象
   text_objects_page_number: 文本页面
   text: 文本
@@ -4651,6 +4667,7 @@ zh-CN:
   type: 类型
   unable_to_copy_items_to_collection_error: 抱歉，我们无法拷贝集合条目到%{name}。
   unique_page_views_th: 唯一页面视图
+  unit_of_measure: 度量单位
   unknown: 未知
   unknown_hierarchy: 未知的分类系统
   unknown_data_object_title: 未知数据对象

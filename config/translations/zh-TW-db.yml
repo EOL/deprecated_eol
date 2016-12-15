@@ -10,7 +10,7 @@
 ---
 zh-TW:
   translated_activities-name-activity_id-19: 個人資訊
-  translated_activities-name-activity_id-50: 未驗證
+  translated_activities-name-activity_id-50: 不可信的
   translated_activities-name-activity_id-51: 顯示
   translated_activities-name-activity_id-52: 建立
   translated_activities-name-activity_id-53: 隱藏
@@ -18,7 +18,7 @@ zh-TW:
   translated_activities-name-activity_id-55: 不合適
   translated_activities-name-activity_id-56: 刪除
   translated_activities-name-activity_id-57: 等級
-  translated_activities-name-activity_id-58: 已驗證
+  translated_activities-name-activity_id-58: 可信的
   translated_activities-name-activity_id-59: 未審核
   translated_activities-name-activity_id-63: 收集
   translated_activities-name-activity_id-64: 移除
@@ -357,8 +357,8 @@ zh-TW:
   translated_user_identities-label-user_identity_id-4: 一位公民科學家
   translated_user_identities-label-user_identity_id-5: 一位科學家
   translated_vetted-label-vetted_id-0: 不明
-  translated_vetted-label-vetted_id-4: 未驗證
-  translated_vetted-label-vetted_id-5: 已驗證
+  translated_vetted-label-vetted_id-4: 不可信的
+  translated_vetted-label-vetted_id-5: 可信的
   translated_vetted-label-vetted_id-6: 不合適
   translated_view_styles-name-view_style_id-1: 清單
   translated_view_styles-name-view_style_id-2: 圖庫

@@ -106,7 +106,7 @@ zh-TW:
         data_objects_maps: 地圖物件
         data_objects_trusted: 可信任的資料物件
         data_objects_unreviewed: 未審核的資料物件
-        data_objects_untrusted: 未驗證的資料物件
+        data_objects_untrusted: 不可信的資料物件
         data_objects_trusted_or_unreviewed_but_hidden: 可信的或未審核但隱藏的
         udo_published: 使用者提交的文字描述
         udo_published_by_curators: 策展人提交的文字描述
@@ -283,7 +283,7 @@ zh-TW:
       user_added_data:
         predicate: 特徵
         object: 值
-        user: 添加自
+        user: 新增自
       user_added_data_metadata:
         predicate: 屬性
         object: 值
@@ -1014,9 +1014,9 @@ zh-TW:
     no_relationships: 沒有找到用於此URL的關聯。
     please_select_field_types: 請為各個屬性選擇一個映射
     please_select_category_for_stats: 請選擇一個分類來檢視統計內容。
-    please_select_uris_to_import: 請選擇URI導入
+    please_select_uris_to_import: 請選擇 URI 匯入
     relationships: 關聯
-    relationships_from_this_uri: 由此URI導出的相連關係
+    relationships_from_this_uri: 由此 URI 引出的關聯性
     relationships_to_this_uri: 對於此URI的相連關係
     select_a_category_to_view_stats: 選擇一個分類來查看統計：
     unrecognized_measurement_types: 無法識別的測量類型URI
@@ -1474,12 +1474,19 @@ zh-TW:
             %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name_no_data: 生命大百科中沒有經由%{hierarchy_provider}所分類之%{preferred_common_name}亦即%{scientific_name}的實情；生命大百科邀請您提供有關
             %{preferred_common_name}（%{scientific_name}）的資料與實情。
+          meta_description_with_common_name_with_topics: 有關%{hierarchy_provider}所分類%{preferred_common_name}的實情？有關%{scientific_name}的特徵資料包含關於%{topics}資訊。
           meta_title: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
           meta_title_with_common_name: 有關%%{preferred_common_name}（%{scientific_name}）的實情由%{hierarchy_provider}分類
           tweet_text: 有關%{scientific_name}的實情由%{hierarchy_provider}分類
+        meta_description: '%{scientific_name}實情包含%{scientific_name}的測量和特徵。用於%{scientific_name}的可計算資料來自由科學家提供的科學研究。'
         meta_description_no_data: 生命大百科中沒有用於%{scientific_name}的實情。生命大百科邀請您貢獻關於%{scientific_name}的實情。
+        meta_description_with_common_name: '%{preferred_common_name}（其學名是 %{scientific_name}）實情包含%{preferred_common_name}的測量和特徵。用於%{scientific_name}的可計算資料來自由科學家提供的科學研究。'
         meta_description_with_common_name_no_data: 生命大百科中沒有%{preferred_common_name}亦即%{scientific_name}的實情內容；生命大百科邀請您提供
           %{preferred_common_name}（%{scientific_name}）的實情。
+        meta_description_with_common_name_with_topics: '%{preferred_common_name}（其學名是
+          %{scientific_name}）實情包含%{preferred_common_name}的測量和特徵。用於%{scientific_name}包含%{topics}的可計算資料來自由科學家提供的科學研究。'
+        meta_keywords: '%{scientific_name}實情、有關%{scientific_name}的實情、%{scientific_name}特徵、於%{scientific_name}的特徵、%{scientific_name}測量、用於%{scientific_name}的測量、%{scientific_name}實情、有關%{scientific_name}的實情、%{scientific_name}特徵、於%{scientific_name}的特徵、%{scientific_name}測量、用於%{scientific_name}的測量'
+        meta_keywords_with_common_name: '%{preferred_common_name}實情、有關%{preferred_common_name}的實情、%{preferred_common_name}特徵、於%{preferred_common_name}的特徵、%{preferred_common_name}測量、用於%{preferred_common_name}的測量、%{scientific_name}實情、有關%{scientific_name}的實情、%{scientific_name}特徵、於%{scientific_name}的特徵、%{scientific_name}測量、用於%{scientific_name}的測量、%{preferred_common_name}實情、有關%%{preferred_common_name}的實情、%{preferred_common_name}特徵、於%{preferred_common_name}的特徵、%{preferred_common_name}測量、用於%{preferred_common_name}的測量、%{scientific_name}實情、有關%{scientific_name}的實情、%{scientific_name}特徵、於%{scientific_name}的特徵、%{scientific_name}測量、用於%{scientific_name}的測量'
         meta_title: 關於%{scientific_name}的測量和實情
         meta_title_with_common_name: 關於%{preferred_common_name}%{scientific_name}的測量和實情
         tweet_text: 有關%{scientific_name}的實情
@@ -1659,7 +1666,7 @@ zh-TW:
             相關的同物異名；該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: '%{scientific_name} 的同種異名'
           meta_keywords_with_common_name: '%{preferred_common_name} 同種異名，%{scientific_name}
-            同物異名'
+            同種異名'
           meta_title: '%{scientific_name} 的同物異名；該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
             的同種異名；該分類是由 %{hierarchy_provider} 提供'
@@ -1676,6 +1683,8 @@ zh-TW:
     overview:
       show:
         hierarchy_entry:
+          meta_description: 生命大百科上關於由%{hierarchy_provider}所辨識%{scientific_name}的訊息摘要。
+          meta_description_with_common_name: 在生命大百科上一個關於%{preferred_common_name}的摘要訊息，亦被稱為%{scientific_name}由%{hierarchy_provider}所識別。
           meta_keywords: '%{scientific_name} 識別由 %{hierarchy_provider}， %{scientific_name}
             分類由 %{hierarchy_provider}'
           meta_keywords_with_common_name: '%{scientific_name} 識別由 %{hierarchy_provider}，
@@ -1687,6 +1696,7 @@ zh-TW:
         meta_description: 在生命大百科的%{scientific_name}訊息。
         meta_description_with_common_name: 在%{preferred_common_name}的訊息，在生命大百科中科學上稱為%{scientific_name}。
         meta_keywords: 在 %{scientific_name}的訊息，%{scientific_name}訊息
+        meta_keywords_with_common_name: 在%{scientific_name}的訊息、在%{preferred_common_name}的訊息、在%{scientific_name}訊息和實情、%{preferred_common_name}訊息
         meta_title: '%{scientific_name} - 在%{scientific_name}的訊息'
         meta_title_with_common_name: '%{preferred_common_name}（%{scientific_name}）-在%{preferred_common_name}的訊息'
         tweet_text: 在%{scientific_name}的訊息
@@ -1991,6 +2001,7 @@ zh-TW:
     create_successful: 資料已成功添加
     create_failed: 無法添加您的資料：%{errors}
     delete_successful: 資料已成功刪除
+    new_field: 新的字段...
     new_value: 值
     source_field_helper: 添加參考文獻或URL至線上資料來源。
     submit_data: 提交資料內容
@@ -2602,50 +2613,50 @@ zh-TW:
         user_trusted_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language}
           的俗名 "%{name}" 標記為已驗證的。
       untrust_common_name:
-        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為未驗證的。
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個
           %{language} 的不明俗名標記為未驗證的。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 一位不明使用者將
-          "%{taxon}" 一個不明語言的不明俗名標記為未驗證的。
+          "%{taxon}" 一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: 一位不明使用者將 "%{taxon}"
           一個 %{language} 的不明俗名標記為未驗證的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的俗名
-          "%{name}" 標記為未驗證的。
+          "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個
           %{language} 的俗名 "%{name}" 標記為未驗證的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: 一位不明使用者將 "%{taxon}"
-          一個不明語言的俗名 "%{name}" 標記為未驗證的。
+          一個不明語言的俗名 "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_taxon: 一位不明使用者將 "%{taxon}" 一個
           %{language} 的俗名 "%{name}" 標記為未驗證的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          將一個不明頁面上一個不明語言的不明俗名標記為未驗證的。
+          將一個不明頁面上一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
           將一個不明頁面上一個 %{language} 的不明俗名標記為未驗證的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          將 "%{taxon}" 一個不明語言的不明俗名標記為未驗證的。
+          將 "%{taxon}" 一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
           將 "%{taxon}" 一個 %{language} 的不明俗名標記為未驗證的。
         user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          將一個不明頁面上一個不明語言的俗名 "%{name}" 標記為未驗證的。
+          將一個不明頁面上一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
           將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
         user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
-          將 "%{taxon}" 一個不明語言的俗名 "%{name}" 標記為未驗證的。
+          將 "%{taxon}" 一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> 將 "%{taxon}"
           一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
-        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為未驗證的。
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 一位不明使用者將一個 %{language}
           的不明俗名標記為未驗證的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的俗名
-          "%{name}" 標記為未驗證的。
+          "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_it: 一位不明使用者將一個 %{language} 的俗名
           "%{name}" 標記為未驗證的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          將一個不明語言的不明俗名標記為未驗證的。
+          將一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
           將一個 %{language} 的不明俗名標記為未驗證的。
         user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
-          將一個不明語言的俗名 "%{name}" 標記為未驗證的。
+          將一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language}
           的俗名 "%{name}" 標記為未驗證的。
       unreview_common_name:
@@ -3052,6 +3063,7 @@ zh-TW:
     %{creative_commons_link} 的授權，請造訪他們的網站以取得他們提供的各類授權資訊。
   a_pipe_delimited_list_of_spm_info_item_subject_names: 用'overview'回報概要的文字(若是存在的話)、一個從
     %{subjects_text} 清單(例如：TaxonBiology, FossilHistory)得到的以'|'符號分隔的主題名稱清單、或是以'all'取得任何主題之下的文字。永遠回報一個概要的文字作為第一個結果(若是在所給上下文情況之下存在的話)。
+  api_refer_to_the_getting_started_page: 查看生命大百科API使用範例、註冊API密鑰使用條款和訊息的<a href="%{link}">開始起步</a>頁面。
   api_results_can_be_cached: 呼叫API得到的任何回應都可以被快取並指定儲存時間。使用 "cache_ttl" 參數，其數值即是API的回應快取被儲存的秒數。如此一來HTTP標投中便會指示瀏覽器替結果建立快取，同時在EOL的伺服器裡也將建立快取並儲存參數中指定的秒數。如果參數
     "cache_ttl" 的數值被改變，第一個使用新值的連線請求將不會使用快取，但後續請求將得以運用新的快取回應內容。
   application_version_advisory_information: 應用版本
@@ -3432,7 +3444,7 @@ zh-TW:
   content_partner_administration_notes_empty: 沒有管理附註。
   content_partner_administration_notes_header: 管理附註
   content_partner_administration_settings_header: 管理設定
-  content_partner_administration_settings_introduction: 以下管理欄位只有EOL管理者可見和編輯。
+  content_partner_administration_settings_introduction: 以下管理欄位只有EOL系統管理者可見和編輯。
   content_partner_collections_empty: 內容合作夥伴的典藏列出此夥伴經由他們的資源所提供的資料。目前未找到任何已發布的典藏。
   content_partner_column_header_partner: 合作夥伴
   content_partner_contact_create_successful_notice: 聯絡方式已被新增。
@@ -3720,6 +3732,10 @@ zh-TW:
   dashboard: Dashboard
   data: 資料
   data_about_subtab_header: 有關在生命大百科的資料
+  data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a>收集來自多項來源的資料和元數據轉換成一個單一、完全參考及可語意訪問的分類中心視圖。</p><p><a
+    href="%{contact_contribute_path}">聯絡我們</a>來獲得更多在設定在生命大百科上的分享資料訊息或推薦一個可納入TraitBank的資料集。</p><p><a
+    href="%{register_path}">註冊一個免費帳號</a>或透過<a href="%{login_path}">登入</a>來評論資料。</p><p>開發生命大百科可計算資料功能方面的基金由Alfred
+    P. Sloan 基金會、John D.和Catherine T. MacArthur基金會以及全世界的生命大百科用戶所提供。<a href="%{contact_traitbank_path}">聯絡生命大百科秘書處</a>來獲得更多有關TraitBank的訊息。</p>
   data_results_only_for_search: 「%{search_term}」的TraitBank結果
   data_search_limit:
     one: 資料搜尋結果將會下載為每個檔案%{count}個記錄。
@@ -3772,6 +3788,7 @@ zh-TW:
   data_provided_by_content_partner: 提供者：%{whom}
   data_ranges: 資料摘要
   data_ranges_subheader: 用於此分類群組的資料摘要
+  data_ranges_subtab_help_text: 對於一些生命大百科判定跨所有來源分類的可用值範圍之屬性。
   data_reference_subtable_summary: 有關此實情的額外參考文獻
   data_row_exemplar_added: 添加至概要。
   data_row_exemplar_removed: 從概要移除。
@@ -3835,6 +3852,7 @@ zh-TW:
   data_tab_curator_excluded: 此列已從概要標籤移除。
   data_tab_curator_key_exemplar: '%{image}已添加至<a href=''%{link}''>概要</a>'
   data_tab_curator_key_excluded: '%{image}已從<a href=''%{link}''>概要</a>移除'
+  data_table_summary: 特徵資料用於%{taxon}。任一行的資料是為由內容合作夥伴或用戶所提供；單一個別的實情內容。任一值可能會包含一個總結有關實情元數據的巢狀表格：例如像是收集來自於何處、或是資料權利方面。在行列上點擊時會顯示元數據，若再點擊一次則會隱藏起來。顯示元數據時會另外顯示註解和允許用戶添加他們所需要的註解。若是以策展人身份顯示元數據時會有額外功能出現。
   data_usage_reports: 資料使用報告
   date_caps: 日期
   date_uploaded: 上傳日期
@@ -3986,7 +4004,7 @@ zh-TW:
   exception: 例外
   exceptions:
     security_violations:
-      administrators_only: 抱歉，僅限EOL管理者使用。
+      administrators_only: 抱歉，僅限EOL系統管理者使用。
       default: 拒絕使用。
       hidden_user_login: 抱歉，那個帳號的登入已被禁用。
       hidden_user_recover_account: 抱歉，那個帳號的'恢復帳號'已被禁用。
@@ -3995,27 +4013,30 @@ zh-TW:
       min_master_curators_only: 抱歉，限生命大百科策展人使用；最低層級是高階策展人。
       min_full_curators_only: 抱歉，限生命大百科策展人使用；最低層級是專業策展人。
       min_assistant_curators_only: 抱歉，限EOL蒐藏經理使用；最低層級是助理蒐藏經理。
-      admin_or_master_curators_only: 很抱歉，僅限於生命大百科管理員、或帶有最低高階策展人等級的策展人可訪問。
+      admin_or_master_curators_only: 很抱歉，僅限於生命大百科系統管理員、或帶有最低高階策展人等級的策展人可訪問。
       no_access: 很抱歉，此功能暫時無法使用，請稍候再試。
-      missing_edit_acess_to_forum_category: 很抱歉，僅有管理員可編輯論壇分類
+      missing_edit_acess_to_forum_category: 很抱歉，僅有系統管理員可編輯論壇分類
       missing_delete_acess_to_forum_category: 很抱歉，僅有管理員可刪除論壇分類
-      missing_edit_acess_to_forum_post: 很抱歉，僅有管理員或文章發佈者可編輯此論壇文章內容
+      missing_edit_acess_to_forum_post: 很抱歉，僅有系統管理員或文章發佈者可編輯此論壇文章內容
       missing_delete_acess_to_forum_post: 很抱歉，僅有管理員或文章發佈者可刪除此論壇文章內容
       missing_set_article_as_exemplar_privilege: 很抱歉，僅有策展人可設定條目為範本
       missing_delete_access_to_synonym: 很抱歉，僅有代理人可刪除此同種異名
-      missing_delete_access_to_data_search_file: 很抱歉，僅有管理員、高階策展人、或檔案持有者可刪除此檔案
+      missing_delete_access_to_data_search_file: 很抱歉，僅有系統管理員、高階策展人、或檔案持有者可刪除此檔案
       missing_permission_to_view_open_authentications: 很抱歉，僅有管理員和帳號擁有者可以查看用於此帳號的開放認證
-      missing_permission_to_add_open_authentications: 很抱歉，僅有管理員和帳號擁有者可以添加用於此帳號的開放認證
+      missing_permission_to_add_open_authentications: 很抱歉，僅有系統管理員和帳號擁有者可以添加用於此帳號的開放認證
+      missing_permission_to_delete_open_authentications: 很抱歉，僅有管理員和帳號擁有者能刪除用於此帳號的開放驗證。
+      this_action_requires_higher_curation_level: 很抱歉，此操作需要更高的管理等級
       admins_and_joined_only_can_read: 很抱歉，您必須加入此收藏才能觀看
+      owner_and_managers_only_can_edit: 很抱歉，僅有收藏擁有者和管理員可以編輯此
       error_revoking_editor_on_watch_collection: 很抱歉，編輯者不可從觀察收藏裡移除
       error_revoking_editor_on_an_empty_community: 很抱歉，編輯者不能從一個空社群裡移除
       only_managers_can_edit_community: 很抱歉，僅有管理者可編輯此社群
       only_managers_can_delete_community: 很抱歉，僅有管理者可刪除此社群
-      only_admins_can_view_content_pages: 很抱歉，僅有管理員可以檢視內容頁面
+      only_admins_can_view_content_pages: 很抱歉，僅有系統管理員可以檢視內容頁面
       only_admins_can_view_translated_content_pages: 很抱歉，僅有管理員可以檢視已翻譯的內容頁面
-      only_admins_can_edit_forums: 很抱歉，僅有管理員可編輯討論區
+      only_admins_can_edit_forums: 很抱歉，僅有系統管理員可編輯討論區
       must_be_logged_in: 很抱歉，您必須登入
-      only_admins_can_read_hidden_news_items: 很抱歉，僅有管理員可以閱讀隱藏的新聞項目
+      only_admins_can_read_hidden_news_items: 很抱歉，僅有系統管理員可以閱讀隱藏的新聞項目
       only_admins_can_read_hidden_translated_news_items: 很抱歉，僅有管理員可以閱讀已翻譯的隱藏新聞項目
       can_not_access_unpublished_taxon: 很抱歉，您不能存取尚未發佈的分類
       only_data_owner_can_edit: 很抱歉，僅有資料的擁有者可編輯此
@@ -4044,7 +4065,9 @@ zh-TW:
   family_name_colon: 科名：
   feedback: 回饋意見
   file: 檔案
+  file_download_pending: 創建下載請求需要一些額外時間，所以我們啟用一個背景作業方式來處理。您可以隨時<a href='%{link}'>檢查您的工作狀態</a>。
   file_download_ready: 生命大百科已完成創建用於您%{query}中的查詢之資料搜尋檔案。您可以在幾天後<a href='%{file}'>隨時下載該內容</a>。
+  file_download_refreshing: 重整一個下載請求需要花費一些時間，所以我們啟用一個背景作業方式來處理。您可以隨時<a href='%{link}'>檢查您的工作狀態</a>。
   file_id: 檔案ID
   file_size: 檔案大小
   filed_under_label_with_date: 以 %{label} 標籤在 %{date} 歸檔
@@ -4162,7 +4185,7 @@ zh-TW:
   from_communities: 社群來源：%{communities}
   full_content_url: 含全部內容之URL
   gbif_map: GBIF地圖
-  general_site_admin: 一般網站管理員
+  general_site_admin: 一般網站系統管理員
   georeference_records_colon: 地理參照記錄：
   get_help_choosing_a_subject: 幫忙選擇一個主題
   get_help_choosing_a_subchapter: 幫忙選擇一個子章節
@@ -4172,6 +4195,7 @@ zh-TW:
   given_the_vast_number: 鑑於數量龐大的學名和俗名(幾近二千萬筆)，為使用者確切提供一個他們想要的物種是一項困難的工作。例如：Robin這個名字既是數種鳥的名字(American
     Robin、Alpine Robin、Smoky Robin)，也是數種魚的名字，同時又是一位曾經命名數十物種的分類學家的名字。我們的搜尋包含了一個'exact'的參數，讓回報的僅是那些名字與搜尋術語完全符合的結果，但是我們無法保證回報的分類群就是您想要找的分類群。我們正在不斷嘗試改進搜尋結果的適合性，因此搜尋順序在不久的將來應可被改進。
   gives_access_to_a_single_hierarchy_indexed_by_eol: 開放EOL已索引的單一階層及其內部關聯。
+  gives_access_to_a_single_hierarchy_descendants_by_eol: 給予對一個單一階層項目後代的訪問權
   global_access_tagline: 為全球提供有關地球上生命的知識
   global_navigation: 全球導覽
   glossary: 術語表
@@ -4220,6 +4244,8 @@ zh-TW:
   content_upload_restrictions_note: (須小於10MB，上傳檔案將被原檔儲存，亦即影像尺寸不會被變動)
   id: ID
   if_checked_and_user_is_saved: 如果有勾選、使用者也有被儲存的話，則相關資歷、專業範圍、認可和選擇的分類都會被移除，使用者也不會再被顯示為策展人。您應在下方添加一個附註說明原因。沒有資訊會被回傳給此使用者。
+  if_multiple_media_objects_are_returned: 如果返回多項媒體物件，清單將會依物件類型作排序。在任一類型中，項目是依審查狀態作排序（「可信」
+    &gt; 「未審核」 &gt; 「不可信」），然後依資料評級。然而以某些類型方面，指定項目擁有最高權重：如果返回這些項目之一，將會被優先列出。對於圖片來說，範例圖片擁有最高權重。文字類型方面，概要文字內容擁有最高權重。
   if_the_details_parameter_is_not_set: 如果沒有設定'細節'參數，則只會回報資料物件識別碼和資料類型，若是文章的話，會回報主題。資料類型將是從
     %{linka} 資源類型詞彙來的數值，文字主題則將是 %{linkb} 中的一個。
   check_this_to_browse_eol_by_the_hierarchy: （如果此框有被勾選，則分類將被顯示於名稱標籤上，而不需要"顯示所有分類"。）
@@ -4737,7 +4763,7 @@ zh-TW:
     Commons等的影像。</p><h5>未審核的影像</h5><p>包括這個頁面的所有未審核影像，以及在此頁面下方分類中顯示的頁面。有些EOL的合作夥伴提供了許多高品質的影像，但是尚未被審核。不包括被某位EOL管理者列為不可信的影像。</p><h5>已驗證的文章</h5><p>包括細節標籤上的所有已驗證文章，以及資源標籤上的數篇文章。包括來自可信的合作夥伴的文章，並包括由會員直接提供EOL的文章或從已被某位EOL管理者驗證過的維基百科文章。不包括在此頁面下方分類中頁面上的文章。</p><h5>未審核的文章</h5><p>包括這個頁面細節標籤上的所有未審核文章，以及資源標籤上的數篇文章。包括在等某位EOL策展人審核的由會員直接提供EOL的文章或是來自維基百科的文章。不包括在此頁面下方分類中頁面上的文章。</p>
   page_views_th: 頁面瀏覽
   pages_curator_section_link: 策展人
-  pages_admin_section_link: 管理員
+  pages_admin_section_link: 系統管理員
   pages_method_description: 用一個EOL頁面識別碼而回報那個頁面的學名，同時可選擇性的回報跟認定頁面上描述分類單元的階層相關的資訊，如俗名、多媒體(文字、影像、影片)和參考文獻。
   pagination_page_number: 第 %{number} 頁
   pagination_next: 下一頁
@@ -4845,6 +4871,7 @@ zh-TW:
   recognized_by_from_source_as_a_rank: '%{recognized_by} 在 %{source} 中認定是一個 %{taxon_rank}'
   record_count: 記錄數量
   record_not_found: '[未找到紀錄]'
+  recount_collection_items: 重新計算收藏項目（修復損壞項目計數；此行動<i>將會</i>在瀏覽器上逾時，但是有在運作的）
   recount_collection_items_done: 已結束重新計算收藏項目。
   redirect_url_ok_title_unavailable: 重定向URL可行，標題不可用
   reference: 參考文獻
@@ -4900,6 +4927,7 @@ zh-TW:
   return_all_synonyms_for_this_taxon: 回報這個分類單元的所有同種異名
   return_references_for_the_page_taxon: 回報此頁面分類單元的所有參考文獻
   return_synonyms_for_the_page_taxon: 回傳所有頁面分類的同種異名
+  return_any_taxonomy_details_from_different_hierarchy_providers: 從不同分類階層提供者回傳任何分類細節，在名為「taxonConcepts」的陣列中
   returns_all_metadata_about_a_particular_collection: 回報一個特殊典藏的所有後設資料以及此典藏中被EOL索引的項目
   returns_all_metadata_about_a_particular_data_object: 回報有關一個被EOL索引的特殊資料物件的所有後設資料(文字、影像或影片)
   returns_either_a_positive_or_negative_response: 回報一個肯定的回應(表示APIs可被運用)，或是回報一個否定的回應或不做任何回應(表示APIs在那時不能被運用)。
@@ -5026,7 +5054,7 @@ zh-TW:
   shown_to_the_user_parens: (顯示給使用者)
   shown_to_user_as_the_title_of_page: 以頁面標題顯示給使用者
   sign_in: 登入
-  sign_in_remember_me_disallowed_for_admins_notice: 基於安全考量，網站管理者不能使用'記住我'的功能。
+  sign_in_remember_me_disallowed_for_admins_notice: 基於安全考量，網站系統管理者不能使用'記住我'的功能。
   sign_in_successful_notice: 登入成功。
   sign_in_unsuccessful_error: 登入失敗。 使用者名稱、email地址或密碼無效。
   sign_out: 登出
@@ -5145,6 +5173,7 @@ zh-TW:
   taxon_citizen_science_header: 公民科學連結
   taxon_citizen_science_link: 公民科學連結
   taxon_citizen_science_resources_empty: 本頁尚無人提供公民科學之連結。
+  taxon_common_names_subtab_explanation: 許多人都是透過俗名、或是較白話的名稱來認識生物。不同於學名；俗名對於不同語言的人來說幾乎都會代表著是不同的東西。即使是同一語言它們也可能因為區域而有所差異。此標籤表現出由各種提供者、包含生命大百科策展人提供在生命大百科上對應於此生物的所有俗名。目前我們僅能在所給定的生命大百科頁面於各一語言設定單一首選俗名，但所有名稱都應是可搜尋的。
   taxon_concept_stats: 分類觀統計
   taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a>匯集來自許多提供者的資料記錄。用於%{taxon}的資料記錄尚未有人貢獻。
   taxon_data_overview_empty: 尚未有人貢獻出用於%{taxon}的資料記錄。
@@ -5172,11 +5201,13 @@ zh-TW:
   taxon_page_content_disclaimer_header: 免責
   taxon_page_content_disclaimer: EOL的內容是從許多不同提供者的內容自動組合而成。因此，偶爾您會發現EOL的頁面有些混亂。
   taxon_page_content_disclaimer_suggest_improvement: 若您想要求一項改進，請在此頁面留下一個評論。謝謝！
+  taxon_related_names_subtab_explanation: 基於生命大百科分類合作夥伴提供的分類階層；在此標籤的名稱呈現在生命樹裡該群組與其它群組的關聯。「父節點」是階層裡是高出一級且包含更多群組。「子節點」則是目前群組的子群組。在分類標籤中您使用「顯示全部分類」連結來查看由我們夥伴所提供的完整階層清單。這些可能包含其它此處未表現出的額外關連名稱。
   taxon_related_organizations_link: 相關機構
   taxonomic_summary_of_content: 內容的分類摘要
   taxon_recognized_by: 分類單元由 %{whom} 認定
   taxon_selected_from_search_res: 從搜尋結果中選擇的分類單元
   taxon_suggested: 建議的分類單元
+  taxon_synonyms_subtab_explanation: 有時候分類學家會為已有名稱的群組建立新名稱。他們會這樣做可能是因為他們沒察覺到原有名稱、或是他們認為該生物是屬於別的群組；然而實際上必非如此。如果有兩個以上名稱被發現是套用在同一群組，它們會被認為是同種異名。在多數情況下，最先的名稱擁有優先權並被認為是有效且可接受的名稱。然而，這會有不容易判斷哪些同種異名系列為有效且可被接受的例外情況。在此我們列出由我們的分類合作夥伴提供於生命大百科的同種異名。我們還額外包含其它很可能指向同一群組的名稱版本，例如在文獻中的拼寫錯誤或與名稱關聯作者身份的不同差異。
   technical_functions: 技術功能
   terms_agreement_form_fallback: 請在使用您的帳號前，先檢查並同意 <a href="%{terms_url}"> 使用條款</a>。
   terms_agreement_form_header: 使用條款
@@ -5207,6 +5238,7 @@ zh-TW:
   the_cp_count_info: 此數目為在各自的SPM(物種簡介模型)主題類別中發布了資料物件的內容合作夥伴總數。
   the_count_represents_the_total: 此數目為在各自的SPM(物種簡介模型)主題類別中發布的資料物件總數。
   hierarchies_entries_description: 生命大百科並非基於單一個分類階層來建立它的頁面，而是將許多系統索引，並彼此作比較。因此，任何EOL網頁都可能會涉及來自不同分類階層的多個節點中的資料。這個API提供途徑到單一的階層和其內部關係。請參考有關頁面API的文檔，以得到如何取用和一個特定EOL頁面相對應其它階層的資訊。「taxonConceptID」欄位包含EOL頁面識別碼，可用於頁面API裡。
+  hierarchies_entries_descendants_description: 提供一個階層項目的識別碼此應用程式將回傳所有該階層項目的後代。
   hierarchies_description: 生命大百科並非基於單一個分類階層來建立它的頁面，而是將許多系統索引，並彼此作比較。這個API列出有關分類階層的後設資料，例如資料提供者名稱和來源網址，以及分類樹上所有根分類群的分類群。
   the_file_was_uploaded: 此檔案已上傳。
   the_following_bibliography: 以下書目是將我們內容合作夥伴提供的所有參考文獻整合一起而產生。也許會有重複。
@@ -5289,6 +5321,9 @@ zh-TW:
     other: 總計 %{count} 個項目
   total_searches: 全部搜尋次數：
   total: 全部
+  traitbank_banner: <strong>介紹<a href='/traitbank'>TraitBank</a>：</strong>在生命大百科上搜尋上百萬筆資料記錄&nbsp;
+    <small>•</small> &nbsp; <a href='/traitbank'>了解更多</a> &nbsp; <small>•</small>
+    &nbsp; <a href='/data_search'>搜尋資料</a>
   translation_deleted: 翻譯已被刪除
   translation_information_header: 翻譯資訊
   translation_log: I18n關鍵頻率直方圖
@@ -5552,7 +5587,7 @@ zh-TW:
   yahoo: Yahoo
   year: 年
   yes_answer: 是
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: 您是一位管理者。您有權限見到錯誤訊息：
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: 您是一位系統管理者。您有權限見到錯誤訊息：
   you_are_not_authorized_to_perform_this_action: 您沒有權限執行這個動作。
   you_are_viewing_this_rank_as_classified_by: 您正在瀏覽這個 %{rank} 分類提供者為：
   you_can_edit_those_later_if_ne: 如果需要，您可以稍後再編輯它們。

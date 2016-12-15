@@ -1755,6 +1755,7 @@ zh-CN:
         one: 数据下载
         other: '%{count}次数据下载'
       empty: 您没有下载。您可以<a href='%{data_search_url}'>搜索数据</a>并请求下载结果。
+      no_selected_attributes: 没有选择属性。请至少选择一个
       download: 下载
       page_title: 数据下载
       query_head: 查询

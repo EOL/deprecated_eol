@@ -428,7 +428,7 @@ zh-TW:
         mou_url_more: 可選填包含這個合作夥伴協議書的檔案的網址，而此檔案將優先於其他任何協議書文字。如果您希望將此檔案(例如：一個PDF檔案)儲存於EOL的內容伺服器，請先
           <a href="%{upload_content_url}">上傳該檔案</a>></a> 以取得網址。
       content_partner_contact:
-        email_reports_frequency_hours_more: 當對您的資料或對與您資料集有關聯的分類單元頁面出現評論或有策展人動作時，才會發送email報告給您。
+        email_reports_frequency_hours_more: 當對您的資料或對與您資料集有關聯的分類單元頁面出現評論或有策展人動作時，才會寄出電子郵件報告給您。
       data_object:
         bibliographic_citation: 書目引用
         bibliographic_citation_more: 建議以參考文獻書目的形式引用這個資料，包含細節以能清晰辨別此資料。
@@ -996,8 +996,8 @@ zh-TW:
       permalink_to_this_post: 這篇貼文的permalink：
       close_window: 關閉
       posts_with_count:
-        one: 發表 %{count} 筆貼文
-        other: 發表 %{count} 筆貼文
+        one: 發佈 %{count} 筆貼文
+        other: 發佈 %{count} 筆貼文
     topics:
       create: 開始新主題
       no_posts: 這個主題無貼文

@@ -29,7 +29,7 @@ module TraitBankHelper
   end
 
   def add_superscripts(str)
-    str.gsub(/\^2\b/, "&sup2;").
+    str.to_s.gsub(/\^2\b/, "&sup2;").
       gsub(/\^3\b/, "&sup3;").
       gsub(/\^(\S+)/, "<sup>\\1</sup>")
   end

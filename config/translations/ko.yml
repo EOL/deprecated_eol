@@ -207,7 +207,7 @@ ko:
         comment_on_my_profile: 당신의 프로필에 대한 댓글
         comment_on_my_contribution: 당신의 기여에 댓글과/이나 큐레이션 작업
         comment_on_my_collection: 당신이 관리한 모음집에 대한 댓글
-        comment_on_my_community: 당신이 회원에 있는 공동체 중 댓글 하나
+        comment_on_my_community: 당신이 속한 공동체 중 한 곳의 댓글
         made_me_a_manager: 모음집이나 공동체 관리를 만들었습니다
         member_joined_my_community: 새 회원이 당신이 관리하는 공동체에 가입했습니다
         comment_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 댓글
@@ -216,7 +216,7 @@ ko:
         changes_to_my_watched_collection: 주시문서 목록에 있는 모음집에 대한 바뀜
         changes_to_my_watched_community: 주시문서 목록에 있는 공동체에 대한 바뀜
         member_joined_my_watched_community: 새 회원이 당신이 회원에 속한 공동체에 가입했습니다
-        member_left_my_community: 회원이 당신이 관리하는 공동체에서 떠났습니다
+        member_left_my_community: 회원들이 당신이 관리하는 공동체를 떠났습니다
         new_manager_in_my_community: 다른 회원이 당신이 관리하는 공동체의 관리자가 되었습니다
         i_am_being_watched: 다른 구성원의 주시문서 목록에 추가했습니다
         eol_newsletter: 분기별 EOL 뉴스 편지 보내기

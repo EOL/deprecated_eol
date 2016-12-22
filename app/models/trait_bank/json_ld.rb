@@ -72,13 +72,14 @@ class TraitBank::JsonLd
       feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url).compact
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
-      traits ||= PageTraits.new(concept.id).traits
+      page = PageTraits.new(concept.id)
+      page.populate
+      traits ||= page.traits
       feed["traits"] = traits ?
         traits.map { |trait| for_trait(trait, page_url) } :
         []
       feed
     end
-
     def for_trait(trait, page_url)
       trait_json = {
         "@id" => trait.point ? # NOTE: should ALWAYS be one...

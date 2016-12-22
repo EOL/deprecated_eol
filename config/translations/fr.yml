@@ -386,7 +386,7 @@ fr:
           attributes:
             uri:
               must_be_uri: doit être un <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-                bien formé
+                bien formaté
         open_authentications:
           guid_provider_must_be_unique: le compte tiers est déjà connecté avec un
             compte EdlV

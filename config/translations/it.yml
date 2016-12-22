@@ -63,7 +63,7 @@ it:
       contact:
         comments: Messaggio
         contact_subject_id: Oggetto del contatto
-        email: E-mail
+        email: Email
         name: Nome
       content_page:
         page_name: Nome unico

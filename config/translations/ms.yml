@@ -2746,8 +2746,8 @@ ms:
   content_partner_resource_collections_header: Koleksi
   content_partner_resource_collection_header: Koleksi yang disiarkan
   content_partner_resource_collection_show_link: Lihat koleksi yang disiarkan
-  content_partner_resource_confirm_harvest_requested: Adakah anda benar-benar ingin mengutip
-    paksa sumber %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Adakah anda benar-benar ingin
+    mengutip paksa sumber %{resource_title}?
   content_partner_resource_create_successful_notice: 'Butiran sumber rakan kongsi
     kandungan berjaya diisikan. Status data sumber semasa: %{resource_status}'
   content_partner_resource_create_unsuccessful_error: Maaf, berlakunya ralat, sumber

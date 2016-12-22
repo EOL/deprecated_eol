@@ -1,7 +1,6 @@
 #encoding: utf-8
 
 class DataSearchController < ApplicationController
-
   include ActionView::Helpers::TextHelper
 
   before_filter :allow_login_then_submit, only: :download
@@ -216,6 +215,4 @@ class DataSearchController < ApplicationController
       )
     end
   end
-
-
 end

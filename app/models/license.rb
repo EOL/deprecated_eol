@@ -1,5 +1,4 @@
 class License < ActiveRecord::Base
-
   uses_translations
 
   # this is only used in testing. For some translted models we only want to create one instance for a particular
@@ -10,7 +9,7 @@ class License < ActiveRecord::Base
 
   has_many :data_objects
   has_many :resources
-  
+
   has_one :translated_license
 
   attr_accessible :title, :source_url, :version, :logo_url, :show_to_content_partners
@@ -110,5 +109,4 @@ class License < ActiveRecord::Base
   def show_rights_holder?
     !(is_public_domain? || self.id == License.no_known_restrictions.id)
   end
-
 end

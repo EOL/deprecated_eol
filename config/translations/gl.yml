@@ -788,7 +788,8 @@ gl:
         create: Engadir un recurso
         update: Actualizar o recurso
         update_settings: Actualizar a configuración
-        force_harvest: Solicitar a colleita forzada
+        force_harvest: Solicitar a colleita
+        harvest_tonight: Colleita esta noite
       session:
         create: Acceder
         sign_in_with_facebook: Accede co Facebook
@@ -4403,8 +4404,8 @@ gl:
   content_partner_resource_collections_header: Coleccións
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ollar a colección publicada
-  content_partner_resource_confirm_harvest_requested: Estás seguro de querer forzar a
-    colleita do recurso %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Estás seguro de querer forzar
+    a colleita do recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Engadíronse correctamente os
     detalles do recurso do socio de contidos. Estado actual dos datos do recurso:
     %{resource_status}.'

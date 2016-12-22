@@ -221,8 +221,8 @@ zh-CN:
         sort_order: 排序顺序
         active: 已发布
       notification:
-        reply_to_comment: 你的评论的回复
-        comment_on_my_profile: 关于你的简介的评论
+        reply_to_comment: 对您的评论做出的一条回复
+        comment_on_my_profile: 关于您的简介的评论
         comment_on_my_contribution: 关于你的贡献的评论和/或管理操作
         comment_on_my_collection: 关于你管理的收藏的评论
         comment_on_my_community: 关于你加入的小组的评论
@@ -412,7 +412,7 @@ zh-CN:
       comment:
         body_edit: 编辑评论
       contact:
-        comments: 你的信息
+        comments: 您的消息
         contact_subject_id: 主题
         email: 您的电子邮件地址
         name: 您的名字
@@ -434,7 +434,7 @@ zh-CN:
         latest_published_harvest_event: 最近发布
         logo_current: 当前标志：
         logo_new: 上传新标志：
-        notes: 项目注释<small>（非公开）</small>
+        notes: 项目注释<small>（私有）</small>
         oldest_published_harvest_event: 首次发布
         is_public_more: 公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。
         user_id: 内容合作伙伴信息管理
@@ -671,7 +671,8 @@ zh-CN:
         create: 添加资源
         update: 更新资源
         update_settings: 更新设置
-        force_harvest: 请求强制采集
+        force_harvest: 请求采集
+        harvest_tonight: 今晚采集
       session:
         create: 登录
         sign_in_with_facebook: 使用Facebook账号登录
@@ -806,6 +807,7 @@ zh-CN:
     download_taxa_data:
       attribute_header: 属性
       select_all_checkbox: 全选
+      collection_download_under_processing: 收藏下载现已开始处理。当下载完成时，将向您发送一封电子邮件
       user_downloaded_collection: 用于%{collection_name}的数据下载
     show:
       meta_description_default: 标题为 %{collection_name} 的生物大百科全书合集。
@@ -1238,21 +1240,21 @@ zh-CN:
         创建时间: %{resource_created_at_date}
         状态: %{resource_status}"
     content_partner_resource_harvest_requested_request:
-      subject: EOL用户 %{user_full_name} 要求强制采集内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}
+      subject: EOL用户%{user_full_name}请求了采集属于内容提供者%{partner_full_name}的资源%{resource_title}的请求
       message: |-
-        "这是EOL系统为物种页面组自动发送的通告。用户 %{user_full_name} 请求强制采集属于内容合作伙伴 %{partner_full_name}的资源%{resource_title},细节如下:
+        这是EOL系统为物种页面组自动发送的通告。用户%{user_full_name}请求采集属于内容合作伙伴%{partner_full_name}的资源%{resource_title}的请求，详情如下：
 
-        用户: %{user_full_name}
-        电子邮件: %{user_email}
-        介绍URL: %{user_profile_url}
+        用户：%{user_full_name}
+        电子邮件：%{user_email}
+        介绍URL：%{user_profile_url}
 
-        合作伙伴: %{partner_full_name}
-        合作伙伴资源URL: %{partner_resources_url}
+        合作伙伴：%{partner_full_name}
+        合作伙伴资源URL：%{partner_resources_url}
 
-        资源: %{resource_title}
-        资源URL: %{resource_url}
-        更新时间: %{resource_updated_at_date}
-        状态: %{resource_status}"
+        资源：%{resource_title}
+        资源URL：%{resource_url}
+        更新时间：%{resource_updated_at_date}
+        状态：%{resource_status}
     content_partner_resource_hierarchy_publish_request:
       subject: EOL用户 %{user_full_name} 要求升级内容合作伙伴 %{partner_full_name}的数据资源 %{resource_title}的分类系统
       message: |-
@@ -1393,7 +1395,7 @@ zh-CN:
     data_search_file_download_ready:
       subject: 您的EOL 搜索已做好下载准备
       message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
-      header: 你的下载已就绪！
+      header: 您的下载已就绪！
     collection_download_ready:
       subject: 已准备好下载您的EOL收藏中选定的属性
       message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
@@ -1499,8 +1501,8 @@ zh-CN:
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为
             %{scientific_name}没有提供任何资讯。EOL 邀请你提供有关 %{preferred_common_name} ({scientific_name}
             %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
-          meta_description_with_common_name_with_chapter_list: '"关于%{preferred_common_name}的信息,学名是
-            %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}的信息。"'
+          meta_description_with_common_name_with_chapter_list: 有关%{preferred_common_name}的描述和条目，学名是
+            %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}。
           meta_title: 有关%{scientific_name}由%{hierarchy_provider}分类的摘要和条目
           meta_title_with_common_name: 关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由
             %{hierarchy_provider}提供)
@@ -1635,7 +1637,7 @@ zh-CN:
         meta_keywords: '%{scientific_name}的异名'
         meta_keywords_with_common_name: '"%{preferred_common_name}的异名,  %{scientific_name}的异名"'
         meta_title: '%{scientific_name}的异名'
-        meta_title_with_common_name: ' %{preferred_common_name}的异名 (%{scientific_name})'
+        meta_title_with_common_name: '%{preferred_common_name}的异名（%{scientific_name}）'
         tweet_text: '%{scientific_name}的异名'
     overview:
       show:
@@ -1753,6 +1755,7 @@ zh-CN:
         one: 数据下载
         other: '%{count}次数据下载'
       empty: 您没有下载。您可以<a href='%{data_search_url}'>搜索数据</a>并请求下载结果。
+      no_selected_attributes: 没有选择属性。请至少选择一个
       download: 下载
       page_title: 数据下载
       query_head: 查询
@@ -2394,6 +2397,13 @@ zh-CN:
         user_trusted_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为可信任。
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: 未知用户使用%{language}在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 未知用户使用未知语言在“%{taxon}”将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: 未知用户使用%{language}在“%{taxon}”将一个未知的常用名标记为不受信任。
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: 未知用户在未知页面将%{language}的常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: 未知用户使用未知语言在“%{taxon}”将常用名“%{name}”标记为不受信任。
+        an_unknown_user_untrusted_name_in_language_on_taxon: 未知用户在“%{taxon}”标记%{language}的常用名“%{name}”为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 未知用户使用%{language}将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 未知用户使用未知语言将常用名“%{name}”标记为不受信任。
@@ -2412,6 +2422,7 @@ zh-CN:
         user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为未复核。
         user_unreviewed_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为未复核。
       preferred_classification:
+        an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: 未知用户标记了未知分类为未知分类单元优先。
         an_unknown_user_preferred_classification_on_an_unknown_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为一个未知类群的首选系统。
         an_unknown_user_preferred_classification_on_it: 一个未知用户将 “%{provider}”提供的分类系统标为首选系统。
         an_unknown_user_preferred_classification_on_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为
@@ -2422,6 +2433,13 @@ zh-CN:
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为
           “%{taxon}”的首选系统。
       classification_curation:
+        split:
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong>从未知页面拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
+          user_split_classifications_from_taxon: <strong>%{user}</strong>从%{taxon}拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
+          user_split_classifications_from_it: <strong>%{user}</strong>拆分%{classifications}的分类至<a
+            href='%{to}'>他们自己的页面</a>。
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: 一个未知的用户合并了两个未知页面。
           an_unknown_user_merged_to_taxon: 一个未知的用户合并了另一个页面至%{target}。
@@ -3040,7 +3058,7 @@ zh-CN:
   content_partner_overview_link: 合作伙伴综述
   content_partner_overview_link_back_to: 返回合作伙伴概述
   content_partner_profile_menu: 内容合作伙伴信息
-  content_partner_public_false: 私有的
+  content_partner_public_false: 私有
   content_partner_public_true: 公开的
   content_partner_registered_time_ago: 在%{time_passed}前注册；
   content_partner_reports: 内容合作伙伴报告
@@ -3843,6 +3861,8 @@ zh-CN:
   literature_bhl_link: 查看从BHL中找到的文献目录
   literature_empty: 未找到参考文献。
   literature_header: 参考文献
+  literature_links: 文献链接
+  literature_links_link: 文献链接
   literature_references: 参考文献
   location: 地点
   location_colon: 地点：
@@ -3948,7 +3968,7 @@ zh-CN:
   names_common_list_by_language_assistive_header: 按语言排列的俗名
   names_curation_column_header: 管理
   names_et_al: '"%{names},等"'
-  names_explanation: '"科学家们试图描绘出一棵能够反映生命之间进化关系的""生命之树""。但人们对进化关系的认知在不断发展,对物种的命名和分类也有不同的见解。EOL提供了不同的科学分类体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。"'
+  names_explanation: 科学家们试图描绘出一棵能够反映生命之间进化关系的“生命之树”。然而，人们对进化关系的认知在不断发展，对物种的命名和分类也有不同的见解。EOL提供了不同的科学“分类”体系用以反映这些变化和分歧。有些物种曾不止一次被命名，这些曾用名都被归为该物种的异名。EOL也提供了不同地区以及不同语言中关于该物种的俗名。
   names_name_column_header: 名称
   names_parents_column_header: 父节点
   names_preferred_column_header: 首选
@@ -4064,6 +4084,7 @@ zh-CN:
   nucleotide_sequences_proteins_link: 查看NCBI中的蛋白质和核酸序列
   object_curation: 数据项管理
   object: 数据项
+  object_curated: 对象已成为馆长。
   objects_curated: 已管理的数据项
   object_removed: （此对象已从数据库中移除）
   object_status: 数据项状态
@@ -4149,6 +4170,9 @@ zh-CN:
   pagination_previous: 上一页
   pagination_previous_with_count:
     other: 查看上%{count}页
+  pagination_range_with_count:
+    one: 显示%{count}条记录
+    other: 显示%{start_number}~%{end_number}条记录，共%{count}条
   parameters: 参数
   partner_information: 合作伙伴信息
   partner_page: 合作伙伴页面
@@ -4166,6 +4190,7 @@ zh-CN:
   permission_granted: 权限已授予。
   permission_revoked: 权限已撤销。
   permissions_users_count:
+    one: '%{count}位用户'
     other: '%{count}位用户'
   personal_profile_menu: 个人信息
   personal_space: 个人空间
@@ -4460,6 +4485,8 @@ zh-CN:
   submitted_colon: 已提交：
   suggested_result_page_id: '建议结果页面的ID:'
   suggested_results_avg: 建议结果平均数
+  suggested_vocab_add: 推荐词
+  suggested_vocab_remove: 移除推荐
   summary_thumbnail_title: 摘要：
   supplier: 提供者
   supplier_allcaps: 提供者：
@@ -4526,6 +4553,7 @@ zh-CN:
   terms_of_use_link: 使用条款与隐私
   term_for_search_admin_ui: 项
   test: 测试。
+  test_it_out: 测试出来
   text_object: 文本对象
   text_objects_page_number: 文本页面
   text: 文本
@@ -4640,6 +4668,7 @@ zh-CN:
   type: 类型
   unable_to_copy_items_to_collection_error: 抱歉，我们无法拷贝集合条目到%{name}。
   unique_page_views_th: 唯一页面视图
+  unit_of_measure: 度量单位
   unknown: 未知
   unknown_hierarchy: 未知的分类系统
   unknown_data_object_title: 未知数据对象
@@ -4854,7 +4883,7 @@ zh-CN:
   you_can_identify_yourself_to_eol: 通过在您的请求中添加您的API密钥，您可以向EOL确认您自己的身份（登录后，通过打开您的EOL编辑配置文件生成您的密钥。密钥将在此保存；日后再次打开您的编辑配置文件即可取回）：
   you_have_been_logged_in_as_username: 您已经以用户名%{username}登录
   you_have_been_logged_out: 您已登出。
-  you_joined_community: 你已经成功加入该小组。
+  you_joined_community: 您已经成功加入该小组。
   you_left_community: 您已成功地离开这个社区。
   you_may_upload_static_files_fo: 您可以在这里上载用于CMS的静态文件（例如PDF、word文档、图像等）。但是不应该在这里上载物种页面的内容，它仅用于非物种页面（例如招聘广告、通讯、备忘录等）。对于备忘录和通讯的PDF文件，如果您愿意，可以链接到“友好的URL”（它将自动定向到“完整的URL地址”）。对于嵌在页面中且加了
     &lt;img&gt; 标签的图像文件，您必须使用“完整内容的URL”。刷新网页时，“完整内容的URL”可能显示不同的内容服务器编号（例如“content2.eol.org”，“content3.eol.org”等）。这是正常的，您可以在创建您的链接时使用任意一个，因为它们都是等同的。

@@ -5,6 +5,7 @@
 # Author: DCamer
 # Author: Eleferen
 # Author: Haffman
+# Author: Irus
 # Author: Lvova
 # Author: Meddoc13
 ---
@@ -180,7 +181,7 @@ ru:
   translated_resource_statuses-label-resource_status_id-10: Опубликовано
   translated_resource_statuses-label-resource_status_id-11: Ожидание публикации
   translated_resource_statuses-label-resource_status_id-12: Ожидание снятия с публикации
-  translated_resource_statuses-label-resource_status_id-13: Собрать
+  translated_resource_statuses-label-resource_status_id-13: Урожай Просила
   translated_resource_statuses-label-resource_status_id-1: Загрузка
   translated_resource_statuses-label-resource_status_id-2: Загружено
   translated_resource_statuses-label-resource_status_id-3: Сбой при загрузке

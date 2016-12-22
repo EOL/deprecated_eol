@@ -4454,8 +4454,8 @@ pms:
   content_partner_resource_collections_header: Colession
   content_partner_resource_collection_header: Colession publicà
   content_partner_resource_collection_show_link: Smon-e la colession publicà
-  content_partner_resource_confirm_harvest_requested: É-lo sigur ëd vorèj sforsé la cujìa
-    dl'arsorsa %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: É-lo sigur ëd vorèj sforsé la
+    cujìa dl'arsorsa %{resource_title}?
   content_partner_resource_create_successful_notice: 'Ij detaj an sl''arsorsa dël
     cambrada ëd contnù a son ëstàit giontà për da bin. Stat atual dij dàit dl''arsorsa:
     %{resource_status}.'
@@ -4643,8 +4643,12 @@ pms:
   copied_all_items_to_collections:
     one: Tuti j'element copià da %{name} a %{count} colession.
     other: Tuti j'element copià da %{name} a %{count} colession.
+  copied_items_from_collection_with_count_notice: '%{count} {{PLURAL:%{count}|one=element
+    a l''é stàit copià|élément a son ëstàit copià}} da %{name}.'
   copy: Copié
   copy_of_name: Còpia ëd %{name}
+  copy_items_to_a_new_collection_with_count: Copié %{count} {{PLURAL:|one=%{count}|%{count}}}
+    element an na neuva colession
   copyright: 'DRIT D''AUTOR:'
   correct_donation_message_with_link: Si st'anformassion a l'é nen giusta, për piasì
     <a href='%{link}'>torné andré</a> për fé le modìfiche.

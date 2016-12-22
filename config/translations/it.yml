@@ -63,7 +63,7 @@ it:
       contact:
         comments: Messaggio
         contact_subject_id: Oggetto del contatto
-        email: E-mail
+        email: Email
         name: Nome
       content_page:
         page_name: Nome unico
@@ -442,7 +442,7 @@ it:
       contact:
         comments: Il tuo messaggio
         contact_subject_id: Oggetto
-        email: Il tuo indirizzo e-mail
+        email: Il tuo indirizzo email
         name: Il tuo nome
       content_page:
         active: Pubblicato
@@ -812,7 +812,8 @@ it:
         create: Aggiungi risorsa
         update: Aggiorna risorsa
         update_settings: Aggiorna impostazioni
-        force_harvest: Richiedi di forzare la raccolta
+        force_harvest: Richiedi raccolta
+        harvest_tonight: Raccolta stanotte
       session:
         create: Accedi
         sign_in_with_facebook: Accedi con Facebook
@@ -4487,8 +4488,8 @@ it:
   content_partner_resource_collections_header: Collezioni
   content_partner_resource_collection_header: Collezione pubblicata
   content_partner_resource_collection_show_link: Vedi collezione pubblicata
-  content_partner_resource_confirm_harvest_requested: Sei sicuro di voler forzare la raccolta
-    dati della risorsa %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Sei sicuro di voler forzare
+    la raccolta dati della risorsa %{resource_title}?
   content_partner_resource_create_successful_notice: 'I dettagli sulla risorsa fornita
     dal Partner di contenuti è stata aggiunta con successo. Stato attuale della risorsa:
     %{resource_status}.'
@@ -7205,7 +7206,7 @@ it:
   welcome: Benvenuto/a
   what_do_these_numbers_mean: Cosa significano questi numeri?
   what_is_eol: Che cosa è EOL?
-  what_is_this_question: Che cos'è questo?
+  what_is_this_question: Cos'è questo?
   who_registered_before: a
   who_registered_from: chi è registrato da
   wikipedia_queue_create_successful_notice: La voce di Wikipedia %{article} revisione
@@ -7273,7 +7274,7 @@ it:
   your_email_address: Il tuo indirizzo email
   you_removed_the_member_from_the_community: Hai rimosso con successo questo membro
     dalla comunità.
-  your_ip_address: Il tuo Indirizzo IP
+  your_ip_address: Il tuo indirizzo IP
   your_preferences: Le tue preferenze
   your_rating: Il tuo voto
   youtube: YouTube

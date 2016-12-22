@@ -21,6 +21,7 @@
 # Author: Jacobo
 # Author: Jcfidy
 # Author: Jgauthier
+# Author: Koavf
 # Author: Larjona
 # Author: Macofe
 # Author: McDutchie
@@ -162,8 +163,8 @@ es:
         curator_actions_in_the_last_30_days: Acciones de un supervisor en los últimos
           30 días
         rich_pages: Páginas populares
-        hotlist_pages: Páginas más demandadas
-        rich_hotlist_pages: Páginas populares más demandadas
+        hotlist_pages: Páginas más solicitadas
+        rich_hotlist_pages: Páginas populares más solicitadas
         rich_hotlist_pages_percentage: Lista de páginas más demandadas%
         redhotlist_pages: Páginas Rojas más demandadas
         rich_redhotlist_pages: Páginas ricas rojas más demandadas
@@ -207,7 +208,7 @@ es:
         clade_exemplar: Usar como modelo de rango de grupo taxonómico
         description: Descripción
         exclude_from_exemplars: Excluir del resumen
-        group_by_clade: Usar para rangos de grupos taxonómicos
+        group_by_clade: Usar para intervalos de grupos taxonómicos
         hide_from_glossary: Ocultar a partir de los datos del glosario
         name: Nombre
         toc_items: Categorías
@@ -835,6 +836,7 @@ es:
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
         force_harvest: Solicitud de forzar la recogida
+        harvest_tonight: Cosecha Esta Noche
       session:
         create: Iniciar sesión
         sign_in_with_facebook: Iniciar sesión con Facebook
@@ -1622,7 +1624,7 @@ es:
         de Yahoo.
       login_with_eol_authentication_header: 'O iniciar sesión con sus credenciales
         de EOL:'
-      meta_title: Iniciar sesión
+      meta_title: Acceder
       problems_signing_in_with_connected_accounts: ¿Problemas para iniciar sesión
         con tus cuentas conectadas?
       problems_signing_in_with_eol_authentication: ¿Has olvidado tu contraseña?
@@ -4527,8 +4529,8 @@ es:
   content_partner_resource_collections_header: Colecciones
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ver la colección publicada
-  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar la
-    recogida del recurso %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar
+    la recogida del recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalles de recurso de socio
     de contenido agregados exitosamente. Estado actual de los datos de recurso: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Lo sentimos, ha ocurrido un
@@ -4828,6 +4830,9 @@ es:
   your_current_rating_5_of_5: 'Tu calificación actual: 5 de 5'
   your_watch_collection: tu lista de seguimiento
   current_language: 'Idioma: %{iso_code}'
+  current_harvest_event: La cosecha evento de "%{resource_title}" corrió "%{period}"
+    horas
+  currently_running_harvesting: Actualmente Corriendo Cosechando
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
   create_download_data_file: Crear archivo
   institutional_sponsors: Patrocinadores institucionales
@@ -5479,6 +5484,7 @@ es:
   harvesting_processes_log: Registro de procesos de recogida
   harvests_for: Recogidas de %{resource}
   harvest_resource: Recolectando recursos
+  harvest_duration: La cosecha de duración hasta ahora
   has_already_been_taken: ya ha sido tomado.
   has_colon: 'Tiene:'
   has_curated_your_image: ha supervisado tu imagen
@@ -5673,6 +5679,8 @@ es:
   known_uris_sorted: Orden actualizada.
   pending_harvests_none: No hay ninguna cosecha pendiente ahora
   pending_harvests_title: Cosechas pendientes
+  pause_pending_harvests: Pausa cosechando
+  resume_pending_harvests: Reanudar cosechando
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -5680,6 +5688,7 @@ es:
     los que está disponible el contenido del sitio, para cambiar el idioma actual
     seleccione un idioma alternativo de esta lista.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: La Duración De La Última Cosecha
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hace %{time_passed}
   learn_about_collections: ¿Cómo puedo crear una?
@@ -5692,7 +5701,7 @@ es:
   learn_more_about_communities_link: Aprenda más sobre Comunidades
   learn_more_about_names_for_this_taxon: aprenda más acerca de nombres para este taxón
   learn_more_link: (%{learn_more})
-  learn_more_lowercase: aprenda más
+  learn_more_lowercase: más información
   leave_community_button: Dejar esta comunidad
   leave_a_comment: Deja un comentario
   leave_reply: Dejar respuesta
@@ -5783,7 +5792,7 @@ es:
   login_to_the_website_as: Inicie sesión en el sitio Web como %{username}
   logo_header: Logo
   logo_type_error: El logotipo no es un tipo de imagen válido (debe ser PNG o JPEG).
-  logout: Cerrar sesión
+  logout: Salir
   looking_up_url: Buscando URL...
   main_content_area: 'Área de contenido principal:'
   main_database_colon: 'Principal:'
@@ -5871,7 +5880,7 @@ es:
   more_taxa_with_attribute: Ver todos los taxones con este atributo
   most_active_members: Miembros más activos
   move: Trasladar
-  move_down: Mover hacia abajo
+  move_down: Bajar
   added_classifications_ready: Los datos de las clasificaciones seleccionadas están
     listos para desplazarse a otra página. Para completar el proceso, selecciona "dividir
     en una nueva página" o ve a la pestaña de nombres de la página donde pondrías
@@ -5881,7 +5890,7 @@ es:
     other: Trasladar %{count} elementos a una nueva colección
   move_to_bottom: Trasladar al final
   move_to_top: Trasladar al principio
-  move_up: Mover hacia arriba
+  move_up: Subir
   moved_all_items_from_collection_with_count:
     one: Mueve %{count} elemento de %{from} a esta colección.
     other: Mueve todos los %{count} elementos de %{from} a esta colección.
@@ -6016,6 +6025,8 @@ es:
   no_comments_have_been_left_yet: Aún no se ha dejado ningún comentario.
   no_errors_are_available: No hay ningún error disponible.
   no_harvesting_logs_for_this_da: No hay registros de recogida para esta fecha
+  no_harvesting_events_running_now: No hay eventos de cosechando que se están ejecutando
+    ahora
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
   no_news_items_for_month_and_year: No hubo ninguna noticia en %{month_and_year}
   none: ninguno
@@ -6302,7 +6313,7 @@ es:
   quarterly: Trimestral
   rails_databases: Bases de datos Rails
   rails_environment: Contorno de Rails
-  range: Rango
+  range: Intervalo
   rank_recognized_by_agent: '%{rank} reconocidas por %{agent}'
   rank_recognized_by_from_source: '%{rank} reconocidas por %{agent} in %{source}'
   rank_recognized_by_agent_colon: '<b>%{rank}</b> reconocidas por %{agent}:'

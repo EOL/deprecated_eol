@@ -236,6 +236,7 @@ sv:
         description: Resursbeskrivning
         dwc_archive_url: Darwin Core Archive-adress
         dataset_source_url: Ursprunglig datakälla
+        harvest_events: Datainsamlingar
         hierarchy: Hierarki
         language_id: Standardspråk
         dataset_license_id: Licens
@@ -340,6 +341,11 @@ sv:
             rights_holder:
               blank: kan inte vara tom för en CC BY-licens
               inclusion: måste vara tomt för en licens i allmän egendom
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: tillåts endast för den senaste datainsamlingen och endast
+                om händelsen inte redan har publicerats
         inaccessible: Posten kunde inte sparas eftersom den var ogiltigt. Kontrollera
           valideringsfel och skicka igen.
         known_uri:
@@ -508,6 +514,8 @@ sv:
         began_at: Påbörjad
         completed_at: Färdig
         first_published_at: Först publicerad
+        publish_more: Flaggar datainsamlingar för publicering, innehåll kommer inte
+          att offentliggöras direkt.
         published_at: Publicerad
         published_status: Status
         last_harvest_seconds: Tog %{time_in_words}
@@ -545,6 +553,7 @@ sv:
         hierarchy: Hierarki
         oldest_published_harvest_event: Först publicerad
         latest_published_harvest_event: Senast publicerad
+        latest_harvest_event: Senaste datainsamling
         refresh_period_hours: Frekvens
         resource_status_id: Status
         resource_status: Status
@@ -688,6 +697,8 @@ sv:
         create: Lägg till resurs
         update: Uppdatera resurs
         update_settings: Uppdateringsinställningar
+        force_harvest: Begär datainsamling
+        harvest_tonight: Datainsamling ikväll
       session:
         create: Logga in
         sign_in_with_facebook: Logga in med Facebook
@@ -1263,6 +1274,23 @@ sv:
         Resurs: %{resource_title}
         URL för resurser: %{resource_url}
         Skapades: %{resource_created_at_date}
+        Status: %{resource_status}
+    content_partner_resource_harvest_requested_request:
+      subject: EOL-användaren %{user_full_name} begärde en datainsamling för resursen
+        %{resource_title} som tillhör innehållspartnern %{partner_full_name}
+      message: |-
+        Detta är ett automatiskt EOL-systemmeddelande för Gruppen av artsidor. Användaren %{user_full_name} begärde en datainsamling för resursen %{resource_title} som tillhör innehållspartnern %{partner_full_name}, med följande detaljer:
+
+        Användare: %{user_full_name}
+        E-post: %{user_email}
+        Profiladress: %{user_profile_url}
+
+        Partner: %{partner_full_name}
+        Partnerns resursadress: %{partner_resources_url}
+
+        Resurs: %{resource_title}
+        Resursadress: %{resource_url}
+        Uppdaterad: %{resource_updated_at_date}
         Status: %{resource_status}
     content_partner_resource_hierarchy_publish_request:
       subject: EOL-användaren %{user_full_name} begärde en hierarkipromotion för resursen
@@ -2287,11 +2315,11 @@ sv:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: En okänd användare
           lade till flera objekt i en okänd samling.
         an_unknown_user_added_bulk_items_to_collection: En okänd användare lade till
-          flera objekt till samlingen "%{collection}".
+          flera objekt i samlingen "%{collection}".
         user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> lade
           till flera objekt i en okänd samling.
         user_added_bulk_items_to_collection: <strong>%{user}</strong> lade till flera
-          objekt till samlingen "%{collection}".
+          objekt i samlingen "%{collection}".
         an_unknown_user_added_bulk_items_to_it: En okänd användare lade till flera
           objekt.
         user_of_it: <strong>%{user}</strong> lade till flera objekt.
@@ -2342,19 +2370,19 @@ sv:
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare
           lade till ett okänt objekt i en okänd samling.
         an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade
-          till ett okänt objekt till samlingen "%{collection}".
+          till ett okänt objekt i samlingen "%{collection}".
         an_unknown_user_added_item_to_an_unknown_collection: En okänd användare lade
           till "%{item}" i en okänd samling.
         an_unknown_user_added_item_to_collection: En okänd användare lade till "%{item}"
-          till samlingen "%{collection}".
+          i samlingen "%{collection}".
         user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong>
           lade till ett okänt objekt i en okänd samling.
         user_added_an_unknown_item_to_collection: <strong>%{user}</strong> lade till
-          ett okänt objekt till samlingen "%{collection}".
+          ett okänt objekt i samlingen "%{collection}".
         user_added_item_to_an_unknown_collection: <strong>%{user}</strong> lade till
           "%{item}" i en okänd samling.
         user_added_item_to_collection: <strong>%{user}</strong> lade till "%{item}"
-          till samlingen "%{collection}".
+          i samlingen "%{collection}".
         an_unknown_user_added_an_unknown_item_to_it: En okänd användare lade till
           ett okänt objekt.
         an_unknown_user_added_item_to_it: En okänd användare lade till "%{item}".
@@ -3533,6 +3561,7 @@ sv:
   and_between_form_items: och
   any_integer: alla heltal
   any_string: alla strängar
+  api_cache_time_to_live_parameter: antalet sekunder du vill att svaret ska vara cachelagrat
   api_refer_to_the_getting_started_page: Se sidan <a href="%{link}">Komma igång</a>
     för exempel på användning av EOL API, användarvillkor och information om registrering
     för en API-nyckel.
@@ -3670,6 +3699,8 @@ sv:
     från typ(er): (%{types})'
   cannot_create_community_from_watch_collection_error: Du kan inte skapa en gemenskap
     från en bevakningslista.
+  cannot_curate_association_in_preview_mode: Associationen till %{name} kan inte kureras
+    eftersom den förhandsvisas efter en datainsamling.
   cannot_expand_children: kan inte expandera underordnade objekt
   cannot_find_member: Kan inte hitta en medlem med detta ID.
   cannot_index_collection_item_type_error: Jag kan inte indexera ett samlingsobjekt
@@ -3971,6 +4002,7 @@ sv:
   content_partner_edit_link: Redigera innehållspartner
   content_partner_filter_option_vetted_yes: Ja
   content_partner_filter_option_vetted_no: Nej
+  content_partner_filter_option_published_never_harvested: Aldrig datainsamlad
   content_partner_filter_option_published_never_published: Aldrig publicerad
   content_partner_filter_option_published_latest_harvest_not_published: Senast opublicerad
   content_partner_filter_option_published_latest_harvest_pending_publish: Senaste
@@ -4007,6 +4039,8 @@ sv:
   content_partner_resource_collections_header: Samlingar
   content_partner_resource_collection_header: Publicerad samling
   content_partner_resource_collection_show_link: Visa publicerad samling
+  content_partner_resource_confirm_harvest_requested: Är du säker på att du vill påtvinga
+    datainsamlingen av resursen %{resource_title}?
   content_partner_resource_create_unsuccessful_error: Tyvärr, ett fel uppstod. Resursen
     lades inte till.
   content_partner_resource_dataset_details_header: Datamängd
@@ -4020,6 +4054,14 @@ sv:
   content_partner_resource_harvest_event_not_published: Inte publicerad
   content_partner_resource_harvest_event_previously_published: Tidigare publicerat
   content_partner_resource_harvest_event_publish_pending: Publicering pågår
+  content_partner_resource_harvest_events_empty: Inga datasamlingar hittades.
+  content_partner_resource_harvest_events_for_resource_subheader: Datainsamlingar
+    för resursen %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: Visa alla <span class="assistive">datainsamlingar</span>
+  content_partner_resource_harvest_event_update_successful_notice: Datainsamlingen
+    för %{resource_title} har uppdaterats.
+  content_partner_resource_harvest_event_update_unsuccessful_error: Tyvärr, ett fel
+    uppstod. Datainsamlingen för %{resource_title} uppdaterades inte.
   content_partner_resource_page_title: Encyclopedia of Life - %{content_partner_name}  -
     %{resource_name}
   content_partner_resource_hierarchy_browsable: Bläddringsbar
@@ -4217,6 +4259,9 @@ sv:
   your_current_rating_5_of_5: 'Ditt nuvarande betyg: 5 av 5'
   your_watch_collection: din bevakningssamling
   current_language: 'Språk: %{iso_code}'
+  current_harvest_event: Datainsamlingen från "%{resource_title}" pågick i "%{period}"
+    timmar
+  currently_running_harvesting: Aktuell pågående datainsamling
   currently_in_eol: Just nu i Encyclopedia of Life
   create_download_data_file: Skapa fil
   institutional_sponsors: Institutionella sponsorer
@@ -4675,6 +4720,10 @@ sv:
   grant_manager_link: Bevilja hanterarroll
   grant_permission: bevilja
   grant_full_curator_link: Bevilja
+  harvest_id: Datainsamlings-ID
+  harvesting_processes_log: Datainsamlingslogg
+  harvests_for: Datainsamlingar för %{resource}
+  harvest_resource: Datainsamlar resurs
   has_already_been_taken: har redan tagits.
   has_colon: 'Har:'
   has_curated_your_image: har kurerat din bild
@@ -4789,7 +4838,8 @@ sv:
     naturvårdsunionens (IUCN) webbplats där du kan hitta mer information om IUCNs
     rödlista över hotade arter.
   join_community_button: Bli medlem i denna gemenskap
-  join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>-gemenskapen!
+  join_eol_community_html: Bli en del av <abbr title="Encyclopedia of Life">EOL</abbr>:s
+    gemenskap!
   join_eol_button_html: Bli medlem i <abbr title="Encyclopedia of Life">EOL</abbr>
     nu
   joined_mailing_list: Endast de som har gått med i sändlistaan.
@@ -4803,6 +4853,10 @@ sv:
   known_uri_name_and_uri: '%{name} (%{uri})'
   known_uri_updated: URI uppdaterad.
   known_uris_none: Ingen har lagt till någon URI för denna typ.
+  pending_harvests_none: Det finns inga väntande datainsamlingar nu
+  pending_harvests_title: Väntande datainsamlingar
+  pause_pending_harvests: Pausa datainsamling
+  resume_pending_harvests: Återuppta datainsamling
   label: Etikett
   language: 'Språk:'
   languages: Språk
@@ -5072,6 +5126,8 @@ sv:
   no_comments_are_available_for_subject: Inga kommentarer är tillgängliga för %{subject}
   no_comments_have_been_left_yet: Inga kommentarer har lämnats ännu.
   no_errors_are_available: Det finns inga fel.
+  no_harvesting_logs_for_this_da: Inga datainsamlingsloggar för detta datum
+  no_harvesting_events_running_now: Inga datainsamlingar pågår nu
   no_items_were_copied_to_collections_error: 'Inga objekt kopierades till samlingar:
     %{names}.'
   no_news_items_for_month_and_year: Inga nyheter för %{month_and_year}
@@ -5459,6 +5515,8 @@ sv:
   show_warning_message: Visa varningsmeddelande
   showing_all_error_logs: Visar <b>alla fel</b>
   showing_error_logs_from_date: Visar fel från <b>%{date}</b>
+  showing_all_harvest_logs: Visar <b>alla datainsamlingar</b>
+  showing_harvest_logs_from_date: Visar datainsamlingar från <b>%{date}</b>
   shown_to_the_user_parens: (visas för användaren)
   shown_to_user_as_the_title_of_page: visas för användare som sidans titel
   sign_in: Logga in
@@ -5866,6 +5924,7 @@ sv:
     one: '%{count} nuvarande innehållspartner'
     other: '%{count} nuvarande innehållspartners'
   users_curation_header: Kuratorskvalifikationer
+  user_counts_refresh_daily: '*antalen uppdateras dagligen'
   users_form_account_header: Ditt konto
   users_form_curation_header: Kuratorskvalifikationer
   users_form_profile_info_header: Offentlig profilinformation
@@ -5903,6 +5962,8 @@ sv:
   view_translation_source_link: Visa översättningskälla
   view_error_log: visa fellogg
   view_full_size_image: Visa bilden i full storlek
+  view_harvesting_log: visa datainsamlingslogg
+  view_current_harvesting: Visa aktuell datainsamling
   view_article_source: Visa artikelkälla
   view_image_source: Visa bildkälla
   view_image_map_source: Visa kartkälla

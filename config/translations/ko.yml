@@ -9,6 +9,7 @@
 # Author: Hwangjy9
 # Author: Hym411
 # Author: Idh0854
+# Author: Jerrykim306
 # Author: Jskang
 # Author: Kurousagi
 # Author: Priviet
@@ -83,7 +84,7 @@ ko:
         source_url: 링크 URL
       eol_statistic:
         created_at: 만든 곳
-        members_count: 구성원
+        members_count: 회원
         communities_count: 공동체
         collections_count: 모음집
         pages_count: 전체 문서
@@ -206,17 +207,17 @@ ko:
         comment_on_my_profile: 당신의 프로필에 대한 댓글
         comment_on_my_contribution: 당신의 기여에 댓글과/이나 큐레이션 작업
         comment_on_my_collection: 당신이 관리한 모음집에 대한 댓글
-        comment_on_my_community: 당신이 구성원에 있는 공동체 중 댓글 하나
+        comment_on_my_community: 당신이 속한 공동체 중 한 곳의 댓글
         made_me_a_manager: 모음집이나 공동체 관리를 만들었습니다
-        member_joined_my_community: 새 구성원이 당신이 관리하는 공동체에 가입했습니다
+        member_joined_my_community: 새 회원이 당신이 관리하는 공동체에 가입했습니다
         comment_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 댓글
         curation_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 큐레이터 행위
         new_data_on_my_watched_item: 주시문서 목록에 분류에 새 기여
         changes_to_my_watched_collection: 주시문서 목록에 있는 모음집에 대한 바뀜
         changes_to_my_watched_community: 주시문서 목록에 있는 공동체에 대한 바뀜
-        member_joined_my_watched_community: 새 구성원이 당신이 구성원에 속한 공동체에 가입했습니다
-        member_left_my_community: 구성원이 당신이 관리하는 공동체에서 떠났습니다
-        new_manager_in_my_community: 다른 구성원이 당신이 관리하는 공통제의 관리자가 되었습니다
+        member_joined_my_watched_community: 새 회원이 당신이 회원에 속한 공동체에 가입했습니다
+        member_left_my_community: 회원들이 당신이 관리하는 공동체를 떠났습니다
+        new_manager_in_my_community: 다른 회원이 당신이 관리하는 공동체의 관리자가 되었습니다
         i_am_being_watched: 다른 구성원의 주시문서 목록에 추가했습니다
         eol_newsletter: 분기별 EOL 뉴스 편지 보내기
       resource:
@@ -546,7 +547,7 @@ ko:
         credentials_more: '이 목록에서 하나 이상의 특정 자격 증명을 정하세요:'
         credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생 상태입니다
         credentials_more_author: 피어 검토한 출판물의 저자입니다. (각주 제공)
-        credentials_more_professional: 전문적인 사회성의 구성원입니다.
+        credentials_more_professional: 전문적인 사회성의 회원입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
         curation_application: 큐레이터 되기
@@ -645,7 +646,7 @@ ko:
         create: 자료 추가
         update: 자료 업데이트
         update_settings: 설정 업데이트
-        force_harvest: 강제로 수확 요청
+        force_harvest: 수확 요청
       session:
         create: 로그인
         sign_in_with_facebook: Facebook으로 로그인
@@ -794,7 +795,7 @@ ko:
         tweet_text: '%{collection_name} 관리자'
     newsfeeds:
       show:
-        meta_description: '%{collection_name} 생명의 백과사전 모음집에 대한 뉴스, 댓글과 구성원 활동입니다.'
+        meta_description: 생명의 백과사전 모음집 %{collection_name}에 대한 뉴스, 댓글과 회원 활동입니다.
         meta_keywords: '%{collection_name} 뉴스'
         meta_title: '%{collection_name} 뉴스'
         tweet_text: '%{collection_name} 뉴스'
@@ -1052,15 +1053,15 @@ ko:
       search_traitbank: TraitBank 검색
   members:
     index:
-      meta_description: 생명의 백과사전 공동체인 %{community_name}의 구성원입니다.
-      meta_keywords: '%{community_name} 구성원'
-      meta_title: '%{community_name} 구성원'
-      tweet_text: '%{community_name} 구성원'
+      meta_description: 생명의 백과사전 공동체인 %{community_name}의 회원입니다.
+      meta_keywords: '%{community_name} 회원'
+      meta_title: '%{community_name} 회원'
+      tweet_text: '%{community_name} 회원'
     show:
-      meta_description: '%{member_name} 구성원은 생명의 백과사전 공동체인 %{community_name}의 구성원입니다.'
-      meta_keywords: '%{member_name} 공동체 구성원'
-      meta_title: '%{community_name}의 %{member_name} 구성원'
-      tweet_text: '%{community_name}의 %{member_name} 구성원'
+      meta_description: '%{member_name}님은 생명의 백과사전 공동체인 %{community_name}의 회원입니다.'
+      meta_keywords: '%{member_name} 공동체 회원'
+      meta_title: '%{community_name}의 %{member_name} 회원'
+      tweet_text: '%{community_name}의 %{member_name} 회원'
   news_items:
     index:
       page_title: EOL 뉴스
@@ -1117,9 +1118,9 @@ ko:
     activity_on_content_partner_content:
       subject: '%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 내용에 대한 최근 활동의 요약입니다'
       message: |-
-        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
+        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}님이 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
 
-        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
+        질문이 있거나 EOL 회원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
         큐레이트 동작%{data_object_comments}:
         %{curator_activity_log}
@@ -1132,9 +1133,9 @@ ko:
     activity_on_user_content:
       subject: 생명의 백과사전에 추가한 내용에 대한 최근 활동의 요약
       message: |-
-        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다.
+        %{members_username} 사용자 이름의 회원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 동작을 요약한 EOL에서 자동으로 보낸 이메일입니다.
 
-        질문이 있거나 EOL 구성원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
+        질문이 있거나 EOL 회원 계정 접근에 도움이 필요하면 %{species_pages_group_email}로 연락하시기 바랍니다.
 
 
         큐레이트 동작:
@@ -1309,8 +1310,8 @@ ko:
       one: '%{to}에 대한 업데이트가 있습니다'
       other: '%{to}에 대한 업데이트 %{count}개가 있습니다'
     bulk_community_joins_with_count:
-      one: 새 구성원이 %{community}에 가입했습니다
-      other: 새 구성원 %{count}명이 %{community}에 가입했습니다
+      one: 새 회원이 %{community}에 가입했습니다
+      other: 새 회원 %{count}명이 %{community}에 가입했습니다
     default_subject: EOL에 대한 최근 활동
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
@@ -1740,7 +1741,7 @@ ko:
         tweet_text: '%{user_full_name} 모음집'
     communities:
       index:
-        meta_description: '%{user_full_name}는 공동체의 구성원입니다.'
+        meta_description: '%{user_full_name}님이 소속된 공동체입니다.'
         meta_title: '%{user_full_name} 공동체'
         tweet_text: '%{user_full_name} 공동체'
     content_partners:
@@ -1920,7 +1921,7 @@ ko:
     pending:
       header: 등록하셔서 감사합니다!
       verify_email_instructions: <strong>이메일 주소를 확인하세요</strong>. 확인 메시지를 제공한 이메일 주소로
-        보냈습니다. 등록 과정을 완료하고 EOL 구성원이 되려면 이메일에 포함된 링크를 클릭하세요. 감사합니다!
+        보냈습니다. 등록 과정을 완료하고 EOL 회원이 되려면 이메일에 포함된 링크를 클릭하세요. 감사합니다!
       verify_email_tip: 해당 계정 활성화 이메일이 <em>자주</em> 이메일 필터에 의해 '스팸'으로 표시할 수 있음을 참고하세요.
         시간 안에 이메일을 받지 못했다면 스팸 폴더를 확인하세요.
     recover_account:
@@ -1948,9 +1949,9 @@ ko:
       form_tip: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 복구하고자 하는 계정을 선택하세요.
       legend_choose_account: 계정 선택
     show:
-      meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 구성원 프로필
+      meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 회원 프로필
       meta_description_curator: 생명의 백과사전에서 %{curator_level} %{user_full_name}에 대한
-        구성원 프로필
+        회원 프로필
     unsubscribe_notifications:
       already_unsubscribed: 이미 알림을 구독 취소했습니다.
       unsubscribed_notifications_successfully: 성공적으로 알림을 구독 취소했습니다.
@@ -3071,8 +3072,8 @@ ko:
   all_videos: 모든 동영상
   allow_user_logins: 사용자 로그인 허용
   allowed_html_tags: '허용된 HTML: %{comma_separated_tags}'
-  already_a_member_question: 이미 구성원입니까?
-  already_member_of_community: 이미 이 공동체의 구성원입니다.
+  already_a_member_question: 이미 회원입니까?
+  already_member_of_community: 이미 이 공동체의 회원입니다.
   alternate_classification: 대체 분류
   alternative_name_colon: '다른 이름:'
   alternative_common_name_colon: '다른 공통 이름:'
@@ -3216,7 +3217,7 @@ ko:
   cannot_curate_association_in_preview_mode: '%{name}(으)로 연관은 수확하고 나서 미리 보고 있기 때문에
     큐레이트할 수 없습니다.'
   cannot_expand_children: 자식을 확장할 수 없습니다
-  cannot_find_member: 이 id로 된 구성원을 찾을 수 없습니다.
+  cannot_find_member: 이 id로 된 회원을 찾을 수 없습니다.
   cannot_index_collection_item_type_error: '%{type}에서 모음집 항목을 색인할 수 없습니다.'
   categories_title: 분류를 선택하고 특성을 선택합니다
   change: 바꾸기
@@ -3390,7 +3391,7 @@ ko:
     other: 기여 %{count}번
   community_destroyed: 이 공동체를 삭제했습니다. 더 이상 분류 문서 또는 검색 결과에서 보이지 않습니다.
   community_description_default: 생명의 백과사전 공동체입니다.
-  community_empty_notice: 이 공동체에 구성원이 없습니다.
+  community_empty_notice: 이 공동체에 회원이 없습니다.
   community_focus: 관리한 모음집
   community_focus_items_with_count:
     one: 항목 %{count}개
@@ -3400,10 +3401,10 @@ ko:
   community_managers_with_count:
     one: 공동체 관리자 %{count}명
     other: 공동체 관리자 %{count}명
-  community_members: 공동체 구성원
+  community_members: 공동체 회원
   community_members_with_count:
-    one: 공동체 구성원 %{count}명
-    other: 공동체 구성원 %{count}명
+    one: 공동체 회원 %{count}명
+    other: 공동체 회원 %{count}명
   community_name_label: 공동체 이름
   community_newsfeed: 공동체 뉴스 피드
   community_no_longer_has_manager_access_to_collection: '"%{community}" 공동체는 더 이상
@@ -3418,7 +3419,7 @@ ko:
   completed: 완료
   completed_colon: '완료:'
   confirm_deactivate_user: 정말로 이 사용자를 비활성화하겠습니까?
-  confirm_delete_community: 이 공동체를 삭제하겠습니까? 남은 구성원은 여전히 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색
+  confirm_delete_community: 이 공동체를 삭제하겠습니까? 남은 회원은 여전히 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색
     결과나 분류 문서에서 나타나지 않으며, 더 이상 편집할 수 없습니다.
   confirm_leave: 이 공동체를 떠나겠습니까?
   confirm_password_colon: '비밀번호 확인:'
@@ -3638,7 +3639,7 @@ ko:
   copyright: '저작권:'
   correct_donation_message_with_link: 이 정보가 올바르지 않으면 바꾸기 위해 <a href='%{link}'>뒤로 가세요</a>.
   could_not_find_collection_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
-  could_not_find_user: 이 공동체의 구성원이 아닙니다.
+  could_not_find_user: 이 공동체의 회원이 아닙니다.
   count: 갯수
   count_results_for_search_term:
     one: <em>%{search_term}</em>에 대한 결과 %{count}개
@@ -3652,7 +3653,7 @@ ko:
   create_community: 공동체 만들기
   create_community_about_heading: 공동체 만들기에 대해
   create_community_about_text: '"%{collection_name}"의 내용 주위에 공동체를 만드려고 합니다. 모든 사용자는
-    공동체에 가입할 수 있지만 "관리자" 자격을 부여한 구성원만 공동체 자체나 공동체와 관련된 모음집을 편집할 수 있게 됩니다.'
+    공동체에 가입할 수 있지만 "관리자" 자격을 부여한 회원만 공동체 자체나 공동체와 관련된 모음집을 편집할 수 있게 됩니다.'
   create_community_around_this_collection_header: 이 모음집 주위의 공동체 만들기
   create_a_community: 공동체 만들기
   create_a_community_login_advisory: 공동체를 만들기 전에 로그인하라고 묻습니다
@@ -4146,7 +4147,7 @@ ko:
   insufficient_privileges_to_curate_names: 죄송합니다, 이름을 큐레이트할 권한이 충분하지 않습니다.
   internal_ip_address: 내부 IP 주소
   inverse_sort: 역순 정렬
-  invite_members_label: 구성원 초대
+  invite_members_label: 회원 초대
   invite_members_help_text: 여기에 EOL 사용자를 추가하고 새 공동체에 초대를 받을 것입니다!
   ip_address: IP 주소
   ip: IP
@@ -4323,15 +4324,15 @@ ko:
     other: 미디어 %{count}개
   media_summary_empty: 아직 이 문서에 어떠한 그림도 기여하지 않았습니다.
   media_summary_empty_contribute_instructions: EOL에 그림을 기여하는 방법을 알아보세요.
-  member_of_professional_society_credential_option: 전문적인 사회성의 구성원
-  member_of: 구성원
-  members_like_you: 여러분과 같은 구성원
+  member_of_professional_society_credential_option: 전문적인 사회성의 회원
+  member_of: 회원
+  members_like_you: 여러분과 같은 회원
   members_with_count:
-    one: 구성원 %{count}명
-    other: 구성원 %{count}명
+    one: 회원 %{count}명
+    other: 회원 %{count}명
   members_with_count_semi_colon:
-    one: 구성원 %{count}명;
-    other: 구성원 %{count}명;
+    one: 회원 %{count}명;
+    other: 회원 %{count}명;
   merge_concepts: 개념 병합
   merge_data: 분류 병합
   message_colon: '메시지:'
@@ -4349,7 +4350,7 @@ ko:
   more_siblings_with_count:
     one: 형제 자매 %{count}개 더 있음...
     other: 형제 자매 %{count}개 더 있음...
-  most_active_members: 가장 많이 활발한 구성원
+  most_active_members: 가장 많이 활발한 회원
   move: 이동
   move_down: 아래로 이동
   move_items_to_a_new_collection_with_count:
@@ -4484,7 +4485,7 @@ ko:
   notification_frequency_newsfeed_only: 뉴스 피드만
   notifications_and_messages_review_notice: 이메일로 보내질 알림을 검토하세요.
   email_updates_for_eol_addicts: EOL 중독자에 대한 업데이트입니다.
-  email_updates_for_eol_members: 대부분의 EOL 구성원은 업데이트하고 싶어합니다.
+  email_updates_for_eol_members: 대부분의 EOL 회원들은 업데이트하고 싶어합니다.
   notifications_tab_name: 알림
   taxon_not_found_error: '"%{taxon}"을(를) 찾을 수 없습니다'
   not_published_yet: 아직 게시하지 않았습니다.
@@ -4621,7 +4622,7 @@ ko:
   profile_colon: '프로필:'
   profile: 프로필
   profile_image_alt_text_curator: '%{user_full_name} 큐레이터의 프로필 사진'
-  profile_image_alt_text_member: '%{user_full_name} 구성원에 대한 프로필 사진'
+  profile_image_alt_text_member: '%{user_full_name} 회원에 대한 프로필 사진'
   profile_newsfeed: 내 뉴스 피드
   profile_picture: 프로필 사진
   project: 프로젝트
@@ -4731,7 +4732,7 @@ ko:
     매겨진 목록을 반환합니다
   search_next_label: 다음
   search_previous_label: 이전
-  search_input_advisory_information: 자세히 알아보고 싶은 살아있는 생물의 공통 이름이나 학명을 입력하세요. EOL 구성원,
+  search_input_advisory_information: 자세히 알아보고 싶은 살아있는 생물의 공통 이름이나 학명을 입력하세요. EOL 회원,
     모음집과 공동체를 검색할 수도 있습니다.
   search_results: 검색 결과
   search_field_label: EOL 검색
@@ -4991,7 +4992,7 @@ ko:
   the_message_was_sent: 메시지를 보냈습니다.
   the_new_topic_was_created: 새 주제를 만들었습니다.
   the_new_user_was_created: 새 사용자를 만들었습니다.
-  there_are_currently_no_members_in_this_community: 현재 이 공동체에 구성원이 없습니다.
+  there_are_currently_no_members_in_this_community: 현재 이 공동체에 회원이 없습니다.
   the_query_string: 쿼리 문자열
   the_suggested_page_to_direct_users_to_link: 사용자가 직접 제안한 문서
   the_topic_was_updated: 주제를 업데이트했습니다.
@@ -5070,7 +5071,7 @@ ko:
   update_user_unsuccessful_error: 죄송합니다, 오류가 발생해 계정을 업데이트하지 않았습니다. 모든 필드가 올바르게 채워졌는지
     확인하세요.
   updated_community: 공동체를 성공적으로 업데이트했습니다.
-  updated_member: 구성원을 성공적으로 업데이트했습니다.
+  updated_member: 회원을 성공적으로 업데이트했습니다.
   updated: 업데이트됨
   updated_colon: '업데이트됨:'
   updates: 업데이트
@@ -5189,8 +5190,8 @@ ko:
   users_form_curation_header: 큐레이터 자격
   users_form_profile_info_header: 공개 프로필 정보
   users_member_of_count_communities:
-    one: 공동체 %{count}개의 구성원
-    other: 공동체 %{count}개의 구성원
+    one: 공동체 %{count}개의 회원
+    other: 공동체 %{count}개의 회원
   users_my_info_header: 내 정보
   users_that_can_edit_this_collection: 이 모음집을 관리할 수 있는 사용자
   using_the_site: 사이트 사용
@@ -5276,7 +5277,7 @@ ko:
   you_left_community: 성공적으로 공동체를 떠났습니다.
   your_browser_does_not_support: 브라우저는 HTML5 동영상을 지원하지 않습니다.
   your_email_address: 내 이메일 주소
-  you_removed_the_member_from_the_community: 성공적으로 공동체에서 이 구성원을 제거했습니다.
+  you_removed_the_member_from_the_community: 성공적으로 공동체에서 이 회원을 제거했습니다.
   your_ip_address: 사용자 IP 주소
   your_preferences: 사용자 환경 설정
   your_rating: 내 평가

@@ -1,0 +1,159 @@
+# Messages for Luxembourgish (Lëtzebuergesch)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Robby
+---
+lb:
+  translated_activities-name-activity_id-19: Profil
+  translated_activities-name-activity_id-51: weisen
+  translated_activities-name-activity_id-53: verstoppen
+  translated_activities-name-activity_id-54: aktualiséieren
+  translated_activities-name-activity_id-55: net ubruecht
+  translated_activities-name-activity_id-56: läschen
+  translated_activities-name-activity_id-57: bewäerten
+  translated_activities-name-activity_id-59: net nogekuckt
+  translated_activities-name-activity_id-63: sammelen
+  translated_activities-name-activity_id-64: ewechhuelen
+  translated_agent_roles-label-agent_role_id-10: Projet
+  translated_agent_roles-label-agent_role_id-11: Editeur
+  translated_agent_roles-label-agent_role_id-13: Quell
+  translated_agent_roles-label-agent_role_id-15: Kontaktpersoun
+  translated_agent_roles-label-agent_role_id-1: Animateur
+  translated_agent_roles-label-agent_role_id-22: Iwwersetzer
+  translated_agent_roles-label-agent_role_id-2: Auteur
+  translated_agent_roles-label-agent_role_id-4: Komponist
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-3: Kanner
+  translated_collection_types-label-collection_type_id-10: Geräischer
+  translated_collection_types-label-collection_type_id-11: Linken
+  translated_collection_types-label-collection_type_id-12: Literatur
+  translated_collection_types-label-collection_type_id-13: Taxonomie
+  translated_collection_types-label-collection_type_id-14: Molekular Barcoden
+  translated_collection_types-label-collection_type_id-15: Beschreiwung
+  translated_collection_types-label-collection_type_id-16: Biller
+  translated_collection_types-label-collection_type_id-17: Verbreedung
+  translated_collection_types-label-collection_type_id-19: Informatioun iwwer den
+    Numm
+  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-21: Nomenclature
+  translated_collection_types-label-collection_type_id-22: Geräischer
+  translated_collection_types-label-collection_type_id-23: Linken
+  translated_collection_types-label-collection_type_id-24: Literatur
+  translated_collection_types-label-collection_type_id-2: Molekular Barcoden
+  translated_collection_types-label-collection_type_id-3: Beschreiwung
+  translated_collection_types-label-collection_type_id-4: Biller
+  translated_collection_types-label-collection_type_id-5: Verbreedung
+  translated_collection_types-label-collection_type_id-7: Informatioun iwwer den Numm
+  translated_collection_types-label-collection_type_id-9: Nomenclature
+  translated_contact_roles-label-contact_role_id-1: Haaptkontakt
+  translated_contact_roles-label-contact_role_id-2: Administrative Kontakt
+  translated_contact_roles-label-contact_role_id-3: Technesche Kontakt
+  translated_contact_subjects-title-contact_subject_id-26: Léieren a Bildung
+  translated_contact_subjects-title-contact_subject_id-30: Maacht eng Verbesserung
+    (Orthographie a Grammaire, Biller, Informatiounen)
+  translated_contact_subjects-title-contact_subject_id-33: E finanziellen Don maachen
+  translated_contact_subjects-title-contact_subject_id-34: Technesch Froen (Problemer
+    beim Sichen, Funktionalitéit vum Internetsite)
+  translated_contact_subjects-title-contact_subject_id-35: Allgemenge Feedback
+  translated_content_partner_statuses-label-content_partner_status_id-1: Am Suspens
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
+  translated_content_partner_statuses-label-content_partner_status_id-3: Archivéiert
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
+  translated_content_tables-label-content_table_id-1: Detailer
+  translated_data_types-label-data_type_id-10: Kaart
+  translated_data_types-label-data_type_id-1: Bild
+  translated_data_types-label-data_type_id-2: Toun
+  translated_data_types-label-data_type_id-3: Text
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: GBIF-Bild
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-29: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-2: '&#169; Alle Rechter reservéiert'
+  translated_licenses-description-license_id-30: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-31: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-32: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-33: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-34: Ëffentlechen Domaine
+  translated_licenses-description-license_id-35: Ëffentlechen Domaine
+  translated_licenses-description-license_id-36: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-37: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-38: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-39: Ëffentlechen Domaine
+  translated_licenses-description-license_id-3: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-42: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-43: Lizenz net applikabel
+  translated_licenses-description-license_id-4: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-5: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-6: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-7: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-8: Verschidde Rechter reservéiert
+  translated_licenses-description-license_id-9: Verschidde Rechter reservéiert
+  translated_ranks-label-rank_id-106: Formulaire
+  translated_resource_statuses-label-resource_status_id-10: Verëffentlecht
+  translated_resource_statuses-label-resource_status_id-1: Eroplueden
+  translated_resource_statuses-label-resource_status_id-2: Eropgelueden
+  translated_resource_statuses-label-resource_status_id-3: Eroplueden huet net funktionéiert
+  translated_resource_statuses-label-resource_status_id-4: Op de Server mam Inhalt
+    geréckelt
+  translated_resource_statuses-label-resource_status_id-5: Validéiert
+  translated_resource_statuses-label-resource_status_id-6: Validatioun huet net funktionéiert
+  translated_resource_statuses-label-resource_status_id-7: Gëtt verschafft
+  translated_resource_statuses-label-resource_status_id-8: Verschafft
+  translated_resource_statuses-label-resource_status_id-9: Verschaffen huet net funktionéiert
+  translated_service_types-label-service_type_id-1: EOL-Transferschema
+  translated_service_types-label-service_type_id-2: Anerer
+  translated_sort_styles-name-sort_style_id-1: Rezent derbäigesat
+  translated_sort_styles-name-sort_style_id-2: Eelzt
+  translated_sort_styles-name-sort_style_id-3: Alphabetesch
+  translated_sort_styles-name-sort_style_id-6: Bewäertung
+  translated_statuses-label-status_id-2: Aktualiséiert
+  translated_statuses-label-status_id-3: Onverännert
+  translated_synonym_relations-label-synonym_relation_id-14: falsch geschriwwen
+  translated_synonym_relations-label-synonym_relation_id-19: akzeptéierten Numm
+  translated_synonym_relations-label-synonym_relation_id-1: Synonym
+  translated_synonym_relations-label-synonym_relation_id-49: valabelen Numm
+  translated_synonym_relations-label-synonym_relation_id-50: valabel
+  translated_synonym_relations-label-synonym_relation_id-51: akzeptéiert
+  translated_synonym_relations-label-synonym_relation_id-52: Autoritéit
+  translated_synonym_relations-label-synonym_relation_id-58: lexikalesch Variant
+  translated_synonym_relations-label-synonym_relation_id-63: net akzeptéiert
+  translated_synonym_relations-label-synonym_relation_id-64: net valabel
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Literatur-Referenzen
+  translated_table_of_contents-label-table_of_contents_id-194: Gréisst
+  translated_table_of_contents-label-table_of_contents_id-1: Iwwersiicht
+  translated_table_of_contents-label-table_of_contents_id-221: Risiken
+  translated_table_of_contents-label-table_of_contents_id-225: Um Spaweck
+  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliographie
+  translated_table_of_contents-label-table_of_contents_id-285: Associatiounen
+  translated_table_of_contents-label-table_of_contents_id-289: Evolutioun
+  translated_table_of_contents-label-table_of_contents_id-296: Gestioun
+  translated_table_of_contents-label-table_of_contents_id-2: Kuerze Resumé
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-305: Synonymen
+  translated_table_of_contents-label-table_of_contents_id-306: Säitestatistiken
+  translated_table_of_contents-label-table_of_contents_id-307: Resumé vum Inhalt
+  translated_table_of_contents-label-table_of_contents_id-308: Verständlech Beschreiwung
+  translated_table_of_contents-label-table_of_contents_id-309: Verbreedung
+  translated_table_of_contents-label-table_of_contents_id-310: Entwécklung
+  translated_table_of_contents-label-table_of_contents_id-312: Migratioun
+  translated_table_of_contents-label-table_of_contents_id-316: Verhalen
+  translated_table_of_contents-label-table_of_contents_id-327: Physiologie
+  translated_table_of_contents-label-table_of_contents_id-329: Genetik
+  translated_table_of_contents-label-table_of_contents_id-335: Legislatioun
+  translated_table_of_contents-label-table_of_contents_id-336: Notizen
+  translated_table_of_contents-label-table_of_contents_id-34: Bemierkungen
+  translated_table_of_contents-label-table_of_contents_id-3: Physesch Beschreiwung
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologie
+  translated_table_of_contents-label-table_of_contents_id-7: Referenzen a Méi Informatiounen
+  translated_untrust_reasons-label-untrust_reason_id-3: niddreg Qualitéit
+  translated_user_identities-label-user_identity_id-2: e Student
+  translated_vetted-label-vetted_id-0: Onbekannt
+  translated_vetted-label-vetted_id-4: Net vertrauenswierdeg
+  translated_vetted-label-vetted_id-6: Net ubruecht
+  translated_view_styles-name-view_style_id-1: Lëscht
+  translated_view_styles-name-view_style_id-2: Galerie
+...

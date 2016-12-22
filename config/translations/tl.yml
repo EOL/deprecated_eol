@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: AnakngAraw
+# Author: Emem.calist
 # Author: Jewel457
 # Author: Jojit fb
 # Author: Leeheonjin
@@ -712,6 +713,7 @@ tl:
         update: Isapanahon ang pinagkukunan
         update_settings: Isapanahon ang mga katakdaan
         force_harvest: Hilingin ang sapilitang pag-ani
+        harvest_tonight: Pagaani Mamayang Gabi
       session:
         create: Lumagda't pumasok
         sign_in_with_facebook: Lumagda sa pamamagitan ng Facebook
@@ -4042,8 +4044,8 @@ tl:
   content_partner_resource_collection_header: Nalathalang kalipunan
   content_partner_resource_collection_show_link: Tingnan ang kalipunang nalathala
     na
-  content_partner_resource_confirm_harvest_requested: Nakatitiiyak ka bang nais mong pilitin
-    ang pag-ani ng napagkunang %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Nakatitiiyak ka bang nais mong
+    pilitin ang pag-ani ng napagkunang %{resource_title}?
   content_partner_resource_create_successful_notice: 'Matagumpay na naidagdag ang
     mga detalye ng napagkunan ng kawaksi ng nilalaman. Pangkasalukuyang katayuan ng
     dato ng pinagkunan: %{resource_status}.'

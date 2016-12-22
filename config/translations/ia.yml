@@ -2269,6 +2269,8 @@ ia:
     one: '%{count} gerente del communitate'
     other: '%{count} gerentes del communitate'
   community_members: Membros del communitate
+  community_members_with_count: '{{PLURAL|one=%{count} membro del communitate|%{count}
+    membros del communitate'
   community_name_label: Nomine del communitate
   community_newsfeed: Syndication de novas del communitate
   community_no_longer_has_manager_access_to_collection: '"%{community}" non plus ha
@@ -2417,8 +2419,8 @@ ia:
   content_partner_resource_collections_header: Collectiones
   content_partner_resource_collection_header: Collection publicate
   content_partner_resource_collection_show_link: Vider collection publicate
-  content_partner_resource_confirm_harvest_requested: Es tu secur de voler fortiar le
-    recolta del ressource %{resource_title}?
+  content_partner_resource_confirm_harvest_requested: Es tu secur de voler fortiar
+    le recolta del ressource %{resource_title}?
   content_partner_resource_create_successful_notice: 'Le detalios sur le ressource
     del partner ha essite addite. Stato actual del datos del ressource: %{resource_status}'
   content_partner_resource_create_unsuccessful_error: Un error ha occurrite, e le

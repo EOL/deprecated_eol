@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Milicevic01
 # Author: Rancher
+# Author: Сербијана
 ---
 sr-Latn:
   activerecord:
@@ -297,7 +298,7 @@ sr-Latn:
       session:
         password: Lozinka
         remember_me: Zapamti me na ovom pregledaču dve nedelje
-        username_or_email: Korisničko ime ili e-adresa
+        username_or_email: Korisničko ime ili imejl adresa
       translated_content_page:
         active_translation: Objavljeno
         active_translation_more: Objavljeni prevodi će biti javno dostupni, osim ako
@@ -365,7 +366,7 @@ sr-Latn:
         tag_line: 'Moto ili naslov <small>primer: „Ljubitelj ptica“</small>'
         user_identities: Jesam
         username: Korisničko ime <small>(4-32 znaka)</small>
-        username_or_email: Korisničko ime ili e-adresa
+        username_or_email: Korisničko ime ili imejl adresa
       wikipedia_queue:
         revision_url: Adresa izmene <small>(npr. https://sr.wikipedia.org/w/index.php?title=Pingvin&oldid=4663931)</small>
         revision_url_more: Ako unesete adresu izmene s Vikipedije, zahtevate od EOL-a
@@ -765,7 +766,7 @@ sr-Latn:
     poslata na:'
   admin_content_partners_notifications_statistics_reminder_header: Podsetnik za statistiku
     posećenosti
-  admin_content_partners_notifications_statistics_reminder_description: 'Šalje e-poruku
+  admin_content_partners_notifications_statistics_reminder_description: 'Šalje imejl
     svim partnerima za sadržaj, obaveštavajući ih da od sada mogu da pogledaju statistike
     posećenosti svojih podataka od prošlog meseca. Napomena: ručno pokretanje ovog
     obaveštenja je privremeno rešenje, i kao takvo bi trebalo da se ukloni iz uvođenja
@@ -1586,7 +1587,7 @@ sr-Latn:
   editors_tab_label: Rukovodioci
   email: E-adresa
   email_colon: 'E-adresa:'
-  email_recipients: Primaoci e-poruka
+  email_recipients: Primaoci imejl
   eol_curator_activity_email_message: Kustos <a href='%{profile_url}'>%{curator_full_name}</a>
     %{action} na <a href='%{data_object_url}'>EOL-u</a>%{comment}
   encyclopedia_of_life: Enciklopedija života
@@ -2537,8 +2538,8 @@ sr-Latn:
   sign_in_remember_me_disallowed_for_admins_notice: Zbog sigurnosnih razloga, administratori
     ne mogu da koriste mogućnost „zapamti me“.
   sign_in_successful_notice: Prijavljeni ste.
-  sign_in_unsuccessful_error: Ne mogu da vas prijavim. Korisničko ime, e-adresa ili
-    lozinka nije ispravna.
+  sign_in_unsuccessful_error: Ne mogu da vas prijavim. Korisničko ime, imejl adresa
+    ili lozinka nije ispravna.
   sign_out: Odjava
   site_cms: Sajt CMS
   site_information: Podaci o sajtu
@@ -3068,7 +3069,7 @@ sr-Latn:
     su sve istovetne.
   you_must_be_comfortable: Morate poznavati HTML ako želite da pravite hiperveze ili
     da koristite oblikovanje.
-  your_email_address: Vaša e-adresa
+  your_email_address: Vaša imejl adresa
   you_removed_the_member_from_the_community: Uklonili ste ovog člana iz zajednice.
   your_ip_address: Vaša IP adresa
   your_preferences: Postavke

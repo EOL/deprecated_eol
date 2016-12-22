@@ -809,4 +809,4 @@ All of the parameters in brackets are optional and have the default shown (excep
 to today).
 
 The URLS placed into the site map file are based on 'BASEURL/XXX' where XXX is a valid published, trusted taxon
-concept ID pulled from the specified environment.
+concept ID pulled from the specified environment. ...

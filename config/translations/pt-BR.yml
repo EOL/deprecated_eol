@@ -5,6 +5,7 @@
 # Author: Almondega
 # Author: Anaclaudiaml
 # Author: Dianakc
+# Author: Eduardo Addad de Oliveira
 # Author: Elival
 # Author: Fasouzafreitas
 # Author: Giro720
@@ -565,6 +566,7 @@ pt-BR:
           não será tornado público imediatamente.
         published_at: Publicado
         published_status: Estado
+        last_harvest_seconds: Levou %{time_in_words}
       hierarchy:
         browsable_more: Verificar a navegabilidade para prover esta hierarquia para
           se tornar uma das primárias hierarquias navagaveis no EOL.
@@ -806,7 +808,8 @@ pt-BR:
         create: Adicionar recurso
         update: Atualizar recurso
         update_settings: Atualizar configurações
-        force_harvest: Pedir colheita forçada
+        force_harvest: Pedir colheita
+        harvest_tonight: Colheita hoje à noite
       session:
         create: Login
         sign_in_with_facebook: Login com o Facebook
@@ -3923,6 +3926,7 @@ pt-BR:
   belongs_in_count_communities:
     one: Pertence a %{count} Comunidade
     other: Pertence a %{count} Comunidades
+  beta_warning_header: Você está usando um recurso de teste beta
   beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Acesse Biodiversity Heritage Library
@@ -3949,6 +3953,7 @@ pt-BR:
   by_caps: De
   by_scientific_name_table_header: por Nome Científico
   cache_store: Armazenamento de cache
+  caching_results: Resultados do cache
   calculate_averages_slow: Calcular médias (lento)
   call_api: Chamada API
   cancel: Cancelar
@@ -3957,14 +3962,17 @@ pt-BR:
   cannot_be_associated_with_both_a_user_and_a_community: Não pode ser associado com
     o usuário e uma comunidade
   cannot_be_empty: não pode estar vazio.
-  cannot_create_collection_item_from_class_error: Não podemos criar um item de coleção
-    a partir de um %{klass}
+  cannot_create_collection_item_from_class_error: 'Não podemos criar um item de coleção
+    a partir de um tipo: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'Não é possível criar um item
+    de coleção do tipo(s): (%{types})'
   cannot_create_community_from_watch_collection_error: Não pode criar uma comunidade
     a partir de uma lista de vigiados.
   cannot_expand_children: não é possível expandir descendentes
   cannot_find_member: Não é possível encontrar um membro com este id.
   cannot_index_collection_item_type_error: Não podemos criar um item de coleção a
     partir de um %{type}
+  categories_title: 'Selecione uma categoria e, em seguida, um atributo:'
   change: Mudar
   change_rating_to_1_of_5: Alterar a classificação para 1 de 5
   change_rating_to_2_of_5: Alterar a classificação para 2 de 5
@@ -4045,6 +4053,7 @@ pt-BR:
   clear_entire_cache_store: Limpar todo o armazenamento de cache
   clear_species_page: Limpar página de espécie
   cms_available_in_languages: 'Esta página está disponível em:'
+  cms_editor: Editor CMS
   cms_missing_content_title: Falta a tradução
   cms_missing_content_message: Desculpe, esta página não está disponível para o idioma
     selecionado %{selected_language}.
@@ -4057,6 +4066,7 @@ pt-BR:
   curator_level_with_indefinite_article_full_curator: um <strong>curador pleno</strong>
   curator_level_with_indefinite_article_assistant_curator: um <strong>curador assistente</strong>
   click: Clique aqui
+  clicked_time: Tempo clicado
   click_on_an_activity_to_see_th: Clique em uma atividade para ver todas as outras
     atividades que ocorreram dentro de uma janela de cinco minutos.
   click_on_a_username_to_view_the_users_detailed_profile: Clique em um nome de usuário
@@ -4070,11 +4080,15 @@ pt-BR:
   close_this_window_to_return_to_edit_window: FECHE ESTA JANELA PARA VOLTAR À JANELA
     DE EDIÇÃO
   collect_item: Coletar item
+  collect_items: Coletar itens
+  collection_create_failure: Erro ao criar coleção.
   collection_created_with_count_notice:
     one: Colecção <em>%{collection_name}</em> criada com sucesso com %{count} item.
     other: Colecção <em>%{collection_name}</em> criada com sucesso com %{count} itens.
   collection_delete_link: Excluir permanentemente esta coleção
   collection_destroyed: Esta coleção foi eliminada.
+  collection_removed: A Coleção %{collection} é excluída.
+  collection_not_existing: A Coleção %{collection} não existe.
   collection_error_no_items_selected: 'Erro: Não há itens selecionados, não foram
     tomadas quaisquer ações.'
   collection_image: Imagem da coleção
@@ -4088,6 +4102,10 @@ pt-BR:
     one: '%{count} item'
     zero: Empty
     other: '%{count} itens'
+  collection_items_duplicate_ids: Não é possível criar uma coleção de um ID duplicado(s)
+    %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type não pode
+    ser nulo em:%{item}'
   collection_copy_choose_all_items_target_title: 'Copiar todos os itens de "%{collection}"
     a:'
   collection_move_choose_all_items_target_title: 'Mover todos os itens de "%{collection}"
@@ -4150,6 +4168,7 @@ pt-BR:
   comments_filter: Comentários
   comments_moderated: Comentários moderados
   comments_on: Comentários Sobre
+  comments_page_title: Comentários em %{parent}
   comments_with_count:
     one: '%{count} Comentário'
     other: '%{count} Comentários'
@@ -4220,9 +4239,12 @@ pt-BR:
     other: Pertence a %{count} comunidades
   completed: Concluído
   completed_colon: 'Concluído:'
+  confirm_deactivate_user: Tem certeza de que deseja desativar este usuário?
   confirm_delete_community: Tem a certeza que quer excluir esta comunidade? Os membros
     restantes ainda poderão vê-la e as notícias serão mantidas, mas não aparecerá
     em procuras ou em páginas de taxon, e não poderá mais ser editada.
+  confirm_delete_data_object: Tem certeza de que deseja excluir este objeto de dados?
+    Esta ação não pode ser desfeita.
   confirm_leave: Tem certeza de que deseja deixar esta comunidade?
   confirm_password_colon: 'Confirmar senha:'
   contact: Contato
@@ -4232,6 +4254,8 @@ pt-BR:
   contact_us_link: Entre em contato conosco
   contact_us_functions: Funções para Falar Conosco
   contact_us_submissions: Fale Conosco Inscrições
+  contact_us_topics: Fale Conosco
+  containing_value: Contendo %{value}.
   content_has_been_updated: O conteúdo foi atualizado.
   content_notes_not_shown_to_us: 'Notas de conteúdo (não visíveis para usuários):'
   content_partner: Parceiro de conteúdo
@@ -4283,6 +4307,7 @@ pt-BR:
     contato não foi atualizado.
   content_partner_contacts_header: Contatos
   content_partner_current_agreement_empty: Sem acordo
+  content_partner_current_agreement_signed_on_with_date: Assinado em %{date}
   content_partner_current_agreement_view_link: Ver
   content_partner_current_agreement_edit_link: Editar
   content_partner_current_agreement_create_link: Criar novo
@@ -4297,6 +4322,7 @@ pt-BR:
   content_partner_filter_option_vetted_no: Não
   content_partner_filter_option_published_never_harvested: Nunca recolhido
   content_partner_filter_option_published_never_published: Nunca publicado
+  content_partner_filter_option_published_latest_harvest_not_published: Últimas publicações
   content_partner_filter_option_published_latest_harvest_pending_publish: Última publicação
     pendente
   content_partner_filter_option_published_latest_harvest_published: Última publicação
@@ -4334,10 +4360,14 @@ pt-BR:
   content_partner_resource_collections_header: Coleções
   content_partner_resource_collection_header: Coleção publicada
   content_partner_resource_collection_show_link: Ver coleção publicada
+  content_partner_resource_confirm_harvest_requested: Tem certeza de que deseja forçar
+    a colheita de recursos %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalhes do recurso de parceiro
     de conteúdo adicionados com êxito. Estado atual de dados de recursos: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Desculpe, ocorreu um erro, o
     recurso não foi adicionado.
+  content_partner_resource_validation_finish_notice: A validação do recurso de parceiro
+    de conteúdo está concluída e seu status é %{resource_status}.
   content_partner_resource_dataset_details_header: Conjunto de dados
   content_partner_resource_delete_with_type_link: Apagar tudo
   content_partner_resource_description_empty: Não foi fornecida uma descrição para
@@ -4349,6 +4379,12 @@ pt-BR:
   content_partner_resource_harvest_event_not_published: Não publicado
   content_partner_resource_harvest_event_previously_published: Publicado anteriormente
   content_partner_resource_harvest_event_publish_pending: Publicação pendente
+  content_partner_resource_harvest_events_empty: Não foram encontrados eventos de
+    colheita.
+  content_partner_resource_harvest_events_for_resource_subheader: Eventos de colheita
+    de recursos %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: Ver tudo <span class="assistive">Eventos
+    de colheita</span>
   content_partner_resource_hierarchy_browsable: Navegável
   content_partner_resource_hierarchy_complete_true: Esta hierarquia é definida como
     <strong>curadora</strong>. A hierarquia com curadoria assume que cada entrada
@@ -4464,6 +4500,7 @@ pt-BR:
   content_partners_with_count:
     one: '%{count} Parceiro de conteúdo'
     other: '%{count} Parceiros de conteúdo'
+  content_server_full_url: URL completo do servidor de conteúdo
   content_servers: Servidores de Conteúdo
   content_setting_colon: 'Configuração de conteúdo:'
   content_summary_introduction_html: Os seguintes valores representam a soma dos diferentes
@@ -4518,6 +4555,7 @@ pt-BR:
     criar a sua comunidade
   create_a_collection: Criar uma coleção
   create_collection_button: Criar coleção
+  create_child_page: Criar página secundária
   create_community_button: Criar comunidade
   create_user_unsuccessful_error: Desculpe, ocorreu um erro, a sua nova conta não
     foi criada. Por favor, certifique-se que todos os campos estão preenchidos corretamente.
@@ -4530,6 +4568,7 @@ pt-BR:
   credentials: Credenciais
   credentials_colon: 'Credenciais:'
   crop_image: Recortar imagem
+  crop_image_thumbnails: Recortar miniaturas de imagens
   curated: Curadoria
   curated_association_update_button: Salvar alterações
   curation_comment: Comentário de Curadoria
@@ -4593,6 +4632,8 @@ pt-BR:
   your_watch_collection: Sua lista de páginas vigiadas
   current_language: 'Língua: %{iso_code}'
   currently_in_eol: Atualmente na Enciclopédia da Vida
+  create_download_data_file: Criar arquivo
+  institutional_sponsors: Patrocinadores Institucionais
   currently_published: publicado atualmente
   daily: Diariamente
   darwin_core: Darwin Core
@@ -4608,16 +4649,26 @@ pt-BR:
   data_column_value: Valor
   data_column_measurement_uri: URI de medição
   data_column_value_uri: URI de valor
+  data_column_resource: URL do recurso de parceiro de conteúdo
+  data_column_name: Etiqueta de medição
+  data_column_name_uri: URI de medição
+  data_column_val: Valor (normalizado)
+  data_column_raw_value: Valor bruto (direto da fonte)
+  data_column_val_uri: URI de valor
   data_column_units: Unidades (normalizada)
   data_column_units_uri: Unidades URI (normalizada)
+  data_column_raw_units: Unidades Brutas (direto da fonte)
+  data_column_raw_units_uri: URI de Unidades Brutas (normalizado)
   data_column_source: Fornecedor
   data_database_colon: 'Dados:'
   data_glossary: Glossário de dados
+  data_link_to_record: Link para este registo
   data_logging_active: Registro ativo de dados
   data_master_database_colon: 'Dados principais:'
   data_metadata_subtable_summary: Dados adicionais sobre este fato.
   data_measurement_subtable_summary: Dados adicionais sobre a medida deste fato.
   data_object: Objeto de dados
+  data_object_deleted: O objeto de dados foi excluído com êxito
   data_object_not_associated_with_any_hierarchies: Este objeto de dados não está associado
     com nenhuma hierarquia.
   data_object_reference: Referência de objeto de dados
@@ -4630,12 +4681,19 @@ pt-BR:
   data_point_uri_source_missing: falta a fonte
   data_point_uri_summary_name: dados sobre %{taxon}
   data_provided_by_user: provido por %{whom}
-  data_provided_by_content_partner: 'Fonte: %{whom}'
+  data_provided_by_content_partner: 'Fornecedor: %{whom}'
+  data_ranges: Resumos de dados
+  data_ranges_subheader: Os resumos de dados para este Grupo Taxonômico
   data_reference_subtable_summary: Referências adicionais sobre este fato.
   data_row_exemplar_added: Adicionado à Visão Geral.
   data_row_exemplar_removed: Removido da Visão Geral.
   data_row_excluded_from_overview_notice: 'Nota: Esta linha foi excluída da Visão
     Geral.'
+  data_row_add_exemplar_button: Adicionar à Visão Geral.
+  data_row_remove_exemplar_button: Remover da Visão Geral.
+  data_row_additional_detail_assistive: Carregar metadados sobre este fato.
+  data_row_additional_detail_assistive_js: Alternar entre mostrar e ocultar metadados
+    sobre esse fato.
   data_row_additional_detail_alt: Detalhes adicionais
   data_row_additional_detail_show_alt: Mostrar detalhes adicionais
   data_row_additional_detail_hide_alt: Ocultar detalhes adicionais
@@ -4645,9 +4703,14 @@ pt-BR:
   data_search:
     page_title: Pesquisa TraitBank
     form:
+      equivalent_attributes: 'Valores equivalentes:'
+      equivalent_values: 'Valores equivalentes:'
+      search_again_for_attributes: Pesquisar novamente para incluir atributos selecionados
+      search_again_for_values: Pesquisar novamente para incluir valores selecionados
       header_assistive: Formulário de busca
       input_summary_intro: Opções de busca selecionadas
       new_search_link: Iniciar uma nova busca
+      or_range_header: Ou <span class="assistive">digite um intervalo</span>
       refine_search_header: Refinar sua busca (opcional)
       search_suggestions_header: Não tem certeza de onde começar?
       search_suggestions_subheader_colon: 'Tentar uma das seguintes buscas de dados:'
@@ -4658,7 +4721,9 @@ pt-BR:
       search_tools_show_link: Exibir opções de busca
       search_tools_hide_link: Ocultar opções de busca
       search_value_or_range_header: Buscar um valor específico ou uma faixa
+      search_within_taxon_group_header: Pesquisar dentro de um grupo de taxon
       sort_header: Classificar os resultados
+  data_search_link: Pesquisa de dados científicos sobre EOL
   data_search_destroyed: Este trabalho não será mais processado.
   data_search_row_hidden: Um curador escondeu esta fila de dados.
   data_subtab_about: Sobre

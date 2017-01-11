@@ -1271,7 +1271,7 @@ it:
       page_header: Ricerca su TraitBank
       page_header_results: Risultati della ricerca  su TraitBank
     footer:
-      google_plus: Encyclopedia of Life su Google +
+      google_plus: Encyclopedia of Life su Google+
     taxa:
       search_within_clade: Cerca all'interno del clade
       search_traitbank: Ricerca su TraitBank
@@ -5430,6 +5430,7 @@ it:
     Google account e accesso )
   google: Google
   google_images: Immagini Google
+  google_plus: Encyclopedia of Life su Google+
   google_scholar: Google Scholar
   grant_manager_link: Concedi ruolo di gestore
   grant_permission: concessione

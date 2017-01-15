@@ -14,8 +14,10 @@ class PageSerializer
       page = get_page_data(pid)
       EOL.log("Serialized #{pid}: Traits: #{page[:traits].size}, "\
         "media: #{page[:media].size}, "\
+        "scientific_synonyms: #{page[:scientific_synonyms].size}, "\
         "vernaculars: #{page[:vernaculars].size}, "\
-        "collections: #{page[:collections].size}", prefix: ".")
+        "nonpreferred scientific names: #{page[:nonpreferred_scientific_names].size}, "\
+        "collections: #{page[:collections].size}", prefix: ".")  
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
       File.chmod(0644, name)
     end
@@ -162,18 +164,44 @@ class PageSerializer
       end
 
       page[:native_node] = build_node(node, resource)
+      
+      preferred_langs = {}
+      page[:scientific_synonyms] = concept.scientific_synonyms.map do |sy|
+        lang = get_language(sy)
+        hash = { italicized: sy.name.italicized,
+          canonical: sy.name.canonical_form.string,
+          language: lang,
+          preferred: sy.preferred? && ! preferred_langs[lang],
+          trust: sy.vetted.label
+        }
+        preferred_langs[lang] = true if sy.preferred?
+        hash  
+      end
 
       preferred_langs = {}
-      page[:vernaculars] = concept.preferred_common_names.map do |cn|
+      page[:vernaculars] = concept.denormalized_common_names.map do |cn|
         lang = get_language(cn)
         hash = { string: cn.name.string,
           language: lang,
-          preferred: cn.preferred? && ! preferred_langs[lang]
+          preferred: cn.preferred? && ! preferred_langs[lang],
+          trust: cn.vetted.label
         }
         preferred_langs[lang] = true if cn.preferred?
         hash
       end
 
+      preferred_langs = {}
+      page[:nonpreferred_scientific_names] = concept.nonpreferred_scientific_names.map do |sn|
+        lang = get_language(sn)
+        hash = { italicized: sn.name.italicized,
+          canonical: sn.name.canonical_form.string,
+          language: lang,
+          preferred: false,
+          trust: sn.vetted.label
+        }
+        hash  
+      end
+      
       article = concept.overview_text_for_user(user)
       if (article)
         lic = article.license || License.cc

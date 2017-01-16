@@ -5695,7 +5695,7 @@ mk:
     search:
       suggestions: Предлози
       no_results_found: Не пронајдов ништо
-      results: Резултати
+      results: Исход
   moderator_colon: 'Модератор:'
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; стран. за вид>>'
   never: Никогаш
@@ -5881,7 +5881,7 @@ mk:
   page_reference: „%{title}“. Енциклопедија на живиот свет, достапно на "<a href="http://%{domain_or_ip}%{this_url}"
     target="_blank">http://%{domain_or_ip}%{this_url}</a>". консултирано на %{date}
   page: Страница
-  page_results_avg: Резултати на страницата (прос.)
+  page_results_avg: Просечно ставки во исходот
   page_urls: 'URL на стран.:'
   pages_title: Страници
   pages_with_count:
@@ -6103,9 +6103,9 @@ mk:
   resque_pending_job_count:
     one: Има една незавршена задача во редицата „%{queue}“.
     other: Има %{count} незавршени задачи во редицата „%{queue}“.
-  results_per_page: 'Резултати по страница:'
-  results: Резултати
-  results_offset: Резултати %{from} - %{to} од вкупно %{total} за <em>%{for}</em>
+  results_per_page: 'Ставки по страница:'
+  results: Исход
+  results_offset: Ставки %{from} - %{to} од вкупно %{total} за <em>%{for}</em>
   return_common_names_for_the_page_taxon: дај ги сите народни имиња за таксонот на
     страницата
   return: дај
@@ -6367,7 +6367,7 @@ mk:
   submitted_colon: 'Поднесено:'
   suggested_attributes: 'Предложени атрибути:'
   suggested_result_page_id: 'Назнака за страницата на предложените резултати:'
-  suggested_results_avg: Предложени резултати (прос.)
+  suggested_results_avg: Просечно предложени ставки
   suggested_vocab_add: препорачан поим
   suggested_vocab_remove: отстрани препорака
   summary_thumbnail_title: 'Опис:'

@@ -13,11 +13,6 @@
             %h2.greyedout="(#{@querystring_uri})"
       .page_actions
         %ul
-          - if @traits && ! @traits.blank?
-            %li.data_download
-              = link_to I18n.t(:download_data),
-                download_data_search_path(params: params),
-                method: :post, :class => 'button'
       = render 'shared/flash_messages'
   #content
     .site_column

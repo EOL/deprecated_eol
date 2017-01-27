@@ -128,46 +128,17 @@ class PageSerializer
         resource = build_resource(entry.hierarchy.resource)
         # NOTE: currently the slowest part of this process: having to dig
         # through all of this stuff rather than including it with the concept,
-        # above:
+        # above: NOTE: this will NOT include relationships added by curators. I
+        # don't care. This is just "test" data.
         images = entry.data_objects.select do |i|
           i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map? && i.original_image
         end
         images ||= []
         images.each do |i|
           begin
-            # i = images.first
-            lic = i.license || License.cc
-            b_cit = i.bibliographic_citation
-            b_cit = nil if b_cit.blank?
-            url = i.original_image.sub("_orig.jpg", "")
-            attributions = []
-            i.agents_data_objects.each do |attrib|
-              attributions << { role: attrib.agent_role.label,
-                value: attrib.agent.full_name }
-            end
-            # NOTE: this will NOT include relationships added by curators. I don't
-            # care. This is just "test" data.
-            page[:media] << { guid: i.guid,
-              resource_pk: i.identifier,
-              provider_type: "Resource",
-              provider: resource,
-              license: { name: lic.title, source_url: lic.source_url,
-                icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
-              language: get_language(i),
-              bibliographic_citation: b_cit,
-              rights_statement: i.rights_statement,
-              location: {
-                verbatim: i.location,
-                lat: i.latitude,
-                long: i.longitude,
-                alt: i.altitude },
-              attributions: attributions,
-              owner: i.owner,
-              name: i.best_title(taxon_name),
-              source_url: i.source_url,
+            page[:media] << base_data_object_hash(i, resource,
               description: i.description_linked || i.description,
-              base_url: url
-            }
+              base_url: i.original_image.sub("_orig.jpg", ""))
           rescue => e
             EOL.log("Unable to convert image #{i.id}, skipping: #{e.message}", prefix: "!")
           end
@@ -215,38 +186,13 @@ class PageSerializer
       
       article = concept.overview_text_for_user(user)
       if (article)
-        lic = article.license || License.cc
-        b_cit = article.bibliographic_citation
-        b_cit = nil if b_cit.blank?
         resource = build_resource(article.resource)
-        attributions = []
-        article.agents_data_objects.each do |attrib|
-          attributions << { role: attrib.agent_role.label,
-            value: attrib.agent.full_name }
-        end
-        page[:articles] = [{
-          guid: article.guid,
-          resource_pk: article.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(article),
-          # TODO: skipping location here
-          bibliographic_citation: b_cit,
-          owner: article.owner,
-          rights_statement: article.rights_statement,
-          location: {
-            verbatim: article.location,
-            lat: article.latitude,
-            long: article.longitude,
-            alt: article.altitude },
-          attributions: attributions,
-          name: article.best_title,
-          source_url: article.source_url,
-          body: article.description_linked || article.description,
-          sections: article.toc_items.map { |ti| build_section(ti) }
-        }]
+        page[:articles] = [
+          base_data_object_hash(article, resource,
+            source_url: article.source_url,
+            body: article.description_linked || article.description,
+            sections: article.toc_items.map { |ti| build_section(ti) } )
+        ]
       end
 
       page[:collections] = concept.collections.map do |col|
@@ -262,37 +208,12 @@ class PageSerializer
 
       map = concept.get_one_map_from_solr.first
       if map
-        lic = map.license || License.cc
-        b_cit = map.bibliographic_citation
-        b_cit = nil if b_cit.blank?
         resource = build_resource(map.resource)
-        url = map.original_image.sub("_orig.jpg", "")
-        attributions = []
-        map.agents_data_objects.each do |attrib|
-          attributions << { role: attrib.agent_role.label,
-            value: attrib.agent.full_name }
-        end
-        page[:maps] = [{
-          guid: map.guid,
-          resource_pk: map.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(map),
-          bibliographic_citation: b_cit,
-          owner: map.owner,
-          rights_statement: map.rights_statement,
-          location: {
-            verbatim: map.location,
-            lat: map.latitude,
-            long: map.longitude,
-            alt: map.altitude },
-          attributions: attributions,
-          name: map.best_title,
-          source_url: map.source_url,
-          base_url: url
-        }]
+        page[:maps] = [
+          base_data_object_hash(map, resource,
+            source_url: map.source_url,
+            base_url: map.original_image.sub("_orig.jpg", ""))
+        ]
       end
       return page
     end
@@ -369,6 +290,42 @@ class PageSerializer
             is_hidden_from_glossary: known_uri.hide_from_glossary }
         end
       end
+    end
+
+    def build_attributions(data_object)
+      data_object.agents_data_objects.each do |attrib|
+        url = nil
+        url = attrib.agent.homepage if
+          attrib.agent.homepage && attrib.agent.homepage =~ /^htt/
+        attributions << { role: attrib.agent_role.label, url: url,
+          value: attrib.agent.full_name }
+      end
+    end
+
+    def base_data_object_hash(i, resource, additional = {})
+      attributions = build_attributions(i)
+      lic = i.license || License.cc
+      b_cit = i.bibliographic_citation
+      b_cit = nil if b_cit.blank?
+      { guid: i.guid,
+        resource_pk: i.identifier,
+        provider_type: "Resource",
+        provider: resource,
+        license: { name: lic.title, source_url: lic.source_url,
+          icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
+        language: get_language(i),
+        bibliographic_citation: b_cit,
+        rights_statement: i.rights_statement,
+        location: {
+          verbatim: i.location,
+          lat: i.latitude,
+          long: i.longitude,
+          alt: i.altitude },
+        attributions: attributions,
+        owner: i.owner,
+        name: i.best_title(taxon_name),
+        source_url: i.source_url
+      }.merge(additional)
     end
   end
 end

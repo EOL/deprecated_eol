@@ -797,6 +797,7 @@ oc:
         update: Metre a jorn la ressorsa
         update_settings: Metre a jorn los paramètres
         force_harvest: Demandar una recòlta
+        harvest_tonight: Recòlta aqueste ser
       session:
         create: S’identificar
         sign_in_with_facebook: Connectatz-vos amb Facebook
@@ -4178,11 +4179,13 @@ oc:
   collection_api_sort_field_notes: Se un paramètre sort_field es inclús, sols los
     elements de la colleccion que lo camp de triada correspond exactament a la cadena
     provesida seràn renviats
+  collection_create_failure: La creacion de la colleccion a fracassat.
   collection_created_with_count_notice: La colleccion <em>%{collection_name}</em>
     es estada creada amb succès e conten %{count} element{{PLURAL:%{count}|one=|s}}.
   collection_delete_link: Suprimir definitivament aquesta colleccion.
   collection_destroyed: La colleccion es estada suprimida.
   collection_removed: La colleccion %{collection} es suprimida.
+  collection_not_existing: La colleccion %{collection} existís pas.
   collection_error_no_items_selected: 'Error : Cap d''element pas seleccionat, cap
     d''accion serà pas efectuada.'
   collection_image: Imatge de la colleccion
@@ -5314,6 +5317,9 @@ oc:
   known_uris_none: Degun a pas apondut cap d’URI d'aqueste tipe.
   known_uris_page_title: URIs per las donadas dins EdlV
   known_uris_sorted: Òrdre mes a jorn.
+  pending_harvests_title: Collèctas en espèra
+  pause_pending_harvests: Suspendre la collècta
+  resume_pending_harvests: Reprene la collècta
   label: Libellat
   language: 'Lenga :'
   languages: Lengas

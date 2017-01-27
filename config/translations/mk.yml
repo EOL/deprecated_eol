@@ -4487,8 +4487,8 @@ mk:
     one: '%{count} резултат за <em>%{search_term}</em>'
     other: '%{count} резултати за <em>%{search_term}</em>'
   count_results_for_traitbank:
-    one: Еден резултат од TraitBank
-    other: '%{count} резултати од TraitBank'
+    one: Една ставка од TraitBank
+    other: '%{count} ставки од TraitBank'
   create_account: направи сметка
   create_a_new_collection: Создај нова збирка
   create_community_unsuccessful_error: За жал, се појави грешка. Заедницата не е создадена.
@@ -5204,12 +5204,13 @@ mk:
   glossary_subhead: Поимник
   go_back: назад
   go: Дај
-  google_analytic_results: Резултати од Google-овата аналитика
+  google_analytic_results: Исход од Гугловата аналитика
   google_analytics_active: Google-овата аналитика е активна
   google_analytics_google_account_and_access_required: Google Analytics (се бара сметка
     и пристап на Google)
   google: Google
   google_images: Google Слики
+  google_plus: Енциклопедија на живиот свет на Google+
   google_scholar: Google Scholar
   grant_manager_link: Додели улога „раководител“
   grant_permission: додели
@@ -5694,7 +5695,7 @@ mk:
     search:
       suggestions: Предлози
       no_results_found: Не пронајдов ништо
-      results: Резултати
+      results: Исход
   moderator_colon: 'Модератор:'
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; стран. за вид>>'
   never: Никогаш
@@ -5880,7 +5881,7 @@ mk:
   page_reference: „%{title}“. Енциклопедија на живиот свет, достапно на "<a href="http://%{domain_or_ip}%{this_url}"
     target="_blank">http://%{domain_or_ip}%{this_url}</a>". консултирано на %{date}
   page: Страница
-  page_results_avg: Резултати на страницата (прос.)
+  page_results_avg: Просечно ставки во исходот
   page_urls: 'URL на стран.:'
   pages_title: Страници
   pages_with_count:
@@ -6102,9 +6103,9 @@ mk:
   resque_pending_job_count:
     one: Има една незавршена задача во редицата „%{queue}“.
     other: Има %{count} незавршени задачи во редицата „%{queue}“.
-  results_per_page: 'Резултати по страница:'
-  results: Резултати
-  results_offset: Резултати %{from} - %{to} од вкупно %{total} за <em>%{for}</em>
+  results_per_page: 'Ставки по страница:'
+  results: Исход
+  results_offset: Ставки %{from} - %{to} од вкупно %{total} за <em>%{for}</em>
   return_common_names_for_the_page_taxon: дај ги сите народни имиња за таксонот на
     страницата
   return: дај
@@ -6366,7 +6367,7 @@ mk:
   submitted_colon: 'Поднесено:'
   suggested_attributes: 'Предложени атрибути:'
   suggested_result_page_id: 'Назнака за страницата на предложените резултати:'
-  suggested_results_avg: Предложени резултати (прос.)
+  suggested_results_avg: Просечно предложени ставки
   suggested_vocab_add: препорачан поим
   suggested_vocab_remove: отстрани препорака
   summary_thumbnail_title: 'Опис:'

@@ -69,7 +69,7 @@
           %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
           %li= link_to I18n.t(:pinterest), $EOL_PINTEREST_ACCOUNT, :class => "pinterest", :rel => :nofollow
           %li= link_to I18n.t(:vimeo), $EOL_VIMEO_ACCOUNT, :class => "vimeo", :rel => :nofollow
-          %li= link_to image_tag("//ssl.gstatic.com/images/icons/gplus-32.png", size: "25", alt: t('.google_plus')),
+          %li= link_to image_tag("v2/gplus.png", size: "25", alt: I18n.t("google_plus")),
             $EOL_GOOGLE_PLUS_ACCOUNT,
             class: 'google_plus', rel: 'publisher'
       .questions

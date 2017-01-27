@@ -14,7 +14,9 @@ class PageSerializer
       page = get_page_data(pid)
       EOL.log("Serialized #{pid}: Traits: #{page[:traits].size}, "\
         "media: #{page[:media].size}, "\
+        "scientific_synonyms: #{page[:scientific_synonyms].size}, "\
         "vernaculars: #{page[:vernaculars].size}, "\
+        "nonpreferred scientific names: #{page[:nonpreferred_scientific_names].size}, "\
         "collections: #{page[:collections].size}", prefix: ".")
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
       File.chmod(0644, name)
@@ -126,35 +128,17 @@ class PageSerializer
         resource = build_resource(entry.hierarchy.resource)
         # NOTE: currently the slowest part of this process: having to dig
         # through all of this stuff rather than including it with the concept,
-        # above:
+        # above: NOTE: this will NOT include relationships added by curators. I
+        # don't care. This is just "test" data.
         images = entry.data_objects.select do |i|
           i.published? && i.data_type_id == DataType.image.id && ! i.is_subtype_map? && i.original_image
         end
         images ||= []
         images.each do |i|
           begin
-            # i = images.first
-            lic = i.license || License.cc
-            b_cit = i.bibliographic_citation
-            b_cit = nil if b_cit.blank?
-            url = i.original_image.sub("_orig.jpg", "")
-            # NOTE: this will NOT include relationships added by curators. I don't
-            # care. This is just "test" data.
-            page[:media] << { guid: i.guid,
-              resource_pk: i.identifier,
-              provider_type: "Resource",
-              provider: resource,
-              license: { name: lic.title, source_url: lic.source_url,
-                icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
-              language: get_language(i),
-              # TODO: skipping location here
-              bibliographic_citation: b_cit,
-              owner: i.owner,
-              name: i.best_title(taxon_name),
-              source_url: i.source_url,
+            page[:media] << base_data_object_hash(i, resource, taxon_name,
               description: i.description_linked || i.description,
-              base_url: url
-            }
+              base_url: i.original_image.sub("_orig.jpg", ""))
           rescue => e
             EOL.log("Unable to convert image #{i.id}, skipping: #{e.message}", prefix: "!")
           end
@@ -164,38 +148,53 @@ class PageSerializer
       page[:native_node] = build_node(node, resource)
 
       preferred_langs = {}
-      page[:vernaculars] = concept.preferred_common_names.map do |cn|
+      page[:scientific_synonyms] = concept.scientific_synonyms.map do |sy|
+        lang = get_language(sy)
+        hash = { italicized: sy.name.italicized,
+          canonical: sy.name.canonical_form.string,
+          language: lang,
+          preferred: sy.preferred? && ! preferred_langs[lang],
+          trust: sy.vetted.label
+        }
+        preferred_langs[lang] = true if sy.preferred?
+        hash
+      end
+
+      preferred_langs = {}
+      page[:vernaculars] = concept.denormalized_common_names.map do |cn|
         lang = get_language(cn)
         hash = { string: cn.name.string,
           language: lang,
-          preferred: cn.preferred? && ! preferred_langs[lang]
+          preferred: cn.preferred? && ! preferred_langs[lang],
+          trust: cn.vetted.label
         }
         preferred_langs[lang] = true if cn.preferred?
         hash
       end
 
-      article = concept.overview_text_for_user(user)
-      if (article)
-        lic = article.license || License.cc
-        b_cit = article.bibliographic_citation
-        b_cit = nil if b_cit.blank?
-        resource = build_resource(article.resource)
-        page[:articles] = [{
-          guid: article.guid,
-          resource_pk: article.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(article),
-          # TODO: skipping location here
-          bibliographic_citation: b_cit,
-          owner: article.owner,
-          name: article.best_title,
-          source_url: article.source_url,
-          body: article.description_linked || article.description,
-          sections: article.toc_items.map { |ti| build_section(ti) }
-        }]
+      preferred_langs = {}
+      page[:nonpreferred_scientific_names] = concept.nonpreferred_scientific_names.map do |sn|
+        lang = get_language(sn)
+        hash = { italicized: sn.name.italicized,
+          canonical: sn.name.canonical_form.string,
+          language: lang,
+          preferred: false,
+          trust: sn.vetted.label
+        }
+        hash
+      end
+
+      page[:articles] = []
+      articles = get_all_articles(concept)
+      if (articles && ! articles.empty?)
+        articles.each do |article|
+          resource = build_resource(article.resource)
+          page[:articles] <<
+            base_data_object_hash(article, resource, taxon_name,
+              source_url: article.source_url,
+              body: article.description_linked || article.description,
+              sections: article.toc_items.map { |ti| build_section(ti) } )
+        end
       end
 
       page[:collections] = concept.collections.map do |col|
@@ -211,25 +210,12 @@ class PageSerializer
 
       map = concept.get_one_map_from_solr.first
       if map
-        lic = map.license || License.cc
-        b_cit = map.bibliographic_citation
-        b_cit = nil if b_cit.blank?
         resource = build_resource(map.resource)
-        url = map.original_image.sub("_orig.jpg", "")
-        page[:maps] = [{
-          guid: map.guid,
-          resource_pk: map.identifier,
-          provider_type: "Resource",
-          provider: resource,
-          license: { name: lic.title, source_url: lic.source_url,
-            icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners } ,
-          language: get_language(map),
-          bibliographic_citation: b_cit,
-          owner: map.owner,
-          name: map.best_title,
-          source_url: map.source_url,
-          base_url: url
-        }]
+        page[:maps] = [
+          base_data_object_hash(map, resource, taxon_name,
+            source_url: map.source_url,
+            base_url: map.original_image.sub("_orig.jpg", ""))
+        ]
       end
       return page
     end
@@ -306,6 +292,84 @@ class PageSerializer
             is_hidden_from_glossary: known_uri.hide_from_glossary }
         end
       end
+    end
+
+    def build_attributions(data_object)
+      attributions = []
+      data_object.agents_data_objects.each do |attrib|
+        url = nil
+        url = attrib.agent.homepage if
+          attrib.agent.homepage && attrib.agent.homepage =~ /^htt/
+        attributions << { role: attrib.agent_role.label, url: url,
+          value: attrib.agent.full_name }
+      end
+      attributions
+    end
+
+    def base_data_object_hash(i, resource, taxon_name, additional = {})
+      attributions = build_attributions(i)
+      lic = i.license || License.cc
+      b_cit = i.bibliographic_citation
+      b_cit = nil if b_cit.blank?
+      { guid: i.guid,
+        resource_pk: i.identifier,
+        provider_type: "Resource",
+        provider: resource,
+        license: { name: lic.title, source_url: lic.source_url,
+          icon_url: lic.logo_url, can_be_chosen_by_partners: lic.show_to_content_partners },
+        language: get_language(i),
+        bibliographic_citation: b_cit,
+        rights_statement: i.rights_statement,
+        location: {
+          verbatim: i.location,
+          lat: i.latitude,
+          long: i.longitude,
+          alt: i.altitude },
+        attributions: attributions,
+        owner: i.owner,
+        name: i.best_title(taxon_name),
+        source_url: i.source_url
+      }.merge(additional)
+    end
+
+    # Yes, this is TERRIBLY inefficient and just copied from TaxonDetails. This
+    # isn't critical code and I'm not worried about TaxonDetails changing before
+    # this gets used. It was simpler than abstracting that class, sadly.
+    def get_all_articles(concept)
+      text_objects = concept.data_objects_from_solr(
+        data_type_ids: DataType.text_type_ids,
+        vetted_types: ['trusted', 'unreviewed', 'untrusted'],
+        visibility_types: ['visible', 'invisible'],
+        filter_by_subtype: true,
+        allow_nil_languages: true,
+        toc_ids_to_ignore: TocItem.exclude_from_details.map(&:id),
+        per_page: 500
+      )
+      selects = {
+        hierarchy_entries: [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+        hierarchies: [ :id, :agent_id, :browsable, :outlink_uri, :label ],
+        data_objects_hierarchy_entries: '*',
+        curated_data_objects_hierarchy_entries: '*',
+        data_object_translations: '*',
+        table_of_contents: '*',
+        info_items: '*',
+        toc_items: '*',
+        translated_table_of_contents: '*',
+        users_data_objects: '*',
+        resources: '*',
+        content_partners: '*',
+        refs: '*',
+        ref_identifiers: '*',
+        comments: 'id, parent_id',
+        licenses: '*',
+        users_data_objects_ratings: '*' }
+      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
+        { published_refs: { ref_identifiers: :ref_identifier_type } }, :translations, :data_object_translation, { toc_items: :info_items },
+        { data_objects_hierarchy_entries: [ { hierarchy_entry: { hierarchy: { resource: :content_partner } } },
+          :vetted, :visibility ] },
+        { curated_data_objects_hierarchy_entries: :hierarchy_entry }, :users_data_object,
+        { toc_items: [ :translations ] } ], select: selects)
+      DataObject.sort_by_rating(text_objects, concept)
     end
   end
 end

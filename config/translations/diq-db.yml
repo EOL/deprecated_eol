@@ -1,16 +1,18 @@
 # Messages for Zazaki (Zazaki)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: 1917 Ekim Devrimi
 # Author: Asmen
 # Author: Erdemaslancan
 # Author: Gorizon
+# Author: Gırd
 # Author: Kumkumuk
 # Author: Mirzali
 ---
 diq:
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: itımadın niyo
-  translated_activities-name-activity_id-51: bımocne
+  translated_activities-name-activity_id-51: bımotne
   translated_activities-name-activity_id-52: vıraze
   translated_activities-name-activity_id-53: bınımne
   translated_activities-name-activity_id-54: rocane ke
@@ -53,7 +55,7 @@ diq:
   translated_collection_types-label-collection_type_id-16: Resımi
   translated_collection_types-label-collection_type_id-17: Vılakerdış
   translated_collection_types-label-collection_type_id-18: Halê mışewreyi
-  translated_collection_types-label-collection_type_id-19: Zanışiya nameyi
+  translated_collection_types-label-collection_type_id-19: Şınasnayışê namey
   translated_collection_types-label-collection_type_id-1: Taxsonomi
   translated_collection_types-label-collection_type_id-20: Molkekuler data
   translated_collection_types-label-collection_type_id-21: Name kerdış

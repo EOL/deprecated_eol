@@ -17,7 +17,7 @@ class PageSerializer
         "scientific_synonyms: #{page[:scientific_synonyms].size}, "\
         "vernaculars: #{page[:vernaculars].size}, "\
         "nonpreferred scientific names: #{page[:nonpreferred_scientific_names].size}, "\
-        "collections: #{page[:collections].size}", prefix: ".")  
+        "collections: #{page[:collections].size}", prefix: ".")
       File.open(name, "w") { |f| f.puts(JSON.pretty_generate(page)) }
       File.chmod(0644, name)
     end
@@ -136,7 +136,7 @@ class PageSerializer
         images ||= []
         images.each do |i|
           begin
-            page[:media] << base_data_object_hash(i, resource,
+            page[:media] << base_data_object_hash(i, resource, taxon_name,
               description: i.description_linked || i.description,
               base_url: i.original_image.sub("_orig.jpg", ""))
           rescue => e
@@ -146,7 +146,7 @@ class PageSerializer
       end
 
       page[:native_node] = build_node(node, resource)
-      
+
       preferred_langs = {}
       page[:scientific_synonyms] = concept.scientific_synonyms.map do |sy|
         lang = get_language(sy)
@@ -157,7 +157,7 @@ class PageSerializer
           trust: sy.vetted.label
         }
         preferred_langs[lang] = true if sy.preferred?
-        hash  
+        hash
       end
 
       preferred_langs = {}
@@ -181,18 +181,20 @@ class PageSerializer
           preferred: false,
           trust: sn.vetted.label
         }
-        hash  
+        hash
       end
-      
-      article = concept.overview_text_for_user(user)
-      if (article)
-        resource = build_resource(article.resource)
-        page[:articles] = [
-          base_data_object_hash(article, resource,
-            source_url: article.source_url,
-            body: article.description_linked || article.description,
-            sections: article.toc_items.map { |ti| build_section(ti) } )
-        ]
+
+      page[:articles] = []
+      articles = get_all_articles(concept)
+      if (articles && ! articles.empty?)
+        articles.each do |article|
+          resource = build_resource(article.resource)
+          page[:articles] <<
+            base_data_object_hash(article, resource, taxon_name,
+              source_url: article.source_url,
+              body: article.description_linked || article.description,
+              sections: article.toc_items.map { |ti| build_section(ti) } )
+        end
       end
 
       page[:collections] = concept.collections.map do |col|
@@ -210,7 +212,7 @@ class PageSerializer
       if map
         resource = build_resource(map.resource)
         page[:maps] = [
-          base_data_object_hash(map, resource,
+          base_data_object_hash(map, resource, taxon_name,
             source_url: map.source_url,
             base_url: map.original_image.sub("_orig.jpg", ""))
         ]
@@ -293,6 +295,7 @@ class PageSerializer
     end
 
     def build_attributions(data_object)
+      attributions = []
       data_object.agents_data_objects.each do |attrib|
         url = nil
         url = attrib.agent.homepage if
@@ -300,9 +303,10 @@ class PageSerializer
         attributions << { role: attrib.agent_role.label, url: url,
           value: attrib.agent.full_name }
       end
+      attributions
     end
 
-    def base_data_object_hash(i, resource, additional = {})
+    def base_data_object_hash(i, resource, taxon_name, additional = {})
       attributions = build_attributions(i)
       lic = i.license || License.cc
       b_cit = i.bibliographic_citation
@@ -326,6 +330,46 @@ class PageSerializer
         name: i.best_title(taxon_name),
         source_url: i.source_url
       }.merge(additional)
+    end
+
+    # Yes, this is TERRIBLY inefficient and just copied from TaxonDetails. This
+    # isn't critical code and I'm not worried about TaxonDetails changing before
+    # this gets used. It was simpler than abstracting that class, sadly.
+    def get_all_articles(concept)
+      text_objects = concept.data_objects_from_solr(
+        data_type_ids: DataType.text_type_ids,
+        vetted_types: ['trusted', 'unreviewed', 'untrusted'],
+        visibility_types: ['visible', 'invisible'],
+        filter_by_subtype: true,
+        allow_nil_languages: true,
+        toc_ids_to_ignore: TocItem.exclude_from_details.map(&:id),
+        per_page: 500
+      )
+      selects = {
+        hierarchy_entries: [ :id, :rank_id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+        hierarchies: [ :id, :agent_id, :browsable, :outlink_uri, :label ],
+        data_objects_hierarchy_entries: '*',
+        curated_data_objects_hierarchy_entries: '*',
+        data_object_translations: '*',
+        table_of_contents: '*',
+        info_items: '*',
+        toc_items: '*',
+        translated_table_of_contents: '*',
+        users_data_objects: '*',
+        resources: '*',
+        content_partners: '*',
+        refs: '*',
+        ref_identifiers: '*',
+        comments: 'id, parent_id',
+        licenses: '*',
+        users_data_objects_ratings: '*' }
+      DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
+        { published_refs: { ref_identifiers: :ref_identifier_type } }, :translations, :data_object_translation, { toc_items: :info_items },
+        { data_objects_hierarchy_entries: [ { hierarchy_entry: { hierarchy: { resource: :content_partner } } },
+          :vetted, :visibility ] },
+        { curated_data_objects_hierarchy_entries: :hierarchy_entry }, :users_data_object,
+        { toc_items: [ :translations ] } ], select: selects)
+      DataObject.sort_by_rating(text_objects, concept)
     end
   end
 end

@@ -1,8 +1,10 @@
 # Messages for Message documentation (Message documentation)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: phpyaml
 # Author: EugeneZelenko
 # Author: Kghbln
+# Author: Liuxinyu970226
+# Author: Macofe
 # Author: Maumau
 # Author: Nemo bis
 # Author: Shirayuki
@@ -10,31 +12,40 @@
 ---
 qqq:
   translated_activities-name-activity_id-19: '{{Identical|Profile}}'
+  translated_activities-name-activity_id-51: '{{Identical|Show}}'
   translated_activities-name-activity_id-53: '{{Identical|Hide}}'
   translated_activities-name-activity_id-54: '{{Identical|Update}}'
   translated_activities-name-activity_id-55: '{{Identical|Inappropriate}}'
   translated_activities-name-activity_id-56: '{{Identical|Delete}}'
-  translated_activities-name-activity_id-57: califica
+  translated_activities-name-activity_id-57: |-
+    califica
+    {{Identical|Rate}}
+  translated_activities-name-activity_id-58: '{{Identical|Trusted}}'
   translated_activities-name-activity_id-59: '{{Identical|Unreviewed}}'
+  translated_activities-name-activity_id-63: '{{Identical|Collect}}'
+  translated_activities-name-activity_id-64: '{{Identical|Remove}}'
+  translated_agent_roles-label-agent_role_id-10: '{{Identical|Project}}'
   translated_agent_roles-label-agent_role_id-11: '{{Identical|Publisher}}'
-  translated_agent_roles-label-agent_role_id-12: >
-    Field label for a person or company
-    which created a recording of a sound,
-    such as someone who made a field
-    recording of, say, a wolf howl.
+  translated_agent_roles-label-agent_role_id-12: Field label for a person or company
+    which created a recording of a sound, such as someone who made a field recording
+    of, say, a wolf howl.
   translated_agent_roles-label-agent_role_id-13: '{{Identical|Source}}'
   translated_agent_roles-label-agent_role_id-16: '{{Identical|Contributor}}'
   translated_agent_roles-label-agent_role_id-21: '{{Identical|Provider}}'
   translated_agent_roles-label-agent_role_id-22: '{{Identical|Translator}}'
   translated_agent_roles-label-agent_role_id-2: '{{Identical|Author}}'
+  translated_agent_roles-label-agent_role_id-3: '{{Identical|Compiler}}'
   translated_agent_roles-label-agent_role_id-5: '{{Identical|Creator}}'
   translated_agent_roles-label-agent_role_id-7: '{{Identical|Editor}}'
   translated_agent_roles-label-agent_role_id-8: '{{Identical|Illustrator}}'
+  translated_collection_types-label-collection_type_id-10: '{{Identical|Sound}}'
   translated_collection_types-label-collection_type_id-11: '{{Identical|Link}}'
   translated_collection_types-label-collection_type_id-13: '{{Identical|Taxonomy}}'
   translated_collection_types-label-collection_type_id-15: '{{Identical|Description}}'
   translated_collection_types-label-collection_type_id-16: '{{Identical|Image}}'
+  translated_collection_types-label-collection_type_id-17: '{{Identical|Distribution}}'
   translated_collection_types-label-collection_type_id-1: '{{Identical|Taxonomy}}'
+  translated_collection_types-label-collection_type_id-22: '{{Identical|Sound}}'
   translated_collection_types-label-collection_type_id-23: '{{Identical|Link}}'
   translated_collection_types-label-collection_type_id-3: '{{Identical|Description}}'
   translated_collection_types-label-collection_type_id-4: '{{Identical|Image}}'
@@ -42,8 +53,10 @@ qqq:
   translated_content_partner_statuses-label-content_partner_status_id-2: '{{Identical|Active}}'
   translated_content_partner_statuses-label-content_partner_status_id-3: '{{Identical|Archive}}'
   translated_content_partner_statuses-label-content_partner_status_id-4: '{{Identical|Inactive}}'
+  translated_content_tables-label-content_table_id-1: '{{Identical|Detail}}'
   translated_data_types-label-data_type_id-10: '{{Identical|Map}}'
   translated_data_types-label-data_type_id-1: '{{Identical|Image}}'
+  translated_data_types-label-data_type_id-2: '{{Identical|Sound}}'
   translated_data_types-label-data_type_id-3: '{{Identical|Text}}'
   translated_data_types-label-data_type_id-4: '{{Identical|Video}}'
   translated_data_types-label-data_type_id-7: This means "Adobe Flash".
@@ -51,42 +64,56 @@ qqq:
   translated_licenses-description-license_id-34: '{{Identical|Public domain}}'
   translated_licenses-description-license_id-35: '{{Identical|Public domain}}'
   translated_licenses-description-license_id-39: '{{Identical|Public domain}}'
-  translated_ranks-label-rank_id-107: 'A botanical nomenclature term, see [[w:Forma (botany)]].'
+  translated_ranks-label-rank_id-107: A botanical nomenclature term, see [[w:Forma
+    (botany)]].
   translated_ranks-label-rank_id-266: '{{Identical|Order}}'
   translated_ranks-label-rank_id-317: '{{Identical|Section}}'
   translated_ranks-label-rank_id-375: '{{Identical|Subdivision}}'
   translated_ranks-label-rank_id-51: '{{Identical|Class}}'
-  translated_ranks-label-rank_id-85: "Abbreviation for 'family'."
-  translated_ranks-label-rank_id-86: "Abbreviation for 'family'."
+  translated_ranks-label-rank_id-85: Abbreviation for 'family'.
+  translated_ranks-label-rank_id-86: Abbreviation for 'family'.
   translated_resource_statuses-label-resource_status_id-10: '{{Identical|Published}}'
   translated_resource_statuses-label-resource_status_id-1: '{{Identical|Uploading}}'
   translated_resource_statuses-label-resource_status_id-2: '{{Identical|Uploaded}}'
   translated_resource_statuses-label-resource_status_id-3: '{{Identical|Upload failed}}'
   translated_service_types-label-service_type_id-2: '{{Identical|Other}}'
   translated_sort_styles-name-sort_style_id-2: '{{Identical|Oldest}}'
-  translated_synonym_relations-label-synonym_relation_id-11: 'The “in-part” nametype is included for retrieval terms that have a broader range of application than the taxon or taxa at which they appear. For example, we list reptiles and Reptilia as in-part nametypes at our nodes Testudines (the turtles), Lepidosauria (the lizards and snakes), and Crocodylidae (the crocodilians)[http://www.ncbi.nlm.nih.gov/books/NBK21100/].'
+  translated_statuses-label-status_id-2: '{{Identical|Updated}}'
+  translated_synonym_relations-label-synonym_relation_id-11: The “in-part” nametype
+    is included for retrieval terms that have a broader range of application than
+    the taxon or taxa at which they appear. For example, we list reptiles and Reptilia
+    as in-part nametypes at our nodes Testudines (the turtles), Lepidosauria (the
+    lizards and snakes), and Crocodylidae (the crocodilians)[http://www.ncbi.nlm.nih.gov/books/NBK21100/].
   translated_synonym_relations-label-synonym_relation_id-1: '{{Identical|Synonym}}'
   translated_synonym_relations-label-synonym_relation_id-2: '{{Identical|Common name}}'
   translated_synonym_relations-label-synonym_relation_id-50: '{{Identical|Valid}}'
-  translated_synonym_relations-label-synonym_relation_id-5: "The 'blast name' is a common name for a large group of organisms (e.g. 'mammals' 'flatworms' or 'fungi') that is intended to give a general idea of what kind of organism this is, when the scientific name is not familiar[http://www.ncbi.nlm.nih.gov/blast/taxblasthelp.shtml]."
+  translated_synonym_relations-label-synonym_relation_id-51: '{{Identical|Accepted}}'
+  translated_synonym_relations-label-synonym_relation_id-5: The 'blast name' is a
+    common name for a large group of organisms (e.g. 'mammals' 'flatworms' or 'fungi')
+    that is intended to give a general idea of what kind of organism this is, when
+    the scientific name is not familiar[http://www.ncbi.nlm.nih.gov/blast/taxblasthelp.shtml].
   translated_synonym_relations-label-synonym_relation_id-64: '{{Identical|Invalid}}'
-  translated_table_of_contents-label-table_of_contents_id-13: '{{Identical|Common name}}'
-  translated_table_of_contents-label-table_of_contents_id-14: 'IUCN stands for stands for [https://en.wikipedia.org/wiki/International_Union_for_Conservation_of_Nature International Union for Conservation of Nature]'
+  translated_table_of_contents-label-table_of_contents_id-13: '{{Identical|Common
+    name}}'
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN stands for stands
+    for [https://en.wikipedia.org/wiki/International_Union_for_Conservation_of_Nature
+    International Union for Conservation of Nature]
   translated_table_of_contents-label-table_of_contents_id-194: '{{Identical|Size}}'
   translated_table_of_contents-label-table_of_contents_id-1: '{{Identical|Overview}}'
   translated_table_of_contents-label-table_of_contents_id-285: '{{Identical|Association}}'
   translated_table_of_contents-label-table_of_contents_id-299: '{{Identical|Education}}'
   translated_table_of_contents-label-table_of_contents_id-300: '{{Identical|Wikipedia}}'
   translated_table_of_contents-label-table_of_contents_id-305: '{{Identical|Synonym}}'
-  translated_table_of_contents-label-table_of_contents_id-320: >
-    This refers to biological reproduction
-    (mating, budding, spore-production,
-    etc.).
+  translated_table_of_contents-label-table_of_contents_id-309: '{{Identical|Distribution}}'
+  translated_table_of_contents-label-table_of_contents_id-320: This refers to biological
+    reproduction (mating, budding, spore-production, etc.).
   translated_table_of_contents-label-table_of_contents_id-336: '{{Identical|Note}}'
   translated_table_of_contents-label-table_of_contents_id-337: '{{Identical|Education}}'
   translated_table_of_contents-label-table_of_contents_id-344: '{{Identical|Data}}'
   translated_table_of_contents-label-table_of_contents_id-347: '{{Identical|Taxonomy}}'
+  translated_table_of_contents-label-table_of_contents_id-348: '{{Identical|Type information}}'
   translated_table_of_contents-label-table_of_contents_id-34: '{{Identical|Comment}}'
+  translated_untrust_reasons-label-untrust_reason_id-1: '{{Identical|Misidentified}}'
   translated_untrust_reasons-label-untrust_reason_id-4: '{{Identical|Duplicate}}'
   translated_untrust_reasons-label-untrust_reason_id-5: '{{Identical|Other}}'
   translated_user_identities-label-user_identity_id-2: '{{Identical|Student}}'
@@ -95,3 +122,4 @@ qqq:
   translated_view_styles-name-view_style_id-1: '{{Identical|List}}'
   translated_view_styles-name-view_style_id-2: '{{Identical|Gallery}}'
   translated_visibilities-label-visibility_id-1: '{{Identical|Visible}}'
+...

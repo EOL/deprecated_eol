@@ -1,48 +1,86 @@
 # Messages for Message documentation (Message documentation)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: phpyaml
 # Author: Csparr
 # Author: EugeneZelenko
+# Author: Hayri özkurt
 # Author: Kghbln
 # Author: Liuxinyu970226
 # Author: Lloffiwr
+# Author: Nemo bis
 # Author: Nike
+# Author: Piramidion
 # Author: Purodha
 # Author: Robby
 # Author: Shirayuki
 # Author: Siebrand
+# Author: SkyDaisy9
+# Author: Surena
 # Author: Tititou36
 ---
 qqq:
   date:
+    formats:
+      default: |-
+        *%Y - Year with century (can be negative, 4 digits at least)
+        *%m - Month of the year, zero-padded (00 to 12)
+        *%d - Day of the month, zero-padded (01 to 31)
+
+        See also http://ruby-doc.org/core-2.0/Time.html#method-i-strftime
+      long: |-
+        *%B - The full month name ("January")
+        *%d - Day of the month, zero-padded (01 to 31)
+        *%Y - Year with century (can be negative, 4 digits at least)
+
+        See also http://ruby-doc.org/core-2.0/Time.html#method-i-strftime
     month_names:
-      1: '{{Identical|January}}'
-      2: '{{Identical|February}}'
-      3: '{{Identical|March}}'
-      4: '{{Identical|April}}'
-      5: '{{Identical|May}}'
-      6: '{{Identical|June}}'
-      7: '{{Identical|July}}'
-      8: '{{Identical|August}}'
-      9: '{{Identical|September}}'
-      10: '{{Identical|October}}'
-      11: '{{Identical|November}}'
-      12: '{{Identical|December}}'
+    - '{{notranslate}}'
+    - '{{Identical|January}}'
+    - '{{Identical|February}}'
+    - '{{Identical|March}}'
+    - '{{Identical|April}}'
+    - '{{Identical|May}}'
+    - '{{Identical|June}}'
+    - '{{Identical|July}}'
+    - '{{Identical|August}}'
+    - '{{Identical|September}}'
+    - '{{Identical|October}}'
+    - '{{Identical|November}}'
+    - '{{Identical|December}}'
+  time:
+    formats:
+      long: |-
+        *%B - The full month name ("January")
+        *%d - Day of the month, zero-padded (01 to 31)
+        *%Y - Year with century (can be negative, 4 digits at least)
+        *%H - Hour of the day, 24-hour clock, zero-padded (00 to 23)
+        *%M - Minute of the hour (00 to 59)
+
+        See also http://ruby-doc.org/core-2.0/Time.html#method-i-strftime
+      forum: |-
+        *%a - The abbreviated name ("Sun" of Sunday)
+        *%b - The abbreviated month name ("Jan")
+        *%d - Day of the month, zero-padded (01 to 31)
+        *%Y - Year with century (can be negative, 4 digits at least)
+        *%H - Hour of the day, 24-hour clock, zero-padded (00 to 23)
+        *%M - Minute of the hour (00 to 59)
+
+        See also http://ruby-doc.org/core-2.0/Time.html#method-i-strftime
   support:
     array:
-      words_connector: |
+      words_connector: |-
         Used to connect words.
 
         See also:
         * {{msg-eol|Website-support.array.two words connector}}
         * {{msg-eol|Website-support.array.last word connector}}
-      two_words_connector: |
+      two_words_connector: |-
         Used to connect words.
 
         See also:
         * {{msg-eol|Website-support.array.words connector}}
         * {{msg-eol|Website-support.array.last word connector}}
-      last_word_connector: |
+      last_word_connector: |-
         Used to connect words.
 
         See also:
@@ -50,26 +88,31 @@ qqq:
         * {{msg-eol|Website-support.array.two words connector}}
   datetime:
     prompts:
+      year: '{{identical|Year}}'
+      day: '{{Identical|Day}}'
       hour: '{{Identical|Hour}}'
       minute: '{{Identical|Minute}}'
+      second: '{{Identical|Second}}'
   activerecord:
+    models:
+      user: '{{Identical|Account}}'
     attributes:
       collection:
         name: '{{Identical|Collection name}}'
       collection_job:
-        overwrite: >
-          Used to construct field labels and error
-          messages about those fields.
+        overwrite: Used to construct field labels and error messages about those fields.
       collection_item:
+        annotation: '{{Identical|Annotation}}'
         sort_field: '{{Identical|Sort by}}'
         refs: '{{Identical|Reference}}'
       comment:
         body: '{{Identical|Comment}}'
       contact:
         comments: '{{Identical|Message}}'
-        contact_subject_id: >
-          A field on the "contact us" form. Noun
-          phrase in the nominative case.
+        contact_subject_id: A field on the "contact us" form. Noun phrase in the nominative
+          case.
+        email: '{{Identical|E-mail}}'
+        name: '{{Identical|Name}}'
       content_page:
         active: '{{Identical|Published}}'
       content_partner:
@@ -89,116 +132,105 @@ qqq:
         description: '{{Identical|Description}}'
         source_url: '{{Identical|Link URL}}'
       eol_statistic:
-        created_at: |
+        created_at: |-
           {{Related|Website-activerecord.attributes.eol statistic}}
           {{Identical|Created at}}
-        members_count: |
+        members_count: |-
           {{Related|Website-activerecord.attributes.eol statistic}}
           {{Identical|Member}}
-        communities_count: |
+        communities_count: |-
           {{Related|Website-activerecord.attributes.eol statistic}}
           {{Identical|Community}}
-        collections_count: |
+        collections_count: |-
           {{Related|Website-activerecord.attributes.eol statistic}}
           {{Identical|Collection}}
         pages_count: '{{Related|Website-activerecord.attributes.eol statistic}}'
-        pages_with_content: |
+        pages_with_content: |-
           This means "Number of pages which have content".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_text: |
+        pages_with_text: |-
           This means "Number of pages which have text".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_image: |
+        pages_with_image: |-
           This means "Number of pages which have image".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_map: |
+        pages_with_map: |-
           This means "Number of pages which have map".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_video: |
+        pages_with_video: |-
           This means "Number of pages which have video".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_sound: |
+        pages_with_sound: |-
           This means "Number of pages which have audio".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_without_text: |
+        pages_without_text: |-
           This means "Number of pages which do not have text".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_without_image: |
+        pages_without_image: |-
           This means "Number of pages which do not have image".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_image_no_text: |
+        pages_with_image_no_text: |-
           This means "Number of pages which have image and do not have text".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_text_no_image: |
+        pages_with_text_no_image: |-
           This means "Number of pages which have text and do not have image".
           {{Related|Website-activerecord.attributes.eol statistic}}
         base_pages: '{{Related|Website-activerecord.attributes.eol statistic}}'
-        pages_with_at_least_a_trusted_object: |
+        pages_with_at_least_a_trusted_object: |-
           This means "Number of pages which have trusted object".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_at_least_a_curatorial_action: |
+        pages_with_at_least_a_curatorial_action: |-
           This means "Number of pages which have curatorial action".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_BHL_links: |
+        pages_with_BHL_links: |-
           This means "Number of pages which have BHL links".
 
           BHL = Biodiversity Heritage Library.
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_BHL_links_no_text: |
+        pages_with_BHL_links_no_text: |-
           This means "Number of pages which have BHL links and do not have text".
 
           BHL = Biodiversity Heritage Library.
           {{Related|Website-activerecord.attributes.eol statistic}}
-        pages_with_BHL_links_only: |
+        pages_with_BHL_links_only: |-
           This means "Number of pages which have BHL links only".
 
           BHL = Biodiversity Heritage Library.
           {{Related|Website-activerecord.attributes.eol statistic}}
+        udo_published_by_curators: rusca türkce
         marine_pages_in_col: CoL = Catalogue of Life
-        rich_pages: "'Rich' in this case refers to 'high quality'... ie: pages with lots of text and images."
-        hotlist_pages: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        rich_hotlist_pages: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        rich_hotlist_pages_percentage: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        redhotlist_pages: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        rich_redhotlist_pages: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        rich_redhotlist_pages_percentage: >
-          Hotlist pages are pages that EOL
-          determines have deficient quality for
-          the frequency with which they are
-          viewed, and thus curators are encouraged
-          to add content to them.
-        lifedesk_taxa: '[http://www.lifedesks.org/ LifeDesks] are dynamic web environments for online management and sharing of biodiversity research.'
-        lifedesk_data_objects: '[http://www.lifedesks.org/ LifeDesks] are dynamic web environments for online management and sharing of biodiversity research.'
-        total_taxa_with_data: |
+        rich_pages: '''Rich'' in this case refers to ''high quality''... ie: pages
+          with lots of text and images.'
+        hotlist_pages: Hotlist pages are pages that EOL determines have deficient
+          quality for the frequency with which they are viewed, and thus curators
+          are encouraged to add content to them.
+        rich_hotlist_pages: Hotlist pages are pages that EOL determines have deficient
+          quality for the frequency with which they are viewed, and thus curators
+          are encouraged to add content to them.
+        rich_hotlist_pages_percentage: Hotlist pages are pages that EOL determines
+          have deficient quality for the frequency with which they are viewed, and
+          thus curators are encouraged to add content to them.
+        redhotlist_pages: Hotlist pages are pages that EOL determines have deficient
+          quality for the frequency with which they are viewed, and thus curators
+          are encouraged to add content to them.
+        rich_redhotlist_pages: Hotlist pages are pages that EOL determines have deficient
+          quality for the frequency with which they are viewed, and thus curators
+          are encouraged to add content to them.
+        rich_redhotlist_pages_percentage: Hotlist pages are pages that EOL determines
+          have deficient quality for the frequency with which they are viewed, and
+          thus curators are encouraged to add content to them.
+        lifedesk_taxa: '[http://www.lifedesks.org/ LifeDesks] are dynamic web environments
+          for online management and sharing of biodiversity research.'
+        lifedesk_data_objects: '[http://www.lifedesks.org/ LifeDesks] are dynamic
+          web environments for online management and sharing of biodiversity research.'
+        total_taxa_with_data: |-
           This means "Number of pages which have data".
           {{Related|Website-activerecord.attributes.eol statistic}}
-        total_triples: |
-          A "triple" is a form of data storage, where you have a predicate, relationship, and object. So, for example, a single triple might be "American robins [predicate] prey on [relationship] worms [object]". In this case, we're talking about an "eol statistic", so we're counting the total number of triples in the database at a given point in time.
+        total_triples: A "triple" is a form of data storage, where you have a predicate,
+          relationship, and object. So, for example, a single triple might be "American
+          robins [predicate] prey on [relationship] worms [object]". In this case,
+          we're talking about an "eol statistic", so we're counting the total number
+          of triples in the database at a given point in time.
         total_measurements: '{{Identical|Measurement}}'
         total_associations: '{{Identical|Association}}'
       forum:
@@ -219,19 +251,19 @@ qqq:
         label: '{{Identical|Label}}'
       known_uri:
         description: '{{Identical|Description}}'
-        name: |
+        name: |-
           Used as table column header.
           {{Related|Website-activerecord.attributes.known uri}}
           {{Identical|Name}}
-        toc_items: |
+        toc_items: |-
           Used as table column header.
           {{Related|Website-activerecord.attributes.known uri}}
           {{Identical|Category}}
-        uri: |
+        uri: |-
           Used as table column header.
           {{Related|Website-activerecord.attributes.known uri}}
           {{Identical|URI}}
-        uri_type: |
+        uri_type: |-
           Used as table column header.
           {{Related|Website-activerecord.attributes.known uri}}
       known_uri_relationship:
@@ -240,11 +272,9 @@ qqq:
       open_authentication:
         created_at: '{{Identical|Created}}'
         guid: GUID = Globally unique identifier
-        secret: >
-          Noun. This is the "secret token"
-          attribute on the open_authentication
+        secret: Noun. This is the "secret token" attribute on the open_authentication
           model.
-        token: |
+        token: |-
           The name of an attribute on the open_authentication model (as are all of the records under activerecord.attributes). It would only be used in, say, a table or error message saying something is wrong with the entered value for that attribute. In this case, the token is a (random-looking) string used to authenticate against a key.
           {{Identical|Token}}
         updated_at: '{{Identical|Last updated}}'
@@ -252,7 +282,10 @@ qqq:
       news_item:
         active: '{{Identical|Published}}'
       resource:
-        harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
+        harvest_events: A 'Harvest Event' is the record of when data was imported
+          for a resource (which is a collection of species information), so the term
+          is meant to capture the sense of data being 'harvested' in a single 'event'
+          in time.
         language_id: '{{Identical|Default language}}'
         dataset_license_id: '{{Identical|License}}'
         dataset_rights_holder: '{{Identical|Rights holder}}'
@@ -284,7 +317,7 @@ qqq:
         object: '{{Identical|Value}}'
     errors:
       messages:
-        greater_than: |
+        greater_than: |-
           This is a message given in the context of an error. So, for example, this might imply that the value of "Age" is incorrect, because it must be over 18. So the message is presented to the right of the "Age" field and, in red, says "must be greater than 18".
 
           This means that the verb "must" should always be translated as singular, since it refers to "age". The PLURAL template could be useful in this message if the translation includes the word (year(s)), for example, "(the age) must be greater than 18 year/years".
@@ -292,12 +325,13 @@ qqq:
         harvest_event:
           attributes:
             publish:
-              inclusion: "This error message will be displayed (after the name of the checkbox on the form) if an admin attempts to flag a harvest event for publishisng in one of the cases where it cannot be published (ie: it musn't already be published and there must not be a more recent model to be published)."
-        inaccessible: >
-          This is VERY LOW PRIORITY for
-          translation, please move on; it will
-          only be seen by developers but its
-          inclusion in translations is required
+              inclusion: 'This error message will be displayed (after the name of
+                the checkbox on the form) if an admin attempts to flag a harvest event
+                for publishisng in one of the cases where it cannot be published (ie:
+                it musn''t already be published and there must not be a more recent
+                model to be published).'
+        inaccessible: This is VERY LOW PRIORITY for translation, please move on; it
+          will only be seen by developers but its inclusion in translations is required
           for specs to pass.
   helpers:
     label:
@@ -323,12 +357,14 @@ qqq:
       harvest_event:
         began_at: '{{Identical|Started}}'
         published_at: '{{Identical|Published}}'
+        published_status: '{{Identical|Status}}'
       news_item:
         active: '{{Identical|Published}}'
       open_authentication:
         connected: '{{Identical|Connected}}'
         connect: '{{Identical|Add}}'
       resource:
+        refresh_period_hours: '{{Identical|Frequency}}'
         resource_status_id: '{{Identical|Status}}'
         resource_status: '{{Identical|Status}}'
       session:
@@ -344,6 +380,9 @@ qqq:
     select:
       prompt: '{{Identical|Please select}}'
     submit:
+      create: '{{Identical|Create}}'
+      update: '{{Identical|Update}}'
+      submit: '{{Identical|Save}}'
       contact:
         new: '{{Identical|Send feedback}}'
       content_page:
@@ -366,38 +405,44 @@ qqq:
         create: '{{Identical|Add translation}}'
       user:
         create: '{{Identical|Create account}}'
-        curation_application: "\"Apply\" as in \"apply for a curator job\"."
+        curation_application: '"Apply" as in "apply for a curator job".'
+        recover_account: '{{Identical|E-mail}}'
   will_paginate:
     next_label: '{{Identical|Next}}'
+    page_gap: Probably a filler to indicate that more results are available in further
+      pages.
     previous_label: '{{Identical|Previous}}'
   datepicker:
-    close: |
+    close: |-
       A label for a button or link that users will use to close a datepicker interactive calendar overlay.
       {{Identical|Close}}
-    current: |
+    current: |-
       A label for a button or link that users will use to go to the current day (i.e. today) in an interactive calendar.
       {{Identical|Today}}
     month_names:
-      - '{{Identical|January}}'
-      - '{{Identical|February}}'
-      - '{{Identical|March}}'
-      - '{{Identical|April}}'
-      - '{{Identical|May}}'
-      - '{{Identical|June}}'
-      - '{{Identical|July}}'
-      - '{{Identical|August}}'
-      - '{{Identical|September}}'
-      - '{{Identical|October}}'
-      - '{{Identical|November}}'
-      - '{{Identical|December}}'
+    - '{{Identical|January}}'
+    - '{{Identical|February}}'
+    - '{{Identical|March}}'
+    - '{{Identical|April}}'
+    - '{{Identical|May}}'
+    - '{{Identical|June}}'
+    - '{{Identical|July}}'
+    - '{{Identical|August}}'
+    - '{{Identical|September}}'
+    - '{{Identical|October}}'
+    - '{{Identical|November}}'
+    - '{{Identical|December}}'
     month_names_short:
       4: '{{Identical|May}}'
-    next: |
+    next: |-
       A label for a button or link that users will use to select the next panel in an interactive calendar.
       {{Identical|Next}}
-    previous: |
+    previous: |-
       A label for a button or link that users will use to select the previous panel in an interactive calendar.
       {{Identical|Previous}}
+  collections:
+    download_taxa_data:
+      select_all_checkbox: '{{Identical|Select all}}'
   data_objects:
     show:
       meta_supplier_default: '{{Identical|Contributor}}'
@@ -427,47 +472,60 @@ qqq:
     topics_heading: '{{Identical|Thread}}'
     views: '{{Identical|View}}'
     edit: '{{Identical|Edit forum}}'
-    post_by_user_at_time: "This is a small line of text that appears under each comment, showing authorship. It is not meant to be a 'complete' sentence, just to briefly summarize who posted the comment and when."
+    post_by_user_at_time: This is a small line of text that appears under each comment,
+      showing authorship. It is not meant to be a 'complete' sentence, just to briefly
+      summarize who posted the comment and when.
     actions: '{{Identical|Action}}'
     buttons:
       delete: '{{Identical|Delete}}'
       edit: '{{Identical|Edit}}'
       reply: '{{Identical|Reply}}'
-      link: |
+      link: |-
         On the EOL forums, the 'link' button (this entry) is used to allow users to link to a specific comment.  Please keep this button label as short as possible.
         {{Identical|Link}}
     categories:
       edit: '{{Identical|Edit category}}'
     posts:
       edit: '{{Identical|Edit post}}'
-      close_window: |
+      close_window: |-
         On the EOL forums, the 'close' button is used to close dialog windows. Please keep this button label as short as possible.
         {{Identical|Close}}
+      posts_with_count: '{{Identical|Post}}'
   known_uris:
-    please_select_uris_to_import: >
-      This is an error message (a flash
-      message) shown to administrators, when
-      they have uploaded a list of URIs but
-      have not specified which URIs they want
-      to include in EOL.
+    please_select_uris_to_import: This is an error message (a flash message) shown
+      to administrators, when they have uploaded a list of URIs but have not specified
+      which URIs they want to include in EOL.
     relationships: '{{Identical|Relationship}}'
-    unrecognized_measurement_types: "This is an option in a drop-down which allows administrators to see statistics about how often certain undesirable states occur in the data on EOL. In this case, the admin would be looking for data which has unrecognized measurement types (it's a technical term and should be translated as close to that has possible)."
-    unrecognized_measurement_values: "This is an option in a drop-down which allows administrators to see statistics about how often certain undesirable states occur in the data on EOL. In this case, the admin would be looking for data which has unrecognized measurement values (it's a technical term and should be translated as close to that has possible)."
-    unrecognized_measurement_units: "This is an option in a drop-down which allows administrators to see statistics about how often certain undesirable states occur in the data on EOL. In this case, the admin would be looking for data which has unrecognized measurement units (it's a technical term and should be translated as close to that has possible)."
-    unrecognized_association_types: "This is an option in a drop-down which allows administrators to see statistics about how often certain undesirable states occur in the data on EOL. In this case, the admin would be looking for data which has unrecognized association types (it's a technical term and should be translated as close to that has possible)."
+    unrecognized_measurement_types: This is an option in a drop-down which allows
+      administrators to see statistics about how often certain undesirable states
+      occur in the data on EOL. In this case, the admin would be looking for data
+      which has unrecognized measurement types (it's a technical term and should be
+      translated as close to that has possible).
+    unrecognized_measurement_values: This is an option in a drop-down which allows
+      administrators to see statistics about how often certain undesirable states
+      occur in the data on EOL. In this case, the admin would be looking for data
+      which has unrecognized measurement values (it's a technical term and should
+      be translated as close to that has possible).
+    unrecognized_measurement_units: This is an option in a drop-down which allows
+      administrators to see statistics about how often certain undesirable states
+      occur in the data on EOL. In this case, the admin would be looking for data
+      which has unrecognized measurement units (it's a technical term and should be
+      translated as close to that has possible).
+    unrecognized_association_types: This is an option in a drop-down which allows
+      administrators to see statistics about how often certain undesirable states
+      occur in the data on EOL. In this case, the admin would be looking for data
+      which has unrecognized association types (it's a technical term and should be
+      translated as close to that has possible).
     uri_placeholder_text: Used as placeholder for "URL" input box.
-    name_placeholder_text: >
-      Used as placeholder for "Name" input
+    name_placeholder_text: Used as placeholder for "Name" input box.
+    attribution_placeholder_text: Used as placeholder for "Attribution" input box.
+    ontology_information_url_placeholder_text: Used as placeholder for "URL" input
       box.
-    attribution_placeholder_text: >
-      Used as placeholder for "Attribution"
-      input box.
-    ontology_information_url_placeholder_text: Used as placeholder for "URL" input box.
     ontology_source_url_placeholder_text: Used as placeholder for "URL" input box.
-    preferred_for_equivalence_group: |
+    preferred_for_equivalence_group: |-
       See also:
       * {{msg-eol|Website-known uris.select}}
-    select: |
+    select: |-
       Used as label for button.
 
       See also:
@@ -475,20 +533,21 @@ qqq:
       {{Identical|Select}}
   layouts:
     application:
-      about_link_discover: '{{Identical|Discover}}'
+      about_link_discover: '{{Identical|Education}}'
       about_link_statistics: '{{Identical|Statistics}}'
       about_link_glossary: '{{Identical|Glossary}}'
       about_link_help: '{{Identical|Help}}'
       about_link_terms_of_use: '{{Identical|Terms of use}}'
       about_link_contact_us: '{{Identical|Contact us}}'
       learn_more_link_animals: '{{Identical|Animal}}'
+      learn_more_link_birds: '{{Identical|Bird}}'
       learn_more_link_plants: '{{Identical|Plant}}'
   notifier:
     user_updated_email_preferences:
       subject: '{{doc-singularthey}}'
       message: '{{doc-singularthey}}'
   recent_activity:
-    intro_weekly: "'ending' in this case will be a date, in the 'long' format."
+    intro_weekly: '''ending'' in this case will be a date, in the ''long'' format.'
   recent_activity_mailer:
     data_search_file_download_ready:
       header: Used as notification email subject.
@@ -497,6 +556,10 @@ qqq:
       meta_title: '{{Identical|Login}}'
       problems_signing_in_with_eol_authentication: '{{Identical|Forgot password}}'
   taxa:
+    details:
+      index:
+        hierarchy_entry:
+          meta_description_with_chapter_list: 'EOLのホームページ : http://eol.org'
     literature:
       bhl:
         hierarchy_entry:
@@ -504,22 +567,30 @@ qqq:
           meta_description_with_common_name: BHL = Biodiversity Heritage Library
           meta_title: BHL = Biodiversity Heritage Library
           meta_title_with_common_name: BHL = Biodiversity Heritage Library
-          tweet_text: 'BHL = Biodiversity Heritage Library, # marks the beginning of the hashtag on Twitter'
+          tweet_text: 'BHL = Biodiversity Heritage Library, # marks the beginning
+            of the hashtag on Twitter'
         meta_title: BHL = Biodiversity Heritage Library
         meta_title_with_common_name: BHL = Biodiversity Heritage Library
-        tweet_text: 'BHL = Biodiversity Heritage Library, # marks the beginning of the hashtag on Twitter'
+        tweet_text: 'BHL = Biodiversity Heritage Library, # marks the beginning of
+          the hashtag on Twitter'
   users:
     content_partners:
       index:
-        meta_title: 'The meaning here is *intended* to be genitive / possessive... but for search optimization, should probably NOT grammatically modify the user_full_name. Additionally, user_full_name should come first.'
+        meta_title: The meaning here is *intended* to be genitive / possessive...
+          but for search optimization, should probably NOT grammatically modify the
+          user_full_name. Additionally, user_full_name should come first.
     data_downloads:
+      actions_head: '{{Identical|Action}}'
+      is_complete: '{{Identical|Yes}}'
       processing: '{{Identical|Processing}}'
+      refresh: '{{Identical|Refresh}}'
     newsfeeds:
-      activity_link: |
+      activity_link: |-
         This is the title of a tab.
         {{Identical|Activity}}
-      comments_link: 'This is the title of a tab. It does not need pluralization (meaning: it should always be plural).'
-      newsfeed_link: |
+      comments_link: 'This is the title of a tab. It does not need pluralization (meaning:
+        it should always be plural).'
+      newsfeed_link: |-
         This is the title of a tab.
         {{Identical|News feed}}
     open_authentications:
@@ -530,59 +601,66 @@ qqq:
   user_added_data:
     add_metadata_header: '{{Identical|Additional information}}'
     delete_successful: Used as success message.
-    new_field: "Some users are allowed to add new triplstore data to EOL. This is done using a small form, where the user needs to specify a relationship and an object. For clarity, we call the relationship a 'field', where the user can select such options as 'Preys On' or 'Body Mass' and the like, and later specify the value for that relationship/field. This string is used in the textarea of the form where the select that relationship. (But, again, we call it a 'field' on the site.)"
+    new_field: Some users are allowed to add new triplstore data to EOL. This is done
+      using a small form, where the user needs to specify a relationship and an object.
+      For clarity, we call the relationship a 'field', where the user can select such
+      options as 'Preys On' or 'Body Mass' and the like, and later specify the value
+      for that relationship/field. This string is used in the textarea of the form
+      where the select that relationship. (But, again, we call it a 'field' on the
+      site.)
     new_value: '{{Identical|Value}}'
-    update_successful: |
+    update_successful: |-
       Used as success message.
 
       See also:
       * {{msg-eol|Website-user added data.update failed}}
-    update_failed: |
+    update_failed: |-
       Used as error message. Parameters:
       * %{errors} - error message(s)
 
       See also:
       * {{msg-eol|Website-user added data.update successful}}
   data_search_files:
-    from: |
+    from: |-
       See also:
       * {{msg-eol|Website-data search files.to}}
-    to: |
+    to: |-
       See also:
       * {{msg-eol|Website-data search files.from}}
-  link_rating: "In this context, a 'Link' is actually a user-submitted link. Users can add web resources to EOL pages, and we call them 'Links'. So those links have ratings."
+  link_rating: |-
+    In this context, a 'Link' is actually a user-submitted link. Users can add web resources to EOL pages, and we call them 'Links'. So those links have ratings.
+    {{Identical|Link rating}}
   account_information: '{{Identical|Account information}}'
   account_information_menu: '{{Identical|Account information}}'
   action: '{{Identical|Action}}'
   actions: '{{Identical|Action}}'
   active_colon: '{{Identical|Active}}'
   active: '{{Identical|Active}}'
-  activity: |
+  activity: |-
     This is only used in the admin interface and refers to user activity (ie: actions that users take).
     {{Identical|Activity}}
   add: '{{Identical|Add}}'
-  add_a_new_term: "'term' here refers to a word, which is to be defined by admins for an EOL glossary."
-  add_a_taxon_association_label: "A 'taxon association' is the association between a data object (for example, an image) and a single species (or other single taxonomic entity, such as class, order, or kingdom) ... more simply, a taxon association is saying something like 'This is a picture of a blackbird.'"
-  add_article_instead: 'This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link.'
-  add_classifications: >
-    Curator is about to move data from one
-    concept to another by adding
-    classifications to a list of stored
-    classifications (each classification
-    points to a set of data); this is the
-    text of the button starting that
-    process.
-  add_link_instead: 'This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article.'
+  add_a_taxon_association_label: A 'taxon association' is the association between
+    a data object (for example, an image) and a single species (or other single taxonomic
+    entity, such as class, order, or kingdom) ... more simply, a taxon association
+    is saying something like 'This is a picture of a blackbird.'
+  add_article_instead: This is button text to be displayed in the header of a page
+    where the user is adding a link.  Clicking this button will allow them to add
+    an article instead of a link.
+  add_classifications: Curator is about to move data from one concept to another by
+    adding classifications to a list of stored classifications (each classification
+    points to a set of data); this is the text of the button starting that process.
+  add_link_instead: This is button text to be displayed in the header of a page where
+    the user is adding an article.  Clicking this button will allow them to add a
+    link instead of an article.
   add_new_known_uri_link: Used as label for the button.
   add_page: '{{Identical|Add page}}'
   admin_content_page_active: '{{Identical|Published}}'
-  admin_content_page_edit_tip: >
-    A "named route" is a a rails-specific
-    term which means that in order for a URL
-    like "eol.org/some_route" to work,
-    "some_route" needs to be defined in one
-    of the hard-coded config files.
+  admin_content_page_edit_tip: A "named route" is a a rails-specific term which means
+    that in order for a URL like "eol.org/some_route" to work, "some_route" needs
+    to be defined in one of the hard-coded config files.
   admin_content_partners_notifications_link: '{{Identical|Notification}}'
+  admin_content_partners_statistics_date_to_label: '{{Identical|To}}'
   admin_content_partners_statistics_link: '{{Identical|Statistics}}'
   admin_news_item_active: '{{Identical|Published}}'
   admin_news_link: '{{Identical|News}}'
@@ -595,17 +673,26 @@ qqq:
   all_collections: '{{Identical|All collections}}'
   all_filter: '{{Identical|All}}'
   all_title: '{{Identical|All}}'
+  amount: '{{Identical|Amount}}'
+  annotations_with_count: '{{Identical|Annotation}}'
   annotation_submit: '{{Identical|Post comment}}'
   anonymous_user_full_name: '{{Identical|Anonymous user}}'
   anonymous_user_given_name: '{{Identical|Anonymous}}'
   anonymous_user_tag_line: '{{Identical|Not logged in}}'
-  a_pipe_delimited_list_of_licenses: "The 'all' should not be translated, it is a command used in the API."
-  a_pipe_delimited_list_of_spm_info_item_subject_names: "This is describing possible values for an input field (called 'overview') in the API. The 'overview' and 'all' values MUST be in English (untranslated), and the pipe must remain a literal pipe: |"
+  and: '{{Identical|And}}'
+  and_between_form_items: '{{Identical|And}}'
+  a_pipe_delimited_list_of_licenses: The 'all' should not be translated, it is a command
+    used in the API.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: 'This is describing possible
+    values for an input field (called ''overview'') in the API. The ''overview'' and
+    ''all'' values MUST be in English (untranslated), and the pipe must remain a literal
+    pipe: |'
   application_version_advisory_information: '{{Identical|Application version}}'
-  are_you_sure: |
+  are_you_sure: |-
     Used as confirmation message.
     {{Identical|Are you sure?}}
-  as_of_time_there_were_unique_visitors: |
+  articles_with_count: '{{Identical|Article}}'
+  as_of_time_there_were_unique_visitors: |-
     "Long" format. http://guides.rubyonrails.org/i18n.html#highlighter_941361
 
     ...What this means depends on the settings for your language.
@@ -617,98 +704,98 @@ qqq:
   assistive_taxon_community_header: '{{Identical|Community}}'
   assistive_updates_header: '{{Identical|Update}}'
   associated_with_header: '{{Identical|Associated with}}'
-  association_trusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be trusted (meaning the association has been reviewed by a curator). The list apears in a small 'mouseover' box."
-  association_unreviewed_for_taxa: "This is the heading for a list of taxa to which an image is associated, but the associations have not yet been reviewed by a curator. The list apears in a small 'mouseover' box."
-  association_untrusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be mistaken (meaning the association has been reviewed by a curator and a problem was found). The list apears in a small 'mouseover' box."
+  association_trusted_for_taxa: This is the heading for a list of taxa to which an
+    image is associated and known to be trusted (meaning the association has been
+    reviewed by a curator). The list apears in a small 'mouseover' box.
+  association_unreviewed_for_taxa: This is the heading for a list of taxa to which
+    an image is associated, but the associations have not yet been reviewed by a curator.
+    The list apears in a small 'mouseover' box.
+  association_untrusted_for_taxa: This is the heading for a list of taxa to which
+    an image is associated and known to be mistaken (meaning the association has been
+    reviewed by a curator and a problem was found). The list apears in a small 'mouseover'
+    box.
   audio_play: '{{Identical|Play}}'
   audio_pause: '{{Identical|Pause}}'
   audio_stop: '{{Identical|Stop}}'
   available: '{{Identical|Available}}'
+  average_rating_value_of_total: |-
+    From web page of EOL
+    http://eol.org/info/curation
   back: '{{Identical|Back}}'
-  0: |
-    The second one needs to be possessive, modifying 'newsfeed'."
-  1: >
-    that tree has been lost from the
-    database, and this error is shown."
   beta_warning_note_header: '{{Identical|Note}}'
   bhl_publication: BHL = Biodiversity Heritage Library
   bi_monthly: The meaning here is "twice every month".
-  biodiversity_heritage_library: 'This is the name of a project and should not be translated. See [[w:Biodiversity Heritage Library|Biodiversity Heritage Library]]'
+  biodiversity_heritage_library: This is the name of a project and should not be translated.
+    See [[w:Biodiversity Heritage Library|Biodiversity Heritage Library]]
   by_caps: '{{Identical|By}}'
-  by_scientific_name_table_header: 'This is a table header which sometimes appears immediately after a separate table header that reads "Search".  It is meant to indicate a second column where a link will be provided to search by the scientific name of the taxon (rather than the common name or some synonym).'
-  caching_results: >
-    This is the title to a section of the
-    API documentation that explains how and
-    when to cache the results of API calls.
+  by_scientific_name_table_header: This is a table header which sometimes appears
+    immediately after a separate table header that reads "Search".  It is meant to
+    indicate a second column where a link will be provided to search by the scientific
+    name of the taxon (rather than the common name or some synonym).
+  caching_results: This is the title to a section of the API documentation that explains
+    how and when to cache the results of API calls.
   cancel: '{{Identical|Cancel}}'
-  cancel_and_delete: |
+  cancel_and_delete: |-
     Used as link text.
 
     See also:
     * {{msg-eol|Website-are you sure}}
-  cancel_split: >
-    This is used in the context of curators
-    separating some data from one taxon
-    page; this is the text for the button to
-    cancel that operation.
-  cannot_be_associated_with_both_a_user_and_a_community: >
-    this is an error message which will
-    almost never appear, wherein a
-    collection was associated with both a
-    user and community. This is wrong
-    because a collection can only be created
-    by one or the other.
-  cannot_index_collection_item_type_error: "Yes, there is a problem here with the gender/etc of the 'type' argument.  But this is a RARE error (it should really never show up, since it means some new kind of object was introduced to the code) and thus we don't really mind if the error here isn't perfect."
+  cancel_split: |-
+    This is used in the context of curators separating some data from one taxon page; this is the text for the button to cancel that operation.
+    {{Identical|Cancel}}
+  cannot_be_associated_with_both_a_user_and_a_community: this is an error message
+    which will almost never appear, wherein a collection was associated with both
+    a user and community. This is wrong because a collection can only be created by
+    one or the other.
+  cannot_index_collection_item_type_error: Yes, there is a problem here with the gender/etc
+    of the 'type' argument.  But this is a RARE error (it should really never show
+    up, since it means some new kind of object was introduced to the code) and thus
+    we don't really mind if the error here isn't perfect.
   change: '{{Identical|Change}}'
-  classification_curation_pending: "This is a warning, displayed on the 'names' tab, when showing classifications that are presently undergoing curation (a process that can take some time and occurs in the background)."
-  classification_split_help: 'At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move.'
-  classification_merge_help: 'At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move.'
-  classification_button_help: '"use as exemplar" should correspond to the translation on {{msg-eol|Website-use as examplar button}}'
-  classifications_split_column_header: >
-    Column header on table; the cells below
-    this header will have a checkbox,
-    allowing curators to select the row
-    (which represents a classification) for
-    either a split (separated into a new
-    page) or move (merge the data from these
-    classifications onto an existing page).
-  classifications_summary_header_with_count: "Please note that there is an exceptional value for zero, here, which does not display the actual count, but instead a brief message explaining that the page the user is viewing is not easily availble on EOL (the user was likely directed here with a specific link) and that there are no *browsable* classifications for this page.  The notion here is that there are some classifications (trees of life) that are stored in EOL's databases, but the user cannot view them (browse them) by default. Note this is used as a header, so punctuation is not (generally) appropriate."
-  cms_editor: >
-    A label used for a link that takes a
-    user to our Content Managment System
+  classification_curation_pending: This is a warning, displayed on the 'names' tab,
+    when showing classifications that are presently undergoing curation (a process
+    that can take some time and occurs in the background).
+  classification_split_help: At this point, the user is being asked to select a SINGLE
+    classification that BEST represents the taxon.  They have previously selected
+    multiple classifications to move.
+  classification_merge_help: At this point, the user is being asked to select a SINGLE
+    classification that BEST represents the taxon.  They have previously selected
+    multiple classifications to move.
+  classification_button_help: '"use as exemplar" should correspond to the translation
+    on {{msg-eol|Website-use as examplar button}}'
+  classifications_split_column_header: Column header on table; the cells below this
+    header will have a checkbox, allowing curators to select the row (which represents
+    a classification) for either a split (separated into a new page) or move (merge
+    the data from these classifications onto an existing page).
+  classifications_summary_header_with_count: Please note that there is an exceptional
+    value for zero, here, which does not display the actual count, but instead a brief
+    message explaining that the page the user is viewing is not easily availble on
+    EOL (the user was likely directed here with a specific link) and that there are
+    no *browsable* classifications for this page.  The notion here is that there are
+    some classifications (trees of life) that are stored in EOL's databases, but the
+    user cannot view them (browse them) by default. Note this is used as a header,
+    so punctuation is not (generally) appropriate.
+  cms_editor: A label used for a link that takes a user to our Content Managment System
     (CMS) editor tool
   click: '{{Identical|Click}}'
-  collection_error_no_items_selected: >
-    The user has caused an error by
-    attempting to move, copy, or delete
-    collection items, without selecting any
-    collection items at all.
-  collection_copy_complete_with_count: >
-    A notification message informing the
-    user how many collection items were
-    copied. "from" is the name of the source
-    collection, "to" is the name of the
-    target collection(s) (this can be a list
-    of several collections), and when the
-    number is more than one, there should be
-    an indication that the count is a TOTAL
-    number of items moved. For exampe, if a
-    user copies 2 items from a collection to
-    two collections, the count will be 4 (2
-    for each target collection).
-  collection_move_complete_with_count: >
-    A notification message informing the
-    user how many collection items were
-    moved. "from" is the name of the source
-    collection, "to" is the name of the
-    target collection(s) (this can be a list
-    of several collections), and when the
-    number is more than one, there should be
-    an indication that the count is a TOTAL
-    number of items moved. For exampe, if a
-    user moves 2 items from a collection to
-    two collections, the count will be 4 (2
-    for each target collection).
+  collection_error_no_items_selected: The user has caused an error by attempting to
+    move, copy, or delete collection items, without selecting any collection items
+    at all.
+  collection_items_count: |-
+    {{Identical|Empty}}
+    {{Identical|Item}}
+  collection_copy_complete_with_count: A notification message informing the user how
+    many collection items were copied. "from" is the name of the source collection,
+    "to" is the name of the target collection(s) (this can be a list of several collections),
+    and when the number is more than one, there should be an indication that the count
+    is a TOTAL number of items moved. For exampe, if a user copies 2 items from a
+    collection to two collections, the count will be 4 (2 for each target collection).
+  collection_move_complete_with_count: A notification message informing the user how
+    many collection items were moved. "from" is the name of the source collection,
+    "to" is the name of the target collection(s) (this can be a list of several collections),
+    and when the number is more than one, there should be an indication that the count
+    is a TOTAL number of items moved. For exampe, if a user moves 2 items from a collection
+    to two collections, the count will be 4 (2 for each target collection).
   collection_name_label: '{{Identical|Collection name}}'
   collections_filter: '{{Identical|Collection}}'
   collections_link: '{{Identical|Collection}}'
@@ -718,8 +805,15 @@ qqq:
   comment_new_title: '{{Identical|Add new comment}}'
   comments: '{{Identical|Comment}}'
   comments_filter: '{{Identical|Comment}}'
-  comments_on: "This is meant to be the header for a page where we're listing all of the comments on a particular subject, such as 'Comments on An Image of A Blackbird' or 'Comments on Procyon Lotor' or 'Comments on Jeremy Rice'.  Thus, this string is prepended to the title of the page where the comments were originally left, and these titles are supplied by content partners, so we CANNOT know the number, gender, or other information about the string."
-  common_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of common name results that occurred, on average, for a search term within a given date range."
+  comments_on: This is meant to be the header for a page where we're listing all of
+    the comments on a particular subject, such as 'Comments on An Image of A Blackbird'
+    or 'Comments on Procyon Lotor' or 'Comments on Jeremy Rice'.  Thus, this string
+    is prepended to the title of the page where the comments were originally left,
+    and these titles are supplied by content partners, so we CANNOT know the number,
+    gender, or other information about the string.
+  common_name_avg: these are table column headings, and the 'avg' is meant to represent
+    'average', because we're counting the number of common name results that occurred,
+    on average, for a search term within a given date range.
   common_name: '{{Identical|Common name}}'
   common_names_with_count: '{{Identical|Common name}}'
   communities_filter: '{{Identical|Community}}'
@@ -730,7 +824,11 @@ qqq:
   confirm_password_colon: '{{Identical|Confirm password}}'
   contact_us: '{{Identical|Contact us}}'
   contact_us_link: '{{Identical|Contact us}}'
-  contact_us_topics: "This is used as a title (either a page title or a section title), seen only by admins, to describe the possible subjects that will be available in the drop-down menu when an EOL user wants to contact us (you can follow the 'Contact Us' link at the bottom of the site to see the form that the user will pick a topic from)."
+  contact_us_topics: This is used as a title (either a page title or a section title),
+    seen only by admins, to describe the possible subjects that will be available
+    in the drop-down menu when an EOL user wants to contact us (you can follow the
+    'Contact Us' link at the bottom of the site to see the form that the user will
+    pick a topic from).
   content_partner_agreement_cancel_edit_agreement_link: '{{Identical|Cancel}}'
   content_partner_agreement_cancel_new_agreement_link: '{{Identical|Cancel}}'
   content_partner_agreement_cancel_sign_agreement_link: '{{Identical|Cancel}}'
@@ -745,58 +843,71 @@ qqq:
   content_partner_resource_auto_publish_false: '{{Identical|No}}'
   content_partner_resource_collections_header: '{{Identical|Collection}}'
   content_partner_resource_edit_link: '{{Identical|Edit}}'
-  content_partner_resource_harvest_event_current_published: '{{Identical|Currently published}}'
+  content_partner_resource_edit_subheader: '{{Identical|Edit resource}}'
+  content_partner_resource_edit_with_type_link: '{{Identical|Edit resource}}'
+  content_partner_resource_harvest_event_current_published: '{{Identical|Currently
+    published}}'
   content_partner_resource_hierarchy_edit_link: '{{Identical|Edit}}'
+  content_partner_resource_hierarchy_unknown: '{{Identical|Unknown}}'
   content_partner_resource_resource_status_new: '{{Identical|Created}}'
   content_partner_resource_vetted_true: '{{Identical|Yes}}'
   content_partner_resource_vetted_false: '{{Identical|No}}'
   content_partner_resources_header: '{{Identical|Resource}}'
+  content_partner_statistics_column_header_total_count: '{{Identical|All pages}}'
+  content_partner_statistics_month_label: '{{Identical|Month}}'
   content_partner_statistics_link: '{{Identical|Usage statistics}}'
+  content_partner_statistics_column_header_taxa_page_page_views: '{{Identical|Page
+    view}}'
   content_partner_status_empty: '{{Identical|Unknown status}}'
   content_summary_table_count_column_header: '{{Identical|Count}}'
-  copied_all_items_from_collection_with_count: >
-    This is in the context of an update
-    given to the user immediately after
-    taking action, not in a log.
-  copied_all_items_to_collections: >
-    This is in the context of an update
-    given to the user immediately after
-    taking action, not in a log.
-  copied_items_from_collection_with_count_notice: >
-    This is in the context of an update
-    given to the user immediately after
-    taking action, not in a log.
+  content_summary_table_type_trusted_images_row: |-
+    For definition of this "trusted",see "Data quarity on EOL"
+    http://eol.org/info/data_quality
+  contribute: '{{Identical|Contribute}}'
+  copied_all_items_from_collection_with_count: This is in the context of an update
+    given to the user immediately after taking action, not in a log.
+  copied_all_items_to_collections: This is in the context of an update given to the
+    user immediately after taking action, not in a log.
+  copied_items_from_collection_with_count_notice: This is in the context of an update
+    given to the user immediately after taking action, not in a log.
   copy: '{{Identical|Copy}}'
-  copy_items_to_a_new_collection_with_count: >
-    This is in the context of an update
-    given to the user immediately after
-    taking action, not in a log.
-  count_results_for_search_term: "I know, you are not supposed to combine terms for I18n because grammars differ in terms of where to add these things. However, this is one of those complicated exceptions where there are TWO counts, and I want both of them to be aware of pluralization, so I'm assuming we can always combine the 'including' bit afterwards. Sorry."
+  copy_items_to_a_new_collection_with_count: This is in the context of an update given
+    to the user immediately after taking action, not in a log.
+  count_results_for_search_term: I know, you are not supposed to combine terms for
+    I18n because grammars differ in terms of where to add these things. However, this
+    is one of those complicated exceptions where there are TWO counts, and I want
+    both of them to be aware of pluralization, so I'm assuming we can always combine
+    the 'including' bit afterwards. Sorry.
   create_account: '{{Identical|Create account}}'
-  create_community: >
-    This is a button label and is not meant
-    to be (fully) grammatical.
+  create_community: This is a button label and is not meant to be (fully) grammatical.
   created_at: '{{Identical|Created at}}'
   created_colon: '{{Identical|Created}}'
   created: '{{Identical|Created}}'
+  credentials: '{{Identical|Credential}}'
   credentials_colon: '{{Identical|Credential}}'
   curated_association_update_button: '{{Identical|Save changes}}'
-  curation_error_no_hide_reasons_given: "A curator tried to hide a data object on the species page of 'association', but they did not give a reason for hiding it."
-  curation_error_no_untrust_reasons_given: "A curator tried to untrust (they decided it was improperly identified) a data object on the species page of 'association', but they did not give a reason for untrusting it."
-  curation_error_vetted_invalid: >
-    This means an invalid parameter was
-    passed in for curation. Very rare error.
-  curation_error_visibility_invalid: >
-    This means an invalid parameter was
-    passed in for curation. Very rare error.
-  curation_error_untrust_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
-  curation_error_hide_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
-  curation_error_object_in_preview_state_cannot_be_curated: "A curator attempted to curate a data object that hasn't finished being imported yet; this is not allowed."
+  curation_error_no_hide_reasons_given: A curator tried to hide a data object on the
+    species page of 'association', but they did not give a reason for hiding it.
+  curation_error_no_untrust_reasons_given: A curator tried to untrust (they decided
+    it was improperly identified) a data object on the species page of 'association',
+    but they did not give a reason for untrusting it.
+  curation_error_vetted_invalid: This means an invalid parameter was passed in for
+    curation. Very rare error.
+  curation_error_visibility_invalid: This means an invalid parameter was passed in
+    for curation. Very rare error.
+  curation_error_untrust_reasons_invalid: A curator attempted to curate a data object
+    on the page for 'association' but provided invalid reasons. A very rare error.
+  curation_error_hide_reasons_invalid: A curator attempted to curate a data object
+    on the page for 'association' but provided invalid reasons. A very rare error.
+  curation_error_object_in_preview_state_cannot_be_curated: A curator attempted to
+    curate a data object that hasn't finished being imported yet; this is not allowed.
+  current_language: '{{Identical|Language}}'
   currently_published: '{{Identical|Currently published}}'
   daily: '{{Identical|Daily}}'
   dashboard: '{{Identical|Dashboard}}'
+  data: '{{Identical|Data}}'
   data_column_common_name: '{{Identical|Common name}}'
-  data_column_measurement: |
+  data_column_measurement: |-
     Column heading for a table in which the data represents a measurement or fact, and this field will be the measured value.
     {{Identical|Measurement}}
   data_column_value: '{{Identical|Value}}'
@@ -807,70 +918,84 @@ qqq:
   data_column_val_uri: '{{Identical|Value URI}}'
   data_column_units: '{{Identical|Unit}}'
   data_column_source: '{{Identical|Supplier}}'
-  data_database_colon: |
+  data_disclaimer: Unused at this time.
+  data_database_colon: |-
     This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).
     {{Identical|Data}}
-  data_master_database_colon: 'This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).'
-  data_overview_table_caption: "Screen-reader only; this won't show up on the website for others. Identifies the table of data on the overview tab."
-  data_point_uri_source_missing: |
+  data_master_database_colon: 'This is seen only by admins, and is the label used
+    in a table describing the names of the databases used by EOL (there are five:
+    main, main_master, data_master, data, and logging).'
+  data_overview_table_caption: Screen-reader only; this won't show up on the website
+    for others. Identifies the table of data on the overview tab.
+  data_point_uri_source_missing: |-
     See also:
     * {{msg-eol|Website-data provided by user}}
     * {{msg-eol|Website-data provided by content partner}}
   data_provided_by_content_partner: '{{Identical|Supplier}}'
-  data_show_n_more_rows: "'NNN' here will be replaced by JavaScript with a number, always over 10. I know this is not an optimal way to do a translation, but since it's being done by JS in a Rails system, it's not simple to improve this, so please do the best you can with this, here. It won't happen often.  :)"
+  data_show_n_more_rows: '''NNN'' here will be replaced by JavaScript with a number,
+    always over 10. I know this is not an optimal way to do a translation, but since
+    it''s being done by JS in a Rails system, it''s not simple to improve this, so
+    please do the best you can with this, here. It won''t happen often.  :)'
   data_subtab_about: '{{Identical|About}}'
   data_subtab_glossary: '{{Identical|Glossary}}'
-  dato_location_created: >
-    A line of information about a data
-    object (image, video, etc) describing
-    where the object was created; only shows
-    up if applicable.
+  dato_edit_cancel: '{{Identical|Cancel}}'
+  dato_location_created: A line of information about a data object (image, video,
+    etc) describing where the object was created; only shows up if applicable.
   dato_edit_text_button: '{{Identical|Edit this article}}'
+  deactivate: '{{Identical|Deactivate}}'
   default: '{{Identical|Default}}'
-  default_focus_collection_name_from_community: |
-    'name' in this context is the name of a community.  This translated string will become the name of a collection, so a collection that's a focus for "My Favourite Animals" will be named something like "My Favourite Animals' Focus".
-  definition: '{{Identical|Definition}}'
+  default_focus_collection_name_from_community: '''name'' in this context is the name
+    of a community.  This translated string will become the name of a collection,
+    so a collection that''s a focus for "My Favourite Animals" will be named something
+    like "My Favourite Animals'' Focus".'
+  delete_data_object: '{{Identical|Delete}}'
   delete: '{{Identical|Delete}}'
   delete_firstcap: '{{Identical|Delete}}'
   description: '{{Identical|Description}}'
   detail: '{{Identical|Detail}}'
-  discover_link: '{{Identical|Discover}}'
+  discover_link: '{{Identical|Education}}'
   donate_link: '{{Identical|Donate}}'
   edit: '{{Identical|Edit}}'
   edit_my_profile: '{{Identical|Edit my profile}}'
-  edit_permission_header: >
-    Admins can see a list of permissions
-    available to users on the site; this is
-    the heading to the page for editing a
-    single permission.
-  edit_the_topic_area_intro: "In this context, the 'topic area' is one text area, the 'email addresses' is another text area, and there is ONE checkbox (called 'active') to be checked. This last checkbox allows admins to add options at one point in time without having them show up, and then to quickly activate them later."
-  eol_api_provider_hierarchies: "This is the title for a documentation page describing the API for retrieving provider hierarchy information: the names and ids of the taxonomy ('tree of life') that each of our providers (content partners) must build in order to give us information specific to species within that tree."
+  edit_permission_header: Admins can see a list of permissions available to users
+    on the site; this is the heading to the page for editing a single permission.
+  edit_the_topic_area_intro: In this context, the 'topic area' is one text area, the
+    'email addresses' is another text area, and there is ONE checkbox (called 'active')
+    to be checked. This last checkbox allows admins to add options at one point in
+    time without having them show up, and then to quickly activate them later.
+  eol_api_provider_hierarchies: 'This is the title for a documentation page describing
+    the API for retrieving provider hierarchy information: the names and ids of the
+    taxonomy (''tree of life'') that each of our providers (content partners) must
+    build in order to give us information specific to species within that tree.'
   eol_pages: '{{Identical|Page}}'
+  error_403_page_title: '{{Identical|Forbidden}}'
   error_500_page_title: '{{Identical|Oops}}'
-  error_classifications_locked_cannot_reindex: >
-    This is a flash message that a curator
-    would receive if they attempted to
-    request reindexing of a page where the
-    classifications are locked; locked
-    classifications imply that the conent of
-    the page are about to change, so
-    reindexing would be premature... or that
-    someone else has already requested a
-    reindexing.
-  error_exemplar_chosen_with_invalid_action: "This is an extremely rare case where an action was submitted (choosing a classification to either split or merge) but the actual action intended was lost: we don't know if they wanted to split the classification from the page or merge it onto the page. Thus, we're asking them to try again."
+  error_classifications_locked_cannot_reindex: This is a flash message that a curator
+    would receive if they attempted to request reindexing of a page where the classifications
+    are locked; locked classifications imply that the conent of the page are about
+    to change, so reindexing would be premature... or that someone else has already
+    requested a reindexing.
+  error_exemplar_chosen_with_invalid_action: 'This is an extremely rare case where
+    an action was submitted (choosing a classification to either split or merge) but
+    the actual action intended was lost: we don''t know if they wanted to split the
+    classification from the page or merge it onto the page. Thus, we''re asking them
+    to try again.'
+  example_colon: '{{Identical|Example}}'
   exceptions:
     security_violations:
-      min_full_curators_only: '{{msg-eol|Website-activerecord.attributes.eol statistic.curators full}}'
+      min_full_curators_only: '{{msg-eol|Website-activerecord.attributes.eol statistic.curators
+        full}}'
   external_link_header: '{{Identical|External link}}'
   external_link_icon_alt_text: '{{Identical|External link}}'
   facebook: '{{Identical|Facebook}}'
-  failed_login_attempts_with_count: 'IN addition to the count, this tells the admin that the preceeding checkbox needs to be checked in order for the user to be allowed to log in at all.  In practice, the count here will never be one or zero, but we need to pluralize it for more complex languages.'
+  failed_login_attempts_with_count: IN addition to the count, this tells the admin
+    that the preceeding checkbox needs to be checked in order for the user to be allowed
+    to log in at all.  In practice, the count here will never be one or zero, but
+    we need to pluralize it for more complex languages.
   file: '{{Identical|File}}'
   file_size: '{{Identical|File size}}'
-  filed_under_label_with_date: >
-    Note that the date is in the :long
-    format.
-  filter_button: |
+  filed_under_label_with_date: Note that the date is in the :long format.
+  filter_button: |-
     Button text.
     {{Identical|Filter}}
   filter_by_type_all_option: '{{Identical|All types}}'
@@ -881,34 +1006,42 @@ qqq:
   filter_by_type_link_option: '{{Identical|Link}}'
   filter_by_type_text_option: '{{Identical|Article}}'
   filter_by_type_comment_option: '{{Identical|Comment}}'
-  filter_newsfeed_option_all: |
+  filter_newsfeed_option_all: |-
     This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: All (all items will be shown, no filtering).
     {{Identical|All}}
-  filter_newsfeed_option_messages: |
+  filter_newsfeed_option_messages: |-
     This will be a value in a drop-down to allow users to show certain newsfeed item types.
 
     In this case, it allows the users to see messages related to: Comments (not 'messages', since that tends to imply that the messages are private, and all messages on eol are public, so we call them comments in the GUI.
     {{Identical|Comment}}
-  filter_newsfeed_option_community: |
+  filter_newsfeed_option_community: |-
     This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Community.
     {{Identical|Community}}
-  filter_newsfeed_option_collections: |
+  filter_newsfeed_option_collections: |-
     This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Collections.
     {{Identical|Collection}}
-  filter_newsfeed_option_watchlist: |
+  filter_newsfeed_option_watchlist: |-
     This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Watchlist.
     {{Identical|Watchlist}}
-  filter_newsfeed_option_curation: 'This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Curation'
+  filter_newsfeed_option_curation: 'This will be a value in a drop-down to allow users
+    to show certain newsfeed item types.  In this case, it allows the users to see
+    messages related to: Curation'
   forgot_password: '{{Identical|Forgot password}}'
-  fragment_caching_enabled: 'Fragment caching is a method of storing in memory various PARTS of pages, in order to speed up page load times for users.  However, it can cause some problems in certain situations, so admins (only) are allowed to turn it on and off.'
+  forgot_password_form_cancel: '{{Identical|Cancel}}'
+  fragment_caching_enabled: Fragment caching is a method of storing in memory various
+    PARTS of pages, in order to speed up page load times for users.  However, it can
+    cause some problems in certain situations, so admins (only) are allowed to turn
+    it on and off.
   frequency_daily: '{{Identical|Daily}}'
+  frequency_monthly: '{{Identical|Monthly}}'
   frequency_weekly: '{{Identical|Weekly}}'
-  georeference_records_colon: "A header used before a count of records... we do NOT have the number available at render-time (it is added by JS), so we cannot use a typical pluralization, here; you will have to use an 'abstract' or 'unknown' pluralization. Typically the number is very large, though (hundreds), but could be very small in some rare cases. Sorry."
+  georeference_records_colon: A header used before a count of records... we do NOT
+    have the number available at render-time (it is added by JS), so we cannot use
+    a typical pluralization, here; you will have to use an 'abstract' or 'unknown'
+    pluralization. Typically the number is very large, though (hundreds), but could
+    be very small in some rare cases. Sorry.
   glossary: '{{Identical|Glossary}}'
   glossary_subhead: '{{Identical|Glossary}}'
-  glossary_term: |
-    This indicates a term that should show up with a definition. This translation is only seen by admins.
-    {{Identical|Term}}
   go_back: '{{Identical|Go back}}'
   go: '{{Identical|Go}}'
   google: '{{Identical|Google}}'
@@ -917,17 +1050,39 @@ qqq:
   grant_full_curator_link: '{{Identical|Grant}}'
   help: '{{Identical|Help}}'
   hidden: '{{Identical|Hidden}}'
-  hierarchy_node_missing: "When showing a so-called 'tree of life', sometimes the data for a particular branch of that tree has been lost from the database, and this error is shown."
+  hierarchy_node_missing: When showing a so-called 'tree of life', sometimes the data
+    for a particular branch of that tree has been lost from the database, and this
+    error is shown.
   home: '{{Identical|Home}}'
   id: '{{Identical|ID}}'
-  if_the_details_parameter_is_not_set: "'details' is a parameter passed to the API; do not translate it. 'linka' will have the value of the 'dublin_core' translation, and 'linkb' will have the translation for 'eol_accepted_subjects'."
-  check_this_to_browse_eol_by_the_hierarchy: "This is information shown only to admins on a form for editing hierarchies (AKA classifications, or 'tress of life') that come from content partners. If it's checked, this hierarchy will be one of the 'default' classifications on the names tab. If it is left unchecked, the classification will be hidden to the user by default unless they click on a link to show all classifications."
-  return_content_by_vettedness: "This is API documentation. 'vetted' should be left untranslated (it must be used as exactly the English string, 'vetted') and the digits (1, 2) should also remain arabic numerals."
+  if_the_details_parameter_is_not_set: '''details'' is a parameter passed to the API;
+    do not translate it. ''linka'' will have the value of the ''dublin_core'' translation,
+    and ''linkb'' will have the translation for ''eol_accepted_subjects''.'
+  check_this_to_browse_eol_by_the_hierarchy: This is information shown only to admins
+    on a form for editing hierarchies (AKA classifications, or 'tress of life') that
+    come from content partners. If it's checked, this hierarchy will be one of the
+    'default' classifications on the names tab. If it is left unchecked, the classification
+    will be hidden to the user by default unless they click on a link to show all
+    classifications.
+  return_content_by_vettedness: This is API documentation. 'vetted' should be left
+    untranslated (it must be used as exactly the English string, 'vetted') and the
+    digits (1, 2) should also remain arabic numerals.
   image: '{{Identical|Image}}'
-  image_objects_will_contain_two_mediaurl_elements: "This is API documentation. 'mediaURL' is a technical term and should remain untranslated."
-  image_title_with_taxa: "The 'taxa' variable here will be a list of taxa concatenated using the language-specific 'to_sentence' constructor' (though in 99% of cases it will only be one taxon). For example, 'Bola bola, Canis lupus, and Procyon lotor'. This translation is used as the title on image pages where the content provider didn't give us a better image title."
+  image_objects_will_contain_two_mediaurl_elements: This is API documentation. 'mediaURL'
+    is a technical term and should remain untranslated.
+  image_title_with_taxa: The 'taxa' variable here will be a list of taxa concatenated
+    using the language-specific 'to_sentence' constructor' (though in 99% of cases
+    it will only be one taxon). For example, 'Bola bola, Canis lupus, and Procyon
+    lotor'. This translation is used as the title on image pages where the content
+    provider didn't give us a better image title.
   images: '{{Identical|Image}}'
-  info_items_col_header: "This is a column header, seen only by admins, indicating which 'Info Items' an aticle is associated with.  Info items are specific entries intended for a Table of Contents (TOC), following a specific standard (which is itself not worth explaining here, other than to point out they are titles used in a TOC). Thus, the values in this column won't be seen on the site, but are used by content partners."
+  images_with_count: '{{Identical|Image}}'
+  info_items_col_header: This is a column header, seen only by admins, indicating
+    which 'Info Items' an aticle is associated with.  Info items are specific entries
+    intended for a Table of Contents (TOC), following a specific standard (which is
+    itself not worth explaining here, other than to point out they are titles used
+    in a TOC). Thus, the values in this column won't be seen on the site, but are
+    used by content partners.
   ip_address: '{{Identical|IP address}}'
   item_type_article: '{{Identical|Article}}'
   item_type_collection: '{{Identical|Collection}}'
@@ -938,211 +1093,295 @@ qqq:
   item_type_map: '{{Identical|Map}}'
   item_type_video: '{{Identical|Video}}'
   key: '{{Identical|Key}}'
-  known_uri_category_header: |
+  known_uri_category_header: |-
     The data tab on URI is populated with URIs. Each of those URIs can be assigned one or more 'categories' to aid people in selecting appropriate URIs for adding new data. This is the column header for the view of all known URIs and their translations.
     {{Identical|Category}}
   known_uri_created: Used as success message.
-  known_uri_missing_translation: "This is a short note, shown in a table of known URIs, seen only by administrators, indicating that the URI in this row has no 'plain language' translation (or definition)--it is just shown as a raw URI. This phrase will be used as a link, which, when clicked, will take them to a page where they can add that translation (we call it a translation because it is language-specific; why it is not in TWN is because it requires domain expertise to properly translate)."
-  known_uri_name_and_uri: >
-    A known URI will have a name
-    (human-readable), and a (pretty ugly,
-    often long) URI, and we want to show
-    both; the latter in parenthesis (or
-    whatever subordinate punctuation is
-    suitable in your language).
+  known_uri_missing_translation: This is a short note, shown in a table of known URIs,
+    seen only by administrators, indicating that the URI in this row has no 'plain
+    language' translation (or definition)--it is just shown as a raw URI. This phrase
+    will be used as a link, which, when clicked, will take them to a page where they
+    can add that translation (we call it a translation because it is language-specific;
+    why it is not in TWN is because it requires domain expertise to properly translate).
+  known_uri_name_and_uri: A known URI will have a name (human-readable), and a (pretty
+    ugly, often long) URI, and we want to show both; the latter in parenthesis (or
+    whatever subordinate punctuation is suitable in your language).
   known_uri_updated: Used as success message.
-  known_uri_label_inverse: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate is the inverse of the object. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
-  known_uri_label_allowed_val: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate allows a value of the type described by the object. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
-  known_uri_label_allowed_unit: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate allows a unit type specified by the object. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
-  known_uri_label_unit: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate has a default unit type as specified by the object. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
-  known_uri_label_equivalent: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate is equivalent to the object. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
-  known_uri_label_indirectly_equivalent: "Used in an administrator's interface to define new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term describes a relationship between two nodes in which the predicate is indirectly equivalent to the object. There is a relationship 'is equivalent to', which can connect two URIs. But if A is equivalent to B and B is equivalent to C, A is indirectly equivalent to C. This phrase will NOT be used in sentence form, it's a selectable 'type' of relationship between predicate and object."
+  known_uri_label_inverse: Used in an administrator's interface to define new URIs
+    associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore
+    ... This term describes a relationship between two nodes in which the predicate
+    is the inverse of the object. This phrase will NOT be used in sentence form, it's
+    a selectable 'type' of relationship between predicate and object.
+  known_uri_label_allowed_val: Used in an administrator's interface to define new
+    URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore
+    ... This term describes a relationship between two nodes in which the predicate
+    allows a value of the type described by the object. This phrase will NOT be used
+    in sentence form, it's a selectable 'type' of relationship between predicate and
+    object.
+  known_uri_label_allowed_unit: Used in an administrator's interface to define new
+    URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore
+    ... This term describes a relationship between two nodes in which the predicate
+    allows a unit type specified by the object. This phrase will NOT be used in sentence
+    form, it's a selectable 'type' of relationship between predicate and object.
+  known_uri_label_unit: Used in an administrator's interface to define new URIs associated
+    with triplestore data. See http://en.wikipedia.org/wiki/Triplestore ... This term
+    describes a relationship between two nodes in which the predicate has a default
+    unit type as specified by the object. This phrase will NOT be used in sentence
+    form, it's a selectable 'type' of relationship between predicate and object.
+  known_uri_label_equivalent: Used in an administrator's interface to define new URIs
+    associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore
+    ... This term describes a relationship between two nodes in which the predicate
+    is equivalent to the object. This phrase will NOT be used in sentence form, it's
+    a selectable 'type' of relationship between predicate and object.
+  known_uri_label_indirectly_equivalent: Used in an administrator's interface to define
+    new URIs associated with triplestore data. See http://en.wikipedia.org/wiki/Triplestore
+    ... This term describes a relationship between two nodes in which the predicate
+    is indirectly equivalent to the object. There is a relationship 'is equivalent
+    to', which can connect two URIs. But if A is equivalent to B and B is equivalent
+    to C, A is indirectly equivalent to C. This phrase will NOT be used in sentence
+    form, it's a selectable 'type' of relationship between predicate and object.
   label: '{{Identical|Label}}'
   language: '{{Identical|Language}}'
   languages: '{{Identical|Language}}'
   last_updated: '{{Identical|Last updated}}'
   learn_more_lowercase: '{{Identical|Learn more}}'
-  left_content_area: "In context where this is used, the left content area is the division of the page on the left side. Curators are allowed to create or edit static pages on EOL for instructions or information, and those pages have an area on the left where a 'table of contents' is usually provided, called the 'left content areleft content areaa'."
+  left_content_area: In context where this is used, the left content area is the division
+    of the page on the left side. Curators are allowed to create or edit static pages
+    on EOL for instructions or information, and those pages have an area on the left
+    where a 'table of contents' is usually provided, called the 'left content area'.
   legend: '{{Identical|Legend}}'
   license: '{{Identical|License}}'
   license_none: '{{Identical|None}}'
+  license_cc_by: '{{related|Website-license}}'
+  license_cc_by_2_0: '{{related|Website-license}}'
+  license_cc_by_2_5: '{{related|Website-license}}'
+  license_cc_by_3_0: '{{related|Website-license}}'
+  license_cc_by_nc: '{{related|Website-license}}'
+  license_cc_by_nc_sa: '{{related|Website-license}}'
+  license_cc_by_sa: '{{related|Website-license}}'
+  license_cc_zero: '{{related|Website-license}}'
   license_public_domain: '{{Identical|Public domain}}'
   licensing: '{{Identical|Licensing}}'
-  list_newsletter_emails: >
-    This is a link placed in the admin
-    navigation sidebar that will list all of
-    the email addresses for users who have
-    signed up to receive the EOL newsletter.
+  list_newsletter_emails: This is a link placed in the admin navigation sidebar that
+    will list all of the email addresses for users who have signed up to receive the
+    EOL newsletter.
   literature_bhl_information: BHL = Biodiversity Heritage Library
   literature_bhl_link: BHL = Biodiversity Heritage Library
   literature_header: '{{Identical|Reference}}'
   location: '{{Identical|Location}}'
+  location_colon: '{{Identical|Location}}'
   login_required_button: '{{Identical|Login required}}'
-  logging_database_colon: 'This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).'
+  logging_database_colon: |-
+    This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).
+    {{Identical|Logging}}
   logo_header: '{{Identical|Logo}}'
   logout: '{{Identical|Log out}}'
-  main_database_colon: |
+  main_database_colon: |-
     This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).
     {{Identical|Main}}
-  main_master_database_colon: 'This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).'
-  march_of_life_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the march of life thumbnail, which is only used for the so-called 'march of life' on the homepage."
-  max_collection_items_error: >
-    This wil never, ever be a small
-    number... always at least 500.
+  main_master_database_colon: 'This is seen only by admins, and is the label used
+    in a table describing the names of the databases used by EOL (there are five:
+    main, main_master, data_master, data, and logging).'
+  march_of_life_thumbnail_title: On data object pages for images, curators have the
+    ability to crop images for two types of thumbnails. Each type has a preview. This
+    is the title for the march of life thumbnail, which is only used for the so-called
+    'march of life' on the homepage.
+  max_collection_items_error: This wil never, ever be a small number... always at
+    least 500.
   media: '{{Identical|Media}}'
   message_colon: '{{Identical|Message}}'
-  missing_interpolation_argument_error: |
-    When one of the % {variables} is missing from a translation, Rails will throw an error by deafult. We've changed that, so the existing translation will be shown, but with a "[translation incomplete]" snippet in place of the variable. This is that string, and it should denote that something is missing.
+  missing_interpolation_argument_error: When one of the % {variables} is missing from
+    a translation, Rails will throw an error by deafult. We've changed that, so the
+    existing translation will be shown, but with a "[translation incomplete]" snippet
+    in place of the variable. This is that string, and it should denote that something
+    is missing.
   move: '{{Identical|Move}}'
   move_down: '{{Identical|Move down}}'
-  added_classifications_ready: |
+  added_classifications_ready: |-
     The curator has clicked on the 'move_data' button and now has a list of data saved; this instructs them on how to proceed with moving the data to another page.
     * "split into new page" should correspond to the translation on {{msg-eol|Website-split into new concept}}
     * "merge classifications" should correspond to the translation on {{msg-eol|Website-merge data}}
   move_to_bottom: '{{Identical|Move to bottom}}'
   move_to_top: '{{Identical|Move to top}}'
   move_up: '{{Identical|Move up}}'
-  names_children_column_header: "Refers to child elements in a hierarchy tree. 'Children' on EOL is almost always going to be in the context of a tree. So, any node in the tree will have parents, ancestors, children, and descendants."
+  name: '{{Identical|Name}}'
+  names: '{{Identical|Name}}'
+  names_children_column_header: Refers to child elements in a hierarchy tree. 'Children'
+    on EOL is almost always going to be in the context of a tree. So, any node in
+    the tree will have parents, ancestors, children, and descendants.
+  names_name_column_header: '{{Identical|Name}}'
   names_parents_column_header: '{{Identical|Parent}}'
   names_relationship_column_header: '{{Identical|Relationship}}'
   names_sources_column_header: '{{Identical|Source}}'
   mobile:
     contents:
       home: '{{Identical|Home}}'
+      taxa: '{{Identical|Taxa}}'
+      species: '{{Identical|Species}}'
     taxa:
+      overview: '{{Identical|Overview}}'
+      details: '{{Identical|Detail}}'
       media: '{{Identical|Media}}'
       maps: '{{Identical|Map}}'
+      nomenclature: '{{Identical|Nomenclature}}'
+      literature: '{{Identical|Literature}}'
       community: '{{Identical|Community}}'
       resources: '{{Identical|Resource}}'
       images: '{{Identical|Image}}'
+      sounds: '{{Identical|Sound}}'
+      videos: '{{Identical|Video}}'
     search:
       suggestions: '{{Identical|Suggestion}}'
-  never: "This is in regards to the frequency at which the user will receive email.  Thus, this case, it means 'never, ever', not 'never been'."
-  new_contact_us_topic: "This is a button allowing an admin to add a new topic (subject) to be put in the drop-down on the form of the 'Contact Us' page.  You can click the 'Contact Us' link at the bottom of EOL to see what the resulting form will look like."
+      results: '{{Identical|Result}}'
+  never: This is in regards to the frequency at which the user will receive email.  Thus,
+    this case, it means 'never, ever', not 'never been'.
+  new_contact_us_topic: This is a button allowing an admin to add a new topic (subject)
+    to be put in the drop-down on the form of the 'Contact Us' page.  You can click
+    the 'Contact Us' link at the bottom of EOL to see what the resulting form will
+    look like.
+  news_missing_content_message: منبع
   newsfeed: '{{Identical|News feed}}'
   new_user: '{{Identical|New user}}'
   next: '{{Identical|Next}}'
   no_answer: '{{Identical|No}}'
   none: '{{Identical|None}}'
-  no: '{{Identical|No}}'
+  "no": '{{Identical|No}}'
   not_applicable: '{{Identical|Not applicable}}'
   note: '{{Identical|Note}}'
   notes: '{{Identical|Note}}'
   notification_frequency_weekly: '{{Identical|Weekly}}'
   notifications_tab_name: '{{Identical|Notification}}'
   object: '{{Identical|Object}}'
-  object_curated: >
-    The curator has just taken a curation
-    action (trusting, untrusting, hiding,
-    showing, and the like), and this message
-    will be displayed on the next page load
-    to indicate that it was successful.
-  object_status_all_option: |
+  object_curated: The curator has just taken a curation action (trusting, untrusting,
+    hiding, showing, and the like), and this message will be displayed on the next
+    page load to indicate that it was successful.
+  object_status_all_option: |-
     these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed.
     {{Identical|All}}
-  object_status_trusted_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
-  object_status_unreviewed_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
-  object_status_untrusted_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
-  object_type_all_option: |
+  object_status_trusted_option: these are options for a drop down menu allowing filtering
+    based on 'vetted' status of objects--whether something is trusted, untrusted,
+    or unreviewed.
+  object_status_unreviewed_option: these are options for a drop down menu allowing
+    filtering based on 'vetted' status of objects--whether something is trusted, untrusted,
+    or unreviewed.
+  object_status_untrusted_option: these are options for a drop down menu allowing
+    filtering based on 'vetted' status of objects--whether something is trusted, untrusted,
+    or unreviewed.
+  object_type_all_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|All}}
-  object_type_collection_option: |
+  object_type_collection_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|Collection}}
-  object_type_community_option: |
+  object_type_community_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the "worklist" tab).
     {{Identical|Community}}
-  object_type_image_option: |
+  object_type_image_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|Image}}
   object_type_link_option: '{{Identical|Link}}'
-  object_type_sound_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
-  object_type_taxon_concept_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
-  object_type_text_option: |
+  object_type_sound_option: These are options for a drop-down menu that allow curators
+    to filter the type of object they wish to view for curation (especially on the
+    'worklist' tab).
+  object_type_taxon_concept_option: These are options for a drop-down menu that allow
+    curators to filter the type of object they wish to view for curation (especially
+    on the 'worklist' tab).
+  object_type_text_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|Text}}
-  object_type_user_option: |
+  object_type_user_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|User}}
-  object_type_video_option: |
+  object_type_video_option: |-
     These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab).
     {{Identical|Video}}
-  object_visibility_all_option: |
+  object_visibility_all_option: |-
     These are options for a drop-down menu allowing users to filter a view based on the 'visibility' attribute on an object: either visible, invisible, or both.
     {{Identical|All}}
-  object_visibility_visible_option: |
+  object_visibility_visible_option: |-
     These are options for a drop-down menu allowing users to filter a view based on the "visibility" attribute on an object: either visible, invisible, or both.
     {Identical|Visible}}
-  object_visibility_invisible_option: |
+  object_visibility_invisible_option: |-
     These are options for a drop-down menu allowing users to filter a view based on the 'visibility' attribute on an object: either visible, invisible, or both.
     {{Identical|Hidden}}
   other_version_links: '{{Identical|Other version}}'
-  other_category_subtab: >
-    This is a subtab label used on the data
-    tab of a taxon concept page to group
-    data elements that have no other
-    well-defined category.
-  only_alphanum_with_no_spaces: "This is a message (a rails model message) telling the user that an uploaded file's field can only be letters or numbers and cannot have spaces."
-  only_multi_search_suggestions: "This is informational text on a form viewable only by admins. It explains how possible values for a field called 'sort order' affect the sorting of search suggestions. For example, if the admin wanted to create several search suggestions for 'sliverfish', they could set Thysanura with a value of 1 so it appears first, then Raiamas senegalensis with a value of 2 and Pleuragramma antarcticum with a value of 3, so it appears last."
-  on_time_col_header: |
+  other_category_subtab: This is a subtab label used on the data tab of a taxon concept
+    page to group data elements that have no other well-defined category.
+  only_alphanum_with_no_spaces: This is a message (a rails model message) telling
+    the user that an uploaded file's field can only be letters or numbers and cannot
+    have spaces.
+  only_multi_search_suggestions: This is informational text on a form viewable only
+    by admins. It explains how possible values for a field called 'sort order' affect
+    the sorting of search suggestions. For example, if the admin wanted to create
+    several search suggestions for 'sliverfish', they could set Thysanura with a value
+    of 1 so it appears first, then Raiamas senegalensis with a value of 2 and Pleuragramma
+    antarcticum with a value of 3, so it appears last.
+  on_time_col_header: |-
     This is meant as a header for a time column.
     {{Identical|On}}
   option_please_select: '{{Identical|Please select}}'
-  or_add_it_to_an_existing_collection: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new collection to add an item to, then given this message, followed by a list of her existing collections."
-  or_add_it_to_an_existing_community: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new community to add a collection to, then given this message, followed by a list of the communities she has access to."
-  or_copy_them_to_existing_collection: 'This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one.'
-  or_email_education: "The user was presented with a button (see add_education_resources_to_page_link_button) allowing them to contribute information about educational resources related to a taxon. This 'sentence' appears after that button, allowing them to email EOL staff with their suggestion instead. The 'link' thus contains a clickable email address."
-  or_move_them_to_existing_collection: 'This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one.'
+  or_add_it_to_an_existing_collection: This is a 'popup' style dialog (with a lot
+    of markup) where the user is first presented with a form asking if she wants to
+    make a new collection to add an item to, then given this message, followed by
+    a list of her existing collections.
+  or_add_it_to_an_existing_community: This is a 'popup' style dialog (with a lot of
+    markup) where the user is first presented with a form asking if she wants to make
+    a new community to add a collection to, then given this message, followed by a
+    list of the communities she has access to.
+  or_copy_them_to_existing_collection: This is intentionally a sentence fragment,
+    as it is much lower on the page...  as a separate header that matches an earlier
+    one.
+  or_email_education: The user was presented with a button (see add_education_resources_to_page_link_button)
+    allowing them to contribute information about educational resources related to
+    a taxon. This 'sentence' appears after that button, allowing them to email EOL
+    staff with their suggestion instead. The 'link' thus contains a clickable email
+    address.
+  or_move_them_to_existing_collection: This is intentionally a sentence fragment,
+    as it is much lower on the page...  as a separate header that matches an earlier
+    one.
   overview: '{{Identical|Overview}}'
   page_not_found: '{{Identical|Page not found}}'
-  page_reference: >
-    This is a citation (as one might find in
-    a bibliography), and the format should
-    follow standards for bibliographic
-    citations of websites. You may need to
-    do some research to find out what that
-    format is in your language.
+  page_reference: This is a citation (as one might find in a bibliography), and the
+    format should follow standards for bibliographic citations of websites. You may
+    need to do some research to find out what that format is in your language.
   page: '{{Identical|Page}}'
   pages_title: '{{Identical|Reference}}'
-  page_views_th: >
-    Table heading, used on a row in a
-    two-column table of data about taxon
-    concepts.
+  pages_with_count: '{{optional}}'
+  page_views_th: |-
+    Table heading, used on a row in a two-column table of data about taxon concepts.
+    {{Identical|Page view}}
   pages_admin_section_link: '{{Identical|Admin}}'
   pagination_next: '{{Identical|Next}}'
   pagination_previous: '{{Identical|Previous}}'
   parameters: '{{Identical|Parameter}}'
   partner: '{{Identical|Partner}}'
-  partner_web_site_colon: >
-    A simple label used for DataObject
-    attribution to identify the homepage of
-    the partners website
+  partner_web_site_colon: A simple label used for DataObject attribution to identify
+    the homepage of the partners website
   password_colon: '{{Identical|Password}}'
   pause: '{{Identical|Pause}}'
   permalink: '{{Identical|Permalink}}'
-  permissions_list_header: >
-    Admins can see a list of permissions
-    available to users on the site; this is
-    the heading to the page that lists all
-    of them.
-  permissions_users_count: >
-    Admins can see a list of permissions
-    available to users on the site. Each
-    permission is shown with a count of how
-    many users have that permission; this is
-    that count.
+  permissions_list_header: Admins can see a list of permissions available to users
+    on the site; this is the heading to the page that lists all of them.
+  permissions_users_count: |-
+    Admins can see a list of permissions available to users on the site. Each permission is shown with a count of how many users have that permission; this is that count.
+    {{Identical|User}}
   pinterest: The site name of http://pinterest.com/
-  please_ask_big_before_changing_toc: "This is a message only seen by admins. An InfoItem in this context is the low-level mapping that EOL uses for entries in the Table of Contents, and we're letting the admins know that these cannot be directly added or edited here."
-  please_publish_this_resource_notice: >
-    Yes, the stars and the strong here are a
-    bit much, but the admins (who are the
-    only people who will see this) have
-    specifically asked for them, so please
-    preserve them.
+  please_ask_big_before_changing_toc: This is a message only seen by admins. An InfoItem
+    in this context is the low-level mapping that EOL uses for entries in the Table
+    of Contents, and we're letting the admins know that these cannot be directly added
+    or edited here.
+  please_publish_this_resource_notice: Yes, the stars and the strong here are a bit
+    much, but the admins (who are the only people who will see this) have specifically
+    asked for them, so please preserve them.
   please_note_wiki_etc_are_not_spm: SPM = Species Profile Model
   please_wait: '{{Identical|Please wait}}'
   post_comment: '{{Identical|Post comment}}'
-  preview_version_of_latest_published_data_object_title_link: 'Content partners are allowed to see data object pages before other users. This is intended to allow them to "preview" the data before others can see it, and make changes if there are problems.  When they view these pages in preview mode, the title of the page needs to indicate what the real title will be (here indicated as "link") and show that the page is in preview mode.'
+  preview_version_of_latest_published_data_object_title_link: Content partners are
+    allowed to see data object pages before other users. This is intended to allow
+    them to "preview" the data before others can see it, and make changes if there
+    are problems.  When they view these pages in preview mode, the title of the page
+    needs to indicate what the real title will be (here indicated as "link") and show
+    that the page is in preview mode.
   profile_colon: '{{Identical|Profile}}'
   profile: '{{Identical|Profile}}'
   profile_picture: '{{Identical|Profile picture}}'
@@ -1151,94 +1390,96 @@ qqq:
   public_domain: '{{Identical|Public domain}}'
   published: '{{Identical|Published}}'
   publish: '{{Identical|Publish}}'
-  punctuation_comma: >
-    This is the symbol used to join lists.
-    (A comma in English.)
-  rails_environment: >
-    Rails stands for "Ruby on Rails", the
-    web application framework EOL uses
-  rank_recognized_by_agent: 'This resolves in a format similar to this: "Species recognized by Integrated Taxonomic Information System:".  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech.'
-  rank_recognized_by_from_source: 'This can resolve in a format similar to this: "Species recognized by Integrated Taxonomic Information System and T Orrell (custodian) in Catalogue of Life:".  where the "and" was inserted between two values for the "agent" variable.  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech.'
-  rank_recognized_by_agent_colon: 'This resolves to something similar to this: "Taxon recognized by IUCN:", and acts as the header to a navigatable tree of life, showing the relationships between various levels of taxa.'
-  recognized_by_from_source: >
-    This shows up in a field or table under
-    the heading "recognized by." The value
-    is meant to represent which content
-    provider recognizes this taxon. Some
-    providers, however, actually have
-    multiple sources of data, and this value
-    is used to specify which of those
-    sources the information actually came
-    from.
-  recognized_by_as_a_rank: >
-    This shows up in a field or table under
-    the heading "recognized by." This value
-    is meant to represent which content
-    provider recognizes this taxon (so this
-    will be the name of an organization), as
-    well as what taxonomic level (rank) they
-    recognize it as (species, subspecies,
-    family, order, etc).
-  recognized_by_from_source_as_a_rank: >
-    This shows up in a field or table under
-    the heading "recognized by." The vaue is
-    meant to represent which content
-    provider recognizes this taxon. Some
-    providers, however, actually have
-    multiple sources of data, and this value
-    is used to specify which of those
-    sources the information actually came
-    from, as well as what taxonomic level
-    (rank) they recognize it as (species,
-    subspecies, family, order, etc).
+  punctuation_comma: This is the symbol used to join lists. (A comma in English.)
+  quarterly: '{{Identical|Quarterly}}'
+  rails_environment: Rails stands for "Ruby on Rails", the web application framework
+    EOL uses
+  rank_recognized_by_agent: 'This resolves in a format similar to this: "Species recognized
+    by Integrated Taxonomic Information System:".  These do not need to read with
+    prefect grammar, as they are meant to be citations and not flowing speech.'
+  rank_recognized_by_from_source: 'This can resolve in a format similar to this: "Species
+    recognized by Integrated Taxonomic Information System and T Orrell (custodian)
+    in Catalogue of Life:".  where the "and" was inserted between two values for the
+    "agent" variable.  These do not need to read with prefect grammar, as they are
+    meant to be citations and not flowing speech.'
+  rank_recognized_by_agent_colon: 'This resolves to something similar to this: "Taxon
+    recognized by IUCN:", and acts as the header to a navigatable tree of life, showing
+    the relationships between various levels of taxa.'
+  recognized_by_from_source: This shows up in a field or table under the heading "recognized
+    by." The value is meant to represent which content provider recognizes this taxon.
+    Some providers, however, actually have multiple sources of data, and this value
+    is used to specify which of those sources the information actually came from.
+  recognized_by_as_a_rank: This shows up in a field or table under the heading "recognized
+    by." This value is meant to represent which content provider recognizes this taxon
+    (so this will be the name of an organization), as well as what taxonomic level
+    (rank) they recognize it as (species, subspecies, family, order, etc).
+  recognized_by_from_source_as_a_rank: This shows up in a field or table under the
+    heading "recognized by." The vaue is meant to represent which content provider
+    recognizes this taxon. Some providers, however, actually have multiple sources
+    of data, and this value is used to specify which of those sources the information
+    actually came from, as well as what taxonomic level (rank) they recognize it as
+    (species, subspecies, family, order, etc).
   reference: '{{Identical|Reference}}'
   references_cabs_colon: '{{Identical|Reference}}'
   reply: '{{Identical|Reply}}'
   required: '{{Identical|Required}}'
   revoke_full_curator_link: '{{Identical|Revoke}}'
   revoke_permission: '{{Identical|Revoke}}'
-  request_mailing_list_colon: >
-    This is string seen my admins (only)
-    when editing user accounts. It is a
-    label for a checkbox; if the checkbox is
-    checked, the user will not receive any
-    email at all from EOL.
-  request: |
+  request_mailing_list_colon: This is string seen my admins (only) when editing user
+    accounts. It is a label for a checkbox; if the checkbox is checked, the user will
+    not receive any email at all from EOL.
+  request: |-
     This is a low-level heading used on multiple documentation pages for the EOL API.  The request, in this context, is the URL that a user would use to call the method being documented.  It's the first H3 used on this page, for example: http://eol.org/api/docs/provider_hierarchies
     {{Identical|Request}}
   resource: '{{Identical|Resource}}'
+  resource_import_frequency:
+    monthly: '{{Identical|Monthly}}'
+    quarterly: '{{Identical|Quarterly}}'
   resources: '{{Identical|Resource}}'
-  response_formats: >
-    This is the title for a section of
-    documentation for the API, describing
-    the response formats available to API
-    users.
-  resque_status_header: "Resque is a tool ( http://resquework.org/ ) used to track background jobs. This field is a label used on the administration page where the admin will see the status of the resque work queue. Notice 'Resque' is the specific name of the tool; don't translate that."
+  response_formats: This is the title for a section of documentation for the API,
+    describing the response formats available to API users.
+  resque_status_header: Resque is a tool ( http://resquework.org/ ) used to track
+    background jobs. This field is a label used on the administration page where the
+    admin will see the status of the resque work queue. Notice 'Resque' is the specific
+    name of the tool; don't translate that.
   rights_holder: '{{Identical|Rights holder}}'
-  sci_name_avg_table_head: "This is seen only by admins, on a page reporting on searches. This string is used as the heading of a column of data: each row represents a single search term (ie 'tiger') and the data for this column represents the average number of 'hits' for that term for the scientific name of a page. It's an average because the results can vary each time the search term is searched for--we get new names and we mark old names as invalid."
+  sci_name_avg_table_head: 'This is seen only by admins, on a page reporting on searches.
+    This string is used as the heading of a column of data: each row represents a
+    single search term (ie ''tiger'') and the data for this column represents the
+    average number of ''hits'' for that term for the scientific name of a page. It''s
+    an average because the results can vary each time the search term is searched
+    for--we get new names and we mark old names as invalid.'
   search: '{{Identical|Search}}'
   search_next_label: '{{Identical|Next}}'
   search_previous_label: '{{Identical|Previous}}'
   search_results: '{{Identical|Search results}}'
   search_field_common_name: '{{Identical|Common name}}'
   search_field_synonym: '{{Identical|Synonym}}'
+  search_term: '{{Identical|Search term}}'
   searching_within_clade: '{{Identical|Within}}'
-  see_all_collections_with_count_html: >
-    This will ALWAYS have more than 1 for
-    the count.
-  see_all_communities_with_count_html: >
-    This will ALWAYS have more than 1 for
-    the count.
-  see_in_data_glossary: "Each known URI in EOL's data store can have a definition associated with it. On the taxon page or in a search, this definition is displayed in a popup. In that popup is a link which allows the user to see the full glossary of URIs in EOL's data; see_in_data_glossary is the text that appears as that link. It is meant to capture the ability to see this definition in the context of all other definitions, and is meant to capture the fact that there is a separate 'data glossary' in addition to a more general EOL glossary (which we use for broader biological terms)."
+  see_all_collections_with_count_html: This will ALWAYS have more than 1 for the count.
+  see_all_communities_with_count_html: This will ALWAYS have more than 1 for the count.
+  see_in_data_glossary: Each known URI in EOL's data store can have a definition associated
+    with it. On the taxon page or in a search, this definition is displayed in a popup.
+    In that popup is a link which allows the user to see the full glossary of URIs
+    in EOL's data; see_in_data_glossary is the text that appears as that link. It
+    is meant to capture the ability to see this definition in the context of all other
+    definitions, and is meant to capture the fact that there is a separate 'data glossary'
+    in addition to a more general EOL glossary (which we use for broader biological
+    terms).
+  send_email_colon: '{{Identical|E-mail}}'
   send: '{{Identical|Send}}'
-  show_more_row_data_link: >
-    A link shown on the data tab of a taxon
-    concept page where not all of the data
-    could be shown by default; clicking on
-    this link would show the remainder of
-    the data.
-  showing_all_harvest_logs: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
-  showing_harvest_logs_from_date: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
+  show: '{{Identical|Show}}'
+  show_more_row_data_link: A link shown on the data tab of a taxon concept page where
+    not all of the data could be shown by default; clicking on this link would show
+    the remainder of the data.
+  showing_all_harvest_logs: 'A ''harvest'' is the import of content from one of EOL''s
+    content providers. Periodically (usually once a month) we check with the partner
+    to see if any of their data has been updated: this is considered a harvest.'
+  showing_harvest_logs_from_date: 'A ''harvest'' is the import of content from one
+    of EOL''s content providers. Periodically (usually once a month) we check with
+    the partner to see if any of their data has been updated: this is considered a
+    harvest.'
   sign_in: '{{Identical|Sign in}}'
   sign_in_successful_notice: '{{Identical|Login successful}}'
   sign_out: '{{Identical|Sign out}}'
@@ -1248,23 +1489,29 @@ qqq:
   sort_by_label: '{{Identical|Sort by}}'
   sort_by_newest_option: '{{Identical|Newest}}'
   sort_by_oldest_option: '{{Identical|Oldest}}'
+  sort_by: '{{Identical|Sort by}}'
+  source_information_header: '{{Identical|Source information}}'
   source: '{{Identical|Source}}'
   source_colon: '{{Identical|Source}}'
-  split_into_new_concept: >
-    Button text, seen only by curators,
-    allowing them to move the selected
-    classifications from this taxon page to
-    an entirely new taxon page of their own.
+  species: '{{Identical|Species}}'
+  split_into_new_concept: Button text, seen only by curators, allowing them to move
+    the selected classifications from this taxon page to an entirely new taxon page
+    of their own.
   spm_category_objects_count: SPM = Species Profile Model
   spm_category_partner_count: SPM = Species Profile Model
   started: '{{Identical|Started}}'
   stats: '{{Identical|Statistics}}'
+  stat: '{{Identical|Stat}}'
   submit: '{{Identical|Submit}}'
   submitting: '{{Identical|Please wait}}'
   submitted_colon: '{{Identical|Submitted}}'
-  suggested_attributes: "A label used on the taxon data tab. It is meant to suggest that the drop-down menu which follows this label contains a selection of 'attributes' that should be used in the form."
-  suggested_results_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of suggested results that occurred, on average, for a search term within a given date range."
-  summary_thumbnail_title: |
+  suggested_attributes: A label used on the taxon data tab. It is meant to suggest
+    that the drop-down menu which follows this label contains a selection of 'attributes'
+    that should be used in the form.
+  suggested_results_avg: these are table column headings, and the 'avg' is meant to
+    represent 'average', because we're counting the number of suggested results that
+    occurred, on average, for a search term within a given date range.
+  summary_thumbnail_title: |-
     On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the preview of the 'summary thumbnail', which is used frequently throughout the site.
     {{Identical|Summary}}
   supplier: '{{Identical|Supplier}}'
@@ -1275,16 +1522,17 @@ qqq:
   table_of_contents: '{{Identical|Table of contents}}'
   task_status_ignored_option: '{{Identical|Ignore}}'
   taxon_page_content_disclaimer_header: '{{Identical|Disclaimer}}'
-  taxon_page_content_disclaimer: 'Translation suggested by Sang-im Lee <sang_im@hotmail.com> from Seoul National University.'
-  taxon_selected_from_search_res: >
-    This is a column header, seen only by
-    admins. The contents of the column
-    indicate which search result a user
-    clicked on.
-  taxon_suggested: "This is a column header indicating that the values in the column are the taxon names suggested as results for a search term (which is specified in another column).  So, for example, a search term of 'fox' might have 'Vulpes vulpes' as a value in this column."
+  taxon_page_content_disclaimer: Translation suggested by Sang-im Lee <sang_im@hotmail.com>
+    from Seoul National University.
+  taxon_selected_from_search_res: This is a column header, seen only by admins. The
+    contents of the column indicate which search result a user clicked on.
+  taxon_suggested: This is a column header indicating that the values in the column
+    are the taxon names suggested as results for a search term (which is specified
+    in another column).  So, for example, a search term of 'fox' might have 'Vulpes
+    vulpes' as a value in this column.
   terms_agreement_form_header: '{{Identical|Terms of use}}'
   terms_of_use_link: '"& amp;" is displayed as &. It means "and".'
-  term_for_search_admin_ui: |
+  term_for_search_admin_ui: |-
     Seen by admins only. Intended to mean a search term to be added for search suggestions.
     {{Identical|Term}}
   test: '{{Identical|Test}}'
@@ -1292,101 +1540,116 @@ qqq:
   text_capital: '{{Identical|Text}}'
   thank_you: '{{Identical|Thank you}}'
   the_cp_count_info: SPM = Species Profile Model
-  hierarchies_entries_description: "'taxonConceptID' is a parameter name and should not be translated."
-  too_many_descendants_to_curate_with_count: >
-    This is an error message that a curator
-    will receive if they attempt a curation
-    that would affect too many descendants.
-    For example, if they attempt to move a
-    classification from the vertebrates
-    page, that would take too long to
-    process (several days), so they receive
-    this message.
-  the_darwin_core_taxon_elements: "'additionalInformation' is a parameter name and should not be translated."
-  the_json_response_for_this_method: '{{doc-important|Do not translate these texts: "total_descendants", "total_trusted_text"; they are field names.}}'
-  this_page_will_be_reindexed: >
-    Notification message that a curator
-    would see in a flash message after
-    clicking a button requesting a
-    reindexing of a page
+  hierarchies_entries_description: '''taxonConceptID'' is a parameter name and should
+    not be translated.'
+  too_many_descendants_to_curate_with_count: This is an error message that a curator
+    will receive if they attempt a curation that would affect too many descendants.
+    For example, if they attempt to move a classification from the vertebrates page,
+    that would take too long to process (several days), so they receive this message.
+  the_darwin_core_taxon_elements: '''additionalInformation'' is a parameter name and
+    should not be translated.'
+  the_json_response_for_this_method: '{{doc-important|Do not translate these texts:
+    "total_descendants", "total_trusted_text"; they are field names.}}'
+  this_page_will_be_reindexed: Notification message that a curator would see in a
+    flash message after clicking a button requesting a reindexing of a page
   time_ago: '{{Identical|Ago}}'
   title: '{{Identical|Title}}'
-  toc_entry_col_header: >
-    This is a column header, seen only by
-    admins, indicating which section of the
-    Table of Contents a particular article
-    is associated with.
-  toc_no_longer_available: 'This is seen by admins only.  It represents user activity logs where the user added an article, but for which infomration about which Table of Contents item it had been placed under is now missing. Thus, this is just meant to inform the admin that some information about the TOC was lost.'
-  toc: 'TOC =  table of contents'
+  toc_entry_col_header: This is a column header, seen only by admins, indicating which
+    section of the Table of Contents a particular article is associated with.
+  toc_no_longer_available: This is seen by admins only.  It represents user activity
+    logs where the user added an article, but for which infomration about which Table
+    of Contents item it had been placed under is now missing. Thus, this is just meant
+    to inform the admin that some information about the TOC was lost.
+  toc: TOC =  table of contents
   topic: '{{Identical|Topic}}'
   total: '{{Identical|Total}}'
   translations_submit: '{{Identical|View translation}}'
-  trigger_search_term_entered_by: >
-    This is a column subheading, explaining
-    the contents of the content in a table
-    of search terms and the pages those
-    terms should redirect to. In this case,
-    the column contains the term users are
-    expected to enter (other columns would
-    then contain the pages we think they
-    probably want from that term).
+  trigger_search_term_entered_by: This is a column subheading, explaining the contents
+    of the content in a table of search terms and the pages those terms should redirect
+    to. In this case, the column contains the term users are expected to enter (other
+    columns would then contain the pages we think they probably want from that term).
+  "true": '{{Identical|True}}'
   twitter: '{{Identical|Twitter}}'
-  unable_to_invite_users_to_community_with_count: "'list' is a list of usernames, created using #to_sentence (which is language-specific)."
-  unique_page_views_th: >
-    Table heading, used on a row in a
-    two-column table of data about taxon
-    concepts.
+  unable_to_invite_users_to_community_with_count: '''list'' is a list of usernames,
+    created using #to_sentence (which is language-specific).'
+  unique_page_views_th: Table heading, used on a row in a two-column table of data
+    about taxon concepts.
   unknown: '{{Identical|Unknown}}'
-  unknown_hierarchy: "This simply indicates that a particular hierarchy (classification, tree of life) is missing.  It's a rare message, grammar not critical here."
+  unknown_hierarchy: This simply indicates that a particular hierarchy (classification,
+    tree of life) is missing.  It's a rare message, grammar not critical here.
   unreviewed: '{{Identical|Unreviewed}}'
-  update: |
+  update: |-
     This is used for the submit button on several admin pages, including content uploads, hierarchies, and search logs as an imperative verb to indicate the admin is about to update information in the database.
     {{Identical|Update}}
+  updated: '{{Identical|Updated}}'
+  updated_colon: '{{Identical|Updated}}'
   updates: '{{Identical|Update}}'
-  uploaded_content: "This is a page title used on an administrative page where the admin can see and edit content (images, PDFs, and the like) which have been uploaded to EOL's content servers."
-  upload: |
+  uploaded_content: This is a page title used on an administrative page where the
+    admin can see and edit content (images, PDFs, and the like) which have been uploaded
+    to EOL's content servers.
+  upload: |-
     This is used as a submit button on the admin interface for uploading images and PDFs to EOL's content servers.
     {{Identical|Upload}}
   uri: '{{Identical|URI}}'
   url: '{{Identical|URL}}'
-  use_as_examplar_note_preferred: "This is a note to the curator that the classification in this row of the table is currently the preferred classification for the page, and thus they *probably* want to select it to complete the merge or split operation... but they don't *have* to."
+  use_as_examplar_note_preferred: This is a note to the curator that the classification
+    in this row of the table is currently the preferred classification for the page,
+    and thus they *probably* want to select it to complete the merge or split operation...
+    but they don't *have* to.
   user_activity_stats_header: '{{Identical|Activity}}'
   user_agent: '{{Identical|User agent}}'
-  user_commented_on_themself: "The 'user' and 'user_again' will have two different links, but the same user's string. The second one needs to be possessive, modifying 'newsfeed'."
+  user_commented_on_themself: The 'user' and 'user_again' will have two different
+    links, but the same user's string. The second one needs to be possessive, modifying
+    'newsfeed'.
   user_id: '{{Identical|User ID}}'
   username_colon: '{{Identical|Username}}'
   username: '{{Identical|Username}}'
-  user_response: >
-    This is a table column heading where the
-    cells in the column represent the
-    response provided by a user when
-    answering a survey question.
+  user_response: This is a table column heading where the cells in the column represent
+    the response provided by a user when answering a survey question.
   user: '{{Identical|User}}'
   values: '{{Identical|Value}}'
   value: '{{Identical|Value}}'
   value_empty: '{{Identical|Empty}}'
-  version_1_0_uses_fields_from_the_latest_version: |
+  version_1_0_uses_fields_from_the_latest_version: |-
     Parameters:
     * %{link} is the message {{msg-eol|website-darwin core}}
   versions_colon: '{{Identical|Version}}'
-  view_verb: |
+  view_verb: |-
     This will only be used as a verb (for link text), as in "view this entry".
     {{Identical|View}}
-  view_in_classification: |
-    This is a link, used on the "Names" tab of a species page on EOL, which allows the user to see the species in the context of a specific classification. For example, Catlogue of Life gives us one "tree of life," different from other partner's trees, and you could use this link to view a page in its context without any "interference" from the other classifications.
+  view_in_classification: This is a link, used on the "Names" tab of a species page
+    on EOL, which allows the user to see the species in the context of a specific
+    classification. For example, Catlogue of Life gives us one "tree of life," different
+    from other partner's trees, and you could use this link to view a page in its
+    context without any "interference" from the other classifications.
   view_source: '{{Identical|View source}}'
+  vimeo: The Vimeo site, i.e. https://vimeo.com
   visible_title: '{{Identical|Visible}}'
-  vivisimo: "This is the name of vivisimo.com and is used on EOL's 'Search the Web' interface, to link to the site."
-  wants_colon: "This is a column header indicating the level of curation ability that a user wants ('full' and 'master' are the possible values in the table.  This does not need to be incredibly clear--it is only seen by admins. Please keep it as short as possible."
+  vivisimo: This is the name of vivisimo.com and is used on EOL's 'Search the Web'
+    interface, to link to the site.
+  wants_colon: This is a column header indicating the level of curation ability that
+    a user wants ('full' and 'master' are the possible values in the table.  This
+    does not need to be incredibly clear--it is only seen by admins. Please keep it
+    as short as possible.
   watch_list: '{{Identical|Watchlist}}'
-  watch_list_newsfeed: |
-    This is used as the label on a tab.  A watchlist is a collection of items (pages, users, images, articles and the like) which the user cares about.  The watchlist newsfeed is a list of "recent activity" on each of those items.  It's akin to Facebook's "activity" or a Google Plus "stream".
+  watch_list_newsfeed: This is used as the label on a tab.  A watchlist is a collection
+    of items (pages, users, images, articles and the like) which the user cares about.  The
+    watchlist newsfeed is a list of "recent activity" on each of those items.  It's
+    akin to Facebook's "activity" or a Google Plus "stream".
   weekly: '{{Identical|Weekly}}'
   welcome: '{{Identical|Welcome}}'
   what_is_this_question: '{{Identical|What is this}}'
-  who_registered_before: "The value of this key is simply 'to' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
-  who_registered_from: "The value of this key is simply 'who registered from' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
+  who_registered_before: 'The value of this key is simply ''to'' because it is used
+    in the context of a search date range, where the user inputs a start date before
+    this string and an end date after it.  ie: ''...a user who registered from ____
+    to ____'''
+  who_registered_from: 'The value of this key is simply ''who registered from'' because
+    it is used in the context of a search date range, where the user inputs a start
+    date before this string and an end date after it.  ie: ''...a user who registered
+    from ____ to ____'''
   yahoo: '{{Identical|Yahoo}}'
   yes_answer: '{{Identical|Yes}}'
-  you_may_upload_static_files_fo: "MOU stands for 'Memorandum of Understanding,' which is just an agreement between EOL and the content partner."
+  you_may_upload_static_files_fo: MOU stands for 'Memorandum of Understanding,' which
+    is just an agreement between EOL and the content partner.
   youtube: '{{Identical|YouTube}}'
+...

@@ -1967,6 +1967,7 @@ ko:
     delete_successful: 데이터가 지워졌습니다
     new_field: 새 필드...
     new_value: 값
+    submit_data: 데이터 값 제출
     update_successful: 데이터가 성공적으로 업데이트되었습니다
   data_search_files:
     from: 가장 낮은 값

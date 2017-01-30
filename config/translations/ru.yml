@@ -5,6 +5,7 @@
 # Author: Agilight
 # Author: Alexandr Efremov
 # Author: Amire80
+# Author: Angelinsky
 # Author: Antohabio
 # Author: Aygulka
 # Author: CM3X
@@ -805,6 +806,7 @@ ru:
         update: Обновить ресурс
         update_settings: Обновить настройки
         force_harvest: Урожай Запросу
+        harvest_tonight: Собрано сегодня
       session:
         create: Вход
         sign_in_with_facebook: Войти с помощью Facebook
@@ -1789,11 +1791,14 @@ ru:
       show:
         tweet_text: Информация о %{scientific_name}
     resources:
+      biomedical_terms:
+        meta_title: Медико-биологические условия для %{scientific_name}
       education:
         meta_title: Образовательные ресурсы на тему %{scientific_name}
         tweet_text: Образовательные ресурсы на тему %{scientific_name}
     updates:
       show:
+        meta_description: Новости и обновления о %{scientific_name}.
         meta_title: Комментарии к %{scientific_name}
         meta_title_with_common_name: Комментарии к %{preferred_common_name} (%{scientific_name})
         tweet_text: Комментарии к %{scientific_name}

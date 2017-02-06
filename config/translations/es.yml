@@ -4,6 +4,7 @@
 # Author: AlejandroMedia
 # Author: Almupg
 # Author: AndreyWiki
+# Author: Archaeodontosaurus
 # Author: Armando-Martin
 # Author: Bernardom
 # Author: Cgalindo
@@ -30,6 +31,7 @@
 # Author: Ovruni
 # Author: Penarc
 # Author: Peter Bowman
+# Author: Pompilos
 # Author: Rbcastroc
 # Author: Rubenwap
 # Author: Ryo567
@@ -835,7 +837,7 @@ es:
         create: Agregar recurso
         update: Actualizar el recurso
         update_settings: Actualizar la configuración
-        force_harvest: Solicitud de forzar la recogida
+        force_harvest: Cosecha de petición
         harvest_tonight: Cosecha Esta Noche
       session:
         create: Iniciar sesión
@@ -5149,6 +5151,7 @@ es:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: Jerarquías'
   eol_api_hierarchy_entries: 'EOL API: Entradas de Jerarquías'
+  eol_api_hierarchy_entries_descendants: 'EOL API: Entradas de jerarquía'' Descendientes'
   eol_api_pages: 'EOL API: Páginas'
   eol_api_ping: 'EOL API: Ping'
   eol_api_provider_hierarchies: 'EOL API: Jerarquías de Proveedor'
@@ -5464,6 +5467,8 @@ es:
     muy pronto.
   gives_access_to_a_single_hierarchy_indexed_by_eol: da acceso a una jerarquía individual
     indexada por EOL y a sus relaciones internas
+  gives_access_to_a_single_hierarchy_descendants_by_eol: da acceso a los descendientes
+    de una entrada de jerarquía simple
   global_access_tagline: Acceso global al conocimiento sobre la vida en la Tierra
   global_navigation: Navegación global
   glossary: Glosario
@@ -6282,6 +6287,8 @@ es:
   preview_version_of_latest_published_data_object_title_link: Vista previa de la versión
     de %{link}
   preview: vista previa
+  previewing_unpublished_page: Esta página no está publicada. Tienes acceso especial
+    a la previsualización; pero otros usuarios no pueden verla.
   previously_published: publicado anteriormente
   proceed_to_checkout_page: Proceda a la página de pago
   process_name: Nombre del proceso
@@ -6408,6 +6415,9 @@ es:
     taxón de la página
   return_synonyms_for_the_page_taxon: devuelve todos los sinónimos de el taxón de
     la página
+  return_any_taxonomy_details_from_different_hierarchy_providers: Regreso cualesquier
+    detalles de taxonomía de diferentes taxon proveedores de jerarquía, en una variedad
+    nombró "taxonConcepts"
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos
     sobre una colección particular y los elementos que contiene indexados por EOL
   returns_all_metadata_about_a_particular_data_object: devuelve todos los metadatos
@@ -7122,6 +7132,7 @@ es:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> comentó sobre los datos
     que han sido eliminados.
+  user_count_reindexed: Las cuentas de usuario ser han vuelto a indexar
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: Identificador de usuario
   user_index_intro: Abajo se muestran todos los usuarios del web registrados en el
@@ -7172,6 +7183,7 @@ es:
     one: '%{count} Socio de contenido '
     other: '%{count} Socios de contenido'
   users_curation_header: Cualidades del revisor
+  user_counts_refresh_daily: '*las cuentas se actualizan a diario'
   users_form_account_header: Su cuenta
   users_form_curation_header: Cualidades del revisor
   users_form_profile_info_header: Información pública del perfil

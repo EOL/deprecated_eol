@@ -1,6 +1,7 @@
 # Messages for Tulu (ತುಳು)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: BHARATHESHA ALASANDEMAJALU
 # Author: VASANTH S.N.
 # Author: Vishwanatha Badikana
 ---
@@ -150,12 +151,16 @@ tcy:
   translated_ranks-label-rank_id-401: ಉಪಿ ಇಬಾಗೊ
   translated_ranks-label-rank_id-408: ಉಪ ಸಾಕೆ
   translated_ranks-label-rank_id-411: ಉಪ ಸಾಲ್
+  translated_ranks-label-rank_id-413: ಉಪಜಾತಿ
+  translated_ranks-label-rank_id-414: ಉಪಜಾತಿ.
   translated_ranks-label-rank_id-415: ಉಪ ಪ್ರಬೇದೊ
   translated_ranks-label-rank_id-422: ಉಪ ಬುಡೊಕಟ್ಟ್
   translated_ranks-label-rank_id-463: ಎಡ್ಡೆ ಕುಟುಮ್ಮೊ
   translated_ranks-label-rank_id-472: ಎಡ್ಡೆ ಇಬಾಗೊ
   translated_ranks-label-rank_id-494: ಬುಡೊಕಟ್ಟ್
   translated_ranks-label-rank_id-503: ಶ್ರೇಣಿಕೃತೊ ಅತ್ತಂದಿನ
+  translated_ranks-label-rank_id-512: ವಿಎಆರ್
+  translated_ranks-label-rank_id-513: ವಿಎಆರ್.
   translated_ranks-label-rank_id-517: ವೈವಿದ್ಯೊ
   translated_ranks-label-rank_id-518: ವೈವಿದ್ಯೊ
   translated_ranks-label-rank_id-51: ವರ್ಗೊ
@@ -183,20 +188,148 @@ tcy:
   translated_resource_statuses-label-resource_status_id-7: ಪರಿಸ್ಕರನೆಡ್ ಉಂಡು
   translated_resource_statuses-label-resource_status_id-8: ಪರಿಸ್ಕರನೆ ಆತ್ಂಡ
   translated_resource_statuses-label-resource_status_id-9: ಪರಿಸ್ಕರನೆ ಸೋತ್ಂಡ್
+  translated_service_types-label-service_type_id-1: ಇಒಎಲ್ ವರ್ಗಾವನೆದ ಯೋಜನೆ
   translated_service_types-label-service_type_id-2: ಬೇತೆ
   translated_sort_styles-name-sort_style_id-1: ಇಂಚಿಪೊ ಸೇರಾಯಿನೆ
   translated_sort_styles-name-sort_style_id-2: ಪಿರಾಕ್‍ದ
   translated_sort_styles-name-sort_style_id-3: ಅಕ್ಸರೊಲು
+  translated_sort_styles-name-sort_style_id-4: ವರ್ಣಮಾಲೆನ್ ಬದಲ್ಪುಲೆ
   translated_sort_styles-name-sort_style_id-5: ಸ್ರೀಮಂತಿಕೆ
   translated_sort_styles-name-sort_style_id-6: ಸ್ತಾನೊ
   translated_statuses-label-status_id-1: ಸೇರಾಯಿನ
-  translated_statuses-label-status_id-2: ಪರಿಷ್ಕರಣೆ ಮಲ್ಪುಲೆ
+  translated_statuses-label-status_id-2: ಪರಿಷ್ಕರಣೆ ಆಯಿನಾ
   translated_statuses-label-status_id-3: ಬದಲಾವನೆ ಇದ್ಯಂತೆ
   translated_statuses-label-status_id-4: ಪಿರ ಗಲಸ್‍ನ
+  translated_synonym_relations-label-synonym_relation_id-10: ಸಾಮಾನ್ಯೊ ಬ್ಯಾಂಕ್‍ದ ಪರ್ಯಾಯೊ
+  translated_synonym_relations-label-synonym_relation_id-11: ಬಾಗೊಡು
+  translated_synonym_relations-label-synonym_relation_id-12: ಸೇರ್ದುಂಡು
+  translated_synonym_relations-label-synonym_relation_id-13: ಬೇನಾಮಿ
+  translated_synonym_relations-label-synonym_relation_id-14: ಕಾಗುಣಿತೊ ತಪ್ಪು
+  translated_synonym_relations-label-synonym_relation_id-15: ಟೆಲಿಯೋಮೊರ್ಫ್
+  translated_synonym_relations-label-synonym_relation_id-16: ಅಸ್ಪಸ್ಟೊ ಪರ್ಯಾಯೊ ಪದೊ
+  translated_synonym_relations-label-synonym_relation_id-17: ತಪ್ಪಾದ್ ಅನ್ವಯಿಸಯಿನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-18: ತಾತ್ಕಾಲೊಗು ದೆತೊನ್‍ನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-19: ದೆತೊನ್‍ನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-1: ಪರ್ಯಾಯೊ ಪದೊ
+  translated_synonym_relations-label-synonym_relation_id-20: ದತ್ತ ಸಂಚಯೊ ಸಾದನೊ
+  translated_synonym_relations-label-synonym_relation_id-21: ಬೇತೆ ಕಮೆಂಟ್‍ಲೆನ್ ತೂಲೆ
+  translated_synonym_relations-label-synonym_relation_id-22: ಬಿನ್ನೊ ಬರವಣಿಗೆ(ಕಾಗುಣಿತೊ
+    ತಪ್ಪು)
+  translated_synonym_relations-label-synonym_relation_id-23: ತಪ್ಪಾದುಂಡು
+  translated_synonym_relations-label-synonym_relation_id-24: ತಿರಸ್ಕರಿಸಯಿನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-25: ಸಮಾನ ಪುದರ್ (ನ್ಯಾಯಸಮ್ಮತೊ
+    ಅತ್ತಂದಿನ)
+  translated_synonym_relations-label-synonym_relation_id-26: ಸೇರ್‍ನ ಬಾಗೊ
+  translated_synonym_relations-label-synonym_relation_id-28: ಒಬ್ಲಿಟಮ್ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-29: ಕಿನ್ಯ ಪರ್ಯಾಯೊ ಪದೊ
+  translated_synonym_relations-label-synonym_relation_id-2: ಸಾಮಾನ್ಯೊ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-31: ಅನಾವಸ್ಯೊ ಬದಲ್ತ್‌ನೆ
+  translated_synonym_relations-label-synonym_relation_id-32: ಬುಕ್ಕೊದ ಪುದರ್/ಸಂಯೋಜನೆ
+  translated_synonym_relations-label-synonym_relation_id-33: ತಿಕೊಂದಿಜ್ಜಿ, ಸಾಹಿತ್ಯೊ
+    ತಪ್ಪು
+  translated_synonym_relations-label-synonym_relation_id-34: ಮೂಲೊ ಪುದರ್/ಸಂಯೋಜನೆ
+  translated_synonym_relations-label-synonym_relation_id-35: ತಪ್ಪು ಕಾಗುಣಿತೊ ತಿಕೊಂದಿಜ್ಜಿ
+  translated_synonym_relations-label-synonym_relation_id-36: ಕಿನ್ಯ ಸಮಾನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-37: ಸಮಾನೊ ಬೊಕ್ಕೊ ಕಿನ್ಯ ಪರ್ಯಾಯೊ
+    ಪದೊ
+  translated_synonym_relations-label-synonym_relation_id-38: ತಿಕೊಂದಿಜ್ಜಿ, ಆಡಳಿತೊ ಮಲ್ಪುನೆನ್
+    ಉಂತಾವೊಡಾಪುಂಡು
+  translated_synonym_relations-label-synonym_relation_id-39: ತರೆಕಾರ್ ಇದ್ಯಾಂತಿ ತಿದ್ದುಪಡಿ
+  translated_synonym_relations-label-synonym_relation_id-3: ಸಂಕ್ಷಿಪ್ತೊ
+  translated_synonym_relations-label-synonym_relation_id-40: ಬೇತೆ, ತಿಕೊಂದಿಜ್ಜಿ
+  translated_synonym_relations-label-synonym_relation_id-41: ತಿಕೊಂದಿಜ್ಜಿ, ಪುದರ್‍ದಾಂತಿ
+    ನ್ಯೂಡಮ್
+  translated_synonym_relations-label-synonym_relation_id-42: ಸಂದೇಹೊ ದಾಂತಿ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-43: ಒಪ್ಪಿಗೆ ದಾಂತೆ ಪ್ರಕಟೊ
+    ಆಯಿನ, ಬೇತೆ
+  translated_synonym_relations-label-synonym_relation_id-44: ಒಪ್ಪಿಗೆ ದಾಂತೆ ಪ್ರಕೊಟೊ
+    ಆಯಿನ, ಪುದರ್‍ದಾಂತಿ ನ್ಯೂಡಮ್
+  translated_synonym_relations-label-synonym_relation_id-45: ಬಾಸಿಯೊನಾಮ್
+  translated_synonym_relations-label-synonym_relation_id-48: ಪುದರ್ ತಿಕೊಂದಿಜ್ಜಿ
+  translated_synonym_relations-label-synonym_relation_id-49: ಒಪ್ಪಿಗೆದ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-4: ಅನಾಮೊರ್ಫ್
+  translated_synonym_relations-label-synonym_relation_id-50: ಒಪ್ಪಿಗೆದ
+  translated_synonym_relations-label-synonym_relation_id-51: ದೆತೊನ್‍ನ
+  translated_synonym_relations-label-synonym_relation_id-52: ಅಧಿಕಾರೊ
+  translated_synonym_relations-label-synonym_relation_id-53: ಪ್ರಕಟಿತೊ ಅತ್ತಂದಿ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-54: ವಸ್ತುನಿಸ್ಟೊ ಸಮಾನಾರ್ತೊ
+  translated_synonym_relations-label-synonym_relation_id-55: ತಪ್ಪು ಅಧಿಕಾರೊ ಮಾಹಿತಿ
+  translated_synonym_relations-label-synonym_relation_id-56: ತಪ್ಪಾ ಕಾಗುಣಿತೊ
+  translated_synonym_relations-label-synonym_relation_id-57: ಪರ್ಯಾಯೊ ಕಾಗುಣಿತೊ
+  translated_synonym_relations-label-synonym_relation_id-58: ಸ್ತಿರೊ ಇದ್ಯಾಂತಿನ ಪದಕೋಸೊ
+  translated_synonym_relations-label-synonym_relation_id-59: ಸಮಾತಾರ್ತೊ(ವಸ್ತುನಿಸ್ಟೊ=ಹೋಮೋಟೈಪಿಕ್)
+  translated_synonym_relations-label-synonym_relation_id-5: ಪುಡಾತಿನ ಪುದರ್
+  translated_synonym_relations-label-synonym_relation_id-60: ಸಮಾವಾರ್ತೊ(ವಿಸಯೊನಿಸ್ಟೊ=ಹೆಟೆರಿಯೋಟೈಪಿಕ್)
+  translated_synonym_relations-label-synonym_relation_id-61: ವಸ್ತಿನಿಸ್ಟೊ ಸಮಾನಾರ್ತೊ
+  translated_synonym_relations-label-synonym_relation_id-62: ಮಲ್ಲ ಪರ್ಯಾಯೊ ಪದೊ
+  translated_synonym_relations-label-synonym_relation_id-63: ಸ್ವೀಕಾರೊ ಮಲ್ಪಂದಿ
+  translated_synonym_relations-label-synonym_relation_id-64: ಒಪ್ಪಿಗೆ ಇದ್ಯಾಂತಿನ
+  translated_synonym_relations-label-synonym_relation_id-66: ಪರ್ಯಾಯೊ ಪ್ರಾತಿನಿದ್ಯೊ
+  translated_synonym_relations-label-synonym_relation_id-67: ಜಾತಿಲೆ ಇಚಾರಣೆ
+  translated_synonym_relations-label-synonym_relation_id-68: ತೋಟಗಾರಿಕೆ
+  translated_synonym_relations-label-synonym_relation_id-6: ಸಮಾನ ಪುದರ್
+  translated_table_of_contents-label-table_of_contents_id-13: ಸಾಮಾನ್ಯೊ ಪುದರುಲು
+  translated_table_of_contents-label-table_of_contents_id-14: ಐಯುಸಿಎನ್
+  translated_table_of_contents-label-table_of_contents_id-17: ಸಾಹಿತ್ಯೊದ ಉಲ್ಲೇಕೊ
+  translated_table_of_contents-label-table_of_contents_id-194: ಗಾತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-1: ಅವಲೋಕನೊ
+  translated_table_of_contents-label-table_of_contents_id-218: ಪ್ರಸರನೊ
+  translated_table_of_contents-label-table_of_contents_id-221: ಅಪಾಯೊ
+  translated_table_of_contents-label-table_of_contents_id-225: ಅಂತರ್‍ ಜಾಲೊಡು
+  translated_table_of_contents-label-table_of_contents_id-226: ವಿಸಯೊದ ಪಾಲ್‍ದಾರೆ
+  translated_table_of_contents-label-table_of_contents_id-227: ಅಂತರ್‍ಜಾಲೊಡ್ ನಾಡ್‍ಲೆ
+  translated_table_of_contents-label-table_of_contents_id-242: ಸಾಮಾನ್ಯೊ ಜೀವವಿಜ್ಞಾನೊ
+  translated_table_of_contents-label-table_of_contents_id-244: ಬೂಕುಲೆ ಪಟ್ಟಿಲು
+  translated_table_of_contents-label-table_of_contents_id-24: ವೀಕ್ಷಕ ವಿವರನೆ
+  translated_table_of_contents-label-table_of_contents_id-251: ಪ್ರೇಜನೊ
+  translated_table_of_contents-label-table_of_contents_id-267: ಆಕೃತಿ ವಿಜ್ಞಾನೊ
+  translated_table_of_contents-label-table_of_contents_id-278: ಬೂಕುಲೆ ಪಟ್ಟಿ
+  translated_table_of_contents-label-table_of_contents_id-285: ಸಂಗಟನೆಲು
+  translated_table_of_contents-label-table_of_contents_id-286: ಸಂರಕ್ಷಣೆದ ಸ್ಥಿತಿ
+  translated_table_of_contents-label-table_of_contents_id-289: ವಿಕಸನೊ
+  translated_table_of_contents-label-table_of_contents_id-292: ಇಸ್ಟವಾಯಿನ ನೋಟೊ
+  translated_table_of_contents-label-table_of_contents_id-293: ರೋಗೊಲೆ ವಿವರನೆ
+  translated_table_of_contents-label-table_of_contents_id-296: ನಿರ್ವಹನೆ
+  translated_table_of_contents-label-table_of_contents_id-297: ಪುಸ್ಟಿ ತಂತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-299: " \nಶಿಕ್ಷನೊ"
+  translated_table_of_contents-label-table_of_contents_id-300: ವಿಕಿಪೀಡಿಯ
+  translated_table_of_contents-label-table_of_contents_id-305: ಪರ್ಯಾಯೊ ಪದೊ
+  translated_table_of_contents-label-table_of_contents_id-306: ಪುಟೊತ ಅಂಕಿ ಅಂಶಲು
+  translated_table_of_contents-label-table_of_contents_id-309: ಪಟ್ಟುನಾ
+  translated_table_of_contents-label-table_of_contents_id-310: ಬುಲೆಚಿಲ್
+  translated_table_of_contents-label-table_of_contents_id-312: ವಲಸೆ
+  translated_table_of_contents-label-table_of_contents_id-316: ವರ್ತನೆ
+  translated_table_of_contents-label-table_of_contents_id-317: ಚಕ್ರಾಕಾರೊ
+  translated_table_of_contents-label-table_of_contents_id-318: ಬದ್ಕ್‌ದ ಚಕ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-319: ಆಯುಸೊ
+  translated_table_of_contents-label-table_of_contents_id-320: ಸಂತಾನಾಭಿವೃದ್ಧಿ
+  translated_table_of_contents-label-table_of_contents_id-321: ಬುಲೆಚಿಲ್
+  translated_table_of_contents-label-table_of_contents_id-322: ಅಗತ್ ದೆತ್ತಿನ ಇತಿಹಾಸೊ
+  translated_table_of_contents-label-table_of_contents_id-327: ಸರ್ರೊ ಸಾಸ್ತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-328: ಕೋಸ ಜೀವಸಾಸ್ತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-329: ಅನುವಂಸೊ
+  translated_table_of_contents-label-table_of_contents_id-331: ಬಾರ್ಕೋಡ್
+  translated_table_of_contents-label-table_of_contents_id-332: ಜೀನೋಮ್
+  translated_table_of_contents-label-table_of_contents_id-333: ಅಣು ಜೀವಸಾಸ್ತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-334: ಪೋಡ್ಪಾವುನೆ
+  translated_table_of_contents-label-table_of_contents_id-335: ಸಾಸನೊ
+  translated_table_of_contents-label-table_of_contents_id-336: ಟಿಪ್ಪಣಿಲು
+  translated_table_of_contents-label-table_of_contents_id-337: " \nಶಿಕ್ಷನೊ"
+  translated_table_of_contents-label-table_of_contents_id-338: ಶಿಕ್ಷನೊದ ಕೊಂಡಿಲು
+  translated_table_of_contents-label-table_of_contents_id-339: ಶಿಕ್ಷನೊ ಸಂಪೊತ್ತುಲು
+  translated_table_of_contents-label-table_of_contents_id-33: ಪ್ರಮಾನೊ
+  translated_table_of_contents-label-table_of_contents_id-341: ನಾಗರಿಕ ವಿಜ್ಞಾನೊ
+  translated_table_of_contents-label-table_of_contents_id-342: ನಾಗರಿಕ ವಿಜ್ಞಾನ ಕೊಂಡಿಲು
+  translated_table_of_contents-label-table_of_contents_id-344: ದತ್ತಾಂಸೊ
+  translated_table_of_contents-label-table_of_contents_id-347: ಜೀವಿವರ್ಗೀಕರನೊ ಸಾಸ್ತ್ರೊ
+  translated_table_of_contents-label-table_of_contents_id-348: ಮಾಹಿತಿ ಪ್ರಕಾರೊ
   translated_table_of_contents-label-table_of_contents_id-34: ಅಭಿಪ್ರಾಯೊಲು
+  translated_untrust_reasons-label-untrust_reason_id-4: ನಕಲ್
   translated_untrust_reasons-label-untrust_reason_id-5: ಬೇತೆ
   translated_vetted-label-vetted_id-0: ಗೊತ್ತಿಜ್ಜಾಂದಿನ
   translated_vetted-label-vetted_id-4: ನಂಬುಗೆದ ಅತ್ತಾಂದಿನ
+  translated_vetted-label-vetted_id-5: ನಂಬುಗೆದ
+  translated_vetted-label-vetted_id-6: ಉಚಿತೊ ಅತ್ತಾಂದಿನ
   translated_view_styles-name-view_style_id-1: ಪಟ್ಟಿ
   translated_view_styles-name-view_style_id-2: ಗೆಲರಿ
   translated_view_styles-name-view_style_id-3: ಟಿಪ್ಪಣಿ

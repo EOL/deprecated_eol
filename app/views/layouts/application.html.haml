@@ -95,22 +95,8 @@
             %p= I18n.t(:user_system_down)
 
       -# TODO: Move this somewhere appropriate. this is ridiculous.
-      - if @home_page
-        - cache(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}") do
-          %h3.assistive= I18n.t(:explore)
-          .thumbnails
-            %ul
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
-              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
-            .term
-              .site_column
-                %p
-                  -# the non-breaking space here gives the march of life name bar some height on page load
-                  &nbsp;
+      = yield :explore_taxa
+
     - if @home_page
       #central
         .section{ :role => "main" }

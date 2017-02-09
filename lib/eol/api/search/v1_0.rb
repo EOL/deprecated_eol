@@ -82,7 +82,7 @@ module EOL
             query += " AND (ancestor_taxon_concept_id:#{id})"
           end
           query += " AND _val_:richness_score^200"
-          response = @solr.taxa(query)
+          response = @solr.taxa(query, params[:page], @per_page)
           results = []
           response["docs"].each do |result|
             result_hash = {}

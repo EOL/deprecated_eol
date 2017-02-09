@@ -294,6 +294,7 @@ class PageSerializer
       end
     end
 
+    # TODO: it's re-reading those roles waaaaay too often. Cache.
     def build_attributions(data_object)
       attributions = []
       data_object.agents_data_objects.each do |attrib|

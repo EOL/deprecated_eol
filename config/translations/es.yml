@@ -272,7 +272,7 @@ es:
         dataset: Archivo del conjunto de datos
         description: Descripción del recurso
         dwc_archive_url: URL del Archivo Darwin Core
-        dataset_source_url: Fuente de Datos Original
+        dataset_source_url: Fuente de datos original
         dataset_hosted_url: Fuente de datos (copia local)
         harvest_events: Recoger eventos
         hierarchy: Jerarquía

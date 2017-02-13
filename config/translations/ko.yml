@@ -1242,13 +1242,13 @@ ko:
     user_activated:
       subject: 생명의 백과사전 계정을 활성화했습니다
       message: |-
-        생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 사용자 이름은 %{username}이고 프로필 URL은 %{profile_url}인 것을 참고하세요. http://eol.org/login에서 계정에 로그인할 수 있습니다.
+        생명의 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 사용자 이름은 %{username}이고 프로필 URL은 %{profile_url}인 것을 참고하세요. http://eol.org/login에서 계정에 로그인할 수 있습니다.
 
         EOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요.
     user_activated_with_open_authentication:
       subject: 생명의 백과사전 계정을 활성화했습니다
       message: |-
-        생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 인증 목적을 위해 기본 정보를 접근할 수 있는 EOL 권한을 갖고 가입한 것을 참고하세요. EOL에 프로필 URL은 %{profile_url}입니다. http://eol.org/login에서 %{oauth_provider}로 EOL 계정에 로그인할 수 있습니다.
+        생명의 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 인증 목적을 위해 기본 정보를 접근할 수 있는 EOL 권한을 갖고 가입한 것을 참고하세요. EOL에 프로필 URL은 %{profile_url}입니다. http://eol.org/login에서 %{oauth_provider}로 EOL 계정에 로그인할 수 있습니다.
 
         EOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요.
     user_message:
@@ -1279,11 +1279,11 @@ ko:
     user_verification:
       subject: 생명의 백과사전 계정에 대한 요청 확인
       message: |-
-        생명에 백과사전에 등록해주셔서 감사합니다. 다음 링크로 등록을 완료하고자하는 계정을 확인하고 계정을 활성화하세요:
+        생명의 백과사전에 등록해주셔서 감사합니다. 다음 링크로 등록을 완료하고자 하는 계정을 확인하고 계정을 활성화하세요:
 
         %{verification_url}
 
-        계정을 활성화하면 확인 이메일 메시지가 받게 됩니다.
+        계정을 활성화하면 확인 이메일 메시지를 받게 됩니다.
   recent_activity:
     intro: 여기에 %{time}에 EOL 활동 알림이 있습니다
     intro_immediately: '%{name} 안녕하세요 —'
@@ -1456,7 +1456,7 @@ ko:
           meta_title_with_common_name: '%{preferred_common_name}에 대한 설명과 문서 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
           tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 문서'
-        meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 설명과 문서
+        meta_description: 생명의 백과사전에서 %{scientific_name}에 대한 설명과 문서
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 문서가 없습니다. EOL은
           보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
         meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설명과
@@ -1477,11 +1477,11 @@ ko:
       bhl:
         hierarchy_entry:
           meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에
-            대한 BHL 문헌과 정보입니다. 생명에 백과사전에서 %{scientific_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서
+            대한 BHL 문헌과 정보입니다. 생명의 백과사전에서 %{scientific_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서
             문서를 읽으세요.
           meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해
             분류한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 BHL 문헌과 정보입니다.
-            생명에 백과사전에서 %{preferred_common_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
+            생명의 백과사전에서 %{preferred_common_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 BHL 문헌'
           meta_title_with_common_name: '%{preferred_common_name}에 대한 BHL 문헌 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'

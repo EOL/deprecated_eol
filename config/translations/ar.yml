@@ -998,8 +998,8 @@ ar:
     comparing_dates: <span class="assistive">مقارنة بين</span> <span class="date_one">%{date_one}</span>
       <span class="assistive">و</span> <span class="date_two">%{date_two}</span>
     warnings:
-      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءاً قم
-        بأختيار تاريخ جديد.
+      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءً قم
+        باختيار تاريخ جديد.
     content_partners:
       menu_link: شركاء المحتوى
       page_header: إحصائيات شركاء المحتوى

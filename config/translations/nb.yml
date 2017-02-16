@@ -372,7 +372,7 @@ nb:
           eller et kyndig brukersamfunn.
         last_action: Siste handling
         latest_published_harvest_event: Sist publisert
-        logo_current: 'Nåværende logo:'
+        logo_current: 'Gjeldende logo:'
         logo_new: 'Last opp en ny logo:'
         notes: Projektnotater <small>(privat)</small>
         oldest_published_harvest_event: Først publisert

@@ -80,7 +80,7 @@ oc:
         pages_with_image: Paginas amb imatge
         pages_with_map: Paginas amb mapa
         pages_with_video: Paginas amb vidèo
-        pages_with_sound: Paginas amb son
+        pages_with_sound: Paginas amb sons
         pages_without_text: Paginas amb tèxte
         pages_without_image: Paginas sens imatge
         pages_with_image_no_text: Paginas amb imatge, mas sens tèxte
@@ -135,7 +135,7 @@ oc:
         redhotlist_pages: Paginas fòrça favoritas
         rich_redhotlist_pages: Paginas ricas fòrça favoritas
         rich_redhotlist_pages_percentage: Paginas favoritas rojas ricas %
-        pages_with_score_10_to_39: Paginas amb una marca de 10 a 40
+        pages_with_score_10_to_39: Paginas amb una puntuacion de 10 a 40
         pages_with_score_less_than_10: Paginas amb una marca inferiora a 10
         lifedesk_taxa: Taxons LifeDesks
         lifedesk_data_objects: Objèctes de donadas LifeDesks
@@ -935,6 +935,7 @@ oc:
     download_taxa_data:
       attribute_header: Atribut
       select_all_checkbox: Seleccionar tot
+      user_downloaded_collection: Telecargament de donadas per %{collection_name}
     show:
       meta_description_default: Una colleccion de l’Enciclopèdia de la Vida intitulada
         %{collection_name}.

@@ -310,7 +310,7 @@ ko:
         too_short:
           one: 너무 짧습니다 (최소 %{count}자입니다)
           other: 너무 짧습니다 (최소 %{count}자입니다)
-        wrong_length: 잘못된 길이입니다 (글자 %{count}개여야 합니다)
+        wrong_length: 잘못된 길이입니다 (%{count}글자여야 합니다)
         not_a_number: 숫자가 아닙니다
         not_an_integer: 정수여야 합니다
         greater_than:
@@ -387,7 +387,7 @@ ko:
       content_partner:
         created_at: 등록함
         current_agreement: 현재 계약
-        display_name: 보여줄 이름 <small>(선택 사항)</small>
+        display_name: 표시 이름 <small>(선택 사항)</small>
         display_name_more: <em>프로젝트 이름</em> 대신에 사용할 대체 공개 이름을 제공하세요.
         description_of_data: 데이터에 대한 설명 <small>(비공개)</small>
         description_of_data_more: 얼마나 많은 항목을 사용할 수 있는지, 관련된 생명체가 무엇인지, 그리고 그들이 조합
@@ -1763,8 +1763,8 @@ ko:
         meta_title: '%{user_full_name} 데이터 내려받기'
         tweet_text: '%{user_full_name} 데이터 내려받기'
       header_with_count:
-        one: Data download
-        other: '%{count}개의 데이터 내려받기'
+        one: 데이터 내려받기
+        other: 데이터 %{count}개 내려받기
       empty: 내려받을 수 있는 것이 없습니다. <a href='%{data_search_url}'>데이터를 검색</a>하거나 검색 결과를
         내려받을 수 있도록 요청할 수 있습니다.
       download: 내려받기
@@ -3066,7 +3066,7 @@ ko:
   all_collections: 모든 모음집
   all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 댓글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
   all_communities: 모든 공동체
-  all_count: 모든 (%{count})
+  all_count: 모두(%{count})
   all_filter: 모두
   all_images: 모든 그림
   all_information: 모든 정보
@@ -3655,7 +3655,8 @@ ko:
     one: <em>%{search_term}</em>에 대한 결과 %{count}개
     other: <em>%{search_term}</em>에 대한 결과 %{count}개
   count_results_for_traitbank:
-    other: '%{count} TraitBank 결과'
+    one: TraitBank 결과 %{count}개
+    other: TraitBank 결과 %{count}개
   create_account: 계정 만들기
   create_a_new_collection: 새 모음집 만들기
   create_community_unsuccessful_error: 죄송합니다, 오류가 발생해 공동체가 만들어지지 않았습니다. 모든 필드가 올바르게
@@ -3796,7 +3797,7 @@ ko:
       search_value_or_range_header: 특정 값이나 범위 검색
       search_within_taxon_group_header: 분류 그룹 내에서 검색
       search_within_taxon_group_intro_with_count:
-        other: 분류 그룹 안에서 검색하는 것은 현재 %{count} 분류보다 적은 그룹으로 제한됩니다. 더 많은 그룹을 검색하는 것에
+        other: 분류 그룹 안에서 검색하는 것은 현재 분류 %{count}개보다 적은 그룹으로 제한됩니다. 더 많은 그룹을 검색하는 것에
           대해 더 알아보려면 <a href="%{contact_us_tech_url}">문의해주세요</a>.
       sort_header: 결과 정렬
     notice:
@@ -3804,8 +3805,8 @@ ko:
         도움을 <a href="%{contactus_tech_path}">요청</a> 해보세요.
   data_search_attribute: ' %{attribute} 데이터로 레코드에 대한 TraitBank를 검색'
   data_search_files_with_count:
-    one: '%{count} 데이터 내려받기'
-    other: '%{count} 데이터 내려받기'
+    one: 데이터 %{count}개 내려받기
+    other: 데이터 %{count}개 내려받기
   data_subtab_about: 소개
   data_subtab_glossary: '%{taxon}에 대한 용어집'
   data_summary_ranges_header_with_count: EOL이 요약 데이터를 가지고 있습니다
@@ -4143,7 +4144,8 @@ ko:
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타데이터 포함
   including_traitbank_count:
-    other: ', %{count} TraitBank 속성을 포함하는'
+    one: ', TraitBank 속성 %{count}개를 포함하는'
+    other: ', TraitBank 속성 %{count}개를 포함하는'
   in_collection: 모음집
   in_community: 공동체에서
   indexed: 색인함

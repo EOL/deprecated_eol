@@ -223,16 +223,16 @@ zh-CN:
       notification:
         reply_to_comment: 对您的评论做出的一条回复
         comment_on_my_profile: 关于您的简介的评论
-        comment_on_my_contribution: 关于你的贡献的评论和/或管理操作
-        comment_on_my_collection: 关于你管理的收藏的评论
-        comment_on_my_community: 关于你加入的小组的评论
-        made_me_a_manager: 你已经是收藏或小组的管理者
-        member_joined_my_community: 一名新成员加入了你管理的小组
+        comment_on_my_contribution: 您做出的贡献上的评论和/或馆长级操作
+        comment_on_my_collection: 您管理的收藏上的评论
+        comment_on_my_community: 您作为成员之一的社区中的评论
+        made_me_a_manager: 您已经成为收藏或社区管理员
+        member_joined_my_community: 一名新成员加入了您管理的社区
         comment_on_my_watched_item: 关于你的监视列表中的对象、分类、收藏或小组的评论
         curation_on_my_watched_item: 关于你的监视列表中的对象、分类、收藏或小组的管理操作
-        new_data_on_my_watched_item: 你的监视列表中的分类的新贡献
-        changes_to_my_watched_collection: 你的监视列表中的收藏的更改
-        changes_to_my_watched_community: 你的监视列表中的小组的更改
+        new_data_on_my_watched_item: 您的监视列表中，对分类群的新贡献
+        changes_to_my_watched_collection: 您的监视列表中，对收藏的更改
+        changes_to_my_watched_community: 您的监视列表中，对社区的更改
         member_joined_my_watched_community: 有新成员已经加入你加入的小组
         member_left_my_community: 有成员已经离开你管理的小组
         new_manager_in_my_community: 有其他成员已经成为你管理的社区的管理者
@@ -420,7 +420,7 @@ zh-CN:
         active: 已发布
         active_more: 已发布页面将公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
         page_name: 独特名称<small>（仅小写ISO基本拉丁文字数字字符和下划线）</small>
-        page_name_more: 请为该页面输入一个独特的自我描述性有意义的持续性标识符。你输入的名称会用于生成该页面的URL，例如独特名称<em>terms_of_use</em>转化为URL<em>http://eol.org/info/terms_of_use</em>。
+        page_name_more: 请为该页面输入一个独特的自我描述性有意义的持续性标识符。您输入的名称会用于生成该页面的URL，例如独特名称<em>terms_of_use</em>转化为URL<em>http://eol.org/info/terms_of_use</em>。
         parent_content_page_id: 父
         parent_content_page_id_more: 选择一个父页面使本页面嵌入其中，可选项
       content_partner:
@@ -440,8 +440,8 @@ zh-CN:
         user_id: 内容合作伙伴信息管理
       content_partner_agreement:
         mou_url: 协议文件URL<small>（可选替代）</small>
-        mou_url_more: '"可选择填写包括合作伙伴协议的文件地址。这份文件将会覆盖其他协议文件。如果您希望将此文件（例如一个PDF文件）存储在EOL内容服务器上，请首先<a
-          href=""%{upload_content_url}"">上次该文件</a>以获得它的URL。"'
+        mou_url_more: 可选择填写包括合作伙伴协议的文件地址。这份文件将会覆盖其他协议文件。如果您希望将此文件（例如一个PDF文件）存储在EOL内容服务器上，请首先<a
+          href=""%{upload_content_url}"">上传该文件</a>以获得它的URL。
       content_partner_contact:
         email_reports_frequency_hours_more: 仅当出现针对您的数据或者与您数据相关的类群页面的评论或者管理操作时，会向您发送邮件报告。
       data_object:
@@ -449,7 +449,7 @@ zh-CN:
         bibliographic_citation_more: 关于该数据的推荐参考信息应以参考书目的形式给出，并应尽可能清晰以识别该数据。
         description: 文本<small>（允许某些HTML标记）</small>
         license_id: 授权协议
-        license_id_more: 请阅读<a href="%{policy_url}">EOL授权政策</a>
+        license_id_more: 请阅读<a href="%{policy_url}">EOL许可协议方针</a>
         object_title: 标题
         toc_item: 子章节
         refs: 参考资料<small>（每个参考资料一行）</small>
@@ -600,11 +600,10 @@ zh-CN:
         notification_settings: 通知设置
         notification_settings_more: 配置您的提醒设置。
         open_authentications: 已连接的账号
-        open_authentications_more: '"管理第三方账户的连接，您可以登录到网络生命大百科。 <a href=""%{open_authentications_url}"">编辑可连接的帐户</a>。"'
+        open_authentications_more: 管理第三方账户的连接，您可以登录到网络生命大百科。 <a href=""%{open_authentications_url}"">编辑可连接的帐户</a>。
         open_authentications_connected_accounts: 您的已关联账号
         requested_curator_level: 您提出的成为%{curator_level_with_indefinite_article} 的请求正处于等待状态。
-        requested_curator_level_id_more: 选择 <em>助理管理员</em> 如果您还没有相关资历。选择 <em>专业管理员</em>
-          如果您是专家或者是有资历的研究生。选择 <em>高级管理员</em> 如果您是有EOL经验的管理员，并希望在EOL中承担更多责任。
+        requested_curator_level_id_more: 选择<em>助理管理员</em>如果您还没有相关资历。选择<em>专业管理员</em>如果您是专家或者是有资历的研究生。选择<em>高级管理员</em>如果您是有EOL经验的管理员，并希望在EOL中承担更多责任。
         tag_line: 标签或标题 <small>如:“鸟类爱好者”</small>
         user_identities: 我是
         username: 用户名<small>（4~32个字符）</small>
@@ -783,7 +782,7 @@ zh-CN:
         page_title: 管理：LifeDesks 统计
       marine:
         menu_link: 海洋生物统计
-        page_header: 在生物百科的海洋覆盖面
+        page_header: 在EOL的海洋覆盖面
         page_title: 管理：海洋生物统计
       page_richness:
         menu_link: 高质量页面
@@ -861,7 +860,7 @@ zh-CN:
       meta_title: '%{community_name}被管理者删除'
   content:
     index:
-      header_news: 生物百科新闻
+      header_news: EOL新闻
       meta_description: 网络生命大百科是一个致力于收集所有动物和植物生命科学知识的史无前例的努力。动物界和植物界的所有生物的图片，信息，事实及更多资料在这里可以得到。
       meta_keywords: 动物，动物图片，动物信息，植物，植物物种，植物图片，植物信息，植物志，动物志
       meta_title: 动物-植物-图片和信息
@@ -929,7 +928,7 @@ zh-CN:
       page_title: 统计
     marine:
       menu_link: 海洋生物统计
-      page_header: 在生物百科的海洋覆盖面
+      page_header: 在EOL的海洋覆盖面
       page_title: 统计
     page_richness:
       menu_link: 高质量页面
@@ -944,7 +943,7 @@ zh-CN:
       page_header: 数据统计
       page_title: 统计
   forums:
-    forums_heading: 生物百科论坛
+    forums_heading: EOL论坛
     last_post: 最后发布
     posts_heading: 帖子
     replies: 答复
@@ -1206,7 +1205,7 @@ zh-CN:
 
         %{message}
     contact_us_auto_response:
-      subject: 感谢你联系生命百科
+      subject: 感谢联络网络生命大百科
       message: |-
         感谢联系网络生命大百科项目。您的评论已发送到相关的工作组。
 
@@ -1403,7 +1402,7 @@ zh-CN:
   sessions:
     new:
       login_with_facebook_assistive: 使用您的Facebook账号登录网络生命大百科系统。
-      login_with_google_assistive: 使用你的Google帐户登录生命百科。
+      login_with_google_assistive: 使用您的Google凭据登录EOL。
       login_with_twitter_assistive: 使用您的Twitter账号登录网络生命大百科系统。
       login_with_yahoo_assistive: 使用你的雅虎帐号登录生命百科。
       login_with_eol_authentication_header: 或者使用您的EOL证书登录：

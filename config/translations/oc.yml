@@ -871,7 +871,7 @@ oc:
     month_names_short:
     - gen
     - feb
-    - mar
+    - març
     - abr
     - mai
     - jun
@@ -1576,6 +1576,8 @@ oc:
       message: Podètz afichar aquò e d’autres telecargaments en visitant <a href='%{download_link}'>l’onglet
         dels telecargaments de donadas dins vòstre perfil</a>.
       header: Vòstre telecargament es prèst !
+    collection_download_ready:
+      header: Ara, vòstre telecargament de colleccion es prèst !
   sessions:
     new:
       login_with_facebook_assistive: Connexion a l’EdlV en utilizant vòstras informacions
@@ -2126,6 +2128,7 @@ oc:
         other: '%{count} telecargaments de donadas'
       empty: Avètz pas cap de telecargament. Podètz <a href='%{data_search_url}'>recercar
         de donadas</a> e demandar a telecargar los resultats.
+      empty_taxa_collection: Cap de trait pas trobat dins aquesta colleccion
       download: telecargar
       page_title: Telecargaments de donadas
       query_head: Requèsta
@@ -5009,6 +5012,7 @@ oc:
         aquesta categoria de forum
       can_not_access_unpublished_taxon: O planhèm, podètz pas accedir a un taxon non
         publicat
+      collection_job_not_valid: Prètzfait de collècta invalid
   expand_all_children: Desvolopar totes los enfants
   expired: Expirat
   expires_in_colon: 'Expira dins :'
@@ -5142,6 +5146,7 @@ oc:
   full_content_url: URL del contengut complet
   gbif_map: Mapa GBIF
   general_site_admin: administracion generala del site
+  georeference_records_colon: 'Enregistraments de georeferéncia :'
   get_help_choosing_a_subject: Obténer d’ajuda per causir un subjècte
   get_help_choosing_a_subchapter: Obténer d’ajuda per causir un soscapítol
   get_more_tasks: obténer mai de prètzfaits
@@ -5160,6 +5165,7 @@ oc:
     Google obligatòri)
   google: Google
   google_images: Imatges Google
+  google_plus: Enciclopèdia de la Vida sus Google+
   google_scholar: Savi Google
   grant_manager_link: Acordar lo ròtle de gestionari
   grant_permission: autorizar
@@ -5325,6 +5331,7 @@ oc:
   language: 'Lenga :'
   languages: Lengas
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Durada de la darrièra collècta
   last_updated: Darrièra mesa a jorn
   last_updated_time_ago: Darrièra mesa a jorn i a %{time_passed}
   learn_about_collections: Cossí ne pòdi crear una ?

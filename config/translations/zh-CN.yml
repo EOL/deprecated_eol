@@ -2514,7 +2514,7 @@ zh-CN:
   admin_content_page_active: 已发布
   admin_content_page_not_active: 未发布
   admin_content_page_child_new_link: 创建子页面
-  admin_content_page_create_successful_notice: '"页面<a href=""#%{anchor}""><em>%{page_name}</em></a>创建成功。"'
+  admin_content_page_create_successful_notice: 页面<a href=""#%{anchor}""><em>%{page_name}</em></a>创建成功。
   admin_content_page_create_unsuccessful_error: 抱歉，出现了一个错误，页面未能创建。
   admin_content_page_delete_confirmation: 您确定要删除“%{page_name}”和所有的翻译吗？删除页面无法恢复。
   admin_content_page_delete_successful_notice: '%{page_name}页及其相关联的翻译均已被删除。'
@@ -3183,6 +3183,7 @@ zh-CN:
   could_not_find_user: 您不是这个社区的会员。
   count: 数目
   count_results_for_search_term:
+    one: 为<em>%{search_term}</em>找到%{count}个结果
     other: 为<em>%{search_term}</em>找到%{count}个结果
   count_results_for_traitbank:
     other: '%{count}个TraitBank结果'

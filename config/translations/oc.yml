@@ -2129,6 +2129,8 @@ oc:
       empty: Avètz pas cap de telecargament. Podètz <a href='%{data_search_url}'>recercar
         de donadas</a> e demandar a telecargar los resultats.
       empty_taxa_collection: Cap de trait pas trobat dins aquesta colleccion
+      no_selected_attributes: Cap d'atribut es pas estat seleccionat. Seleccionatz-ne
+        al mens un
       download: telecargar
       page_title: Telecargaments de donadas
       query_head: Requèsta
@@ -2145,6 +2147,8 @@ oc:
       refresh: refrescar
       row_count: Nombre
       search_again: cercar tornarmai
+      file_not_processed: Aqueste fichièr es pas encara estat tractat,
+      contact_us: contactatz-nos per d’ajuda
     edit:
       form_tip_account: Per vos connectar a EdlV, vos cal aver un nom d’utilizaire
         e un senhal de EdlV, o alara vos connectar amb un compte tèrç. Lo nom d’utilizaire
@@ -4504,6 +4508,8 @@ oc:
   content_partner_resource_harvest_event_update_unsuccessful_error: O planhèm, una
     error s’es produita, l'eveniment de recòlta per %{resource_title} es pas estat
     mes a jorn.
+  content_partner_resource_page_title: Enciclopèdia de la Vida - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_true: Aquesta ierarquia es definida
     coma <strong>organizada</strong>. Una ierarquia supervisada supausa que cada entrada
@@ -4721,6 +4727,8 @@ oc:
   your_current_rating_5_of_5: 'Vòstra quòta actuala : 5 sus 5'
   your_watch_collection: vòstra lista de seguiment
   current_language: 'Lenga : %{iso_code}'
+  current_harvest_event: Collectar l’eveniment dempuèi « %{resource_title} » pendent
+    « %{period} » oras
   currently_running_harvesting: Collècta actualament en cors
   currently_in_eol: Actualament dins l’Enciclopèdia de la Vida (EdlV)
   create_download_data_file: Crear lo fichièr

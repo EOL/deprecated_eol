@@ -2010,9 +2010,9 @@ zh-CN:
   account_information: 帐户信息
   account_information_menu: 帐户信息
   account_registered_but_not_ready_try_later: 您的帐户已注册但尚未准备好供您访问。请五分钟后再试。
-  action: 活动
+  action: 操作
   action_not_available_error: 抱歉，该操作不可用。
-  actions: 活动
+  actions: 操作
   active_colon: 活跃：
   active: 可用的
   activity: 活动
@@ -4497,7 +4497,7 @@ zh-CN:
   synonym: 异名
   synonyms_with_count:
     other: '%{count}个异名'
-  table_column_header_actions: 活动
+  table_column_header_actions: 操作
   table_of_contents_breakdown: 目录细分
   table_of_contents_breakdown_title: 目录细分
   table_of_contents_editor: 目录编辑器

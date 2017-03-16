@@ -5084,8 +5084,8 @@ it:
   edit_username: Modifica %{username}
   edit_web_users: modifica gli utenti web
   editors_tab_label: Gestori
-  email: E-mail
-  email_colon: 'E-mail:'
+  email: Email
+  email_colon: 'Email:'
   email_recipients: Destinatari posta elettronica
   eol_accepted_subjects: soggetti accettati da EOL
   eol_curator_activity_email_message: Curatore di Encyclopedia of Life <a href='%{profile_url}'>%{curator_full_name}</a>

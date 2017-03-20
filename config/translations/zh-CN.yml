@@ -250,7 +250,7 @@ zh-CN:
         harvest_events: 收获事件
         hierarchy: 等级制度
         language_id: 默认语言
-        dataset_license_id: 授权协议
+        dataset_license_id: 许可协议
         dataset_rights_holder: 权利持有人
         dataset_rights_statement: 权利声明
         license_id: 默认许可协议
@@ -448,7 +448,7 @@ zh-CN:
         bibliographic_citation: 书目引用
         bibliographic_citation_more: 关于该数据的推荐参考信息应以参考书目的形式给出，并应尽可能清晰以识别该数据。
         description: 文本<small>（允许某些HTML标记）</small>
-        license_id: 授权协议
+        license_id: 许可协议
         license_id_more: 请阅读<a href="%{policy_url}">EOL许可协议方针</a>
         object_title: 标题
         toc_item: 子章节
@@ -3812,7 +3812,7 @@ zh-CN:
   leave_reply: 留下回复
   left_content_area: 内容区域左侧
   legend: 图例：
-  license: 授权协议
+  license: 许可协议
   license_none: 无
   license_all_rights_reserved: 保留所有权利
   license_cc_by: 知识共享署名（CC BY）

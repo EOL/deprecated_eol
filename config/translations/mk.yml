@@ -4591,7 +4591,7 @@ mk:
   currently_published: тековно објавено
   daily: Дневно
   darwin_core: Darwin Core
-  dashboard: Контролна табла
+  dashboard: Управувачница
   data: Податоци
   data_about_subtab_header: За податоците на EOL
   data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a>™ собира

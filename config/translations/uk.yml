@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: A1
+# Author: Ahonc
 # Author: Alex Khimich
 # Author: Andriykopanytsia
 # Author: Base
@@ -4959,7 +4960,7 @@ uk:
   edit_comment_lowercase: редагувати коментар
   edit_community: Редагувати спільноту
   edit_contact_us_topic: Редагувати тему «Зв'яжіться з нами»
-  edit_contact_us_topics: редагувати теми зворотнього зв'язку
+  edit_contact_us_topics: редагувати теми зворотного зв'язку
   edit: редагувати
   edited_colon: 'відредаговано:'
   edit_hierarchy: змінити ієрархію
@@ -4974,7 +4975,7 @@ uk:
   edit_table_of_contents: редагувати зміст
   edit_tag_suggestions: редагувати пропозиції тегів
   edit_the_topic_area_intro: Відредагуйте тему й електронні адреси нижче, та поставте
-    галочку про активність, щоб дані відображалися користувачам на сторінці зворотнього
+    галочку про активність, щоб дані відображалися користувачам на сторінці зворотного
     зв'язку цього веб-сайту.
   edit_user_details_instructions: Редагуйте дані про користувача нижче. Ви можете
     надіслати електронного листа цьому користувачеві, клацнувши «показати поле для

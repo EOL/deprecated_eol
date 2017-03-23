@@ -433,7 +433,7 @@ ko:
         toc_item: 제목
         link_type: 분류
       data_search:
-        attribute: 속성 선택
+        attribute: 특성 선택
         max: 가장 높은 값
         max_placeholder: 숫자를 입력하세요
         max_placeholder_disabled: 범위 비활성화
@@ -4144,8 +4144,8 @@ ko:
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타데이터 포함
   including_traitbank_count:
-    one: ', TraitBank 속성 %{count}개를 포함하는'
-    other: ', TraitBank 속성 %{count}개를 포함하는'
+    one: ', TraitBank 특성 %{count}개를 포함하는'
+    other: ', TraitBank 특성 %{count}개를 포함하는'
   in_collection: 모음집
   in_community: 공동체에서
   indexed: 색인함

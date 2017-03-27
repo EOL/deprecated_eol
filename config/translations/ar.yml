@@ -157,6 +157,7 @@ ar:
         pages_with_score_less_than_10: صفحات ذات تقييم أقل من 10
         lifedesk_taxa: أصنوفات LifeDesks
         lifedesk_data_objects: عناصر بيانات LifeDesks
+        total_taxa_with_data: صفحات بها بيانات
         total_triples: ثلاثي
         total_occurrences: الحوادث
         total_measurements: قياسات
@@ -4424,6 +4425,7 @@ ar:
   did_you_mean: 'هل تقصد: %{suggestions}؟'
   disabled_for_now: معطل حاليًّا
   discover_link: استكشف
+  donate_link: تبرع
   done_already: تم بالفعل
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: عدم إظهار التواريخ
     المسجلة غير المعروفة (مستخدمو النسخة الأولى، كل ما سبق 5 يناير، 2009)

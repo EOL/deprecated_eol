@@ -62,7 +62,7 @@ class TaxonConcept < ActiveRecord::Base
   has_one :page_feature, inverse_of: :taxon_concept
 
   has_and_belongs_to_many :data_objects
-  
+
   scope :published, -> { where(published: true) }
   scope :superceded, -> { where("supercedure_id != 0") }
   scope :trusted, -> { where(vetted_id: Vetted.trusted.id) }
@@ -85,9 +85,9 @@ class TaxonConcept < ActiveRecord::Base
   attr_accessor :common_names_in_language
 
   index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
-  
+
   def nonpreferred_scientific_names
-    TaxonConceptName.where(vern: false, preferred: false, taxon_concept_id: id) 
+    TaxonConceptName.where(vern: false, preferred: false, taxon_concept_id: id)
   end
 
   def self.prepare_cache_classes
@@ -741,6 +741,7 @@ class TaxonConcept < ActiveRecord::Base
       else
         DataObject.new(
           data_type: DataType.text,
+          data_subtype: DataType.iucn,
           description: IucnStatus.from_uri(iucn_data[:status]),
           source_url: iucn_data[:source] )
       end

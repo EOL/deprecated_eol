@@ -90,10 +90,10 @@ module EOL
               :default => 1,
               :test_value => 1,
               :notes => I18n.t('text_objects_page_number') ),
-            EOL::Api::DocumentationParameter.new(
-              :name => 'iucn',
-              :type => 'Boolean',
-              :notes => I18n.t('limits_the_number_of_returned_iucn_objects') ),
+            # EOL::Api::DocumentationParameter.new(
+            #   :name => 'iucn',
+            #   :type => 'Boolean',
+            #   :notes => I18n.t('limits_the_number_of_returned_iucn_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'subjects',
               :type => String,
@@ -261,11 +261,11 @@ module EOL
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|
-              return_hash['dataObjects'] << if data_object.data_subtype_id && data_object.data_subtype == DataType.iucn
-                  EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params.merge(details: true))
-                else
+              return_hash['dataObjects'] << # if data_object.data_subtype_id && data_object.data_subtype == DataType.iucn
+                #   EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params.merge(details: true))
+                # else
                   EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
-                end
+                # end
             end
           end
 
@@ -308,10 +308,10 @@ module EOL
           text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:texts_per_page] && options[:texts_per_page] > 0
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
-          if options[:iucn]
-            iucn_object = taxon_concept.iucn
-            all_data_objects << iucn_object if iucn_object
-          end
+          # if options[:iucn]
+          #   iucn_object = taxon_concept.iucn
+          #   all_data_objects << iucn_object if iucn_object
+          # end
 
           # preload necessary associations for API response
           DataObject.preload_associations(all_data_objects, [

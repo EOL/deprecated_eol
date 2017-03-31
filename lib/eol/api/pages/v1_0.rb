@@ -262,9 +262,9 @@ module EOL
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|
               return_hash['dataObjects'] << if data_object.data_subtype_id && data_object.data_subtype == DataType.iucn
-                  data_objectEOL::Api::DataObjects::V1_0.prepare_hash(data_object, params.merge(details: true))
+                  EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params.merge(details: true))
                 else
-                  data_objectEOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
+                  EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
                 end
             end
           end

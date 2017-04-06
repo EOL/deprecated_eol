@@ -4230,7 +4230,7 @@ zh-CN:
   public: 公开的
   public_domain: 公有领域
   publish_after_utc: 发布时间不早于（UTC）
-  publish_changes: 发布改动
+  publish_changes: 发布更改
   published: 已发布
   published_parens: （已发布）
   publish: 发布

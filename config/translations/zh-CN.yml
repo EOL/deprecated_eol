@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anthony Fok
+# Author: Arthur2e5
 # Author: Chenxiaoqino
 # Author: Gaoxuewei
 # Author: Hydra
@@ -2494,7 +2495,7 @@ zh-CN:
   add_article_to_page_button: 加入一个条目
   add_association_submit_button: 添加关联
   add_brief_summary_to_page_link_button: 为此页添加简要说明
-  add_citizen_science_resources_to_page_link_button: 将一条公民科学链接添加到此页
+  add_citizen_science_resources_to_page_link_button: 将一条大众科学链接添加到此页
   add_classifications: 加入选定分类用于移动
   add_collection_to_a_new_community: 将“%{collection}”添加到一个新的社区
   add_collection_to_community: 向社区添加收藏

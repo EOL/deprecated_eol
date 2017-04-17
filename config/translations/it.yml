@@ -23,6 +23,7 @@
 # Author: Mpiva
 # Author: Nastoshka
 # Author: Nemo bis
+# Author: Nicole Scalinci
 # Author: Nivit
 # Author: Ontsed
 # Author: Peg60
@@ -123,7 +124,7 @@ it:
         pages_with_BHL_links: Pagine con collegamenti BHL
         pages_with_BHL_links_no_text: Pagine con collegamenti BHL ma nessun testo
         pages_with_BHL_links_only: Pagine con solo collegamento BHL
-        data_objects: Oggetti Dati
+        data_objects: Oggetti di dati
         data_objects_texts: Oggetti testo
         data_objects_images: Oggetti immagine
         data_objects_videos: Oggetti video

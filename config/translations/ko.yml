@@ -4287,7 +4287,7 @@ ko:
   lists_the_identifiers_for_all_hierarchies: 콘텐츠 파트너가 제공하는 모든 계층에 대한 식별자를 나타냅니다
   literature: 문헌
   literature_bhl_link: BHL에서 발견한 참고 문헌 보기
-  literature_empty: 참고을 찾을 수 없습니다.
+  literature_empty: 각주를 찾을 수 없습니다.
   literature_header: 각주
   literature_links: 문헌 링크
   literature_links_link: 문헌 링크

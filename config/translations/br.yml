@@ -181,6 +181,7 @@ br:
         uri: URI
         uri_type: Seurt URI
         value_is_text: An talvoudoù n'int ket URLoù, testennoù hepken
+        value_is_verbatim: An talvoudoù ne vint ket nivreoù, testenn ho hepken
       known_uri_relationship:
         from_known_uri_id: URI an danvez
         to_known_uri_id: URI pal
@@ -498,7 +499,8 @@ br:
         taxon_name_placeholder_value_removed: '%{taxon_group} tennet, diuzañ ur strollad
           nevez'
         taxon_name_more: Da skouer, ebarzhit Trochilidae pe Balumed ha diuzit ar strollad
-          a glot ganto.
+          a glot ganto. Dibaboù ar roll disachañ hepken a vo implijet. Arabat kemmañ
+          an destenn hep dibab un disoc'h.
         taxa_found: Taksonoù kavet
         total_results: 'Hollad an disoc''hoù : %{total}'
         unit: Unanenn vuzuliañ
@@ -798,6 +800,10 @@ br:
     new:
       page_title: Roit ho soñj, mar plij.
   collections:
+    download_taxa_data:
+      attribute_header: Perzh
+      select_all_checkbox: Diuzañ pep tra
+      user_downloaded_collection: Pellgargañ ar roadennoù evit %{collection_name}
     show:
       meta_description_default: Un dastumad eus Kelc'hgeriadur ar Vuhez zo anvet %{collection_name}.
       meta_description_default_focus_collection: Un dastumad eus Kelc'hgeriadur ar

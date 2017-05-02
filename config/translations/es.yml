@@ -2271,10 +2271,9 @@ es:
         remove_connection_failed: Lo sentimos, ha ocurrido un error, no hemos podido
           eliminar la conexión.
         facebook:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Facebook a tu cuenta de EOL, tu cuenta de Facebook
-            ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de
-            EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Facebook con la de EOL; la cuenta de Facebook ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Facebook y EOL. Si ya tienes una cuenta de EOL por
             favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras
@@ -2285,8 +2284,8 @@ es:
             de Facebook.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Facebook.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Facebook.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Facebook.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Facebook.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2296,9 +2295,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         google:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Google a tu cuenta de EOL, tu cuenta de Google ya
-            está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Google con la de EOL; la cuenta de Google ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Google y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2309,8 +2308,8 @@ es:
             de Google.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Google.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Google.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Google.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Google.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2320,10 +2319,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         twitter:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Twitter a tu cuenta de EOL, tu cuenta de Twitter
-            ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de
-            EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Twitter con la de EOL; la cuenta de Twitter ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Twitter y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2334,8 +2332,8 @@ es:
             de Twitter.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Twitter.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Twitter.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Twitter.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Twitter.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2345,9 +2343,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         yahoo:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Yahoo a tu cuenta de EOL, tu cuenta de Yahoo ya
-            está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Yahoo! con la de EOL; la cuenta de Yahoo! ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Yahoo! y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2358,8 +2356,8 @@ es:
             de Yahoo!.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Yahoo!.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Yahoo!.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Yahoo!
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Yahoo!.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -5804,7 +5802,7 @@ es:
   main_database_colon: 'Principal:'
   main_master_database_colon: 'Maestro principal:'
   maintained_by: mantenido por
-  major_heading: Encabezado principal
+  major_heading: Título principal
   make_an_editor: convertir en administrador
   make_user_an_editor_title: Permitir a %{user} administrar las siguientes colecciones
   manage_your_profile: Administrar su perfil
@@ -6418,8 +6416,8 @@ es:
   return_any_taxonomy_details_from_different_hierarchy_providers: Regreso cualesquier
     detalles de taxonomía de diferentes taxon proveedores de jerarquía, en una variedad
     nombró "taxonConcepts"
-  returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos
-    sobre una colección particular y los elementos que contiene indexados por EOL
+  returns_all_metadata_about_a_particular_collection: devuelve todos los metadatos
+    sobre una colección particular y los elementos que contiene indizados por EOL
   returns_all_metadata_about_a_particular_data_object: devuelve todos los metadatos
     sobre un objeto de datos particuar (texto, imagen o vídeo) indizado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando
@@ -6821,14 +6819,14 @@ es:
   the_count_represents_the_total: El valor numérico representa el número de objetos
     de datos publicados bajo la respectiva categoría SPM del tema.
   hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas
-    usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y
+    usando una sola jerarquía taxonómica. Más bien, EOL indiza muchas jerarquías y
     las compara entre sí. Como resultado, una página de EOL puede estar relacionada
     con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual
     y a sus relaciones internas. Vea la documentación el API páginas para ver cómo
     acceder a otras jerarquías que corresponden a una página de EOL. El campo 'taxonConceptID'
     contiene el identificador de página de EOL que puede ser usado en el API páginas.
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una
-    sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara
+    sola jerarquía taxonómica. Más bien, EOL indiza muchas jerarquías y las compara
     entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre
     del proveedor y el URL de la fuente, así como todos los taxones que están en la
     raíz del árbol taxonómico
@@ -6874,7 +6872,7 @@ es:
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en
     esta comunidad.
   there_is_no_singular_eol: No existe una jerarquía taxonómica única de EOL, más bien,
-    EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren
+    EOL indiza muchas jerarquías y las compara para establecer cuáles nodos se refieren
     a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía,
     por lo cual podría haber varios para una página dada de EOL. Para más información,
     revise la documentación sobre el API en %{link}.

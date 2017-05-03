@@ -33,7 +33,7 @@ protected
 
   def meta_description
     translation_vars = scoped_variables_for_translations.dup
-    if @taxon_data # For Ajaxy pages; will remove this when replaced.
+    if @taxon_data && @taxon_data.topics && @taxon_data.topics != [] # For Ajaxy pages; will remove this when replaced.
       @taxon_data.topics
       translation_vars[:topics] = @taxon_data.topics.join("; ") unless @taxon_data.topics.empty?
     elsif @page_traits && ! @page_traits.categories.blank?

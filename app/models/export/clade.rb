@@ -633,7 +633,7 @@ module Export
 
       # TODO: links ...I think we are going live without them, soooo... skipped!
 
-      DataObject.where(id: media).includes(:data_object_translation).
+      DataObject.where(id: media).includes(:data_object_translation, data_objects_harvest_events: :harvest_event).
         find_each do |dato|
           has_cit = ! dato.bibliographic_citation.blank?
           has_loc = false
@@ -660,6 +660,8 @@ module Export
           end
           thumb = dato.thumb_or_object
           next unless thumb # Useless without an image...
+          # RIDICULOUS. ...But if it's missing, we have to fake something:
+          resouce_id = dato.data_objects_harvest_events.last.harvest_event.resource_id rescue 1
           @media << {
             base_url: thumb.sub(/_580_360[^\/]*$/, ""),
             bibliographic_citation_id: has_cit ? dato.id : nil,
@@ -672,7 +674,7 @@ module Export
             location_id: has_loc ? dato.id : nil,
             name: dato.object_title,
             owner: dato.owner,
-            resource_id: dato.provider_mangaed_id,
+            resource_id: resource_id,
             resource_pk: dato.identifier,
             rights_statement: dato.rights_statement,
             source_page_url: dato.object_url,
@@ -700,7 +702,7 @@ module Export
           }
         end
 
-      DataObjectsRef.where(data_object_id: media).find_each do |ref|
+      DataObjectsRef.where(data_object_id: media).all.each do |ref|
         @references << {
           referent_id: ref.ref_id,
           parent_type: "Medium",
@@ -733,13 +735,14 @@ module Export
           }
         end
 
-      TranslatedLanguage.where(original_language_id: languages,
-        language_id: @english).find_each do |lang|
-          @languages << {
-            id: lang.original_language_id,
-            name: lang.label
-          }
-        end
+      Language.where(id: languages).find_each do |lang|
+        @languages << {
+          id: lang.id,
+          code: lang.iso_639_2,
+          group: lang.iso_639_1,
+          can_browse_site: ! lang.activated_on.nil?
+        }
+      end
 
       License.where(id: licenses).find_each do |lic|
           @licenses << {

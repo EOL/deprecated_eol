@@ -669,7 +669,7 @@ module Export
           thumb = dato.thumb_or_object
           next unless thumb # Useless without an image...
           # RIDICULOUS. ...But if it's missing, we have to fake something:
-          resouce_id = dato.resource.id || 1 rescue 1
+          resource_id = dato.resource.id || 1 rescue 1
           @media << {
             base_url: thumb.sub(/_580_360[^\/]*$/, ""),
             bibliographic_citation_id: has_cit ? dato.id : nil,

@@ -229,7 +229,7 @@ module Export
       media = data_objects.dup
       media -= articles
       media -= links
-      media -= maps
+      # media -= maps
 
       # SLOOOOOOOW query. NOTE these are whole objects, too:
       agents_data_objects = AgentsDataObject.

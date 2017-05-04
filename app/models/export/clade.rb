@@ -46,6 +46,7 @@ module Export
       @partners = []
       @ranks = []
       @references = []
+      @referents = []
       @resources = []
       @roles = []
       @scientific_names = []
@@ -58,6 +59,8 @@ module Export
     end
 
     def save
+
+      # TODO: add curations, add links, add occurrence_maps
 
       # Concept IDs:
       concepts = TaxonConceptsFlattened.descendants_of(@id).
@@ -82,10 +85,12 @@ module Export
 
       # Let's just get the slow part (traits) out of the way first, sigh:
       concepts.each do |id|
-        next if superceded.include?(id)
-        traits = PageTraits.new(id)
-        if traits.glossary
-          traits.glossary.each do |known_uri|
+        puts(".. superceded: #{id}") && next if superceded.include?(id)
+        page_traits = PageTraits.new(id)
+        page_traits.populate
+        puts(".. NO TRAITS: #{id}") && next if page_traits.nil?
+        if page_traits.glossary
+          page_traits.glossary.each do |known_uri|
             comment = known_uri.comment || ""
             comment += "\nOntology Description: #{known_uri.ontology_information_url}" unless
               known_uri.ontology_information_url.blank?
@@ -105,8 +110,10 @@ module Export
             }
             toc_items += known_uri.toc_item_ids
           end
+        else
+          puts ".. NO GLOSSARY: #{id}"
         end
-        traits = traits.instance_eval { @traits }
+        traits = page_traits.instance_eval { @traits }
         if traits
           traits.each do |trait|
             next unless trait.visible?
@@ -153,6 +160,8 @@ module Export
               metadata: metadata
             }
           end
+        else
+          puts ".. NO TRAITS: #{id}"
         end
       end
 
@@ -213,7 +222,6 @@ module Export
       udos = UsersDataObject.where(taxon_concept_id: concepts) ; 1
 
       users = cdohes.map(&:user_id) + udos.map(&:user_id)
-      users = users.uniq
 
       data_objects += dohes.map(&:data_object_id) +
         cdohes.map(&:data_object_id) +
@@ -369,6 +377,17 @@ module Export
           }
         end
 
+      CollectionItem.where(id: collection_items,
+        collected_item_type: "Collection").find_each do |item|
+          @collection_associations << {
+            annotation: item.annotation,
+            collection_id: item.collection_id,
+            id: item.id,
+            associated_id: item.collected_item_id,
+            position: item.id # Totally fake. :(
+          }
+        end
+
       collected_page_ids = {}
       @collected_pages.each { |cp| collected_page_ids[cp[:page_id]] = cp }
 
@@ -512,6 +531,7 @@ module Export
           source_page_id: source_page_id,
           trust: trust
         }
+        users << dohe.user_id if dohe.user_id
         native_node = do_n_hes[source_page_id]
         next unless native_node
         native_node.flat_ancestors.each do |ancestor|
@@ -546,6 +566,7 @@ module Export
           source_page_id: source_page_id,
           trust: :trusted
         }
+        users << udo.user_id if udo.user_id
         native_node = do_n_hes[source_page_id]
         next unless native_node
         native_node.flat_ancestors.each do |ancestor|
@@ -671,8 +692,6 @@ module Export
         }
       end
 
-      # TODO: I don't think I need to store agents anywhere. ...Right?
-
       TranslatedAgentRole.where(agent_role_id: roles, language_id: @english).
         find_each do |role|
           @roles << {
@@ -681,8 +700,41 @@ module Export
           }
         end
 
-      TranslatedLanguage.where(original_language_id: languages, language_id: @english).
-        find_each do |lang|
+      DataObjectsRef.where(data_object_id: media).find_each do |ref|
+        @references << {
+          referent_id: ref.ref_id,
+          parent_type: "Medium",
+          parent_id: ref.data_object_id
+        }
+      end
+
+      PageFeature.where(taxon_concept_id: concepts, map_json: true).
+        find_each do |map|
+          @occurrence_maps << {
+            page_id: map.taxon_concept_id,
+            url: "not_worth_it" # This would be a complex query; not worth it for tests...
+          }
+        end
+
+      DataObjectsRef.where(data_object_id: articles).find_each do |ref|
+        @references << {
+          referent_id: ref.ref_id,
+          parent_type: "Article",
+          parent_id: ref.data_object_id
+        }
+      end
+
+      referents = DataObjectsRef.where(data_object_id: data_objects).
+        pluck(:ref_id).uniq
+      Ref.where(id: referents, visibility_id: @visible. published: true).
+        find_each do |ref|
+          @referents << {
+            body: ref.full_reference
+          }
+        end
+
+      TranslatedLanguage.where(original_language_id: languages,
+        language_id: @english).find_each do |lang|
           @languages << {
             id: lang.original_language_id,
             name: lang.label
@@ -709,14 +761,38 @@ module Export
           }
         end
 
+      User.where(id: users.uniq).find_each do |user|
+        @users << {
+          id: user.id,
+          username: user.username,
+          name: user.full_name,
+          tag_line: user.tagline,
+          bio: user.bio,
+          is_admin: user.is_admin?,
+          api_key: user.api_key
+        }
+      end
+
+      TaxonConceptExemplarImage.where(data_object_id: media).find_each do |img|
+        @page_icons << {
+          page_id: img.taxon_concept_id,
+          medium_id: img.data_object_id
+          # NOTE: we really want a user id here, but, alas, that's not worth
+          # getting (where it's even possible)... :(
+        }
+      end
+
       name = Rails.root.join("public", "clade-#{@id}.json").to_s
       File.unlink(name) if File.exist?(name)
-      EOL.log("Exporting Clade #{@id}: pages: #{@pages.size}, "\
-        "traits: #{@traits.size}, media: #{@media.size}", prefix: ".")
+      summary = "Exporting Clade #{@id}: pages: #{@pages.size}, "\
+        "traits: #{@traits.size}, media: #{@media.size} -> #{name}"
+      puts summary
+      EOL.log(summary, prefix: ".")
       File.open(name, "w") do |f|
         f.puts(JSON.pretty_generate(data))
       end
       File.chmod(0644, name)
+      puts "Done."
     end
 
     def data
@@ -743,6 +819,7 @@ module Export
         partners: @partners,
         ranks: @ranks,
         references: @references,
+        referents: @referents,
         resources: @resources,
         roles: @roles,
         scientific_names: @scientific_names,

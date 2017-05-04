@@ -794,6 +794,14 @@ module Export
         }
       end
 
+      # NOTE that once you've run this, YOU DO NOT WANT TO RUN A SERVER IN THE
+      # SAME THREAD! This should only be a task or a console thing.  ;)
+      KnownUri.class_eval do
+        def to_json
+          uri.to_s
+        end
+      end
+
       name = Rails.root.join("public", "clade-#{@id}.json").to_s
       File.unlink(name) if File.exist?(name)
       summary = "Exporting Clade #{@id}: pages: #{@pages.size}, "\

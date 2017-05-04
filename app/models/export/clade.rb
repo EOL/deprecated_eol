@@ -279,7 +279,7 @@ module Export
 
       HierarchyEntry.where(id: entry_ids).
         includes(hierarchy: :resource, name: :canonical_form).
-        order(:id)
+        order(:id).
         find_each do |entry|
           @nodes << { id: entry.id,
             canonical_form: entry.name.canonical_form.string,

@@ -726,7 +726,7 @@ module Export
           }
         end
 
-      DataObjectsRef.where(data_object_id: articles).find_each do |ref|
+      DataObjectsRef.where(data_object_id: articles).each do |ref|
         @references << {
           referent_id: ref.ref_id,
           parent_type: "Article",

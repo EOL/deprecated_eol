@@ -797,7 +797,7 @@ module Export
       # NOTE that once you've run this, YOU DO NOT WANT TO RUN A SERVER IN THE
       # SAME THREAD! This should only be a task or a console thing.  ;)
       KnownUri.class_eval do
-        def to_json
+        def to_json(foo = nil)
           uri.to_s
         end
       end

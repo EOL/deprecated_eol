@@ -47,6 +47,7 @@ module Export
       @scientific_names = []
       @sections = []
       @taxonomic_statuses = []
+      @terms = {} # NOTE this one is a hash because we need to search it by uri.
       @traits = []
       @users = []
       @vernaculars = []
@@ -63,9 +64,90 @@ module Export
       supercedures = TaxonConcept.where(id: concepts).
         where("supercedure_id IS NOT NULL AND supercedure_id != 0").
         pluck(:supercedure_id)
+      superceded = TaxonConcept.where(id: concepts).
+        where("supercedure_id IS NOT NULL AND supercedure_id != 0").
+        pluck(:id)
       concepts = TaxonConcept.where(id: concepts).
         where(published: true, vetted_id: @trusted).pluck(:id)
       concepts += supercedures unless supercedures.empty?
+
+      # Sorry, I know this is cryptic, but... it's good Ruby, you should learn
+      # it!  :D
+      uri_types = Hash[*(TranslatedUriType.where(language_id: @english).all.
+        flat_map { |u| [u.uri_type_id, u.name] })]
+
+      toc_items = []
+
+      # Let's just get the slow part (traits) out of the way first, sigh:
+      concepts.each do |id|
+        next if superceded.include?(id)
+        traits = PageTraits.new(id)
+        traits.glossary.each do |known_uri|
+          comment = known_uri.comment || ""
+          comment += "\nOntology Description: #{known_uri.ontology_information_url}" unless
+            known_uri.ontology_information_url.blank?
+          comment += "\nOntology Source: #{known_uri.ontology_source_url}" unless
+            known_uri.ontology_source_url.blank?
+          @terms[known_uri.uri] ||= {
+            uri: known_uri.uri,
+            is_hidden_from_overview: known_uri.exclude_from_exemplars,
+            is_hidden_from_glossary: known_uri.hide_from_glossary,
+            position: known_uri.position,
+            type: uri_types[known_uri.uri_type_id],
+            comment: comment,
+            name: known_uri.name,
+            section_ids: known_uri.toc_item_ids,
+            definition: known_uri.definition,
+            attribution: known_uri.attribution
+          }
+          toc_items += known_uri.toc_item_ids
+        end
+        traits.instance_eval { @traits }.each do |trait|
+          next unless trait.visible?
+          is_num = trait.value_name.is_numeric? && ! trait.predicate_uri.treat_as_string?
+          val_num = if is_num
+            if trait.value_name.is_float?
+              trait.value_name.to_f
+            else
+              trait.value_name
+            end
+          else
+            nil
+          end
+          metadata = []
+          trait.meta.each do |pred, vals|
+            vals.each do |val|
+              val_uri = val.is_a?(KnownUri) ? val.uri : nil
+              val_uri ||= val.is_a?(Hash) && val[:value].is_a?(KnownUri) ? val[:value].uri : nil
+              units = val.is_a?(Hash) && val[:units].is_a?(KnownUri) ? val[:units].uri : nil
+              units = val[:units] if val.is_a?(Hash)
+              literal = val[:value] if val.is_a?(Hash) && ! val[:value].is_a?(KnownUri)
+              literal ||= val unless val.is_a?(KnownUri)
+              metadata << {
+                predicate: pred.is_a?(KnownUri) ? pred.uri : pred,
+                value_uri: val_uri,
+                value_literal: literal,
+                units: units
+              }
+            end
+          end
+          @traits << {
+            predicate: trait.predicate_uri.uri,
+            resource_id: trait.resource ? trait.point.resource_id : nil,
+            resource_pk: trait.point.id, # This is not "real", but it will do for testing.
+            association: trait.association,
+            statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
+            value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
+            value_literal: trait.value_uri.is_a?(KnownUri) ? nil : trait.value_name,
+            value_num: val_num,
+            units: trait.units? ? trait.units_uri.uri : nil,
+            sex: trait.sex ? trait.sex_name : nil,
+            life_stage: trait.life_stage ? trait.life_stage_name : nil,
+            source_url: trait.resource ? nil : trait.source_url,
+            metadata: metadata
+          }
+        end
+      end
 
       # Entry IDs:
       # NOTE: this will fail if it's missing, and that's fine:
@@ -160,8 +242,8 @@ module Export
       licenses = licenses.uniq
 
       infos = DataObjectsInfoItem.where(data_object_id: articles).pluck(:info_item_id).uniq
-      toc_items = TocItem.where(id: InfoItem.where(id: infos).pluck(:toc_id)).pluck(:id)
-      toc_items += TocItem.where(id: toc_items).pluck(:parent_id).compact
+      toc_items += TocItem.where(id: InfoItem.where(id: infos).pluck(:toc_id)).pluck(:id)
+      toc_items += TocItem.where(id: toc_items.uniq).pluck(:parent_id).compact
       toc_items = toc_items.uniq
 
       # TODO: traits! Yeesh.  Traits.
@@ -620,8 +702,50 @@ module Export
           }
         end
 
-      # TRAITS.
+      name = Rails.root.join("public", "clade-#{@id}.json").to_s
+      File.unlink(name) if File.exist?(name)
+      EOL.log("Exporting Clade #{@id}: pages: #{@pages.size}, "\
+        "traits: #{@traits.size}, media: #{@media.size}", prefix: ".")
+      File.open(name, "w") do |f|
+        f.puts(JSON.pretty_generate(data))
+      end
+      File.chmod(0644, name)
+    end
 
+    def data
+      {
+        articles: @articles,
+        attributions: @attributions,
+        bibliographic_citations: @bibliographic_citations,
+        collections: @collections,
+        collected_pages: @collected_pages,
+        collected_pages_media: @collected_pages_media,
+        collection_associations: @collection_associations,
+        content_sections: @content_sections,
+        curations: @curations,
+        languages: @languages,
+        licenses: @licenses,
+        links: @links,
+        locations: @locations,
+        media: @media,
+        nodes: @nodes,
+        occurrence_maps: @occurrence_maps,
+        pages: @pages,
+        page_contents: @page_contents,
+        page_icons: @page_icons,
+        partners: @partners,
+        ranks: @ranks,
+        references: @references,
+        resources: @resources,
+        roles: @roles,
+        scientific_names: @scientific_names,
+        sections: @sections,
+        taxonomic_statuses: @taxonomic_statuses,
+        terms: @terms,
+        traits: @traits,
+        users: @users,
+        vernaculars: @vernaculars    
+      }
     end
 
     def get_type(data_type_id)

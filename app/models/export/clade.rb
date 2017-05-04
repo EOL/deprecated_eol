@@ -726,7 +726,7 @@ module Export
 
       referents = DataObjectsRef.where(data_object_id: data_objects).
         pluck(:ref_id).uniq
-      Ref.where(id: referents, visibility_id: @visible. published: true).
+      Ref.where(id: referents, visibility_id: @visible, published: true).
         find_each do |ref|
           @referents << {
             body: ref.full_reference

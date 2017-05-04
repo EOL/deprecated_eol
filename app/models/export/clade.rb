@@ -279,13 +279,17 @@ module Export
 
       HierarchyEntry.where(id: entry_ids).
         includes(hierarchy: :resource, name: :canonical_form).
+        order(:id)
         find_each do |entry|
           @nodes << { id: entry.id,
             canonical_form: entry.name.canonical_form.string,
-            depth: entry.depth,
             has_breadcrumb: @breadcrumb_rank_ids.include?(entry.rank_id),
-            page_id: entry.taxon_concept_id, parent_id: entry.parent_id,
-            rank_id: entry.rank_id, resource_id: entry.hierarchy.resource.id,
+            page_id: entry.taxon_concept_id,
+            # NOTE: we have to fake a lack of parents for nodes where we don't
+            # have a parent; otherwise the import fails due to a missing parent.
+            parent_id: entry_ids.include?(entry.parent_id) ? entry.parent_id : 0,
+            rank_id: entry.rank_id,
+            resource_id: entry.hierarchy.resource.id,
             resource_pk: entry.identifier,
             scientific_name: entry.name.italicized,
             source_url: entry.source_url }
@@ -420,14 +424,16 @@ module Export
         end
 
       ContentPartner.where(id: partners).find_each do |cp|
+        shortest_name = cp.full_name[0..15]
+        shortest_name += "..." if cp.full_name.length > 16
         @partners << {
           admin_notes: cp.admin_notes,
           description: cp.description,
           full_name: cp.full_name,
+          short_name: cp.acronym || cp.display_name || shortest_name,
           homepage_url: cp.homepage,
           id: cp.id,
-          notes: cp.notes,
-          short_name: cp.acronym
+          notes: cp.notes
         }
       end
 
@@ -754,7 +760,8 @@ module Export
           }
         end
 
-      TranslatedTocItem.where(table_of_contents_id: toc_items).includes(:toc_item).
+      TranslatedTocItem.where(table_of_contents_id: toc_items,
+        language_id: @english).includes(:toc_item).
         find_each do |tsec|
           @sections << {
             id: tsec.table_of_contents_id,

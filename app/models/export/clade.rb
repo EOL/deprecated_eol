@@ -5,9 +5,12 @@ module Export
     # (7662) => Carnivora (10_369)
     # (7665) => Procyonidae (695)
 
+    def self.save(id)
+      Export::Clade.new(id).save
+    end
+
     def initialize(id)
       @id = id
-      @user = EOL::AnonymousUser.new(Language.default)
       @trusted = Vetted.trusted.id
       @visible = Visibility.visible.id
       @native = Hierarchy.itis.id
@@ -53,9 +56,9 @@ module Export
       @vernaculars = []
     end
 
-    # puts ScientificName.last.attributes.keys.sort.map { |k| "#{k}: _"}.join(",\n"); 1
+    # exporter = Export::Clade.new(7665) ; exporter.save
 
-    def save(file)
+    def save
 
       # Concept IDs:
       concepts = TaxonConceptsFlattened.descendants_of(@id).
@@ -744,7 +747,7 @@ module Export
         terms: @terms,
         traits: @traits,
         users: @users,
-        vernaculars: @vernaculars    
+        vernaculars: @vernaculars
       }
     end
 

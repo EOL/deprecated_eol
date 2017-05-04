@@ -5,6 +5,7 @@ module Export
     # (7662) => Carnivora (10_369)
     # (7665) => Procyonidae (695)
 
+    # Export::Clade.save(7665)
     def self.save(id)
       Export::Clade.new(id).save
     end
@@ -56,8 +57,6 @@ module Export
       @vernaculars = []
     end
 
-    # exporter = Export::Clade.new(7665) ; exporter.save
-
     def save
 
       # Concept IDs:
@@ -85,70 +84,75 @@ module Export
       concepts.each do |id|
         next if superceded.include?(id)
         traits = PageTraits.new(id)
-        traits.glossary.each do |known_uri|
-          comment = known_uri.comment || ""
-          comment += "\nOntology Description: #{known_uri.ontology_information_url}" unless
-            known_uri.ontology_information_url.blank?
-          comment += "\nOntology Source: #{known_uri.ontology_source_url}" unless
-            known_uri.ontology_source_url.blank?
-          @terms[known_uri.uri] ||= {
-            uri: known_uri.uri,
-            is_hidden_from_overview: known_uri.exclude_from_exemplars,
-            is_hidden_from_glossary: known_uri.hide_from_glossary,
-            position: known_uri.position,
-            type: uri_types[known_uri.uri_type_id],
-            comment: comment,
-            name: known_uri.name,
-            section_ids: known_uri.toc_item_ids,
-            definition: known_uri.definition,
-            attribution: known_uri.attribution
-          }
-          toc_items += known_uri.toc_item_ids
+        if traits.glossary
+          traits.glossary.each do |known_uri|
+            comment = known_uri.comment || ""
+            comment += "\nOntology Description: #{known_uri.ontology_information_url}" unless
+              known_uri.ontology_information_url.blank?
+            comment += "\nOntology Source: #{known_uri.ontology_source_url}" unless
+              known_uri.ontology_source_url.blank?
+            @terms[known_uri.uri] ||= {
+              uri: known_uri.uri,
+              is_hidden_from_overview: known_uri.exclude_from_exemplars,
+              is_hidden_from_glossary: known_uri.hide_from_glossary,
+              position: known_uri.position,
+              type: uri_types[known_uri.uri_type_id],
+              comment: comment,
+              name: known_uri.name,
+              section_ids: known_uri.toc_item_ids,
+              definition: known_uri.definition,
+              attribution: known_uri.attribution
+            }
+            toc_items += known_uri.toc_item_ids
+          end
         end
-        traits.instance_eval { @traits }.each do |trait|
-          next unless trait.visible?
-          is_num = trait.value_name.is_numeric? && ! trait.predicate_uri.treat_as_string?
-          val_num = if is_num
-            if trait.value_name.is_float?
-              trait.value_name.to_f
+        traits = traits.instance_eval { @traits }
+        if traits
+          traits.each do |trait|
+            next unless trait.visible?
+            is_num = trait.value_name.is_numeric? && ! trait.predicate_uri.treat_as_string?
+            val_num = if is_num
+              if trait.value_name.is_float?
+                trait.value_name.to_f
+              else
+                trait.value_name
+              end
             else
-              trait.value_name
+              nil
             end
-          else
-            nil
-          end
-          metadata = []
-          trait.meta.each do |pred, vals|
-            vals.each do |val|
-              val_uri = val.is_a?(KnownUri) ? val.uri : nil
-              val_uri ||= val.is_a?(Hash) && val[:value].is_a?(KnownUri) ? val[:value].uri : nil
-              units = val.is_a?(Hash) && val[:units].is_a?(KnownUri) ? val[:units].uri : nil
-              units = val[:units] if val.is_a?(Hash)
-              literal = val[:value] if val.is_a?(Hash) && ! val[:value].is_a?(KnownUri)
-              literal ||= val unless val.is_a?(KnownUri)
-              metadata << {
-                predicate: pred.is_a?(KnownUri) ? pred.uri : pred,
-                value_uri: val_uri,
-                value_literal: literal,
-                units: units
-              }
+            metadata = []
+            trait.meta.each do |pred, vals|
+              vals.each do |val|
+                val_uri = val.is_a?(KnownUri) ? val.uri : nil
+                val_uri ||= val.is_a?(Hash) && val[:value].is_a?(KnownUri) ? val[:value].uri : nil
+                units = val.is_a?(Hash) && val[:units].is_a?(KnownUri) ? val[:units].uri : nil
+                units = val[:units] if val.is_a?(Hash)
+                literal = val[:value] if val.is_a?(Hash) && ! val[:value].is_a?(KnownUri)
+                literal ||= val unless val.is_a?(KnownUri)
+                metadata << {
+                  predicate: pred.is_a?(KnownUri) ? pred.uri : pred,
+                  value_uri: val_uri,
+                  value_literal: literal,
+                  units: units
+                }
+              end
             end
+            @traits << {
+              predicate: trait.predicate_uri.uri,
+              resource_id: trait.resource ? trait.point.resource_id : nil,
+              resource_pk: trait.point.id, # This is not "real", but it will do for testing.
+              association: trait.association,
+              statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
+              value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
+              value_literal: trait.value_uri.is_a?(KnownUri) ? nil : trait.value_name,
+              value_num: val_num,
+              units: trait.units? ? trait.units_uri.uri : nil,
+              sex: trait.sex ? trait.sex_name : nil,
+              life_stage: trait.life_stage ? trait.life_stage_name : nil,
+              source_url: trait.resource ? nil : trait.source_url,
+              metadata: metadata
+            }
           end
-          @traits << {
-            predicate: trait.predicate_uri.uri,
-            resource_id: trait.resource ? trait.point.resource_id : nil,
-            resource_pk: trait.point.id, # This is not "real", but it will do for testing.
-            association: trait.association,
-            statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
-            value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
-            value_literal: trait.value_uri.is_a?(KnownUri) ? nil : trait.value_name,
-            value_num: val_num,
-            units: trait.units? ? trait.units_uri.uri : nil,
-            sex: trait.sex ? trait.sex_name : nil,
-            life_stage: trait.life_stage ? trait.life_stage_name : nil,
-            source_url: trait.resource ? nil : trait.source_url,
-            metadata: metadata
-          }
         end
       end
 

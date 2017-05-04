@@ -778,7 +778,7 @@ module Export
           id: user.id,
           username: user.username,
           name: user.full_name,
-          tag_line: user.tagline,
+          tag_line: user.tag_line,
           bio: user.bio,
           is_admin: user.is_admin?,
           api_key: user.api_key

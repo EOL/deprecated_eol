@@ -639,7 +639,9 @@ module Export
 
       # TODO: links ...I think we are going live without them, soooo... skipped!
 
-      DataObject.where(id: media).includes(:data_object_translation, data_objects_harvest_events: :harvest_event).
+      # NOTE: I tried joining on HEvs here to find the resource ID and it was
+      # too slow, so I'm doing it one at a time.
+      DataObject.where(id: media).includes(:data_object_translation).
         find_each do |dato|
           has_cit = ! dato.bibliographic_citation.blank?
           has_loc = false
@@ -667,7 +669,7 @@ module Export
           thumb = dato.thumb_or_object
           next unless thumb # Useless without an image...
           # RIDICULOUS. ...But if it's missing, we have to fake something:
-          resouce_id = dato.data_objects_harvest_events.last.harvest_event.resource_id rescue 1
+          resouce_id = dato.resource.id || 1 rescue 1
           @media << {
             base_url: thumb.sub(/_580_360[^\/]*$/, ""),
             bibliographic_citation_id: has_cit ? dato.id : nil,

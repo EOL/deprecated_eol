@@ -149,7 +149,7 @@ module Export
               predicate: trait.predicate_uri.uri,
               resource_id: trait.resource ? trait.point.resource_id : nil,
               resource_pk: trait.point.id, # This is not "real", but it will do for testing.
-              association: trait.association,
+              association: trait.object_page.try(:id),
               statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
               value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
               value_literal: trait.value_uri.is_a?(KnownUri) ? nil : trait.value_name,

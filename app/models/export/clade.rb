@@ -272,7 +272,8 @@ module Export
           # add a relationship to make it possible to skip this. It's not THAT
           # bad.
           native_node = HierarchyEntry.where(taxon_concept_id: concept.id,
-            hierarchy_id: @native).pluck(:id).first
+            hierarchy_id: @native, published: true, vetted_id: @trusted,
+            visibility_id: @visible).pluck(:id).first
           @pages << { id: concept.id, medium_id: medium_id,
             moved_to_page_id: concept.supercedure_id,
             native_node_id: native_node }

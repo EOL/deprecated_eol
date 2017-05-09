@@ -800,7 +800,7 @@ module Export
 
       TaxonConceptExemplarImage.where(data_object_id: media).find_each do |img|
         # No need if we didn't get that page:
-        next unless concept.include?(img.taxon_concept_id)
+        next unless concepts.include?(img.taxon_concept_id)
         @page_icons << {
           page_id: img.taxon_concept_id,
           medium_id: img.data_object_id

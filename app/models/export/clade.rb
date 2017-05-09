@@ -176,6 +176,9 @@ module Export
         pluck(:id)
       entry_ids += native_node.ancestors.map(&:id)
 
+      # Aaaaand let's add the rest of the pages (no traits) for higher levels:
+      concepts += native_node.ancestors.map(&:taxon_concep_id)
+
       hes = HierarchyEntry.where(id: entry_ids).
         select([:id, :name_id, :rank_id, :hierarchy_id, :taxon_concept_id])
       names = hes.map(&:name_id)

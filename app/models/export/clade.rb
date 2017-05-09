@@ -472,6 +472,9 @@ module Export
           source_page_id: source_page_id,
           trust: trust
         }
+        # PROPAGATION:
+        # Links and maps stay on their own page:
+        next if type == "Map" || type == "Link"
         native_node = do_n_hes[source_page_id]
         next unless native_node
         native_node.flat_ancestors.each do |ancestor|
@@ -590,6 +593,7 @@ module Export
         end
       end
 
+      # NOTE: too expensive to get joins to find the resource.
       DataObject.where(id: articles).includes(:data_object_translation).
         find_each do |dato|
           has_cit = ! dato.bibliographic_citation.blank?
@@ -615,6 +619,8 @@ module Export
               spatial_location: dato.spatial_location
             }
           end
+          # RIDICULOUS. ...But if it's missing, we have to fake something:
+          resource_id = dato.resource.id || 1 rescue 1
           @articles << {
             bibliographic_citation_id: has_cit ? dato.id : nil,
             body: dato.description,
@@ -625,7 +631,8 @@ module Export
             location_id: has_loc ? dato.id : nil,
             name: dato.object_title,
             owner: dato.owner, # Expensive. :(
-            resource_id: dato.identifier,
+            resource_id: resource_id, # Also expensive.
+            resource_pk: dato.identifier,
             rights_statement: dato.rights_statement,
             source_url: dato.source_url
           }
@@ -789,6 +796,8 @@ module Export
       end
 
       TaxonConceptExemplarImage.where(data_object_id: media).find_each do |img|
+        # No need if we didn't get that page:
+        next unless concept.include?(img.taxon_concept_id)
         @page_icons << {
           page_id: img.taxon_concept_id,
           medium_id: img.data_object_id

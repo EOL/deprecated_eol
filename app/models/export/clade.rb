@@ -144,10 +144,11 @@ module Export
                 }
               end
             end
+            resource = trait.resource
             @traits << {
               page_id: id,
               predicate: trait.predicate_uri.uri,
-              resource_id: trait.resource ? trait.point.resource_id : nil,
+              resource_id: trait.resource && trait.resource.is_a?(Resource) ? trait.resource.id : nil,
               resource_pk: trait.point.id, # This is not "real", but it will do for testing.
               association: trait.object_page.try(:id),
               statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,

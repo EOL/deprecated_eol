@@ -425,6 +425,7 @@ module Export
             item.id
           end
 
+          pages_per_item[cp_id] ||= 0
           pages_per_item[cp_id] += 1
           # Maximum of 20 images per collected page!!! Sheesh. (There was one
           # where damn near every image had been collected)

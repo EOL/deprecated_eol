@@ -779,9 +779,10 @@ class User < ActiveRecord::Base
   end
 
   def scrub!(by)
-    comments.map{ |c| c.hide(by) }
-    data_objects.map{ |d| d.scrub!(by) }
+    comments.map { |c| c.hide(by) }
+    data_objects.map { |d| d.scrub!(by) }
     communities.map(&:destroy)
+    collections.each { |c| c.update_attribute(:published, false) }
     added_common_names.map(&:destroy)
   end
 

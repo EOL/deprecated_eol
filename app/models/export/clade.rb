@@ -505,31 +505,35 @@ module Export
         if trust == :untrusted
           a = dohe.data_object.curator_activity_logs.
             where(activity_id: Activity.untrusted).last
-          a.untrust_reasons.map { |r| r.label }.each do |lab|
-            case lab
-            when "misidentified"
-              misid = true
-            when "incorrect/misleading"
-              incorr = true
-            when "low quality"
-              lowq = true
-            when "duplicate"
-              dupl = true
+          unless a.nil?
+            a.untrust_reasons.map { |r| r.label }.each do |lab|
+              case lab
+              when "misidentified"
+                misid = true
+              when "incorrect/misleading"
+                incorr = true
+              when "low quality"
+                lowq = true
+              when "duplicate"
+                dupl = true
+              end
             end
           end
         elsif hid
           a = dohe.data_object.curator_activity_logs.
             where(activity_id: Activity.hide).last
-          a.untrust_reasons.map { |r| r.label }.each do |lab|
-            case lab
-            when "misidentified"
-              misid = true
-            when "incorrect/misleading"
-              incorr = true
-            when "low quality"
-              lowq = true
-            when "duplicate"
-              dupl = true
+          unless a.nil?
+            a.untrust_reasons.map { |r| r.label }.each do |lab|
+              case lab
+              when "misidentified"
+                misid = true
+              when "incorrect/misleading"
+                incorr = true
+              when "low quality"
+                lowq = true
+              when "duplicate"
+                dupl = true
+              end
             end
           end
         end

@@ -295,7 +295,7 @@ module Export
             # have a parent; otherwise the import fails due to a missing parent.
             parent_id: entry_ids.include?(entry.parent_id) ? entry.parent_id : nil,
             rank_id: entry.rank_id,
-            resource_id: entry.hierarchy.try(:resource).try(:id),
+            resource_id: entry.try(:hierarchy).try(:resource).try(:id),
             resource_pk: entry.identifier,
             scientific_name: entry.name.try(:italicized),
             source_url: entry.source_url }

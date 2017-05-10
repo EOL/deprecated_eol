@@ -149,7 +149,7 @@ module Export
               page_id: id,
               predicate: trait.predicate_uri.uri,
               resource_id: trait.resource && trait.resource.is_a?(Resource) ? trait.resource.id : nil,
-              resource_pk: trait.point.id, # This is not "real", but it will do for testing.
+              resource_pk: trait.point.try(:id), # This is not "real", but it will do for testing.
               association: trait.object_page.try(:id),
               statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
               value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
@@ -288,16 +288,16 @@ module Export
         order(:id).
         find_each do |entry|
           @nodes << { id: entry.id,
-            canonical_form: entry.name.canonical_form.string,
+            canonical_form: entry.name.try(:canonical_form).try(:string),
             has_breadcrumb: @breadcrumb_rank_ids.include?(entry.rank_id),
             page_id: entry.taxon_concept_id,
             # NOTE: we have to fake a lack of parents for nodes where we don't
             # have a parent; otherwise the import fails due to a missing parent.
-            parent_id: entry_ids.include?(entry.parent_id) ? entry.parent_id : 0,
+            parent_id: entry_ids.include?(entry.parent_id) ? entry.parent_id : nil,
             rank_id: entry.rank_id,
-            resource_id: entry.hierarchy.resource.id,
+            resource_id: entry.hierarchy.try(:resource).try(:id),
             resource_pk: entry.identifier,
-            scientific_name: entry.name.italicized,
+            scientific_name: entry.name.try(:italicized),
             source_url: entry.source_url }
         end
 
@@ -308,6 +308,7 @@ module Export
         end
 
       Resource.where(id: resources).includes(:hierarchy).find_each do |resource|
+        next if resource.hierarchy.nil?
         @resources << {
           dataset_license_id: resource.dataset_license_id,
           dataset_rights_holder: resource.dataset_rights_holder,
@@ -337,8 +338,8 @@ module Export
             is_preferred_by_resource: syn.preferred,
             language_id: lang,
             node_id: syn.hierarchy_entry_id,
-            page_id: syn.hierarchy_entry.taxon_concept_id,
-            string: syn.name.string,
+            page_id: syn.hierarchy_entry.try(:taxon_concept_id),
+            string: syn.name.try(:string),
             trust: syn.vetted_id = @trusted ? :trusted : :untrusted
           }
         end
@@ -356,12 +357,12 @@ module Export
         where(["synonym_relation_id NOT IN (?)", SynonymRelation.common_name_ids]).
         includes(:hierarchy_entry, name: :canonical_form).find_each do |syn|
           @scientific_names << {
-            canonical_form: syn.name.canonical_form.string,
+            canonical_form: syn.name.try(:canonical_form).try(:string),
             id: syn.id,
             is_preferred: syn.preferred,
-            italicized: syn.name.italicized,
+            italicized: syn.name.try(:italicized),
             node_id: syn.hierarchy_entry_id,
-            page_id: syn.hierarchy_entry.taxon_concept_id,
+            page_id: syn.hierarchy_entry.try(:taxon_concept_id),
             taxonomic_status_id: syn.synonym_relation_id
           }
         end
@@ -401,6 +402,7 @@ module Export
       collected_page_ids = {}
       @collected_pages.each { |cp| collected_page_ids[cp[:page_id]] = cp }
 
+      pages_per_item = {}
       CollectionItem.where(id: collection_items,
         collected_item_type: "DataObject").find_each do |item|
           # Yes, this is slow, but I want to be able to test these, sooo...
@@ -422,6 +424,11 @@ module Export
             collected_page_ids[tc] = @collected_pages.last
             item.id
           end
+
+          pages_per_item[cp_id] += 1
+          # Maximum of 20 images per collected page!!! Sheesh. (There was one
+          # where damn near every image had been collected)
+          next if pages_per_item[cp_id] >= 21
 
           @collected_pages_media << {
             collected_page_id: cp_id, medium_id: item.collected_item_id,
@@ -650,7 +657,7 @@ module Export
           @content_sections << {
             content_id: sec.data_object_id,
             content_type: "Article",
-            section_id: sec.info_item.toc_id
+            section_id: sec.info_item.try(:toc_id)
           }
         end
 
@@ -714,8 +721,8 @@ module Export
           content_id: ado.data_object_id,
           content_type: type,
           role_id: ado.agent_role_id,
-          url: ado.agent.homepage,
-          value: ado.agent.full_name
+          url: ado.agent.try(:homepage),
+          value: ado.agent.try(:full_name)
         }
       end
 
@@ -784,9 +791,9 @@ module Export
         find_each do |tsec|
           @sections << {
             id: tsec.table_of_contents_id,
-            name: tsec.label,
-            parent_id: tsec.toc_item.parent_id,
-            position: tsec.toc_item.view_order
+            name: tsec.label.try(:downcase),
+            parent_id: tsec.toc_item.try(:parent_id),
+            position: tsec.toc_item.try(:view_order)
           }
         end
 

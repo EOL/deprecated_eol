@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Arabesque46
 # Author: Milicevic01
+# Author: Obsuser
 # Author: Rancher
 # Author: Srdjan m
 # Author: Сербијана
@@ -3034,7 +3035,7 @@ sr:
     напишите коментар на страници. Хвала вам.
   taxonomic_summary_of_content: таксономски преглед садржаја
   taxon_recognized_by: Таксон је признат од %{whom}
-  taxon_selected_from_search_res: Изабран таксон из резултата
+  taxon_selected_from_search_res: Таксон изабран из резултата претраге
   taxon_suggested: Предложени таксон
   technical_functions: Техничке могућности
   terms_agreement_form_fallback: Прочитајте и прихватите <a href="%{terms_url}">услове

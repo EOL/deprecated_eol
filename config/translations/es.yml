@@ -3739,7 +3739,7 @@ es:
     más traducciones. Cuando se crea una nueva página se le pedirá que añada una traducción.
     Traducciones publicadas son de acceso público.
   admin_content_pages_link: Administración de contenido
-  admin_content_pages_page_title: 'Administración: Gestión de Contenidos'
+  admin_content_pages_page_title: 'Administración: gestión de contenidos'
   admin_content_partners_index_header: Socios de contenido
   admin_content_partners_link: Socios de contenido
   admin_content_partners_page_title: 'Administración: Gestionar Socios de Contenido'
@@ -4270,8 +4270,8 @@ es:
   collection_remove_complete_with_count:
     one: Eliminado %{count} elemento de %{from}.
     other: Eliminado %{count} elementos de %{from}.
-  collection_copy_choose_all_items_target_title: 'Copiar todos los elementos de "%{collection}"
-    a:'
+  collection_copy_choose_all_items_target_title: 'Copiar todos los elementos de «%{collection}»
+    en:'
   collection_move_choose_all_items_target_title: 'Mover todos los elementos de "%{collection}"
     a:'
   collection_copy_choose_target_title_with_count:
@@ -4671,7 +4671,7 @@ es:
     detalles del socio no se han actualizado.
   content_partner_vetted_false: Sin revisar
   content_partner_vetted_true: Aprobado
-  content_partners_link: Socios de Contenido
+  content_partners_link: Socios de contenido
   content_partners_empty: No se encontró ningún socio de contenido.
   content_partners_page_title: Socios de Contenido
   content_partners_page_description: EOL socios de contenido tienen grandes cantidades
@@ -4717,8 +4717,8 @@ es:
   copy: Copiar
   copy_of_name: Copia de %{name}
   copy_items_to_a_new_collection_with_count:
-    one: Copiar %{count} elemento a una nueva colección
-    other: Copiar %{count} elementos a una nueva colección
+    one: Copiar %{count} elemento en una colección nueva
+    other: Copiar %{count} elementos en una colección nueva
   copyright: 'COPYRIGHT:'
   correct_donation_message_with_link: Si la información no es correcta, por favor
     <a href='%{link}'>regresar</a> para realizar los cambios
@@ -5109,7 +5109,7 @@ es:
   edit_permission_header: 'Edición de permiso: %{permission}'
   edit_search_suggestion: Editar las sugerencias de búsqueda
   edit_search_suggestions: Editar sugerencias de búsqueda
-  edit_table_of_contents: editar la tabla de contenidos
+  edit_table_of_contents: editar el sumario
   edit_tag_suggestions: editar sugerencias de etiqueta
   edit_the_topic_area_intro: Edite el área de texto y las direcciones de correo electrónico
     a continuación y marque la caja activa a mostrar a los usuarios en la página de
@@ -6584,7 +6584,7 @@ es:
   site_settings_menu: Configuración del sitio
   skip_to_content: Saltar a contenido
   skip_to_navigation: Saltar a la navegación
-  skip_to_table_of_contents: Saltar a la tabla de contenidos
+  skip_to_table_of_contents: Saltar al sumario
   social_sharing_reddit_button: enviar a reddit
   social_sharing_header: EOL en los sitios de medios sociales
   social_sharing_twitter_tweet_button: Publicar en Twitter
@@ -6685,10 +6685,10 @@ es:
     one: '%{count} sinónimo'
     other: '%{count} sinónimos'
   table_column_header_actions: Acciones
-  table_of_contents_breakdown: Desglose de tabla de contenidos
-  table_of_contents_breakdown_title: Análisis de la tabla de contenidos
-  table_of_contents_editor: Editor de Tabla de contenidos
-  table_of_contents: Tabla de contenidos
+  table_of_contents_breakdown: desglose del sumario
+  table_of_contents_breakdown_title: Desglose del sumario
+  table_of_contents_editor: Editor de sumarios
+  table_of_contents: Sumario
   target_blank_advisory_information: Si sigue este enlace se abrirá la página de destino
     en una nueva ventana del explorador.
   task_status: Estado de la tarea
@@ -6950,7 +6950,7 @@ es:
   time_ago: hace %{time_passed}
   title: Título
   toc_entry_col_header: Entrada de índice
-  toc_no_longer_available: La información de la tabla de contenido ya no está disponible
+  toc_no_longer_available: La información del sumario ya no está disponible
   toc: TDC
   topic_area: Área temática
   topic: Tema
@@ -6994,8 +6994,8 @@ es:
   tumblr: Tumblr
   twitter: Twitter
   type: Tipo
-  unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos
-    de la colección a %{name}.
+  unable_to_copy_items_to_collection_error: No se pudieron copiar los elementos de
+    la colección en %{name}.
   unable_to_invite_users_to_community_with_count:
     one: La invitación no se pudo enviar a %{list}.
     other: Las invitaciones no se pudieron enviar a %{list}.

@@ -484,8 +484,8 @@ module Export
           trust: trust
         }
         # PROPAGATION:
-        # Links and maps stay on their own page:
-        next if type == "Map" || type == "Link"
+        # Only media propagate (not articles, maps, or links):
+        next unless type == "Medium"
         native_node = do_n_hes[source_page_id]
         next unless native_node
         native_node.flat_ancestors.each do |ancestor|

@@ -790,9 +790,12 @@ module Export
       TranslatedTocItem.where(table_of_contents_id: toc_items,
         language_id: @english).includes(:toc_item).
         find_each do |tsec|
+          name = tsec.label.try(:downcase)
+          name ||= "unknown"
+          name = name.gsub(/\s+/, "_")
           @sections << {
             id: tsec.table_of_contents_id,
-            name: tsec.label.try(:downcase),
+            name: name,
             parent_id: tsec.toc_item.try(:parent_id),
             position: tsec.toc_item.try(:view_order)
           }

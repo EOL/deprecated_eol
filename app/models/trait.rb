@@ -14,7 +14,7 @@ class Trait
     end
     # Again, they all have the "trait", sooo:
     @uri = rdf.first[:trait]
-    @point = @source_set.points.find { |point| point.uri == @uri }
+    @point = get_the_points_safely
     if rdf.first.has_key?(:page)
       # If there's a page, they all have it:
       if rdf.first[:page].to_s =~ TraitBank.taxon_re
@@ -35,6 +35,22 @@ class Trait
       end
     end
     make_point if @point.nil?
+  end
+
+  def get_the_points_safely
+    begin
+      get_the_points
+    # I think this is a ActiveRecord::StatementInvalid but I'm not positive.
+    # Sorry, I know this is less secure.
+    rescue => e
+      Rails.logger.warn("WARNING: timeout attempting to get the data point URIs for #{@uri}. Retrying.")
+      sleep(0.25)
+      get_the_points
+    end
+  end
+
+  def get_the_points
+    @source_set.points.find { |point| point.uri == @uri }
   end
 
   def inverse?

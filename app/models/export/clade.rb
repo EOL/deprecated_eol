@@ -59,7 +59,7 @@ module Export
     end
 
     def save
-
+      start_time = Time.now
       # TODO: add curations, add links, add occurrence_maps
 
       # Concept IDs:
@@ -853,7 +853,7 @@ module Export
         f.puts(contents)
       end
       File.chmod(0644, name)
-      puts "Done."
+      puts "\nDone. Took #{((Time.now - start_time) / 1.minute).round} minutes."
     end
 
     def data

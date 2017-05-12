@@ -82,6 +82,7 @@ module Export
         flat_map { |u| [u.uri_type_id, u.name] })]
 
       toc_items = []
+      resources = {}
 
       # Let's just get the slow part (traits) out of the way first, sigh:
       concepts.each do |id|
@@ -133,7 +134,7 @@ module Export
                 val_uri = val.is_a?(KnownUri) ? val.uri : nil
                 val_uri ||= val.is_a?(Hash) && val[:value].is_a?(KnownUri) ? val[:value].uri : nil
                 units = val.is_a?(Hash) && val[:units].is_a?(KnownUri) ? val[:units].uri : nil
-                units = val[:units] if val.is_a?(Hash)
+                units ||= val[:units] if val.is_a?(Hash) && val[:units]
                 literal = val[:value] if val.is_a?(Hash) && ! val[:value].is_a?(KnownUri)
                 literal ||= val unless val.is_a?(KnownUri)
                 metadata << {
@@ -144,11 +145,12 @@ module Export
                 }
               end
             end
-            resource = trait.resource
+            resource = trait.resource && trait.resource.is_a?(Resource) ? trait.resource.id : nil
+            resources[resource] ||= true if  resource
             @traits << {
               page_id: id,
               predicate: trait.predicate_uri.uri,
-              resource_id: trait.resource && trait.resource.is_a?(Resource) ? trait.resource.id : nil,
+              resource_id: resource,
               resource_pk: trait.point.try(:id), # This is not "real", but it will do for testing.
               association: trait.object_page.try(:id),
               statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
@@ -217,7 +219,8 @@ module Export
       collections += CollectionItem.where(id: collection_items,
         collected_item_type: "Collection").pluck(:collected_item_id)
 
-      resources = Resource.where(hierarchy_id: hierarchies).pluck(:id)
+      resources = resources.keys # No longer need them indexed.
+      resources += Resource.where(hierarchy_id: hierarchies).pluck(:id)
       partners = Resource.where(id: resources).pluck(:content_partner_id)
 
       # NOTE we are NOT checking vetted/visible here (we want the hidden
@@ -232,9 +235,9 @@ module Export
         cdohes.map(&:data_object_id) +
         udos.map(&:data_object_id) ; 1
       data_objects.compact.uniq
-      articles = DataObject.where(id: data_objects, data_type_id: @article_id).
+      articles = DataObject.where(id: data_objects, data_type_id: @article_id, published: true).
         pluck(:id)
-      links = DataObject.where(id: data_objects, data_type_id: @link_id).
+      links = DataObject.where(id: data_objects, data_type_id: @link_id, published: true).
         pluck(:id)
       # maps = DataObject.where(id: data_objects, data_subtype_id: @map_id).
       #   pluck(:id)
@@ -253,12 +256,12 @@ module Export
       agents = agents_data_objects.map(&:agent_id).uniq
       roles = agents_data_objects.map(&:agent_role_id).uniq
 
-      languages = DataObject.where(id: data_objects).pluck(:language_id) +
+      languages = DataObject.where(id: data_objects, published: true).pluck(:language_id) +
         Synonym.where(id: synonyms).pluck(:language_id)
       languages = languages.uniq
       licenses = Resource.where(id: resources).pluck(:license_id) +
         Resource.where(id: resources).pluck(:dataset_license_id) +
-        DataObject.where(id: data_objects).pluck(:license_id)
+        DataObject.where(id: data_objects, published: true).pluck(:license_id)
       licenses = licenses.uniq
 
       infos = DataObjectsInfoItem.where(data_object_id: articles).pluck(:info_item_id).uniq
@@ -609,7 +612,7 @@ module Export
       end
 
       # NOTE: too expensive to get joins to find the resource.
-      DataObject.where(id: articles).includes(:data_object_translation).
+      DataObject.where(id: articles, published: true).includes(:data_object_translation).
         find_each do |dato|
           has_cit = ! dato.bibliographic_citation.blank?
           has_loc = false
@@ -653,7 +656,7 @@ module Export
           }
         end
 
-      DataObjectsInfoItem.where(data_object_id: articles).
+      DataObjectsInfoItem.where(data_object_id: articles, published: true).
         includes(:info_item).find_each do |sec|
           @content_sections << {
             content_id: sec.data_object_id,
@@ -666,7 +669,7 @@ module Export
 
       # NOTE: I tried joining on HEvs here to find the resource ID and it was
       # too slow, so I'm doing it one at a time.
-      DataObject.where(id: media).includes(:data_object_translation).
+      DataObject.where(id: media, published: true).includes(:data_object_translation).
         find_each do |dato|
           has_cit = ! dato.bibliographic_citation.blank?
           has_loc = false
@@ -838,8 +841,16 @@ module Export
         "traits: #{@traits.size}, media: #{@media.size} -> #{name}"
       puts summary
       EOL.log(summary, prefix: ".")
+      contents = JSON.pretty_generate(data)
       File.open(name, "w") do |f|
-        f.puts(JSON.pretty_generate(data))
+        f.puts(contents)
+      end
+      File.chmod(0644, name)
+      # TESTING:
+      contents.tr("\u0000-\u001f\u007f\u2028",'')
+      contents.gsub(/": (http:[^,]*)(,?)\s*$/, "\": \"\\1\"\\2")
+      File.open("filt_#{name}", "w") do |f|
+        f.puts(contents)
       end
       File.chmod(0644, name)
       puts "Done."

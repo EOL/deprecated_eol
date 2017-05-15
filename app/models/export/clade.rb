@@ -656,7 +656,7 @@ module Export
           }
         end
 
-      DataObjectsInfoItem.where(data_object_id: articles, published: true).
+      DataObjectsInfoItem.where(data_object_id: articles).
         includes(:info_item).find_each do |sec|
           @content_sections << {
             content_id: sec.data_object_id,

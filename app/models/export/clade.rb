@@ -836,7 +836,9 @@ module Export
       end
 
       name = Rails.root.join("public", "clade-#{@id}.json").to_s
+      filt_name = Rails.root.join("public", "clade-filtered-#{@id}.json").to_s
       File.unlink(name) if File.exist?(name)
+      File.unlink(filt_name) if File.exist?(filt_name)
       summary = "Exporting Clade #{@id}: pages: #{@pages.size}, "\
         "traits: #{@traits.size}, media: #{@media.size} -> #{name}"
       puts summary
@@ -849,7 +851,7 @@ module Export
       # TESTING:
       contents.tr("\u0000-\u001f\u007f\u2028",'')
       contents.gsub(/": (http:[^,]*)(,?)\s*$/, "\": \"\\1\"\\2")
-      File.open("filt_#{name}", "w") do |f|
+      File.open(filt_name, "w") do |f|
         f.puts(contents)
       end
       File.chmod(0644, name)

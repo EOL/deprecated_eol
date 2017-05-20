@@ -247,7 +247,7 @@ mk:
         vetted: Проверен
       translated_content_page:
         active_translation: Објавено
-        left_content: Навигација
+        left_content: Прегледник
         main_content: Текст
         meta_keywords: Клучни зборови во метаподатоците
         meta_description: Опис на метаподатоците
@@ -5199,7 +5199,7 @@ mk:
   gives_access_to_a_single_hierarchy_descendants_by_eol: дава пристап до потомците
     на извесна хиерархиска ставка
   global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
-  global_navigation: Општа навигација
+  global_navigation: Општ прегледник
   glossary: Поимник
   glossary_subhead: Поимник
   go_back: назад
@@ -6283,7 +6283,7 @@ mk:
   site_language: Јазик на мреж. место
   site_settings_menu: Нагодувања на ММ
   skip_to_content: Прејди на содржината
-  skip_to_navigation: Прејди на навигација
+  skip_to_navigation: Прејди на прегледникот
   skip_to_table_of_contents: Прејди на Содржината
   social_sharing_reddit_button: поднеси на Reddit
   social_sharing_header: EOL на друштвените медиуми

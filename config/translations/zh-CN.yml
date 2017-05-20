@@ -8,6 +8,7 @@
 # Author: Hydra
 # Author: Hzy980512
 # Author: Impersonator 1
+# Author: Jiang123aa
 # Author: JuneAugust
 # Author: Liangent
 # Author: Linforest
@@ -1468,11 +1469,9 @@ zh-CN:
           meta_description: 在网络生命大百科中关于%{scientific_name}被%{hierarchy_provider}分类的事实
           meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为%{scientific_name}的可分析的数据资料。EOL
             邀请您提供%{scientific_name}的有关数据。
-          meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为
-            %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name}
-            %)的数据信息。
-          meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为
-            %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
+          meta_description_with_common_name_no_data: 在生命大百科%{hierarchy_provider}的分类中没有%{preferred_common_name}亦即%{scientific_name}的实际信息；生命大百科邀请您提供有关
+            %{preferred_common_name}（%{scientific_name}）的资料与实际信息。
+          meta_description_with_common_name_with_topics: 想知道有关%{hierarchy_provider}所分类%{preferred_common_name}的实际信息？有关%{scientific_name}的特征信息包含在%{topics}资讯中。
           meta_title: 有关%{scientific_name}的事实由%{hierarchy_provider}分类
           meta_title_with_common_name: 有关%{hierarchy_provider}分类界定为%{preferred_common_name}  (%{scientific_name}
             %)的可分析数据资料
@@ -1755,6 +1754,7 @@ zh-CN:
         one: 数据下载
         other: '%{count}次数据下载'
       empty: 您没有下载。您可以<a href='%{data_search_url}'>搜索数据</a>并请求下载结果。
+      empty_taxa_collection: 在这个集合里找不到特性
       no_selected_attributes: 没有选择属性。请至少选择一个
       download: 下载
       page_title: 数据下载
@@ -2369,6 +2369,15 @@ zh-CN:
         user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong>在未知页面选择显示数据。
         user_unhide_data_on_taxon: <strong>%{user}</strong>选择在“%{taxon}”显示数据。
       add_common_name:
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: 未知用户使用%{language}在一个未知的页面将一个未知的常用名标记为不受信任。
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: 未知用户从“%{taxon}”移除了一种未知语言的常用名。
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: 未知用户从“%{taxon}”移除了%{language}的常用名。
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将常用名“%{name}”标记为不受信任。
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong>在%{taxon}中使用%{language}将一个未知的常用名标记为不受信任。
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为不受信任。
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为不受信任。
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>在未知语言%{taxon}中加入常用名“%{name}”。
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: 未知用户使用未知语言加入未知的常用名。
         an_unknown_user_added_an_unknown_name_in_language_to_it: 未知用户使用%{language}加入未知的常用名。
         an_unknown_user_added_name_in_an_unknown_language_to_it: 未知用户使用未知语言加入常用名“%{name}”。
@@ -2447,6 +2456,10 @@ zh-CN:
           user_merged_to_it: <strong>%{user}</strong>将另一个页面合并进此页面。
           user_merged_to_an_unknown_taxon: <strong>%{user}</strong>合并了两个未知页面。
           user_merged_to_taxon: <strong>%{user}</strong>合并了另一个页面至%{target}。
+      split:
+        an_unknown_user_split_unknown_entry_from_it: 一个未知用户添加了一个未知的关联。
+        an_unknown_user_split_unknown_entry_from_taxon: 一个未知用户从 "%{taxon}"分离出一个未知分类。
+        an_unknown_user_split_entry_from_it: 一个未知用户使用 "%{provider}"对类别进行划分。
       unlock_with_error:
         merge_of_it_unlocked_with_error: 您最近在此页面的合并请求<strong>失败</strong>：%{error}。
       crop:
@@ -2870,7 +2883,7 @@ zh-CN:
     one: '%{count}项'
     other: '%{count}项'
   collection_items_duplicate_ids: 不能从重复的ID %{type}:(%{values})创建收藏
-  collection_items_missing_values: ' collected_item_id/collected_item_type不能为零in:%{item}'
+  collection_items_missing_values: 在%{item}中，collected_item_id/collected_item_type不能为零
   collection_copy_complete_with_count:
     one: 已从%{from}复制%{count}个项目至%{to}。
     other: 已从%{from}复制共计%{count}个项目至%{to}。

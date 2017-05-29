@@ -13,6 +13,7 @@
 # Author: Hhaboh162002
 # Author: Malhargan
 # Author: Meno25
+# Author: Mido
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
@@ -4065,7 +4066,7 @@ ar:
   content_partner_resource_new_subheader: أضف مصدر جديد
   content_partner_resource_preview_collection_header: عرض المجموعة
   content_partner_resource_preview_collection_show_link: استعراض مجموعة العرض
-  content_partner_resource_processing_header: جاري التعامل مع الحالة والإعدادات.
+  content_partner_resource_processing_header: جارٍ معالجة الحالة والإعدادات
   content_partner_resource_resource_status_new: أنشئ في
   content_partner_resource_show_link_back_to: الرجوع إلى المورد
   content_partner_resource_show_subheader: معلومات المصدر <em>%{resource_title}</em>
@@ -5020,7 +5021,7 @@ ar:
   logo_header: شعار
   logo_type_error: الشعار ليس نوعا صالح للصورة (يجب أن يكون PNG أو JPEG).
   logout: تسجيل الخروج
-  looking_up_url: جاري البحث عن العنوان الإلكتروني...
+  looking_up_url: جارٍ البحث عن العنوان الإلكتروني...
   main_content_area: 'مساحة المحتوى الرئيسية:'
   main_database_colon: 'قواعد البيانات الرئيسية:'
   main_master_database_colon: 'الأساسية والرئيسية:'

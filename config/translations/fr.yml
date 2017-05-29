@@ -1622,8 +1622,8 @@ fr:
         profil</a>.
       header: Votre téléchargement est prêt !
     collection_download_ready:
-      subject: Votre les attributs sélectionnés de votre collection de EdlV sont prêts
-        à être téléchargés
+      subject: Les attributs sélectionnés de votre collection de EdlV sont prêts à
+        être téléchargés
       message: Vous pouvez afficher cela et d’autres téléchargements en allant sur
         l’<a href='%{download_link}'>onglet des téléchargements de données de votre
         profil</a>.
@@ -4626,10 +4626,10 @@ fr:
     informations sur la ressource n’ont pas été mis à jour.
   content_partner_resource_upload_unsuccessful_error: 'Une erreur s’est produite.
     Les informations de la ressource ont été mises à jour mais la ressource elle-même
-    n’a pas été téléchargée : %{resource_status}.'
+    n’a pas été téléversée : %{resource_status}.'
   content_partner_resource_url_or_dataset_not_both_error: URL de DataSet ou fichier
     par ressource, mais pas les deux. Veuillez décider si vous souhaitez fournir une
-    URL ou télécharger un fichier pour décrire cette ressource. Des ressources supplémentaires
+    URL ou téléverser un fichier pour décrire cette ressource. Des ressources supplémentaires
     peuvent être ajoutées par la suite.
   content_partner_resource_validation_unsuccessful_error: Désolé, les détails de la
     ressource ont été mis à jour, mais la ressource n’a pas pu être validée. Voyez
@@ -5536,8 +5536,8 @@ fr:
     une colonne à gauche sur la page, sinon à laisser blanc)
   content_upload_url: http://%{domain}%{upload_attachment}
   content_upload_restrictions_note: (doit être inférieure à 10 Mo en taille, fichier
-    sera stocké comme téléchargées, c’est-à-dire aucun redimensionnement des images
-    ne sera effectué)
+    sera stocké comme téléversé, c’est-à-dire aucun redimensionnement des images ne
+    sera effectué)
   id: Identifiant
   if_checked_and_user_is_saved: Si vous cochez et que l’utilisateur est enregistré,
     alors ses informations d’identification, d’étendue, de certification et d’embranchement
@@ -5847,14 +5847,14 @@ fr:
   max_collection_items_error: Désolé, votre demande dépasse la limite de %{max} éléments
     de la collection.
   media: Média
-  media_list_empty: Personne n’a encore contribué à un support sur cette page.
-  media_list_empty_search: Aucun support disponible ne correspond à vos critères de
+  media_list_empty: Personne n’a encore contribué de média à cette page.
+  media_list_empty_search: Aucun média disponible correspondant à vos critères de
     recherche.
   media_list_empty_contribute_instructions: Apprenez comment contribuer aux médias
     de l’EdlV.
   media_with_count:
-    one: '%{count} support'
-    other: '%{count} supports'
+    one: '%{count} média'
+    other: '%{count} médias'
   media_summary_empty: Personne n’a encore contribué à une image sur cette page.
   media_summary_empty_contribute_instructions: Apprenez comment contribuer aux images
     de l’EdlV.
@@ -5980,7 +5980,7 @@ fr:
       community: Communauté
       resources: Ressources
       taxon_details: Détails du taxon
-      taxon_media: Support du taxon
+      taxon_media: Média du taxon
       images: Images
       sounds: Enregistrements sonores
       videos: Vidéos
@@ -6075,12 +6075,12 @@ fr:
   note_all_times_utc: Remarquez que toutes les heures sont en UTC (Horaire médian
     de Greenwich)
   note_that_it_may_take_a_few_mi: Notez que cela peut prendre quelques minutes après
-    le téléchargement pour les URLs fonctionnent, car votre fichier doit être propagé
+    le téléversement pour les URLs fonctionnent, car votre fichier doit être propagé
     vers les serveurs de contenu.
-  note_that_you_can_reference_im: Notez que vous pouvez faire référence auxs images
+  note_that_you_can_reference_im: Notez que vous pouvez faire référence aux images
     avec la balise HTML &lt;img&gt;, mais elles doivent exister à une URL, comme depuis
     le site web d’origine ou un site tel que Flickr. Il n’y a aucune possibilité de
-    télécharger les images pour les utiliser directement dans l’article de presse.
+    téléverser les images pour les utiliser directement dans l’article de presse.
   notification_frequency_daily_digest: Journalier
   notification_frequency_send_immediately: Envoyer immédiatement
   notification_frequency_never: Jamais
@@ -6096,7 +6096,7 @@ fr:
   not_published_yet: pas encore publié
   not_shown_on_the_website_note: (non affiché sur le site web ou dans un lien URL,
     uniquement à des fins d’information)
-  no_uploaded_content_is_available: Aucun contenu téléchargé n’est disponible.
+  no_uploaded_content_is_available: Aucun contenu téléversé n’est disponible.
   no_users_matched_search: Aucun utilisateur disponible ne correspond à vos critères
     de recherche.
   no_user_submitted_data_objects: Aucun objet de données soumis par l’utilisateur
@@ -7335,18 +7335,18 @@ fr:
   you_have_been_logged_out: Vous avez été déconnecté.
   you_joined_community: Vous avez rejoint cette communauté avec succès.
   you_left_community: Vous avez quitté cette communauté.
-  you_may_upload_static_files_fo: Vous pouvez télécharger des fichiers statiques pour
+  you_may_upload_static_files_fo: Vous pouvez téléverser des fichiers statiques pour
     les utiliser dans le CMS ici (par exemple, PDF, documents Word, images, etc.).
-    Vous ne devez pas utiliser ceci pour charger du contenu de pages des espèces -
-    cela ne sert que pour une utilisation dans les pages non-espèces (telles que les
-    annonces d’emploi, les bulletins, les MOUs, etc.). Pour les fichiers PDF comme
-    les MOUs et les fichiers de bulletin, vous pouvez faire un lien vers une "URL
-    sympathique" si vous le souhaitez (qui redirigera automatiquement vers "l’URL
-    complète du contenu"). Pour les images qui sont incluses dans une page et référencées
-    avec une balise &lt;img&gt;, vous devez utiliser "l’URL complète du contenu".
-    "L’URL complète du contenu" peut présenter un numéro de serveur de contenu différent
-    chaque fois que vous actualisez la page (par exemple "content2.eol.org", "content3.eol.org",
-    etc.) - c’est normal et n’importe laquelle peut être utilisée lorsque vous créez
+    Vous ne devez pas utiliser ceci pour téléverser du contenu de pages des espèces
+    —cela ne sert que pour une utilisation dans les pages non-espèces (telles que
+    les annonces d’emploi, les bulletins, les MOUs, etc.). Pour les fichiers PDF comme
+    les MOUs et les fichiers de bulletin, vous pouvez faire un lien vers une « URL
+    sympathique » si vous le souhaitez (qui redirigera automatiquement vers « l’URL
+    complète du contenu »). Pour les images qui sont incluses dans une page et référencées
+    avec une balise &lt;img&gt;, vous devez utiliser « l’URL complète du contenu ».
+    « L’URL complète du contenu » peut présenter un numéro de serveur de contenu différent
+    chaque fois que vous actualisez la page (par exemple « content2.eol.org, content3.eol.org
+    », etc.) —c’est normal et n’importe laquelle peut être utilisée lorsque vous créez
     vos liens car ils sont tous équivalents.
   you_must_be_comfortable: Vous devez être à l’aise avec le HTML si vous souhaitez
     créer des liens hypertexte ou utiliser la mise en forme.

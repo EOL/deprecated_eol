@@ -4,6 +4,7 @@
 # Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Meno25
+# Author: Mido
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: ترجمان05
@@ -186,7 +187,7 @@ ar:
   translated_resource_statuses-label-resource_status_id-4: تم النقل إلى خادم المحتوى
   translated_resource_statuses-label-resource_status_id-5: تم التحقق من صحتها
   translated_resource_statuses-label-resource_status_id-6: لم يتم التحقق من صحتها
-  translated_resource_statuses-label-resource_status_id-7: ' جاري المعالجة'
+  translated_resource_statuses-label-resource_status_id-7: جارٍ المعالجة
   translated_resource_statuses-label-resource_status_id-8: تمت المعالجة
   translated_resource_statuses-label-resource_status_id-9: لم يتم المعالجة
   translated_service_types-label-service_type_id-1: مخطط نقل موسوعة الحياة

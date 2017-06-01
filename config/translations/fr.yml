@@ -208,10 +208,10 @@ fr:
         label: Libellé
         request_publish: Demander une publication
       known_uri:
-        clade_exemplar: Utiliser comme exemple de plage de groupe taxonomique
+        clade_exemplar: Utiliser comme exemple de plage de groupe taxinomique
         description: Description
         exclude_from_exemplars: Exclure de la vue d’ensemble
-        group_by_clade: Utiliser pour des plages de groupes taxonomiques
+        group_by_clade: Utiliser pour des plages de groupes taxinomiques
         hide_from_glossary: Masquer au glossaire des données
         name: Nom
         toc_items: Catégories
@@ -1256,7 +1256,7 @@ fr:
       header_questions: M’en dire plus sur
       about_link_what_is_eol: Qu’est-ce que l’EdlV ?
       about_link_traitbank: Qu’est-ce que TraitBank ?
-      about_link_eol_blog: Le blog de EdlV
+      about_link_eol_blog: Le blogue de EdlV
       about_link_discover: Éducation
       about_link_statistics: Statistiques
       about_link_glossary: Glossaire
@@ -1964,16 +1964,16 @@ fr:
             les %{preferred_common_name}, appelé aussi %{scientific_name} tel que
             classé par %{hierarchy_provider}.
           tweet_text: Noms liés à %{scientific_name} tels que classés par %{hierarchy_provider}
-        meta_description: Taxonomies et noms scientifiques de %{scientific_name}.
+        meta_description: Taxinomies et noms scientifiques de %{scientific_name}.
           Classifications biologiques et noms associés à %{scientific_name}.
-        meta_description_with_common_name: Taxonomies, classifications biologiques
+        meta_description_with_common_name: Taxinomies, classifications biologiques
           et noms scientifiques pour le %{preferred_common_name}, également appelé
           %{scientific_name}. Classifications biologiques et noms associés à %{preferred_common_name}.
-        meta_title: Information taxonomique pour %{scientific_name} - Classifications
+        meta_title: Information taxinomique pour %{scientific_name} - Classifications
           biologiques & Noms
-        meta_title_with_common_name: Information taxonomique pour %{preferred_common_name}
+        meta_title_with_common_name: Information taxinomique pour %{preferred_common_name}
           (%{scientific_name}) - Classifications biologiques & Noms
-        tweet_text: Information taxonomique pour %{scientific_name}
+        tweet_text: Information taxinomique pour %{scientific_name}
       common_names:
         hierarchy_entry:
           meta_description: Noms vernaculaires associées à %{scientific_name} classés
@@ -2528,8 +2528,8 @@ fr:
     des taxinomies publiées.
   sound_not_associated_with_any_published_entries: Cet enregistrement sonore n’est
     associé à aucune des taxinomies publiées.
-  link_not_associated_with_any_published_entries: Ce lien n'est associé avec aucune
-    taxonomie publiée.
+  link_not_associated_with_any_published_entries: Ce lien n’est associé avec aucune
+    taxinomie publiée.
   sound_alt_text: 'Cet enregistrement sonore %{vetted_status} porte sur : %{taxon_name}'
   image_alt_text: 'Cette image %{vetted_status} porte sur : %{taxon_name}'
   map_alt_text: 'Cette carte %{vetted_status} porte sur : %{taxon_name}'
@@ -2565,8 +2565,8 @@ fr:
   about_resources_title: Liens vers des ressources externes
   about_resources_body: Nous vous invitons à fournir des liens vers des sites tiers
     qui se rapportent à cet organisme ou à ce groupe d’organismes. Des exemples comprennent
-    des sites web offrant des clés d’identification, des reportages, des blogs, ainsi
-    que des ressources scientifiques d’éducation et citoyennes.
+    des sites web offrant des clés d’identification, des reportages, des blogues,
+    ainsi que des ressources éducatives ou de science citoyenne.
   about_resources_notice: Note&mdash;tous les liens sont soumis aux Conditions d’utilisation
     de EdlV et vérifiés par les conservateurs.<br />Si vous avez des questions à propos
     d’une ressource que vous aimeriez référencer dans EdlV, veuillez <a href='%{contact_us_link}'>nous
@@ -4123,7 +4123,7 @@ fr:
     de la vie, disponible sur <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>.
     Accédé le 15 janvier 2009.
   citing_link: Citation
-  clade: Groupe taxonomique
+  clade: Groupe taxinomique
   classification_already_preferred: 'Erreur: Cette classification a déjà été marquée
     comme préférée.'
   classification_curation_pending: Conservation en attente. Cette classification pourrait
@@ -4927,7 +4927,7 @@ fr:
   data_provided_by_user: fourni par %{whom}
   data_provided_by_content_partner: 'Fournisseur : %{whom}'
   data_ranges: Résumés de données
-  data_ranges_subheader: Résumés des données pour ce groupe taxonomique
+  data_ranges_subheader: Résumés des données pour ce groupe taxinomique
   data_ranges_subtab_help_text: Pour certains attributs, EdlV détermine la portée
     des valeurs disponible pour un taxon à travers toutes ses sources.
   data_reference_subtable_summary: Références supplémentaires sur ce fait.
@@ -5431,7 +5431,7 @@ fr:
   forgot_password_form_choose_username_blank_error: Veuillez sélectionner le compte
     dont vous souhaitez réinitialiser le mot de passe.
   forgot_password_form_username_or_email_blank_error: Veuillez entrer votre nom d’utilisateur
-    et email pour réinitialiser votre mot de passe.
+    et courriel pour réinitialiser votre mot de passe.
   forgot_password_form_header: Réinitialiser le mot de passe
   forgot_password_form_helper: Notez bien que les courriels de réinitialisation des
     mots de passe sont <em>souvent</em> marqués comme 'Pourriel' par les filtres de
@@ -6313,11 +6313,11 @@ fr:
   profile_picture: Photo du profil
   project: Projet
   provide_a_concept_id: à partir d’un ID de page de EdlV, les résultats de la recherche
-    seront limités aux membres de ce groupe taxonomique
+    seront limités aux membres de ce groupe taxinomique
   provide_a_hierarchy_entry_id: à partir d’un ID d’une entrée de hiérarchie, les résultats
-    de recherche seront limités aux membres de ce groupe taxonomique
+    de recherche seront limités aux membres de ce groupe taxinomique
   provide_a_search_string: à partir d’un critère de recherche, une recherche exacte
-    sera faite et la page correspondante sera utilisée comme le groupe taxonomique
+    sera faite et la page correspondante sera utilisée comme le groupe taxinomique
     pour filtrer les résultats de recherche
   provider: Fournisseur
   providers: Fournisseurs
@@ -6793,7 +6793,7 @@ fr:
   taxon_recognized_by: Taxon reconnu par %{whom}
   taxon_selected_from_search_res: Taxon sélectionné à partir des résultats de la recherche
   taxon_suggested: Taxon suggéré
-  taxon_synonyms_subtab_explanation: Parfois, les taxonomistes créent de nouveaux
+  taxon_synonyms_subtab_explanation: Parfois, les taxinomistes créent de nouveaux
     noms pour des groupes qui ont déjà un nom. Ils peuvent le faire parce qu’ils ne
     sont pas au courant du nom d’origine, ou parce qu’ils peuvent penser que l’organisme
     devant eux appartient à un groupe différent alors que ce n’est pas le cas. Si
@@ -6983,8 +6983,8 @@ fr:
   topic: Rubrique
   to_process_your_donation_please_proceed: Pour traiter votre don veuillez procéder
   to_remedy_this: Pour y remédier, nous clôturerons ces comptes inactifs et nous demandons
-    que vous visitez eol.org pour créer un nouveau compte. Lorsque vous recevez l’e-mail
-    de confirmation, veuillez cliquer sur le lien pour valider votre compte.
+    que vous visitez eol.org pour créer un nouveau compte. Lorsque vous recevez le
+    courriel de confirmation, veuillez cliquer sur le lien pour valider votre compte.
   to_send_email_enter_text: Pour envoyer cet utilisateur un courriel, entrez le texte
     ci-dessous et cliquez sur « Envoyer ».
   to_submit_a_species_photograph_for: Pour envoyer une photo de l’espèce %{taxon},
@@ -7167,7 +7167,7 @@ fr:
     pour les utilisateurs avant EdlV V2 (5 janvier 2009) ne sont pas disponibles.
     Cliquez sur un nom d’utilisateur pour modifier ce dernier.
   user_joined_community_on_date: '%{username} a rejoint cette communauté le %{date}.'
-  user_joined_when: '"%{user}" a rejoint %{when}'
+  user_joined_when: « %{user} » depuis %{when}
   user_left_comment_on_date: '%{username} a laissé un commentaire le %{date}.'
   user_no_longer_active_message: Cet utilisateur n’est plus actif
   user_no_longer_has_manager_access_to_collection: '%{user} n’a plus d’accès gestionnaire

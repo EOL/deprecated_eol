@@ -1608,6 +1608,7 @@ qqq:
   user_response: This is a table column heading where the cells in the column represent
     the response provided by a user when answering a survey question.
   user: '{{Identical|User}}'
+  users_about_me_header: '{{Identical|About me}}'
   values: '{{Identical|Value}}'
   value: '{{Identical|Value}}'
   value_empty: '{{Identical|Empty}}'

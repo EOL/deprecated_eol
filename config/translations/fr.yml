@@ -2753,7 +2753,7 @@ fr:
         user_added_an_unknown_manager_to_community: <strong>%{user}</strong> a ajouté
           un gestionnaire inconnu à la communauté "%{community}".
         user_added_manager_to_an_unknown_community: <strong>%{user}</strong> a ajouté
-          "%{manager}" à une communauté inconnue.
+          « %{manager} » à une communauté inconnue.
         user_added_manager_to_community: <strong>%{user}</strong> a ajouté "%{manager}"
           en tant que gestionnaire de la communauté "%{community}".
       other_actions:
@@ -4746,9 +4746,9 @@ fr:
   create_community: Créer une communauté
   create_community_about_heading: À propos de la création d’une communauté
   create_community_about_text: Vous êtes sur le point de créer une communauté autour
-    du contenu du "%{collection_name}". Tous les utilisateurs pourront se joindre
+    du contenu de « %{collection_name} ». Tous les utilisateurs pourront se joindre
     à votre communauté, mais seuls les membres à qui vous accorderez le statut de
-    "manager" seront autorisés à modifier la communauté elle-même ou la collection
+    « gestionnaire » seront autorisés à modifier la communauté elle-même ou la collection
     associée à celle-ci.
   create_community_around_this_collection_header: Créer une communauté autour de cette
     collection

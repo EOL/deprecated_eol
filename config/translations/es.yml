@@ -516,7 +516,8 @@ es:
           los datos con la menor ambigüedad posible.
         description: Texto <small>(se permite algún código HTML)</small>
         license_id: Licencia
-        license_id_more: Lea la <a href="%{policy_url}">licencia política de EOL</a>
+        license_id_more: Consulta la <a href="%{policy_url}">normativa de licencias
+          de EOL</a>
         object_title: Título
         toc_item: Subcapítulo
         refs: Referencias <small>(ponga cada referencia en una nueva línea)</small>
@@ -525,7 +526,7 @@ es:
         rights_holder_more: Especifica una persona u organización que sea propietaria
           o administre los derechos de autor de estos datos. Si dejas el campo en
           blanco, asumiremos que eres el poseedor de los derechos para todas las licencias
-          excepto la de Dominio Público. Las licencias de Dominio Público no requieren
+          excepto la de dominio público. Las licencias de dominio público no requieren
           un poseedor de los derechos de autor.
         rights_statement: Declaración de los derechos
         rights_statement_more: Declaración de los derechos de uso según es requerido
@@ -6790,7 +6791,7 @@ es:
     de uso</a> antes de acceder a su cuenta.
   terms_agreement_form_header: Términos de uso
   terms_agreement_form_submit: Estoy de acuerdo
-  terms_of_use_link: Términos de uso &amp; privacidad
+  terms_of_use_link: Condiciones de uso y privacidad
   term_for_search_admin_ui: Término
   test: Probar
   test_it_out: Probarlo

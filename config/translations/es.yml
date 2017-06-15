@@ -5745,7 +5745,8 @@ es:
   license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)
-  license_no_known_copyright_restrictions: Sin restricciones de derechos de autor
+  license_no_known_copyright_restrictions: No se conocen restricciones sobre derechos
+    de autor
   license_not_applicable: Licencia no aplicable
   license_public_domain: Dominio Público
   licensing: Licencia

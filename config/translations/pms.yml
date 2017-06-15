@@ -6138,4 +6138,40 @@ pms:
   partner_information: Anformassion an sël cambrada
   partner_page: pàgina dël cambrada
   partner: Cambrada
+  partner_web_site_colon: Sit an sl'aragnà dël cambrada
+  password_must_be_4to16_characters: La longheur dla ciav a dev esse antra 4 e 16
+    caràter.
+  password_colon: 'Ciav:'
+  pause: pàusa
+  people_with_count:
+    one: '%{count} përson-a'
+    other: '%{count} përson-e'
+  percentage_of_descendants_with_images: përsentual ëd dissendent con dle plance
+  percentage_of_descendants_with_text: përsentual ëd dissendent con dël test
+  permalink: Liura përmanenta
+  permissions_list_header: Përmess su EdV
+  permission_granted: Përmess acordà.
+  permission_revoked: Përmess revocà.
+  permissions_users_count:
+    one: '%{count} utent'
+    other: '%{count} utent'
+  personal_profile_menu: Profil përsonal
+  personal_space: Spassi përsonal
+  pinterest: Pinterest
+  please_ask_big_before_changing_toc: Për piasì, ch'a verìfica con un mèmber ëd l'echip
+    anformàtica ëd la biodiversità prima ëd modifiché la tàula dj'argoment. Chèich
+    nòm ëd capìtol a peulo nen esse modificà dagià che ël còdes a sërca chèidun dij
+    capìtoj për tichëtta. Dj'element d'anformassion a peulo nen esse antëgrà an costa
+    antërfassa - sòn a l'é da fé a man ant la base ëd dàit.
+  please_confirm_your_donation_details: Për piasì, ch'a confirma ij detaj ëd soa donassion
+  please_note_that_some_of_these: Për piasì, ch'a ten-a da ment che cheidun ëd si
+    utiss a son an version beta e a peulo cangé con ël temp o avèj dij givo.
+  please_publish_this_resource_notice: '*** <strong>NOTICE :</strong> Për piasì <strong>%{publish_link}</strong>
+    st''arsorsa ambelessì ***'
+  please_refresh: Për piasì, ch'a rinfrësca sò navigador për vëdde l'ùltima version
+    dël sit an sl'aragnà dl'EdV
+  please_indicate_curation_reason: 'Për piasì, ch''a selession-a na rason o s''a veul
+    ch''a lassa un coment ëd conservassion:'
+  please_state_one_credential: 'Për piasì, ch''a esplìssita almanch na credensial
+    ëspessìfica da costa lista:'
 ...

@@ -6174,4 +6174,24 @@ pms:
     ch''a lassa un coment ëd conservassion:'
   please_state_one_credential: 'Për piasì, ch''a esplìssita almanch na credensial
     ëspessìfica da costa lista:'
+  please_note_wiki_etc_are_not_spm: '*Ch''a ten-a da ment che ij soget «Wikipedia»,
+    «education» e «còdes a bare» a son dij soget antern a l’EdV e a fan nen part ëd
+    la SPM.'
+  please_return_to_eol_homepage: Për piasì, ch'a artorna a l'intrada dl'EdV
+  please_wait: Ch'a l'abia passiensa...
+  post_comment: Mandé un coment
+  posts_from_year: Mëssagi dal %{year}
+  preferred_common_name_advisory_information: Nòm comun preferì për costa tassonomìa.
+  press_room: Sala dla stampa
+  preview_changes: Previsualisé le modìfiche
+  preview_version_of_latest_published_data_object_title_link: Version ëd previsualisassion
+    ëd %{link}
+  preview: previsualisassion
+  previewing_unpublished_page: Sa pàgina a l'é nen publicà. Chiel a l'ha n'acess ëspecial
+    për ës-ciairela; j'àutri utent a peulo nen vëdde sa pàgina.
+  previously_published: publicà an precedensa
+  proceed_to_checkout_page: Andé a la pàgina ëd confirmassion
+  process_name: Nòm dël process
+  profile_colon: 'Profil:'
+  profile: Profil
 ...

@@ -183,7 +183,7 @@ es:
   translated_resource_statuses-label-resource_status_id-11: Publicación pendiente
   translated_resource_statuses-label-resource_status_id-12: Anulación de publicación
     pendiente
-  translated_resource_statuses-label-resource_status_id-13: Obligue cosecha
+  translated_resource_statuses-label-resource_status_id-13: Recolección solicitada
   translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-2: Enviado
   translated_resource_statuses-label-resource_status_id-3: Envío fallido
@@ -276,7 +276,7 @@ es:
   translated_synonym_relations-label-synonym_relation_id-61: sinónimo objetivo
   translated_synonym_relations-label-synonym_relation_id-62: sinónimo senior
   translated_synonym_relations-label-synonym_relation_id-63: no aceptado
-  translated_synonym_relations-label-synonym_relation_id-64: inválido
+  translated_synonym_relations-label-synonym_relation_id-64: no válido
   translated_synonym_relations-label-synonym_relation_id-65: sinónimo de género
   translated_synonym_relations-label-synonym_relation_id-66: representación alternativa
   translated_synonym_relations-label-synonym_relation_id-67: especies a investigar
@@ -293,7 +293,7 @@ es:
   translated_table_of_contents-label-table_of_contents_id-218: Dispersión
   translated_table_of_contents-label-table_of_contents_id-221: Riesgos
   translated_table_of_contents-label-table_of_contents_id-225: En la Web
-  translated_table_of_contents-label-table_of_contents_id-226: Socios de Contenido
+  translated_table_of_contents-label-table_of_contents_id-226: Socios de contenido
   translated_table_of_contents-label-table_of_contents_id-227: Buscar en la Web
   translated_table_of_contents-label-table_of_contents_id-242: Ecología General
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografías
@@ -315,7 +315,7 @@ es:
   translated_table_of_contents-label-table_of_contents_id-304: Nombres relacionados
   translated_table_of_contents-label-table_of_contents_id-305: Sinónimos
   translated_table_of_contents-label-table_of_contents_id-306: Estadísticas de páginas
-  translated_table_of_contents-label-table_of_contents_id-307: Resumen de Contenido
+  translated_table_of_contents-label-table_of_contents_id-307: Resumen de contenido
   translated_table_of_contents-label-table_of_contents_id-308: Descripción detallada
   translated_table_of_contents-label-table_of_contents_id-309: Distribución
   translated_table_of_contents-label-table_of_contents_id-310: Desarrollo

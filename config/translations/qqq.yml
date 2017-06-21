@@ -1388,6 +1388,7 @@ qqq:
   provider: '{{Identical|Provider}}'
   public: '{{Identical|Public}}'
   public_domain: '{{Identical|Public domain}}'
+  publish_changes: '{{Identical|Publish changes}}'
   published: '{{Identical|Published}}'
   publish: '{{Identical|Publish}}'
   punctuation_comma: This is the symbol used to join lists. (A comma in English.)
@@ -1607,6 +1608,7 @@ qqq:
   user_response: This is a table column heading where the cells in the column represent
     the response provided by a user when answering a survey question.
   user: '{{Identical|User}}'
+  users_about_me_header: '{{Identical|About me}}'
   values: '{{Identical|Value}}'
   value: '{{Identical|Value}}'
   value_empty: '{{Identical|Empty}}'

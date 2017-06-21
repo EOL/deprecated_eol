@@ -3882,6 +3882,8 @@ pt-BR:
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último áudio
   associated_with_video_header: No último vídeo
+  association_added_flash: Associação acrescentada. Isso pode exigir alguns minutos
+    para que a página(s) se atualize(m).
   association_trusted_for_taxa:
     one: 'Confiável para:'
     other: 'Confiáveis para:'
@@ -4385,6 +4387,8 @@ pt-BR:
     de recursos %{resource_title}
   content_partner_resource_harvest_events_see_all_link: Ver tudo <span class="assistive">Eventos
     de colheita</span>
+  content_partner_resource_page_title: Enciclopédia da Vida - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Navegável
   content_partner_resource_hierarchy_complete_true: Esta hierarquia é definida como
     <strong>curadora</strong>. A hierarquia com curadoria assume que cada entrada
@@ -4429,6 +4433,8 @@ pt-BR:
     erro, o estado do recurso %{resource_title} não pôde ser atualizado a %{resource_status}.
   content_partner_resource_update_successful_notice: 'Detalhes do recurso de parceiro
     de conteúdo atualizados com sucesso. Estado atual do recurso de dados: %{resource_status}.'
+  content_partner_resource_update_successful: Detalhes do recurso do parceiro de conteúdo
+    atualizados com êxito.
   content_partner_resource_update_unsuccessful_error: Desculpe, ocorreu um erro, o
     recurso não foi atualizado.
   content_partner_resource_upload_unsuccessful_error: 'Desculpe, ocorreu um erro,
@@ -4727,6 +4733,13 @@ pt-BR:
   data_search_destroyed: Este trabalho não será mais processado.
   data_search_row_hidden: Um curador escondeu esta fila de dados.
   data_subtab_about: Sobre
+  data_subtab_glossary: Glossário para %{taxon}
+  data_summary_ranges_header_with_count: A EOL tem dados resumidos
+  data_tab_curator_exemplar: Essa linha foi adicionada à guia Visão Geral.
+  data_tab_curator_excluded: Essa linha foi removida da guia Visão Geral.
+  data_tab_curator_key_exemplar: '%{image} adicionado a <a href=''%{link}''>Visão
+    Geral</a>'
+  data_tab_curator_key_excluded: '%{image} removido da <a href=''%{link}''>Visão Geral</a>'
   data_usage_reports: Relatórios de uso de dados
   date_caps: Data
   date_uploaded: Data de envio
@@ -4779,8 +4792,11 @@ pt-BR:
   development_version_name: EOL V2 Beta
   default: Padrão
   default_focus_collection_name_from_community: Foco de %{name}
+  default_rating: classificação padrão
+  default_rating_value_of_total: 'Classificação padrão: %{rating} de %{total}'
   default_watch_collection_name: Páginas vigiadas por %{username}
   delete_community: Excluir esta Comunidade
+  delete_data_object: Excluir
   delete: excluir
   deleted_colon: 'eliminado:'
   delete_firstcap: Apagar
@@ -4802,15 +4818,20 @@ pt-BR:
     de 2009)
   do_you_want_to_be_a_curator: Você quer ser um curador?
   download_wav_file: Download de arquivo WAV
+  download_data: Download de dados
+  download_collection_data: Download de dados
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Comentário não salvo: parece que você já postou este
     comentário. ...Será que você clicou no botão "envie um comentário" duas vezes?'
+  duplicate_text_warning: 'Texto não salvo: parece que você já postou este artigo.
+    ...Você clicou no botão ''adicionar artigo'' duas vezes?'
   duplicate_items_were_ignored: Itens duplicados foram ignorados.
   each_method_documentation_page_has_formatted_responses: A página de documentação
     de cada método tem um exemplo de respostas formatadas em XML como em JSON.
   edit_comment: Editar comentário
   edit_comment_lowercase: editar comentário
   edit_community: Editar comunidade
+  edit_contact_us_topic: Editar Contato Tópico
   edit_contact_us_topics: editar tópicos do contato
   edit: Editar
   edited_colon: 'editado:'
@@ -4890,6 +4911,8 @@ pt-BR:
     escolheu não foi alterada: parte do pedido foi perdido. Você terá que tentar novamente.'
   error_homepage_or_search_option: 'Pode voltar à <a href="/">homepage</a> ou usar
     a nossa ferramenta de procura:'
+  error_no_items_selected: Você deve selecionar itens da coleção ou selecionar "Todos
+    os itens" no menu suspenso.
   error_updating_user: Houve um erro na atualização de registro do usuário
   every_method_can_also_return_json_response: Todos os métodos podem retornar uma
     resposta JSON adicionando a extensão .json
@@ -4908,11 +4931,77 @@ pt-BR:
         um e-mail de confirmação quando você se registrou, por favor siga o procedimento
         de recuperação de conta para verificar o seu endereço de e-mail e ativar sua
         conta.
+      min_master_curators_only: Desculpe, o acesso é restrito aos curadores da EOL
+        com um nível mínimo de Curador Master.
+      min_full_curators_only: Desculpe, o acesso é restrito aos curadores da EOL com
+        um nível mínimo de Curador Full.
+      min_assistant_curators_only: Desculpe, o acesso é restrito aos curadores da
+        EOL com um nível mínimo de Curador Assistente.
+      admin_or_master_curators_only: Desculpe, o acesso está restrito aos Administradores
+        da EOL e aos Curadores da EOL com um nível mínimo de Curador Master.
+      no_access: Desculpe, este recurso está desativado temporariamente. Volte em
+        breve.
+      missing_edit_acess_to_forum_category: Desculpe, apenas os administradores podem
+        editar esta categoria do fórum
+      missing_delete_acess_to_forum_category: Desculpe, apenas os administradores
+        podem excluir esta categoria do fórum
+      missing_edit_acess_to_forum_post: Desculpe, apenas os administradores ou o proprietário
+        da postagem podem editar esta postagem no fórum
+      missing_delete_acess_to_forum_post: Desculpe, apenas os administradores ou o
+        proprietário da postagem podem excluir esta postagem no fórum
+      missing_set_article_as_exemplar_privilege: Desculpe, apenas os curadores podem
+        definir o artigo como exemplar
+      missing_delete_access_to_synonym: Desculpe, apenas os agentes excluem este sinônimo
+      missing_delete_access_to_data_search_file: Desculpe, apenas administradores,
+        curadores master ou o proprietário do arquivo podem excluir este arquivo
+      missing_permission_to_view_open_authentications: Desculpe, somente os administradores
+        e o proprietário da conta podem exibir as autenticações abertas para esta
+        conta
+      missing_permission_to_add_open_authentications: Desculpe, apenas os administradores
+        e o proprietário da conta podem adicionar autenticações abertas para esta
+        conta
+      missing_permission_to_delete_open_authentications: Desculpe, somente os administradores
+        e o proprietário da conta podem excluir autenticações abertas para esta conta
+      this_action_requires_higher_curation_level: Desculpe, esta ação requer um nível
+        de curador mais alto
+      admins_and_joined_only_can_read: Desculpe, você deve participar destas coleções
+        para poder vê-lo
+      owner_and_managers_only_can_edit: Desculpe, somente o proprietário ou os administradores
+        da coleção podem editá-lo
+      error_revoking_editor_on_an_empty_community: Desculpe, os editores não podem
+        ser removidos de uma comunidade vazia
+      only_managers_can_edit_community: Desculpe, apenas os administradores podem
+        editar esta comunidade
+      only_managers_can_delete_community: Desculpe, apenas os administradores podem
+        excluir esta comunidade
+      only_admins_can_view_content_pages: Desculpe, somente os administradores podem
+        exibir páginas de conteúdo
+      only_admins_can_view_translated_content_pages: Desculpe, somente os administradores
+        podem exibir páginas de conteúdo traduzido
+      only_admins_can_edit_forums: Desculpe, apenas os administradores podem editar
+        fóruns
+      must_be_logged_in: Desculpe, você precisa estar logado
+      only_admins_can_read_hidden_news_items: Desculpe, apenas os administradores
+        podem ler itens de notícias ocultos
+      only_admins_can_read_hidden_translated_news_items: Desculpe, apenas os administradores
+        podem ler as notícias ocultas traduzidas
+      can_not_access_unpublished_taxon: Desculpe, você não pode acessar o taxon não
+        publicada
+      only_data_owner_can_edit: Desculpe, somente o proprietário dos dados pode editá-lo
+      only_data_owner_can_delete: Desculpe, somente o proprietário dos dados pode
+        excluí-lo
+      error_editing_someone_account: Desculpe, você pode editar apenas sua própria
+        conta
+      can_not_edit_permissions: Desculpe, você não pode editar permissões
+      collection_job_not_valid: Trabalho de coleção não é válido
+  excluded_icon_tip: Linhas marcadas com o ícone excluído %{excluded_icon} nunca será
+    mostrado nas páginas de visão geral de taxon.
   expand_all_children: expandir todos os descendentes
   expired: Expirado
   expires_in_colon: 'Expira em:'
   explore: Explore
   explore_what_we_know_about_taxon: Explore o que EOL conhece sobre %{taxon}.
+  export_curator_csv_link: '[Exportar todos os curadores como CSV]'
   export_this_list_as_csv: Exportar esta lista como CSV
   external_link_header: Link externo
   external_link_icon_alt_text: Link externo
@@ -4933,6 +5022,7 @@ pt-BR:
     enviar o formulário:'
   filter_button: Filtro
   filter_by_day: Filtrar por dia
+  filter_by_subject: Filtrar por assunto
   filter_by_status_all_option: Todos os estados
   filter_by_status_trusted_option: De confiança
   filter_by_status_unreviewed_option: Não revisado
@@ -4951,6 +5041,7 @@ pt-BR:
   filter_by_type_image_option_with_count:
     one: Imagens (%{count})
     other: Imagens (%{count})
+  filter_by_type_data_option: Traços
   filter_by_type_link_option: Links
   filter_by_type_text_option: Artigos
   filter_by_type_user_option: Pessoas
@@ -4965,6 +5056,7 @@ pt-BR:
     one: Vídeos (%{count})
     other: Vídeos (%{count})
   filter_by_type_comment_option: Comentários
+  filter_by_type_object_curated_option: Objetos com curadoria
   filter_by_type_name_option: Nomes
   filter_media: filtrar meios
   filter_newsfeed_option_all: Todos
@@ -4972,7 +5064,38 @@ pt-BR:
   filter_newsfeed_option_community: Comunidade
   filter_newsfeed_option_collections: Coleções
   filter_newsfeed_option_watchlist: Páginas vigiadas
+  filter_newsfeed_option_curation: Curadoria
   filtered_information: Informacão filtrada
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxa
+  image_search_keyword:
+    one: image
+    other: imagens
+  video_search_keyword:
+    one: video
+    other: vídeos
+  sound_search_keyword:
+    one: sound
+    other: sons
+  text_search_keyword:
+    one: article
+    other: artigos
+  data_search_keyword:
+    one: trait
+    other: traços
+  link_search_keyword:
+    one: link
+    other: links
+  user_search_keyword:
+    one: person
+    other: pessoa
+  community_search_keyword:
+    one: community
+    other: comunidades
+  collection_search_keyword:
+    one: collection
+    other: coleções
   find_taxa_submit_button: encontrar taxa
   flash_notice_redirected_from_search_html: Chegou aqui procurando por <em>%{search_string}</em>.
     <a href="%{more_results_url}">Carregue aqui para voltar à página de pesquisa.</a>
@@ -5002,6 +5125,7 @@ pt-BR:
   forgot_password_cannot_find_user_from_username_or_email_error: Desculpe, não há
     contas de usuário com o nome de usuário ou e-mail fornecido de <em>%{username_or_email}</em>.
   for_images_to_reference_parens: (para imagens à referência)
+  for_pdfs_and_docs_parens: (para PDFs & docs)
   form_validation_errors_for_attribute_assistive: Há um erro de validação sobre este
     elemento
   fragment_caching_enabled: Cache de fragmento ativado
@@ -5013,8 +5137,10 @@ pt-BR:
   friendly_url: URL amigável
   from_community: da comunidade %{community}
   from_communities: 'das comunidades: %{communities}'
+  full_content_url: URL de conteúdo completo
   gbif_map: Mapa GBIF
   general_site_admin: administrador geral do site
+  georeference_records_colon: 'Registros de Geo-referência:'
   get_help_choosing_a_subject: Obter ajuda para escolher um assunto
   get_help_choosing_a_subchapter: Obtenha ajuda a escolher um subcapítulo
   get_more_tasks: obter mais tarefas
@@ -5031,6 +5157,8 @@ pt-BR:
     procurar ordenação em um futuro próximo.
   gives_access_to_a_single_hierarchy_indexed_by_eol: dá acesso a uma hierarquia individual
     indexada pelo EOL e as suas relações internas
+  gives_access_to_a_single_hierarchy_descendants_by_eol: Dá acesso a descendentes
+    de uma única entrada de hierarquia
   global_access_tagline: Acesso global ao conhecimento sobre a vida na terra.
   global_navigation: Navegação global
   glossary: Glossário
@@ -5043,12 +5171,14 @@ pt-BR:
     Google e acesso necessário)
   google: Google
   google_images: Google Imagens
+  google_plus: Enciclopédia da Vida no Google+
   google_scholar: Google Acadêmico
   grant_manager_link: Conceder função de administrador
   grant_permission: conceder
   grant_full_curator_link: Conceder
   has_already_been_taken: já foram tomadas.
   has_colon: 'Tem:'
+  has_curated_your_image: tem curadoria na sua imagem
   has_hidden_your_image: escondeu sua imagem
   has_trusted_your_image: confiou sua imagem
   has_untrusted_your_image: não confiou sua imagem
@@ -5066,6 +5196,8 @@ pt-BR:
   hierarchy_updated: Hierarquia atualizada
   hierarchies_title: Hierarquias
   home: Início
+  home_page_cache_last_cleared_on: O último cache da página inicial foi apagada em
+    %{date}
   home_page_link_advisory_information: Este link levará você à página inicial da Enciclopédia
     da Vida
   html_format: (Formato HTML)
@@ -5102,6 +5234,7 @@ pt-BR:
     other: uma=%{count} imagem
   images_in_red_are_not_trusted: Imagens em vermelho não são confiáveis​​.
   images_in_yellow_are_not_reviewed: Imagens em amarelo não são revisadas.
+  image_objects_page_number: página de imagens
   import_once: Importar uma vez
   inappropriate: Inadequado
   inaturalist_tab_label: Observações iNaturalist
@@ -5132,6 +5265,7 @@ pt-BR:
   item_details_missing: Desculpe, ocorreu um erro, não foi possível recuperar detalhes
     do item.
   item_type_article: Artigo
+  item_type_cms_page: Informação sobre EOL
   item_type_collection: Coleção
   item_type_community: Comunidade
   item_type_image: Imagem
@@ -5143,6 +5277,7 @@ pt-BR:
   item_type_taxon: Táxon
   item_type_video: Vídeo
   item_type_article_assistive: Este item é um artigo
+  item_type_cms_page_assistive: Este item é o material informacional sobre EOL
   item_type_collection_assistive: Este item é uma coleção
   item_type_community_assistive: Este item é uma comunidade
   item_type_image_assistive: Este item é uma imagem
@@ -5187,7 +5322,10 @@ pt-BR:
   keep_split_entry_from_this_entry: Mantenha separada esta entrada
   key: Chave
   known_uri_category_header: Categorias
+  known_uri_created: URI adicionado.
   known_uri_missing_translation: Não traduzido, por favor edite
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: URI atualizado.
   known_uri_label_inverse: é um inverso de
   known_uri_label_allowed_val: permite um valor de
   known_uri_label_allowed_unit: permite uma unidade de
@@ -5196,6 +5334,8 @@ pt-BR:
   known_uri_label_indirectly_equivalent: equivale indiretamente a
   known_uris_empty_sorry: Desculpe-nos, ainda não há URIs sugeridas para esta categoria.
   known_uris_none: Ninguém adicionou URIs deste tipo.
+  known_uris_page_title: URIs para dados em EOL
+  known_uris_sorted: Ordem atualizada.
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -5273,8 +5413,10 @@ pt-BR:
   limits_the_number_of_returned_sound_objects: limita o número de objetos de som retornados
   limits_the_number_of_returned_map_objects: limita o número de objetos de mapa retornados
   limits_the_number_of_returned_iucn_objects: incluir objeto de estado IUCN Red List
+  limits_the_returned_to_a_specific_language: Forneça os resultados no idioma especificado.
   link_more_about: Saiba mais sobre este link
   link_name: Nome do Link
+  link_to_this_term: Link para este termo
   link_to_top_of_page: Para cima
   links_with_count:
     one: '%{count} link'
@@ -5309,6 +5451,7 @@ pt-BR:
   logo_type_error: O logotipo não é um formato válido de imagem (deve ser PNG ou JPEG).
   logout: Sair
   looking_up_url: Buscando endereço URL...
+  main_content_area: 'Área de conteúdo principal:'
   main_database_colon: 'Principal:'
   maintained_by: mantido por
   make_user_an_editor_title: Permitir %{user} a gerenciar as seguintes coleções
@@ -5321,6 +5464,7 @@ pt-BR:
     comunidade, adicione qualquer coleção destaque administrada das coleções da comunidade.
   manager_parens: (administrador)
   map_from: mapa de
+  map_objects_page_number: Página de mapas
   maps_with_count:
     one: '%{count} Mapa'
     other: '%{count} Mapas'
@@ -5350,6 +5494,11 @@ pt-BR:
   members_with_count_semi_colon:
     one: '%{count} membro;'
     other: '%{count} membros;'
+  merge_data: mesclar classificações
+  merge_pending: Essa operação de mesclagem exigirá algum tempo. Os taxa envolvidos
+    estão bloqueados de outras edições de classificação até que a junção esteja completa.
+    Você receberá um e-mail quando o processo for concluído e ele aparecerá no feed
+    de notícias na página.
   message_colon: 'Mensagem:'
   message_will_disappear: (esta mensagem vai desaparecer em breve)
   meta_description_colon: 'Descrição meta:'
@@ -5359,6 +5508,7 @@ pt-BR:
   methods: Métodos
   method_to_get_metadata_about_the_hierarchy: dado um identificador de hierarquia,
     este método retorna os metadados sobre a hierarquia e a lista de raiz dos táxons
+  missing_interpolation_argument_error: '[tradução incompleta]'
   monthly: Mensalmente
   more_children_with_count:
     one: mais %{count}...

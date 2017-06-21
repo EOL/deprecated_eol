@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Milicevic01
+# Author: Obsuser
 # Author: Rancher
 # Author: Сербијана
 ---
@@ -2659,7 +2660,7 @@ sr-Latn:
     napišite komentar na stranici. Hvala vam.
   taxonomic_summary_of_content: taksonomski pregled sadržaja
   taxon_recognized_by: Takson je priznat od %{whom}
-  taxon_selected_from_search_res: Izabran takson iz rezultata
+  taxon_selected_from_search_res: Takson izabran iz rezultata pretrage
   taxon_suggested: Predloženi takson
   technical_functions: Tehničke mogućnosti
   terms_agreement_form_fallback: Pročitajte i prihvatite <a href="%{terms_url}">uslove

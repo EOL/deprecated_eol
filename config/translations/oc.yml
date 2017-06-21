@@ -80,7 +80,7 @@ oc:
         pages_with_image: Paginas amb imatge
         pages_with_map: Paginas amb mapa
         pages_with_video: Paginas amb vidèo
-        pages_with_sound: Paginas amb son
+        pages_with_sound: Paginas amb sons
         pages_without_text: Paginas amb tèxte
         pages_without_image: Paginas sens imatge
         pages_with_image_no_text: Paginas amb imatge, mas sens tèxte
@@ -135,7 +135,7 @@ oc:
         redhotlist_pages: Paginas fòrça favoritas
         rich_redhotlist_pages: Paginas ricas fòrça favoritas
         rich_redhotlist_pages_percentage: Paginas favoritas rojas ricas %
-        pages_with_score_10_to_39: Paginas amb una marca de 10 a 40
+        pages_with_score_10_to_39: Paginas amb una puntuacion de 10 a 40
         pages_with_score_less_than_10: Paginas amb una marca inferiora a 10
         lifedesk_taxa: Taxons LifeDesks
         lifedesk_data_objects: Objèctes de donadas LifeDesks
@@ -871,7 +871,7 @@ oc:
     month_names_short:
     - gen
     - feb
-    - mar
+    - març
     - abr
     - mai
     - jun
@@ -935,6 +935,7 @@ oc:
     download_taxa_data:
       attribute_header: Atribut
       select_all_checkbox: Seleccionar tot
+      user_downloaded_collection: Telecargament de donadas per %{collection_name}
     show:
       meta_description_default: Una colleccion de l’Enciclopèdia de la Vida intitulada
         %{collection_name}.
@@ -1575,6 +1576,8 @@ oc:
       message: Podètz afichar aquò e d’autres telecargaments en visitant <a href='%{download_link}'>l’onglet
         dels telecargaments de donadas dins vòstre perfil</a>.
       header: Vòstre telecargament es prèst !
+    collection_download_ready:
+      header: Ara, vòstre telecargament de colleccion es prèst !
   sessions:
     new:
       login_with_facebook_assistive: Connexion a l’EdlV en utilizant vòstras informacions
@@ -2125,6 +2128,9 @@ oc:
         other: '%{count} telecargaments de donadas'
       empty: Avètz pas cap de telecargament. Podètz <a href='%{data_search_url}'>recercar
         de donadas</a> e demandar a telecargar los resultats.
+      empty_taxa_collection: Cap de trait pas trobat dins aquesta colleccion
+      no_selected_attributes: Cap d'atribut es pas estat seleccionat. Seleccionatz-ne
+        al mens un
       download: telecargar
       page_title: Telecargaments de donadas
       query_head: Requèsta
@@ -2141,6 +2147,8 @@ oc:
       refresh: refrescar
       row_count: Nombre
       search_again: cercar tornarmai
+      file_not_processed: Aqueste fichièr es pas encara estat tractat,
+      contact_us: contactatz-nos per d’ajuda
     edit:
       form_tip_account: Per vos connectar a EdlV, vos cal aver un nom d’utilizaire
         e un senhal de EdlV, o alara vos connectar amb un compte tèrç. Lo nom d’utilizaire
@@ -4500,6 +4508,8 @@ oc:
   content_partner_resource_harvest_event_update_unsuccessful_error: O planhèm, una
     error s’es produita, l'eveniment de recòlta per %{resource_title} es pas estat
     mes a jorn.
+  content_partner_resource_page_title: Enciclopèdia de la Vida - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_true: Aquesta ierarquia es definida
     coma <strong>organizada</strong>. Una ierarquia supervisada supausa que cada entrada
@@ -4717,6 +4727,8 @@ oc:
   your_current_rating_5_of_5: 'Vòstra quòta actuala : 5 sus 5'
   your_watch_collection: vòstra lista de seguiment
   current_language: 'Lenga : %{iso_code}'
+  current_harvest_event: Collectar l’eveniment dempuèi « %{resource_title} » pendent
+    « %{period} » oras
   currently_running_harvesting: Collècta actualament en cors
   currently_in_eol: Actualament dins l’Enciclopèdia de la Vida (EdlV)
   create_download_data_file: Crear lo fichièr
@@ -5008,6 +5020,7 @@ oc:
         aquesta categoria de forum
       can_not_access_unpublished_taxon: O planhèm, podètz pas accedir a un taxon non
         publicat
+      collection_job_not_valid: Prètzfait de collècta invalid
   expand_all_children: Desvolopar totes los enfants
   expired: Expirat
   expires_in_colon: 'Expira dins :'
@@ -5141,6 +5154,7 @@ oc:
   full_content_url: URL del contengut complet
   gbif_map: Mapa GBIF
   general_site_admin: administracion generala del site
+  georeference_records_colon: 'Enregistraments de georeferéncia :'
   get_help_choosing_a_subject: Obténer d’ajuda per causir un subjècte
   get_help_choosing_a_subchapter: Obténer d’ajuda per causir un soscapítol
   get_more_tasks: obténer mai de prètzfaits
@@ -5159,6 +5173,7 @@ oc:
     Google obligatòri)
   google: Google
   google_images: Imatges Google
+  google_plus: Enciclopèdia de la Vida sus Google+
   google_scholar: Savi Google
   grant_manager_link: Acordar lo ròtle de gestionari
   grant_permission: autorizar
@@ -5324,6 +5339,7 @@ oc:
   language: 'Lenga :'
   languages: Lengas
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Durada de la darrièra collècta
   last_updated: Darrièra mesa a jorn
   last_updated_time_ago: Darrièra mesa a jorn i a %{time_passed}
   learn_about_collections: Cossí ne pòdi crear una ?

@@ -1618,6 +1618,14 @@ sv:
     literature:
       bhl:
         hierarchy_entry:
+          meta_description: BHL-literatur och -information om %{scientific_name} som
+            klassifieras av %{hierarchy_provider} i Encyclopedia of Life. Läs artiklar
+            från Biodiversity Heritage Library (BHL) om %{scientific_name} i Encyclopedia
+            of Life.
+          meta_description_with_common_name: BHL-literatur och -information om %{preferred_common_name}
+            även känd som %{scientific_name} som klassificeras av %{hierarchy_provider}
+            i Encyclopedia of Life. Läs artiklar från Biodiversity Heritage Library
+            (BHL) om %{preferred_common_name} i Encyclopedia of Life.
           meta_title: BHL-litteratur om %{scientific_name} som är klassificerad av
             %{hierarchy_provider}
           meta_title_with_common_name: BHL-litteratur om %{preferred_common_name}
@@ -2124,13 +2132,25 @@ sv:
         facebook:
           new_authentication_added: Facebook-autentisering har lagts till för ditt
             konto.
+          removed_connection: Vi har tagit bort EOL-anslutningen till ditt Facebook-konto.
+            För att helt och hållet avauktorisera framtida interaktioner med ditt
+            Facebook-konto och EOL måste du gå in på Facebook och redigera dina kontoinställningar.
         google:
           new_authentication_added: Google-autentisering har lagts till för ditt konto.
+          removed_connection: Vi har tagit bort EOL-anslutningen till ditt Google-konto.
+            För att helt och hållet avauktorisera framtida interaktioner med ditt
+            Google-konto och EOL måste du gå in på Google och redigera dina kontoinställningar.
         twitter:
           new_authentication_added: Twitter-autentisering har lagts till för ditt
             konto.
+          removed_connection: Vi har tagit bort EOL-anslutningen till ditt Twitter-konto.
+            För att helt och hållet avauktorisera framtida interaktioner med ditt
+            Twitter-konto och EOL måste du gå in på Twitter och redigera dina kontoinställningar.
         yahoo:
           new_authentication_added: Yahoo!-autentisering har lagts till för ditt konto.
+          removed_connection: Vi har tagit bort EOL-anslutningen till ditt Yahoo!-konto.
+            För att helt och hållet avauktorisera framtida interaktioner med ditt
+            Yahoo!-konto och EOL måste du gå in på Yahoo! och redigera dina kontoinställningar.
       twitter: Twitter
       warnings:
         no_way_to_login: Du har inte längre några anslutna konton, du kommer inte
@@ -3651,6 +3671,8 @@ sv:
   audio_mute: ljud av
   audio_unmute: ljud på
   authoritative_information: auktoritativ information
+  author_of_peer_reviewed_publication_credential_option: upphovsman i en publikation
+    med peer-review (lämna referens)
   available: tillgänglig
   average_rating: medelbetyg
   average_rating_value_of_total: 'Genomsnittligt betyg: %{rating} av %{total}'
@@ -3939,6 +3961,8 @@ sv:
     medlemmar kommer fortfarande att kunna se den och nyhetsflödet kommer att bevaras,
     men det kommer inte att visas i sökningar eller på taxonsidor och kommer inte
     längre att kunna redigeras.
+  confirm_delete_data_object: Är du säker på att du vill radera detta dataobjekt?
+    Denna handling kan inte ångras.
   confirm_leave: Är du säker på att du vill lämna denna gemenskap?
   confirm_password_colon: 'Bekräfta lösenord:'
   contact: Kontakt
@@ -4050,6 +4074,10 @@ sv:
   content_partner_resource_edit_link: Redigera
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
+  content_partner_resource_harvest_event_confirm_publish: Är du säker på att du vill
+    publicera datainsamlingen %{completed_at} för resursen %{resource_title}? Observera
+    att när du väl har bekräftat att du vill publicera denna datainsamling kommer
+    din begäran att köläggas för behandling och kan ta upp till 24 timmar att slutföra.
   content_partner_resource_harvest_event_current_published: För närvarande publicerad
   content_partner_resource_harvest_event_not_published: Inte publicerad
   content_partner_resource_harvest_event_previously_published: Tidigare publicerat
@@ -4078,6 +4106,12 @@ sv:
   content_partner_resource_hierarchy_update_unsuccessful_error: Tyvärr, ett fel uppstod.
     Hierarkin uppdaterades inte.
   content_partner_resource_licensing_details_header: Rättigheter &amp; tilldelning
+  content_partner_resource_new_edit_form_tip: Ange information om din dataresurs.
+    Var säker på att ange ett resursnamn och ange den offentliga webbadressen för
+    din datafil eller ladda upp din fil i formaten GZIP, TAR eller XML. Om du anger
+    en webbadress kan du även specificera hur ofta du vill att din data samlas in
+    av EOL. Se till att din datafil är i ett format som EOL kan importera. <a href="%{more_url}">Läs
+    mer om dataformat som stöds</a>.
   content_partner_resource_new_link: Lägg till en ny resurs
   content_partner_resource_new_subheader: Lägg till en ny resurs
   content_partner_resource_preview_collection_header: Förhandsgranska samling

@@ -546,6 +546,7 @@ pms:
           sarà nen rendù pùblich dlongh.
         published_at: Publicà
         published_status: Stat
+        last_harvest_seconds: A l'ha pijà %{time_in_words}
       hierarchy:
         browsable_more: Ch'a verìfica la navigabilità për promeuve costa gerarchìa
           a un-a dle gerarchìe navigàbij primarie ansima a EOL.
@@ -793,7 +794,8 @@ pms:
         create: Gionté n'arsorsa
         update: Agiorné l'arsorsa
         update_settings: Paràmeter d'agiornament
-        force_harvest: Ciamé ëd forsé l'arcòlta
+        force_harvest: Ciamé n'arcòlta
+        harvest_tonight: Arcòlta stassèirs
       session:
         create: Rintré ant ël sistema
         sign_in_with_facebook: Ch'a rintra con Facebook
@@ -5365,6 +5367,7 @@ pms:
   full_content_url: Adrëssa dël contnù complet
   gbif_map: Carta GBIF
   general_site_admin: aministrassion general dël sit
+  georeference_records_colon: 'Argistrassion ëd geoarferiment:'
   get_help_choosing_a_subject: Oten-e dl'agiut për serne n'argoment
   get_help_choosing_a_subchapter: Oten-e dl'agiut për serne un sot-capìtol
   get_more_tasks: oten-e pi d'assion
@@ -5397,6 +5400,7 @@ pms:
     a Google obligatòri)
   google: Google
   google_images: Plance Google
+  google_plus: Enciclopedìa dla Vita su Google+
   google_scholar: Google savant
   grant_manager_link: Acordé ël ròl ëd mansé
   grant_permission: autorisé
@@ -5487,6 +5491,7 @@ pms:
     other: '%{count} plance'
   images_in_red_are_not_trusted: Le plance an ross a son nen afidàbij.
   images_in_yellow_are_not_reviewed: Le plance an giàun a son nen ëstàite controlà.
+  image_objects_page_number: pàgina ëd plance
   import_once: Amporté na vira
   import_ontology: Amporté n'ontologìa
   inappropriate: Inapropià
@@ -5724,6 +5729,7 @@ pms:
   manager_parens: (gansé)
   map_from: carta da
   master_curators_may_add_data: 'Ij mèistr conservator a peulo gionté dij dàit:'
+  map_objects_page_number: Pàgina ëd carte
   maps_with_count:
     one: '%{count} carta'
     other: '%{count} carte'
@@ -6131,4 +6137,61 @@ pms:
   parameters: Paràmeter
   partner_information: Anformassion an sël cambrada
   partner_page: pàgina dël cambrada
+  partner: Cambrada
+  partner_web_site_colon: Sit an sl'aragnà dël cambrada
+  password_must_be_4to16_characters: La longheur dla ciav a dev esse antra 4 e 16
+    caràter.
+  password_colon: 'Ciav:'
+  pause: pàusa
+  people_with_count:
+    one: '%{count} përson-a'
+    other: '%{count} përson-e'
+  percentage_of_descendants_with_images: përsentual ëd dissendent con dle plance
+  percentage_of_descendants_with_text: përsentual ëd dissendent con dël test
+  permalink: Liura përmanenta
+  permissions_list_header: Përmess su EdV
+  permission_granted: Përmess acordà.
+  permission_revoked: Përmess revocà.
+  permissions_users_count:
+    one: '%{count} utent'
+    other: '%{count} utent'
+  personal_profile_menu: Profil përsonal
+  personal_space: Spassi përsonal
+  pinterest: Pinterest
+  please_ask_big_before_changing_toc: Për piasì, ch'a verìfica con un mèmber ëd l'echip
+    anformàtica ëd la biodiversità prima ëd modifiché la tàula dj'argoment. Chèich
+    nòm ëd capìtol a peulo nen esse modificà dagià che ël còdes a sërca chèidun dij
+    capìtoj për tichëtta. Dj'element d'anformassion a peulo nen esse antëgrà an costa
+    antërfassa - sòn a l'é da fé a man ant la base ëd dàit.
+  please_confirm_your_donation_details: Për piasì, ch'a confirma ij detaj ëd soa donassion
+  please_note_that_some_of_these: Për piasì, ch'a ten-a da ment che cheidun ëd si
+    utiss a son an version beta e a peulo cangé con ël temp o avèj dij givo.
+  please_publish_this_resource_notice: '*** <strong>NOTICE :</strong> Për piasì <strong>%{publish_link}</strong>
+    st''arsorsa ambelessì ***'
+  please_refresh: Për piasì, ch'a rinfrësca sò navigador për vëdde l'ùltima version
+    dël sit an sl'aragnà dl'EdV
+  please_indicate_curation_reason: 'Për piasì, ch''a selession-a na rason o s''a veul
+    ch''a lassa un coment ëd conservassion:'
+  please_state_one_credential: 'Për piasì, ch''a esplìssita almanch na credensial
+    ëspessìfica da costa lista:'
+  please_note_wiki_etc_are_not_spm: '*Ch''a ten-a da ment che ij soget «Wikipedia»,
+    «education» e «còdes a bare» a son dij soget antern a l’EdV e a fan nen part ëd
+    la SPM.'
+  please_return_to_eol_homepage: Për piasì, ch'a artorna a l'intrada dl'EdV
+  please_wait: Ch'a l'abia passiensa...
+  post_comment: Mandé un coment
+  posts_from_year: Mëssagi dal %{year}
+  preferred_common_name_advisory_information: Nòm comun preferì për costa tassonomìa.
+  press_room: Sala dla stampa
+  preview_changes: Previsualisé le modìfiche
+  preview_version_of_latest_published_data_object_title_link: Version ëd previsualisassion
+    ëd %{link}
+  preview: previsualisassion
+  previewing_unpublished_page: Sa pàgina a l'é nen publicà. Chiel a l'ha n'acess ëspecial
+    për ës-ciairela; j'àutri utent a peulo nen vëdde sa pàgina.
+  previously_published: publicà an precedensa
+  proceed_to_checkout_page: Andé a la pàgina ëd confirmassion
+  process_name: Nòm dël process
+  profile_colon: 'Profil:'
+  profile: Profil
 ...

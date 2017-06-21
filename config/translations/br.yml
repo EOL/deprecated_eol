@@ -181,6 +181,7 @@ br:
         uri: URI
         uri_type: Seurt URI
         value_is_text: An talvoudoù n'int ket URLoù, testennoù hepken
+        value_is_verbatim: An talvoudoù ne vint ket nivreoù, testenn ho hepken
       known_uri_relationship:
         from_known_uri_id: URI an danvez
         to_known_uri_id: URI pal
@@ -455,7 +456,7 @@ br:
         mou_url: URL ar restr emglev <small>(dazeilad diret)</small>
       data_object:
         bibliographic_citation: Arroud levrlennadurel
-        description: Testenn <small>(balizennoù HTML zo a vez aotreet)</small>
+        description: Testenn <small>(tikedennoù HTML zo zo aotreet)</small>
         license_id: Aotre-implijout
         license_id_more: Lenn <a href="%{policy_url}">Politikerezh aotreoù-implijout
           EOL</a>
@@ -474,7 +475,7 @@ br:
           eus an doare spisaet gant an aozer pa an aotreeg</pq>.
         source_url: URL war-zu an draezenn roadennoù orin
       data_object_link:
-        description: Deskrivadur <small>(balizennoù HTML zo zo aotreet)</small>
+        description: Deskrivadur <small>(tikedennoù HTML zo zo aotreet)</small>
         source_url: URL al liamm
         toc_item: Danvez
         link_type: Rummad
@@ -498,7 +499,8 @@ br:
         taxon_name_placeholder_value_removed: '%{taxon_group} tennet, diuzañ ur strollad
           nevez'
         taxon_name_more: Da skouer, ebarzhit Trochilidae pe Balumed ha diuzit ar strollad
-          a glot ganto.
+          a glot ganto. Dibaboù ar roll disachañ hepken a vo implijet. Arabat kemmañ
+          an destenn hep dibab un disoc'h.
         taxa_found: Taksonoù kavet
         total_results: 'Hollad an disoc''hoù : %{total}'
         unit: Unanenn vuzuliañ
@@ -666,7 +668,8 @@ br:
         create: Ouzhpennañ ur mammenn
         update: Hizivaat ar mammenn
         update_settings: Arventennoù hizivaat
-        force_harvest: Goulenn kreñvañ an dastum
+        force_harvest: Goulenn an dastum
+        harvest_tonight: Dastum fenoz
       session:
         create: Kevreañ
         sign_in_with_facebook: Kevreañ gant Facebook
@@ -798,6 +801,10 @@ br:
     new:
       page_title: Roit ho soñj, mar plij.
   collections:
+    download_taxa_data:
+      attribute_header: Perzh
+      select_all_checkbox: Diuzañ pep tra
+      user_downloaded_collection: Pellgargañ ar roadennoù evit %{collection_name}
     show:
       meta_description_default: Un dastumad eus Kelc'hgeriadur ar Vuhez zo anvet %{collection_name}.
       meta_description_default_focus_collection: Un dastumad eus Kelc'hgeriadur ar
@@ -2447,7 +2454,7 @@ br:
     anv e-kichen ho tisplegadenn er rolloù.
   comment_show_posters_image_alt: Skeudenn brofil %{posters_name}, zo bet ouzhpennet
     d'an evezhiadenn-mañ
-  comments_and_tags: Displegadennoù ha balizennoù
+  comments_and_tags: Displegadennoù ha tikedennoù
   comments: Evezhiadennoù
   comments_filter: Evezhiadennoù
   comments_moderated: Displegadennoù evezhiet

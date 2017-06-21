@@ -6,6 +6,7 @@
 # Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
+# Author: Garam
 # Author: Hwangjy9
 # Author: Hym411
 # Author: Idh0854
@@ -14,6 +15,7 @@
 # Author: Kurousagi
 # Author: Priviet
 # Author: Revi
+# Author: SeoJeongHo
 # Author: Ykhwong
 # Author: 아라
 ---
@@ -148,9 +150,11 @@ ko:
         lifedesk_taxa: LifeDesks 분류
         lifedesk_data_objects: LifeDesks 데이터 개체
         total_taxa_with_data: 데이터가 있는 문서
+        total_occurrences: 발생
         total_measurements: 측정
         total_associations: 협회
         total_measurement_types: 측정 방식
+        total_association_types: 연결 유형
         total_user_added_data: 사용자가 추가한 데이터
         total_data_records: 데이터 레코드
       forum:
@@ -176,6 +180,7 @@ ko:
         label: 레이블
         request_publish: 게시 요청
       known_uri:
+        clade_exemplar: 전형적인 분류군 그룹 범위로 사용
         description: 설명
         exclude_from_exemplars: 개요에서 제외
         name: 이름
@@ -306,7 +311,7 @@ ko:
         too_short:
           one: 너무 짧습니다 (최소 %{count}자입니다)
           other: 너무 짧습니다 (최소 %{count}자입니다)
-        wrong_length: 잘못된 길이입니다 (글자 %{count}개여야 합니다)
+        wrong_length: 잘못된 길이입니다 (%{count}글자여야 합니다)
         not_a_number: 숫자가 아닙니다
         not_an_integer: 정수여야 합니다
         greater_than:
@@ -350,6 +355,10 @@ ko:
             dwc_archive_url:
               inaccessible: 접근할 수 없으며 URL은 공개적으로 접근할 수 있어야 합니다
               invalid: 유효하지 않으며 TAR, GZIP, TAR.GZ, TGZ 또는 ZIP 파일을 가리켜야 합니다
+        known_uri_relationship:
+          attributes:
+            to_known_uri_id:
+              must_be_known_uri: 알려진 URI여야 합니다
   helpers:
     label:
       collection:
@@ -379,7 +388,7 @@ ko:
       content_partner:
         created_at: 등록함
         current_agreement: 현재 계약
-        display_name: 보여줄 이름 <small>(선택 사항)</small>
+        display_name: 표시 이름 <small>(선택 사항)</small>
         display_name_more: <em>프로젝트 이름</em> 대신에 사용할 대체 공개 이름을 제공하세요.
         description_of_data: 데이터에 대한 설명 <small>(비공개)</small>
         description_of_data_more: 얼마나 많은 항목을 사용할 수 있는지, 관련된 생명체가 무엇인지, 그리고 그들이 조합
@@ -425,7 +434,7 @@ ko:
         toc_item: 제목
         link_type: 분류
       data_search:
-        attribute: 속성 선택
+        attribute: 특성 선택
         max: 가장 높은 값
         max_placeholder: 숫자를 입력하세요
         max_placeholder_disabled: 범위 비활성화
@@ -1242,13 +1251,13 @@ ko:
     user_activated:
       subject: 생명의 백과사전 계정을 활성화했습니다
       message: |-
-        생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 사용자 이름은 %{username}이고 프로필 URL은 %{profile_url}인 것을 참고하세요. http://eol.org/login에서 계정에 로그인할 수 있습니다.
+        생명의 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 사용자 이름은 %{username}이고 프로필 URL은 %{profile_url}인 것을 참고하세요. http://eol.org/login에서 계정에 로그인할 수 있습니다.
 
         EOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요.
     user_activated_with_open_authentication:
       subject: 생명의 백과사전 계정을 활성화했습니다
       message: |-
-        생명에 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 인증 목적을 위해 기본 정보를 접근할 수 있는 EOL 권한을 갖고 가입한 것을 참고하세요. EOL에 프로필 URL은 %{profile_url}입니다. http://eol.org/login에서 %{oauth_provider}로 EOL 계정에 로그인할 수 있습니다.
+        생명의 백과사전(EOL)에 오신 것을 환영하며 등록해 주셔서 감사합니다! 인증 목적을 위해 기본 정보를 접근할 수 있는 EOL 권한을 갖고 가입한 것을 참고하세요. EOL에 프로필 URL은 %{profile_url}입니다. http://eol.org/login에서 %{oauth_provider}로 EOL 계정에 로그인할 수 있습니다.
 
         EOL 모음집을 만드는 방법과 EOL 공동체에 참여하고 내용에 기여하는 방법을 포함하여 EOL를 사용하는 방법에 대한 자세한 내용에 대해서는 http://eol.org/help에서 도움말 문서로 방문하세요.
     user_message:
@@ -1279,11 +1288,11 @@ ko:
     user_verification:
       subject: 생명의 백과사전 계정에 대한 요청 확인
       message: |-
-        생명에 백과사전에 등록해주셔서 감사합니다. 다음 링크로 등록을 완료하고자하는 계정을 확인하고 계정을 활성화하세요:
+        생명의 백과사전에 등록해주셔서 감사합니다. 다음 링크로 등록을 완료하고자 하는 계정을 확인하고 계정을 활성화하세요:
 
         %{verification_url}
 
-        계정을 활성화하면 확인 이메일 메시지가 받게 됩니다.
+        계정을 활성화하면 확인 이메일 메시지를 받게 됩니다.
   recent_activity:
     intro: 여기에 %{time}에 EOL 활동 알림이 있습니다
     intro_immediately: '%{name} 안녕하세요 —'
@@ -1456,7 +1465,7 @@ ko:
           meta_title_with_common_name: '%{preferred_common_name}에 대한 설명과 문서 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
           tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 문서'
-        meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 설명과 문서
+        meta_description: 생명의 백과사전에서 %{scientific_name}에 대한 설명과 문서
         meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 문서가 없습니다. EOL은
           보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
         meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설명과
@@ -1477,11 +1486,11 @@ ko:
       bhl:
         hierarchy_entry:
           meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에
-            대한 BHL 문헌과 정보입니다. 생명에 백과사전에서 %{scientific_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서
+            대한 BHL 문헌과 정보입니다. 생명의 백과사전에서 %{scientific_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서
             문서를 읽으세요.
           meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해
             분류한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 BHL 문헌과 정보입니다.
-            생명에 백과사전에서 %{preferred_common_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
+            생명의 백과사전에서 %{preferred_common_name}에 대한 생물 다양성 유산 라이브러리 (BHL)에서 문서를 읽으세요.
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 BHL 문헌'
           meta_title_with_common_name: '%{preferred_common_name}에 대한 BHL 문헌 (%{hierarchy_provider}에
             의해 분류한 %{scientific_name})'
@@ -1755,8 +1764,8 @@ ko:
         meta_title: '%{user_full_name} 데이터 내려받기'
         tweet_text: '%{user_full_name} 데이터 내려받기'
       header_with_count:
-        one: Data download
-        other: '%{count}개의 데이터 내려받기'
+        one: 데이터 내려받기
+        other: 데이터 %{count}개 내려받기
       empty: 내려받을 수 있는 것이 없습니다. <a href='%{data_search_url}'>데이터를 검색</a>하거나 검색 결과를
         내려받을 수 있도록 요청할 수 있습니다.
       download: 내려받기
@@ -3003,6 +3012,7 @@ ko:
   admin_notes_not_visible_to_user: '관리자 참고 (사용자한테 보이지 않음):'
   admin_link: 둘러보기
   admin_page_title: '관리: 둘러보기'
+  admin_simple_actions_header: '간단한 동작:'
   admin_spam_delete: 스팸 삭제
   admin_statistics_link: 통계
   admin_translated_content_page_create_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -3057,7 +3067,7 @@ ko:
   all_collections: 모든 모음집
   all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 댓글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
   all_communities: 모든 공동체
-  all_count: 모든 (%{count})
+  all_count: 모두(%{count})
   all_filter: 모두
   all_images: 모든 그림
   all_information: 모든 정보
@@ -3646,7 +3656,8 @@ ko:
     one: <em>%{search_term}</em>에 대한 결과 %{count}개
     other: <em>%{search_term}</em>에 대한 결과 %{count}개
   count_results_for_traitbank:
-    other: '%{count} TraitBank 결과'
+    one: TraitBank 결과 %{count}개
+    other: TraitBank 결과 %{count}개
   create_account: 계정 만들기
   create_a_new_collection: 새 모음집 만들기
   create_community_unsuccessful_error: 죄송합니다, 오류가 발생해 공동체가 만들어지지 않았습니다. 모든 필드가 올바르게
@@ -3787,7 +3798,7 @@ ko:
       search_value_or_range_header: 특정 값이나 범위 검색
       search_within_taxon_group_header: 분류 그룹 내에서 검색
       search_within_taxon_group_intro_with_count:
-        other: 분류 그룹 안에서 검색하는 것은 현재 %{count} 분류보다 적은 그룹으로 제한됩니다. 더 많은 그룹을 검색하는 것에
+        other: 분류 그룹 안에서 검색하는 것은 현재 분류 %{count}개보다 적은 그룹으로 제한됩니다. 더 많은 그룹을 검색하는 것에
           대해 더 알아보려면 <a href="%{contact_us_tech_url}">문의해주세요</a>.
       sort_header: 결과 정렬
     notice:
@@ -3795,8 +3806,8 @@ ko:
         도움을 <a href="%{contactus_tech_path}">요청</a> 해보세요.
   data_search_attribute: ' %{attribute} 데이터로 레코드에 대한 TraitBank를 검색'
   data_search_files_with_count:
-    one: '%{count} 데이터 내려받기'
-    other: '%{count} 데이터 내려받기'
+    one: 데이터 %{count}개 내려받기
+    other: 데이터 %{count}개 내려받기
   data_subtab_about: 소개
   data_subtab_glossary: '%{taxon}에 대한 용어집'
   data_summary_ranges_header_with_count: EOL이 요약 데이터를 가지고 있습니다
@@ -4134,7 +4145,8 @@ ko:
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타데이터 포함
   including_traitbank_count:
-    other: ', %{count} TraitBank 속성을 포함하는'
+    one: ', TraitBank 특성 %{count}개를 포함하는'
+    other: ', TraitBank 특성 %{count}개를 포함하는'
   in_collection: 모음집
   in_community: 공동체에서
   indexed: 색인함
@@ -4275,7 +4287,7 @@ ko:
   lists_the_identifiers_for_all_hierarchies: 콘텐츠 파트너가 제공하는 모든 계층에 대한 식별자를 나타냅니다
   literature: 문헌
   literature_bhl_link: BHL에서 발견한 참고 문헌 보기
-  literature_empty: 참고을 찾을 수 없습니다.
+  literature_empty: 각주를 찾을 수 없습니다.
   literature_header: 각주
   literature_links: 문헌 링크
   literature_links_link: 문헌 링크

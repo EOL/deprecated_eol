@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Bonifácio
 # Author: Fitoschido
+# Author: Fúlvio
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
@@ -1798,6 +1799,7 @@ pt-PT:
   your_watch_collection: a sua lista de páginas vigiadas
   current_language: 'Língua: %{iso_code}'
   currently_in_eol: Atualmente na Enciclopédia da Vida
+  institutional_sponsors: Patrocinadores Institucionais
   daily: Diariamente
   darwin_core: Darwin Core
   dashboard: Painel de controle

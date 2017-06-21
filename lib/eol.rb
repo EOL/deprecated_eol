@@ -145,7 +145,7 @@ module EOL
       # Apologies for the hard-coded time zone here, but it helps me report on
       # things properly:
       Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
-        "#{now.strftime("%d-%H:%M:%S.%L")}#{diff} #{msg}")
+        "#{now.strftime("%d/%b/%Y-%H:%M:%S.%L")}#{diff} #{msg}")
       Rails.logger.flush if Rails.logger.respond_to?(:flush)
       @last_log_time = now
     end

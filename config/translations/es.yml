@@ -516,7 +516,8 @@ es:
           los datos con la menor ambigüedad posible.
         description: Texto <small>(se permite algún código HTML)</small>
         license_id: Licencia
-        license_id_more: Lea la <a href="%{policy_url}">licencia política de EOL</a>
+        license_id_more: Consulta la <a href="%{policy_url}">normativa de licencias
+          de EOL</a>
         object_title: Título
         toc_item: Subcapítulo
         refs: Referencias <small>(ponga cada referencia en una nueva línea)</small>
@@ -525,7 +526,7 @@ es:
         rights_holder_more: Especifica una persona u organización que sea propietaria
           o administre los derechos de autor de estos datos. Si dejas el campo en
           blanco, asumiremos que eres el poseedor de los derechos para todas las licencias
-          excepto la de Dominio Público. Las licencias de Dominio Público no requieren
+          excepto la de dominio público. Las licencias de dominio público no requieren
           un poseedor de los derechos de autor.
         rights_statement: Declaración de los derechos
         rights_statement_more: Declaración de los derechos de uso según es requerido
@@ -2271,10 +2272,9 @@ es:
         remove_connection_failed: Lo sentimos, ha ocurrido un error, no hemos podido
           eliminar la conexión.
         facebook:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Facebook a tu cuenta de EOL, tu cuenta de Facebook
-            ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de
-            EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Facebook con la de EOL; la cuenta de Facebook ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Facebook y EOL. Si ya tienes una cuenta de EOL por
             favor, <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras
@@ -2285,8 +2285,8 @@ es:
             de Facebook.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Facebook.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Facebook.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Facebook.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Facebook.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2296,9 +2296,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         google:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Google a tu cuenta de EOL, tu cuenta de Google ya
-            está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Google con la de EOL; la cuenta de Google ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Google y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2309,8 +2309,8 @@ es:
             de Google.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Google.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Google.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Google.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Google.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2320,10 +2320,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         twitter:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Twitter a tu cuenta de EOL, tu cuenta de Twitter
-            ya está conectada a una <a href="%{existing_eol_account_url}">cuenta de
-            EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Twitter con la de EOL; la cuenta de Twitter ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Twitter y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2334,8 +2333,8 @@ es:
             de Twitter.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Twitter.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Twitter.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Twitter.
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Twitter.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -2345,9 +2344,9 @@ es:
             a una <a href="%{existing_eol_account_url}">cuenta de usuario de EOL</a>.
             En lugar de eso ¿quisiste <a href="%{login_url}">iniciar sesión</a> ?
         yahoo:
-          add_connection_failed_account_already_connected: Lo sentimos, no podemos
-            conectar tu cuenta de Yahoo a tu cuenta de EOL, tu cuenta de Yahoo ya
-            está conectada a una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
+          add_connection_failed_account_already_connected: No podemos conectar la
+            cuenta de Yahoo! con la de EOL; la cuenta de Yahoo! ya está conectada
+            con una <a href="%{existing_eol_account_url}">cuenta de EOL</a>.
           login_failed_not_connected: Lo sentimos, no hemos podido encontrar una conexión
             entre tu cuenta de Yahoo! y EOL. Si ya tienes una cuenta de EOL por favor,
             <a href="%{login_url}">inicia sesión en EOL</a> utilizando otras credenciales,
@@ -2358,8 +2357,8 @@ es:
             de Yahoo!.
           new_authentication_not_added: Lo sentimos, ha ocurrido un error, no pudimos
             conectar tu cuenta de Yahoo!.
-          not_authorized_to_add_authentication: Lo sentimos, no tenemos autorización
-            para conectar a tu cuenta de Yahoo!.
+          not_authorized_to_add_authentication: No se ha autorizado la conexión con
+            la cuenta de Yahoo!
           not_authorized_to_login: Lo sentimos, no estamos autorizados para que inicies
             sesión en EOL utilizando tu cuenta de Yahoo!.
           not_authorized_to_signup: Lo sentimos, no estamos autorizados para suscribirte
@@ -3741,7 +3740,7 @@ es:
     más traducciones. Cuando se crea una nueva página se le pedirá que añada una traducción.
     Traducciones publicadas son de acceso público.
   admin_content_pages_link: Administración de contenido
-  admin_content_pages_page_title: 'Administración: Gestión de Contenidos'
+  admin_content_pages_page_title: 'Administración: gestión de contenidos'
   admin_content_partners_index_header: Socios de contenido
   admin_content_partners_link: Socios de contenido
   admin_content_partners_page_title: 'Administración: Gestionar Socios de Contenido'
@@ -4272,8 +4271,8 @@ es:
   collection_remove_complete_with_count:
     one: Eliminado %{count} elemento de %{from}.
     other: Eliminado %{count} elementos de %{from}.
-  collection_copy_choose_all_items_target_title: 'Copiar todos los elementos de "%{collection}"
-    a:'
+  collection_copy_choose_all_items_target_title: 'Copiar todos los elementos de «%{collection}»
+    en:'
   collection_move_choose_all_items_target_title: 'Mover todos los elementos de "%{collection}"
     a:'
   collection_copy_choose_target_title_with_count:
@@ -4673,7 +4672,7 @@ es:
     detalles del socio no se han actualizado.
   content_partner_vetted_false: Sin revisar
   content_partner_vetted_true: Aprobado
-  content_partners_link: Socios de Contenido
+  content_partners_link: Socios de contenido
   content_partners_empty: No se encontró ningún socio de contenido.
   content_partners_page_title: Socios de Contenido
   content_partners_page_description: EOL socios de contenido tienen grandes cantidades
@@ -4719,8 +4718,8 @@ es:
   copy: Copiar
   copy_of_name: Copia de %{name}
   copy_items_to_a_new_collection_with_count:
-    one: Copiar %{count} elemento a una nueva colección
-    other: Copiar %{count} elementos a una nueva colección
+    one: Copiar %{count} elemento en una colección nueva
+    other: Copiar %{count} elementos en una colección nueva
   copyright: 'COPYRIGHT:'
   correct_donation_message_with_link: Si la información no es correcta, por favor
     <a href='%{link}'>regresar</a> para realizar los cambios
@@ -5111,7 +5110,7 @@ es:
   edit_permission_header: 'Edición de permiso: %{permission}'
   edit_search_suggestion: Editar las sugerencias de búsqueda
   edit_search_suggestions: Editar sugerencias de búsqueda
-  edit_table_of_contents: editar la tabla de contenidos
+  edit_table_of_contents: editar el sumario
   edit_tag_suggestions: editar sugerencias de etiqueta
   edit_the_topic_area_intro: Edite el área de texto y las direcciones de correo electrónico
     a continuación y marque la caja activa a mostrar a los usuarios en la página de
@@ -5746,7 +5745,8 @@ es:
   license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licencia de documentación libre de GNU (GBU FDL)
   license_gnu_gpl: Licencia Pública General de GNU (GNU GPL)
-  license_no_known_copyright_restrictions: Sin restricciones de derechos de autor
+  license_no_known_copyright_restrictions: No se conocen restricciones sobre derechos
+    de autor
   license_not_applicable: Licencia no aplicable
   license_public_domain: Dominio Público
   licensing: Licencia
@@ -5804,7 +5804,7 @@ es:
   main_database_colon: 'Principal:'
   main_master_database_colon: 'Maestro principal:'
   maintained_by: mantenido por
-  major_heading: Encabezado principal
+  major_heading: Título principal
   make_an_editor: convertir en administrador
   make_user_an_editor_title: Permitir a %{user} administrar las siguientes colecciones
   manage_your_profile: Administrar su perfil
@@ -6418,8 +6418,8 @@ es:
   return_any_taxonomy_details_from_different_hierarchy_providers: Regreso cualesquier
     detalles de taxonomía de diferentes taxon proveedores de jerarquía, en una variedad
     nombró "taxonConcepts"
-  returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos
-    sobre una colección particular y los elementos que contiene indexados por EOL
+  returns_all_metadata_about_a_particular_collection: devuelve todos los metadatos
+    sobre una colección particular y los elementos que contiene indizados por EOL
   returns_all_metadata_about_a_particular_data_object: devuelve todos los metadatos
     sobre un objeto de datos particuar (texto, imagen o vídeo) indizado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando
@@ -6586,7 +6586,7 @@ es:
   site_settings_menu: Configuración del sitio
   skip_to_content: Saltar a contenido
   skip_to_navigation: Saltar a la navegación
-  skip_to_table_of_contents: Saltar a la tabla de contenidos
+  skip_to_table_of_contents: Saltar al sumario
   social_sharing_reddit_button: enviar a reddit
   social_sharing_header: EOL en los sitios de medios sociales
   social_sharing_twitter_tweet_button: Publicar en Twitter
@@ -6687,10 +6687,10 @@ es:
     one: '%{count} sinónimo'
     other: '%{count} sinónimos'
   table_column_header_actions: Acciones
-  table_of_contents_breakdown: Desglose de tabla de contenidos
-  table_of_contents_breakdown_title: Análisis de la tabla de contenidos
-  table_of_contents_editor: Editor de Tabla de contenidos
-  table_of_contents: Tabla de contenidos
+  table_of_contents_breakdown: desglose del sumario
+  table_of_contents_breakdown_title: Desglose del sumario
+  table_of_contents_editor: Editor de sumarios
+  table_of_contents: Sumario
   target_blank_advisory_information: Si sigue este enlace se abrirá la página de destino
     en una nueva ventana del explorador.
   task_status: Estado de la tarea
@@ -6792,7 +6792,7 @@ es:
     de uso</a> antes de acceder a su cuenta.
   terms_agreement_form_header: Términos de uso
   terms_agreement_form_submit: Estoy de acuerdo
-  terms_of_use_link: Términos de uso &amp; privacidad
+  terms_of_use_link: Condiciones de uso y privacidad
   term_for_search_admin_ui: Término
   test: Probar
   test_it_out: Probarlo
@@ -6821,14 +6821,14 @@ es:
   the_count_represents_the_total: El valor numérico representa el número de objetos
     de datos publicados bajo la respectiva categoría SPM del tema.
   hierarchies_entries_description: La Enciclopedia de la Vida no crea sus páginas
-    usando una sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y
+    usando una sola jerarquía taxonómica. Más bien, EOL indiza muchas jerarquías y
     las compara entre sí. Como resultado, una página de EOL puede estar relacionada
     con varios nodos de varias jerarquías. Este API da acceso a una jerarquía individual
     y a sus relaciones internas. Vea la documentación el API páginas para ver cómo
     acceder a otras jerarquías que corresponden a una página de EOL. El campo 'taxonConceptID'
     contiene el identificador de página de EOL que puede ser usado en el API páginas.
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una
-    sola jerarquía taxonómica. Más bien, EOL indexa muchas jerarquías y las compara
+    sola jerarquía taxonómica. Más bien, EOL indiza muchas jerarquías y las compara
     entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre
     del proveedor y el URL de la fuente, así como todos los taxones que están en la
     raíz del árbol taxonómico
@@ -6874,7 +6874,7 @@ es:
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en
     esta comunidad.
   there_is_no_singular_eol: No existe una jerarquía taxonómica única de EOL, más bien,
-    EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren
+    EOL indiza muchas jerarquías y las compara para establecer cuáles nodos se refieren
     a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía,
     por lo cual podría haber varios para una página dada de EOL. Para más información,
     revise la documentación sobre el API en %{link}.
@@ -6952,7 +6952,7 @@ es:
   time_ago: hace %{time_passed}
   title: Título
   toc_entry_col_header: Entrada de índice
-  toc_no_longer_available: La información de la tabla de contenido ya no está disponible
+  toc_no_longer_available: La información del sumario ya no está disponible
   toc: TDC
   topic_area: Área temática
   topic: Tema
@@ -6996,8 +6996,8 @@ es:
   tumblr: Tumblr
   twitter: Twitter
   type: Tipo
-  unable_to_copy_items_to_collection_error: Lo siento, no se pudo copiar los elementos
-    de la colección a %{name}.
+  unable_to_copy_items_to_collection_error: No se pudieron copiar los elementos de
+    la colección en %{name}.
   unable_to_invite_users_to_community_with_count:
     one: La invitación no se pudo enviar a %{list}.
     other: Las invitaciones no se pudieron enviar a %{list}.

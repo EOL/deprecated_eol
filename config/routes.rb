@@ -275,9 +275,7 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
-    resources :data_downloads, :only => [:index], :controller => 'users/data_downloads' do
-      post 'delete'
-    end
+    
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
@@ -407,8 +405,6 @@ Eol::Application.routes.draw do
     collection do
       get 'update_attributes'
       get 'index'
-      get 'download'
-      post 'download'
     end
   end
 

@@ -13,6 +13,7 @@
 # Author: Hhaboh162002
 # Author: Malhargan
 # Author: Meno25
+# Author: Mido
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: Rana El Deeb
@@ -157,6 +158,7 @@ ar:
         pages_with_score_less_than_10: صفحات ذات تقييم أقل من 10
         lifedesk_taxa: أصنوفات LifeDesks
         lifedesk_data_objects: عناصر بيانات LifeDesks
+        total_taxa_with_data: صفحات بها بيانات
         total_triples: ثلاثي
         total_occurrences: الحوادث
         total_measurements: قياسات
@@ -998,8 +1000,8 @@ ar:
     comparing_dates: <span class="assistive">مقارنة بين</span> <span class="date_one">%{date_one}</span>
       <span class="assistive">و</span> <span class="date_two">%{date_two}</span>
     warnings:
-      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءاً قم
-        بأختيار تاريخ جديد.
+      stats_unavailable_for_date: عذراً، لا نملك إحصاءات لتاريخ %{date}. رجاءً قم
+        باختيار تاريخ جديد.
     content_partners:
       menu_link: شركاء المحتوى
       page_header: إحصائيات شركاء المحتوى
@@ -3295,7 +3297,7 @@ ar:
   add_another_metadata_field: إضافة حقل بيانات وصفية جديد
   add_article_instead: عوضًا عن ذلك، أضف مقال
   add_article_to_page_button: إضافة مقال
-  add_association_submit_button: اضافة رابط
+  add_association_submit_button: إضافة رابط
   add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى تلك الصفحة
   add_citizen_science_resources_to_page_link_button: أضف رابط مواطن العلم لهذه الصفحة
   add_classifications: إضافة تصنيفات مختارة للنقل
@@ -4064,7 +4066,7 @@ ar:
   content_partner_resource_new_subheader: أضف مصدر جديد
   content_partner_resource_preview_collection_header: عرض المجموعة
   content_partner_resource_preview_collection_show_link: استعراض مجموعة العرض
-  content_partner_resource_processing_header: جاري التعامل مع الحالة والإعدادات.
+  content_partner_resource_processing_header: جارٍ معالجة الحالة والإعدادات
   content_partner_resource_resource_status_new: أنشئ في
   content_partner_resource_show_link_back_to: الرجوع إلى المورد
   content_partner_resource_show_subheader: معلومات المصدر <em>%{resource_title}</em>
@@ -4424,6 +4426,7 @@ ar:
   did_you_mean: 'هل تقصد: %{suggestions}؟'
   disabled_for_now: معطل حاليًّا
   discover_link: استكشف
+  donate_link: تبرع
   done_already: تم بالفعل
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: عدم إظهار التواريخ
     المسجلة غير المعروفة (مستخدمو النسخة الأولى، كل ما سبق 5 يناير، 2009)
@@ -5018,7 +5021,7 @@ ar:
   logo_header: شعار
   logo_type_error: الشعار ليس نوعا صالح للصورة (يجب أن يكون PNG أو JPEG).
   logout: تسجيل الخروج
-  looking_up_url: جاري البحث عن العنوان الإلكتروني...
+  looking_up_url: جارٍ البحث عن العنوان الإلكتروني...
   main_content_area: 'مساحة المحتوى الرئيسية:'
   main_database_colon: 'قواعد البيانات الرئيسية:'
   main_master_database_colon: 'الأساسية والرئيسية:'

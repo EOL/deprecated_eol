@@ -6194,4 +6194,16 @@ pms:
   process_name: Nòm dël process
   profile_colon: 'Profil:'
   profile: Profil
+  profile_image_alt_text_curator: Fòto ëd profil për ël conservator %{user_full_name}
+  profile_image_alt_text_member: Fòto ëd profil për ël mèmber %{user_full_name}
+  profile_newsfeed: Mè fil ëd neuve
+  profile_picture: Fòto dël profil
+  project: Proget
+  provide_a_concept_id: a parte d'un identificativ ëd pàgina d'EdV, j'arzultà dl'arserca
+    a saran limità ai mèmber ëd cola partìa tassonòmica
+  provide_a_hierarchy_entry_id: a parte da n'identificativ ëd na vos ëd gerarchìa,
+    j'arzultà d'arserca a saran limità ai mèmber ëd cola partìa tassonòmica
+  provide_a_search_string: a parte da na paròla d'arserca, n'arserca precisa a sarà
+    mnà e la pàgina rëspondenta a sarà dovrà 'me partìa tassonòmica për filtré j'arzultà
+    d'arserca
 ...

@@ -4361,6 +4361,10 @@ sv:
   data_search:
     page_title: Sök TraitBank
     form:
+      equivalent_attributes: 'Motsvarande värden:'
+      equivalent_values: 'Motsvarande värden:'
+      search_again_for_attributes: sök igen för att inkludera markerade attributer
+      search_again_for_values: sök igen för att inkludera markerade värden
       header_assistive: Sökformulär
       input_summary_intro: Valda sökalternativ
       new_search_link: Starta en ny sökning
@@ -4750,6 +4754,7 @@ sv:
     och tillgång krävs)
   google: Google
   google_images: Google Bilder
+  google_plus: Encyclopedia of Life på Google+
   google_scholar: Google Scholar
   grant_manager_link: Bevilja hanterarroll
   grant_permission: bevilja
@@ -5625,6 +5630,7 @@ sv:
   subject: ämne
   submit: Skicka
   submitting: Var god vänta…
+  suggested_attributes: 'Förslagna attribut:'
   suggested_vocab_add: rekommenderad term
   suggested_vocab_remove: ta bort rekommendation
   summary_thumbnail_title: 'Sammanfattning:'

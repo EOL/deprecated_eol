@@ -6206,4 +6206,32 @@ pms:
   provide_a_search_string: a parte da na paròla d'arserca, n'arserca precisa a sarà
     mnà e la pàgina rëspondenta a sarà dovrà 'me partìa tassonòmica për filtré j'arzultà
     d'arserca
+  provider: Fornidor
+  providers: Fornidor
+  public: Pùblich
+  public_domain: domini pùblich
+  publish_after_utc: Publiché apress (UTC)
+  publish_changes: Publiché le modìfiche
+  published: Publicà
+  published_parens: (Publicà)
+  publish: publiché
+  publish_requested: Publicassion ciamà
+  punctuation_comma: ','
+  punctuation_semi_colon: ;
+  quarterly: Trimestral
+  rails_databases: Base ëd dàit Rails
+  rails_environment: Ambient Rails
+  range: Antërval
+  rank_recognized_by_agent: '%{rank} arconossù da %{agent}'
+  rank_recognized_by_from_source: '%{rank} arconossù da%{agent} an %{source}'
+  rank_recognized_by_agent_colon: '<b>%{rank}</b> arconossù da %{agent}:'
+  rated_by_count_people:
+    one: da %{count} përson-a
+    other: da %{count} përson-e
+  rating_added_notice: La valutassion a l'é stàit giontà për da bin.
+  rating_learn_more_link: Savèjne ëd pi an sla valutassion
+  rating_not_added_error: An dëspias, a-i é staje n'eror, la valutassion a l'ha nen
+    podù esse giontà.
+  reading_from_ontology: Letura da <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
+  recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
 ...

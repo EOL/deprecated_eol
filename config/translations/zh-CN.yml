@@ -235,10 +235,10 @@ zh-CN:
         new_data_on_my_watched_item: 您的监视列表中，对分类群的新贡献
         changes_to_my_watched_collection: 您的监视列表中，对收藏的更改
         changes_to_my_watched_community: 您的监视列表中，对社区的更改
-        member_joined_my_watched_community: 有新成员已经加入你加入的小组
-        member_left_my_community: 有成员已经离开你管理的小组
+        member_joined_my_watched_community: 有新成员已经加入您加入的小组
+        member_left_my_community: 有成员已经离开您管理的小组
         new_manager_in_my_community: 有其他成员已经成为你管理的社区的管理者
-        i_am_being_watched: 你已经被添加至其他成员的监视列表
+        i_am_being_watched: 您已经被添加至其他成员的监视列表
         eol_newsletter: 给我发送EOL季度通讯
       resource:
         accesspoint_url: 数据集URL
@@ -369,7 +369,7 @@ zh-CN:
         resource:
           attributes:
             accesspoint_url:
-              blank: 不能为空，除非你上传一个资源文件
+              blank: 不能为空，除非您上传一个资源文件
               inaccessible: 无法访问，该URL必需可以公开访问
               invalid: 无效，它应指向一个XML、XML.GZIP、XML.GZ或ZIP文件
             dataset:
@@ -1406,7 +1406,7 @@ zh-CN:
       login_with_facebook_assistive: 使用您的Facebook账号登录网络生命大百科系统。
       login_with_google_assistive: 使用您的Google凭据登录EOL。
       login_with_twitter_assistive: 使用您的Twitter账号登录网络生命大百科系统。
-      login_with_yahoo_assistive: 使用你的雅虎帐号登录生命百科。
+      login_with_yahoo_assistive: 使用您的雅虎帐号登录生命百科。
       login_with_eol_authentication_header: 或者使用您的EOL证书登录：
       meta_title: 登录
       problems_signing_in_with_connected_accounts: 与您关联账户的登录问题？

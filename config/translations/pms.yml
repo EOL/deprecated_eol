@@ -6234,4 +6234,14 @@ pms:
     podù esse giontà.
   reading_from_ontology: Letura da <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Ch'a scriva le doe paròle o nùmer ch'a s-ciàira sì-sota
+  recaptcha_incorrect_error_with_anchor: Ij <a href="#%{recaptcha_anchor}">caràter
+    dël reCaptcha</a> as rëspondo nen, për piasì ch'a preuva torna.
+  recent_updates: Agiornament recent
+  recently_visited: Visità ëd recent
+  recently_used_link: Dovrà ëd recent
+  recipients: Destinatari
+  recognized_by_from_source: '%{recognized_by} an %{source}'
+  recognized_by_as_a_rank: '%{recognized_by} tanme un %{taxon_rank}'
+  recognized_by_from_source_as_a_rank: '%{recognized_by} an %{source} tanme un %{taxon_rank}'
+  record_count: Nùmer d'argistrassion
 ...

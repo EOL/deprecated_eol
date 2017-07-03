@@ -6244,4 +6244,18 @@ pms:
   recognized_by_as_a_rank: '%{recognized_by} tanme un %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} an %{source} tanme un %{taxon_rank}'
   record_count: Nùmer d'argistrassion
+  record_not_found: '[argistrassion nen trovà]'
+  recount_collection_items: Conté torna j'element ëd la colession (corege ij cont
+    falà dj'element; sòn <i>a finirà<i> con un sorpassament dël temp ant ël navigator,
+    ma a marcia)
+  recount_collection_items_done: Fin dël neuv cont dj'element ëd la colession.
+  redirect_url_ok_title_unavailable: Adrësse ëd ridiression bon-a, tìtol nen disponìbil
+  reference: Arferiment
+  references_cabs_colon: 'Arferiment:'
+  related_names_with_count:
+    one: '%{count} nòm gropà'
+    other: '%{count} nòm gropà'
+  related_organizations: Organisassion gropà
+  remove_curatorship_colon: 'Eliminé la conservassion:'
+  remove_data_object_association: Gavé l'associassion
 ...

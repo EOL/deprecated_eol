@@ -6258,4 +6258,25 @@ pms:
   related_organizations: Organisassion gropà
   remove_curatorship_colon: 'Eliminé la conservassion:'
   remove_data_object_association: Gavé l'associassion
+  remove_membership: Gavé l'adesion
+  remove: Gavé
+  reply: Rësponde
+  required: Obligatòri
+  revoke_full_curator_link: Revoché
+  revoke_manager_link: Revoché ël ròl ëd mansé
+  revoke_permission: revoché
+  removed_count_items_from_collection_notice:
+    one: '%{count} element a l''é stàit gavà da costa colession.'
+    other: '%{count} element a son ëstàit gavà da costa colession.'
+  request_mailing_list_colon: 'L''utent a veul nen arsèive dij mëssagi an pòsta eletrònica:'
+  request: Arcesta
+  required_form_element: Obligatòri
+  reset_password_enter_new_password_notice: Costa a l'é na conession mach për na vira,
+    për piasì ch'a buta na neuva ciav për continué.
+  reset_password_instructions_sent_to_user_notice: J'anstrussion për ri-inissialisé
+    la ciav su sò cont <em>%{username}</em> a son ëstàite mandà a soa adrëssa ëd pòsta
+    eletrònica.
+  reset_password_token_expired_error: An dëspias, soa ciav a l'é nen ëstàita ri-inissialisà.
+    La liura fornìa a l'é scadùa, p¨r piasì ch'a compila e ch'a manda torna ël formolari
+    ëd ciav dësmentià për arsèive na neuva liura.
 ...

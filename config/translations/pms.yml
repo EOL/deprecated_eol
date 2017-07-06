@@ -6279,4 +6279,53 @@ pms:
   reset_password_token_expired_error: An dëspias, soa ciav a l'é nen ëstàita ri-inissialisà.
     La liura fornìa a l'é scadùa, p¨r piasì ch'a compila e ch'a manda torna ël formolari
     ëd ciav dësmentià për arsèive na neuva liura.
+  resource: Arsorsa
+  resource_import_frequency:
+    once: Amporté un-a vira
+    weekly: A la sman-a
+    monthly: Al mèis
+    bimonthly: Doe vire al mèis
+    quarterly: Minca 'n trimestr
+    hours_with_count:
+      one: '%{count} ora'
+      other: '%{count} ore'
+  resource_hint_dataset_source_url: (adrëssa dla sorgiss original dl'ansem ëd dàit,
+    tanme n'artìcol o në studi)
+  resource_hint_dataset_rights: (as àplica a l'ansem ëd dàit <i>coma un tut ùnich</i>;
+    nen aplicàbil an tute le giurisdission)
+  resource_hint_default_rights: (as àplica 'me stàndard a j'element <i>ant</i> l'ansem
+    ëd dàit)
+  resources: Arsorse
+  response_formats: Formà ëd rispòsta
+  response: Rispòsta
+  resque_status_header: 'Stat ëd Resque:'
+  resque_pending_job_count:
+    one: A-i é %{count} travaj an cors ant la coa « %{queue} ».
+    other: A-i é %{count} travaj an cors ant la coa « %{queue} ».
+  results_per_page: 'Arzultà për pàgina:'
+  results: Arzultà
+  results_offset: Arzultà %{from} - %{to} su %{total} për <em>%{for}</em>
+  return_common_names_for_the_page_taxon: a smon tuti ij nòm comun për la tassonomìa
+    dla pàgina
+  return: artorn
+  return_all_common_names_for_this_taxon: a smon tuti ij nòm comun për costa tassonomìa
+  return_all_synonyms_for_this_taxon: a smon tuti ij sinònim për costa tassonomìa
+  return_references_for_the_page_taxon: a smon tuti j'arferiment për la tassonomìa
+    dla pàgina
+  return_synonyms_for_the_page_taxon: a smon tuti ij sinònim për la tassonomìa dla
+    pàgina
+  return_any_taxonomy_details_from_different_hierarchy_providers: a smon tuti ij deta
+    ëd tassonomìa dai vàire fornidor ëd gerarchìa ëd tassonomìa, ant un quàder dit
+    «taxonConcepts»
+  returns_all_metadata_about_a_particular_collection: a smon tuti ij metadàit relativ
+    a na colession particolar e j'element che chila-sì a conten andicisà da l'EdV
+  returns_all_metadata_about_a_particular_data_object: a smon tuti ij metadàit relativ
+    a n'oget ëd dàit particolar (test, plancia o filmà) andicisà da l'EdV
+  returns_either_a_positive_or_negative_response: a smon o bin na rispòsta positiva
+    (ch'a mostra che j'API a son fonsionaj), opura na rispòsta negativa o franch gnente
+    (mostrand che j'API a son nen fonsionaj al moment).
+  returns_either_a_batch_or_not: a smon o bin un tratament a baron opura gnente
+  revisions: Revision
+  rights: Drit
+  rights_holder: Detentor dij drit
 ...

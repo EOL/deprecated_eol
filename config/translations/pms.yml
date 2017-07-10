@@ -6328,4 +6328,17 @@ pms:
   revisions: Revision
   rights: Drit
   rights_holder: Detentor dij drit
+  rights_statement: Diciairassion dij drit
+  richness_score: Ìndes ëd richisia
+  save_comment_lowercase: argistré ël coment
+  save_curated_association_submit_button: Argistré l'associassion
+  save_email_settings: argistré ij gust ëd pòsta eletrònica
+  save: Argistré
+  scientific_name: Nòm sientìfich
+  sci_name_avg_table_head: Nòm sientìfich medi
+  scrub_user_button: sguré l'utent
+  scrub_user_notice: Utent ësgurà për da bin!
+  scrub_user_warning: 'ATENSION: sòn a eliminërà TUT ël contnù giontà da st''utent-sì
+    e as PODRÀ PA ANULESSE. É-lo SIGUR?'
+  search: Arserché
 ...

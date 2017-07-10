@@ -6425,6 +6425,7 @@ es:
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando
     que los API están funcionales), o una respuesta negativa, o del todo nada (indicando
     que en ese momento los APIs no están funcionales).
+  returns_either_a_batch_or_not: devuelve un lote o no
   revisions: Revisiones
   rights: Derechos
   rights_holder: Titular de los derechos
@@ -6827,6 +6828,8 @@ es:
     y a sus relaciones internas. Vea la documentación el API páginas para ver cómo
     acceder a otras jerarquías que corresponden a una página de EOL. El campo 'taxonConceptID'
     contiene el identificador de página de EOL que puede ser usado en el API páginas.
+  hierarchies_entries_descendants_description: Dado el identificador de una entrada
+    de jerarquía, esta API devuelve todos los descendientes de esta entrada de jerarquía.
   hierarchies_description: La Enciclopedia de la Vida no crea sus páginas usando una
     sola jerarquía taxonómica. Más bien, EOL indiza muchas jerarquías y las compara
     entre sí. Este API lista de metadatos sobre una jerarquía, tales como el nombre
@@ -7225,6 +7228,7 @@ es:
   view_error_log: Ver registro de errores
   view_full_size_image: Mira imagen a tamaño completo
   view_harvesting_log: Ver registro de cosechas
+  view_current_harvesting: Ver la recolección actual
   view_article_source: Ver fuente del artículo
   view_image_source: Ver fuente de la imagen
   view_image_map_source: Ver código fuente del mapa

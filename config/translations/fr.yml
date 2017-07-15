@@ -2248,11 +2248,11 @@ fr:
     notifications:
       edit:
         page_description: Toutes les mises à jour répertoriées ci-dessous (à l’exception
-          de la newsletter d’EdlV) sont à votre disposition dans votre <a href="%{user_newsfeed_link}">fil
+          du bulletin de l’EdlV) sont à votre disposition dans votre <a href="%{user_newsfeed_link}">fil
           de nouvelles EdlV</a>, mais beaucoup de gens veulent également être alertés
           par courriel au sujet de certains types d’activités qu’ils trouvent particulièrement
           intéressants. Vous pouvez utiliser les boutons ci-dessous pour définir la
-          fréquence des courriels de EdlV en fonction de vos préférences
+          fréquence des courriels de l’EdlV en fonction de vos préférences
         page_title: Paramètres de notification
       update:
         notification_settings_successfully_updated: Paramètres de notification mis
@@ -6914,7 +6914,7 @@ fr:
     format de réponse OpenSearch à l’aide d’Atom 1.0. Voyez %{link} pour la spécification
     complète de OpenSearch
   this_area_shows_all_submission: Ce domaine montre toutes les soumissions entrées
-    via les pages Contactez-nous ou Support de contact. Pour afficher les entrées,
+    via les pages Contactez-nous ou Soutien de contact. Pour afficher les entrées,
     sélectionnez la rubrique ci-dessous ou <a href=%{link}>exportez toutes les entrées
     dans un fichier CSV</a>.
   this_cannot_be_undone_are_you_sure: Annulation impossible; êtes-vous sûr?

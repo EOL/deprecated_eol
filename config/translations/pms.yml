@@ -6341,4 +6341,46 @@ pms:
   scrub_user_warning: 'ATENSION: sòn a eliminërà TUT ël contnù giontà da st''utent-sì
     e as PODRÀ PA ANULESSE. É-lo SIGUR?'
   search: Arserché
+  search_by_term_page_title: 'Arserché: %{term}'
+  search_by_provider_method_description_with_link: 'a oten j''identificativ ëd pàgina
+    d''EdV a parte d''un hierarchy_id d''un fornidor e dl''identificativ ùnich dël
+    fornidor<br />(p. es. arserché l''ID ëd pàgina EdV për l''ITIS TSN 180542: %{link})'
+  search_for_comments_containing_the_text: 'Arserché ij coment ch''a conten-o ël test:'
+  search_for_curators_containing: 'Arserché ij conservator ch''a conten-o:'
+  search_for_messages_containing: 'Arserché ij mëssagi ch''a conten-o:'
+  search_for_terms_containing: 'Arserché ij tèrmin ch''a conten-o:'
+  search_for_users_containing_this_in_their_username_name_or_email_address: Arserché
+    j'utent ch'a conten-o sòn an sò stranòm, nòm o adrëssa ëd pòsta eletrònica.
+  search_log_report_intro: Sa zòna a smon ij tèrmin d'arserca pi comun, ël nùmer ëd
+    vire che l'arserca a l'é stàita fàita e chèiche anformassion an sël nùmer d'arzultà
+    trovà për col tèrmin d'arserca. Ch'a sgnaca an sle colòne për ordiné conforma
+    a cola colòna. Ch'a sgnaca an s'un tèrmin d'arserca për vëdde j'anformassion an
+    sl'arzultà an sël qual j'utent a l'han ësgnacà (s'a-i na j'é) apress n'arserca.
+  search_method_description: dàit un valor ëd n'element ëspessìfich (p. es. nòm sientìfich=Homo
+    sapiens), a smon la lista ampaginà dle pàgina dl'EdV ch'a conten-o ël tèrmin arsercà
+  search_next_label: Apress
+  search_previous_label: Precedent
+  search_input_advisory_information: Ch'a anserissa un nòm comun o un nòm sientìfich
+    ëd na creatura viventa dont a vorërìa savèjne ëd pi. A peul ëdcò arserché dij
+    mèmber dl'EdV, dle colession e dle comunità.
+  search_results: Arzultà d'arserca
+  search_field_label: Arserché an sl'EdV
+  search_field_common_name: Nòm comun
+  search_field_preferred_common_name: Nòm comun preferì
+  search_field_preferred_scientific: Nòm sientìfich preferì
+  search_field_surrogate: Sostitù
+  search_field_synonym: Sinònim
+  search_placeholder: Sërché an sl'EdV...
+  search_suggestion_admin_intro: Costa zòna a l'é dovrà për generé dij sugeriment
+    d'arserca për j'utent an spessificand un tèrmin che j'utent a sërco e na pàgina
+    a la qual a dovrìo esse adrëssà coma sugeriment. J'arzultà sugerì a comparisso
+    sempe prima dj'àutri arzultà. A peul avèj vàire sugeriment për un dàit tèrmin
+    d'arserca.
+  search_suggestion_created: Ël sugeriment d'arserca a l'é stàit creà con sucess.
+  search_suggestion_updated: Ël sugeriment d'arserca a l'é stàit agiornà con sucess.
+  search_suggestions: Sugeriment d'arserca
+  search_summary: Resumé dl'arserca
+  search_term_detail_report: Rapòrt ëd detaj an sij criteri d'arserca
+  search_term_reports: rapòrt an sij criteri d'arserca
+  search_term_reports_title: Rapòrt an sij criteri d'arserca
 ...

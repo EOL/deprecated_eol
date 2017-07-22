@@ -6383,4 +6383,52 @@ pms:
   search_term_detail_report: Rapòrt ëd detaj an sij criteri d'arserca
   search_term_reports: rapòrt an sij criteri d'arserca
   search_term_reports_title: Rapòrt an sij criteri d'arserca
+  search_term: Criteri d'arserca
+  search_the_site: Sërché an sël sit
+  searching_within_clade: an %{clade_name}
+  see_all_activity_combinations: Vëdde tute le combinassion d'atività da 5 minute.
+  see_all_of_your_collections: Vëdde tute soe colession
+  see_all_of_your_communities: Vëdde tute soe comunità
+  see_all_classifications_with_count_html:
+    one: Vëdde la <span class="assistive">%{count} classificassion aprovà anté ch'a
+      compariss sa tassonomìa.</span>
+    other: Vëdde tute le <span class="assistive">%{count} classificassion aprovà anté
+      ch'a compariss sa tassonomìa.</span>
+  see_all_collections_with_count_html:
+    one: Vëdde la <span class="assistive">%{count} colession anté che sa pàgina a
+      compariss.</span>
+    other: Vëdde tute le <span class="assistive">%{count} colession anté che sa pàgina
+      a compariss.</span>
+  see_all_comments_with_count_for_link_or_rate:
+    one: vëdde %{count} coment për sa liura o deje un vot
+    other: vëdde tuti ij %{count} coment për sa liura o deje un vot
+  see_all_comments_with_count_for_text_or_rate:
+    one: vëdde %{count} coment for s'artìcol o deje un vot
+    other: vëdde tuti ij %{count} coment për s'artìcol o deje un vot
+  see_all_communities_with_count_html:
+    one: Vëdde la <span class="assistive">%{count} comunità che a arpresenta sa pàgina.</span>
+    other: Vëdde tute le <span class="assistive">%{count} comunità che a arpresento
+      sa pàgina.</span>
+  see_all_data_summaries: Vëdde tuti <span class="assistive">ij resumé ëd dàit për
+    sa tassonomìa.</span>
+  see_all_data_with_count_html:
+    zero: Vëdde la scheda ëd dàit <span class="assistive">për sa tassonomìa.</span>
+    one: Vëdde <span class="assistive">la %{count} caraterìstica për sa tassonomìa.</span>
+    other: Vëdde tute <span class="assistive">le %{count} caraterìstiche për sa tassonomìa.</span>
+  see_all_featured_collections_with_count:
+    one: Vëdde la %{count} colession caraterìstica.
+    other: Vëdde tute le %{count} colession caraterìstiche.
+  see_all_updates_with_count_html:
+    one: Vëdde l'<span class="assistive">%{count} agiornament për sa pàgina.</span>
+    other: Vëdde tuti j'<span class="assistive">%{count} agiornament për sa pàgina.</span>
+  see_all_media_link: Vëdde tuti ij mojen
+  see_all_maps_link: Vëdde tute le carte
+  see_all_editors_with_count:
+    one: Vëdde ël %{count} mansé
+    other: Vëdde tuti ij %{count} mansé
+  see_in_data_glossary: esploré tut ël glossari dij dàit
+  see_in_glossary_tab: vëdde dans la scheda glossari
+  see_notes: vëdde le nòte
+  see_more_on_the_data_tab: vëdde ëd pi ant la scheda ëd dàit
+  see_this_record_in_virtuoso: vëdde s'argistrassion an Virtuoso
 ...

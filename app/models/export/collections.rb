@@ -1,57 +1,11 @@
 module Export
   class Collections
-
-    # Export::Clade.save(7665)
-    def self.save(id)
-      Export::Clade.new(id).save
+    def self.save
+      Export::Clade.new.save
     end
 
     def initialize(id)
-      @id = id
-      @trusted = Vetted.trusted.id
-      @visible = Visibility.visible.id
-      @native = Hierarchy.itis.id
-      @article_id = DataType.text.id
-      @map_id = DataType.map.id
-      @link_id = DataType.link.id
-      @breadcrumb_rank_ids = ["kingdom", "phylum", "class_rank", "order",
-        "family", "species", "subspecies"].map { |r| Rank.send(r).id }
-      @english = Language.english.id
-      @scientific_id = Language.scientific.id
-      @gallery_id = ViewStyle.gallery.id
-
-      @articles = []
-      @attributions = []
-      @bibliographic_citations = []
-      @collections = []
-      @collected_pages = []
-      @collected_pages_media = []
-      @collection_associations = []
-      @content_sections = []
-      @curations = []
-      @languages = []
-      @licenses = []
-      @links = []
-      @locations = []
-      @media = []
-      @nodes = []
-      @occurrence_maps = []
-      @pages = []
-      @page_contents = []
-      @page_icons = []
-      @partners = []
-      @ranks = []
-      @references = []
-      @referents = []
-      @resources = []
-      @roles = []
-      @scientific_names = []
-      @sections = []
-      @taxonomic_statuses = []
-      @terms = {} # NOTE this one is a hash because we need to search it by uri.
-      @traits = []
-      @users = []
-      @vernaculars = []
+      # Errr...
     end
 
     def save
@@ -59,890 +13,98 @@ module Export
       resource_collection_ids = Resource.pluck(:collection_id).uniq
       resource_collection_ids += Resource.pluck(:preview_collection_id).uniq
       # There were just under 10,000 collections when I last checked.
-      collections = Collection.where(published: true, special_collection_id: nil).
+      collections = []
+      collected_pages = []
+      collected_media = []
+      collection_associations = []
+      Collection.where(published: true, special_collection_id: nil).
         where(["id NOT IN (?)", resource_collection_ids.compact]).
         find_each do |collection|
-          pages = CollectionItem.where(collection_id: collection.id,
+          c_pages = CollectionItem.where(collection_id: collection.id,
             collected_item_type: "TaxonConcept")
           media = CollectionItem.where(collection_id: collection.id,
             collected_item_type: "DataObject")
-          have_pages = pages.pluck(:collected_item_id).uniq.compact
+          col_associations = CollectionItem.where(collection_id: collection.id,
+            collected_item_type: "Collection")
+          page_ids = c_pages.pluck(:collected_item_id).uniq.compact
           # Now we have to add pages where the media need them:
           media_pages = {}
           media.each do |medium|
             # This will be slow. I don't care. Not enough to worry.
-            media_pages[medium.id] =
-              medium.collected_item.try(:associations).try(:first).try(:taxon_concept_id)
+            tid = medium.collected_item.try(:associations).try(:first).
+              try(:taxon_concept_id)
+            media_pages[tid] ||= []
+            media_pages[tid] << medium.id
           end
-          add_pages = media_pages.values - have_pages
-        end
-    end
-
-    # A collection from our DB:
-    # {"id"=>132065, "name"=>"Vivek Appu's Watch List", "special_collection_id"=>2, "published"=>true, "created_at"=>Mon, 24 Jul 2017 22:55:21 UTC +00:00, "updated_at"=>Mon, 24 Jul 2017 22:55:21 UTC +00:00, "logo_cache_url"=>nil, "logo_file_name"=>nil, "logo_content_type"=>nil, "logo_file_size"=>0, "description"=>nil, "sort_style_id"=>nil, "relevance"=>1, "view_style_id"=>nil, "show_references"=>true, "collection_items_count"=>0}
-    #
-    # Old item:
-    # => {"id"=>341040681, "name"=>nil, "collected_item_type"=>"DataObject", "collected_item_id"=>34818521, "collection_id"=>132064, "created_at"=>Mon, 24 Jul 2017 22:45:21 UTC +00:00, "updated_at"=>Mon, 24 Jul 2017 22:45:21 UTC +00:00, "annotation"=>nil, "added_by_user_id"=>nil, "sort_field"=>nil}
-
-    # A collection in the new db:
-    #  => {"id"=>131053, "name"=>"Tertiary Collection", "description"=>"described thusly", "icon_file_name"=>nil, "icon_content_type"=>nil, "icon_file_size"=>nil, "icon_updated_at"=>nil, "created_at"=>Thu, 22 Jun 2017 17:37:03 UTC +00:00, "updated_at"=>Thu, 22 Jun 2017 17:37:42 UTC +00:00, "collected_pages_count"=>0, "collection_associations_count"=>0, "collection_type"=>nil, "default_sort"=>nil}
-    #
-    # New page:
-    #  => {"id"=>341038282, "collection_id"=>131053, "page_id"=>328601, "position"=>1, "created_at"=>Thu, 22 Jun 2017 19:29:42 UTC +00:00, "updated_at"=>Thu, 22 Jun 2017 19:29:50 UTC +00:00, "annotation"=>nil}
-    #
-    # And the CollectedPagesMedium:
-    #  => {"collected_page_id"=>6952043, "medium_id"=>12616266, "position"=>6952043}
-    #
-    # And CollectionAssociation
-    #  => #<CollectionAssociation id: 339945839, collection_id: 131049, position: 1, created_at: "2017-06-21 11:44:42", updated_at: "2017-06-21 11:44:42", associated_id: 131048, annotation: nil>
-
-    def save_old
-      start_time = Time.now
-
-      # Concept IDs:
-      concepts = TaxonConceptsFlattened.descendants_of(@id).
-        map { |f| f.taxon_concept_id }
-      concepts << @id # It should be in there, but juuuuust in case...
-      supercedures = TaxonConcept.where(id: concepts).
-        where("supercedure_id IS NOT NULL AND supercedure_id != 0").
-        pluck(:supercedure_id)
-      superceded = TaxonConcept.where(id: concepts).
-        where("supercedure_id IS NOT NULL AND supercedure_id != 0").
-        pluck(:id)
-      concepts = TaxonConcept.where(id: concepts).
-        where(published: true, vetted_id: @trusted).pluck(:id)
-      concepts += supercedures unless supercedures.empty?
-
-      # Sorry, I know this is cryptic, but... it's good Ruby, you should learn
-      # it!  :D
-      uri_types = Hash[*(TranslatedUriType.where(language_id: @english).all.
-        flat_map { |u| [u.uri_type_id, u.name] })]
-
-      toc_items = []
-      resources = {}
-
-      # Let's just get the slow part (traits) out of the way first, sigh:
-      concepts.each do |id|
-        puts(".. superceded: #{id}") && next if superceded.include?(id)
-        page_traits = PageTraits.new(id)
-        page_traits.populate
-        puts(".. NO TRAITS: #{id}") && next if page_traits.nil?
-        if page_traits.glossary
-          page_traits.glossary.each do |known_uri|
-            comment = known_uri.comment || ""
-            comment += "\nOntology Description: #{known_uri.ontology_information_url}" unless
-              known_uri.ontology_information_url.blank?
-            comment += "\nOntology Source: #{known_uri.ontology_source_url}" unless
-              known_uri.ontology_source_url.blank?
-            @terms[known_uri.uri] ||= {
-              uri: known_uri.uri,
-              is_hidden_from_overview: known_uri.exclude_from_exemplars,
-              is_hidden_from_glossary: known_uri.hide_from_glossary,
-              position: known_uri.position,
-              type: uri_types[known_uri.uri_type_id],
-              comment: comment,
-              name: known_uri.name,
-              section_ids: known_uri.toc_item_ids,
-              definition: known_uri.definition,
-              attribution: known_uri.attribution
-            }
-            toc_items += known_uri.toc_item_ids
+          page_ids += media_pages.keys
+          page_ids.uniq!
+          collections << {
+            id: collection.id,
+            name: collection.name,
+            description: collection.description,
+            # We're going to lose our icons, and I think that's okay...
+            created_at: collection.created_at,
+            updated_at: collection.updated_at
+            # We're going to lose the default_sort too... and, again: NBD.
+          }
+          page_map = {}
+          c_pages.each do |c_page|
+            page_map[c_page.collected_item_id] = c_page
           end
-        else
-          puts ".. NO GLOSSARY: #{id}"
-        end
-        traits = page_traits.instance_eval { @traits }
-        if traits
-          traits.each do |trait|
-            next unless trait.visible?
-            is_num = trait.value_name.is_numeric? && ! trait.predicate_uri.treat_as_string?
-            val_num = if is_num
-              if trait.value_name.is_float?
-                trait.value_name.to_f
-              else
-                trait.value_name
-              end
-            else
-              nil
-            end
-            metadata = []
-            trait.meta.each do |pred, vals|
-              vals.each do |val|
-                val_uri = val.is_a?(KnownUri) ? val.uri : nil
-                val_uri ||= val.is_a?(Hash) && val[:value].is_a?(KnownUri) ? val[:value].uri : nil
-                units = val.is_a?(Hash) && val[:units].is_a?(KnownUri) ? val[:units].uri : nil
-                units ||= val[:units] if val.is_a?(Hash) && val[:units]
-                literal = val[:value] if val.is_a?(Hash) && ! val[:value].is_a?(KnownUri)
-                literal ||= val unless val.is_a?(KnownUri)
-                metadata << {
-                  predicate: pred.is_a?(KnownUri) ? pred.uri : pred,
-                  value_uri: val_uri,
-                  value_literal: literal,
-                  units: units
-                }
-              end
-            end
-            resource = trait.resource && trait.resource.is_a?(Resource) ? trait.resource.id : nil
-            resources[resource] ||= true if  resource
-            @traits << {
-              page_id: id,
-              predicate: trait.predicate_uri.uri,
-              resource_id: resource,
-              resource_pk: trait.point.try(:id), # This is not "real", but it will do for testing.
-              association: trait.object_page.try(:id),
-              statistical_methods: trait.statistical_method? ? trait.statistical_method_names.join(", ") : nil,
-              value_uri: trait.value_uri.is_a?(KnownUri) ? trait.value_uri.uri : nil,
-              value_literal: trait.value_uri.is_a?(KnownUri) ? nil : trait.value_name,
-              value_num: val_num,
-              units: trait.units? ? trait.units_uri.uri : nil,
-              sex: trait.sex ? trait.sex_name : nil,
-              life_stage: trait.life_stage ? trait.life_stage_name : nil,
-              source_url: trait.resource ? nil : trait.source_url,
-              metadata: metadata
+          page_ids.each do |page_id|
+            created_at = page_map[page_id].try(:created_at) || Time.now
+            updated_at = page_map[page_id].try(:updated_at) || Time.now
+            annotation = page_map[page_id].try(:annotation) || media_annotations[page_id]
+            collected_pages << {
+              collection_id: collection.id,
+              page_id: page_id,
+              # Argh, we lose the position. :|
+              created_at: created_at,
+              updated_at: updated_at,
+              annotation: annotation
             }
           end
-        else
-          puts ".. NO TRAITS: #{id}"
-        end
-      end
-
-      # Entry IDs:
-      # NOTE: this will fail if it's missing, and that's fine:
-      native_node = HierarchyEntry.where(taxon_concept_id: @id,
-        hierarchy_id: @native).first
-      entry_ids = HierarchyEntry.where(taxon_concept_id: concepts,
-        published: true, vetted_id: @trusted, visibility_id: @visible).
-        pluck(:id)
-      entry_ids += native_node.ancestors.map(&:id)
-
-      # Aaaaand let's add the rest of the pages (no traits) for higher levels:
-      concepts += native_node.ancestors.map(&:taxon_concept_id)
-
-      hes = HierarchyEntry.where(id: entry_ids).
-        select([:id, :name_id, :rank_id, :hierarchy_id, :taxon_concept_id])
-      names = hes.map(&:name_id)
-      ranks = hes.map(&:rank_id)
-      hierarchies = hes.map(&:hierarchy_id)
-
-      # Synonyms of all sorts:
-      synonyms = Synonym.where(hierarchy_entry_id: entry_ids,
-        vetted_id: @trusted, published: true).pluck(:id)
-      names += Synonym.where(id: synonyms).pluck(:name_id)
-      names = names.uniq
-
-      canonical_forms = CanonicalForm.where(name_id: names).pluck(:id)
-
-      # First pass; only the taxa...
-      c1 = CollectionItem.where(collected_item_type:
-        "TaxonConcept", collected_item_id: concepts).
-        pluck(:collection_id).uniq
-      # Remove collections with too many items:
-      collections = Collection.where(id: c1).
-        where(["collection_items_count <= 100 AND special_collection_id IS NULL "\
-          "AND published = ?", true]).pluck(:id)
-      # Only the pages that are in our set of included pages...
-      collection_items = CollectionItem.where(collected_item_type:
-        "TaxonConcept", collected_item_id: concepts,
-        collection_id: collections).pluck(:id)
-      collection_items += CollectionItem.where(collection_id: collections).
-        where(["collected_item_type IN (?)", ["DataObject", "Collection"]]).
-        pluck(:id)
-
-      # Include all the collected images:
-      data_objects = CollectionItem.where(id: collection_items,
-        collected_item_type: "DataObject").pluck(:collected_item_id)
-
-      # These collections will be EMPTY, other than the name, but that's fine:
-      collections += CollectionItem.where(id: collection_items,
-        collected_item_type: "Collection").pluck(:collected_item_id)
-
-      resources = resources.keys # No longer need them indexed.
-      resources += Resource.where(hierarchy_id: hierarchies).pluck(:id)
-      partners = Resource.where(id: resources).pluck(:content_partner_id)
-
-      # NOTE we are NOT checking vetted/visible here (we want the hidden
-      # associations) ... ALSO that these are OBJECTS, not ids!:
-      dohes = DataObjectsHierarchyEntry.where(hierarchy_entry_id: entry_ids) ; 1
-      cdohes = CuratedDataObjectsHierarchyEntry.where(hierarchy_entry_id: entry_ids) ; 1
-      udos = UsersDataObject.where(taxon_concept_id: concepts) ; 1
-
-      users = cdohes.map(&:user_id) + udos.map(&:user_id)
-
-      data_objects += dohes.map(&:data_object_id) +
-        cdohes.map(&:data_object_id) +
-        udos.map(&:data_object_id) ; 1
-      data_objects.compact.uniq
-      articles = DataObject.where(id: data_objects, data_type_id: @article_id, published: true).
-        pluck(:id)
-      links = DataObject.where(id: data_objects, data_type_id: @link_id, published: true).
-        pluck(:id)
-      # maps = DataObject.where(id: data_objects, data_subtype_id: @map_id).
-      #   pluck(:id)
-
-      media = data_objects.dup
-      media -= articles
-      media -= links
-      # media -= maps
-
-      # SLOOOOOOOW query. NOTE these are whole objects, too:
-      agents_data_objects = AgentsDataObject.
-        where(data_object_id: data_objects).
-        select("agents_data_objects.*, data_objects.id, "\
-          "data_objects.data_type_id, agents.full_name, agents.homepage").
-        includes([:agent, :data_object]) ; 1
-      agents = agents_data_objects.map(&:agent_id).uniq
-      roles = agents_data_objects.map(&:agent_role_id).uniq
-
-      languages = DataObject.where(id: data_objects, published: true).pluck(:language_id) +
-        Synonym.where(id: synonyms).pluck(:language_id)
-      languages = languages.uniq
-      licenses = Resource.where(id: resources).pluck(:license_id) +
-        Resource.where(id: resources).pluck(:dataset_license_id) +
-        DataObject.where(id: data_objects, published: true).pluck(:license_id)
-      licenses = licenses.uniq
-
-      infos = DataObjectsInfoItem.where(data_object_id: articles).pluck(:info_item_id).uniq
-      toc_items += TocItem.where(id: InfoItem.where(id: infos).pluck(:toc_id)).pluck(:id)
-      toc_items += TocItem.where(id: toc_items.uniq).pluck(:parent_id).compact
-      toc_items = toc_items.uniq
-
-      # TODO: traits! Yeesh.  Traits.
-
-      TaxonConcept.where(id: concepts).includes(:taxon_concept_exemplar_image).
-        find_each do |concept|
-          medium_id = concept.taxon_concept_exemplar_image &&
-            concept.taxon_concept_exemplar_image.data_object_id
-          # NOTE: yes, this causes N queries and is inefficient. I don't want to
-          # add a relationship to make it possible to skip this. It's not THAT
-          # bad.
-          native_node = HierarchyEntry.where(taxon_concept_id: concept.id,
-            hierarchy_id: @native, published: true, vetted_id: @trusted,
-            visibility_id: @visible).pluck(:id).first
-          @pages << { id: concept.id, medium_id: medium_id,
-            moved_to_page_id: concept.supercedure_id,
-            native_node_id: native_node }
-        end
-
-      HierarchyEntry.where(id: entry_ids).
-        includes(hierarchy: :resource, name: :canonical_form).
-        order(:id).
-        find_each do |entry|
-          @nodes << { id: entry.id,
-            canonical_form: entry.name.try(:canonical_form).try(:string),
-            has_breadcrumb: @breadcrumb_rank_ids.include?(entry.rank_id),
-            page_id: entry.taxon_concept_id,
-            # NOTE: we have to fake a lack of parents for nodes where we don't
-            # have a parent; otherwise the import fails due to a missing parent.
-            parent_id: entry_ids.include?(entry.parent_id) ? entry.parent_id : nil,
-            rank_id: entry.rank_id,
-            resource_id: entry.try(:hierarchy).try(:resource).try(:id),
-            resource_pk: entry.identifier,
-            scientific_name: entry.name.try(:italicized),
-            source_url: entry.source_url }
-        end
-
-
-      TranslatedRank.where(rank_id: ranks, language_id: @english).
-        find_each do |trank|
-          @ranks << { id: trank.rank_id, name: trank.label } # treat_as calculated on import.
-        end
-
-      Resource.where(id: resources).includes(:hierarchy).find_each do |resource|
-        next if resource.hierarchy.nil?
-        @resources << {
-          dataset_license_id: resource.dataset_license_id,
-          dataset_rights_holder: resource.dataset_rights_holder,
-          dataset_rights_statement: resource.dataset_rights_statement,
-          description: resource.description,
-          has_duplicate_nodes: resource.hierarchy.complete,
-          id: resource.id,
-          is_browsable: resource.hierarchy.browsable,
-          last_publish_seconds: resource.last_harvest_seconds,
-          last_published_at: resource.harvested_at,
-          name: resource.title,
-          nodes_count: resource.hierarchy.hierarchy_entries_count,
-          notes: resource.notes,
-          partner_id: resource.content_partner_id,
-          url: resource.hierarchy.url
-        }
-      end
-
-      Synonym.where(id: synonyms).
-        where(["synonym_relation_id IN (?)", SynonymRelation.common_name_ids]).
-        includes(:name, :hierarchy_entry).find_each do |syn|
-          lang = syn.language_id
-          lang = @english if lang == 0
-          @vernaculars << {
-            id: syn.id,
-            # is_preferred: syn.preferred, # Really this needs to be handled on import.
-            is_preferred_by_resource: syn.preferred,
-            language_id: lang,
-            node_id: syn.hierarchy_entry_id,
-            page_id: syn.hierarchy_entry.try(:taxon_concept_id),
-            string: syn.name.try(:string),
-            trust: syn.vetted_id = @trusted ? :trusted : :untrusted
-          }
-        end
-
-      TranslatedSynonymRelation.where(synonym_relation_id:
-        Synonym.where(id: synonyms).pluck(:synonym_relation_id).uniq).
-        where(language_id: @english).find_each do |ts|
-          @taxonomic_statuses << {
-            id: ts.synonym_relation_id,
-            name: ts.label
-          }
-        end
-
-      Synonym.where(id: synonyms).
-        where(["synonym_relation_id NOT IN (?)", SynonymRelation.common_name_ids]).
-        includes(:hierarchy_entry, name: :canonical_form).find_each do |syn|
-          @scientific_names << {
-            canonical_form: syn.name.try(:canonical_form).try(:string),
-            id: syn.id,
-            is_preferred: syn.preferred,
-            italicized: syn.name.try(:italicized),
-            node_id: syn.hierarchy_entry_id,
-            page_id: syn.hierarchy_entry.try(:taxon_concept_id),
-            taxonomic_status_id: syn.synonym_relation_id
-          }
-        end
-
-      Collection.where(id: collections).find_each do |col|
-        # Note: No "list" view anymore:
-        @collections << {
-          collection_type: col.view_style_id == @gallery_id ? :gallery : :normal,
-          description: col.description,
-          id: col.id,
-          name: col.name
-        }
-      end
-
-      CollectionItem.where(id: collection_items,
-        collected_item_type: "TaxonConcept").find_each do |item|
-          @collected_pages << {
-            annotation: item.annotation,
-            collection_id: item.collection_id,
-            id: item.id,
-            page_id: item.collected_item_id,
-            position: item.id # Totally fake. :(
-          }
-        end
-
-      CollectionItem.where(id: collection_items,
-        collected_item_type: "Collection").find_each do |item|
-          @collection_associations << {
-            annotation: item.annotation,
-            collection_id: item.collection_id,
-            id: item.id,
-            associated_id: item.collected_item_id,
-            position: item.id # Totally fake. :(
-          }
-        end
-
-      collected_page_ids = {}
-      @collected_pages.each { |cp| collected_page_ids[cp[:page_id]] = cp }
-
-      pages_per_item = {}
-      CollectionItem.where(id: collection_items,
-        collected_item_type: "DataObject").find_each do |item|
-          # Yes, this is slow, but I want to be able to test these, sooo...
-          tc = DataObjectsTaxonConcept.
-            where(data_object_id: item.collected_item_id).
-            pluck(:taxon_concept_id).first
-
-          cp_id = if collected_page_ids.has_key?(tc)
-            collected_page_ids[tc][:id]
-          else
-            @collected_pages << {
-              annotation: "added via image",
-              collection_id: item.collection_id,
-              id: item.id,
-              page_id: tc,
-              position: item.id # Totally fake. :(
-            }
-            # Make sure we don't add the same page multiple times:
-            collected_page_ids[tc] = @collected_pages.last
-            item.id
+          media_pages.each do |taxon_id, medium_ids|
+            medium_ids.each do |medium_id|
+              collected_media << {
+                collected_page_id: taxon_id,
+                medium_id: medium_id
+                # Again, we lose position...
+              }
           end
-
-          pages_per_item[cp_id] ||= 0
-          pages_per_item[cp_id] += 1
-          # Maximum of 20 images per collected page!!! Sheesh. (There was one
-          # where damn near every image had been collected)
-          next if pages_per_item[cp_id] >= 21
-
-          @collected_pages_media << {
-            collected_page_id: cp_id, medium_id: item.collected_item_id,
-            position: item.id # fake
-          }
-        end
-
-      ContentPartner.where(id: partners).find_each do |cp|
-        shortest_name = cp.full_name[0..15]
-        shortest_name += "..." if cp.full_name.length > 16
-        @partners << {
-          admin_notes: cp.admin_notes,
-          description: cp.description,
-          full_name: cp.full_name,
-          short_name: cp.acronym || cp.display_name || shortest_name,
-          homepage_url: cp.homepage,
-          id: cp.id,
-          notes: cp.notes
-        }
-      end
-
-      he_ids = dohes.map(&:hierarchy_entry_id) +
-        cdohes.map(&:hierarchy_entry_id)
-      do_hes = {}
-      do_n_hes = {}
-      tcs = udos.map(&:taxon_concept_id)
-      HierarchyEntry.where(id: he_ids.uniq).find_each do |he|
-        do_hes[he.id] = he
-        tcs << he.taxon_concept_id
-      end
-      HierarchyEntry.where(hierarchy_id: @native, taxon_concept_id: tcs.uniq).
-        includes(:flat_ancestors).find_each do |he|
-          do_n_hes[he.taxon_concept_id] = he
-        end
-
-      dohes.each do |dohe|
-        type = get_type(dohe.data_object.data_type_id)
-        source_page_id = do_hes[dohe.hierarchy_entry_id].taxon_concept_id
-        trust = dohe.vetted_id == @trusted ? :trusted : :untrusted
-        hid = dohe.visibility_id != @visible
-        @page_contents << {
-          # association_added_by_user_id: _,
-          content_id: dohe.data_object_id,
-          content_type: type,
-          # is_duplicate: _,
-          is_hidden: hid,
-          # is_incorrect: _,
-          # is_low_quality: _,
-          # is_misidentified: _,
-          page_id: source_page_id,
-          source_page_id: source_page_id,
-          trust: trust
-        }
-        # PROPAGATION:
-        # Only media propagate (not articles, maps, or links):
-        next unless type == "Medium"
-        native_node = do_n_hes[source_page_id]
-        next unless native_node
-        native_node.flat_ancestors.each do |ancestor|
-          @page_contents << {
-            content_id: dohe.data_object_id,
-            content_type: type,
-            is_hidden: hid,
-            page_id: ancestor.taxon_concept_id,
-            source_page_id: source_page_id,
-            trust: trust
-          }
-        end
-      end
-
-      # Yes, massive redundancy, but it's not worth abstracting now.
-      cdohes.each do |dohe|
-        type = get_type(dohe.data_object.data_type_id)
-        source_page_id = do_hes[dohe.hierarchy_entry_id].taxon_concept_id
-        trust = dohe.vetted_id == @trusted ? :trusted : :untrusted
-        hid = dohe.visibility_id != @visible
-        dupl = false
-        incorr = false
-        lowq = false
-        misid = false
-        if trust == :untrusted
-          a = dohe.data_object.curator_activity_logs.
-            where(activity_id: Activity.untrusted).last
-          unless a.nil?
-            a.untrust_reasons.map { |r| r.label }.each do |lab|
-              case lab
-              when "misidentified"
-                misid = true
-              when "incorrect/misleading"
-                incorr = true
-              when "low quality"
-                lowq = true
-              when "duplicate"
-                dupl = true
-              end
-            end
-          end
-        elsif hid
-          a = dohe.data_object.curator_activity_logs.
-            where(activity_id: Activity.hide).last
-          unless a.nil?
-            a.untrust_reasons.map { |r| r.label }.each do |lab|
-              case lab
-              when "misidentified"
-                misid = true
-              when "incorrect/misleading"
-                incorr = true
-              when "low quality"
-                lowq = true
-              when "duplicate"
-                dupl = true
-              end
-            end
-          end
-        end
-        @page_contents << {
-          association_added_by_user_id: dohe.user_id,
-          content_id: dohe.data_object_id,
-          content_type: type,
-          is_duplicate: dupl,
-          is_hidden: hid,
-          is_incorrect: incorr,
-          is_low_quality: lowq,
-          is_misidentified: misid,
-          page_id: source_page_id,
-          source_page_id: source_page_id,
-          trust: trust
-        }
-        users << dohe.user_id if dohe.user_id
-        native_node = do_n_hes[source_page_id]
-        next unless native_node
-        native_node.flat_ancestors.each do |ancestor|
-          @page_contents << {
-            content_id: dohe.data_object_id,
-            content_type: type,
-            is_duplicate: dupl,
-            is_hidden: hid,
-            is_incorrect: incorr,
-            is_low_quality: lowq,
-            is_misidentified: misid,
-            page_id: ancestor.taxon_concept_id,
-            source_page_id: source_page_id,
-            trust: trust
-          }
-        end
-      end
-
-      udos.each do |udo|
-        type = get_type(udo.data_object.data_type_id)
-        source_page_id = udo.taxon_concept_id
-        @page_contents << {
-          association_added_by_user_id: udo.user_id,
-          content_id: udo.data_object_id,
-          content_type: type,
-          # is_duplicate: _,
-          is_hidden: false,
-          # is_incorrect: _,
-          # is_low_quality: _,
-          # is_misidentified: _,
-          page_id: source_page_id,
-          source_page_id: source_page_id,
-          trust: :trusted
-        }
-        users << udo.user_id if udo.user_id
-        native_node = do_n_hes[source_page_id]
-        next unless native_node
-        native_node.flat_ancestors.each do |ancestor|
-          @page_contents << {
-            content_id: udo.data_object_id,
-            content_type: type,
-            is_hidden: false,
-            page_id: ancestor.taxon_concept_id,
-            source_page_id: source_page_id,
-            trust: :trusted
-          }
-        end
-      end
-
-      # NOTE: too expensive to get joins to find the resource.
-      DataObject.where(id: articles, published: true).includes(:data_object_translation).
-        find_each do |dato|
-          has_cit = ! dato.bibliographic_citation.blank?
-          has_loc = false
-          has_loc = true if ! dato.location.blank?
-          has_loc = true if ! dato.spatial_location.blank?
-          has_loc = true if dato.latitude && dato.latitude != 0.0
-          has_loc = true if dato.longitude && dato.longitude != 0.0
-          has_loc = true if dato.altitude && dato.altitude != 0.0
-          if has_cit
-            @bibliographic_citations << {
-              id: dato.id,
-              body: dato.bibliographic_citation
+          col_associations.each do |assoc|
+            collection_associations << {
+              collection_id: collection.id,
+              # No position...
+              created_at: assoc.created_at,
+              updated_at: assoc.updated_at,
+              associated_id: assoc.collected_item_id,
+              annotation: assoc.annotation
             }
           end
-          if has_loc
-            @locations << {
-              altitude: dato.altitude == 0.0 ? nil : dato.altitude,
-              id: dato.id,
-              latitude: dato.latitude == 0.0 ? nil : dato.latitude,
-              location: dato.location,
-              longitude: dato.longitude == 0.0 ? nil : dato.longitude,
-              spatial_location: dato.spatial_location
-            }
-          end
-          # RIDICULOUS. ...But if it's missing, we have to fake something:
-          resource_id = dato.resource.id || 1 rescue 1
-          @articles << {
-            bibliographic_citation_id: has_cit ? dato.id : nil,
-            body: dato.description,
-            guid: dato.guid,
-            id: dato.id,
-            language_id: dato.language_id,
-            license_id: dato.license_id,
-            location_id: has_loc ? dato.id : nil,
-            name: dato.object_title,
-            owner: dato.owner, # Expensive. :(
-            resource_id: resource_id, # Also expensive.
-            resource_pk: dato.identifier,
-            rights_statement: dato.rights_statement,
-            source_url: dato.source_url
-          }
+          last if collections > 10 # TESTING
         end
-
-      DataObjectsInfoItem.where(data_object_id: articles).
-        includes(:info_item).find_each do |sec|
-          @content_sections << {
-            content_id: sec.data_object_id,
-            content_type: "Article",
-            section_id: sec.info_item.try(:toc_id)
-          }
-        end
-
-      # TODO: links ...I think we are going live without them, soooo... skipped!
-
-      # NOTE: I tried joining on HEvs here to find the resource ID and it was
-      # too slow, so I'm doing it one at a time.
-      DataObject.where(id: media, published: true).includes(:data_object_translation).
-        find_each do |dato|
-          has_cit = ! dato.bibliographic_citation.blank?
-          has_loc = false
-          has_loc = true if ! dato.location.blank?
-          has_loc = true if ! dato.spatial_location.blank?
-          has_loc = true if dato.latitude && dato.latitude != 0.0
-          has_loc = true if dato.longitude && dato.longitude != 0.0
-          has_loc = true if dato.altitude && dato.altitude != 0.0
-          if has_cit
-            @bibliographic_citations << {
-              id: dato.id,
-              body: dato.bibliographic_citation
-            }
-          end
-          if has_loc
-            @locations << {
-              altitude: dato.altitude == 0.0 ? nil : dato.altitude,
-              id: dato.id,
-              latitude: dato.latitude == 0.0 ? nil : dato.latitude,
-              location: dato.location,
-              longitude: dato.longitude == 0.0 ? nil : dato.longitude,
-              spatial_location: dato.spatial_location
-            }
-          end
-          thumb = dato.thumb_or_object
-          next unless thumb # Useless without an image...
-          # RIDICULOUS. ...But if it's missing, we have to fake something:
-          resource_id = dato.resource.id || 1 rescue 1
-          @media << {
-            base_url: thumb.sub(/_580_360[^\/]*$/, ""),
-            bibliographic_citation_id: has_cit ? dato.id : nil,
-            description: dato.description,
-            format: thumb.sub(/^.*_580_360\./, ""),
-            guid: dato.guid,
-            id: dato.id,
-            language_id: dato.language_id,
-            license_id: dato.license_id,
-            location_id: has_loc ? dato.id : nil,
-            name: dato.object_title,
-            owner: dato.owner,
-            resource_id: resource_id,
-            resource_pk: dato.identifier,
-            rights_statement: dato.rights_statement,
-            source_page_url: dato.object_url,
-            source_url: dato.source_url,
-            subclass: dato.data_subtype_id == @map_id ? :map : :image
-          }
-        end
-
-      agents_data_objects.each do |ado|
-        type = get_type(ado.data_object.data_type_id)
-        @attributions << {
-          content_id: ado.data_object_id,
-          content_type: type,
-          role_id: ado.agent_role_id,
-          url: ado.agent.try(:homepage),
-          value: ado.agent.try(:full_name)
-        }
-      end
-
-      TranslatedAgentRole.where(agent_role_id: roles, language_id: @english).
-        find_each do |role|
-          @roles << {
-            id: role.agent_role_id,
-            name: role.label
-          }
-        end
-
-      DataObjectsRef.where(data_object_id: media).all.each do |ref|
-        @references << {
-          referent_id: ref.ref_id,
-          parent_type: "Medium",
-          parent_id: ref.data_object_id
-        }
-      end
-
-      PageFeature.where(taxon_concept_id: concepts, map_json: true).
-        find_each do |map|
-          @occurrence_maps << {
-            page_id: map.taxon_concept_id,
-            url: "not_worth_it" # This would be a complex query; not worth it for tests...
-          }
-        end
-
-      DataObjectsRef.where(data_object_id: articles).each do |ref|
-        @references << {
-          referent_id: ref.ref_id,
-          parent_type: "Article",
-          parent_id: ref.data_object_id
-        }
-      end
-
-      referents = DataObjectsRef.where(data_object_id: data_objects).
-        pluck(:ref_id).uniq
-      Ref.where(id: referents, visibility_id: @visible, published: true).
-        find_each do |ref|
-          @referents << {
-            body: ref.full_reference
-          }
-        end
-
-      Language.where(id: languages).find_each do |lang|
-        @languages << {
-          id: lang.id,
-          code: lang.iso_639_2,
-          group: lang.iso_639_1,
-          can_browse_site: ! lang.activated_on.nil?
-        }
-      end
-
-      License.where(id: licenses).find_each do |lic|
-          @licenses << {
-            can_be_chosen_by_partners: lic.show_to_content_partners,
-            icon_url: lic.logo_url,
-            id: lic.id,
-            name: lic.title,
-            source_url: lic.source_url,
-          }
-        end
-
-      TranslatedTocItem.where(table_of_contents_id: toc_items,
-        language_id: @english).includes(:toc_item).
-        find_each do |tsec|
-          name = tsec.label.try(:downcase)
-          name ||= "unknown"
-          name = name.gsub(/\s+/, "_")
-          @sections << {
-            id: tsec.table_of_contents_id,
-            name: name,
-            parent_id: tsec.toc_item.try(:parent_id),
-            position: tsec.toc_item.try(:view_order)
-          }
-        end
-
-      User.where(id: users.uniq).find_each do |user|
-        @users << {
-          id: user.id,
-          username: user.username,
-          name: user.full_name,
-          tag_line: user.tag_line,
-          bio: user.bio,
-          is_admin: user.is_admin?,
-          api_key: user.api_key
-        }
-      end
-
-      TaxonConceptExemplarImage.where(data_object_id: media).find_each do |img|
-        # No need if we didn't get that page:
-        next unless concepts.include?(img.taxon_concept_id)
-        @page_icons << {
-          page_id: img.taxon_concept_id,
-          medium_id: img.data_object_id
-          # NOTE: we really want a user id here, but, alas, that's not worth
-          # getting (where it's even possible)... :(
-        }
-      end
-
-      # NOTE that once you've run this, YOU DO NOT WANT TO RUN A SERVER IN THE
-      # SAME THREAD! This should only be a task or a console thing.  ;)
-      KnownUri.class_eval do
-        def to_json(foo = nil)
-          uri.to_s
-        end
-      end
-
-      name = Rails.root.join("public", "clade-#{@id}.json").to_s
-      filt_name = Rails.root.join("public", "clade-filtered-#{@id}.json").to_s
+      # Note that the above was "normally" extra-nested because of a multi-line query.
+      name = Rails.root.join("public", "collections.json").to_s
       File.unlink(name) if File.exist?(name)
-      File.unlink(filt_name) if File.exist?(filt_name)
-      summary = "Exporting Clade #{@id}: pages: #{@pages.size}, "\
-        "traits: #{@traits.size}, media: #{@media.size} -> #{name}"
+      summary = "Exporting Collections: #{@collections.size}, "\
+        "collected_pages: #{@collected_pages.size}, "\
+        "collected_media: #{@collected_media.size}, "\
+        "collection_associations: #{@collection_associations.size} "
       puts summary
       EOL.log(summary, prefix: ".")
+      data = {
+        collections: collections,
+        collected_pages: collected_pages,
+        collected_media: collected_media,
+        collection_associations: collection_associations
+      }
       contents = JSON.pretty_generate(data)
       File.open(name, "w") do |f|
         f.puts(contents)
       end
       File.chmod(0644, name)
-      # TESTING:
-      contents.tr("\u0000-\u001f\u007f\u2028",'')
-      contents.gsub(/": (http:[^,]*)(,?)\s*$/, "\": \"\\1\"\\2")
-      File.open(filt_name, "w") do |f|
-        f.puts(contents)
-      end
-      File.chmod(0644, name)
       puts "\nDone. Took #{((Time.now - start_time) / 1.minute).round} minutes."
-    end
-
-    def data
-      {
-        articles: @articles,
-        attributions: @attributions,
-        bibliographic_citations: @bibliographic_citations,
-        collections: @collections,
-        collected_pages: @collected_pages,
-        collected_pages_media: @collected_pages_media,
-        collection_associations: @collection_associations,
-        content_sections: @content_sections,
-        curations: @curations,
-        languages: @languages,
-        licenses: @licenses,
-        links: @links,
-        locations: @locations,
-        media: @media,
-        nodes: @nodes,
-        occurrence_maps: @occurrence_maps,
-        pages: @pages,
-        page_contents: @page_contents,
-        page_icons: @page_icons,
-        partners: @partners,
-        ranks: @ranks,
-        references: @references,
-        referents: @referents,
-        resources: @resources,
-        roles: @roles,
-        scientific_names: @scientific_names,
-        sections: @sections,
-        taxonomic_statuses: @taxonomic_statuses,
-        terms: @terms,
-        traits: @traits,
-        users: @users,
-        vernaculars: @vernaculars
-      }
-    end
-
-    def get_type(data_type_id)
-      case data_type_id
-      when @article_id
-        "Article"
-      when @map_id
-        "Map"
-      when @link_id
-        "Link"
-      else
-        "Medium"
-      end
     end
   end
 end

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anakmalaysia
+# Author: Jeluang Terluang
 # Author: Pizza1016
 ---
 ms:
@@ -1223,7 +1224,7 @@ ms:
       subject: Pengguna EOL, %{user_full_name} memohon kutipan paksa untuk sumber
         %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}
       message: |-
-        Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon kutipan paksa untuk sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}. Butiran-butirannya adalah seperti berikut:
+        Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon kutipan yand dimohon untuk sumber %{resource_title} yang dipunyai rakan kongsi kandungan, %{partner_full_name}. Butiran-butirannya adalah seperti berikut:
 
 
         Pengguna: %{user_full_name}
@@ -1241,7 +1242,7 @@ ms:
       subject: Pengguna EOL, %{user_full_name} memohon promosi hierarki untuk sumber
         %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}
       message: |-
-        Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon supaya hierarki yang dikaitkan dengan sumber %{resource_title} yang milik rakan kongsi kandungan, %{partner_full_name}, dipromosikan (diterbitkan) kepada hierarki yang boleh dilayari di EOL. Butiran-butirannya adalah seperti berikut:
+        Ini merupakan pemberitahuan sistem EOL untuk Kumpulan Halaman Spesies. Pengguna %{user_full_name} memohon supaya hierarki yang dikaitkan dengan sumber %{resource_title} yang dipunyai rakan kongsi kandungan, %{partner_full_name}, dipromosikan (diterbitkan) kepada hierarki yang boleh dilayari di EOL. Butiran-butirannya adalah seperti berikut:
 
         Pengguna: %{user_full_name}
         E-mel: %{user_email}
@@ -1685,7 +1686,7 @@ ms:
           tweet_text: Nama2 umum %{scientific_name} spt yg dikelaskan oleh %{hierarchy_provider}
         meta_description: Nama-nama umum bagi %{scientific_name}.
         meta_description_with_common_name: Nama saintifik %{preferred_common_name}
-          adalah %{scientific_name}. Ketahui nama-nama umum lain bagi %{scientific_name}.
+          ialah %{scientific_name}. Ketahui nama-nama umum lain bagi %{scientific_name}.
         meta_keywords: Nama-Nama Umum %{scientific_name}
         meta_keywords_with_common_name: Nama-Nama Umum %{scientific_name}, Nama Saintifik
           %{preferred_common_name}
@@ -2391,13 +2392,13 @@ ms:
     atribut 'sort_field' iaitu rentetan bekalan pengguna yang merupakan anotasi khas
     pada perkara koleksi. Ia mungkin didatangkan dalam sebarang bentuk rentetan, tetapi
     jika merupakan tarikh, maka ia harus mengikut format TTTT-BB-HH. Perkara takson
-    akan mengandungi 'richness_score'. Richness (Kekayaan) adalah metrik yang merupakan
+    akan mengandungi 'richness_score'. Richness (Kekayaan) ialah metrik yang merupakan
     nombor bulat dari 0 hingga 100; makin besar nombor itu, makin kaya isi kandungan
-    halaman berkenaan dari pelbagai sumber. Baca selanjutnya tentang kekayaan takson
-    pada tab kemaskini halaman takson, cth. %{richness_url}.
+    halaman berkenaan daripada pelbagai sumber. Baca selanjutnya tentang kekayaan
+    takson pada tab kemas kini halaman takson, cth. %{richness_url}.
   a_pipe_delimited_list_of_licenses: senarai lesen terasing tanda paip | atau 'all'
     untuk mendapatkan objek-objek di bawah sebarang lesen. Semua lesen yang bersingkatan
-    cc- adalah lesen %{creative_commons_link}. Kunjungi laman mereka untuk maklumat
+    cc- ialah lesen %{creative_commons_link}. Kunjungi laman mereka untuk maklumat
     lanjut tentang pelbagai lesen yang ditawarkan.
   a_pipe_delimited_list_of_spm_info_item_subject_names: '''overview'' untuk memulangkan
     teks intisari (jika ada), senarai senarai nama senarai %{subjects_text} (cth.
@@ -2800,7 +2801,7 @@ ms:
   content_partner_resource_show_link_back_to: kembali ke sumber
   content_partner_resource_show_subheader: Butiran untuk sumber <em>%{resource_title}</em>
   content_partner_resource_status_update_illegal_transition_error: Maaf, status semasa
-    sumber %{resource_title} adalah %{current_resource_status} dan tidak boleh diubah
+    sumber %{resource_title} ialah %{current_resource_status} dan tidak boleh diubah
     kepada %{requested_resource_status}.
   content_partner_resource_status_update_successful_notice: Status sumber %{resource_title}
     berjaya dikemaskinikan kepada %{resource_status}.
@@ -2994,14 +2995,14 @@ ms:
   dato_new_edit_user_text_form_tip: Rencana anda yang lengkap akan diposkan kepada
     halaman takson. Jika anda bukan kurator, ia akan ditandai sebagai "belum diperiksa"
     sehingga dikaji oleh kurator. Anak bab, teks, bahasa dan lesen adalah wajib (%{required_icon}),
-    manakala semua ruangan lain tidak wajib. Jika anda memilih lesen CC-BY (Attribution),
+    manakala semua ruangan lain tidak wajib. Jika anda memilih lesen CC BY (Attribution),
     sila sertakan pemegang hak atau biarkan kosong untuk menggunakan nama penuh anda.
     Lesen Domain Awam tidak memerlukan pemegang hak. Untuk bantuan selanjutnya, baca
     <a href="%{add_article_help_url}">bantuan menambah rencana</a>.
   dato_create_user_text_missing_taxon_id_exception: Teks DataObject atau UsersDataObject
-    tidak dapat dihasilkan jika id taksonnya adalah nil.
+    tidak dapat dihasilkan jika id taksonnya ialah nil.
   dato_create_user_text_missing_user_exception: Teks DataObject atau UsersDataObject
-    tidak dapat dihasilkan jika id taksonnya adalah nil.
+    tidak dapat dihasilkan jika id taksonnya ialah nil.
   dato_update_users_text_not_owner_exception: Hanya pengarang asal objek teks ini
     boleh menyuntingnya.
   dato_edit_text_page_description: Terima kasih kerana menyumbangkan kepakaran anda
@@ -3171,14 +3172,14 @@ ms:
     kepada EOL oleh rakan kongsi kandungan yang menyumbang. Rakan kongsi kandungan
     itu dipetik dalam unsur ejen pertama dan memegang peranan 'rakan kongsi'.
   given_the_vast_number: Disebabkan jumlah nama saintifik dan am yang begitu banyak
-    (hampir 20 juta kesemuanya), adalah sukar untuk memberi pengguna apa sebenarnya
-    species yang dicari-carinya. Misalnya, terdapat beberapa spesies burung yang bernama
-    Robin (American Robin, Alpine Robin, Smoky Robin), apatah lagi ada spesies-spesies
-    ikan yang juga bergelar Robin, di samping ahli taksonomi bernama Robin yang menamai
-    puluhan spesies. Kami telah menyertakan parameter 'tepat' untuk memulangkan hasil-hasil
+    (hampir 20 juta kesemuanya), adalah sukar untuk memberi pengguna species yang
+    benar-benar dicari-carinya. Misalnya, terdapat beberapa spesies burung yang bernama
+    Robin (American Robin, Alpine Robin, Smoky Robin), dan spesies-spesies ikan yang
+    juga bergelar Robin, di samping ahli taksonomi bernama Robin yang menamai puluhan
+    spesies. Kami telah menyertakan parameter 'tepat' untuk memulangkan hasil-hasil
     yang sepadan dengan seluruh istilah carian sahaja, tetapi kami tidak boleh menjamin
     bahawa takson-takson yang dipulangkan itu merupakan takson-takson yang ingin dicari.
-    Kami sentiasa cuba mempertingkat keberkaitan hasil carian kami, jadi anda boleh
+    Kami sentiasa cuba mempertingkatkan keberkaitan hasil carian kami, jadi anda boleh
     mengharapkan peningkatan dalam susun atur carian pada masa hadapan yang terdekat.
   gives_access_to_a_single_hierarchy_indexed_by_eol: memberikan akses kepada suatu
     hierarki yang diindeks oleh EOL serta hubungan-hubungan dalamannya
@@ -3232,7 +3233,9 @@ ms:
   return_content_by_vettedness: Jika 'vetted' diberi nilai '1', maka hanya kandungan
     yang dipercayai akan dipulangkan. Jika 'vetted' diberi nilai '1', maka hanya kandungan
     yang dipercayai dan belum diperiksa akan dipulangkan (bukan kandungan yang tidak
-    dipercayai). Yang asali adalah mengembalikan semua kandungan.
+    dipercayai). Jika 'vetted' diberi nilai '3', maka hanya kandungan yang belum diperiksa
+    akan dipulangkan. Jika 'vetted' diberi nilai '4', maka hanya kandungan yang tidak
+    dipercayai akan dipulangkan. Yang asali ialah mengembalikan semua kandungan.
   image: Gambar
   image_is_no_longer_available: Gambar sudah tiada lagi
   image_map_from: peta dari
@@ -3280,7 +3283,7 @@ ms:
   item_type_taxon: Takson
   item_type_video: Video
   item_type_article_assistive: Perkara ini ialah rencana
-  item_type_collection_assistive: Perkara ini adalah koleksi
+  item_type_collection_assistive: Perkara ini ialah koleksi
   item_type_community_assistive: Perkara ini ialah komuniti
   item_type_image_assistive: Perkara ini ialah gambar
   item_type_person_assistive: Perkara ini ialah ahli
@@ -3543,10 +3546,10 @@ ms:
   no_user_submitted_data_objects: Tiada objek data serahan pengguna yang berpada dengan
     kriteria carian anda.
   nucleotide_sequences: Jujukan Nukleotida
-  nucleotide_sequences_ncbi_mission: Misi <a href="%{ncbi_link}">National Center for
-    Biotechnology Information</a> adalah untuk mengembangkan teknologi maklumat baru
-    untuk membantu pemahaman proses molekul dan genetik asas yang menentukan kesihatan
-    dan penyakit.
+  nucleotide_sequences_ncbi_mission: Misi <a rel="nofollow" href="%{ncbi_link}">National
+    Center for Biotechnology Information</a> adalah untuk mengembangkan teknologi
+    maklumat baru untuk membantu pemahaman proses molekul dan genetik asas yang menentukan
+    kesihatan dan penyakit.
   nucleotide_sequences_ncbi_database: Pangkalan data <a href="%{ncbi_taxonomy_link}">NCBI
     Taxonomy</a> mengandungi nama-nama bagi semua hidupan yang diwakili dalam pangkalan
     data genetik dengan sekurang-kurangnya satu jujukan protein atau nukleotida.
@@ -3612,7 +3615,7 @@ ms:
     ada maklumat dikaji atau tidak</li></ul></p><p>Jika halaman itu sudah agak banyak
     multimedia atau teks pun, menambah banyak lagi tidak akan meningkatkan Markah
     Kekayaan.</p><p>Markah Kekayaan adalah dari 0 hingga 100. Jangan bimbang, perbezaan
-    beberapa perkara tidaklah begitu penting. Dari masa ke semasa, kami boleh mengubah
+    beberapa perkara tidaklah begitu penting. Dari semasa ke semasa, kami boleh mengubah
     cara pengiraan markah agar lebih mencerminkan pengalaman anda di tapak ini. Beritahu
     kami pendapat anda dengan meninggalkan komen pada halaman-halaman yang anda rasa
     kami tersilap pertimbangan.</p><h5>Gambar yang Dipercayai</h5><p>Termasuk semua
@@ -3631,9 +3634,10 @@ ms:
     Tidak termasuk rencana-rencana pada halaman-halaman yang muncul dalam pengelasan
     di bawah halaman ini.</p><h5>Rencana yang Belum Diperiksa</h5><p>Termasuk semua
     rencana teks yang belum diperiksa pada tab butiran dan beberapa rencana pada tab
-    sumber. Termasuk rencana-rencana teks ng disumbangkan terus kepada EOL oleh ahli-ahlinya
-    ataupun Wikipedia yang menunggu pemeriksaan oleh kurator EOL. Tidak termasuk rencana-rencana
-    pada halaman-halaman yang muncul dalam pengelasan di bawah halaman ini.</p>
+    sumber. Termasuk rencana-rencana teks yang disumbangkan terus kepada EOL oleh
+    ahli-ahlinya ataupun Wikipedia yang menunggu pemeriksaan oleh kurator EOL. Tidak
+    termasuk rencana-rencana pada halaman-halaman yang muncul dalam pengelasan di
+    bawah halaman ini.</p>
   pages_curator_section_link: Kurator
   pages_admin_section_link: Penyelia
   pages_method_description: mengambil pengenal pasti halaman EOL dan memulangkan nama
@@ -4085,7 +4089,7 @@ ms:
   users_form_curation_header: Kelayakan kurator
   users_form_profile_info_header: Maklumat profil umum
   users_form_tip: Semua pengguna dikehendaki mempunyai nama pengguna. Butir-butir
-    lain yang ditandai sebagai dikehendaki %{required_icon} adalah pilihan untuk pengguna
+    lain yang ditandai sebagai dikehendaki %{required_icon} ialah pilihan untuk pengguna
     am tetapi dikehendaki untuk kurator.
   users_member_of_count_communities: Ahli %{count} komuniti
   users_my_info_header: Maklumat saya

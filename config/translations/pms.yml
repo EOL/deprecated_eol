@@ -6438,4 +6438,26 @@ pms:
   select_colon: 'Selessioné:'
   select_topic: Për piasì, ch'a serna n'argoment
   selected_language_advisory_information: Costa-sì a l'é la lenga selessionà atualman.
+  selected_items: Element selessionà
+  send_contact_email: Mandé un mëssagi ëd contat
+  send_email_colon: 'Mandé un mëssagi:'
+  send: Mandé
+  sent_invitations_to_users:
+    one: N'anvit a l'é stàit mandà a %{users}.
+    other: Dj'anvit a son ëstàit mandà a %{users}.
+  sep_emails_with_commas_note: (ch'a separa j'adrësse ëd pòsta eletrònica mùltiple
+    con dle còme)
+  server_ip_address: Adrëssa IP dël servent
+  set_as_exemplar: Definì 'me model
+  share_a_collection: Partagé na colession
+  show: Smon-e
+  show_all_other_classifications_with_count:
+    one: Show %{count} àutra classificassion nen navigàbil
+    other: Show %{count} àutre classificassion nen navigàbij
+  show_data_from_all_content_partners: Gavé ël filtr ëd classificassion
+  show_email_message_area: '[smon-e la zòna ëd mëssagi ëd pòsta eletrònica]'
+  show_full_tree: smon-e l'erbo complet...
+  show_in_overview: smon-e an previsualisassion
+  show_more_row_data_link: ëd pi
+  show_status_message: Smon-e ël mëssagi dë statù
 ...

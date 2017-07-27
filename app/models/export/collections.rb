@@ -1,14 +1,6 @@
 module Export
   class Collections
     def self.save
-      Export::Clade.new.save
-    end
-
-    def initialize(id)
-      # Errr...
-    end
-
-    def save
       start_time = Time.now
       resource_collection_ids = Resource.pluck(:collection_id).uniq
       resource_collection_ids += Resource.pluck(:preview_collection_id).uniq
@@ -71,6 +63,7 @@ module Export
                 medium_id: medium_id
                 # Again, we lose position...
               }
+            end
           end
           col_associations.each do |assoc|
             collection_associations << {

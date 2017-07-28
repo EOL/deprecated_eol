@@ -51,7 +51,8 @@ module Export
             updated_at = page_map[page_id].try(:updated_at) || Time.now
             annotation = page_map[page_id].try(:annotation)
             annotation ||= ""
-            annotation += media_annotations[page_id].join("; ")
+            annotation += media_annotations[page_id].join("; ") if
+              media_annotations[page_id]
             collected_pages << {
               collection_id: collection.id,
               page_id: page_id,

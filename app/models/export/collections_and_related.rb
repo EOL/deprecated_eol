@@ -21,12 +21,15 @@ module Export
           page_ids = c_pages.pluck(:collected_item_id).uniq.compact
           # Now we have to add pages where the media need them:
           media_pages = {}
+          media_annotations = {}
           media.each do |medium|
             # This will be slow. I don't care. Not enough to worry.
             tid = medium.collected_item.try(:associations).try(:first).
               try(:taxon_concept_id)
             media_pages[tid] ||= []
             media_pages[tid] << medium.id
+            media_annotations[tid] ||= []
+            media_annotations[tid] << medium.annotation
           end
           page_ids += media_pages.keys
           page_ids.uniq!
@@ -46,7 +49,9 @@ module Export
           page_ids.each do |page_id|
             created_at = page_map[page_id].try(:created_at) || Time.now
             updated_at = page_map[page_id].try(:updated_at) || Time.now
-            annotation = page_map[page_id].try(:annotation) || media_annotations[page_id]
+            annotation = page_map[page_id].try(:annotation)
+            annotation ||= ""
+            annotation += media_annotations[page_id].join("; ")
             collected_pages << {
               collection_id: collection.id,
               page_id: page_id,

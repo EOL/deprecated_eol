@@ -1,5 +1,5 @@
 module Export
-  class Collections
+  class CollectionsAndRelated
     def self.save
       start_time = Time.now
       resource_collection_ids = Resource.pluck(:collection_id).uniq

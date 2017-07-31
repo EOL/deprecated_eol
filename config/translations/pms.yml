@@ -6460,4 +6460,18 @@ pms:
   show_in_overview: smon-e an previsualisassion
   show_more_row_data_link: ëd pi
   show_status_message: Smon-e ël mëssagi dë statù
+  show_tasks: smon-e ij travaj
+  show_warning_message: Smon-e ël mëssagi d'avertiment
+  showing_all_error_logs: Smon-e <b>tuti j'eror</b>
+  showing_error_logs_from_date: Smon-e j'error da <b>%{date}</b>
+  showing_all_harvest_logs: Smon-e <b>tute le cujìe</b>
+  showing_harvest_logs_from_date: Smon-e le cujìe da <b>%{date}</b>
+  shown_to_the_user_parens: (smonù a l'utent)
+  shown_to_user_as_the_title_of_page: smonù a l'utent coma tìtol ëd la pàgina
+  sign_in: Rintré ant ël sistema
+  sign_in_remember_me_disallowed_for_admins_notice: Për rason ëd sigurëssa, j'aministrator
+    a peulo nen dovré la fonsionalità Viseve ëd me.
+  sign_in_successful_notice: Rintrà për da bin ant ël sistema.
+  sign_in_unsuccessful_error: Falì a intré ant ël sistema. Stranòm, adrëssa ëd pòsta
+    eletrònica o ciav nen giust.
 ...

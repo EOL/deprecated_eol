@@ -83,7 +83,6 @@ module Export
                 annotation: assoc.annotation
               }
             end
-            raise "quitting" if collections.size > 10 # TESTING
           end
         # Note that the above was "normally" extra-nested because of a multi-line query.
       ensure
@@ -91,7 +90,7 @@ module Export
         File.unlink(name) if File.exist?(name)
         summary = "Exporting Collections: #{collections.size}, "\
           "collected_pages: #{collected_pages.size}, "\
-          "collected_media: #{collected_media.size}, "\
+          "collected_pages_media: #{collected_media.size}, "\
           "collection_associations: #{collection_associations.size} "
         puts summary
         EOL.log(summary, prefix: ".")

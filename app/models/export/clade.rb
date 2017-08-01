@@ -118,6 +118,7 @@ module Export
         if traits
           traits.each do |trait|
             next unless trait.visible?
+            next if trait.point.untrusted?
             is_num = trait.value_name.is_numeric? && ! trait.predicate_uri.treat_as_string?
             val_num = if is_num
               if trait.value_name.is_float?

@@ -1,4 +1,7 @@
 # This is a user's notification settings, really.  Might have been a better name for this, in retrospect.
+#
+# Test with:
+# PendingNotification.create(user_id: 1, notification_frequency_id: 5, target: Comment.last, reason: 'auto_email_after_curation')
 class Notification < ActiveRecord::Base
   belongs_to :user
   has_many :pending_notifications

@@ -14,6 +14,12 @@ module Export
         Collection.where(published: true, special_collection_id: nil).
           where(["id NOT IN (?)", resource_collection_ids.compact]).
           find_each do |collection|
+            if collections.size % 10 == 0
+              puts ".. #{collections.size} collections, "\
+                "#{collected_pages.size} pages, "\
+                "#{collected_media.size} media, "\
+                "#{collection_associations.size} associations."
+            end
             c_pages = CollectionItem.where(collection_id: collection.id,
               collected_item_type: "TaxonConcept")
             media = CollectionItem.where(collection_id: collection.id,
@@ -86,7 +92,7 @@ module Export
           end
         # Note that the above was "normally" extra-nested because of a multi-line query.
       ensure
-        name = Rails.root.join("public", "collections.json").to_s
+        name = Rails.root.join("log", "collections.json").to_s
         File.unlink(name) if File.exist?(name)
         summary = "Exporting Collections: #{collections.size}, "\
           "collected_pages: #{collected_pages.size}, "\

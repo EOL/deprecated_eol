@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: 102orion
 # Author: Alex00728
+# Author: CYAN
 # Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
@@ -2846,11 +2847,15 @@ ko:
           분류를 이동했습니다.
       unlock:
         merge_of_an_unknown_taxon_unlocked: 최근에 요청한 문서 병합을 완료했지만 문서를 찾을 수 없습니다.
-        merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다.
-        merge_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 문서 병합을 완료했습니다.'
+        merge_of_it_unlocked: 이 문서에 최근에 요청한 병합을 완료했습니다; 이 페이지는 다시 색인되고 있으며, 완료되기까지
+          최대 25시간이 소요됩니다.
+        merge_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 문서 병합을 완료했습니다; 이 페이지는
+          다시 색인되고 있으며, 완료되기까지 최대 25시간이 소요됩니다.'
         move_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 이동을 완료했지만 문서를 찾을 수 없습니다.
-        move_of_it_unlocked: 이 문서에 최근에 요청한 분류 이동을 완료했습니다.
-        move_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다.'
+        move_of_it_unlocked: 이 문서에 최근에 요청한 분류 이동을 완료했습니다; 이 페이지는 다시 색인되고 있으며, 완료되기까지
+          최대 25시간이 소요됩니다.
+        move_of_taxon_unlocked: '"%{taxon}" 분류에 대해 최근에 요청한 분류 이동을 완료했습니다; 이 페이지는 다시
+          색인되고 있으며, 완료되기까지 최대 25시간이 소요됩니다.'
         split_of_an_unknown_taxon_unlocked: 최근에 요청한 분류 나누기를 완료했지만 문서를 찾을 수 없습니다.
         split_of_it_unlocked: 이 문서에 최근에 요청한 분류 나누기를 완료했고 분류를 <a href='%{to}'>자신의 문서</a>로
           이동했습니다; 문서는 이제 다시 색인되고 있으며 완료하는데 25시간이 필요합니다.
@@ -3223,7 +3228,7 @@ ko:
   cancel_split: 취소
   cannot_be_associated_with_both_a_user_and_a_community: 사용자와 공동체 모두 연결할 수 없습니다
   cannot_be_empty: 비워둘 수 없습니다.
-  cannot_create_collection_item_from_class_error: '%{klass}에서 모음집 항목을 만들 수 없습니다.'
+  cannot_create_collection_item_from_class_error: '%{klass} 타입에서 모음집 항목을 만들 수 없습니다.'
   cannot_create_community_from_watch_collection_error: 주시문서 목록에서 공동체를 만들 수 없습니다.
   cannot_curate_association_in_preview_mode: '%{name}(으)로 연관은 수확하고 나서 미리 보고 있기 때문에
     큐레이트할 수 없습니다.'
@@ -3272,7 +3277,7 @@ ko:
     나서 다른 분류는 새 문서로 이동할 수 있습니다
   classifications_summary_header_with_count:
     one: 분류 %{count}개 찾음
-    zero: 분류가 EOL에 정상적으로 보이지 않음
+    zero: 분류가 해당 분류군에 존재하지 않음
     other: 분류 %{count}개 찾음
   classifications_with_count:
     one: 분류 %{count}개
@@ -4136,8 +4141,8 @@ ko:
   image_title_without_taxa: 알 수 없는 분류의 그림
   images: 그림
   images_with_count:
-    one: 그림 %{count}개
-    other: 그림 %{count}개
+    one: 이미지 %{count}개
+    other: 이미지 %{count}개
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
   import_once: 한 번에 가져오기

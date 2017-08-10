@@ -6474,4 +6474,7 @@ pms:
   sign_in_successful_notice: Rintrà për da bin ant ël sistema.
   sign_in_unsuccessful_error: Falì a intré ant ël sistema. Stranòm, adrëssa ëd pòsta
     eletrònica o ciav nen giust.
+  sign_out: Seurte dal sistema
+  site_cms: Sit CMS
+  site_information: Anformassion an sël sit
 ...

@@ -2,6 +2,14 @@
 class Background
   SIZE_LIMIT = 25_000
   class << self
+    def send_new_user_emails
+      users = User.where(["validation_code = ? AND created_at > ?", "", 1.hour.ago])
+      users.each do |user|
+        url =  "http://eol.org/users/#{user.id}/verify/#{user.validation_code}"
+        Notifier.user_verification(user, url).deliver
+      end
+    end
+
     def size(queue)
       Resque.size(queue)
     end

@@ -1,6 +1,7 @@
 # Messages for Danish (dansk)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Joedalton
 # Author: Tjernobyl
 ---
 da:
@@ -64,10 +65,17 @@ da:
   translated_contact_subjects-title-contact_subject_id-24: Medlemskab og registrering
   translated_contact_subjects-title-contact_subject_id-25: Vilkår for brug og licensering
   translated_contact_subjects-title-contact_subject_id-26: Læring og uddannelse
+  translated_contact_subjects-title-contact_subject_id-27: Bliv en indholdspartner
   translated_contact_subjects-title-contact_subject_id-30: Foretag en rettelse (stave-
     og grammatikkontrol, billeder, information)
   translated_contact_subjects-title-contact_subject_id-31: Bidrag med billeder, videoer
     eller lyde
+  translated_contact_subjects-title-contact_subject_id-32: Medieforespørgsler (interview,
+    pressespørgsmål, logoforespørgsler)
+  translated_contact_subjects-title-contact_subject_id-33: Giv et finansielt bidrag
+  translated_contact_subjects-title-contact_subject_id-34: Tekniske spørgsmål (problemer
+    med søgninger, hjemmesidefunktionalitet)
+  translated_contact_subjects-title-contact_subject_id-35: Generel tilbagemelding
   translated_content_partner_statuses-label-content_partner_status_id-1: Ventende
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkiveret
@@ -79,25 +87,32 @@ da:
   translated_data_types-label-data_type_id-3: Tekst
   translated_data_types-label-data_type_id-4: Video
   translated_data_types-label-data_type_id-5: GBIF-billede
+  translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Ingen rettigheder forbeholdes
   translated_licenses-description-license_id-29: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-2: '&#169; Alle rettigheder reserveret'
   translated_licenses-description-license_id-30: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-31: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-32: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-33: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-34: Offentlig ejendom
+  translated_licenses-description-license_id-35: Offentlig ejendom
   translated_licenses-description-license_id-36: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-37: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-38: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-39: Offentlig ejendom
   translated_licenses-description-license_id-3: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-42: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-43: Licens er ikke relevant
   translated_licenses-description-license_id-4: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-5: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-6: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-7: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-8: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-9: Nogle rettigheder forbeholdes
+  translated_ranks-label-rank_id-352: underfamilie
   translated_ranks-label-rank_id-370: underklasse
   translated_ranks-label-rank_id-383: underfamilie
   translated_ranks-label-rank_id-51: Klasse
@@ -128,6 +143,7 @@ da:
   translated_synonym_relations-label-synonym_relation_id-63: ikke accepteret
   translated_synonym_relations-label-synonym_relation_id-64: ugyldig
   translated_table_of_contents-label-table_of_contents_id-13: Almindelige navne
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Litteraturhenvisninger
   translated_table_of_contents-label-table_of_contents_id-194: Størrelse
   translated_table_of_contents-label-table_of_contents_id-1: Oversigt
@@ -196,7 +212,10 @@ da:
   translated_table_of_contents-label-table_of_contents_id-4: Økologi
   translated_table_of_contents-label-table_of_contents_id-6: Relevans for mennesker
     og økosystemer
+  translated_table_of_contents-label-table_of_contents_id-7: Referencer og yderligere
+    information
   translated_table_of_contents-label-table_of_contents_id-8: Konservering
+  translated_untrust_reasons-label-untrust_reason_id-1: fejlidentificeret
   translated_untrust_reasons-label-untrust_reason_id-2: urigtigt/vildledende
   translated_untrust_reasons-label-untrust_reason_id-3: lav kvalitet
   translated_untrust_reasons-label-untrust_reason_id-4: dublet

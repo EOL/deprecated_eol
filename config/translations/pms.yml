@@ -6477,4 +6477,17 @@ pms:
   sign_out: Seurte dal sistema
   site_cms: Sit CMS
   site_information: Anformassion an sël sit
+  site_language: Lenga dël sit
+  site_settings_menu: Configurassion dël sit
+  skip_to_content: Sauté al contnù
+  skip_to_navigation: Sauté a la navigassion
+  skip_to_table_of_contents: Sauté a la tàula dij contnù
+  social_sharing_reddit_button: mandé a reddit
+  social_sharing_header: EdV an sij sit ëd mojen sossiaj
+  social_sharing_twitter_tweet_button: Tweet
+  social_sharing_twitter_follow_eol_button: Steje dapress a @eol
+  some_required_fields_were_not_entered: Chèich camp obligatòri a son nen ëstàit butà
+    (a dev buteje un tìtol, e un contnù o n'adrëssa an sl'aragnà).
+  sort_by_button: Ordiné
+  sort_by_label: Ordiné për
 ...

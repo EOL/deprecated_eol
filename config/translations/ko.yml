@@ -3977,7 +3977,7 @@ ko:
   explore_what_we_know_about_taxon: '%{taxon}에 대한 EOL이 알고 있는 탐구입니다.'
   export_curator_csv_link: '[모든 큐레이터를 CSV로 내보내기]'
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
-  external_link_header: 바깥 링크
+  external_link_header: 외부 링크
   external_link_icon_alt_text: 바깥 링크입니다.
   external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
   external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
@@ -4568,7 +4568,7 @@ ko:
   other_taxa_with_count:
     one: 다른 분류 %{count}개
     other: 다른 분류 %{count}개
-  outlink: 바깥 링크
+  outlink: 외부 링크
   overview: 둘러보기
   page_linked_to: 다음에 문서를 링크함
   page_name: 문서 이름

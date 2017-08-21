@@ -11,6 +11,7 @@
 # Author: Eleonora negri
 # Author: F. Cosoleto
 # Author: Federico Mugnaini
+# Author: Fitoschido
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: JackLantern
@@ -1467,7 +1468,7 @@ it:
 
         Per ulteriori informazioni su come utilizzare EOL, creare collezioni, partecipare alle comunità di EOL e contribuire ai contenuti, si prega di visitare le nostre pagine di aiuto all'indirizzo  http://eol.org/help.
     user_activated:
-      subject: Il tuo account su Encyclopedia of Life è stato attivato
+      subject: La tua utenza su Encyclopedia of Life è stata attivata
       message: |-
         Benvenuto in Encyclopedia of Life (EOL) e grazie per esserti registrato! Il tuo nome utente è %{username} e l'URL del tuo profilo è %{profile_url}. Puoi accedere al sito EOL dall'indirizzo http://eol.org/login.
 

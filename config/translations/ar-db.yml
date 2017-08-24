@@ -8,6 +8,7 @@
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: ترجمان05
+# Author: ديفيد
 ---
 ar:
   translated_activities-name-activity_id-19: ملف
@@ -180,7 +181,7 @@ ar:
   translated_resource_statuses-label-resource_status_id-10: تم النشر
   translated_resource_statuses-label-resource_status_id-11: النشر معلق
   translated_resource_statuses-label-resource_status_id-12: إلغاء النشر معلق
-  translated_resource_statuses-label-resource_status_id-13: تنفيذ الجمع
+  translated_resource_statuses-label-resource_status_id-13: الحصاد المطلوب
   translated_resource_statuses-label-resource_status_id-1: يرفع
   translated_resource_statuses-label-resource_status_id-2: تم الرفع
   translated_resource_statuses-label-resource_status_id-3: لم يتم الرفع

@@ -6490,4 +6490,17 @@ pms:
     (a dev buteje un tìtol, e un contnù o n'adrëssa an sl'aragnà).
   sort_by_button: Ordiné
   sort_by_label: Ordiné për
+  sort_by_newest_option: Pi neuv
+  sort_by_oldest_option: Pi vej
+  sort_by_rating_option: Pontegi
+  sort_by_richness_option: Richisia
+  sort_by_alphabetical_option: Alfabétich
+  sort_by_hierarchy_publish_request_option: Arcesta ëd publicassion ëd gerarchìa
+  sort_by_reverse_alphabetical_option: Alfabétich anvertì
+  sort_by_recently_added_option: Giontà ëd recent
+  sort_by_recently_updated_option: Agiornà ëd recent
+  sort_by_status_option: Statù
+  sort_by_title_ascending: Tìtol chërsent
+  sort_by_title_descending: Tìtol dechërsent
+  sort_by_value_ascending: Prima ij valor cit
 ...

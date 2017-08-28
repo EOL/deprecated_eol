@@ -6503,4 +6503,16 @@ pms:
   sort_by_title_ascending: Tìtol chërsent
   sort_by_title_descending: Tìtol dechërsent
   sort_by_value_ascending: Prima ij valor cit
+  sort_by_value_descending: Prima ij valor grand
+  sort_by_year_ascending: Ann chërsent
+  sort_by_year_descending: Ann dechërsent
+  sort_collection_by_label: Ordiné la colession për
+  sort_order: Ordinament
+  sort_by: Ordiné për
+  sort_field: 'Camp d''ordinament:'
+  sorry_no_collections_are_available_to_share: An dëspias, a-i é gnun-e colession
+    disponìbij da partagé con sa comunità.
+  sorry_no_communities_are_available_to_share: An dëspias, a-i é gnun-e comunità disponìbij
+    con le quaj partagé sa colession.
+  sound_file: Archivi sonor
 ...

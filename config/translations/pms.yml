@@ -6515,4 +6515,19 @@ pms:
   sorry_no_communities_are_available_to_share: An dëspias, a-i é gnun-e comunità disponìbij
     con le quaj partagé sa colession.
   sound_file: Archivi sonor
+  sound_from: son da
+  sound_object: Oget son
+  sound_objects_page_number: pàgina ëd son
+  sound_of: Argistrassion sonora ëd
+  sounds_with_count:
+    one: '%{count} son'
+    other: '%{count} son'
+  source_information_header: Anformassion an sla sorgiss
+  source_and_additional_information: Sorgiss e anformassion suplementar
+  source: Sorgiss
+  source_colon: 'Sorgiss:'
+  source_url: Adrëssa dl'aragnà sorgiss
+  special_collection: Colession ëspecial
+  special_collections_cannot_be_destroyed: Costa colession-sì a l'é l'ùnica colession
+    associà a soa comunità e a peul nen esse dëscancelà.
 ...

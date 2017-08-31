@@ -30,6 +30,7 @@ da:
   translated_agent_roles-label-agent_role_id-24: Sproglig korrekturlæser
   translated_agent_roles-label-agent_role_id-2: Rettighedshaver
   translated_agent_roles-label-agent_role_id-5: Skaber
+  translated_agent_roles-label-agent_role_id-7: Redaktør
   translated_agent_roles-label-agent_role_id-8: Illustrator
   translated_agent_roles-label-agent_role_id-9: Fotograf
   translated_audiences-label-audience_id-1: Erfarne brugere
@@ -139,7 +140,16 @@ da:
   translated_synonym_relations-label-synonym_relation_id-19: Godkendt navn
   translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-49: gyldigt navn
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-50: gyldig
   translated_synonym_relations-label-synonym_relation_id-51: Godkendt
+  translated_synonym_relations-label-synonym_relation_id-52: autoritet
+  translated_synonym_relations-label-synonym_relation_id-54: subjektivt synonym
+  translated_synonym_relations-label-synonym_relation_id-56: fejlagtig stavning
+  translated_synonym_relations-label-synonym_relation_id-57: stavealternativ
+  translated_synonym_relations-label-synonym_relation_id-58: leksikal variant
+  translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotypisk)
   translated_synonym_relations-label-synonym_relation_id-63: ikke accepteret
   translated_synonym_relations-label-synonym_relation_id-64: ugyldig
   translated_table_of_contents-label-table_of_contents_id-13: Almindelige navne
@@ -150,6 +160,7 @@ da:
   translated_table_of_contents-label-table_of_contents_id-218: Spredning
   translated_table_of_contents-label-table_of_contents_id-221: Risikoer
   translated_table_of_contents-label-table_of_contents_id-225: På internettet
+  translated_table_of_contents-label-table_of_contents_id-226: Indholdspartnere
   translated_table_of_contents-label-table_of_contents_id-227: Søg på nettet
   translated_table_of_contents-label-table_of_contents_id-242: Generel økologi
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografier

@@ -442,8 +442,7 @@ es:
               must_be_measurement: debe ser una unidad de medida
               must_be_different: debe ser diferente que el Tema URI
             relationship_uri:
-              only_one_measurement: No se permite - sólo puede haber una unidad por
-                defecto
+              only_one_measurement: No permitido. Solo puede haber una unidad predeterminada
   helpers:
     label:
       collection:
@@ -6071,7 +6070,7 @@ es:
   notification_frequency_send_immediately: Enviar inmediatamente
   notification_frequency_never: Nunca
   notification_frequency_weekly: Semanalmente
-  notification_frequency_newsfeed_only: Sólo noticias
+  notification_frequency_newsfeed_only: Solo noticias
   notifications_and_messages_review_notice: Por favor, revise las notificaciones que
     se le enviarán por correo electrónico.
   email_updates_for_eol_addicts: Actualizaciones para los adictos a EOL.
@@ -6141,7 +6140,7 @@ es:
   only_alphanum_with_no_spaces: sólo puede contener caracteres alfanuméricos sin espacios
   only_multi_search_suggestions: (sólo si hay varias sugerencias de búsqueda para
     el mismo término, la ordenación es creciente)
-  only_show_authoritative_conten: 'Mostrar sólo contenido autorizado:'
+  only_show_authoritative_conten: 'Mostrar solo contenido autorizado:'
   only_show_unapproved_curators: Mostrar sólo los supervisores no aprobados
   on_time_col_header: activado
   option_please_select: Selecciona

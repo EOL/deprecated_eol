@@ -2237,14 +2237,14 @@ es:
         meta_description: Noticias, actualizaciones de actividad y comentarios de
           %{user_full_name}.
         meta_title: Fuentes web de %{user_full_name}
-        tweet_text: Fuente web de %{user_full_name}
+        tweet_text: Suministro de noticias de %{user_full_name}
       comments:
-        meta_description: Canal web de noticias de %{user_full_name}.
-        meta_title: canal web de noticias de %{user_full_name}
-        tweet_text: Canal web de noticias de %{user_full_name}
+        meta_description: Suministro de comentarios de %{user_full_name}.
+        meta_title: Suministro de comentarios de %{user_full_name}
+        tweet_text: Suministro de comentarios de %{user_full_name}
       activity:
-        meta_title: canal web de actividad de %{user_full_name}
-        tweet_text: Canal web de actividad de %{user_full_name}
+        meta_title: Suministro de actividad de %{user_full_name}
+        tweet_text: Suministro de actividad de %{user_full_name}
     notifications:
       edit:
         page_description: Todas las actualizaciones que se enumeran a continuación
@@ -5663,7 +5663,7 @@ es:
   joined_mailing_list: Sólo aquellos que se han unido a la lista de correo.
   joined_time_ago: Se unió hace %{time_passed}
   json_response: Respuesta JSON
-  just_pages_with_pictures_and_text: Sólo páginas con imágenes y texto
+  just_pages_with_pictures_and_text: Solo páginas con imágenes y texto
   keep_split_entry_from_this_entry: Mantener separada de esta entrada
   key: Clave
   known_uri_category_header: Categorías
@@ -6137,7 +6137,7 @@ es:
     entrada
   number_of_unreviewed_text_objects_at_this_entry: número de objetos de texto sin
     revisar en esta entrada
-  only_alphanum_with_no_spaces: sólo puede contener caracteres alfanuméricos sin espacios
+  only_alphanum_with_no_spaces: solo puede contener caracteres alfanuméricos sin espacios
   only_multi_search_suggestions: (sólo si hay varias sugerencias de búsqueda para
     el mismo término, la ordenación es creciente)
   only_show_authoritative_conten: 'Mostrar solo contenido autorizado:'

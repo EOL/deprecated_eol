@@ -6530,4 +6530,39 @@ pms:
   special_collection: Colession ëspecial
   special_collections_cannot_be_destroyed: Costa colession-sì a l'é l'ùnica colession
     associà a soa comunità e a peul nen esse dëscancelà.
+  species_curated: Spece controlà
+  species_profile_model_cp_count_title: Model ëd profil dë spece - Cont dij cambrada
+    ëd contnù
+  species_profile_model_dato_count_title: Model ëd profil dë spece - Cont dj'oget
+    ëd dàit
+  species_profile_model: Model ëd profil dë spece
+  species: Spece
+  split_into_new_concept: divide an na pàgina neuva
+  split_cancelled: Operassion ëd separassion anulà.
+  split_classification_instructions: Për gavé costa vos ëd gerarchìa da costa pàgina
+    EdV, a dev peui selessioné la vos ëd gerarchìa ch'a arpresenta mej lòn ch'a DOVRÌA
+    essie su costa pàgina, parèj che le cujìe future a goerno sempe se doe vos ëd
+    gerarchìa separà.
+  split_pending: S'operassion ëd separassion a l'ha damanca d'un pò 'd temp. Costa
+    pàgina a l'é giumaj blocà për d'àutre modìfiche ëd classificassion fin-a che la
+    separassion a sia completà. Chiel a arseivrà un mëssagi an pòsta eletrònica cand
+    ël process a sarà livrà, e a comparirà ant ël fil ëd neuve dla pàgina.
+  split_only_possible_with_all_classifications: Bele che chiel a l'ha ël drit ëd divide
+    le classificassion, a dev <a href='%{link}'>smon-e tute le classificassion</a>
+    prima che l'assion a sia autorisà.
+  spm_category_objects_count: Categorìa SPM - cont dj'oget
+  spm_category_partner_count: Categorìa SPM - cont dij cambrada
+  spm_category: Categorìa SPM
+  stars_with_count:
+    one: '%{count} stèila'
+    other: '%{count} stèile'
+  started: Partì
+  stats: Statìstiche
+  stat: Stat
+  stored_classifications: Për piasì, ch'a nòta che chiel a l'ha <a href='%{anchor}'>le
+    classificassion rangià, sì-sota</a>.
+  sub_heading: Sot-antestassion
+  subject: soget
+  submit: Mandé
+  submitting: Ch'a l'abia passiensa…
 ...

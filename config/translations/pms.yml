@@ -6565,4 +6565,9 @@ pms:
   subject: soget
   submit: Mandé
   submitting: Ch'a l'abia passiensa…
+  submitted_colon: 'Mandà:'
+  suggested_attributes: 'Atribù sugerì:'
+  suggested_result_page_id: 'Identificativ ëd pàgina d''arzultà sugerì:'
+  suggested_results_avg: Media dj'arzultà sugerì
+  suggested_vocab_add: tèrmin arcomandà
 ...

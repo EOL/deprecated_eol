@@ -6570,4 +6570,18 @@ pms:
   suggested_result_page_id: 'Identificativ ëd pàgina d''arzultà sugerì:'
   suggested_results_avg: Media dj'arzultà sugerì
   suggested_vocab_add: tèrmin arcomandà
+  suggested_vocab_remove: gavé l'arcomandassion
+  summary_thumbnail_title: 'Resumé:'
+  supplier: Fornidor
+  supplier_allcaps: 'FORNIDOR:'
+  supplier_colon: 'Fornidor:'
+  survey_link: Ch'a rësponda a nòstr sondagi
+  switch_language_advisory_information: Cangé la lenga dël sit an %{language_label}
+  synonym: Sinònim
+  synonyms_with_count:
+    one: '%{count} sinònim'
+    other: '%{count} sinònim'
+  table_column_header_actions: Assion
+  table_of_contents_breakdown: tàula d'arpartission dij contnù
+  table_of_contents_breakdown_title: Tàula d'arpartission dij contnù
 ...

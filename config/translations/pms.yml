@@ -6584,4 +6584,21 @@ pms:
   table_column_header_actions: Assion
   table_of_contents_breakdown: tàula d'arpartission dij contnù
   table_of_contents_breakdown_title: Tàula d'arpartission dij contnù
+  table_of_contents_editor: Editor dla tàula dij contnù
+  table_of_contents: Tàula
+  target_blank_advisory_information: S'a-j va dapress a sa liura, la pàgina ëd destinassion
+    as duvertrà an na fnestra dël navigador neuva.
+  task_status: Stat dël travaj
+  task_status_active_option: Ativ
+  task_status_curated_option: Goernà
+  task_status_ignored_option: Ignorà
+  tasks_with_count:
+    one: '%{count} travaj trovà'
+    other: '%{count} travaj trovà'
+  taxa_count: Nùmer ëd tassonomìe
+  taxa_column_header: Tassonomìe
+  taxa_with_count:
+    one: '%{count} tassonomìa'
+    other: '%{count} tassonomìe'
+  taxon: tassonomìa
 ...

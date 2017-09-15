@@ -7,7 +7,7 @@ Eol::Application.routes.draw do
   #resque
   mount Resque::Server.new, at: "/resque"
   # Permanent redirects. Position them before any routes they take precedence over.
-  match '/podcast' => redirect('http://podcast.eol.org/podcast')
+  match '/podcast' => redirect('http://eol.org/info/podcasts')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
   match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")

@@ -5,6 +5,7 @@
 # Author: Base
 # Author: Dim Grits
 # Author: Pig1995z
+# Author: Piramidion
 # Author: Steve.rusyn
 # Author: SteveR
 # Author: Дар'я Козлова
@@ -176,9 +177,9 @@ uk:
   translated_ranks-label-rank_id-92: родина
   translated_ranks-label-rank_id-99: Родина
   translated_resource_statuses-label-resource_status_id-10: Опубліковано
-  translated_resource_statuses-label-resource_status_id-11: Очікування Публікації
+  translated_resource_statuses-label-resource_status_id-11: Очікування публікації
   translated_resource_statuses-label-resource_status_id-12: Очікування зняття з публікації
-  translated_resource_statuses-label-resource_status_id-13: Зібрати
+  translated_resource_statuses-label-resource_status_id-13: Надіслано запит на збирання
   translated_resource_statuses-label-resource_status_id-1: Завантаження
   translated_resource_statuses-label-resource_status_id-2: Завантажено
   translated_resource_statuses-label-resource_status_id-3: Не вдалося завантажити

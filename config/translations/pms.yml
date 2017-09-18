@@ -6601,4 +6601,22 @@ pms:
     one: '%{count} tassonomìa'
     other: '%{count} tassonomìe'
   taxon: tassonomìa
+  taxon_biomedical_terms_link: Vocàboj biomédich
+  taxon_citizen_science_header: Liure sientìfiche sitadin-e
+  taxon_citizen_science_link: Liure sientìfiche sitadin-e
+  taxon_citizen_science_resources_empty: Gnun a l'ha ancor contribuì con na liura
+    sientìfica sitadin-a a sa pàgina.
+  taxon_common_names_subtab_explanation: Tanta gent a conòss j'organism mach con sò
+    nòm comun, o «vernacolar». A diferensa dij nòm sientìfich, ij nòm comun a son
+    ëscasi sempe diferent për ij parlant ëd lenghe diferente. A peulo ëdcò varié regionalman
+    për na midema lenga. Sa scheda a smon tuti ij nòm comun fornì a EdV për s'organism
+    da vàire fornidor, comprèis ij conservator d'EdV. Al moment i podoma definì mach
+    un nòm comun preferì për lenga an s'na dàita pàgina EdV, ma tuti ij nòm a dovrìo
+    esse arsercàbij.
+  taxon_concept_stats: Statìstiche dël concet ëd tassonomìa
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> a sambla dj'argistrassion
+    ëd dàit da vàire fornidor. Gnun a l'ha ancor contribuì con d'argistrassion ëd
+    dàit për %{taxon}.
+  taxon_data_overview_empty: Gnun a l'ha ancor contribuì con dj'argistrassion ëd dàit
+    për %{taxon}.
 ...

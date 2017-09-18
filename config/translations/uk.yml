@@ -255,7 +255,7 @@ uk:
         dwc_archive_url: Darwin Core Архів URL
         dataset_source_url: Оригінальні джерела даних
         dataset_hosted_url: Набір джерельних даних (локальна копія)
-        harvest_events: Надходження нових даних
+        harvest_events: Збирання даних
         hierarchy: Ієрархія
         language_id: Мова за замовчуванням
         dataset_license_id: Ліцензія
@@ -374,8 +374,8 @@ uk:
         harvest_event:
           attributes:
             publish:
-              inclusion: тільки для останніх подій, і тільки якщо ці події вже не
-                опубліковані
+              inclusion: тільки для останніх подій зі збирання даних, і тільки якщо
+                ці події вже не опубліковані
         inaccessible: Запис не може бути збережено, тому що вона була неправильною.
           Перевірте наявність помилок і повторіть.
         known_uri:
@@ -554,7 +554,8 @@ uk:
         began_at: Почалося
         completed_at: Готово
         first_published_at: Вперше опубліковано
-        publish_more: Вміст зазначене урожаєм буде публікуватися не відразу.
+        publish_more: Позначає подію зі збирання даних для публікації; вміст буде
+          публікуватися не відразу.
         published_at: Опубліковано
         published_status: Статус
         last_harvest_seconds: Зайняло %{time_in_words}
@@ -606,7 +607,7 @@ uk:
         hierarchy: Ієрархія
         oldest_published_harvest_event: Вперше опубліковано
         latest_published_harvest_event: Востаннє опубліковано
-        latest_harvest_event: Останній урожай
+        latest_harvest_event: Останнє збирання даних
         refresh_period_hours: Частота
         resource_status_id: Статус
         resource_status: Статус
@@ -790,8 +791,8 @@ uk:
         create: Додати ресурс
         update: Оновити ресурс
         update_settings: Оновити налаштування
-        force_harvest: Запит на урожай
-        harvest_tonight: Урожай сьогодні
+        force_harvest: Запит на збирання даних
+        harvest_tonight: Зібрати сьогодні
       session:
         create: Увійти
         sign_in_with_facebook: Увійти за допомогою Facebook
@@ -1391,10 +1392,10 @@ uk:
         Створено: %{resource_created_at_date}
         Статус: %{resource_status}
     content_partner_resource_harvest_requested_request:
-      subject: Користувач %{user_full_name} запитав урожай для ресурсу  %{resource_title},
+      subject: Користувач %{user_full_name} надіслав запит на збирання даних для ресурсу  %{resource_title},
         який належить партнеру по вмісту %{partner_full_name}
       message: "Це повідомлення автоматизованої системи ЕЖ для групи \"Сторінки видів\".
-        Користувач %{user_full_name} подав запит на урожай для ресурсу %{resource_title},
+        Користувач %{user_full_name} подав запит на збирання даних для ресурсу %{resource_title},
         який належить партнеру по вмісту %{partner_full_name}, подробиці нижче:\n\nКористувач:
         %{user_full_name}\nЕл.пошта: %{user_email}\nURL профілю: %{user_profile_url}\n\nПартнер:
         %{partner_full_name}\nURL ресурсів партнера: %{partner_resources_url}\n\nРесурс:
@@ -3933,7 +3934,7 @@ uk:
   cannot_create_community_from_watch_collection_error: Ви не можете створити спільноту
     зі списку спостереження.
   cannot_curate_association_in_preview_mode: Призначення для %{name} не може бути
-    куроване. оскільки виконується його попередній перегляд після врожаю.
+    куроване, оскільки виконується його попередній перегляд після збирання даних.
   cannot_expand_children: не вдалося розгорнути дітей
   cannot_find_member: Не вдалося знайти члена з таким ідентифікатором.
   cannot_index_collection_item_type_error: Ми не можемо проіндексувати елемент колекції
@@ -4339,7 +4340,8 @@ uk:
   content_partner_edit_link: Редагувати партнера вмісту
   content_partner_filter_option_vetted_yes: Так
   content_partner_filter_option_vetted_no: Ні
-  content_partner_filter_option_published_never_harvested: Ніколи не збирають
+  content_partner_filter_option_published_never_harvested: Ніколи не використовувалося
+    для збирання даних
   content_partner_filter_option_published_never_published: Ніколи не публікувалися
   content_partner_filter_option_published_latest_harvest_not_published: Останні неопубліковані
   content_partner_filter_option_published_latest_harvest_pending_publish: Останні
@@ -4413,7 +4415,7 @@ uk:
   content_partner_resource_page_title: Енциклопедія життя — %{content_partner_name}
     — %{resource_name}
   content_partner_resource_will_be_deleted: Всі дані, зібрані ресурсом %{resource_title},
-    будуть вилучені. Будь ласка, дайте 24 години на виконання цього запиту.
+    будуть вилучені. Будь ласка, виділіть 24 години на виконання цього запиту.
   content_partner_resource_hierarchy_browsable: Для перегляду
   content_partner_resource_hierarchy_complete_true: Ця ієрархія позанчена як <strong>курована</strong>.
     Курована ієрархія передбачає, що всі записи будуть унікальними, тобто якщо будуть
@@ -5368,6 +5370,7 @@ uk:
     обліковий запис Google і доступ)
   google: Google
   google_images: Google Зображення
+  google_plus: Енциклопедія Життя на Google+
   google_scholar: Google Академія
   grant_manager_link: Надати роль менеджера
   grant_permission: дозвіл
@@ -5715,7 +5718,12 @@ uk:
     few: Всього знайдено %{count} користувачів, що відповідають Вашим умовам.
     many: Всього знайдено %{count} користувачів, що відповідають Вашим умовам.
     other: Всього знайдено %{count} користувача, що відповідає Вашим умовам.
+  max_collection_items_error: Вибачте, Ваш запит перевищує обмеження в %{max} елементів
+    колекції.
   media: Медіа
+  media_list_empty: Ніхто ще не надіслав жодних медіафайлів на цю сторінку.
+  media_list_empty_search: Не знайдено жодних медіафайлів, які б відповідали Вашим
+    пошуковим критеріям.
   media_list_empty_contribute_instructions: Дізнайтеся, як вносити медіадані у ЕЖ.
   media_with_count:
     one: '%{count} медіафайл'
@@ -5733,6 +5741,11 @@ uk:
     few: '%{count} учасники'
     many: '%{count} учасників'
     other: '%{count} учасника'
+  members_with_count_semi_colon:
+    one: '%{count} член;'
+    few: '%{count} члени;'
+    many: '%{count} членів'
+    other: '%{count} члена'
   merge_concepts: злиття понять
   merge_data: злиття класифікацій
   message_colon: 'Повідомлення:'
@@ -5842,6 +5855,7 @@ uk:
   next: Далі
   no_answer: Ні
   no_errors_are_available: Немає доступних помилок.
+  no_harvesting_logs_for_this_da: Для цієї дати відсутні журнали збирання даних
   none: Нічого
   no_tasks_found: Жодне завдання не знайдено
   no_survey_responses_are_availa: Немає відповідей на опитування.
@@ -6185,6 +6199,7 @@ uk:
   show_status_message: Показати повідомлення про стан
   show_tasks: показати завдання
   showing_error_logs_from_date: Показані помилки від <b>%{date}</b>
+  showing_all_harvest_logs: Показ <b>всіх подій зі збирання даних</b>
   sign_in: Увійти
   sign_in_successful_notice: Вхід - успішний.
   sign_in_unsuccessful_error: Помилка входу. Невірне ім'я користувача, адреса електронної
@@ -6226,6 +6241,10 @@ uk:
   species: Види
   split_into_new_concept: розділити на новій сторінці
   split_cancelled: Скасовано операцію розділення.
+  split_classification_instructions: Щоб вилучити цей ієрархічний запис зі сторінки
+    ЕЖ, Вам треба надалі вибрати ієрархічний запис, який найкраще демонструє, що саме
+    МАЄ бути на цій сторінці, щоб майбутні події зі збору даних завжди розділяли ці
+    два ієрархічні записи.
   spm_category_objects_count: SPM категорія - число об'єктів
   spm_category_partner_count: SPM категорія - число партнерів
   spm_category: SPM категорія
@@ -6442,6 +6461,8 @@ uk:
   view_translation_source_link: Перегляд джерела перекладу
   view_error_log: переглянути журнал помилок
   view_full_size_image: Перегляд повнорозмірного зображення
+  view_harvesting_log: переглянути журнал збору даних
+  view_current_harvesting: Переглянути поточний збір даних
   view_article_source: Перегляд джерела статті
   view_image_source: Перегляд джерела зображення
   view_image_map_source: Перегляд джерела карти

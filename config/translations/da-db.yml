@@ -29,6 +29,7 @@ da:
   translated_agent_roles-label-agent_role_id-23: Videnskabelig korrekturlæser
   translated_agent_roles-label-agent_role_id-24: Sproglig korrekturlæser
   translated_agent_roles-label-agent_role_id-2: Rettighedshaver
+  translated_agent_roles-label-agent_role_id-3: Indsamler
   translated_agent_roles-label-agent_role_id-5: Skaber
   translated_agent_roles-label-agent_role_id-7: Redaktør
   translated_agent_roles-label-agent_role_id-8: Illustrator
@@ -67,6 +68,7 @@ da:
   translated_contact_subjects-title-contact_subject_id-25: Vilkår for brug og licensering
   translated_contact_subjects-title-contact_subject_id-26: Læring og uddannelse
   translated_contact_subjects-title-contact_subject_id-27: Bliv en indholdspartner
+  translated_contact_subjects-title-contact_subject_id-28: Partnerstøtte af indhold
   translated_contact_subjects-title-contact_subject_id-30: Foretag en rettelse (stave-
     og grammatikkontrol, billeder, information)
   translated_contact_subjects-title-contact_subject_id-31: Bidrag med billeder, videoer
@@ -113,11 +115,44 @@ da:
   translated_licenses-description-license_id-7: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-8: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-9: Nogle rettigheder forbeholdes
+  translated_ranks-label-rank_id-183: rige
+  translated_ranks-label-rank_id-266: orden
+  translated_ranks-label-rank_id-280: række
+  translated_ranks-label-rank_id-335: arter
   translated_ranks-label-rank_id-352: underfamilie
   translated_ranks-label-rank_id-370: underklasse
+  translated_ranks-label-rank_id-375: underrække
   translated_ranks-label-rank_id-383: underfamilie
+  translated_ranks-label-rank_id-390: underslægt
+  translated_ranks-label-rank_id-391: undersl.
+  translated_ranks-label-rank_id-394: underslægt
+  translated_ranks-label-rank_id-396: underrige
+  translated_ranks-label-rank_id-399: underorden
+  translated_ranks-label-rank_id-401: underrække
+  translated_ranks-label-rank_id-408: undersektion
+  translated_ranks-label-rank_id-411: underserie
+  translated_ranks-label-rank_id-413: underart
+  translated_ranks-label-rank_id-414: underart
+  translated_ranks-label-rank_id-415: underarter
+  translated_ranks-label-rank_id-422: understamme
+  translated_ranks-label-rank_id-463: overfamilie
+  translated_ranks-label-rank_id-472: overrække
+  translated_ranks-label-rank_id-494: stamme
+  translated_ranks-label-rank_id-503: uklassificeret
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varietet
+  translated_ranks-label-rank_id-518: varietet
   translated_ranks-label-rank_id-51: Klasse
+  translated_ranks-label-rank_id-562: hybridslægt
+  translated_ranks-label-rank_id-563: hybridart
+  translated_ranks-label-rank_id-564: hybridunderart
+  translated_ranks-label-rank_id-565: hybridvarietet
+  translated_ranks-label-rank_id-74: række
   translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familie
   translated_resource_statuses-label-resource_status_id-10: Udgivet
   translated_resource_statuses-label-resource_status_id-11: Afventer udgivelse

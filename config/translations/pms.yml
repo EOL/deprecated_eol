@@ -6619,4 +6619,14 @@ pms:
     dàit për %{taxon}.
   taxon_data_overview_empty: Gnun a l'ha ancor contribuì con dj'argistrassion ëd dàit
     për %{taxon}.
+  taxon_data_header: Dàit su %{taxon}
+  taxon_details_empty: Gnun a l'ha ancor contribuì con dij detaj a sa pàgina-sì.
+  taxon_details_empty_in_this_language: Gnun a l'ha contribuì con dij detaj a sa pàgina-sì
+    an costa lenga.
+  taxon_education_empty: Gnun a l'ha ancor contribuì con d'arsorse d'educassion a
+    costa pàgina-sì.
+  taxon_education_header: Arsorse educative
+  taxon_education_link: Arsorse educative
+  taxon_group: Partìa tassonòmica
+  taxon_id: ID ëd la tassonomìa
 ...

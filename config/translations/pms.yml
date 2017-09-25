@@ -6629,4 +6629,40 @@ pms:
   taxon_education_link: Arsorse educative
   taxon_group: Partìa tassonòmica
   taxon_id: ID ëd la tassonomìa
+  taxon_identification_resources_empty: Gnun a l'ha ancor contribuì con d'arsorse
+    d'identificassion su costa pàgina.
+  taxon_identification_resources_header: Arsorse d'identificassion
+  taxon_identification_resources_link: Arsorse d'identificassion
+  taxon_multimedia_links_link: Liure multimediaj
+  taxon_newsfeed: Fil ëd neuve dla tassonomìa
+  taxon_news_and_event_links_link: Liure neuve & eveniment
+  taxon_nucleotide_sequences_link: Sequense ëd nucleòtid
+  taxon_partner_links_empty: Ij cambrada ëd contnù a l'han ancor nen fornì dle liure
+    sorgiss për sa pàgina.
+  taxon_partner_links_empty_learn_more_link: Ch'a dëscheurva coma dventé un cambrada
+    ëd contnù
+  taxon_partner_links_header: Liure vers un cambrada
+  taxon_partner_links_intro: Sì-sota a-i é na lista ëd cambrada, comprèis ij cambrada
+    ëd contnù, con dj'anformassion su costa pàgina-sì. Cand a l'é possìbil, le liure
+    a lo menëran al contnù corëspondent an sël sit an sl'aragnà dël cambrada an chestion.
+    L'identificativ ùnich për sa tassonomìa dovrà da minca 'n cambrada a coste liure,
+    e costi identificativ a son ëdcò acessìbil a travers ëd l'<a href="%{eol_api_link}">API
+    EdV</a>.
+  taxon_partner_links_link: Liure vers un cambrada
+  taxon_page_content_disclaimer_header: Limitassion ëd responsabilità
+  taxon_page_content_disclaimer: Ël contnù dl'EdV a l'é samblà an automàtich da vàire
+    fornidor ëd contnù diferent. Donca, ëd tansantan, a podrìa trové dle pàgina an
+    sl'EdV ch'a son sorgiss ëd confusion.
+  taxon_page_content_disclaimer_suggest_improvement: Për ciamé n'ameliorassion, për
+    piasì ch'a lassa un coment an sla pàgina. Mersì!
+  taxon_related_names_subtab_explanation: Ij nòm an sa scheda a presento le relassion
+    ëd sa partìa con d'àutre partìe ant l'erbo dla vita, basà an sle gerarchìe ëd
+    classificassion fornìe dai cambrada ëd classificassion d'EdV. «Cé» a son dle partìe
+    pi anclusive, un livel ëdzora ant la gerarchìa. «Masnà» a son le sot-partìe dla
+    partìa corenta. Ant la scheda ëd classificassion, a peul dovré la liura «smon-e
+    tute le classificassion» për vëdde na lista completa ëd tute le gerarchìe fornìe
+    dai nòstri cambrada. Coste a peulo anclude dij nòm gropà adissionaj ch'a son nen
+    butà an evidensa ambelessì.
+  taxon_related_organizations_link: Organisassion gropà
+  taxonomic_summary_of_content: Resumé tassonòmich dël contnù
 ...

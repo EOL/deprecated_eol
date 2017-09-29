@@ -6665,4 +6665,82 @@ pms:
     butà an evidensa ambelessì.
   taxon_related_organizations_link: Organisassion gropà
   taxonomic_summary_of_content: Resumé tassonòmich dël contnù
+  taxon_recognized_by: Tassonomìa arconossùa da %{whom}
+  taxon_selected_from_search_res: Tassonomìa selessionà a parte da j'arzultà dl'arserca
+  taxon_suggested: Tassonomìa sugerìa
+  taxon_synonyms_subtab_explanation: Dle vire, ij tassonomista a crea dij nòm neuv
+    për dle partìe ch'a l'han già un nòm. A peulo fé sòn përché a son nen al corent
+    dël nòm original, o a peulo pensé che l'organism ch'a l'han danans a aparten a
+    na partìa diferenta, bele che sòn a sia nen vera. Si as treuvo doi o pi nòm ch'as
+    àplico a la midema partìa, costi-sì a son considerà tanme sinònim. Ant la pipart
+    dij cas, ël prim nòm a l'ha la precedensa e a l'é considerà coma ël nòm bon o
+    acetà. Tutun, a peulo essie dj'ecession, e a l'é nen sempe belfé determiné qual,
+    ëd na serie ëd sinònim, a dovrìa esse considerà bon o acetà. Ambelessì nojàutri
+    i listoma ij sinònim fornì a EdV dai nòstri cambrada ëd classificassion. I ancludoma
+    d'àutre version dël nòm che motobin probabilman as arferisso a l'istessa partìa,
+    për esempi dj'eror d'ortografìa ant la literatura o variante diferente ëd la paternità
+    associà al nòm.
+  technical_functions: Fonsion técniche
+  terms_agreement_form_fallback: Për piasì, ch'a lesa e ch'a aceta le <a href="%{terms_url}">condission
+    d'utilisassion</a> prima d'intré an sò cont.
+  terms_agreement_form_header: Condission d'utilisassion
+  terms_agreement_form_submit: I son d'acòrd
+  terms_of_use_link: Condission d'utilisassion e vita privà
+  term_for_search_admin_ui: Condission
+  test: Preuva.
+  test_it_out: Provelo
+  text_object: Oget test
+  text_objects_page_number: Pàgine ëd test
+  text: test
+  text_capital: Test
+  text_summary_empty: Gnun a l'ha ancor contribuì con un curt resumé a costa pàgina.
+  text_summary_empty_header: Curt resumé
+  text_summary_more_link: Lese la vos completa
+  text_with_count:
+    one: '%{count} artìcol'
+    other: '%{count} artìcoj'
+  thanks_for_donation: Merci ëd sosten-e l'Enciclopedìa dla Vita. Soe anformassion
+    a son ëstàite mandà e a saran tratà.
+  thanks_for_your_time: Mersì për sò temp,
+  thank_you_for_your_generous_support: Mersì për sò agiut generos!
+  thank_you: Mersì
+  the_amount_entered_was: 'Ël montant andicà a l''era: %{number} USD'
+  the_comment_was_successfully_updated: Ël coment a l'é stàit agiornà për da bin.
+  the_comment_was_successfully_deleted: Ël coment a l'é stàit dëscancelà për da bin.
+  the_content_could_not_be_displ: Impossìbil ësmon-e ël contnù.
+  the_content_was_updated: Ël contnù a l'é stàit agiornà.
+  the_cp_count_info: Ël cont a arpresenta ël nùmer total ëd cambrada ëd contnù con
+    d'oget ëd dàit publicà sota la corëspondenta categorìa ëd soget SPM.
+  the_count_represents_the_total: Ël cont a arpresenta ël nùmer total d'oget ëd dàit
+    publicà sota la corispondenta categorìa ëd soget SPM.
+  hierarchies_entries_description: L'Enciclopedìa dla Vita a l'ha nen n'ùnica gerarchìa
+    tassonòmica an sla qual a crea soe pàgine. Nopà, l'EdV a andicisa vàire gerarchìe
+    e a-j confronta j'un-e con j'àutre. Parèj, minca na pàgina dl'EdV a peul esse
+    an relassion con vàire neu ëd gerarchìe diferente. Cost API a dà acess a na sìngola
+    gerarchìa e a soe relassion anterne. Ch'a fasa arferiment a la documentassion
+    a sl'API dle pàgine për d'anformassion su coma acede a d'àutre gerarchìe ch'a
+    rëspondo a na pàgina EdV particolar. Ël camp 'taxonConceptID' a conten l'identificativ
+    ëd la pàgina EdV ch'a peul esse dovrà ant l'API dle pàgine.
+  hierarchies_entries_descendants_description: A parte da l'identificant ëd na vos
+    ëd gerarchìa, cost API a rëspond con tuti ij dissendent ëd sa vos ëd gerarchìa.
+  hierarchies_description: L'Enciclopedìa dla Vita a l'ha pa na gerarchìa tassonòmica
+    ùnica an sla qual a crea soe pàgine. Nopà, l'EdV a andicisa vàire gerarchìe e
+    a-j confronta un-a con l'àutra. Cost API a lista ij metadàit ëd na gerarchìa tanme
+    ël nòm dël fornidor e l'adrëssa sorgiss an sl'aragnà, e ëdcò tute le tassonomìe
+    ch'a son le tassonomìe rèis ëd l'erbo tassonòmich.
+  the_file_was_uploaded: L'archivi a l'é stàit carià.
+  the_following_bibliography: La bibliografìa sì-dapress a l'é stàita generà an butand
+    ansem tuti j'arferiment fornì dai nòstri cambrada ëd contnù. A podrìo essie dij
+    dobion.
+  topics_avilable_to_contact_us_info: J'àree temàtiche sì-dapress a son disponìbij
+    da la pàgina Contatene. Chiel a peul gionté o modifiché dj'àree temàtiche e soe
+    adrësse ëd pòsta eletrònica corëspondenta. Tute le modìfiche a son fàite imediataman.
+  too_many_descendants_to_curate_with_count:
+    one: 'EROR: Soa conservassion a peul nen esse tratà a travers ël sistemà automatisà.
+      A-i é %{count} dissendent, lòn ch''a passa ël màssim përmetù.'
+    other: 'EROR: Soa conservassion a peul nen esse tratà a travers ël sistemà automatisà.
+      A-i é %{count} dissendent, lòn ch''a passa ël màssim përmetù.'
+  the_data_object_id_can_be: ël paràmeter ID a peul esse n'antregh (n'ID ëd version
+    DataObject) o bin un GUID da 16 caràter ch'a rëspondrà con l'ùltima version ëd
+    col oget
 ...

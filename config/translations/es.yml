@@ -3957,7 +3957,7 @@ es:
     petición con el nuevo valor no llegará a la caché, pero las solicitudes subsecuentes
     usarán la nueva repuesta en caché.
   application_version_advisory_information: Versión de la aplicación
-  are_you_sure: ¿Estás seguro?
+  are_you_sure: ¿Lo confirmas?
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro? No se puede deshacer esta
     acción.
   admin_login_confirmation: ¿Está seguro que desea identificarse en el registro de
@@ -4092,7 +4092,7 @@ es:
   build_communities: Construir comunidades
   by_caps: Por
   by_scientific_name_table_header: por nombre científico
-  cache_store: Almacenamiento de la memoria caché
+  cache_store: Almacenamiento de la antememoria
   caching_results: Resultados en caché
   calculate_averages_slow: Calcular las medias (lento)
   call_api: Llamada API
@@ -4310,7 +4310,7 @@ es:
   comment_added_notice: Comentario agregado correctamente.
   comment_body_label: Tu comentario
   comment_created_at: Creado el
-  comment_delete_confirm: ¿Está seguro que desea eliminar este comentario?
+  comment_delete_confirm: ¿Confirmas que quieres eliminar este comentario?
   comment_edit_by_javascript_not_authorized_error: No tiene permiso para modificar
     este comentario. Si usted es el autor delcomentario, por favor, vuelva a cargar
     la página y compruebe que ha iniciado sesión.
@@ -4406,13 +4406,13 @@ es:
     other: Pertenece a %{count} comunidades
   completed: Completado
   completed_colon: 'Completado:'
-  confirm_deactivate_user: ¿Está seguro que desea desactivar a este usuario?
+  confirm_deactivate_user: ¿Confirmas que quieres desactivar a este usuario?
   confirm_delete_community: ¿Seguro que quieres suprimir esta comunidad? Los miembros
     restantes todavía podrán verla y se mantendrá el suministro de noticias, pero
     no aparecerá en las búsquedas ni en las páginas de taxones, y ya no será editable.
   confirm_delete_data_object: ¿Estás seguro de que deseas borrar este Objeto de Datos?
     Esta acción no se puede deshacer.
-  confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
+  confirm_leave: ¿Confirmas que quieres abandonar esta comunidad?
   confirm_password_colon: 'Confirmar contraseña:'
   contact: Contacto
   contact_information: Información de contacto
@@ -4529,7 +4529,7 @@ es:
   content_partner_resource_collections_header: Colecciones
   content_partner_resource_collection_header: Colección publicada
   content_partner_resource_collection_show_link: Ver la colección publicada
-  content_partner_resource_confirm_harvest_requested: ¿Está seguro que desea forzar
+  content_partner_resource_confirm_harvest_requested: ¿Confirmas que quieres forzar
     la recogida del recurso %{resource_title}?
   content_partner_resource_create_successful_notice: 'Detalles de recurso de socio
     de contenido agregados exitosamente. Estado actual de los datos de recurso: %{resource_status}.'
@@ -5762,7 +5762,7 @@ es:
     roja de la UICN
   limits_the_returned_to_a_specific_language: proporciona los resultados en el idioma
     especificado.
-  link_more_about: Aprende más sobre este enlace
+  link_more_about: Más información sobre este enlace
   link_name: Nombre del enlace
   link_to_this_term: enlace a este término
   link_to_top_of_page: arriba

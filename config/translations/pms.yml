@@ -6743,4 +6743,28 @@ pms:
   the_data_object_id_can_be: ël paràmeter ID a peul esse n'antregh (n'ID ëd version
     DataObject) o bin un GUID da 16 caràter ch'a rëspondrà con l'ùltima version ëd
     col oget
+  the_darwin_core_taxon_elements: 'J''element ëd tassonomìa Darwin Core (dwct: Taxon)
+    sota ''additionalinformation'' a comprendo j''identificativ dij neu ant le gerarchìe
+    che l''EdV a andicisa. A conten-o un dc:identifier ch''a l''é l''identificativ
+    ùnich për la tassonomìa <i>ant la base ëd dàit dël fornidor</i>.'
+  the_following_users_were_prese: 'J''utent sì-dapress a l''han ës-ciairà la fnestra
+    contestual dël sondagi e a l''han acetà l''anvit a rësponde coma smonù sì-sota:'
+  the_id_of_provider_hierarchy_you_are_searching: l'ID dla gerarchìa dël fornidor
+    andoa a l'é an camin ch'a fà l'arserca. Ch'a contròla %{link} për j'ID vàlid
+  the_image_from_this_source_has_not_been_reviewed: La plancia ëd sa sorgiss a l'é
+    nen ëstàita controlà.
+  the_image_from_this_source_is_not_trusted: La plancia ëd sa sorgiss a l'é nen afidàbil.
+  the_info_highlighted_is_reviewed: L'anformassion evidensià an ross sì-sota a l'é
+    stàita controlà da 'n conservator e a l'é marcà tanme nen afidàbil.
+  the_information_highlighted_in: L'anformassion evidensià an giàun sì-sota a l'é
+    nen ëstàita controlà.
+  the_json_response_for_this_method: La rispòsta JSON për ës métod-sì a smon pi d'anformassion
+    che la rispòsta XML. La roispòsta JSON a comprend vàire statìstiche ansima a 's
+    neu e ai sò dissendent tassonòmich. Për esempi, a-i é un camp ëd risposta "total_descendants"
+    che a lista ël nùmer dij neu che a son dij dissendent d'un neu dàit conforma a
+    sa gerarchìa; "total_trusted_text" a comprend ël nùmer total d'oget ëd dàit testuaj
+    ùnich gropà a sa pàgina o a cheidun dij sò dissendent.
+  the_message_was_sent: Ël mëssagi a l'é stàit mandà.
+  the_new_topic_was_created: Ël neuv argoment a l'é stàit creà.
+  the_new_user_was_created: Ël neuv utent a l'é stàit creà.
 ...

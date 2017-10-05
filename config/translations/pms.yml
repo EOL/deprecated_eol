@@ -6767,4 +6767,27 @@ pms:
   the_message_was_sent: Ël mëssagi a l'é stàit mandà.
   the_new_topic_was_created: Ël neuv argoment a l'é stàit creà.
   the_new_user_was_created: Ël neuv utent a l'é stàit creà.
+  there_are_currently_no_members_in_this_community: Al moment a-i é gnun mèmber an
+    sa comunità.
+  there_is_no_singular_eol: A-i é pa na gerarchìa tassonòmica ùnica ant l'EdV; nòpà
+    EdV a andicisa vàire gerarchìe e a-j confronta për determiné che neu a fan arfieriment
+    a l'istessa tassonomìa. Si element ëd tassonomìa a arpresento ij neu ëd costa
+    gerarchìa, a l'é për lòn che a-i na j'é potensialman vàire për na dàita pàgina
+    dl'EdV. Ch'a fasa arferiment a la documentassion an l'API %{link} për pi d'anformassion.
+  the_query_string: la stringa d'arcesta
+  the_suggested_page_to_direct_users_to_link: la pàgina sugerìa vers la qual dirige
+    j'utent
+  the_topic_was_updated: L'argoment a l'é stàit agiornà.
+  the_user_was_updated: L'utent a l'é stàit agiornà.
+  the_user_who_performed_this_action_was_removed: L'utent ch'a l'ha fàit s'assion
+    a l'é stàit eliminà.
+  the_xml_search_response_implements: La rispòsta XML a realisa ël formà 'd rispòsta
+    OpenSearch an dovrand Atom 1.0. Ch'a vëdda %{link} për la spessìfica completa
+    d'OpenSearch
+  this_area_shows_all_submission: Costa zòna a smon tute le contribussion mandà a
+    travers le pàgine Ch'an contata o Sostegn ëd contat. Për vëdde le vos, ch'a selession-a
+    l'argoment sì-sota o <a href=%{link}>ch'a espòrta tute le vos ant n'archivi CSV</a>.
+  this_cannot_be_undone_are_you_sure: Sòn a peul nen esse anulà; é-lo sigur?
+  this_collection_has_no_managers: Costa colession a l'ha gnun mansé.
+  this_comment_was_deleted: Ës coment a l'é stàit dëscancelà.
 ...

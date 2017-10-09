@@ -6790,4 +6790,42 @@ pms:
   this_cannot_be_undone_are_you_sure: Sòn a peul nen esse anulà; é-lo sigur?
   this_collection_has_no_managers: Costa colession a l'ha gnun mansé.
   this_comment_was_deleted: Ës coment a l'é stàit dëscancelà.
+  this_community_has_no_endorsed_collections: Sa comunità a l'han ancor nen dle colession
+    cudìe.
+  this_community_has_no_focus_list: Sa comunità a l'ha gnun-a lista ëd discussion.
+  this_community_was_deleted: Sa comunità a l'é stàita dëscancelà da sò propietari.
+  this_data_object_will_be_reindexed: St'oget ëd dàit a sarà torna andicisà.
+  this_does_not_necessarily_mean: '* sòn a veul nen dì për fòrsa che le conession
+    a son dovrà, ma mach che a son definìe ant ël database.yml --- a dev verifiché
+    l''archivi «config/environments/%{env}.rb» për vëdde si le conession mëssé a son
+    configurà'
+  this_is_a_flat_list_of_10_million_strings: As trata ëd na lista piata ëd 10 milion
+    dë stringhe - i lassoma nen che sò navigador a-i intra
+  this_is_a_focus_collection_for_community: Cost-sì a l'é ël sènter d'anteress ëd
+    %{community}.
+  this_is_the_breakdown_of_chapt: Costa a l'é l'arpartission dij capìtoj, sot-capìtoj
+    e dla categorìa Model dij profil dë spece rëspondenta.
+  hierarchy_selector_drop_down_list_label: Costa a l'é la tichëtta ch'a comparirà
+    ant la lista dësrolanta dël seletor ëd gerarchìa
+  this_is_the_label_that_will_be_used_for_attribution: Costa a l'é la tichëtta ch'a
+    sarà dovrà për l'aribussion
+  this_older_version: Sa veja version dël métod ëd l'API Pages a aceta ij midem paràmeter
+    e a smon apopré j'istesse informassion. An efet, la rispòsta JSON a l'é idèntica
+    a la version 1.0, ma la rispòsta XML a l'ha na strutura na frisa diferenta.
+  this_page_will_be_reindexed: Costa pàgina a sarà torna andicisà ant lë sfond, e
+    a podrìa avèj damanca ëd fin-a a 24 ore për esse livrà.
+  gbif_occurrence_disclaimer: Costa carta a l'é basà an sj'argistrassion d'ocorensa
+    disponìbij ant la <a rel='nofollow' href='http://www.gbif.org/' >rej GBIF</a>
+    e a podrìo arpresenté nen la distribussion antrega.
+  gbif_occurrence_learn_more_link: Ch'a aceda a si dàit a travers ël portal GBIF.
+  page_method_description: Ës métod a pija an intrada n'identificativ ëd pàgina EdV
+    e a smon ël nòm sientìfich për cola pàgina, e eventualman a smon j'anformassion
+    an sij nòm comun, ij mojen (test, plance e filmà) e j'arferiment a le gerarchìe
+    ch'a arconòsso la tassonomìa descrivùa an sla pàgina.
+  ping_method_description: O bin ës métod a faliss (e antlora la pàgina d'eror ëd
+    l'EdV a sarà probabilman ësmonùa) opura a smon un mëssagi ëd riussìa. A-i é gnun
+    àutr mëssagi possìbil
+  provider_hierarchies_method_description: Ës métod a smonërà j'arferiment a tute
+    le gerarchìe fornìe dai cambrada ëd contnù dl'EdV. La rispòsta a comprendrà la
+    tichëtta dla gerarchìa e l'identificativ ùnich EdV ch'a arpresenta la gerarchìa
 ...

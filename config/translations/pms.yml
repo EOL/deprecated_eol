@@ -6828,4 +6828,33 @@ pms:
   provider_hierarchies_method_description: Ës métod a smonërà j'arferiment a tute
     le gerarchìe fornìe dai cambrada ëd contnù dl'EdV. La rispòsta a comprendrà la
     tichëtta dla gerarchìa e l'identificativ ùnich EdV ch'a arpresenta la gerarchìa
+  this_method_takes_an_integer_or_string: Ës métod a pija n'antregh o na stringa ch'a
+    l'é l'identificativ ùnich ëd na tassonomìa ant la base ëd dàit ëd chèich fornidor
+    e un hierarchy_id ch'a arpresenta ëd fornidor, e a smon l'identificativ ëd la
+    pàgina EdV për cola tassonomìa. Për esempi, an dovrand l'API %{link_provider},
+    i peuss vëdde che ël hierarchy_id ëd l'EdV për ël Sistema d'anformassion tassonòmich
+    antëgrà a l'é %{itis_id}. I peuss antlora arserché ant l'EdV ël nùmer ëd serie
+    tassonòmich (TSN) 180542, <i>Ursus maritimus</i>, an ciamand %{link_url}
+  this_page_shows_information_ab: Sa pàgina-sì a smon j'anformassion an s'un criteri
+    d'arserca spessìfich e su che arzultà j'utent a l'han ësgnacà apress avèj fàit
+    l'arserca.
+  this_resource_unpublished_notice: Cost'arsorsa a l'é nen definìs tanme publicà da
+    l'aministrator, për adess.
+  threat_status_header_colon: 'Stat ëd la mnassa <abbr title="Union antërnassional
+    për la goerna dla natura">UAGN</abbr>:'
+  thumbnail_page_colon: 'pàgina ëd plancia:'
+  time_ago: '%{time_passed} fa'
+  title: Tìtol
+  toc_entry_col_header: Vos ëd la tàula dj'argoment
+  toc_no_longer_available: Anformassion an sla tàula dj'argoment pi nen disponìbij
+  toc: TÀULA
+  topic_area: Zòna dël soget
+  topic: Soget
+  to_process_your_donation_please_proceed: Për traté soa donassion, për piasì ch'a
+    vada anans
+  to_remedy_this: Për armedié a sòn, i sarëroma si cont inativ e i-j ciamoma ëd visité
+    eol.org për creé un cont neuv. Cand a arseivrà ël mëssagi ëd confirmassion an
+    pòsta eletrònica, për piasì ch'a sgnaca an sla liura për validé sò cont.
+  to_send_email_enter_text: Për mandé un mëssagi ëd pòsta eletrònica a s'utent, ch'a
+    buta ël test sì-sota e ch'a sgnaca su 'Mandé'.
 ...

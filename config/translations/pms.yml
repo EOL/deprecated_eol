@@ -6857,4 +6857,14 @@ pms:
     pòsta eletrònica, për piasì ch'a sgnaca an sla liura për validé sò cont.
   to_send_email_enter_text: Për mandé un mëssagi ëd pòsta eletrònica a s'utent, ch'a
     buta ël test sì-sota e ch'a sgnaca su 'Mandé'.
+  to_submit_a_species_photograph_for: Për mandé na fòto ëd la spece %{taxon}, për
+    piasì ch'a manda le fòto su %{flickr_link} e ch'a scota j'anstrussion smonùe an
+    sla pàgina d'intrada ëd cola partìa.
+  total_comments_have_been_submitted:
+    one: '%{count} coment a l''é stàit mandà an %{string}'
+    other: '%{count} coment an total a son ëstàit mandà an %{string}'
+  total_distinct_searches: 'Total dj''arserche distinte:'
+  total_items_with_count:
+    one: '%{count} element'
+    other: '%{count} element an total'
 ...

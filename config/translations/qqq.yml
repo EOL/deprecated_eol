@@ -717,6 +717,7 @@ qqq:
   audio_play: '{{Identical|Play}}'
   audio_pause: '{{Identical|Pause}}'
   audio_stop: '{{Identical|Stop}}'
+  audio_mute: '{{Identical|Mute}}'
   available: '{{Identical|Available}}'
   average_rating_value_of_total: |-
     From web page of EOL

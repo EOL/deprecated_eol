@@ -2750,8 +2750,8 @@ zh-CN:
   audio_pause_assistive: 当JavaScript启用时，此链接将使您暂停正在播放的音频文件，否则请忽略此链接。
   audio_stop: 停止
   audio_stop_assistive: 当JavaScript启用时，此链接将使您停止正在播放的音频文件，否则请忽略此链接。
-  audio_mute: 静音
-  audio_unmute: 取消静音
+  audio_mute: 禁言
+  audio_unmute: 取消禁言
   authoritative_information: 权威信息
   author_of_peer_reviewed_publication_credential_option: 同行评审的出版物的著作权（提供参考）
   available: 可用的

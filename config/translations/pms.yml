@@ -6867,4 +6867,14 @@ pms:
   total_items_with_count:
     one: '%{count} element'
     other: '%{count} element an total'
+  total_searches: 'Total dj''arserche:'
+  total: Total
+  traitbank_banner: <strong>Presentation ëd <a href='/traitbank'>TraitBank</a>:</strong>
+    arserché antra 'd milion ëd dàit argistrà ant l'EdV &nbsp; <small>•</small> &nbsp;
+    <a href='/traitbank'>Savèjne ëd pi</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Arserché
+    dij dàit</a>
+  translation_deleted: La tradussion a l'é stàita eliminà.
+  translation_information_header: Anformassion an sla tradussion
+  translation_log: Istograma dla frequensa dle ciav d'i18n
+  translation_saved: La tradussion a l'é stàita argistrà
 ...

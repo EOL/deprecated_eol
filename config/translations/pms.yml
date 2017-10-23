@@ -6877,4 +6877,12 @@ pms:
   translation_information_header: Anformassion an sla tradussion
   translation_log: Istograma dla frequensa dle ciav d'i18n
   translation_saved: La tradussion a l'é stàita argistrà
+  translations_submit: Vëdde la tradussion
+  trigger_search_term_entered_by: fé marcé ël criteri d'arserca butà da l'utent
+  "true": Ver
+  true_label: Ver
+  truncated_comment_omission: '... <a href=''%{link}''>ëd pi</a>'
+  truncated_comment_omission_linkless: '...'
+  truncated_news_item_omission: '... <a href=''%{link}''>ëd pi</a>'
+  trusted: Fidà
 ...

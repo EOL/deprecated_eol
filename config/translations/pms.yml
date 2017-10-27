@@ -6885,4 +6885,9 @@ pms:
   truncated_comment_omission_linkless: '...'
   truncated_news_item_omission: '... <a href=''%{link}''>ëd pi</a>'
   trusted: Fidà
+  trusted_images: Plance fidà
+  trusted_maps: Carte fidà
+  trusted_text_objects: Artìcoj fidà
+  tumblr: Tumblr
+  twitter: Twitter
 ...

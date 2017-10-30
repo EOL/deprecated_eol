@@ -490,6 +490,7 @@ sv:
         q_with_val: 'Specifikt värde: %{val}'
         q_placeholder: Ange ett ord, fras eller nummer
         q_placeholder_disabled: Intervall anges, specifikt värde inaktiverat
+        q_more: Till exempel, heterotrofi.
         taxon_name: Taxongrupp
         taxon_name_with_val: 'Taxongrupp: %{val}'
         taxon_name_placeholder: Ange taxongruppens namn för att välja grupp
@@ -1052,18 +1053,21 @@ sv:
       delete_failed_not_empty: Tråden kunde inte raderas eftersom den inte är tom
   known_uris:
     add_a_relationship: Lägg till en relation
+    equivalent_to: Ekvivalensförhållanden
     import_successful: Ontologitermer importerades
     more_than_one_field_mapped_to_type: Mer än ett attribut är mappat till "%{type}"
     no_results: Det finns inga resultat för den valda statistiken
     no_relationships: Inga relationer hittades för denna URI.
     please_select_field_types: Var god välj en mappning för varje attribut
     please_select_category_for_stats: Välj en kategori att visa statistik.
+    please_select_uris_to_import: Välj URIs att importera
     relationships: Relationer
     relationships_from_this_uri: Relationer från denna URI
     relationships_to_this_uri: Relationer till denna URI
     select_a_category_to_view_stats: 'Välj en kategori att visa statistik för:'
     uri_placeholder_text: t.ex. http://purl.org/dc/terms/contributor
     name_placeholder_text: t.ex. bidragsgivare
+    attribution_placeholder_text: t.ex. från Dublin Core; se http://dublincore.org/usage/terms/history/#contributorT-001.
     ontology_information_url_placeholder_text: t.ex. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: t.ex. http://dublincore.org/2012/06/14/dcterms.rdf
     select_a_preferred_uri_for_this_group: Välj en föredragen URI
@@ -1953,6 +1957,7 @@ sv:
       empty: Du har inga nedladdningar. Du kan <a href='%{data_search_url}'>söka efter
         data</a> och begära att ladda ned resultaten.
       empty_taxa_collection: Inga egenskaper hittades på denna samling
+      no_selected_attributes: Inga attribut valdes. Välj minst ett.
       download: ladda ned
       page_title: Datanedladdningar
       query_head: Förfrågan

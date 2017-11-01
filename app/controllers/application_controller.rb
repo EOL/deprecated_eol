@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   before_filter :log_ip, except: [ :fetch_external_page_title, :error ]
   before_filter :set_locale, except: [ :fetch_external_page_title ]
 
-  prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
 
   helper :all
@@ -170,12 +169,6 @@ class ApplicationController < ActionController::Base
 
     redirect_to url
 
-  end
-
-  def redirect_to_http_if_https
-    if request.ssl?
-      redirect_to "http://" + request.host + request.request_uri, status: :moved_permanently
-    end
   end
 
   def keep_home_page_fresh

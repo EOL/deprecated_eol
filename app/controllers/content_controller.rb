@@ -17,7 +17,6 @@ class ContentController < ApplicationController
 
   skip_before_filter :original_request_params, only: :random_homepage_images
   skip_before_filter :global_warning, only: :random_homepage_images
-  skip_before_filter :redirect_to_http_if_https, only: :random_homepage_images
   skip_before_filter :clear_any_logged_in_session, only: :random_homepage_images
   skip_before_filter :check_user_agreed_with_terms, only: :random_homepage_images
   skip_before_filter :set_locale, only: :random_homepage_images

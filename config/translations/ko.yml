@@ -3160,13 +3160,13 @@ ko:
   assistive_updates_statistics_header: 문서 통계
   associated_submit_button: 연관
   associated_with_header: 다음과 연관
-  associated_with_article_header: 최근 문서에서
-  associated_with_image_header: 최근 그림에서
-  associated_with_image_map_header: 최근 지도에서
-  associated_with_link_header: 최근 링크에서
-  associated_with_map_header: 최근 지도에서
-  associated_with_sound_header: 최근 소리에서
-  associated_with_video_header: 최근 동영상에서
+  associated_with_article_header: 최신 문서에서
+  associated_with_image_header: 최신 그림에서
+  associated_with_image_map_header: 최신 지도에서
+  associated_with_link_header: 최신 링크에서
+  associated_with_map_header: 최신 지도에서
+  associated_with_sound_header: 최신 소리에서
+  associated_with_video_header: 최신 동영상에서
   association_added_flash: 연합이 추가됐습니다. 문서를 업데이트하려면 몇 분 정도 걸릴 수 있습니다.
   association_trusted_for_taxa:
     one: '신뢰하는 대상:'
@@ -3501,10 +3501,11 @@ ko:
   content_partner_filter_option_vetted_no: 아니오
   content_partner_filter_option_published_never_harvested: 전혀 수확하지 않음
   content_partner_filter_option_published_never_published: 전혀 게시하지 않음
-  content_partner_filter_option_published_latest_harvest_not_published: 최근 게시하지 않음
-  content_partner_filter_option_published_latest_harvest_pending_publish: 최근 보류 중인
-    게시
-  content_partner_filter_option_published_latest_harvest_published: 최근 게시함
+  content_partner_filter_option_published_latest_harvest_not_published: 마지막으로 게시되지
+    않음
+  content_partner_filter_option_published_latest_harvest_pending_publish: 마지막으로 보류
+    중인 게시
+  content_partner_filter_option_published_latest_harvest_published: 마지막으로 게시됨
   content_partner_filter_option_published_no_resources: 자료 없음
   content_partner_filter_published: 게시함
   content_partner_has_unpublished_content_true: 게시하지 않은 내용
@@ -3977,7 +3978,7 @@ ko:
   explore_what_we_know_about_taxon: '%{taxon}에 대한 EOL이 알고 있는 탐구입니다.'
   export_curator_csv_link: '[모든 큐레이터를 CSV로 내보내기]'
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
-  external_link_header: 바깥 링크
+  external_link_header: 외부 링크
   external_link_icon_alt_text: 바깥 링크입니다.
   external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
   external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
@@ -4568,7 +4569,7 @@ ko:
   other_taxa_with_count:
     one: 다른 분류 %{count}개
     other: 다른 분류 %{count}개
-  outlink: 바깥 링크
+  outlink: 외부 링크
   overview: 둘러보기
   page_linked_to: 다음에 문서를 링크함
   page_name: 문서 이름
@@ -4673,7 +4674,7 @@ ko:
   recaptcha: 아래에 보이는 단어나 숫자를 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha
     글자</a>가 일치하지 않습니다. 다시 시도하세요.
-  recent_updates: 최근 업데이트
+  recent_updates: 최신 업데이트
   recently_visited: 최근 방문
   recipients: 받는 사람
   recognized_by_from_source: '%{source}에서 %{recognized_by}'

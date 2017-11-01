@@ -1,6 +1,7 @@
 # Messages for Danish (dansk)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Joedalton
 # Author: Tjernobyl
 ---
 da:
@@ -28,7 +29,9 @@ da:
   translated_agent_roles-label-agent_role_id-23: Videnskabelig korrekturlæser
   translated_agent_roles-label-agent_role_id-24: Sproglig korrekturlæser
   translated_agent_roles-label-agent_role_id-2: Rettighedshaver
+  translated_agent_roles-label-agent_role_id-3: Indsamler
   translated_agent_roles-label-agent_role_id-5: Skaber
+  translated_agent_roles-label-agent_role_id-7: Redaktør
   translated_agent_roles-label-agent_role_id-8: Illustrator
   translated_agent_roles-label-agent_role_id-9: Fotograf
   translated_audiences-label-audience_id-1: Erfarne brugere
@@ -64,10 +67,18 @@ da:
   translated_contact_subjects-title-contact_subject_id-24: Medlemskab og registrering
   translated_contact_subjects-title-contact_subject_id-25: Vilkår for brug og licensering
   translated_contact_subjects-title-contact_subject_id-26: Læring og uddannelse
+  translated_contact_subjects-title-contact_subject_id-27: Bliv en indholdspartner
+  translated_contact_subjects-title-contact_subject_id-28: Partnerstøtte af indhold
   translated_contact_subjects-title-contact_subject_id-30: Foretag en rettelse (stave-
     og grammatikkontrol, billeder, information)
   translated_contact_subjects-title-contact_subject_id-31: Bidrag med billeder, videoer
     eller lyde
+  translated_contact_subjects-title-contact_subject_id-32: Medieforespørgsler (interview,
+    pressespørgsmål, logoforespørgsler)
+  translated_contact_subjects-title-contact_subject_id-33: Giv et finansielt bidrag
+  translated_contact_subjects-title-contact_subject_id-34: Tekniske spørgsmål (problemer
+    med søgninger, hjemmesidefunktionalitet)
+  translated_contact_subjects-title-contact_subject_id-35: Generel tilbagemelding
   translated_content_partner_statuses-label-content_partner_status_id-1: Ventende
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkiveret
@@ -79,29 +90,69 @@ da:
   translated_data_types-label-data_type_id-3: Tekst
   translated_data_types-label-data_type_id-4: Video
   translated_data_types-label-data_type_id-5: GBIF-billede
+  translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Ingen rettigheder forbeholdes
   translated_licenses-description-license_id-29: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-2: '&#169; Alle rettigheder reserveret'
   translated_licenses-description-license_id-30: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-31: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-32: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-33: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-34: Offentlig ejendom
+  translated_licenses-description-license_id-35: Offentlig ejendom
   translated_licenses-description-license_id-36: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-37: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-38: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-39: Offentlig ejendom
   translated_licenses-description-license_id-3: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-42: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-43: Licens er ikke relevant
   translated_licenses-description-license_id-4: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-5: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-6: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-7: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-8: Nogle rettigheder forbeholdes
   translated_licenses-description-license_id-9: Nogle rettigheder forbeholdes
+  translated_ranks-label-rank_id-183: rige
+  translated_ranks-label-rank_id-266: orden
+  translated_ranks-label-rank_id-280: række
+  translated_ranks-label-rank_id-335: arter
+  translated_ranks-label-rank_id-352: underfamilie
   translated_ranks-label-rank_id-370: underklasse
+  translated_ranks-label-rank_id-375: underrække
   translated_ranks-label-rank_id-383: underfamilie
+  translated_ranks-label-rank_id-390: underslægt
+  translated_ranks-label-rank_id-391: undersl.
+  translated_ranks-label-rank_id-394: underslægt
+  translated_ranks-label-rank_id-396: underrige
+  translated_ranks-label-rank_id-399: underorden
+  translated_ranks-label-rank_id-401: underrække
+  translated_ranks-label-rank_id-408: undersektion
+  translated_ranks-label-rank_id-411: underserie
+  translated_ranks-label-rank_id-413: underart
+  translated_ranks-label-rank_id-414: underart
+  translated_ranks-label-rank_id-415: underarter
+  translated_ranks-label-rank_id-422: understamme
+  translated_ranks-label-rank_id-463: overfamilie
+  translated_ranks-label-rank_id-472: overrække
+  translated_ranks-label-rank_id-494: stamme
+  translated_ranks-label-rank_id-503: uklassificeret
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varietet
+  translated_ranks-label-rank_id-518: varietet
   translated_ranks-label-rank_id-51: Klasse
+  translated_ranks-label-rank_id-562: hybridslægt
+  translated_ranks-label-rank_id-563: hybridart
+  translated_ranks-label-rank_id-564: hybridunderart
+  translated_ranks-label-rank_id-565: hybridvarietet
+  translated_ranks-label-rank_id-74: række
   translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familie
   translated_resource_statuses-label-resource_status_id-10: Udgivet
   translated_resource_statuses-label-resource_status_id-11: Afventer udgivelse
@@ -124,16 +175,27 @@ da:
   translated_synonym_relations-label-synonym_relation_id-19: Godkendt navn
   translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-49: gyldigt navn
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-50: gyldig
   translated_synonym_relations-label-synonym_relation_id-51: Godkendt
+  translated_synonym_relations-label-synonym_relation_id-52: autoritet
+  translated_synonym_relations-label-synonym_relation_id-54: subjektivt synonym
+  translated_synonym_relations-label-synonym_relation_id-56: fejlagtig stavning
+  translated_synonym_relations-label-synonym_relation_id-57: stavealternativ
+  translated_synonym_relations-label-synonym_relation_id-58: leksikal variant
+  translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotypisk)
   translated_synonym_relations-label-synonym_relation_id-63: ikke accepteret
   translated_synonym_relations-label-synonym_relation_id-64: ugyldig
   translated_table_of_contents-label-table_of_contents_id-13: Almindelige navne
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Litteraturhenvisninger
   translated_table_of_contents-label-table_of_contents_id-194: Størrelse
   translated_table_of_contents-label-table_of_contents_id-1: Oversigt
   translated_table_of_contents-label-table_of_contents_id-218: Spredning
   translated_table_of_contents-label-table_of_contents_id-221: Risikoer
   translated_table_of_contents-label-table_of_contents_id-225: På internettet
+  translated_table_of_contents-label-table_of_contents_id-226: Indholdspartnere
   translated_table_of_contents-label-table_of_contents_id-227: Søg på nettet
   translated_table_of_contents-label-table_of_contents_id-242: Generel økologi
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografier
@@ -196,7 +258,10 @@ da:
   translated_table_of_contents-label-table_of_contents_id-4: Økologi
   translated_table_of_contents-label-table_of_contents_id-6: Relevans for mennesker
     og økosystemer
+  translated_table_of_contents-label-table_of_contents_id-7: Referencer og yderligere
+    information
   translated_table_of_contents-label-table_of_contents_id-8: Konservering
+  translated_untrust_reasons-label-untrust_reason_id-1: fejlidentificeret
   translated_untrust_reasons-label-untrust_reason_id-2: urigtigt/vildledende
   translated_untrust_reasons-label-untrust_reason_id-3: lav kvalitet
   translated_untrust_reasons-label-untrust_reason_id-4: dublet

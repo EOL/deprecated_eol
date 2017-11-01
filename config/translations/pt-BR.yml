@@ -3850,6 +3850,10 @@ pt-BR:
     de conteúdo %{name}? Se você fizer isso, você será desconectado do site como um
     administrador.
   article_from: artigo de
+  article_secondary_description_with_others_count:
+    zero: Descrição de %{taxon}
+    one: Descrição de %{taxon} e %{count} outro taxon
+    other: Descrição de %{taxon} e %{count} outra taxa
   article_more_about: Saiba mais sobre este artigo
   articles_with_count:
     one: '%{count} artigo'
@@ -4577,6 +4581,7 @@ pt-BR:
   crop_image_thumbnails: Recortar miniaturas de imagens
   curated: Curadoria
   curated_association_update_button: Salvar alterações
+  curated_objects_of: objetos curados de %{name}
   curation_comment: Comentário de Curadoria
   curation_error_no_hide_reasons_given: Por favor escolha uma razão para esconder
     isso na página da %{association}, ou deixe um comentário explicando porque você
@@ -4666,6 +4671,13 @@ pt-BR:
   data_column_raw_units: Unidades Brutas (direto da fonte)
   data_column_raw_units_uri: URI de Unidades Brutas (normalizado)
   data_column_source: Fornecedor
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> monta registros
+    de dados de vários provedores. Selecione uma linha para obter mais detalhes sobre
+    o registro ou <a href="%{traitbank_search_path}">pesquisar TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    monta registros de dados de vários provedores. Selecione uma linha para obter
+    mais detalhes sobre o registro ou <a href="%{traitbank_search_path}">pesquisar
+    dentro %{taxon_name}</a>.
   data_database_colon: 'Dados:'
   data_glossary: Glossário de dados
   data_link_to_record: Link para este registo
@@ -4734,6 +4746,10 @@ pt-BR:
   data_search_row_hidden: Um curador escondeu esta fila de dados.
   data_subtab_about: Sobre
   data_subtab_glossary: Glossário para %{taxon}
+  data_summary_header_with_count:
+    zero: EOL não possui dados de características
+    one: EOL tem dados para 1 característica
+    other: EOL tem dados para %{count} traços
   data_summary_ranges_header_with_count: A EOL tem dados resumidos
   data_tab_curator_exemplar: Essa linha foi adicionada à guia Visão Geral.
   data_tab_curator_excluded: Essa linha foi removida da guia Visão Geral.
@@ -4811,6 +4827,10 @@ pt-BR:
   did_you_mean: 'Você quis dizer: %{suggestions} ?'
   disabled_for_now: DESABILITADO NESTE MOMENTO
   discover_link: Educação
+  displaying_numerical_range_eol_records_with_count:
+    one: Exibindo o %{count} registro em EOL
+    other: Exibindo %{start_number} &ndash; %{end_number} de %{count} registro em
+      EOL
   donate_link: Doar
   done_already: Já feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar
@@ -5058,6 +5078,7 @@ pt-BR:
   filter_by_type_comment_option: Comentários
   filter_by_type_object_curated_option: Objetos com curadoria
   filter_by_type_name_option: Nomes
+  filter_by_type_taxa_comment_option: Comentários de Taxa
   filter_media: filtrar meios
   filter_newsfeed_option_all: Todos
   filter_newsfeed_option_messages: Comentários
@@ -5176,6 +5197,9 @@ pt-BR:
   grant_manager_link: Conceder função de administrador
   grant_permission: conceder
   grant_full_curator_link: Conceder
+  harvest_id: Identificação da colheita
+  harvesting_processes_log: Registro de processos de colheita
+  harvests_for: Colheitas para %{resource}
   has_already_been_taken: já foram tomadas.
   has_colon: 'Tem:'
   has_curated_your_image: tem curadoria na sua imagem
@@ -5214,6 +5238,7 @@ pt-BR:
     adicionar uma nota abaixo para indicar o motivo.
   check_this_to_browse_eol_by_the_hierarchy: (Se esta caixa estiver assinalada, a
     classificação será mostrada na guia de nomes sem ter que "Mostrar todas as classificações".)
+  reindex_data_object_button: Objeto Reindex
   reindex_page_button: Reindexar a página
   image: Imagem
   image_cropped_notice: A imagem foi cortada com sucesso.
@@ -5454,6 +5479,8 @@ pt-BR:
   main_content_area: 'Área de conteúdo principal:'
   main_database_colon: 'Principal:'
   maintained_by: mantido por
+  major_heading: Título principal
+  make_an_editor: criar um administrador
   make_user_an_editor_title: Permitir %{user} a gerenciar as seguintes coleções
   manage_your_profile: Administrar seu perfil
   managed_by: Gerido por
@@ -5464,6 +5491,7 @@ pt-BR:
     comunidade, adicione qualquer coleção destaque administrada das coleções da comunidade.
   manager_parens: (administrador)
   map_from: mapa de
+  master_curators_may_add_data: 'Os curadores podem adicionar dados:'
   map_objects_page_number: Página de mapas
   maps_with_count:
     one: '%{count} Mapa'
@@ -5471,6 +5499,7 @@ pt-BR:
   maps_empty: Ninguém contribui com mapas para esta página.
   maps_empty_contribute_instructions: Aprenda a contribuir com mapas para a EOL.
   maps_image_maps_header: Multimédia marcada como 'mapa'
+  march_of_life_thumbnail_title: 'March of Life:'
   max_collection_items_error: Desculpe, o seu pedido excedeu o limite de %{max} itens
     de coleção.
   media: Mídia
@@ -5494,6 +5523,13 @@ pt-BR:
   members_with_count_semi_colon:
     one: '%{count} membro;'
     other: '%{count} membros;'
+  merge_concepts: conceitos de fusão
+  merge_data_ready: Você está pronto para mesclar os dados das seguintes classificações
+    nesta página do taxon, ou dividi-los em sua própria página. Por Favor seja <i>absolutamente</i>
+    de ter selecionado todas as classificações que representam seu taxon alvo. Por
+    exemplo, se você estiver removendo uma traça de uma página de cogumelos, reveja
+    <i>todo</i> classificações acima indicadas para ter certeza de que você selecionou
+    todas as mariposas (mesmas).
   merge_data: mesclar classificações
   merge_pending: Essa operação de mesclagem exigirá algum tempo. Os taxa envolvidos
     estão bloqueados de outras edições de classificação até que a junção esteja completa.
@@ -5516,6 +5552,10 @@ pt-BR:
   most_active_members: Membros mais ativos
   move: Mover
   move_down: Mover para abaixo
+  added_classifications_ready: Os dados das classificações selecionadas estão prontos
+    para mudar para outra página. Para concluir o processo, selecione "dividir em
+    nova página" ou navegue até a aba de nomes da página em que deseja os dados e
+    selecione "classificações de mesclagem".
   move_to_bottom: mover para o final
   move_to_top: mover para o topo
   move_up: Mover para cima
@@ -5583,6 +5623,7 @@ pt-BR:
       community: Comunidade
       resources: Recursos
       taxon_details: Detalhes do táxon
+      taxon_media: Media Taxon
       images: Imagens
       sounds: Sons
       videos: Vídeos
@@ -5597,6 +5638,14 @@ pt-BR:
   new_contact_us_topic: Novo tópico de contato
   new_news_item: Nova Notícia
   news_and_event_links: Links de novidades & eventos
+  news_date: Data da notícia
+  new_search_suggestion: Nova sugestão de pesquisa
+  news_available_in_languages: 'Esta página está disponível em:'
+  news_item_is_visible_on_website_after_this_time: 'A notícia será visível no site
+    depois deste horário:'
+  news_item: noticia
+  news_item_title: Noticia
+  news_missing_content_title: Falta a tradução
   news_missing_content_message: Desculpe, esta página não está disponível para o idioma
     selecionado %{selected_language}.
   newsfeed: Feed de notícias
@@ -5606,6 +5655,12 @@ pt-BR:
   newsfeed_help_for_community: O feed de notícias para a comunidade EOL reúne atualizações
     associadas com os itens pertencentes a sua gestão de coleções, incluindo as atividades
     de seus membros e comentários de outros usuários EOL.
+  newsfeed_help_for_profile: O Fluxo de notícias do perfil do EOL contém comentários
+    deixados para o seu proprietário por outros membros, convites da comunidade EOL
+    e reúne as atualizações associadas aos itens na lista de observação EOL do proprietário.
+  newsfeed_help_for_taxon: O Newsfeed para esta página EOL Taxon reúne as atualizações
+    associadas aos itens exibidos, incluindo ações do curador e comentários de usuários
+    do EOL.
   newsletter_banner: Torne-se parte da comunidade EOL&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>se
     inscreva para o Boletim EOL hoje mesmo</a>
   new_upload: Novo Upload
@@ -5672,10 +5727,15 @@ pt-BR:
   no_user_submitted_data_objects: Nenhum dos objetos de dados enviados pelo usuário
     corresponde aos seus critérios de pesquisa.
   nucleotide_sequences: Sequências de Nucleótidos
+  nucleotide_sequences_ncbi_mission: A missão do <a rel="nofollow" href="%{ncbi_link}">National
+    Center for Biotechnology Information</a> é desenvolver novas tecnologias de informação
+    para ajudar na compreensão de processos moleculares e genéticos fundamentais que
+    controlam a saúde e a doença.
   nucleotide_sequences_proteins_link: Ver sequências de proteínas e nucleótidos no
     NCBI
   object_curation: Curadoria de objeto
   object: Objeto
+  object_curated: Objeto curado.
   objects_curated: Objectos Curados
   object_status: Estado do objeto
   object_status_all_option: Tudo
@@ -5745,8 +5805,14 @@ pt-BR:
   pagination_previous_with_count:
     one: ver %{count}} anterior
     other: ver %{count} anteriores
+  pagination_range_with_count:
+    one: Mostrando %{count} rexistro
+    other: Mostrando %{start_number} &ndash; %{end_number} de %{count}
   parameters: Parâmetros
+  partner_information: Informações do parceiro
   partner_page: página do parceiro
+  partner: Parceiro
+  partner_web_site_colon: 'Site do parceiro:'
   password_colon: 'Senha:'
   pause: pausar
   people_with_count:
@@ -5769,6 +5835,8 @@ pt-BR:
     do site EOL
   please_indicate_curation_reason: 'Por favor selecione um motivo e/ou, opcionalmente,
     deixe um comentário de curadoria:'
+  please_note_wiki_etc_are_not_spm: '* Por favor, note que a Wikipédia, Educação e
+    Código de barras são assuntos internos da EOL e não fazem parte do SPM.'
   please_return_to_eol_homepage: Por favor, volte à página inicial da EOL
   please_wait: Por favor, aguarde...
   post_comment: Postar comentário
@@ -5790,6 +5858,7 @@ pt-BR:
   providers: Provedores
   public: Público
   public_domain: Domínio público
+  publish_changes: Publicar alterações
   published: Publicado
   published_parens: (Publicado)
   publish: publicar
@@ -5797,6 +5866,9 @@ pt-BR:
   punctuation_comma: ','
   punctuation_semi_colon: ;
   quarterly: Trimestral
+  rails_databases: Bancos de dados Rails
+  rails_environment: Ambiente Rails
+  rating_learn_more_link: Saiba mais sobre classificação
   rating_not_added_error: Desculpe, ocorreu um erro, a avaliação não pode ser adicionada.
   recaptcha: Digite as duas palavras ou números que você vê abaixo
   recent_updates: Atualizações recentes
@@ -5807,6 +5879,9 @@ pt-BR:
   recognized_by_from_source_as_a_rank: '%{recognized_by} em %{source} como %{taxon_rank}'
   record_not_found: '[registro não encontrado]'
   references_cabs_colon: 'Referências:'
+  related_names_with_count:
+    one: '%{count} nome relacionado'
+    other: '%{count} nomes relacionados'
   remove_data_object_association: Remover associação
   remove_membership: Remover a associação
   remove: Remover
@@ -5847,6 +5922,11 @@ pt-BR:
   scientific_name: Nome Científico
   search: Pesquisar
   search_by_term_page_title: 'Procurar: %{term}'
+  search_log_report_intro: Esta área mostra os termos de pesquisa de usuários mais
+    comuns, o número de vezes que a pesquisa foi executada e algumas informações sobre
+    o número de resultados retornados para esse termo de pesquisa. Clique nas colunas
+    para ordenar por aquela coluna. Clique em um termo de pesquisa para ver informações
+    sobre quais usuários do resultado clicaram (se houver) após a busca.
   search_next_label: Seguinte
   search_previous_label: Anterior
   search_input_advisory_information: Digite um nome comum ou científico de uma criatura
@@ -5903,15 +5983,21 @@ pt-BR:
   skip_to_content: Passar para o conteúdo
   social_sharing_twitter_tweet_button: Twittar
   social_sharing_twitter_follow_eol_button: Seguir @eol
+  sort_by_label: Ordenar por
+  sort_by_newest_option: Mais recente
+  sort_by_oldest_option: Mais antigos
   sort_by_richness_option: Riqueza
   sort_by_alphabetical_option: Alfabético
   sort_by_status_option: Estado
+  sort_collection_by_label: Ordenar coleção por
+  sort_by: Ordenar por
   sorry_no_collections_are_available_to_share: Desculpe, não houve coleções disponíveis
     para partilhar com esta comunidade.
   sorry_no_communities_are_available_to_share: Desculpe, não houve comunidades disponíveis
     para compartilhar esta coleção.
   sound_file: Arquivo de som
   sound_from: som de
+  sound_object: Objeto sonoro
   sound_of: Som de
   sounds_with_count:
     one: '%{count} som'
@@ -5961,6 +6047,13 @@ pt-BR:
   taxon_citizen_science_link: Links de Ciência Cidadã
   taxon_citizen_science_resources_empty: Ninguém contribuiu com quaisquer links de
     ciência cidadã para esta página ainda.
+  taxon_common_names_subtab_explanation: Muitas pessoas conhecem organismos apenas
+    pelos nomes comuns, ou nomes "vernáculas". Ao contrário dos nomes científicos,
+    os nomes comuns são quase sempre diferentes para falantes de diferentes idiomas.
+    Eles também podem variar regionalmente dentro de um idioma. Esta guia mostra todos
+    os nomes comuns fornecidos à EOL para este organismo de uma variedade de provedores,
+    incluindo curadores de EOL. Atualmente, podemos definir apenas um nome comum preferido
+    por idioma em uma determinada página EOL, mas todos os nomes devem ser pesquisáveis.
   taxon_details_empty: Ninguém contribuiu com quaisquer detalhes para esta página
     ainda.
   taxon_details_empty_in_this_language: Ninguém contribuiu com quaisquer detalhes
@@ -5978,11 +6071,27 @@ pt-BR:
   taxon_partner_links_empty: Os parceiros de conteúdo ainda não provideciaram os links
     da fonte sobre esta página.
   taxon_partner_links_empty_learn_more_link: Saiba como se tornar um parceiro de conteúdo
+  taxon_partner_links_header: Links de parceiros
+  taxon_partner_links_intro: Abaixo está uma lista de parceiros, incluindo parceiros
+    de conteúdo, com informações nesta página. Sempre que possível, os links o levarão
+    ao conteúdo correspondente no site do parceiro fornecido. O identificador exclusivo
+    para este taxon usado por cada parceiro está incorporado nesses links, e esses
+    identificadores também são acessíveis através do <a href="%{eol_api_link}">EOL
+    API</a>.
+  taxon_partner_links_link: Links de parceiros
   taxon_page_content_disclaimer: Conteúdo EOL é automaticamente montado a partir de
     diversos fornecedores de conteúdos diferentes. Como resultado, ao longo do tempo
     você pode encontrar páginas EOL que são confusas.
   taxon_page_content_disclaimer_suggest_improvement: Para solicitar uma melhoria,
     por favor, deixe um comentário na página. Obrigado!
+  taxon_related_names_subtab_explanation: Os nomes nesta guia apresentam uma visão
+    geral das relações deste grupo com outros grupos na árvore da vida, com base nas
+    hierarquias de classificação fornecidas pelos parceiros da classificação EOL.
+    Os "pais" são grupos mais inclusivos um nível mais alto na hierarquia. "Crianças"
+    são os subgrupos do grupo atual. Na guia classificação, você pode usar o link
+    "exibir todas as classificações" para ver uma lista completa de todas as hierarquias
+    fornecidas pelos nossos parceiros. Estes podem incluir nomes relacionados adicionais
+    que não são apresentados aqui.
   taxon_related_organizations_link: Organizações relacionadas
   taxon_synonyms_subtab_explanation: Às vezes os taxonomistas criam novos nomes para
     os grupos que já têm um nome. Eles podem fazer isso porque eles não têm conhecimento
@@ -6067,6 +6176,7 @@ pt-BR:
   this_comment_was_deleted: Este comentário foi apagado.
   this_community_has_no_focus_list: Esta comunidade não tem nenhuma lista de foco.
   this_community_was_deleted: Esta comunidade foi excluída por seu dono.
+  this_data_object_will_be_reindexed: Este objeto de dados será reindexado.
   this_does_not_necessarily_mean: '* isto não significa necessariamente que os links
     estão sendo usados, apenas que estão definidos no database.yml --- você deve verificar
     a "config/environments/%{env}.rb" arquivo para ver se as conexões de mestre estão
@@ -6221,9 +6331,15 @@ pt-BR:
     one: '%{count} nome comum removido'
     other: '%{count} nomes comuns removidos'
   user_activity_stats_header: Atividade
+  user_activity_stats_objects_curated:
+    one: '%{count} objeto curado'
+    other: '%{count} objectos curados'
   user_activity_stats_preferred_classifications_selected:
     one: '%{count} classificação preferida selecionada'
     other: '%{count} classificações preferidas selecionadas'
+  user_activity_stats_taxa_commented:
+    one: '%{count} taxon comentado'
+    other: '%{count} taxons comentados'
   user_activity_stats_wikipedia_nominated:
     one: '%{count} Artigo da Wikipédia nomeado'
     other: '%{count} Artigos da Wikipédia nomeados'
@@ -6285,6 +6401,7 @@ pt-BR:
     one: '%{count} atual parceiro de conteúdo'
     other: '%{count} atuais parceiros de conteúdo'
   users_curation_header: Qualificações de curador
+  user_counts_refresh_daily: '* as contas são atualizadas diariamente'
   users_form_account_header: Sua conta
   users_form_curation_header: Qualificações de curador
   users_form_profile_info_header: Informações de perfil público

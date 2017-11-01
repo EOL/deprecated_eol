@@ -6477,4 +6477,417 @@ pms:
   sign_out: Seurte dal sistema
   site_cms: Sit CMS
   site_information: Anformassion an sël sit
+  site_language: Lenga dël sit
+  site_settings_menu: Configurassion dël sit
+  skip_to_content: Sauté al contnù
+  skip_to_navigation: Sauté a la navigassion
+  skip_to_table_of_contents: Sauté a la tàula dij contnù
+  social_sharing_reddit_button: mandé a reddit
+  social_sharing_header: EdV an sij sit ëd mojen sossiaj
+  social_sharing_twitter_tweet_button: Tweet
+  social_sharing_twitter_follow_eol_button: Steje dapress a @eol
+  some_required_fields_were_not_entered: Chèich camp obligatòri a son nen ëstàit butà
+    (a dev buteje un tìtol, e un contnù o n'adrëssa an sl'aragnà).
+  sort_by_button: Ordiné
+  sort_by_label: Ordiné për
+  sort_by_newest_option: Pi neuv
+  sort_by_oldest_option: Pi vej
+  sort_by_rating_option: Pontegi
+  sort_by_richness_option: Richisia
+  sort_by_alphabetical_option: Alfabétich
+  sort_by_hierarchy_publish_request_option: Arcesta ëd publicassion ëd gerarchìa
+  sort_by_reverse_alphabetical_option: Alfabétich anvertì
+  sort_by_recently_added_option: Giontà ëd recent
+  sort_by_recently_updated_option: Agiornà ëd recent
+  sort_by_status_option: Statù
+  sort_by_title_ascending: Tìtol chërsent
+  sort_by_title_descending: Tìtol dechërsent
+  sort_by_value_ascending: Prima ij valor cit
+  sort_by_value_descending: Prima ij valor grand
+  sort_by_year_ascending: Ann chërsent
+  sort_by_year_descending: Ann dechërsent
+  sort_collection_by_label: Ordiné la colession për
+  sort_order: Ordinament
+  sort_by: Ordiné për
+  sort_field: 'Camp d''ordinament:'
+  sorry_no_collections_are_available_to_share: An dëspias, a-i é gnun-e colession
+    disponìbij da partagé con sa comunità.
+  sorry_no_communities_are_available_to_share: An dëspias, a-i é gnun-e comunità disponìbij
+    con le quaj partagé sa colession.
+  sound_file: Archivi sonor
+  sound_from: son da
+  sound_object: Oget son
+  sound_objects_page_number: pàgina ëd son
+  sound_of: Argistrassion sonora ëd
+  sounds_with_count:
+    one: '%{count} son'
+    other: '%{count} son'
+  source_information_header: Anformassion an sla sorgiss
+  source_and_additional_information: Sorgiss e anformassion suplementar
+  source: Sorgiss
+  source_colon: 'Sorgiss:'
+  source_url: Adrëssa dl'aragnà sorgiss
+  special_collection: Colession ëspecial
+  special_collections_cannot_be_destroyed: Costa colession-sì a l'é l'ùnica colession
+    associà a soa comunità e a peul nen esse dëscancelà.
+  species_curated: Spece controlà
+  species_profile_model_cp_count_title: Model ëd profil dë spece - Cont dij cambrada
+    ëd contnù
+  species_profile_model_dato_count_title: Model ëd profil dë spece - Cont dj'oget
+    ëd dàit
+  species_profile_model: Model ëd profil dë spece
+  species: Spece
+  split_into_new_concept: divide an na pàgina neuva
+  split_cancelled: Operassion ëd separassion anulà.
+  split_classification_instructions: Për gavé costa vos ëd gerarchìa da costa pàgina
+    EdV, a dev peui selessioné la vos ëd gerarchìa ch'a arpresenta mej lòn ch'a DOVRÌA
+    essie su costa pàgina, parèj che le cujìe future a goerno sempe se doe vos ëd
+    gerarchìa separà.
+  split_pending: S'operassion ëd separassion a l'ha damanca d'un pò 'd temp. Costa
+    pàgina a l'é giumaj blocà për d'àutre modìfiche ëd classificassion fin-a che la
+    separassion a sia completà. Chiel a arseivrà un mëssagi an pòsta eletrònica cand
+    ël process a sarà livrà, e a comparirà ant ël fil ëd neuve dla pàgina.
+  split_only_possible_with_all_classifications: Bele che chiel a l'ha ël drit ëd divide
+    le classificassion, a dev <a href='%{link}'>smon-e tute le classificassion</a>
+    prima che l'assion a sia autorisà.
+  spm_category_objects_count: Categorìa SPM - cont dj'oget
+  spm_category_partner_count: Categorìa SPM - cont dij cambrada
+  spm_category: Categorìa SPM
+  stars_with_count:
+    one: '%{count} stèila'
+    other: '%{count} stèile'
+  started: Partì
+  stats: Statìstiche
+  stat: Stat
+  stored_classifications: Për piasì, ch'a nòta che chiel a l'ha <a href='%{anchor}'>le
+    classificassion rangià, sì-sota</a>.
+  sub_heading: Sot-antestassion
+  subject: soget
+  submit: Mandé
+  submitting: Ch'a l'abia passiensa…
+  submitted_colon: 'Mandà:'
+  suggested_attributes: 'Atribù sugerì:'
+  suggested_result_page_id: 'Identificativ ëd pàgina d''arzultà sugerì:'
+  suggested_results_avg: Media dj'arzultà sugerì
+  suggested_vocab_add: tèrmin arcomandà
+  suggested_vocab_remove: gavé l'arcomandassion
+  summary_thumbnail_title: 'Resumé:'
+  supplier: Fornidor
+  supplier_allcaps: 'FORNIDOR:'
+  supplier_colon: 'Fornidor:'
+  survey_link: Ch'a rësponda a nòstr sondagi
+  switch_language_advisory_information: Cangé la lenga dël sit an %{language_label}
+  synonym: Sinònim
+  synonyms_with_count:
+    one: '%{count} sinònim'
+    other: '%{count} sinònim'
+  table_column_header_actions: Assion
+  table_of_contents_breakdown: tàula d'arpartission dij contnù
+  table_of_contents_breakdown_title: Tàula d'arpartission dij contnù
+  table_of_contents_editor: Editor dla tàula dij contnù
+  table_of_contents: Tàula
+  target_blank_advisory_information: S'a-j va dapress a sa liura, la pàgina ëd destinassion
+    as duvertrà an na fnestra dël navigador neuva.
+  task_status: Stat dël travaj
+  task_status_active_option: Ativ
+  task_status_curated_option: Goernà
+  task_status_ignored_option: Ignorà
+  tasks_with_count:
+    one: '%{count} travaj trovà'
+    other: '%{count} travaj trovà'
+  taxa_count: Nùmer ëd tassonomìe
+  taxa_column_header: Tassonomìe
+  taxa_with_count:
+    one: '%{count} tassonomìa'
+    other: '%{count} tassonomìe'
+  taxon: tassonomìa
+  taxon_biomedical_terms_link: Vocàboj biomédich
+  taxon_citizen_science_header: Liure sientìfiche sitadin-e
+  taxon_citizen_science_link: Liure sientìfiche sitadin-e
+  taxon_citizen_science_resources_empty: Gnun a l'ha ancor contribuì con na liura
+    sientìfica sitadin-a a sa pàgina.
+  taxon_common_names_subtab_explanation: Tanta gent a conòss j'organism mach con sò
+    nòm comun, o «vernacolar». A diferensa dij nòm sientìfich, ij nòm comun a son
+    ëscasi sempe diferent për ij parlant ëd lenghe diferente. A peulo ëdcò varié regionalman
+    për na midema lenga. Sa scheda a smon tuti ij nòm comun fornì a EdV për s'organism
+    da vàire fornidor, comprèis ij conservator d'EdV. Al moment i podoma definì mach
+    un nòm comun preferì për lenga an s'na dàita pàgina EdV, ma tuti ij nòm a dovrìo
+    esse arsercàbij.
+  taxon_concept_stats: Statìstiche dël concet ëd tassonomìa
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> a sambla dj'argistrassion
+    ëd dàit da vàire fornidor. Gnun a l'ha ancor contribuì con d'argistrassion ëd
+    dàit për %{taxon}.
+  taxon_data_overview_empty: Gnun a l'ha ancor contribuì con dj'argistrassion ëd dàit
+    për %{taxon}.
+  taxon_data_header: Dàit su %{taxon}
+  taxon_details_empty: Gnun a l'ha ancor contribuì con dij detaj a sa pàgina-sì.
+  taxon_details_empty_in_this_language: Gnun a l'ha contribuì con dij detaj a sa pàgina-sì
+    an costa lenga.
+  taxon_education_empty: Gnun a l'ha ancor contribuì con d'arsorse d'educassion a
+    costa pàgina-sì.
+  taxon_education_header: Arsorse educative
+  taxon_education_link: Arsorse educative
+  taxon_group: Partìa tassonòmica
+  taxon_id: ID ëd la tassonomìa
+  taxon_identification_resources_empty: Gnun a l'ha ancor contribuì con d'arsorse
+    d'identificassion su costa pàgina.
+  taxon_identification_resources_header: Arsorse d'identificassion
+  taxon_identification_resources_link: Arsorse d'identificassion
+  taxon_multimedia_links_link: Liure multimediaj
+  taxon_newsfeed: Fil ëd neuve dla tassonomìa
+  taxon_news_and_event_links_link: Liure neuve & eveniment
+  taxon_nucleotide_sequences_link: Sequense ëd nucleòtid
+  taxon_partner_links_empty: Ij cambrada ëd contnù a l'han ancor nen fornì dle liure
+    sorgiss për sa pàgina.
+  taxon_partner_links_empty_learn_more_link: Ch'a dëscheurva coma dventé un cambrada
+    ëd contnù
+  taxon_partner_links_header: Liure vers un cambrada
+  taxon_partner_links_intro: Sì-sota a-i é na lista ëd cambrada, comprèis ij cambrada
+    ëd contnù, con dj'anformassion su costa pàgina-sì. Cand a l'é possìbil, le liure
+    a lo menëran al contnù corëspondent an sël sit an sl'aragnà dël cambrada an chestion.
+    L'identificativ ùnich për sa tassonomìa dovrà da minca 'n cambrada a coste liure,
+    e costi identificativ a son ëdcò acessìbil a travers ëd l'<a href="%{eol_api_link}">API
+    EdV</a>.
+  taxon_partner_links_link: Liure vers un cambrada
+  taxon_page_content_disclaimer_header: Limitassion ëd responsabilità
+  taxon_page_content_disclaimer: Ël contnù dl'EdV a l'é samblà an automàtich da vàire
+    fornidor ëd contnù diferent. Donca, ëd tansantan, a podrìa trové dle pàgina an
+    sl'EdV ch'a son sorgiss ëd confusion.
+  taxon_page_content_disclaimer_suggest_improvement: Për ciamé n'ameliorassion, për
+    piasì ch'a lassa un coment an sla pàgina. Mersì!
+  taxon_related_names_subtab_explanation: Ij nòm an sa scheda a presento le relassion
+    ëd sa partìa con d'àutre partìe ant l'erbo dla vita, basà an sle gerarchìe ëd
+    classificassion fornìe dai cambrada ëd classificassion d'EdV. «Cé» a son dle partìe
+    pi anclusive, un livel ëdzora ant la gerarchìa. «Masnà» a son le sot-partìe dla
+    partìa corenta. Ant la scheda ëd classificassion, a peul dovré la liura «smon-e
+    tute le classificassion» për vëdde na lista completa ëd tute le gerarchìe fornìe
+    dai nòstri cambrada. Coste a peulo anclude dij nòm gropà adissionaj ch'a son nen
+    butà an evidensa ambelessì.
+  taxon_related_organizations_link: Organisassion gropà
+  taxonomic_summary_of_content: Resumé tassonòmich dël contnù
+  taxon_recognized_by: Tassonomìa arconossùa da %{whom}
+  taxon_selected_from_search_res: Tassonomìa selessionà a parte da j'arzultà dl'arserca
+  taxon_suggested: Tassonomìa sugerìa
+  taxon_synonyms_subtab_explanation: Dle vire, ij tassonomista a crea dij nòm neuv
+    për dle partìe ch'a l'han già un nòm. A peulo fé sòn përché a son nen al corent
+    dël nòm original, o a peulo pensé che l'organism ch'a l'han danans a aparten a
+    na partìa diferenta, bele che sòn a sia nen vera. Si as treuvo doi o pi nòm ch'as
+    àplico a la midema partìa, costi-sì a son considerà tanme sinònim. Ant la pipart
+    dij cas, ël prim nòm a l'ha la precedensa e a l'é considerà coma ël nòm bon o
+    acetà. Tutun, a peulo essie dj'ecession, e a l'é nen sempe belfé determiné qual,
+    ëd na serie ëd sinònim, a dovrìa esse considerà bon o acetà. Ambelessì nojàutri
+    i listoma ij sinònim fornì a EdV dai nòstri cambrada ëd classificassion. I ancludoma
+    d'àutre version dël nòm che motobin probabilman as arferisso a l'istessa partìa,
+    për esempi dj'eror d'ortografìa ant la literatura o variante diferente ëd la paternità
+    associà al nòm.
+  technical_functions: Fonsion técniche
+  terms_agreement_form_fallback: Për piasì, ch'a lesa e ch'a aceta le <a href="%{terms_url}">condission
+    d'utilisassion</a> prima d'intré an sò cont.
+  terms_agreement_form_header: Condission d'utilisassion
+  terms_agreement_form_submit: I son d'acòrd
+  terms_of_use_link: Condission d'utilisassion e vita privà
+  term_for_search_admin_ui: Condission
+  test: Preuva.
+  test_it_out: Provelo
+  text_object: Oget test
+  text_objects_page_number: Pàgine ëd test
+  text: test
+  text_capital: Test
+  text_summary_empty: Gnun a l'ha ancor contribuì con un curt resumé a costa pàgina.
+  text_summary_empty_header: Curt resumé
+  text_summary_more_link: Lese la vos completa
+  text_with_count:
+    one: '%{count} artìcol'
+    other: '%{count} artìcoj'
+  thanks_for_donation: Merci ëd sosten-e l'Enciclopedìa dla Vita. Soe anformassion
+    a son ëstàite mandà e a saran tratà.
+  thanks_for_your_time: Mersì për sò temp,
+  thank_you_for_your_generous_support: Mersì për sò agiut generos!
+  thank_you: Mersì
+  the_amount_entered_was: 'Ël montant andicà a l''era: %{number} USD'
+  the_comment_was_successfully_updated: Ël coment a l'é stàit agiornà për da bin.
+  the_comment_was_successfully_deleted: Ël coment a l'é stàit dëscancelà për da bin.
+  the_content_could_not_be_displ: Impossìbil ësmon-e ël contnù.
+  the_content_was_updated: Ël contnù a l'é stàit agiornà.
+  the_cp_count_info: Ël cont a arpresenta ël nùmer total ëd cambrada ëd contnù con
+    d'oget ëd dàit publicà sota la corëspondenta categorìa ëd soget SPM.
+  the_count_represents_the_total: Ël cont a arpresenta ël nùmer total d'oget ëd dàit
+    publicà sota la corispondenta categorìa ëd soget SPM.
+  hierarchies_entries_description: L'Enciclopedìa dla Vita a l'ha nen n'ùnica gerarchìa
+    tassonòmica an sla qual a crea soe pàgine. Nopà, l'EdV a andicisa vàire gerarchìe
+    e a-j confronta j'un-e con j'àutre. Parèj, minca na pàgina dl'EdV a peul esse
+    an relassion con vàire neu ëd gerarchìe diferente. Cost API a dà acess a na sìngola
+    gerarchìa e a soe relassion anterne. Ch'a fasa arferiment a la documentassion
+    a sl'API dle pàgine për d'anformassion su coma acede a d'àutre gerarchìe ch'a
+    rëspondo a na pàgina EdV particolar. Ël camp 'taxonConceptID' a conten l'identificativ
+    ëd la pàgina EdV ch'a peul esse dovrà ant l'API dle pàgine.
+  hierarchies_entries_descendants_description: A parte da l'identificant ëd na vos
+    ëd gerarchìa, cost API a rëspond con tuti ij dissendent ëd sa vos ëd gerarchìa.
+  hierarchies_description: L'Enciclopedìa dla Vita a l'ha pa na gerarchìa tassonòmica
+    ùnica an sla qual a crea soe pàgine. Nopà, l'EdV a andicisa vàire gerarchìe e
+    a-j confronta un-a con l'àutra. Cost API a lista ij metadàit ëd na gerarchìa tanme
+    ël nòm dël fornidor e l'adrëssa sorgiss an sl'aragnà, e ëdcò tute le tassonomìe
+    ch'a son le tassonomìe rèis ëd l'erbo tassonòmich.
+  the_file_was_uploaded: L'archivi a l'é stàit carià.
+  the_following_bibliography: La bibliografìa sì-dapress a l'é stàita generà an butand
+    ansem tuti j'arferiment fornì dai nòstri cambrada ëd contnù. A podrìo essie dij
+    dobion.
+  topics_avilable_to_contact_us_info: J'àree temàtiche sì-dapress a son disponìbij
+    da la pàgina Contatene. Chiel a peul gionté o modifiché dj'àree temàtiche e soe
+    adrësse ëd pòsta eletrònica corëspondenta. Tute le modìfiche a son fàite imediataman.
+  too_many_descendants_to_curate_with_count:
+    one: 'EROR: Soa conservassion a peul nen esse tratà a travers ël sistemà automatisà.
+      A-i é %{count} dissendent, lòn ch''a passa ël màssim përmetù.'
+    other: 'EROR: Soa conservassion a peul nen esse tratà a travers ël sistemà automatisà.
+      A-i é %{count} dissendent, lòn ch''a passa ël màssim përmetù.'
+  the_data_object_id_can_be: ël paràmeter ID a peul esse n'antregh (n'ID ëd version
+    DataObject) o bin un GUID da 16 caràter ch'a rëspondrà con l'ùltima version ëd
+    col oget
+  the_darwin_core_taxon_elements: 'J''element ëd tassonomìa Darwin Core (dwct: Taxon)
+    sota ''additionalinformation'' a comprendo j''identificativ dij neu ant le gerarchìe
+    che l''EdV a andicisa. A conten-o un dc:identifier ch''a l''é l''identificativ
+    ùnich për la tassonomìa <i>ant la base ëd dàit dël fornidor</i>.'
+  the_following_users_were_prese: 'J''utent sì-dapress a l''han ës-ciairà la fnestra
+    contestual dël sondagi e a l''han acetà l''anvit a rësponde coma smonù sì-sota:'
+  the_id_of_provider_hierarchy_you_are_searching: l'ID dla gerarchìa dël fornidor
+    andoa a l'é an camin ch'a fà l'arserca. Ch'a contròla %{link} për j'ID vàlid
+  the_image_from_this_source_has_not_been_reviewed: La plancia ëd sa sorgiss a l'é
+    nen ëstàita controlà.
+  the_image_from_this_source_is_not_trusted: La plancia ëd sa sorgiss a l'é nen afidàbil.
+  the_info_highlighted_is_reviewed: L'anformassion evidensià an ross sì-sota a l'é
+    stàita controlà da 'n conservator e a l'é marcà tanme nen afidàbil.
+  the_information_highlighted_in: L'anformassion evidensià an giàun sì-sota a l'é
+    nen ëstàita controlà.
+  the_json_response_for_this_method: La rispòsta JSON për ës métod-sì a smon pi d'anformassion
+    che la rispòsta XML. La roispòsta JSON a comprend vàire statìstiche ansima a 's
+    neu e ai sò dissendent tassonòmich. Për esempi, a-i é un camp ëd risposta "total_descendants"
+    che a lista ël nùmer dij neu che a son dij dissendent d'un neu dàit conforma a
+    sa gerarchìa; "total_trusted_text" a comprend ël nùmer total d'oget ëd dàit testuaj
+    ùnich gropà a sa pàgina o a cheidun dij sò dissendent.
+  the_message_was_sent: Ël mëssagi a l'é stàit mandà.
+  the_new_topic_was_created: Ël neuv argoment a l'é stàit creà.
+  the_new_user_was_created: Ël neuv utent a l'é stàit creà.
+  there_are_currently_no_members_in_this_community: Al moment a-i é gnun mèmber an
+    sa comunità.
+  there_is_no_singular_eol: A-i é pa na gerarchìa tassonòmica ùnica ant l'EdV; nòpà
+    EdV a andicisa vàire gerarchìe e a-j confronta për determiné che neu a fan arfieriment
+    a l'istessa tassonomìa. Si element ëd tassonomìa a arpresento ij neu ëd costa
+    gerarchìa, a l'é për lòn che a-i na j'é potensialman vàire për na dàita pàgina
+    dl'EdV. Ch'a fasa arferiment a la documentassion an l'API %{link} për pi d'anformassion.
+  the_query_string: la stringa d'arcesta
+  the_suggested_page_to_direct_users_to_link: la pàgina sugerìa vers la qual dirige
+    j'utent
+  the_topic_was_updated: L'argoment a l'é stàit agiornà.
+  the_user_was_updated: L'utent a l'é stàit agiornà.
+  the_user_who_performed_this_action_was_removed: L'utent ch'a l'ha fàit s'assion
+    a l'é stàit eliminà.
+  the_xml_search_response_implements: La rispòsta XML a realisa ël formà 'd rispòsta
+    OpenSearch an dovrand Atom 1.0. Ch'a vëdda %{link} për la spessìfica completa
+    d'OpenSearch
+  this_area_shows_all_submission: Costa zòna a smon tute le contribussion mandà a
+    travers le pàgine Ch'an contata o Sostegn ëd contat. Për vëdde le vos, ch'a selession-a
+    l'argoment sì-sota o <a href=%{link}>ch'a espòrta tute le vos ant n'archivi CSV</a>.
+  this_cannot_be_undone_are_you_sure: Sòn a peul nen esse anulà; é-lo sigur?
+  this_collection_has_no_managers: Costa colession a l'ha gnun mansé.
+  this_comment_was_deleted: Ës coment a l'é stàit dëscancelà.
+  this_community_has_no_endorsed_collections: Sa comunità a l'han ancor nen dle colession
+    cudìe.
+  this_community_has_no_focus_list: Sa comunità a l'ha gnun-a lista ëd discussion.
+  this_community_was_deleted: Sa comunità a l'é stàita dëscancelà da sò propietari.
+  this_data_object_will_be_reindexed: St'oget ëd dàit a sarà torna andicisà.
+  this_does_not_necessarily_mean: '* sòn a veul nen dì për fòrsa che le conession
+    a son dovrà, ma mach che a son definìe ant ël database.yml --- a dev verifiché
+    l''archivi «config/environments/%{env}.rb» për vëdde si le conession mëssé a son
+    configurà'
+  this_is_a_flat_list_of_10_million_strings: As trata ëd na lista piata ëd 10 milion
+    dë stringhe - i lassoma nen che sò navigador a-i intra
+  this_is_a_focus_collection_for_community: Cost-sì a l'é ël sènter d'anteress ëd
+    %{community}.
+  this_is_the_breakdown_of_chapt: Costa a l'é l'arpartission dij capìtoj, sot-capìtoj
+    e dla categorìa Model dij profil dë spece rëspondenta.
+  hierarchy_selector_drop_down_list_label: Costa a l'é la tichëtta ch'a comparirà
+    ant la lista dësrolanta dël seletor ëd gerarchìa
+  this_is_the_label_that_will_be_used_for_attribution: Costa a l'é la tichëtta ch'a
+    sarà dovrà për l'aribussion
+  this_older_version: Sa veja version dël métod ëd l'API Pages a aceta ij midem paràmeter
+    e a smon apopré j'istesse informassion. An efet, la rispòsta JSON a l'é idèntica
+    a la version 1.0, ma la rispòsta XML a l'ha na strutura na frisa diferenta.
+  this_page_will_be_reindexed: Costa pàgina a sarà torna andicisà ant lë sfond, e
+    a podrìa avèj damanca ëd fin-a a 24 ore për esse livrà.
+  gbif_occurrence_disclaimer: Costa carta a l'é basà an sj'argistrassion d'ocorensa
+    disponìbij ant la <a rel='nofollow' href='http://www.gbif.org/' >rej GBIF</a>
+    e a podrìo arpresenté nen la distribussion antrega.
+  gbif_occurrence_learn_more_link: Ch'a aceda a si dàit a travers ël portal GBIF.
+  page_method_description: Ës métod a pija an intrada n'identificativ ëd pàgina EdV
+    e a smon ël nòm sientìfich për cola pàgina, e eventualman a smon j'anformassion
+    an sij nòm comun, ij mojen (test, plance e filmà) e j'arferiment a le gerarchìe
+    ch'a arconòsso la tassonomìa descrivùa an sla pàgina.
+  ping_method_description: O bin ës métod a faliss (e antlora la pàgina d'eror ëd
+    l'EdV a sarà probabilman ësmonùa) opura a smon un mëssagi ëd riussìa. A-i é gnun
+    àutr mëssagi possìbil
+  provider_hierarchies_method_description: Ës métod a smonërà j'arferiment a tute
+    le gerarchìe fornìe dai cambrada ëd contnù dl'EdV. La rispòsta a comprendrà la
+    tichëtta dla gerarchìa e l'identificativ ùnich EdV ch'a arpresenta la gerarchìa
+  this_method_takes_an_integer_or_string: Ës métod a pija n'antregh o na stringa ch'a
+    l'é l'identificativ ùnich ëd na tassonomìa ant la base ëd dàit ëd chèich fornidor
+    e un hierarchy_id ch'a arpresenta ëd fornidor, e a smon l'identificativ ëd la
+    pàgina EdV për cola tassonomìa. Për esempi, an dovrand l'API %{link_provider},
+    i peuss vëdde che ël hierarchy_id ëd l'EdV për ël Sistema d'anformassion tassonòmich
+    antëgrà a l'é %{itis_id}. I peuss antlora arserché ant l'EdV ël nùmer ëd serie
+    tassonòmich (TSN) 180542, <i>Ursus maritimus</i>, an ciamand %{link_url}
+  this_page_shows_information_ab: Sa pàgina-sì a smon j'anformassion an s'un criteri
+    d'arserca spessìfich e su che arzultà j'utent a l'han ësgnacà apress avèj fàit
+    l'arserca.
+  this_resource_unpublished_notice: Cost'arsorsa a l'é nen definìs tanme publicà da
+    l'aministrator, për adess.
+  threat_status_header_colon: 'Stat ëd la mnassa <abbr title="Union antërnassional
+    për la goerna dla natura">UAGN</abbr>:'
+  thumbnail_page_colon: 'pàgina ëd plancia:'
+  time_ago: '%{time_passed} fa'
+  title: Tìtol
+  toc_entry_col_header: Vos ëd la tàula dj'argoment
+  toc_no_longer_available: Anformassion an sla tàula dj'argoment pi nen disponìbij
+  toc: TÀULA
+  topic_area: Zòna dël soget
+  topic: Soget
+  to_process_your_donation_please_proceed: Për traté soa donassion, për piasì ch'a
+    vada anans
+  to_remedy_this: Për armedié a sòn, i sarëroma si cont inativ e i-j ciamoma ëd visité
+    eol.org për creé un cont neuv. Cand a arseivrà ël mëssagi ëd confirmassion an
+    pòsta eletrònica, për piasì ch'a sgnaca an sla liura për validé sò cont.
+  to_send_email_enter_text: Për mandé un mëssagi ëd pòsta eletrònica a s'utent, ch'a
+    buta ël test sì-sota e ch'a sgnaca su 'Mandé'.
+  to_submit_a_species_photograph_for: Për mandé na fòto ëd la spece %{taxon}, për
+    piasì ch'a manda le fòto su %{flickr_link} e ch'a scota j'anstrussion smonùe an
+    sla pàgina d'intrada ëd cola partìa.
+  total_comments_have_been_submitted:
+    one: '%{count} coment a l''é stàit mandà an %{string}'
+    other: '%{count} coment an total a son ëstàit mandà an %{string}'
+  total_distinct_searches: 'Total dj''arserche distinte:'
+  total_items_with_count:
+    one: '%{count} element'
+    other: '%{count} element an total'
+  total_searches: 'Total dj''arserche:'
+  total: Total
+  traitbank_banner: <strong>Presentation ëd <a href='/traitbank'>TraitBank</a>:</strong>
+    arserché antra 'd milion ëd dàit argistrà ant l'EdV &nbsp; <small>•</small> &nbsp;
+    <a href='/traitbank'>Savèjne ëd pi</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Arserché
+    dij dàit</a>
+  translation_deleted: La tradussion a l'é stàita eliminà.
+  translation_information_header: Anformassion an sla tradussion
+  translation_log: Istograma dla frequensa dle ciav d'i18n
+  translation_saved: La tradussion a l'é stàita argistrà
+  translations_submit: Vëdde la tradussion
+  trigger_search_term_entered_by: fé marcé ël criteri d'arserca butà da l'utent
+  "true": Ver
+  true_label: Ver
+  truncated_comment_omission: '... <a href=''%{link}''>ëd pi</a>'
+  truncated_comment_omission_linkless: '...'
+  truncated_news_item_omission: '... <a href=''%{link}''>ëd pi</a>'
+  trusted: Fidà
+  trusted_images: Plance fidà
+  trusted_maps: Carte fidà
+  trusted_text_objects: Artìcoj fidà
+  tumblr: Tumblr
+  twitter: Twitter
 ...

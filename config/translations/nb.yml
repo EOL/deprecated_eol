@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Danmichaelo
 # Author: Event
+# Author: Forteller
 # Author: Gadnihasj
 # Author: Jon Harald Søby
 # Author: Nghtwlkr
@@ -16,8 +17,8 @@ nb:
       user: konto
     attributes:
       collection:
-        name: Samlingsnavn
-        description: Samlingsbeskrivelse
+        name: Navn på samling
+        description: Beskrivelse av samling
         sort_style_id: Standard sorteringsretning
         logo: Primært samlingsbilde
         additional_annotation_fields: Ytterlige annoteringsfelt

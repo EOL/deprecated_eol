@@ -7,7 +7,7 @@ class ContentServer
 
   def self.map(id)
     prefix = id.to_i % 100
-    "http://media.eol.org/content/maps/#{prefix}/#{id}.json"
+    "https://media.eol.org/content/maps/#{prefix}/#{id}.json"
   end
 
   def self.jpg_sizes

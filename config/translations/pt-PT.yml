@@ -17,6 +17,7 @@
 # Author: Mansil
 # Author: McDutchie
 # Author: Polyethylen
+# Author: Renatinhoracing
 # Author: SandroHc
 # Author: Sarilho1
 # Author: Vitorvicentevalente
@@ -914,6 +915,10 @@ pt-PT:
     download_taxa_data:
       attribute_header: Atributo
       select_all_checkbox: Selecionar tudo
+      collection_download_under_processing: Neste instante, o teledescarregamento
+        da coleção está a ser processado. Uma correspondência eletrónica será enviada-te
+        quando o teledescarregamento completar.
+      user_downloaded_collection: Teledescarrega de dados para %{collection_name}
     show:
       meta_description_default: Uma colecção da Enciclopédia da Vida intitulada %{collection_name}.
       meta_description_default_focus_collection: Uma colecção da Enciclopédia da Vida
@@ -955,7 +960,21 @@ pt-PT:
         view_more_observations_on_inaturalist: Ver mais observações de %{project_title}
           em iNaturalist
         view_project_on_inaturalist: Ver %{project_title} em iNaturalist
+  communities:
+    collections:
+      index:
+        meta_description: Coleções comunitárias reunidas por %{community_name}, uma
+          comunidade da Enciclopédia da Vida.
+  content:
+    index:
+      meta_description: A Enciclopédia da Vida é um esforço inédito para compilar
+        conhecimentos científicos de toda a vida animal e vegetal, e dispõe de fotografias,
+        informações, fatos e outras coisas acerca de todos os seres vivos de nossos
+        reinos vegetal e animal.
   content_partners:
+    statistics:
+      show:
+        meta_description: Estatísticas de uso de dados de %{partner_name}.
     edit:
       meta_title: Editar %{partner_name}
   data_objects:

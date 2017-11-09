@@ -4093,7 +4093,7 @@ es:
   by_caps: Por
   by_scientific_name_table_header: por nombre científico
   cache_store: Almacenamiento de la antememoria
-  caching_results: Resultados en caché
+  caching_results: Almacenando los resultados en la antememoria
   calculate_averages_slow: Calcular las medias (lento)
   call_api: Llamada API
   cancel: Cancelar
@@ -4198,7 +4198,7 @@ es:
     one: '%{count} clasificación'
     other: '%{count} clasificaciones'
   clear_all_non_species_pages: Borrar todas las páginas que no son de especies
-  clear_entire_cache_store: Limpiar todo lo almacenado en la memoria caché
+  clear_entire_cache_store: Vaciar la antememoria por completo
   clear_species_page: Borrar la página de la especie
   cms_available_in_languages: 'Esta página está disponible en:'
   cms_editor: Editor CMS
@@ -5432,7 +5432,7 @@ es:
   for_pdfs_and_docs_parens: (para archivos PDF y documentos)
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este
     elemento
-  fragment_caching_enabled: La memoria caché de los fragmentos está activada
+  fragment_caching_enabled: Se activó la antememoria de fragmentos
   frequency: Frecuencia
   frequency_daily: Diario
   frequency_monthly: Menuale
@@ -5509,7 +5509,7 @@ es:
   hierarchy_updated: Jerarquía actualizada
   hierarchies_title: Jerarquías
   home: Inicio
-  home_page_cache_last_cleared_on: La memoria caché de la página de inicio fue borrada
+  home_page_cache_last_cleared_on: La antememoria de la página de inicio se vació
     por última vez el %{date}
   home_page_link_advisory_information: Este enlace te llevará a la página principal
     de Encyclopedia Of Life

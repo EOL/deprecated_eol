@@ -22,10 +22,10 @@ lki:
   translated_agent_roles-label-agent_role_id-10: پروژۀ
   translated_agent_roles-label-agent_role_id-11: بۀشا کۀر-ناشر
   translated_agent_roles-label-agent_role_id-12: ضبط کننده
-  translated_agent_roles-label-agent_role_id-13: بِنچۀک
-  translated_agent_roles-label-agent_role_id-14: بِنچۀک پایگاه‌داده
+  translated_agent_roles-label-agent_role_id-13: بنچەک(منبع)
+  translated_agent_roles-label-agent_role_id-14: بنچەک(منبع)پایگاه‌ داده
   translated_agent_roles-label-agent_role_id-15: تماس ئةگرد شةخص
-  translated_agent_roles-label-agent_role_id-16: هؤمکاری کِرۀل
+  translated_agent_roles-label-agent_role_id-16: بەشاکرەل(هام بێرەل)
   translated_agent_roles-label-agent_role_id-1: پويانما
   translated_agent_roles-label-agent_role_id-21: إرائة دةر
   translated_agent_roles-label-agent_role_id-22: چاوواشۀگر زوون
@@ -161,7 +161,7 @@ lki:
   translated_sort_styles-name-sort_style_id-1: تازۀ اضافۀ بیۀ
   translated_sort_styles-name-sort_style_id-2: قدیمی ترین
   translated_sort_styles-name-sort_style_id-3: الفبایی
-  translated_sort_styles-name-sort_style_id-4: الفبایی چاوواشۀ
+  translated_sort_styles-name-sort_style_id-4: ئەڵفبایی چاوواشە
   translated_sort_styles-name-sort_style_id-5: باارزش
   translated_sort_styles-name-sort_style_id-6: رتبه بندی
   translated_statuses-label-status_id-1: قرار دریا

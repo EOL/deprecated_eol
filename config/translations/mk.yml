@@ -65,7 +65,7 @@ mk:
         bibliographic_citation: Библиографско наведување
         description: Текст
         object_title: Наслов
-        rights_holder: Сопственик на правата
+        rights_holder: Праводржец
         rights_statement: Изјава за правата
         source_url: Изворна URL
       data_object_link:
@@ -236,12 +236,12 @@ mk:
         hierarchy: Чинослед
         language_id: Стандарден јазик
         dataset_license_id: Лиценца
-        dataset_rights_holder: Сопственик на правата
+        dataset_rights_holder: Праводржец
         dataset_rights_statement: Изјава за правата
         license_id: Стандардна лиценца
         notes: Белешки при обработка
         resource_status_id: Статус на ресурсот
-        rights_holder: Стандарден сопственик на правата
+        rights_holder: Праводржец по основно
         rights_statement: Стандардно раководство со правата
         title: Име на ресурсот
         vetted: Проверен
@@ -472,11 +472,11 @@ mk:
         toc_item: Подглава
         refs: Наводи <small>(секој во нов ред)</small>
         refs_order: '*Наводите ќе бидат испишани по азбучен ред'
-        rights_holder: Сопственик на правата
+        rights_holder: Праводржец
         rights_holder_more: Укажете го лицето или организацијата што ги поседува правата
           на овие податоци. Ако го оставите полето празно, ќе претпоставиме дека вие
-          сте имател на правата (за сите лиценци освен јавносопственичката). Кај лиценците
-          за јавна сопственост не се бара наведување на имател.
+          сте праводржецот (за сите лиценци освен јавносопственичката). Кај лиценците
+          за јавна сопственост не се бара наведување на праводржец.
         rights_statement: Изјава за правата
         rights_statement_more: Изјава за правата на употреба, која се бара за лиценците
           Криејтив комонс Наведи извор (CC-BY). Наведувањето треба да го извршите
@@ -6129,7 +6129,7 @@ mk:
   returns_either_a_batch_or_not: дава група или не
   revisions: Преработки
   rights: Права
-  rights_holder: Сопственик на правата
+  rights_holder: Праводржец
   rights_statement: Изјава за правата
   richness_score: Оценка на содржајноста
   save_comment_lowercase: зачувај коментар

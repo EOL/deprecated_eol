@@ -70,7 +70,7 @@ ar:
         display_name: الاسم الظاهر
         full_name: اسم المشروع
         homepage: مسار المشروع
-        id: رقم
+        id: معرف
         notes: ملاحظات المشروع
         is_public: عام
         resources: المراجع

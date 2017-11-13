@@ -9,6 +9,7 @@
 # Author: Lloffiwr
 # Author: Nemo bis
 # Author: Nike
+# Author: Omotecho
 # Author: Piramidion
 # Author: Purodha
 # Author: Robby
@@ -201,9 +202,9 @@ qqq:
         marine_pages_in_col: CoL = Catalogue of Life
         rich_pages: '''Rich'' in this case refers to ''high quality''... ie: pages
           with lots of text and images.'
-        hotlist_pages: Hotlist pages are pages that EOL determines have deficient
-          quality for the frequency with which they are viewed, and thus curators
-          are encouraged to add content to them.
+        hotlist_pages: |-
+          Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them.
+          Hotlist のページとは閲覧の回数に比較して内容が不充分と見なされ、キュレーターの要監修 (Hotlist) と指示されたもの。
         rich_hotlist_pages: Hotlist pages are pages that EOL determines have deficient
           quality for the frequency with which they are viewed, and thus curators
           are encouraged to add content to them.

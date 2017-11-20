@@ -5048,7 +5048,7 @@ ar:
   content_upload_url: http://%{domain}%{upload_attachment}
   content_upload_restrictions_note: (يجب أن يكون حجمه أقل من 10 ميجا بايت، سيتم حفظ
     الملف بنفس صورة تحميله، أي يدون تغيير حجم الصور)
-  id: رقم
+  id: معرف
   if_checked_and_user_is_saved: إذا تم الاختيار وحفظ المستخدم، فسوف يتم حذف الاعتمادات،
     والنطاق، والموافقة والفرع الحيوي المختار، ولن يظهر المستخدم كمشرف بعد ذلك. لم
     يتم إرسال معلومات حول ذلك المستخدم.
@@ -5741,7 +5741,7 @@ ar:
   proceed_to_checkout_page: استمر لصفحة الخروج
   process_name: اسم العملية
   profile_colon: 'المعلومات الشخصية:'
-  profile: الملف
+  profile: الملف الشخصي
   profile_image_alt_text_curator: الصورة الشخصية للمشرف %{user_full_name}
   profile_image_alt_text_member: الصورة الشخصية للعضو %{user_full_name}
   profile_newsfeed: تحديثاتى

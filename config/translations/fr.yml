@@ -5106,9 +5106,9 @@ fr:
   download_collection_data: Télécharger les données
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Commentaire non enregistré : il semble que vous avez
-    déjà posté ce commentaire. ...Avez-vous cliqué sur le bouton ''envoyer un commentaire''
+    déjà publié ce commentaire. … Avez-vous cliqué sur le bouton ''envoyer un commentaire''
     deux fois ?'
-  duplicate_text_warning: 'Texte non enregistré : il semble que vous avez déjà posté
+  duplicate_text_warning: 'Texte non enregistré : il semble que vous avez déjà publié
     cet article. … Avez-vous cliqué deux fois sur le bouton ''ajouter un article'' ?'
   duplicate_items_were_ignored: Les éléments en double ont été ignorés.
   each_method_documentation_page_has_formatted_responses: Chaque page de documentation

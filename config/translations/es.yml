@@ -1284,7 +1284,7 @@ es:
       questions_link_species: ¿Qué es una especie?
       questions_link_discovering_species: ¿Cómo se descubren las especies?
       questions_link_naming_species: ¿Cómo se denominan las especies?
-      questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binomial?
+      questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binómica?
       questions_link_biological_classification: ¿Qué es una clasificación biológica?
       questions_link_invasive_species: ¿Qué es una especie invasora?
       questions_link_indicator_species: ¿Qué es una especie indicadora?
@@ -4940,7 +4940,7 @@ es:
       header_assistive: Formulario de búsqueda
       input_summary_intro: Opciones de búsqueda seleccionadas
       new_search_link: Iniciar una nueva búsqueda
-      or_range_header: O <span class="assistive">especifique un rango</span>
+      or_range_header: O <span class="assistive">define un intervalo</span>
       refine_search_header: Refine su búsqueda (opcional)
       search_suggestions_header: ¿No está seguro dónde empezar?
       search_suggestions_subheader_colon: 'Pruebe una de las siguientes búsquedas

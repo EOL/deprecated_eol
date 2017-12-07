@@ -895,7 +895,7 @@ mk:
         нив.
   contacts:
     errors:
-      message_not_sent: Нажалост, се појави грешка. Пораката не е испратена.
+      message_not_sent: За жал, се појави грешка. Пораката не е испратена.
     notices:
       message_sent: Ви благодариме за искажаното мислење. Пораката е испратена на
         соодветната група.
@@ -1023,8 +1023,8 @@ mk:
     comparing_dates: <span class="assistive">Споредба</span> на <span class="date_one">%{date_one}</span>
       <span class="assistive">со</span> <span class="date_two">%{date_two}</span>
     warnings:
-      stats_unavailable_for_date: Нажалост, немаме статистики за %{date}. Изберете
-        друг датум.
+      stats_unavailable_for_date: За жал, немаме статистики за %{date}. Изберете друг
+        датум.
     content_partners:
       menu_link: Соучесници во содржините
       page_header: Статистики за соучесници во содржините
@@ -1070,9 +1070,9 @@ mk:
     views: Посети
     create: Создај форум
     create_successful: Форумот е успешно создаден
-    create_failed: Нажалост, се појави грешка. Не можев да го додадам форумот.
+    create_failed: За жал, се појави грешка. Не можев да го додадам форумот.
     update_successful: Форумот е успешно подновен
-    update_failed: Нажалост, се појави грешка. Не можав да го подновам форумот.
+    update_failed: За жал, се појави грешка. Не можав да го подновам форумот.
     delete_successful: Форумот е успешно избришан
     delete_failed_not_empty: Не можам да го избришам форумот бидејќи не е празен
     move_successful: Форумот е успешно преместен
@@ -1091,9 +1091,9 @@ mk:
       create: Создај категорија
       edit: Уреди категорија
       create_successful: Категоријата е успешно создадена
-      create_failed: Нажалост, се појави грешка. Не можев да ја додадам категоријата
+      create_failed: За жал, се појави грешка. Не можев да ја додадам категоријата
       update_successful: Категоријата е успешно подновена
-      update_failed: Нажалост, се појави грешка. Не можав да ја подновам категоријата
+      update_failed: За жал, се појави грешка. Не можав да ја подновам категоријата
       delete_successful: Категоријата е успешно избришана
       delete_failed_not_empty: Не можам да ја избришам категоријата бидејќи не е празна
       move_successful: Категоријата е успешно преместена
@@ -1105,7 +1105,7 @@ mk:
       post_written_by_user: '%{user} напиша:'
       replying_to_post: 'Во одговор на:'
       create_successful: Објавата е успешно создадена
-      create_failed: Нажалост, се појави грешка. Не можев да ја додадам објавата.
+      create_failed: За жал, се појави грешка. Не можев да ја додадам објавата.
       update_successful: Објавата е успешно изменета
       update_failed: За жал, се појави грешка. Не можав да ја изменам објавата.
       delete_successful: Објавата е успешно избришана
@@ -1124,7 +1124,7 @@ mk:
       create: Отвори нова тема
       no_posts: Нема објави во темава
       create_successful: Темата е успешно создадена
-      create_failed: Нажалост, се појави грешка. Не можев да ја додадам темата.
+      create_failed: За жал, се појави грешка. Не можев да ја додадам темата.
       delete_successful: Темата е успешно избришана
       delete_failed_not_empty: Не можам да ја избришам темата бидејќи не е празна
   known_uris:
@@ -2134,111 +2134,111 @@ mk:
           нагодувањата за известување.
     open_authentications:
       errors:
-        missing_attributes: Нажалост, се појави проблем при пристапот на податоците
+        missing_attributes: За жал, се појави проблем при пристапот на податоците
           во вашата сметка на надворешен добавувач.
-        not_authorized_to_add_authentication: Нажалост, немаме овластување за да ви
+        not_authorized_to_add_authentication: За жал, немаме овластување за да ви
           ја поврземе сметката.
-        not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на EOL
+        not_authorized_to_login: За жал, немаме овластување да ве пријавиме на EOL
           со таа сметка.
-        remove_connection_failed: Нажалост, се појави грешка. Не можеме да ја отстраниме
+        remove_connection_failed: За жал, се појави грешка. Не можеме да ја отстраниме
           врската.
         facebook:
-          add_connection_failed_account_already_connected: Нажалост, не можеме да
-            ви ја поврземе сметката на Facebook со вашата сметка на EOL бидејќи е
-            веќе поврзана со <a href="%{existing_eol_account_url}">постоечка сметка
-            на EOL</a>.
-          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу
+          add_connection_failed_account_already_connected: За жал, не можеме да ви
+            ја поврземе сметката на Facebook со вашата сметка на EOL бидејќи е веќе
+            поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на
+            EOL</a>.
+          login_failed_not_connected: За жал, не можевме да утврдиме врска помеѓу
             вашата сметка на Facebook и EOL. Доколку веќе имате сметка на EOL. тогаш
             <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа
             поврзете ја сметката на Facebook во профилните нагодувања на EOL. Доколку
             немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a>
             за да ја направите.
-          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на
+          missing_attributes: За жал, не можевме да дојдеме до вашите податоци на
             Facebook.
-          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве
+          new_authentication_not_added: За жал, се појави грешка. Не можеме да ве
             поврземе со сметката на Facebook.
-          not_authorized_to_add_authentication: Нажалост, немаме овластување за да
-            ви ја поврземе сметката на Facebook.
-          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на
+          not_authorized_to_add_authentication: За жал, немаме овластување за да ви
+            ја поврземе сметката на Facebook.
+          not_authorized_to_login: За жал, немаме овластување да ве пријавиме на EOL
+            со вашата сметка на Facebook.
+          not_authorized_to_signup: За жал, немаме овластување да ве пријавиме на
             EOL со вашата сметка на Facebook.
-          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на
-            EOL со вашата сметка на Facebook.
-          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме
+          signup_failed_account_already_connected: За жал, не можеме да ве пријавиме
             за нова сметка на EOL со вашата сметка на Facebook бидејќи е веќе поврзана
             со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
             Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         google:
-          add_connection_failed_account_already_connected: Нажалост, не можеме да
-            ви ја поврземе сметката на Google со вашата сметка на EOL бидејќи е веќе
+          add_connection_failed_account_already_connected: За жал, не можеме да ви
+            ја поврземе сметката на Google со вашата сметка на EOL бидејќи е веќе
             поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на
             EOL</a>.
-          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу
+          login_failed_not_connected: За жал, не можевме да утврдиме врска помеѓу
             вашата сметка на Google и EOL. Доколку веќе имате сметка на EOL. тогаш
             <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа
             поврзете ја сметката на Google во профилните нагодувања на EOL. Доколку
             немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a>
             за да ја направите.
-          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на
+          missing_attributes: За жал, не можевме да дојдеме до вашите податоци на
             Google.
-          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве
+          new_authentication_not_added: За жал, се појави грешка. Не можеме да ве
             поврземе со сметката на Google.
-          not_authorized_to_add_authentication: Нажалост, немаме овластување за да
-            ви ја поврземе сметката на Google.
-          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на
+          not_authorized_to_add_authentication: За жал, немаме овластување за да ви
+            ја поврземе сметката на Google.
+          not_authorized_to_login: За жал, немаме овластување да ве пријавиме на EOL
+            со вашата сметка на Google.
+          not_authorized_to_signup: За жал, немаме овластување да ве пријавиме на
             EOL со вашата сметка на Google.
-          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на
-            EOL со вашата сметка на Google.
-          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме
+          signup_failed_account_already_connected: За жал, не можеме да ве пријавиме
             за нова сметка на EOL со вашата сметка на Google бидејќи е веќе поврзана
             со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
             Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         twitter:
-          add_connection_failed_account_already_connected: Нажалост, не можеме да
-            ви ја поврземе сметката на Twitter со вашата сметка на EOL бидејќи е веќе
+          add_connection_failed_account_already_connected: За жал, не можеме да ви
+            ја поврземе сметката на Twitter со вашата сметка на EOL бидејќи е веќе
             поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на
             EOL</a>.
-          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу
+          login_failed_not_connected: За жал, не можевме да утврдиме врска помеѓу
             вашата сметка на Twitter и EOL. Доколку веќе имате сметка на EOL. тогаш
             <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа
             поврзете ја сметката на Twitter во профилните нагодувања на EOL. Доколку
             немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a>
             за да ја направите.
-          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на
+          missing_attributes: За жал, не можевме да дојдеме до вашите податоци на
             Twitter.
-          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве
+          new_authentication_not_added: За жал, се појави грешка. Не можеме да ве
             поврземе со сметката на Twitter.
-          not_authorized_to_add_authentication: Нажалост, немаме овластување за да
-            ви ја поврземе сметката на Twitter.
-          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на
+          not_authorized_to_add_authentication: За жал, немаме овластување за да ви
+            ја поврземе сметката на Twitter.
+          not_authorized_to_login: За жал, немаме овластување да ве пријавиме на EOL
+            со вашата сметка на Twitter.
+          not_authorized_to_signup: За жал, немаме овластување да ве пријавиме на
             EOL со вашата сметка на Twitter.
-          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на
-            EOL со вашата сметка на Twitter.
-          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме
+          signup_failed_account_already_connected: За жал, не можеме да ве пријавиме
             за нова сметка на EOL со вашата сметка на Twitter бидејќи е веќе поврзана
             со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
             Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
         yahoo:
-          add_connection_failed_account_already_connected: Нажалост, не можеме да
-            ви ја поврземе сметката на Yahoo! со вашата сметка на EOL бидејќи е веќе
+          add_connection_failed_account_already_connected: За жал, не можеме да ви
+            ја поврземе сметката на Yahoo! со вашата сметка на EOL бидејќи е веќе
             поврзана со <a href="%{existing_eol_account_url}">постоечка сметка на
             EOL</a>.
-          login_failed_not_connected: Нажалост, не можевме да утврдиме врска помеѓу
+          login_failed_not_connected: За жал, не можевме да утврдиме врска помеѓу
             вашата сметка на Yahoo! и EOL. Доколку веќе имате сметка на EOL. тогаш
             <a href="%{login_url}">најавете се на EOL</a> со други податоци, а потоа
             поврзете ја сметката на Yahoo! во профилните нагодувања на EOL. Доколку
             немате сметка на EOL, тогаш <a href="%{register_url}">регистрирајте се</a>
             за да ја направите.
-          missing_attributes: Нажалост, не можевме да дојдеме до вашите податоци на
+          missing_attributes: За жал, не можевме да дојдеме до вашите податоци на
             Yahoo!.
-          new_authentication_not_added: Нажалост, се појави грешка. Не можеме да ве
+          new_authentication_not_added: За жал, се појави грешка. Не можеме да ве
             поврземе со сметката на Yahoo!.
-          not_authorized_to_add_authentication: Нажалост, немаме овластување за да
-            ви ја поврземе сметката на Yahoo!.
-          not_authorized_to_login: Нажалост, немаме овластување да ве пријавиме на
+          not_authorized_to_add_authentication: За жал, немаме овластување за да ви
+            ја поврземе сметката на Yahoo!.
+          not_authorized_to_login: За жал, немаме овластување да ве пријавиме на EOL
+            со вашата сметка на Yahoo!.
+          not_authorized_to_signup: За жал, немаме овластување да ве пријавиме на
             EOL со вашата сметка на Yahoo!.
-          not_authorized_to_signup: Нажалост, немаме овластување да ве пријавиме на
-            EOL со вашата сметка на Yahoo!.
-          signup_failed_account_already_connected: Нажалост, не можеме да ве пријавиме
+          signup_failed_account_already_connected: За жал, не можеме да ве пријавиме
             за нова сметка на EOL со вашата сметка на Yahoo! бидејќи е веќе поврзана
             со <a href="%{existing_eol_account_url}">постоечка сметка на EOL</a>.
             Да не сакавте впрочем да се <a href="%{login_url}">најавите</a>?
@@ -2292,13 +2292,13 @@ mk:
         пораката во рок од еден час, проверете ја папката за спам.
     recover_account:
       errors:
-        temporary_login_user_not_found: Нажалост, не можев да ја пронајдам сметката
+        temporary_login_user_not_found: За жал, не можев да ја пронајдам сметката
           на EOL што сакавте да ја повртатите. Поднесете ново барање за повраток.
-        token_expired_or_invalid: Нажалост, привремената најава е истечена или неважечка.
+        token_expired_or_invalid: За жал, привремената најава е истечена или неважечка.
           Поднесете ново барање за повраток.
         user_not_found_by_email_address: Не можев да најдам сметка на EOL со таа е-пошта.
-        unable_to_update_token: Нажалост, се појави грешка, па затоа пораката не е
-          исправена. Обидете се повторно.
+        unable_to_update_token: За жал, се појави грешка, па затоа пораката не е исправена.
+          Обидете се повторно.
       form_header: Поврати сметка
       form_tip: За да си ја повратите сметката на EOL, внесете ја е-поштата што сте
         ја навеле при нејзиното создавање. Доколку не добиете порака за повраток вои
@@ -2313,9 +2313,9 @@ mk:
       meta_title: Повраток на сметка
     recover_account_choose_account:
       errors:
-        user_not_found_choose_again: Нажалост, се појави грешка, па затоа пораката
-          не е испратена. Одберете ја сметката што сакате да ја повратите и обидете
-          се повторно.
+        user_not_found_choose_again: За жал, се појави грешка, па затоа пораката не
+          е испратена. Одберете ја сметката што сакате да ја повратите и обидете се
+          повторно.
       form_header: Повраток на сметка
       form_tip: Адресата <em>%{email}</em> фигурира на повеќе сметки. Одберете која
         од нив сакате да ја повратите.
@@ -2329,8 +2329,8 @@ mk:
       already_unsubscribed: Веќе ја имате отпишано од претплатата на известувања.
       unsubscribed_notifications_successfully: Успешно се отпишавте од претплатата
         на известувањата.
-      unsubscribe_notifications_failed: Нажалост, се појави грешка. На корисникот
-        не можев да ве отпишам од известувањата.
+      unsubscribe_notifications_failed: За жал, се појави грешка. На корисникот не
+        можев да ве отпишам од известувањата.
   user_added_data:
     add_data_header: Придонесувајте со ваши податоци
     additional_fields: Податоци за овој запис
@@ -3562,7 +3562,7 @@ mk:
   admin_news_item_active: Објавено
   admin_news_item_create_successful_notice: Новоста <a href="#%{anchor}"><em>%{page_name}</em></a>
     е успешно создадена.
-  admin_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Новоста не
+  admin_news_item_create_unsuccessful_error: За жал, се појави грешка. Новоста не
     е создадена.
   admin_news_item_delete_confirmation: Дали сте сигурни дека сакате да ја избришете
     новоста „%{page_name}“ и сите преводи? Избришаното не може да се поврати.
@@ -3580,8 +3580,8 @@ mk:
   admin_news_item_not_active: Необјавено
   admin_news_item_update_successful_notice: Новоста <a href="#%{anchor}"><em>%{page_name}</em></a>
     е успешно подновена.
-  admin_news_item_update_unsuccessful_error: Нажалост, се појави грешка. Не можев
-    да ја подновам новоста.
+  admin_news_item_update_unsuccessful_error: За жал, се појави грешка. Не можев да
+    ја подновам новоста.
   admin_news_items_empty: Не пронајдов ниедна новост.
   admin_news_items_index_information: Следниов список ги содржи сите новости што се
     моментално на располагање на мрежното место на EOL (на истиот ќе се прикажуваат
@@ -3629,7 +3629,7 @@ mk:
   admin_translated_news_item_active: Објавено
   admin_translated_news_item_create_successful_notice: Додаден е превод на новоста
     <a href="#%{anchor}"><em>%{page_name}</em></a>
-  admin_translated_news_item_create_unsuccessful_error: Нажалост, се појави грешка.
+  admin_translated_news_item_create_unsuccessful_error: За жал, се појави грешка.
     Не можев да го додадам преводот.
   admin_translated_news_item_delete_confirmation: Дали сте сигурни дека сакате да
     ја избришете верзијата на %{language} на новоста „%{page_name}“? Избришаното не
@@ -3647,7 +3647,7 @@ mk:
   admin_translated_news_item_not_active: Необјавено
   admin_translated_news_item_update_successful_notice: Преводот на %{language} на
     новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е подновен.
-  admin_translated_news_item_update_unsuccessful_error: Нажалост, се појави грешка.
+  admin_translated_news_item_update_unsuccessful_error: За жал, се појави грешка.
     Не можев да го подновам преводот.
   admin_updated_config: Изменети постевеностите на %{name}
   admin_user_delete_successful_notice: Корисникот е избришан
@@ -3939,7 +3939,7 @@ mk:
   classification_tree_header: Класификација
   classifications_edit_cancelled_merge_to_self: Изворната и целната страница се исти.
     Нема што да се премести.
-  classifications_edit_cancelled_busy: Нажалост, во моментов не можеме да го обработиме
+  classifications_edit_cancelled_busy: За жал, во моментов не можеме да го обработиме
     барањето за измена на класификациите бидејќи една или повеќе од таксонските страници
     се заклучени. Ова се должи на тоа што веќе обработуваме претходно зададено барање
     за измена на класификациите.
@@ -4021,7 +4021,7 @@ mk:
   collection_is_empty: Оваа збирка е моментално празна.
   collection_item_edit_page_title: Уреди експонат во збирката <em>%{collection_name}</em>
   collection_item_not_found_error: Експонатот не е пронајден.
-  collection_item_edit_by_javascript_not_authorized_error: Нажалост, немате дозвола
+  collection_item_edit_by_javascript_not_authorized_error: За жал, немате дозвола
     да го уредувате овој експонат во збирката. Доколку сте сопственик или уредник
     на збирката, превчитајте ја страницата и проверете дали сте најавени.
   collection_items_count:
@@ -4062,7 +4062,7 @@ mk:
   collection_redindexed: Збирката е преиндексирана.
   collection_updated_notice: Збирката <em>%{collection_name}</em> е успешно подновена.
   collection_was_removed_by_owner: Оваа збирка е отстранета од нејзиниот сопственик.
-  collection_not_updated_error: Нажалост, се појави грешка. Не можев да ја подновам
+  collection_not_updated_error: За жал, се појави грешка. Не можев да ја подновам
     збирката.
   collection_was_added_to_community: Збирката „%{collection}“ е додадена во оваа заедница.
   community_can_now_manage_this_collection: „%{community}“ сега има дозвола за раководење
@@ -4082,14 +4082,14 @@ mk:
   comment_body_label: Ваш коментар
   comment_created_at: Напишан во
   comment_delete_confirm: Дали сте сигурни дека сакате да го избришете коментарот?
-  comment_edit_by_javascript_not_authorized_error: Нажалост, немате дозвола да го
-    уредите коментарот. Ако вие сте неговиот автор, тогаш превчитајте ја страницата
-    и проверете дали сте најавени.
+  comment_edit_by_javascript_not_authorized_error: За жал, немате дозвола да го уредите
+    коментарот. Ако вие сте неговиот автор, тогаш превчитајте ја страницата и проверете
+    дали сте најавени.
   comment_or_rate_on_this_article: Коментирајте на статијава или оценете ја
   comment_or_rate_on_this_link: коментирајте на врскава или оценете ја
   comment_not_added_error: За жал, се појави грешка. Не можев да го додадам коментарот.
-  comment_not_deleted_error: Нажалост, се појави грешка. Не можев да го избришам коментарот.
-  comment_not_updated_error: Нажалост, се појави грешка. Не можев да го подновам коментарот.
+  comment_not_deleted_error: За жал, се појави грешка. Не можев да го избришам коментарот.
+  comment_not_updated_error: За жал, се појави грешка. Не можев да го подновам коментарот.
   comment_new_title: Додај нов коментар
   comment_new_posters_image_alt: Вашата профилна слика (ако имате ставено).
   comment_new_posters_image_advisory_info: Вашата профилна слика и име во списоците
@@ -4206,13 +4206,13 @@ mk:
   content_partner_agreement_subheader: Договор со соучесник во содржините
   content_partner_agreement_signed_successful_notice: Успешно се согласивте со условите
     за соучесници. Сега можете да додавате податочни ресурси.
-  content_partner_agreement_signed_unsuccessful_error: Нажалост, се појави грешка.
-    Се чини дека има технички проблем со договорите со соучесниците во содржините.
-    Обидете се повторно. Ако проблемот продолжи да се јавува, тогаш известете ја EOL.
+  content_partner_agreement_signed_unsuccessful_error: За жал, се појави грешка. Се
+    чини дека има технички проблем со договорите со соучесниците во содржините. Обидете
+    се повторно. Ако проблемот продолжи да се јавува, тогаш известете ја EOL.
   content_partner_agreement_update_successful_notice: Договорот за соучесници во содржините
     е успешно подновен.
-  content_partner_agreement_update_unsuccessful_error: Нажалост, се појави грешка.
-    Не можев да го подновам договорот за соучесници во содржините.
+  content_partner_agreement_update_unsuccessful_error: За жал, се појави грешка. Не
+    можев да го подновам договорот за соучесници во содржините.
   content_partner_about_header: За %{partner_name}
   content_partner_administration_notes_empty: Нема административни белешки.
   content_partner_administration_notes_header: Административни белешки
@@ -4322,7 +4322,7 @@ mk:
   content_partner_resource_harvest_events_see_all_link: Пог. сите <span class="assistive">преземања</span>
   content_partner_resource_harvest_event_update_successful_notice: Преземањето за
     ресурсот %{resource_title} е успешно подновено.
-  content_partner_resource_harvest_event_update_unsuccessful_error: Нажалост, се појави
+  content_partner_resource_harvest_event_update_unsuccessful_error: За жал, се појави
     грешка. Преземањето за ресурсот %{resource_title} не е подновено.
   content_partner_resource_page_title: Енциклопедија на живиот свет — %{content_partner_name}
     — %{resource_name}
@@ -4344,7 +4344,7 @@ mk:
   content_partner_resource_hierarchy_unknown: Непознато
   content_partner_resource_hierarchy_update_successful_notice: Чиноследот е успешно
     подновен.
-  content_partner_resource_hierarchy_update_unsuccessful_error: Нажалост, се појави
+  content_partner_resource_hierarchy_update_unsuccessful_error: За жал, се појави
     грешка, па затоа не можев да го подновам чиноследот.
   content_partner_resource_licensing_details_header: Права и наведување
   content_partner_resource_new_edit_form_tip: 'Внесете информации за вашиот податочен
@@ -4361,12 +4361,12 @@ mk:
   content_partner_resource_resource_status_new: Создадено
   content_partner_resource_show_link_back_to: назад на ресурсот
   content_partner_resource_show_subheader: Подробности за ресурсот <em>%{resource_title}</em>
-  content_partner_resource_status_update_illegal_transition_error: Нажалост, тековниот
+  content_partner_resource_status_update_illegal_transition_error: За жал, тековниот
     статус на ресурсот %{resource_title} е %{current_resource_status} и не може да
     се смени на %{requested_resource_status}.
   content_partner_resource_status_update_successful_notice: Статусот на ресурсот %{resource_title}
     е успешно изменет на %{resource_status}.
-  content_partner_resource_status_update_unsuccessful_error: Нажалост, се појави грешка.
+  content_partner_resource_status_update_unsuccessful_error: За жал, се појави грешка.
     Не можев да го сменам статусот на %{resource_title} во %{resource_status}.
   content_partner_resource_update_successful_notice: 'Подробностите за ресурсот од
     соучесникот се успешно подновени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
@@ -4380,9 +4380,9 @@ mk:
     збир или податотека по ресурс, но не обете. Одлучете дали сакате да наведете URL-адреса
     или да подигнете податотека за овој опишан ресурс. Подоцна може да додавате и
     други ресурси.
-  content_partner_resource_validation_unsuccessful_error: Нажалост, податоците за
-    ресурсот се изменети, но не успеавме да го завериме самиот ресурс. Погледајте
-    ги забелешките од обработката подолу.
+  content_partner_resource_validation_unsuccessful_error: За жал, податоците за ресурсот
+    се изменети, но не успеавме да го завериме самиот ресурс. Погледајте ги забелешките
+    од обработката подолу.
   content_partner_resource_vetted_true: да
   content_partner_resource_vetted_false: не
   content_partner_resource_view_link: Прегл.
@@ -4709,7 +4709,7 @@ mk:
           за да дозаете повеќе за пребарување по поголеми групи.
       sort_header: Подреди го исходот
     notice:
-      clade_too_big: Нажалост, прикажаните ставки не се исфилтрирани по %{taxon_name}
+      clade_too_big: За жал, прикажаните ставки не се исфилтрирани по %{taxon_name}
         бидејќи се премногу. Одберете помала група или <a href="%{contactus_tech_path}">обратете
         ни се</a> за помош.
       clade_has_no_data: Засега никој нема ставено податочни записи за %{taxon_name}.
@@ -4750,8 +4750,7 @@ mk:
   date_uploaded: Датум на подигање
   dato_create_cancel: Откажи
   dato_edit_cancel: Откажи
-  dato_create_user_link_error: Нажалост, се појави грешка. Не можев да ја додадам
-    врската.
+  dato_create_user_link_error: За жал, се појави грешка. Не можев да ја додадам врската.
   dato_create_user_text_error: За жал, се појави грешка. Не можев да ја додадам статијата.
   dato_location_created: 'Создадена местоположба: %{loc}'
   dato_new_edit_user_text_fieldset_content_header: Содржина на статијата
@@ -4911,24 +4910,24 @@ mk:
   error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
     набљудуваните збирки
   error_401_page_title: Нема овластување
-  error_401_description: Нажалост, не сте овластени за да ја отворите таа URL.
+  error_401_description: За жал, не сте овластени за да ја отворите таа URL.
   error_403_page_title: Забрането
-  error_403_description: Нажалост, не сте овластени за да ја отворите таа URL.
+  error_403_description: За жал, не сте овластени за да ја отворите таа URL.
   error_404_page_title: Не е најдено
   error_404_description: За жал, не можев да ја најдам страницата на таа URL.
   error_500_page_title: Внатрешна грешка во опслужувачот
-  error_500_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи,
+  error_500_description: За жал, наидовме на проблем. Ако проблемот и понатаму продолжи,
     обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
-  error_default_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму
+  error_default_description: За жал, наидовме на проблем. Ако проблемот и понатаму
     продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: Упс.
-  error_classifications_locked_cannot_reindex: Нажалост, страницава засега не може
-    да се преиндексира. Класификациите се заклучени.
+  error_classifications_locked_cannot_reindex: За жал, страницава засега не може да
+    се преиндексира. Класификациите се заклучени.
   error_couldnt_find_collection_by_id: Не можев да пронајдам збирка што можете да
     ја раководите со назнаката %{id}.
   error_couldnt_find_community_by_id: Не можев да пронајдам заедница што можете да
     ја раководите со назнаката %{id}.
-  error_exemplar_chosen_with_invalid_action: 'Нажалост, класификацијата што ја избравте
+  error_exemplar_chosen_with_invalid_action: 'За жал, класификацијата што ја избравте
     е непроменета: се изгуби дел од барањето. Ќе треба да пробате пак.'
   error_homepage_or_search_option: 'Можете да се вратите на <a href="/">почетната
     страница</a> или да се послужите со нашата алатка за пребарување:'
@@ -4945,20 +4944,20 @@ mk:
     security_violations:
       administrators_only: За жал, овде имаат пристап само администратори.
       default: Пристапот е одбиен.
-      hidden_user_login: Нажалост, на таа сметка ѝ е оневозможено најавување.
-      hidden_user_recover_account: Нажалост, на таа сметка ѝ е оневозможен повраток.
-      hidden_user_temporary_login: Нажалост, на таа сметка ѝ е оневозможено најавување
+      hidden_user_login: За жал, на таа сметка ѝ е оневозможено најавување.
+      hidden_user_recover_account: За жал, на таа сметка ѝ е оневозможен повраток.
+      hidden_user_temporary_login: За жал, на таа сметка ѝ е оневозможено најавување
         и повраток.
-      inactive_user_login: Нажалост, таа сметка сè уште не е активна. Доколку не добивте
+      inactive_user_login: За жал, таа сметка сè уште не е активна. Доколку не добивте
         порака за заверка кога се пријавивте, тогаш проследете ја постапката за повраток
         на сметката за да ја потврдите вашата е-пошта и така да ја активирате сметката.
-      min_master_curators_only: Нажалост, пристапот е дозволен само на корисници со
+      min_master_curators_only: За жал, пристапот е дозволен само на корисници со
         статус барем на виш кустос.
-      min_full_curators_only: Нажалост, пристапот е ограничен само на полни Кустоси.
-      min_assistant_curators_only: Нажалост, пристапот е дозволен само на корисници
+      min_full_curators_only: За жал, пристапот е ограничен само на полни Кустоси.
+      min_assistant_curators_only: За жал, пристапот е дозволен само на корисници
         со статус барем на помошник-кустос.
-      admin_or_master_curators_only: Нажалост, пристап имаат само администраторите
-        и вишите кустоси.
+      admin_or_master_curators_only: За жал, пристап имаат само администраторите и
+        вишите кустоси.
       no_access: За жал, оваа функција е привремено оневозможена. Навратете се наскоро.
       missing_edit_acess_to_forum_category: За жал, само администратори можат да ја
         менуваат оваа форумска категорија.
@@ -5235,7 +5234,7 @@ mk:
   hierarchy: Чинослед
   hierarchy_entry_switch_missing_id_error: За жал, не можев да ја пронајдам страницата
     во хиерархискиот запис бидејќи недостасува назнаката.
-  hierarchy_node_missing: Нажалост, недостасуваат податоците за овој јазол.
+  hierarchy_node_missing: За жал, недостасуваат податоците за овој јазол.
   hierarchy_roots_colon: 'Основи на чиноследот:'
   hierarchy_updated: Чиноследот е подновен
   hierarchies_title: Хиерархии
@@ -5283,7 +5282,7 @@ mk:
   reindex_users_button: Преиндексирај кориснички пребројувања
   image: Слика
   image_cropped_notice: Сликата е успешно кадрирана.
-  image_crop_failed_error: Нажалост, се појави грешка. Не можев да ја кадрирам сликата.
+  image_crop_failed_error: За жал, се појави грешка. Не можев да ја кадрирам сликата.
   image_is_no_longer_available: Сликата повеќе не е достапна
   image_map_from: карта од
   image_not_found: Сликата не е пронајдена
@@ -5320,8 +5319,8 @@ mk:
   information_intended_for_experts: Информации наменети за стручњаци
   in_providing_its_content_to_eo: Доставувајќи ја оваа содржина на EOL,
   in_this_data_type: 'во оваа %{data_type}:'
-  insufficient_privileges_to_add_common_names: Нажалост, немате доволно привилегии
-    за да додавате народни имиња.
+  insufficient_privileges_to_add_common_names: За жал, немате доволно привилегии за
+    да додавате народни имиња.
   insufficient_privileges_to_curate_names: За жал, немате доволно привилегии за да
     згрижувате имиња.
   internal_ip_address: внатрешна IP-адреса
@@ -5718,7 +5717,7 @@ mk:
   news_item: новост
   news_item_title: Новост
   news_missing_content_title: Недостасува превод
-  news_missing_content_message: Нажалост, страницата не е достапна на избраниот јазик
+  news_missing_content_message: За жал, страницата не е достапна на избраниот јазик
     (%{selected_language}).
   newsfeed: Актуелности
   newsfeed_help_for_collection: Новостите за оваа збирка собираат актуелности поврзани
@@ -6313,9 +6312,9 @@ mk:
   sort_order: Редослед на подредување
   sort_by: Подреди по
   sort_field: Поле за подредување
-  sorry_no_collections_are_available_to_share: Нажалост, нема збирки што можат да
-    се споделуваат со оваа заедница.
-  sorry_no_communities_are_available_to_share: Нажалост, нема заедници со кои би ја
+  sorry_no_collections_are_available_to_share: За жал, нема збирки што можат да се
+    споделуваат со оваа заедница.
+  sorry_no_communities_are_available_to_share: За жал, нема заедници со кои би ја
     споделиле збиркава.
   sound_file: Звучна податотека
   sound_from: звук од

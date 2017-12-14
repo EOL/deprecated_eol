@@ -3871,10 +3871,10 @@ es:
   admin_user_unhide_successful_notice: El usuario ha dejado de estar oculto
   agent: Agente
   all: todos
-  all_apis_return_by_default_an_xml_response: 'Todas las API devuelven, por defecto,
-    una respuesta en XML. Los métodos de un API pueden ser llamados sin una extensión
-    de formao para obtener una respuesta en XML, y agregar una extensión en XML dará
-    una respuesta idéntica:'
+  all_apis_return_by_default_an_xml_response: 'Todas las API devuelven, de manera
+    predeterminada, una respuesta en XML. Es posible llamar a los métodos de una API
+    sin una extensión de formato para obtener una respuesta en XML; añadir una extensión
+    de XML generará una respuesta idéntica:'
   all_articles: Todos los artículos
   all_categories: Todo
   all_changes: Todos los cambios
@@ -7277,9 +7277,9 @@ es:
     artículo de Wikipedia:'
   wikipedia_queue_new_instructions_step_one: Vaya a la página del artículo en Wikipedia,
     e.g., <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
-  wikipedia_queue_new_instructions_step_two: Expanda el menú 'Toolbox' presentado
-    en la columna de navegación, usted podrá ver, anidado, el ítem de menú 'Permanent
-    link'.
+  wikipedia_queue_new_instructions_step_two: Amplía el menú «Cuadro de herramientas»
+    de la columna de navegación. Dentro encontrarás el elemento «Enlace permanente»
+    del menú.
   wikipedia_queue_new_instructions_step_three: Siga el ítem de menú 'Permanent link',
     este es el el URL de revisión actual, que lo va a llevar a la versión actual del
     artículo, desde el cual puede navegar a versiones previas.

@@ -3384,7 +3384,7 @@ zh-CN:
   dato_new_text_for_taxon_page_title: 向<i>%{taxon}</i>添加一篇文章
   dato_new_text_link_for_taxon_page_title: 加入链入<i>%{taxon}</i>的连接
   dato_update_user_text_error: 抱歉，发生了一个错误，此文章不能被更新。
-  deactivate: 停用
+  deactivate: 取消激活
   development_version_name: EOL V2 Beta
   default: 默认
   default_focus_collection_name_from_community: '%{name}的关注'

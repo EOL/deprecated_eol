@@ -4,6 +4,7 @@
 # Author: Crazymadlover
 # Author: Glavkos
 # Author: Kiolalis
+# Author: Nikosgranturismogt
 # Author: Promi8eas
 ---
 el:
@@ -137,6 +138,7 @@ el:
   translated_synonym_relations-label-synonym_relation_id-14: ορθογραφικό λάθος
   translated_synonym_relations-label-synonym_relation_id-15: τελεομορφή
   translated_synonym_relations-label-synonym_relation_id-16: διφορούμενο συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-64: Μη έγκυρο
   translated_table_of_contents-label-table_of_contents_id-13: Κοινά ονόματα
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Λογοτεχνικές Αναφορές
@@ -228,6 +230,8 @@ el:
   translated_vetted-label-vetted_id-4: Αναξιόπιστη
   translated_vetted-label-vetted_id-5: Αξιόπιστη
   translated_vetted-label-vetted_id-6: Ακατάλληλη
+  translated_view_styles-name-view_style_id-1: Κατάλογος
+  translated_view_styles-name-view_style_id-2: Γκαλερί
   translated_visibilities-label-visibility_id-0: Μή Ορατό
   translated_visibilities-label-visibility_id-1: Ορατό
   translated_visibilities-label-visibility_id-2: Προεπισκόπιση

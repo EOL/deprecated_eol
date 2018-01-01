@@ -1469,6 +1469,7 @@ zh-CN:
           meta_description: 在网络生命大百科中关于%{scientific_name}被%{hierarchy_provider}分类的事实
           meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为%{scientific_name}的可分析的数据资料。EOL
             邀请您提供%{scientific_name}的有关数据。
+          meta_description_with_common_name: 网络生命大百科中有关%{preferred_common_name}，科学界称为%{scientific_name}，由%{hierarchy_provider}分类的事实。
           meta_description_with_common_name_no_data: 在生命大百科%{hierarchy_provider}的分类中没有%{preferred_common_name}亦即%{scientific_name}的实际信息；生命大百科邀请您提供有关
             %{preferred_common_name}（%{scientific_name}）的资料与实际信息。
           meta_description_with_common_name_with_topics: 想知道有关%{hierarchy_provider}所分类%{preferred_common_name}的实际信息？有关%{scientific_name}的特征信息包含在%{topics}资讯中。

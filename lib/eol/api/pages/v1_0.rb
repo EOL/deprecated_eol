@@ -168,9 +168,15 @@ module EOL
             batch_concepts = {}
             taxon_concepts.each do |taxon_concept|
               tc = taxon_concept[:taxon]
-              raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless tc
-              raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept[:id]}\" is no longer available") unless tc.published?
-              batch_concepts[taxon_concept[:id]] = prepare_hash(taxon_concept, params.merge(batch: true))
+              if tc
+                if tc.published?
+                  batch_concepts[taxon_concept[:id]] = prepare_hash(taxon_concept, params.merge(batch: true))
+                else
+                  batch_concepts[taxon_concept[:id]] = "unavailable page id"
+                end
+              else
+                batch_concepts[taxon_concept[:id]] = "unknown page id"
+              end
             end
             batch_concepts
           else

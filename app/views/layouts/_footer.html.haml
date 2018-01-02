@@ -13,7 +13,7 @@
           %li= link_to t('about_link_discover', :scope => t_scope), discover_path
           %li= link_to t('about_link_statistics', :scope => t_scope), statistics_path
           %li= link_to t('about_link_glossary', :scope => t_scope), cms_page_path('glossary')
-          %li= link_to t('about_link_podcasts', :scope => t_scope), 'http://podcast.eol.org/podcast'
+          %li= link_to t('about_link_podcasts', :scope => t_scope), 'http://eol.org/info/podcasts'
           - if Rails.configuration.use_secure_acceptance && Rails.configuration.donate_footer_url
             %li= link_to I18n.t(:donate_link), Rails.configuration.donate_footer_url
           %li= link_to t('about_link_citing', :scope => t_scope), cms_page_path('citing')

@@ -4,7 +4,7 @@ class Background
   class << self
     def send_new_user_emails
       EOL.log("#send_new_user_emails", prefix: "#")
-      users = User.where(["validation_code = ? AND created_at > ?", "", 1.hour.ago])
+      users = User.where(["validation_code != ? AND created_at > ?", "", 1.hour.ago])
       EOL.log("Found #{users.size} users...")
       users.each do |user|
         url =  "http://eol.org/users/#{user.id}/verify/#{user.validation_code}"

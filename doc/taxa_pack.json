@@ -63,7 +63,7 @@
     { "_comment": "media should be sorted in order of descending relevance (however the source decides to evaluate this). 'also_includes' is an array of IDs (from the source of the taxa_pack)",
       "title": "Procyon lotor (Raccoon)",
       "body": "Raccoon (Procyon lotor) on Clyde Lake, Ontario, Canada. Photographed on 4 October 2011.",
-      "source_url": "http://media.eol.org/content/2013/01/24/10/86040_orig.jpg",
+      "source_url": "https://media.eol.org/content/2013/01/24/10/86040_orig.jpg",
       "mime_type": "image/jpg",
       "source": "http://eol.org/content_partners/18/resources/15",
       "also_includes": [7695100],
@@ -75,7 +75,7 @@
         { "type": "supplier", "value": "Flickr: EOL Images" },
         { "type": "photographer", "value": "Arthur Chapman" },
         { "type": "location_created", "value": "Ontario, Canada" },
-        { "type": "full_size_url", "value": "http://media.eol.org/content/2013/01/24/10/86040_orig.jpg" }
+        { "type": "full_size_url", "value": "https://media.eol.org/content/2013/01/24/10/86040_orig.jpg" }
       ]
     }
   ]

@@ -57,14 +57,10 @@ Eol::Application.configure do
     $SITE_DOMAIN_OR_IP = ENV["EOL_SITE_DOMAIN_OR_IP"]
 
     ActionMailer::Base.delivery_method = :smtp
+    # Sorry, these are no longer configurable. No one else is using them anyway.
     ActionMailer::Base.smtp_settings = {
-      :address => ENV["EOL_SMTP_ADDRESS"],
-      :port => ENV["EOL_SMTP_PORT"],
-      :domain => ENV["EOL_SMTP_DOMAIN"],
-      :authentication       => "plain",
-      :enable_starttls_auto =>  true,
-      :user_name => ENV["EOL_SMTP_USER_NAME"],
-      :password => ENV["EOL_SMTP_PASSWORD"].sub(/^"/, "").sub(/"$/, "")
+      :address => '10.252.248.30',
+      :domain => 'eol.org'
     }
 
     config.action_mailer.default_url_options =

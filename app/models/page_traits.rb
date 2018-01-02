@@ -40,8 +40,9 @@ class PageTraits < TraitSet
       @rdf.flat_map do |rdf|
         rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) }
       end.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }.
-        map(&:to_s)
+        map(&:to_s).sort.uniq
     end
+
     @glossary = KnownUri.where(uri: uris).
       includes(toc_items: :translated_toc_items)
     @taxa = TraitBank.cache_query("#{@base_key}/taxa") do

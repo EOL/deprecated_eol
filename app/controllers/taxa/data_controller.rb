@@ -9,9 +9,6 @@ class Taxa::DataController < TaxaController
   # GET /pages/:taxon_id/data/index
   def index
     EOL.debug("DataController#index", prefix: "#")
-    flash[:notice] = "Sorry, the data tab is temporarily unavailable."
-    return redirect_to(taxon_overview_path(@taxon_concept.id))
-
     @page_traits = PageTraits.new(@taxon_concept.id)
   end
 

@@ -42,7 +42,7 @@
         %li{:class => resource_is_active('overview')}= link_to raw(I18n.t(:overview)),
           taxon_overview_path(@taxon_page)
         %li{:class => resource_is_active('details')}= link_to raw(I18n.t(:detail)), taxon_details_path(@taxon_page)
-        - if false # EolConfig.data?
+        - if EolConfig.data?
           %li{:class => resource_is_active('data')}= link_to raw(I18n.t(:data)), taxon_data_path(@taxon_page)
         %li{:class => resource_is_active('media')}= link_to raw(I18n.t(:media_with_count,
           :count => @taxon_page.media_count)), taxon_media_path(@taxon_page)

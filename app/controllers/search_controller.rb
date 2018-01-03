@@ -13,6 +13,7 @@ class SearchController < ApplicationController
   # NOTE - this is confusing, but it wasn't worth renaming the variable: "all_results" does not include traitbank results.
   # @attributes contains the traitbank results. If you really want "all" results, you need to combine the two.
   def index
+    return render(layout: 'errors', template: 'content/error', status: 404) if spam_params?
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
@@ -148,6 +149,10 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def spam_params?
+    params.key?(:url) || params.key?(:pwd) || params.key?(:email)
+  end
 
   # if the first returned taxon has a score greater than 3, and
   def pick_superior_result(all_results)

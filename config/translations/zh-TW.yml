@@ -1409,15 +1409,15 @@ zh-TW:
     communities:
       index:
         hierarchy_entry:
-          meta_description: 分享您對 %{scientific_name} 的資訊及專長；該分類是由 %{hierarchy_provider}
+          meta_description: 分享您對 %{scientific_name} 的資訊及專長，該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: 分享您對 %{preferred_common_name} (%{scientific_name})
-            的資訊及專長；該分類是由 %{hierarchy_provider} 提供。
+            的資訊及專長，該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: '%{scientific_name} 社群，%{hierarchy_provider}'
-          meta_title: 對 %{scientific_name} 感興趣的使用者；該分類是由 %{hierarchy_provider} 提供
+          meta_title: 對 %{scientific_name} 感興趣的使用者，該分類是由 %{hierarchy_provider} 提供
           meta_title_with_common_name: 對 %{preferred_common_name} (%{scientific_name})
-            感興趣的使用者；該分類是由 %{hierarchy_provider} 提供
-          tweet_text: 對 %{scientific_name} 感興趣的使用者；該分類是由 %{hierarchy_provider} 提供
+            感興趣的使用者，該分類是由 %{hierarchy_provider} 提供
+          tweet_text: 對 %{scientific_name} 感興趣的使用者，該分類是由 %{hierarchy_provider} 提供
         meta_description: 對 %{scientific_name} 感興趣嗎? 快來加入 %{scientific_name} 專家的行列，並在生命大百科分享您對
           %{scientific_name} 的觀察。
         meta_description_with_common_name: 對 %{preferred_common_name} (%{scientific_name})
@@ -1432,15 +1432,15 @@ zh-TW:
         tweet_text: 對 %{scientific_name} 感興趣的使用者
       collections:
         hierarchy_entry:
-          meta_description: 典藏包含 %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
-          meta_description_with_common_name: 典藏包含 %{preferred_common_name} (%{scientific_name})；該分類是由
+          meta_description: 典藏包含 %{scientific_name}，該分類是由 %{hierarchy_provider} 提供。
+          meta_description_with_common_name: 典藏包含 %{preferred_common_name} (%{scientific_name})，該分類是由
             %{hierarchy_provider} 提供。
           meta_keywords: '%{scientific_name} 典藏，%{scientific_name} 觀測，%{hierarchy_provider}
             典藏，%{hierarchy_provider} 觀測，%{hierarchy_provider} 標本'
-          meta_title: '%{scientific_name} 的典藏；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的典藏，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的典藏；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的典藏；該分類是由 %{hierarchy_provider} 提供'
+            的典藏，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的典藏，該分類是由 %{hierarchy_provider} 提供'
         meta_description: 典藏包含 %{scientific_name}。
         meta_description_with_common_name: 典藏包含 %{preferred_common_name} (%{scientific_name})。
         meta_keywords: '%{scientific_name} 典藏，%{scientific_name} 觀測'
@@ -1454,7 +1454,7 @@ zh-TW:
         hierarchy_entry:
           meta_title: '%{scientific_name} 的策展人；該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的專家；該分類是由 %{hierarchy_provider} 提供'
+            的專家，該分類是由 %{hierarchy_provider} 提供'
           tweet_text: ' %{scientific_name} 的策展人；該分類是由 %{hierarchy_provider} 提供'
         meta_description_with_common_name: 管理生命大百科此類群資料的 %{preferred_common_name}
           專家(亦即 %{scientific_name} 專家)。
@@ -1497,7 +1497,7 @@ zh-TW:
             提供
           meta_description_no_data: 由 %{hierarchy_provider} 提供分類的 %{scientific_name}，EOL沒有相關文章；EOL邀請您提供
             {scientific_name} 的文章如保育、分布、生態、棲地及形態等。
-          meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的描述和文章；該分類是由
+          meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的描述和文章，該分類是由
             %{hierarchy_provider} 提供。包含用於 %{scientific_name} 的 %{chapter_list} 資訊。
           meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 的描述和文章，其學名是
             %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
@@ -1529,25 +1529,25 @@ zh-TW:
     literature:
       bhl:
         hierarchy_entry:
-          meta_description: 生命大百科中有關 %{scientific_name} 的BHL文獻及資訊；該分類是由 %{hierarchy_provider}
+          meta_description: 生命大百科中有關 %{scientific_name} 的BHL文獻及資訊，該分類是由 %{hierarchy_provider}
             提供。閱讀生命大百科中有關 %{scientific_name} 的BHL (生物多樣性資產圖書館)文章。
           meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 亦即
-            %{scientific_name} 的BHL文獻及資訊；該分類是由 %{hierarchy_provider} 提供。閱讀生命大百科中有關
+            %{scientific_name} 的BHL文獻及資訊，該分類是由 %{hierarchy_provider} 提供。閱讀生命大百科中有關
             %{preferred_common_name} 的BHL (生物多樣性資產圖書館)文章。
           meta_title: 在 %{scientific_name} 的BHL文獻；該分類是由 %{hierarchy_provider} 提供
           meta_title_with_common_name: 在 %{preferred_common_name} (%{scientific_name})
             的BHL文獻；該分類是由 %{hierarchy_provider} 提供
-          tweet_text: 有關 %{scientific_name} 的#BHL文獻；該分類是由 %{hierarchy_provider} 提供
+          tweet_text: 有關 %{scientific_name} 的#BHL文獻，該分類是由 %{hierarchy_provider} 提供
         meta_title: 對 %{scientific_name} 的BHL引用
         meta_title_with_common_name: 對 %{preferred_common_name} (%{scientific_name})
           的BHL參考文獻
         tweet_text: 來自#BHL的有關 %{scientific_name} 的文獻
       show:
         hierarchy_entry:
-          meta_title: 有關 %{scientific_name} 的文獻；該分類是由 %{hierarchy_provider} 提供
+          meta_title: 有關 %{scientific_name} 的文獻，該分類是由 %{hierarchy_provider} 提供
           meta_title_with_common_name: 有關 %{preferred_common_name} (%{scientific_name})
-            的書籍；該分類是由 %{hierarchy_provider} 提供
-          tweet_text: 有關 %{scientific_name} 的文獻；該分類是由 %{hierarchy_provider} 提供
+            的書籍，該分類是由 %{hierarchy_provider} 提供
+          tweet_text: 有關 %{scientific_name} 的文獻，該分類是由 %{hierarchy_provider} 提供
         meta_description: 生命大百科中有關 %{scientific_name} 的書籍、文章及書目。閱讀生命大百科中有關 %{scientific_name}
           的文獻。
         meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 亦即 %{scientific_name}
@@ -1564,21 +1564,21 @@ zh-TW:
     maps:
       show:
         hierarchy_entry:
-          meta_description: 有關 %{scientific_name} 在全球何處分布和何處為原生地的地理資訊；該分類是由 %{hierarchy_provider}
+          meta_description: 有關 %{scientific_name} 在全球何處分布和何處為原生地的地理資訊，該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: '%{preferred_common_name} 在何處找到？它們存活於何處？有關
-            %{scientific_name} 在全球何處分布和何處為原生地的地理資訊；該分類是由 %{hierarchy_provider} 提供。'
-          meta_title: '%{scientific_name} 的地圖；該分類是由 %{hierarchy_provider} 提供'
+            %{scientific_name} 在全球何處分布和何處為原生地的地理資訊，該分類是由 %{hierarchy_provider} 提供。'
+          meta_title: '%{scientific_name} 的地圖，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的地圖；該分類是由 %{hierarchy_provider} 提供'
+            的地圖，該分類是由 %{hierarchy_provider} 提供'
           tweet_text: '%{scientific_name} 的地圖；該分類是由 %{hierarchy_provider} 提供'
         meta_description: '%{scientific_name} 的地理資訊。為它們在全球存活的地方。'
-        meta_description_no_data: 生命大百科中沒有 %{scientific_name} 地理資訊；EOL邀請您提供 {scientific_name}
+        meta_description_no_data: 生命大百科中沒有 %{scientific_name} 地理資訊，EOL邀請您提供 {scientific_name}
           的地圖。
         meta_description_with_common_name: '%{preferred_common_name} 在何處找到？它們存活於何處？有關
           %{scientific_name} 的地理資訊。它們在全球存活的地方。'
         meta_description_with_common_name_no_data: 生命大百科中沒有 %{preferred_common_name}
-          亦即 %{scientific_name} 的地理資訊；EOL邀請您提供 %{preferred_common_name} (%{scientific_name})
+          亦即 %{scientific_name} 的地理資訊，EOL邀請您提供 %{preferred_common_name} (%{scientific_name})
           的地圖。
         meta_keywords: '%{scientific_name} 棲地，%{scientific_name} 存活於何處'
         meta_keywords_with_common_name: '%{preferred_common_name} 棲地，%{preferred_common_name}
@@ -1590,27 +1590,27 @@ zh-TW:
     media:
       index:
         hierarchy_entry:
-          meta_description: '%{scientific_name} 的圖像及影片；該分類是由 %{hierarchy_provider}
+          meta_description: '%{scientific_name} 的圖像及影片，該分類是由 %{hierarchy_provider}
             提供。'
           meta_description_with_common_name: '%{preferred_common_name} 亦即 %{scientific_name}
-            的照片、影片及聲音；該分類是由 %{hierarchy_provider} 提供。'
+            的照片、影片及聲音，該分類是由 %{hierarchy_provider} 提供。'
           meta_keywords: '%{scientific_name} 的照片，%{scientific_name} 的影片，%{scientific_name}
             的聲音'
           meta_keywords_with_common_name: '%{preferred_common_name} 的照片，%{preferred_common_name}
             的影片，%{preferred_common_name} 的聲音， %{scientific_name} 的照片，%{scientific_name}
             的影片，%{scientific_name} 的聲音'
-          meta_title: '%{scientific_name} 的聲音、影片及照片；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的聲音、影片及照片，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的聲音、影片及影像；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的多媒體；該分類是由 %{hierarchy_provider} 提供'
+            的聲音、影片及影像，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的多媒體，該分類是由 %{hierarchy_provider} 提供'
         meta_description: '%{scientific_name} 的圖像、影片及聲音。尋找生命大百科中 %{scientific_name}
           的影像、照片、電影及聲音。'
-        meta_description_no_data: 生命大百科中沒有 %{scientific_name} 的多媒體；EOL邀請您提供 {scientific_name}
+        meta_description_no_data: 生命大百科中沒有 %{scientific_name} 的多媒體，EOL邀請您提供 {scientific_name}
           的影像、影片及聲音。
         meta_description_with_common_name: '%{preferred_common_name} 亦即 %{scientific_name}
           的圖像、影片及聲音。尋找生命大百科中 %{preferred_common_name} (%{scientific_name}) 的影像、照片、電影及聲音。'
         meta_description_with_common_name_no_data: 生命大百科中沒有 %{preferred_common_name}
-          亦即 %{scientific_name} 的多媒體；EOL邀請您提供 %{preferred_common_name}  (%{scientific_name})
+          亦即 %{scientific_name} 的多媒體，EOL邀請您提供 %{preferred_common_name}  (%{scientific_name})
           的影像、影片及聲音。
         meta_keywords: '%{scientific_name} 的圖像，%{scientific_name} 的影片，%{scientific_name}
           的影像，媒體'
@@ -1627,7 +1627,7 @@ zh-TW:
             提供。'
           meta_description_with_common_name: '%{preferred_common_name} 亦即 %{scientific_name}
             的分類法及學名；該分類是由 %{hierarchy_provider} 提供。'
-          tweet_text: 與 %{scientific_name} 有關的名稱；該分類是由 %{hierarchy_provider} 提供
+          tweet_text: 與 %{scientific_name} 有關的名稱，該分類是由 %{hierarchy_provider} 提供
         meta_description: '%{scientific_name} 的分類法及學名。與 %{scientific_name} 有關的生物分類及名稱。'
         meta_description_with_common_name: '%{preferred_common_name} 亦即 %{scientific_name}
           的分類等級、生物分類及學名。與 %{preferred_common_name} 有關的生物分類及名稱。'
@@ -1637,17 +1637,17 @@ zh-TW:
         tweet_text: '%{scientific_name} 的分類資訊'
       common_names:
         hierarchy_entry:
-          meta_description: 與 %{scientific_name} 相關的俗名；該分類是由 %{hierarchy_provider}
+          meta_description: 與 %{scientific_name} 相關的俗名，該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: '%{scientific_name} 的一個俗名是 %{preferred_common_name}。找出與
             %{scientific_name} 相關的其他俗名；該分類是由 %{hierarchy_provider} 提供。'
           meta_keywords: '%{scientific_name} 的俗名'
           meta_keywords_with_common_name: '%{preferred_common_name} 的學名，%{scientific_name}
             的俗名'
-          meta_title: '%{scientific_name} 的俗名；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的俗名，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: ' %{preferred_common_name} (%{scientific_name})
-            的俗名；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的俗名；該分類是由 %{hierarchy_provider} 提供'
+            的俗名，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的俗名，該分類是由 %{hierarchy_provider} 提供'
         meta_description: '%{scientific_name} 的俗名。'
         meta_description_with_common_name: '%{preferred_common_name} 的學名是 %{scientific_name}。找出
           %{scientific_name} 的其他俗名。'
@@ -1663,14 +1663,14 @@ zh-TW:
           meta_description: 與 %{scientific_name} 相關的同種異名；該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: 與 %{scientific_name} 亦即俗名為 %{preferred_common_name}
-            相關的同物異名；該分類是由 %{hierarchy_provider} 提供。
+            相關的同物異名，該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: '%{scientific_name} 的同種異名'
           meta_keywords_with_common_name: '%{preferred_common_name} 同種異名，%{scientific_name}
             同種異名'
-          meta_title: '%{scientific_name} 的同物異名；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的同物異名，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
             的同種異名；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的同物異名；該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的同物異名，該分類是由 %{hierarchy_provider} 提供'
         meta_description: '%{scientific_name} 的同種異名'
         meta_description_with_common_name: '%{preferred_common_name} 的同物異名，其學名是 %{scientific_name}。'
         meta_keywords: '%{scientific_name} 的同種異名'
@@ -1703,17 +1703,17 @@ zh-TW:
     resources:
       show:
         hierarchy_entry:
-          meta_description: 有關 %{scientific_name} 的資料提供者及資料來源的清單；該分類是由 %{hierarchy_provider}
+          meta_description: 有關 %{scientific_name} 的資料提供者及資料來源的清單，該分類是由 %{hierarchy_provider}
             提供。
           meta_description_with_common_name: 有關 %{preferred_common_name} (%{scientific_name})
-            的資料提供者及資料來源的清單；該分類是由 %{hierarchy_provider} 提供。
+            的資料提供者及資料來源的清單，該分類是由 %{hierarchy_provider} 提供。
           meta_keywords: '%{scientific_name} 資料提供者，%{scientific_name} 資料來源'
           meta_keywords_with_common_name: '%{preferred_common_name} 資料提供者，%{preferred_common_name}
             資料來源，%{scientific_name} 資料提供者， %{scientific_name} 資料來源'
-          meta_title: '%{scientific_name} 的資料提供者；該分類是由 %{hierarchy_provider} 提供'
-          meta_title_with_common_name: '%{preferred_common_name} 的資料提供者；該分類是由 %{hierarchy_provider}
+          meta_title: '%{scientific_name} 的資料提供者，該分類是由 %{hierarchy_provider} 提供'
+          meta_title_with_common_name: '%{preferred_common_name} 的資料提供者，該分類是由 %{hierarchy_provider}
             提供'
-          tweet_text: '%{scientific_name} 的資料提供者；該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的資料提供者，該分類是由 %{hierarchy_provider} 提供'
         meta_description: '%{scientific_name} 資源及合作夥伴引用資訊。'
         meta_description_with_common_name: '%{preferred_common_name} 資源及 %{scientific_name}
           合作夥伴引用資訊。'
@@ -1726,31 +1726,31 @@ zh-TW:
         tweet_text: '%{scientific_name} 的內容資源'
       biomedical_terms:
         hierarchy_entry:
-          tweet_text: '%{scientific_name} 的生物醫學術語；該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的生物醫學術語，該分類是由 %{hierarchy_provider} 提供'
         meta_title: '%{scientific_name} 的生物醫學術語'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
           的生物醫學術語'
         tweet_text: '%{scientific_name} 的生物醫學術語'
       education:
         hierarchy_entry:
-          meta_title: '%{scientific_name} 的學習工具；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的學習工具，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的學習工具；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的學習工具；該分類是由 %{hierarchy_provider} 提供'
+            的學習工具，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的學習工具，該分類是由 %{hierarchy_provider} 提供'
         meta_title: '%{scientific_name} 的教育資源'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
           的教育資源'
         tweet_text: '%{scientific_name} 的教育資源'
       identification_resources:
         hierarchy_entry:
-          tweet_text: '%{scientific_name} 的鑑定資源；該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的鑑定資源，該分類是由 %{hierarchy_provider} 提供'
         meta_title: '%{scientific_name} 的鑑定資源'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
           的鑑定資源'
         tweet_text: '%{scientific_name} 的鑑定資源'
       nucleotide_sequences:
         hierarchy_entry:
-          tweet_text: '%{scientific_name} 的核苷酸序列；該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的核苷酸序列，該分類是由 %{hierarchy_provider} 提供'
         meta_title: '%{scientific_name} 的核苷酸序列'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
           的核苷酸序列'
@@ -1758,10 +1758,10 @@ zh-TW:
     updates:
       show:
         hierarchy_entry:
-          meta_title: '%{scientific_name} 的更新；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的更新，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的更新；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的更新；該分類是由 %{hierarchy_provider} 提供'
+            的更新，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的更新，該分類是由 %{hierarchy_provider} 提供'
         meta_description: 有關 %{scientific_name} 的新聞及更新。
         meta_description_with_common_name: 有關 %{preferred_common_name} 的新聞及 %{scientific_name}
           的更新。
@@ -1774,10 +1774,10 @@ zh-TW:
         tweet_text: 有關 %{scientific_name} 的評論
       statistics:
         hierarchy_entry:
-          meta_title: '%{scientific_name} 的統計數據；該分類是由 %{hierarchy_provider} 提供'
+          meta_title: '%{scientific_name} 的統計數據，該分類是由 %{hierarchy_provider} 提供'
           meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
-            的統計數據；該分類是由 %{hierarchy_provider} 提供'
-          tweet_text: '%{scientific_name} 的豐富度數值；該分類是由 %{hierarchy_provider} 提供'
+            的統計數據，該分類是由 %{hierarchy_provider} 提供'
+          tweet_text: '%{scientific_name} 的豐富度數值，該分類是由 %{hierarchy_provider} 提供'
         meta_description: 生命大百科中 %{scientific_name} 的統計及資料。
         meta_description_with_common_name: 生命大百科中 %{preferred_common_name} 亦即 %{scientific_name}
           的統計及資料。
@@ -1872,7 +1872,7 @@ zh-TW:
     notifications:
       edit:
         page_description: 下方顯示的所有更新資訊(除了EOL newsletter)，都可以取得於您的 <a href="%{user_newsfeed_link}">EOL
-          newsfeed</a> ；但有許多使用者也希望能透過email得知他們特別關注的某些活動的訊息。您可以依照個人偏好，使用下方的按鈕設定EOL發送emails給您的頻率。
+          newsfeed</a>，但有許多使用者也希望能透過email得知他們特別關注的某些活動的訊息。您可以依照個人偏好，使用下方的按鈕設定EOL發送emails給您的頻率。
         page_title: 通知設定
       update:
         notification_settings_successfully_updated: 成功更新了通知的設定
@@ -1884,7 +1884,7 @@ zh-TW:
         not_authorized_to_login: 抱歉，我們沒有以該帳號為您登入EOL的授權。
         remove_connection_failed: 抱歉，出現了錯誤，我們無法移除此連結。
         facebook:
-          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Facebook帳號至您的EOL帳號；您的Facebook帳號已連結至一個
+          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Facebook帳號至您的EOL帳號，您的Facebook帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Facebook帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證
             <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Facebook帳號。如果您尚無EOL帳號，請
@@ -1897,7 +1897,7 @@ zh-TW:
           signup_failed_account_already_connected: 抱歉，我們不能用您的Facebook帳號為您建立一個新的EOL帳號，您的Facebook帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
         google:
-          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Google帳號至您的EOL帳號；您的Google帳號已連結至一個
+          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Google帳號至您的EOL帳號，您的Google帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Google帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證
             <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Google帳號。如果您尚無EOL帳號，請
@@ -1907,10 +1907,10 @@ zh-TW:
           not_authorized_to_add_authentication: 抱歉，我們沒有連結您Google帳號的授權。
           not_authorized_to_login: 抱歉，我們沒有以您的Google帳號為您登入EOL的授權
           not_authorized_to_signup: 抱歉，我們沒有以您的Google帳號為您在EOL註冊的授權。
-          signup_failed_account_already_connected: 抱歉，我們不能用您的Google帳號為您建立一個新的EOL帳號；您的Google帳號已連結至一個
+          signup_failed_account_already_connected: 抱歉，我們不能用您的Google帳號為您建立一個新的EOL帳號，您的Google帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
         twitter:
-          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Twitter帳號至您的EOL帳號；您的Twitter帳號已連結至一個
+          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Twitter帳號至您的EOL帳號，您的Twitter帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Twitter帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證
             <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Twitter帳號。如果您尚無EOL帳號，請
@@ -1920,10 +1920,10 @@ zh-TW:
           not_authorized_to_add_authentication: 抱歉，我們沒有連結您Twitter帳號的授權。
           not_authorized_to_login: 抱歉，我們沒有以您的Twitter帳號為您登入EOL的授權。
           not_authorized_to_signup: 抱歉，我們沒有以您的Twitter帳號為您在EOL註冊的授權。
-          signup_failed_account_already_connected: 抱歉，我們無法用您的Twitter帳號為您建立一個新的EOL帳號；您的Twitter帳號已連結至一個
+          signup_failed_account_already_connected: 抱歉，我們無法用您的Twitter帳號為您建立一個新的EOL帳號，您的Twitter帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
         yahoo:
-          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Yahoo!帳號至您的EOL帳號；您的Yahoo!帳號已連結至一個
+          add_connection_failed_account_already_connected: 抱歉，我們無法連結您的Yahoo!帳號至您的EOL帳號，您的Yahoo!帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。
           login_failed_not_connected: 抱歉，我們找不到您的Yahoo!帳號與EOL的間的連結。如果您已經有一個EOL帳號，請利用其他憑證
             <a href="%{login_url}">登入EOL</a>，然後在您的EOL簡介設定上連結您的Yahoo!帳號。如果您尚無EOL帳號，請
@@ -1933,7 +1933,7 @@ zh-TW:
           not_authorized_to_add_authentication: 抱歉，我們沒有連結您Yahoo!帳號的授權。
           not_authorized_to_login: 抱歉，我們沒有以您的Yahoo!帳號為您登入EOL的授權。
           not_authorized_to_signup: 抱歉，我們沒有以您的Yahoo!帳號為您在EOL註冊的授權。
-          signup_failed_account_already_connected: 抱歉，我們不能用您的Yahoo!帳號為您建立一個新的EOL帳號；您的Yahoo!帳號已連結至一個
+          signup_failed_account_already_connected: 抱歉，我們不能用您的Yahoo!帳號為您建立一個新的EOL帳號，您的Yahoo!帳號已連結至一個
             <a href="%{existing_eol_account_url}">EOL使用者帳號</a>。您是想用 <a href="%{login_url}">登入</a>嗎？
       facebook: Facebook
       google: Google
@@ -2918,7 +2918,7 @@ zh-TW:
   admin_content_page_update_successful_notice: 成功更新了頁面 <a href="#%{anchor}"><em>%{page_name}</em></a>。
   admin_content_page_update_unsuccessful_error: 抱歉，出現了錯誤，無法更新此頁面。
   admin_content_pages_empty: 未找到任何內容頁面。
-  admin_content_pages_index_information: 以下清單包含目前EOL網站上所有的靜態頁面；每個頁面都有一或多個翻譯版本。當您建立一個新頁面時，您將被要求添加一個翻譯版本。已發布的翻譯是可以被公開存取的。
+  admin_content_pages_index_information: 以下清單包含目前EOL網站上所有的靜態頁面，每個頁面都有一或多個翻譯版本。當您建立一個新頁面時，您將被要求添加一個翻譯版本。已發布的翻譯是可以被公開存取的。
   admin_content_pages_link: 內容管理
   admin_content_pages_page_title: 管理：內容管理
   admin_content_partners_index_header: 內容合作夥伴
@@ -2952,12 +2952,12 @@ zh-TW:
     %{required_icon}。
   admin_news_item_new_link: 建立新聞項目
   admin_news_item_new_header: 建立一個新的新聞項目
-  admin_news_item_new_tip: 輸入有關這個頁面的基本資訊；唯一的名稱是必填項目 %{required_icon}。
+  admin_news_item_new_tip: 輸入有關這個頁面的基本資訊，唯一的名稱是必填項目 %{required_icon}。
   admin_news_item_not_active: 未發布
   admin_news_item_update_successful_notice: 成功更新了新聞項目 <a href="#%{anchor}"><em>%{page_name}</em></a>。
   admin_news_item_update_unsuccessful_error: 抱歉，出現了錯誤，無法更新此新聞項目
   admin_news_items_empty: 未找到任何新聞項目。
-  admin_news_items_index_information: 以下清單包含目前EOL網站上所有的新聞項目和未來的新聞項目；每個頁面都有一或多個翻譯版本。當您建立一個新的新聞項目時，您將被要求添加一個翻譯版本。已發布的翻譯是可以被公開存取的。
+  admin_news_items_index_information: 以下清單包含目前EOL網站上所有的新聞項目和未來的新聞項目，每個頁面都有一或多個翻譯版本。當您建立一個新的新聞項目時，您將被要求添加一個翻譯版本。已發布的翻譯是可以被公開存取的。
   admin_news_items_page_title: 管理：新聞
   admin_news_link: 新聞
   admin_notes_not_visible_to_user: 管理員附註(使用者見不到)：
@@ -3140,7 +3140,7 @@ zh-TW:
   audio_pause: 暫停
   audio_pause_assistive: 當JavaScript啟用時，這個連結將讓您可以暫停正在播放的相鄰聲音檔；否則請忽略此連結。
   audio_stop: 停止
-  audio_stop_assistive: 當JavaScript啟用時，這個連結將讓您可以停止正在播放的相鄰聲音檔；否則請忽略此連結。
+  audio_stop_assistive: 當JavaScript啟用時，這個連結將讓您可以停止正在播放的相鄰聲音檔，否則請忽略此連結。
   audio_mute: 靜音
   audio_unmute: 取消靜音
   authoritative_information: 權威資訊
@@ -3213,7 +3213,7 @@ zh-TW:
   citing_link: 引用
   clade: 分類群組
   classification_already_preferred: 錯誤：這個分類已被標記為優先分類。
-  classification_curation_pending: 管理待辦中；這個分類可能在最近會被移動至另一個頁面。
+  classification_curation_pending: 管理待辦中，這個分類可能在最近會被移動至另一個頁面。
   classification_curation_split_comment_with_count:
     one: 這個頁面的 %{count} 個分類已被 <a href='%{url}'> 分出至它自己的頁面</a>。
     other: 這個頁面的 %{count} 個 分類已被 <a href='%{url}'> 分出至各自的頁面</a>。
@@ -3226,12 +3226,12 @@ zh-TW:
   classification_summary_section_header: 分類系統
   classification_split_help: <b>您即將從這個頁面分出分類。<b>若要繼續，您必須讓我們知道您覺得目前存在的分類中哪一個 <i>最能</i>代表現有的頁面。這樣做，將幫助我們在未來能把您所選擇的分類和此頁面保持分開。
   classification_merge_help: <b>您即將從這個頁面移動分類。<b>若要繼續，您必須讓我們知道您覺得目前存在此頁面的分類中哪一個 <i>最能</i>代表這個分類單元頁面。這樣將能幫助我們在未來能把您所選擇的分類和此頁面保持分開。
-  classification_split_warning: <b>請花點時間以確認您選擇了和目標頁面相符合的<i>所有</i>分類。</b>例如：如果您在從一個浣熊頁面分出或移動一個鵝的分類，您在進行此動作時必須選擇所有的分類，您在進行此動作時必須選擇所有鵝的分類；如果您錯過了任何一個分類，之後可能會很難解決這個問題。
+  classification_split_warning: <b>請花點時間以確認您選擇了和目標頁面相符合的<i>所有</i>分類。</b>例如：如果您在從一個浣熊頁面分出或移動一個鵝的分類，您在進行此動作時必須選擇所有的分類，您在進行此動作時必須選擇所有鵝的分類，如果您錯過了任何一個分類，之後可能會很難解決這個問題。
   classification_button_help: 請選擇最能代表下方現有頁面的分類，並點擊相對應的 "作為範例"。若要完全取消此動作，請點擊 “取消。
   classification_tree_header: 分類系統
-  classifications_edit_cancelled_merge_to_self: 您的來源和目標都是相同的頁面；沒有物件被移動。
-  classifications_edit_cancelled_busy: 抱歉，目前無法處理您的要求想要編輯分類；一或多個分類單元頁面已被鎖住。此刻正在處理的是一個現成的、編輯這些分類的要求。
-  classifications_locked: 目前無法編輯這個頁面上的分類；此刻正在處理的是另外一個編輯這些分類的要求。
+  classifications_edit_cancelled_merge_to_self: 您的來源和目標都是相同的頁面，沒有物件被移動。
+  classifications_edit_cancelled_busy: 抱歉，目前無法處理您的要求想要編輯分類，一或多個分類單元頁面已被鎖住。此刻正在處理的是一個現成的、編輯這些分類的要求。
+  classifications_locked: 目前無法編輯這個頁面上的分類，此刻正在處理的是另外一個編輯這些分類的要求。
   classifications_preferred_column_header: 優先
   classifications_exemplar_column_header: 範例
   classifications_hierarchy_column_header: 分類系統
@@ -3939,7 +3939,7 @@ zh-TW:
   edit_table_of_contents: 編輯目錄
   edit_tag_suggestions: 編輯標註建議
   edit_the_topic_area_intro: 編輯下方的主題區和email地址，並勾選'active'方框以展現給在網站'聯絡我們'頁面上的使用者。
-  edit_user_details_instructions: 編輯下方使用者詳細資料。您可以點擊下方'顯示email訊息區'，並輸入email內容，即可從系統向這位使用者發送郵件。若您想修改密碼，請輸入新密碼；否則請不要填寫。
+  edit_user_details_instructions: 編輯下方使用者詳細資料。您可以點擊下方'顯示email訊息區'，並輸入email內容，即可從系統向這位使用者發送郵件。若您想修改密碼，請輸入新密碼，否則請不要填寫。
   edit_the_user_s_comment_below: 編輯下方使用者評論。
   edit_upload: 編輯上傳
   edit_username: 編輯 %{username}
@@ -3957,7 +3957,7 @@ zh-TW:
   endorsed_collections_with_count:
     one: '%{count} 個精選典藏'
     other: '%{count} 個精選典藏'
-  enter_in_a_search_term_users_a: 請輸入使用者正在搜尋的術語，然後是搜尋結果建議使用者該被轉到的分類單元/頁面ID；此分類單元/頁面ID可在您想要引導他們去的網頁網址中找到(例如：www.eol.org/pages/5
+  enter_in_a_search_term_users_a: 請輸入使用者正在搜尋的術語，然後是搜尋結果建議使用者該被轉到的分類單元/頁面ID，此分類單元/頁面ID可在您想要引導他們去的網頁網址中找到(例如：www.eol.org/pages/5
     的分類單元/頁面ID是5)。若有的話，網頁名稱和第一張影像將被收集，並與搜尋結果一起儲存。
   eol_administration_console: EOL管理主控台
   eol_api_data_objects: EOL API：資料物件
@@ -4012,7 +4012,7 @@ zh-TW:
       inactive_user_login: 抱歉，目前帳號尚未啟動。如果您在註冊時未收到確認郵件，請按照'恢復帳號'步驟確認您的email地址並啟動帳號。
       min_master_curators_only: 抱歉，限生命大百科策展人使用；最低層級是高階策展人。
       min_full_curators_only: 抱歉，限生命大百科策展人使用；最低層級是專業策展人。
-      min_assistant_curators_only: 抱歉，限EOL蒐藏經理使用；最低層級是助理蒐藏經理。
+      min_assistant_curators_only: 抱歉，限EOL蒐藏經理使用，最低層級是助理蒐藏經理。
       admin_or_master_curators_only: 很抱歉，僅限於生命大百科系統管理員、或帶有最低高階策展人等級的策展人可訪問。
       no_access: 很抱歉，此功能暫時無法使用，請稍候再試。
       missing_edit_acess_to_forum_category: 很抱歉，僅有系統管理員可編輯論壇分類
@@ -4161,7 +4161,7 @@ zh-TW:
   forgot_password: 忘記密碼
   forgot_password_form_cancel: 取消
   forgot_password_form_choose_username_instructions: 有幾個帳號都是以email位址 <em>%{email}</em>
-    註冊；請選擇要重設密碼的帳號。
+    註冊，請選擇要重設密碼的帳號。
   forgot_password_form_choose_username_legend: 選擇一個帳號
   forgot_password_form_choose_username_blank_error: 請選擇您想要重設密碼的帳號。
   forgot_password_form_username_or_email_blank_error: 請輸入使用者名稱或email地址以重設您的密碼。
@@ -4630,7 +4630,7 @@ zh-TW:
   next: 下一個
   no_active_members: 尚無足夠之活動。
   no_answer: 否
-  no_classificaitons_selected: 未選擇分類；沒有物件被移動。
+  no_classificaitons_selected: 未選擇分類，沒有物件被移動。
   no_collections_apply: 您能使用的典藏全都不能新增管理者。
   no_comments_are_available_for_subject: '%{subject} 沒有相關評論'
   no_comments_have_been_left_yet: 尚無人留下評論。
@@ -4956,7 +4956,7 @@ zh-TW:
   search_for_messages_containing: 搜尋包含這些文字的訊息：
   search_for_terms_containing: 搜尋包含這些文字的術語：
   search_for_users_containing_this_in_their_username_name_or_email_address: 搜尋在使用者名稱、名字或email位址中包含此文字的使用者。
-  search_log_report_intro: 這個區域顯示使用者最常用的搜尋術語、搜尋的被執行次數以及和回報結果數量相關的一些資訊。點擊某列即會按該列排序；點擊某個搜尋術語即可見到有關使用者搜尋後會點擊哪個結果(如果有這麼做)的資訊。
+  search_log_report_intro: 這個區域顯示使用者最常用的搜尋術語、搜尋的被執行次數以及和回報結果數量相關的一些資訊。點擊某列即會按該列排序，點擊某個搜尋術語即可見到有關使用者搜尋後會點擊哪個結果(如果有這麼做)的資訊。
   search_method_description: 如果提供了一個特定元素的一個值(例如：學名=Homo sapiens)，回報一個包含此搜尋術語的有標頁數的EOL頁面清單
   search_next_label: 下一步
   search_previous_label: 上一步
@@ -5118,7 +5118,7 @@ zh-TW:
   split_into_new_concept: 切分至新頁面
   split_cancelled: 取消分出操作
   split_classification_instructions: 要從這個EOL頁面上移除此階層輸入項目，您必須在下一步選擇最能代表此頁面該有的階層輸入項目，這樣未來的彙集工作就會將這兩個階層輸入項目完全分開。
-  split_pending: 這個分出的操作將需要一段時間；在完成工作之前，這個頁面會被鎖定，不能再做進一步的分類編輯。當過程結束時，您將收到一封email，它會出現在此頁面的newsfeed裡。
+  split_pending: 這個分出的操作將需要一段時間，在完成工作之前，這個頁面會被鎖定，不能再做進一步的分類編輯。當過程結束時，您將收到一封email，它會出現在此頁面的newsfeed裡。
   split_only_possible_with_all_classifications: 雖然您有將分類系統分出的權限，但是在動作被允許之前，您必須 <a href='%{link}'>
     顯示所有的分類系統</a>。
   spm_category_objects_count: SPM(物種簡介模型)類別 - 物件的數量
@@ -5245,18 +5245,18 @@ zh-TW:
   the_following_bibliography: 以下書目是將我們內容合作夥伴提供的所有參考文獻整合一起而產生。也許會有重複。
   topics_avilable_to_contact_us_info: 以下主題區可從'聯絡我們'的頁面取得。您可以增加或編輯主題區和相對應的email地址。所有修改都是立即的。
   too_many_descendants_to_curate_with_count:
-    one: 錯誤：您的管理無法通過自動化系統處理；共有 %{count} 個子分類單元，超過最大允許值。
-    other: 錯誤：您的管理無法通過自動化系統處理；共有 %{count} 個子分類單元，超過最大允許值。
+    one: 錯誤：您的管理無法通過自動化系統處理，共有 %{count} 個子分類單元，超過最大允許值。
+    other: 錯誤：您的管理無法通過自動化系統處理，共有 %{count} 個子分類單元，超過最大允許值。
   the_data_object_id_can_be: ID參數可以是一個整數(一個DataObject版本ID)，或是會將那個物件的最新版本回報的16個字元GUID
   the_darwin_core_taxon_elements: 在'additionalInformation'中的達爾文核心集分類單元元素(dwct:Taxon)包括由EOL索引階層中節點的識別碼，這些元素包含一個dc:identifier，它是在<i>提供者資料庫</i>中此分類單元的唯一ID。
-  the_following_users_were_prese: 調查的新視窗已對下列使用者開啟；他們對調查的要求作出如下回應：
+  the_following_users_were_prese: 調查的新視窗已對下列使用者開啟，他們對調查的要求作出如下回應：
   the_id_of_provider_hierarchy_you_are_searching: 您正在搜尋資料提供者的階層ID。檢查 %{link} 以得到有效的ID。
   the_image_from_this_source_has_not_been_reviewed: 這個來源的影像尚未被審核。
   the_image_from_this_source_is_not_trusted: 這個來源的影像是不可信的。
   the_info_highlighted_is_reviewed: 下方以紅色標記的資訊已被一位策展人審核並被標記為不可信。
   the_information_highlighted_in: 下方以黃色標記的資訊尚未被審核。
   the_json_response_for_this_method: 這個方法的JSON回應會比XML回應傳回更多資訊。JSON回應包含此節點與其子分類單元的一些統計資訊，例如：回傳欄位
-    "total_descendants" 會列出根據此節點所處階層的子節點數目；而 "total_trusted_text" 則包含連結至這個頁面或它的任何子分類單元唯一文字資料物件的總數。
+    "total_descendants" 會列出根據此節點所處階層的子節點數目，而 "total_trusted_text" 則包含連結至這個頁面或它的任何子分類單元唯一文字資料物件的總數。
   the_message_was_sent: 訊息已被發出。
   the_new_topic_was_created: 此新主題已被建立。
   the_new_user_was_created: 此新使用者已被建立。
@@ -5272,7 +5272,7 @@ zh-TW:
     以得到OpenSearch的詳細說明
   this_area_shows_all_submission: 這個區域顯示所有經由'聯絡我們'或'媒體聯繫'頁面提交的資訊。要瀏覽輸入項目，請選擇下方的主題或
     <a href=%{link}> 以一個CSV檔案形式輸出所有的輸入項目</a>
-  this_cannot_be_undone_are_you_sure: 這個無法取消；您確定嗎？
+  this_cannot_be_undone_are_you_sure: 這個無法取消，您確定嗎？
   this_collection_has_no_managers: 這個典藏沒有管理者。
   this_comment_was_deleted: 這筆評論已被刪除。
   this_community_has_no_endorsed_collections: 這個社群沒有任何重點典藏。
@@ -5292,7 +5292,7 @@ zh-TW:
     >GBIF網路</a>所提供的發現紀錄，有可能不代表整個分布。
   gbif_occurrence_learn_more_link: 經由GBIF入口網使用這些資料。
   page_method_description: 這個方法用一個EOL頁面識別碼而回報那個頁面的學名，同時可選擇性的回報跟認定頁面上描述分類單元的階層相關的資訊，如俗名、多媒體(文字、影像、影片)和參考文獻。
-  ping_method_description: 本方法將失敗(在這種情況下，極可能會回報 EOL 錯誤頁面)或回報一則成功訊息；沒有其它可能的訊息。
+  ping_method_description: 本方法將失敗(在這種情況下，極可能會回報 EOL 錯誤頁面)或回報一則成功訊息，沒有其它可能的訊息。
   provider_hierarchies_method_description: 這個方法將回報EOL內容合作夥伴所提供的所有階層的參考文獻。此回應將包含階層的標籤和代表此階層的EOL唯一ID
   this_method_takes_an_integer_or_string: 這個方法接受來自提供者資料庫中分類單元的整數或字串的唯一識別碼，以及代表提供者的一個hierarchy_id，再回報那個分類單元的EOL頁面ID。例如：使用
     %{link_provider} API，可以發現Integrated Taxonomic Information System (ITIS)的EOL hierarchy_id是
@@ -5367,7 +5367,7 @@ zh-TW:
   update_language: 更新語言
   update_page: 更新頁面
   update_user_successful_notice: 成功更新了帳號。
-  update_user_unsuccessful_error: 抱歉，出現了錯誤，未能更新您的帳號；請確認所有的欄位都正確完成。
+  update_user_unsuccessful_error: 抱歉，出現了錯誤，未能更新您的帳號。請確認所有的欄位都正確完成。
   updated_community: 成功更新了社群。
   updated_member: 成功更新了會員。
   updated: 已更新
@@ -5394,7 +5394,7 @@ zh-TW:
   user_activation_successful_notice: 歡迎並感謝您加入生命大百科的團隊。您的帳號：使用者名稱 <em>%{username}</em>
     已啟動，請登入。
   user_activity_click_on_the_numbers: 請點擊數字以見到各個活動feed。
-  user_activity_report_intro: 使用者活動報告。請選擇一個特定的使用者以見到他的活動；活動是以其建立的時間反序排列。請選擇'全部'以見到所有使用者的活動，再點擊'搜尋'以繼續(使用您瀏覽器的'返回'按鈕以返回此處)。
+  user_activity_report_intro: 使用者活動報告。請選擇一個特定的使用者以見到他的活動，活動是以其建立的時間反序排列。請選擇'全部'以見到所有使用者的活動，再點擊'搜尋'以繼續(使用您瀏覽器的'返回'按鈕以返回此處)。
   user_activity_page_title: 使用者活動
   user_activity_stats_articles_added:
     one: 已新增 %{count} 篇文章
@@ -5460,7 +5460,7 @@ zh-TW:
   user_count_reindexed: 用戶數量已被重新索引
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 使用者 ID
-  user_index_intro: 下方顯示所有在此系統註了冊的網路使用者；以其註冊的時間反序排列。請注意：在EOL V2版本(2009年1月5日)之前註冊的使用者沒有註冊日期。請點擊一個使用者名稱以編輯那個使用者。
+  user_index_intro: 下方顯示所有在此系統註了冊的網路使用者，以其註冊的時間反序排列。請注意：在EOL V2版本(2009年1月5日)之前註冊的使用者沒有註冊日期。請點擊一個使用者名稱以編輯那個使用者。
   user_joined_community_on_date: '%{username} 在 %{date} 加入了這個社群。'
   user_joined_when: '"%{user}" 在 %{when} 加入'
   user_left_comment_on_date: '%{username} 在 %{date} 做了評論。'

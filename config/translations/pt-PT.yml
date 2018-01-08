@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Athena in Wonderland
 # Author: Bonifácio
 # Author: Fitoschido
 # Author: Fúlvio
@@ -482,8 +483,15 @@ pt-PT:
           outro texto. Se pretende armazenar o ficheiro (por exemplo num arquivo PDF)
           nos servidores do conteúdo EOL, então primeiro <a href="%{upload_content_url}">faça
           o upload do arquivo</a>, para obter a URL.
+      content_partner_contact:
+        email_reports_frequency_hours_more: Os relatórios por correio eletrónico são
+          enviados apenas se houver comentários ou ações de curadores nos seus dados
+          ou nas páginas de táxon relevantes para o seu conjunto de dados.
       data_object:
         bibliographic_citation: Citação bibliográfica
+        bibliographic_citation_more: Uma citação recomendada para estes dados na forma
+          de referência bibliográfica, incluindo suficientemente os detalhes para
+          identificar os dados na forma inequívoca possível.
         description: Texto <small>(algumas marcações HTML são permitidas)</small>
         license_id: Licença
         license_id_more: Leia a <a href="%{policy_url}">política de licenciamento
@@ -499,6 +507,10 @@ pt-PT:
           do Domínio Público. Licenças de Domínio Público não necessitam de um titular
           de direitos.
         rights_statement: Declaração de direitos
+        rights_statement_more: A declaração dos direitos de utilização, conforme exigida
+          pelas licenças Creative Commons Atribuição (CC BY). Por favor, declare o
+          estado de atribuição <q cite="https://creativecommons.org/licenses/by/3.0/deed.pt">na
+          forma especificada pelo autor ou licenciante</q>.
         source_url: URL para o objeto de dados original
       data_object_link:
         description: Descrição <small>(alguma marcação HTML é permitida)</small>
@@ -550,6 +562,7 @@ pt-PT:
           será feito público imediatamente.
         published_at: Publicado
         published_status: Estado
+        last_harvest_seconds: Levou %{time_in_words}
       hierarchy:
         browsable_more: Verificar a navegabilidade para prover esta hierarquia para
           se tornar uma das hierarquias primárias navegáveis no EOL.
@@ -570,6 +583,10 @@ pt-PT:
         to_known_uri: Introduza e selecione o URI de destino
       news_item:
         active: Publicado
+        active_more: As notícias publicadas estarão visíveis publicamente na data
+          e hora selecionadas. Desmarque <em>publicado</em> se quiser impedir que
+          os utilizadores gerais consultem estas versões das notícias em qualquer
+          língua.
         page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em
           Latim básico e traços inferiores apenas)</small>
         page_name_more: Introduza um identificador único, auto descritivo, significativo
@@ -619,17 +636,22 @@ pt-PT:
           a menos que a própria página seja inédita. Desmarque <em>publicado</em>
           se você quiser impedir que usuários em geral vejam esta versão da página.
         language_id: Língua
-        left_content_more: Opcionalmente, adicione uma lista não ordenada de links
-          para incluir uma coluna de navegação na página. Links de ancoramento devem
-          ser adicionado manualmente selecionando <em>Fonte</em> e editando o atributo
-          <em>href</em> HTML dos links. Por exemplo, para vincular a uma âncora chamada
-          <em>licensing_policy</em> na área de conteúdo do <em>Corpo</em>, o atributo
-          <em>href</em> do link para o item da sua lista deve ter o valor "#licensing_policy"
-        main_content_more: 'Introduza o conteúdo principal da página na área do tronco.
-          Use o menu <em>Format</em> para seleccionar os elementos de texto semântico
-          apropriados, por exemplo escolha <em>Cabeçalho 2</em> para um cabeçalho
-          de segundo nível. Nota: o título da página é o cabeçalho de primeiro nível,
-          por isso comece os seus cabeçalhos no corpo com <em>Cabeçalho 2</em>'
+        left_content_more: '(Opcionalmente) Adicione uma lista não ordenada de ligações
+          de navegação. Utilize a classe <code>active</code> para assinalar a ligação
+          da página atual, ou seja <code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>
+          onde <code>:id</code> é o identificador da página atual ou o nome único
+          e <code>:title</code> é o título descritivo da página (<strong>Nota: Todas
+          as ligações para as páginas CMS da EOL devem começar com uma barra inclinada:
+          <code>/info/:id</code></strong>). Para realizar estas alterações, terá de
+          editar o código-fonte HTML diretamente, selecionando <em>Fonte</em> na barra
+          de ferramentas do editor.'
+        main_content_more: 'Introduza o conteúdo da página principal na área do corpo.
+          Utilize a lista descendente <em>Formato</em> para selecionar os elementos
+          de texto semântico apropriados, por exemplo escolha <em>Cabeçalho 2</em>
+          para um cabeçalho de segundo nível. Nota: O <em>Cabeçalho 1</em> está reservado
+          para o título da página, de modo que os cabeçalhos no corpo comecem com
+          o <em>Cabeçalho 2</em>. Selecione <em>Fonte</em> para alterar para a vista
+          do código-fonte HTML, que permite introduzir e editar manualmente o HTML.'
         meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave
           do conteúdo da página. Esta descrição é por vezes utilizada pelos motores
           de busca da Web quer para verificar a relevância como para listar nos resultados
@@ -778,7 +800,8 @@ pt-PT:
         create: Adicionar recurso
         update: Atualizar o recurso
         update_settings: Atualizar configurações
-        force_harvest: Pedir colheita forçada
+        force_harvest: Pedir colheita
+        harvest_tonight: Colheita esta noite
       session:
         create: Login
         sign_in_with_facebook: Login com o Facebook
@@ -953,6 +976,9 @@ pt-PT:
         observation_place: 'Localização: %{place}'
         recent_observations: Observações recentes
         some_taxon: Algo
+        taxa_observed:
+          one: '%{count} táxon observado'
+          other: '%{count} táxones observados'
         top_contributors: Maiores Contribuidores iNaturalist
         tweet_text: Observações iNaturalist de %{collection_name}.
         view_all_observations_on_inaturalist: Ver todas as observações de %{project_title}
@@ -965,16 +991,48 @@ pt-PT:
       index:
         meta_description: Coleções comunitárias reunidas por %{community_name}, uma
           comunidade da Enciclopédia da Vida.
+        meta_keywords: Coleções de %{community_name}
+        meta_title: Coleções de %{community_name}
+        tweet_text: Coleções de %{community_name}
+    newsfeeds:
+      show:
+        meta_keywords: '%{community_name}, comunidade da Enciclopédia da Vida, feed
+          de notícias de %{community_name}, comentários de %{community_name}, atividade
+          de %{community_name}'
+    show:
+      meta_description: O proprietário de %{community_name} apagou esta comunidade
+        da Enciclopédia da Vida
+      meta_title: '%{community_name} apagada pelo proprietário'
   content:
     index:
+      header_news: Notícias da EOL
       meta_description: A Enciclopédia da Vida é um esforço inédito para compilar
         conhecimentos científicos de toda a vida animal e vegetal, e dispõe de fotografias,
         informações, fatos e outras coisas acerca de todos os seres vivos de nossos
         reinos vegetal e animal.
+      meta_keywords: Animais, imagens e informações de animais, plantas, vida vegetal,
+        imagens e informações de plantas, flora, fauna
+      meta_title: Animais - Plantas - Imagens e informação
+      see_all_eol_news: ver mais <span class="assistive">notícias da EOL</span>
+      see_all_recent_activites: ver mais <span class="assistive">atividades da última
+        semana</span>
+      see_all_statistics: ver mais <span class="assistive">estatísticas da EOL</span>
   content_partners:
     statistics:
       show:
         meta_description: Estatísticas de uso de dados de %{partner_name}.
+        meta_keywords: Estatísticas de %{partner_name}, utilização web de %{partner_name}
+        meta_title: Estatísticas de %{partner_name}
+        tweet_text: Estatísticas de uso de %{partner_name}
+    index:
+      meta_description: Lista dos provedores de dados e parceiros de conteúdo da Enciclopédia
+        da Vida.
+      meta_keywords: Parceiros de conteúdos da Enciclopédia da Vida, fornecedores
+        de dados da Enciclopédia da Vida
+      meta_title: Parceiros de conteúdo
+    show:
+      meta_description: '%{partner_name}. %{partner_description}'
+      meta_keywords: '%{partner_name}, parceiro de conteúdos da Enciclopédia da Vida'
     edit:
       meta_title: Editar %{partner_name}
   data_objects:
@@ -985,56 +1043,151 @@ pt-PT:
       meta_description_map: Mapa - %{dato_description}
       meta_description_sound: Som - %{dato_description}
       meta_description_video: Vídeo - %{dato_description}
+      meta_description_default: '%{dato_title} de %{supplier}.'
+      meta_description_default_article: Artigo - %{dato_title} de %{supplier}.
+      meta_description_default_image: Imagem - %{dato_title} de %{supplier}.
+      meta_description_default_image_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_map: Mapa - %{dato_title} de %{supplier}.
+      meta_description_default_sound: Som - %{dato_title} de %{supplier}.
+      meta_description_default_video: Vídeo - %{dato_title} de %{supplier}.
+      meta_supplier_default: um colaborador
+      meta_title: '%{dato_title} de %{supplier}'
+      tweet_text: '%{dato_title} de %{supplier}'
   eol_statistics:
+    comparing_dates: <span class="assistive">A comparar</span> <span class="date_one">%{date_one}</span>
+      <span class="assistive">e</span> <span class="date_two">%{date_two}</span>
+    warnings:
+      stats_unavailable_for_date: Desculpe, não há estatísticas disponíveis para %{date}.
+        Por favor, selecione outra data.
     content_partners:
+      menu_link: Parceiros de conteúdo
+      page_header: Estatísticas dos parceiros de conteúdo
       page_title: Estatísticas
     curators:
+      menu_link: Estatísticas de curador
+      page_header: Estatísticas de curador
       page_title: Estatísticas
     data_objects:
+      menu_link: Objetos de dados
+      page_header: Estatísticas dos objetos de dados
       page_title: Estatísticas
     index:
+      menu_link: Estatísticas globais
+      page_header: Estatísticas globais
       page_title: Estatísticas
     lifedesks:
+      menu_link: LifeDesks
+      page_header: Estatísticas do LifeDesks
       page_title: Estatísticas
     marine:
+      menu_link: Estatísticas marinhas
+      page_header: Cobertura marinha na EOL
       page_title: Estatísticas
     page_richness:
+      menu_link: Páginas ricas
+      page_header: Estatísticas das páginas ricas
       page_title: Estatísticas
     users_data_objects:
+      menu_link: Texto enviado pelos utilizadores
+      page_header: Estatísticas de textos enviados pelos utilizadores
+      page_title: Estatísticas
+    data:
+      menu_link: Dados
+      page_header: Estatísticas de dados
       page_title: Estatísticas
   forums:
+    forums_heading: Fóruns da EOL
+    last_post: Última publicação
+    posts_heading: Publicações
     replies: Respostas
+    topics_heading: Tópicos
+    views: Visitas
     create: Criar um fórum
+    create_successful: O fórum foi criado com sucesso
+    create_failed: Desculpe, ocorreu um erro, o fórum não pôde ser adicionado.
+    update_successful: O fórum foi atualizado com sucesso
+    update_failed: Desculpe, ocorreu um erro, o fórum não foi atualizado.
+    delete_successful: O fórum foi apagado com sucesso
+    move_successful: O fórum foi movido com sucesso
+    move_failed: Não foi possível mover o fórum
     edit: Editar fórum
     post_by_user_at_time: por %{user}, %{time}
     actions: Ações
     administration: Administração
+    no_topics: Não existem tópicos neste fórum
     buttons:
       delete: eliminar
       edit: editar
       reply: responder
+      link: hiperligação
     categories:
       create: Criar uma categoria
       edit: Editar categoria
+      create_successful: A categoria foi criada com sucesso
+      create_failed: Desculpe, ocorreu um erro, a categoria não pôde ser adicionada
+      update_successful: A categoria foi atualizada com sucesso
+      update_failed: Desculpe, ocorreu um erro, a categoria não foi atualizada.
+      delete_successful: A categoria foi apagada com sucesso
     posts:
+      joined_date: Subscreveu-se em %{date}
+      create: Fazer uma nova publicação
+      edit: Editar publicação
+      post_written_by_user: '%{user} escreveu:'
+      replying_to_post: 'Em resposta a:'
+      create_successful: A publicação foi criada com sucesso
+      update_successful: A publicação foi atualizada com sucesso
+      post_has_been_deleted: Esta publicação foi apagada
+      deleted_subject: (apagado)
       no_subject: (sem assunto)
+      permalink_to_this_post: 'Ligação permanente para esta publicação:'
       close_window: fechar
+      posts_with_count:
+        one: '%{count} publicação'
+        other: '%{count} publicações'
+    topics:
+      create: Iniciar um novo tópico
+      no_posts: Não há publicações neste tópico
+      create_successful: O tópico foi criado com sucesso
+      create_failed: Desculpe, ocorreu um erro, o tópico não pôde ser adicionado.
+      delete_successful: O tópico foi apagado com sucesso
+      delete_failed_not_empty: O tópico não pôde ser apagado porque não está vazio
   known_uris:
+    add_a_relationship: Adicionar uma relação
+    equivalent_to: Relações equivalentes
+    import_successful: Os termos de ontologia foram importados com sucesso
     please_select_category_for_stats: Por favor, selecione uma categoria para ver
       as estatísticas.
+    relationships: Relações
+    relationships_to_this_uri: Relações para este URI
+    select_a_category_to_view_stats: 'Selecione uma categoria para ver as estatísticas:'
+    uri_placeholder_text: 'por exemplo: http://purl.org/dc/terms/contributor'
+    name_placeholder_text: por exemplo, colaborador
+    preferred_for_equivalence_group: Preferido
+    select: selecionar
   layouts:
     application:
+      header_about: Sobre a EOL
+      header_learn_more: Saiba mais sobre
+      header_questions: Conte-me mais
+      about_link_what_is_eol: O que é a EOL?
+      about_link_traitbank: O que é o TraitBank?
+      about_link_eol_blog: O blogue da EOL
+      about_link_discover: Educação
       about_link_statistics: Estatísticas
       about_link_glossary: Glossário
       about_link_podcasts: Podcasts
+      about_link_donate: Fazer um donativo à EOL
+      about_link_citing: Citar a EOL
       about_link_help: Ajuda
       about_link_terms_of_use: Termos de uso
+      about_link_contact_us: Contacte-nos
       learn_more_link_animals: Animais
       learn_more_link_mammals: Mamíferos
       learn_more_link_birds: Aves
       learn_more_link_amphibians: Anfíbios
       learn_more_link_reptiles: Répteis
       learn_more_link_fish: Peixes
+      learn_more_link_worms: Vermes
       learn_more_link_invertebrates: Invertebrados
       learn_more_link_crustaceans: Crustáceos
       learn_more_link_mollusks: Moluscos
@@ -1048,8 +1201,37 @@ pt-PT:
       learn_more_link_molds: Mofos
       learn_more_link_bacteria: Bactérias
       learn_more_link_protists: Protistas
+      learn_more_link_archaea: Arquaia
+      learn_more_link_viruses: Vírus
+      learn_more_link_algae: Algas
+      questions_link_evolution: O que é a evolução?
+      questions_link_biodiversity: O que é a biodiversidade?
+      questions_link_species: O que é uma espécie?
+      questions_link_discovering_species: Como as espécies são descobertas?
+      questions_link_naming_species: Como são chamadas as espécies?
+      questions_link_model_organism: O que é um organismo modelo?
+    data_search:
+      page_header: Procurar no TraitBank
     footer:
       google_plus: Encyclopedia of Life no Google+
+    taxa:
+      search_traitbank: Procurar no TraitBank
+  members:
+    index:
+      meta_keywords: Membros de %{community_name}
+      meta_title: Membros de %{community_name}
+      tweet_text: Membros de %{community_name}
+    show:
+      meta_description: '%{member_name} é membro da %{community_name}, uma comunidade
+        da Enciclopédia da Vida.'
+      meta_keywords: '%{member_name}, membro da comunidade'
+      meta_title: '%{member_name}, membro de %{community_name}'
+      tweet_text: '%{member_name}, membro de %{community_name}'
+  news_items:
+    index:
+      page_title: Notícias da EOL
+      meta_title: Notícias da EOL
+      meta_keywords: notícias da eol, notícias da enciclopédia da vida
   notifier:
     activity_log_empty: Nenhuma ação recente pelos curadores.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
@@ -1100,18 +1282,42 @@ pt-PT:
       subject: Sua conta na Enciclopédia de Vida foi ativada
     user_message:
       subject: Uma mensagem da Enciclopédia da Vida
+    user_recover_account:
+      subject: Recuperação da sua conta da Enciclopédia da Vida
   recent_activity:
     intro_immediately: Olá, %{name} -
+    resource_validation: A validação da funcionalidade %{resource} foi finalizada
+  recent_activities:
+    index:
+      list_header: Últimos 7 dias
+      page_title: Atividade comunitária da EOL
+      meta_title: Atividade comunitária da EOL
+      meta_keywords: atividade comunitária da eol, atividade recente da eol, atividades
+        na enciclopédia da vida
   recent_activity_mailer:
+    data_search_file_download_ready:
+      header: A sua transferência está pronta!
     collection_download_ready:
       message: Pode ver esta e outras descargas visitando a <a href="%{download_link}">tabulação
         de descargas de dados em teu perfil</a>.
+  sessions:
+    new:
+      meta_title: Iniciar sessão
+      problems_signing_in_with_eol_authentication: Esqueceu-se da palavra-passe?
   taxa:
+    maps:
+      show:
+        meta_title: Mapas de %{scientific_name}
     names:
       index:
         meta_title: Informação Taxonómica para %{scientific_name} - Nomes e  Calssificação
           Biológica
         tweet_text: Informação Taxonómica para %{scientific_name}
+      synonyms:
+        hierarchy_entry:
+          meta_keywords: Sinónimos de %{scientific_name}
+          meta_keywords_with_common_name: Sinónimos de %{preferred_common_name}, sinónimos
+            de %{scientific_name}
   users:
     data_downloads:
       empty: Você não tem nenhum download. Pode <a href='%{data_search_url}'>pesquisar
@@ -1292,17 +1498,26 @@ pt-PT:
   jsonp_by_adding_a_callback_parameter: '... e JSONP, adicionando um parâmetro de
     retorno (callback)'
   any_integer: qualquer número inteiro
-  api_docs_collections_description: Dado o identificador para uma colecção esta API
-    retornará todos os metadados sobre a colecção e os itens que ele contém. A lista
-    de itens pode ser filtrada por tipo de item e ordenada pelos atributos listados
-    acima.
+  api_docs_collections_description: 'Dado o identificador de uma coleção, esta API
+    devolverá todos os metadados sobre a coleção e os elementos que contêm. A lista
+    de elementos pode ser filtrada pelo tipo de elemento e ordenada pelos atributos
+    listados. Alguns elementos contêm um atributo ''sort_field''. O campo de ordenação
+    é um segmento de texto fornecido pelo utilizador que é uma anotação especial de
+    um elemento da coleção. Pode ser qualquer cadeia de caracteres, mas se é uma data,
+    deve ter o formato AAAA-MM-DD. Os elementos do táxon contêm um ''richness_score''.
+    A riqueza é uma métrica representada por um número inteiro entre 0 e 100, com
+    um número maior que indica uma página com conteúdo rico de uma grande variedade
+    de fontes. Pode encontrar mais informações sobre a riqueza de táxones no separador
+    de atualizações de uma página de táxon, por exemplo: %{richness_url}.'
   a_pipe_delimited_list_of_licenses: uma lista de licenças delimitadas com barra vertical
     | ou 'all' para obter objetos sob qualquer licença. Licenças com abreviatura cc-
     são todas licenças %{creative_commons_link}. Visite o site deles para mais informação
     sobre as várias licenças que oferecem.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: uma lista de nomes de temas
-    de elementos de informação SPM delimitada por uma barra vertical | ou 'all' para
-    obter texto sobre qualquer assunto
+  a_pipe_delimited_list_of_spm_info_item_subject_names: '''overview'' para devolver
+    o texto do resumo (se existir), uma lista de nomes de temas separados por uma
+    barra vertical | da lista de %{subjects_text} (por exemplo, a TaxonBiology, FossilHistory),
+    ou ''all'' para obter o texto em qualquer tema. Sempre devolve um texto do resumo
+    (se existir no contexto especificado).'
   application_version_advisory_information: Versão do aplicativo
   are_you_sure: Tem a certeza?
   article_from: artigo de
@@ -1391,8 +1606,8 @@ pt-PT:
   cannot_be_associated_with_both_a_user_and_a_community: Não pode ser associado com
     um utilizador e uma Comunidade
   cannot_be_empty: não pode estar vazio.
-  cannot_create_collection_item_from_class_error: Não podemos criar um item de coleção
-    a partir de um %{klass}
+  cannot_create_collection_item_from_class_error: 'Não podemos criar um elemento de
+    coleção a partir de um tipo: %{klass}'
   cannot_create_community_from_watch_collection_error: Não pode criar uma comunidade
     a partir de uma lista de vigiados.
   cannot_expand_children: não é possível expandir descendentes
@@ -2551,8 +2766,9 @@ pt-PT:
   you_are_viewing_this_rank_as_classified_by: 'Está a ver este %{rank} tal como classificado
     por:'
   you_can_identify_yourself_to_eol: 'Pode identificar-se à EOL adicionando a sua chave
-    API aos seus pedidos (login e gere a sua chave na sua página de preferências)
-    :'
+    API aos seus pedidos (entre e gere a sua chave abrindo a edição do seu perfil
+    da EOL. A chave será guardada aqui; abra novamente a edição do seu perfil para
+    recuperá-la posteriormente):'
   you_joined_community: Ingressou nesta comunidade.
   your_preferences: Preferências
   your_rating: A sua classificação

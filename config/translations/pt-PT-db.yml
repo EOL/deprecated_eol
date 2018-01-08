@@ -1,6 +1,7 @@
 # Messages for Portuguese (português)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Athena in Wonderland
 # Author: GoEThe
 # Author: Luckas
 ---
@@ -176,7 +177,7 @@ pt-PT:
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Publicar pendente
   translated_resource_statuses-label-resource_status_id-12: Anular a publicação pendente
-  translated_resource_statuses-label-resource_status_id-13: Forçar Colheita
+  translated_resource_statuses-label-resource_status_id-13: Colheita solicitada
   translated_resource_statuses-label-resource_status_id-1: A enviar...
   translated_resource_statuses-label-resource_status_id-2: Upload terminado
   translated_resource_statuses-label-resource_status_id-3: O Upload Falhou

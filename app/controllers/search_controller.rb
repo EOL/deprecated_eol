@@ -61,12 +61,15 @@ class SearchController < ApplicationController
       @facets = {}
     else
       query_array = (@querystring.downcase.gsub(/\s+/m, ' ').strip.split(" "))
+      # LIMITING each word to 32 characters (which is already big):
+      query_array.map! { |str| str[0..32] }
       query_reserved_words = (query_array & @all_params.map{|key| key[0]}) + (query_array & @all_params.map{|key| key[1]})
       if query_reserved_words.any?
         @params_type += query_reserved_words.map{|word| @all_params.select{|param| param[0] == word || param[1] == word}.first[2].to_s.camelize}
         @params_type -= ['All']
         query_array.reject! {|t| (@all_params.map{|key| key[0]}).include?(t) || (@all_params.map{|key| key[1]}).include?(t)}
-        @querystring = query_array.join(" ")
+        # LIMITING searches to FOUR words max:
+        @querystring = query_array[0..3].join(" ")
         params[:type] = @params_type
       end
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ per_page: @@results_per_page, language_id: current_language.id }))

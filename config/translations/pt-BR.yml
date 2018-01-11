@@ -6498,8 +6498,7 @@ pt-BR:
     URL de revisão deve ser algo como <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: Pedir uma importação de um artigo da Wikipédia
   will_find_taxon_pages_matching_the_search_term: irá encontrar páginas táxon se o
-    nome preferido ou qualquer sinônimo ou nome comum corresponde exatamente ao termo
-    de pesquisa
+    título ou qualquer sinônimo ou nome comum corresponde exatamente ao termo de pesquisa
   would_you_like_to_become_a_curator_notice: Gostaria de se tornar um curador? Você
     pode solicitar o acesso na <a href='%{url}'>sua página de perfil</a>.
   worklist: Lista de trabalho
@@ -6516,7 +6515,9 @@ pt-BR:
     classificado por:'
   you_can_edit_those_later_if_ne: Você pode editar esses mais tarde, se necessário.
   you_can_identify_yourself_to_eol: 'Pode identificar-se à EOL adicionando a sua chave
-    API aos seus pedidos (login e gere a sua chave na sua página de preferências):'
+    API aos seus pedidos (entre e gere a sua chave abrindo a edição do seu perfil
+    da EOL. A chave será guardada aqui; abra novamente a edição do seu perfil para
+    recuperá-la posteriormente):'
   you_have_been_logged_in_as_username: Você está logado como %{username}
   you_have_been_logged_out: Você foi desconectado.
   you_joined_community: Você já ingressou com sucesso nesta comunidade.

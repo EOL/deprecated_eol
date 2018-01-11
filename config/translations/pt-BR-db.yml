@@ -4,6 +4,7 @@
 # Author: Bluemamelati
 # Author: Danielsouzat
 # Author: Dianakc
+# Author: Eduardo Addad de Oliveira
 # Author: Giro720
 # Author: Leosls
 # Author: Luckas
@@ -183,7 +184,7 @@ pt-BR:
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Publicação pendente
   translated_resource_statuses-label-resource_status_id-12: Anular a publicação pendente
-  translated_resource_statuses-label-resource_status_id-13: Forçar Colheita
+  translated_resource_statuses-label-resource_status_id-13: Colheita solicitada
   translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-2: Enviado
   translated_resource_statuses-label-resource_status_id-3: O upload falhou

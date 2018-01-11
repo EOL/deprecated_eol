@@ -4826,7 +4826,7 @@ mk:
     непознати регистрирани корисници (корисници на првата верзија, пред 5 јануари
     2009)
   do_you_want_to_be_a_curator: Дали сакате да бидете кустос
-  download_wav_file: Преземи WAV податотека
+  download_wav_file: Преземи WAV-податотека
   download_data: Преземи податоци
   download_collection_data: Преземи податоци
   dublin_core: Dublin Core

@@ -1184,6 +1184,8 @@ pt-PT:
     relationships_from_this_uri: Relações a partir deste URI
     relationships_to_this_uri: Relações para este URI
     select_a_category_to_view_stats: 'Selecione uma categoria para ver as estatísticas:'
+    unrecognized_measurement_types: Não foi possível reconhecer os URIs dos tipos
+      da medição
     uri_placeholder_text: 'por exemplo: http://purl.org/dc/terms/contributor'
     name_placeholder_text: por exemplo, colaborador
     attribution_placeholder_text: por exemplo, do Dublin Core; consulte http://dublincore.org/usage/terms/history/#contributorT-001.
@@ -1322,6 +1324,7 @@ pt-PT:
     comment_body_brief: '%{body} - %{author}'
     comment_title: '%{who} comentou em %{what}'
     comment_title_your_newsfeed: '%{who} comentou no seu feed de notícias'
+    comment_link: Ver comentário na EOL
   recent_activities:
     index:
       list_header: Últimos 7 dias
@@ -1335,11 +1338,21 @@ pt-PT:
     collection_download_ready:
       message: Pode ver esta e outras descargas visitando a <a href="%{download_link}">tabulação
         de descargas de dados em teu perfil</a>.
+      header: A transferência da sua coleção está pronta!
   sessions:
     new:
       meta_title: Iniciar sessão
       problems_signing_in_with_eol_authentication: Esqueceu-se da palavra-passe?
   taxa:
+    communities:
+      index:
+        meta_keywords: Comunidade sobre %{scientific_name}
+        meta_keywords_with_common_name: Comunidades sobre %{preferred_common_name}
+          e %{scientific_name}
+        meta_title: Pessoas interessadas em %{scientific_name}
+        meta_title_with_common_name: Pessoas interessadas em %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Pessoas interessadas em %{scientific_name}
     maps:
       show:
         meta_title: Mapas de %{scientific_name}

@@ -3916,7 +3916,7 @@ es:
   annotation_body_default: añadir una pregunta o comentario ...
   anonymous_user_full_name: Usuario anónimo
   anonymous_user_given_name: Anónimo
-  anonymous_user_tag_line: No ha iniciado sesión
+  anonymous_user_tag_line: No has accedido
   and: "y"
   and_between_form_items: "y"
   jsonp_by_adding_a_callback_parameter: '... y JSONP agregando un parámetro tipo callback'

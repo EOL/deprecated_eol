@@ -1,0 +1,135 @@
+# Messages for Punjabi (ਪੰਜਾਬੀ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aalam
+# Author: Babanwalia
+# Author: Jimidar
+# Author: Surinder.wadhawan
+# Author: TariButtar
+# Author: Tow
+---
+pa:
+  translated_activities-name-activity_id-50: ਗ਼ੈਰ-ਯਕੀਨੀ
+  translated_activities-name-activity_id-51: ਵਿਖਾਓ
+  translated_activities-name-activity_id-52: ਬਣਾਓ
+  translated_activities-name-activity_id-53: ਓਹਲੇ
+  translated_activities-name-activity_id-54: ਅੱਪਡੇਟ
+  translated_activities-name-activity_id-56: ਮਿਟਾਉ
+  translated_agent_roles-label-agent_role_id-2: ਲੇਖਕ
+  translated_audiences-label-audience_id-1: ਮਾਹਰ ਵਰਤੋਂਕਾਰ
+  translated_audiences-label-audience_id-2: ਆਮ ਲੋਕ
+  translated_audiences-label-audience_id-3: ਬੱਚੇ
+  translated_collection_types-label-collection_type_id-24: ਸਾਹਿਤ
+  translated_collection_types-label-collection_type_id-3: ਵੇਰਵਾ
+  translated_collection_types-label-collection_type_id-4: ਤਸਵੀਰਾਂ
+  translated_collection_types-label-collection_type_id-7: ਨਾਂ ਬਾਰੇ ਜਾਣਕਾਰੀ
+  translated_contact_roles-label-contact_role_id-3: ਤਕਨੀਕੀ ਸੰਪਰਕ
+  translated_contact_subjects-title-contact_subject_id-35: ਆਮ ਸਲਾਹ
+  translated_content_partner_statuses-label-content_partner_status_id-2: ਸਰਗਰਮ
+  translated_content_partner_statuses-label-content_partner_status_id-4: ਗੈਰ ਸਰਗਰਮ
+  translated_content_tables-label-content_table_id-1: ਵੇਰਵਾ
+  translated_data_types-label-data_type_id-10: ਨਕਸ਼ਾ
+  translated_data_types-label-data_type_id-1: ਤਸਵੀਰ
+  translated_data_types-label-data_type_id-2: ਆਵਾਜ਼
+  translated_data_types-label-data_type_id-3: ਲਿਖਤ
+  translated_data_types-label-data_type_id-4: ਵਿਡੀਓ
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: ਫ਼ਲੈਸ਼
+  translated_data_types-label-data_type_id-8: ਯੂਟੂਬ
+  translated_licenses-description-license_id-30: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-31: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-32: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-33: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-34: ਜਨਤਕ ਡੋਮੇਨ
+  translated_licenses-description-license_id-35: ਜਨਤਕ ਡੋਮੇਨ
+  translated_licenses-description-license_id-36: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-37: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-38: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-39: ਜਨਤਕ ਡੋਮੇਨ
+  translated_licenses-description-license_id-3: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-42: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-43: ਲਸੰਸ ਲਾਗੂ ਨਹੀਂ ਹੁੰਦਾ
+  translated_licenses-description-license_id-4: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-5: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-6: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-7: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-8: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_licenses-description-license_id-9: ਕੁਝ ਹੱਕ ਰਾਖਵੇ ਹਨ
+  translated_ranks-label-rank_id-106: ਰੂਪ
+  translated_ranks-label-rank_id-51: ਕਲਾਸ
+  translated_ranks-label-rank_id-74: ਵੰਡ
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f
+  translated_ranks-label-rank_id-99: ਪਰਿਵਾਰ
+  translated_service_types-label-service_type_id-2: ਹੋਰ
+  translated_sort_styles-name-sort_style_id-1: ਹਾਲਹੀ ਵਿੱਚ ਜੋੜੇ
+  translated_sort_styles-name-sort_style_id-2: ਸਭ ਤੋਂ ਪੁਰਾਣਾ
+  translated_sort_styles-name-sort_style_id-5: ਅਮੀਰੀ
+  translated_sort_styles-name-sort_style_id-6: ਦਰਜਾ
+  translated_statuses-label-status_id-3: ਕੋਈ ਤਬਦੀਲੀ ਨਹੀਂ
+  translated_statuses-label-status_id-4: ਦੁਬਾਰਾ ਉਪਯੋਗ ਕੀਤਾ ਗਿਆ
+  translated_synonym_relations-label-synonym_relation_id-1: ਵਾਚੀ
+  translated_synonym_relations-label-synonym_relation_id-21: ਹੋਰ, ਟਿੱਪਣੀਆਂ ਵੇਖੋ
+  translated_synonym_relations-label-synonym_relation_id-2: ਆਮ ਨਾਂ
+  translated_table_of_contents-label-table_of_contents_id-13: ਆਮ ਨਾਂ
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: ਸਾਹਿਤ ਹਵਾਲੇ
+  translated_table_of_contents-label-table_of_contents_id-194: ਆਕਾਰ
+  translated_table_of_contents-label-table_of_contents_id-1: ਸੰਖੇਪ
+  translated_table_of_contents-label-table_of_contents_id-221: ਖਤਰੇ
+  translated_table_of_contents-label-table_of_contents_id-225: ਵੈੱਬ ਉੱਤੇ
+  translated_table_of_contents-label-table_of_contents_id-226: ਸਮੱਗਰੀ ਸਾਂਝੀਦਾਰ
+  translated_table_of_contents-label-table_of_contents_id-227: ਵੈੱਬ ਉੱਤੇ ਖੋਜ
+  translated_table_of_contents-label-table_of_contents_id-251: ਫਾਇਦੇ
+  translated_table_of_contents-label-table_of_contents_id-285: ਸਬੰਧ
+  translated_table_of_contents-label-table_of_contents_id-286: ਸੰਵਾਦ ਹਾਲਤ
+  translated_table_of_contents-label-table_of_contents_id-289: ਵਿਕਾਸਵਾਦ
+  translated_table_of_contents-label-table_of_contents_id-293: ਪੜਤਾਲ ਵੇਰਵਾ
+  translated_table_of_contents-label-table_of_contents_id-299: ਵਿਦਿਆ
+  translated_table_of_contents-label-table_of_contents_id-2: ਸੰਖੇਪ ਜਾਣਕਾਰੀ
+  translated_table_of_contents-label-table_of_contents_id-300: ਵਿਕੀਪੀਡੀਆ
+  translated_table_of_contents-label-table_of_contents_id-304: ਸਬੰਧਿਤ ਨਾਂ
+  translated_table_of_contents-label-table_of_contents_id-306: ਸਫ਼ਾ ਅੰਕੜੇ
+  translated_table_of_contents-label-table_of_contents_id-307: ਸਮੱਗਰੀ ਸਾਰ
+  translated_table_of_contents-label-table_of_contents_id-310: ਡਿਵੈਲਪਮੈਂਟ
+  translated_table_of_contents-label-table_of_contents_id-311: ਪਛਾਣ ਸਰੋਤ
+  translated_table_of_contents-label-table_of_contents_id-312: ਪਰਵਾਸ
+  translated_table_of_contents-label-table_of_contents_id-315: ਜ਼ਿੰਦਗੀ ਇਤਿਹਾਸ ਅਤੇ
+    ਰਵੱਈਆ
+  translated_table_of_contents-label-table_of_contents_id-316: ਰਵੱਈਆ
+  translated_table_of_contents-label-table_of_contents_id-318: ਜ਼ਿੰਦਗੀ ਚੱਕਰ
+  translated_table_of_contents-label-table_of_contents_id-320: ਪ੍ਰਜਨਨ
+  translated_table_of_contents-label-table_of_contents_id-321: ਵਾਧਾ
+  translated_table_of_contents-label-table_of_contents_id-328: ਸੈੱਲ ਜੀਵ-ਵਿਗਿਆਨ
+  translated_table_of_contents-label-table_of_contents_id-331: ਬਾਰਕੋਡ
+  translated_table_of_contents-label-table_of_contents_id-332: ਜੀਨੋਮ
+  translated_table_of_contents-label-table_of_contents_id-334: ਖਤਰੇ
+  translated_table_of_contents-label-table_of_contents_id-336: ਨੋਟ
+  translated_table_of_contents-label-table_of_contents_id-337: ਵਿਦਿਅਕ
+  translated_table_of_contents-label-table_of_contents_id-338: ਵਿਦਿਆ ਲਿੰਕ
+  translated_table_of_contents-label-table_of_contents_id-339: ਵਿਦਿਅਕ ਸਰੋਤ
+  translated_table_of_contents-label-table_of_contents_id-33: ਰੁਝਾਨ
+  translated_table_of_contents-label-table_of_contents_id-340: ਹਾਈ ਸਕੂਲ ਲੈਬ ਲੜੀ
+  translated_table_of_contents-label-table_of_contents_id-341: ਨਾਗਰਿਕ ਵਿਗਿਆਨ
+  translated_table_of_contents-label-table_of_contents_id-342: ਨਾਗਰਿਕ ਵਿਗਿਆਨ ਲਿੰਕ
+  translated_table_of_contents-label-table_of_contents_id-344: ਡਾਟਾ
+  translated_table_of_contents-label-table_of_contents_id-345: ਡਾਟਾ ਸਰੋਤ
+  translated_table_of_contents-label-table_of_contents_id-34: ਟਿੱਪਣੀਆਂ
+  translated_table_of_contents-label-table_of_contents_id-3: ਭੌਤਿਕ ਵੇਰਵਾ
+  translated_table_of_contents-label-table_of_contents_id-7: ਹਵਾਲੇ ਅਤੇ ਹੋਰ ਜਾਣਕਾਰੀ
+  translated_table_of_contents-label-table_of_contents_id-8: ਸੰਵਾਦ
+  translated_untrust_reasons-label-untrust_reason_id-3: ਘੱਟ ਗੁਣਵੱਤਾ
+  translated_untrust_reasons-label-untrust_reason_id-4: ਨਕਲੀ
+  translated_untrust_reasons-label-untrust_reason_id-5: ਹੋਰ
+  translated_user_identities-label-user_identity_id-2: ਇੱਕ ਵਿਦਿਆਰਥੀ
+  translated_user_identities-label-user_identity_id-4: ਨਾਗਰਿਕ ਵਿਗਿਆਨੀ
+  translated_user_identities-label-user_identity_id-5: ਪੇਸ਼ੇਵਰ ਵਿਗਿਆਨੀ
+  translated_vetted-label-vetted_id-0: ਅਣਪਛਾਤਾ
+  translated_vetted-label-vetted_id-4: ਗ਼ੈਰ-ਭਰੋਸੇਯੋਗ
+  translated_vetted-label-vetted_id-5: ਭਰੋਸੇਯੋਗ
+  translated_vetted-label-vetted_id-6: ਅਢੁੱਕਵਾਂ
+  translated_view_styles-name-view_style_id-1: ਸੂਚੀ
+  translated_view_styles-name-view_style_id-2: ਗੈਲਰੀ
+  translated_visibilities-label-visibility_id-1: ਪਰਗਟ
+  translated_visibilities-label-visibility_id-2: ਝਲਕ
+...

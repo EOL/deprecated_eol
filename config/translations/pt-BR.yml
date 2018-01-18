@@ -3839,6 +3839,26 @@ pt-BR:
   any_string: qualquer cadeia de texto
   api_cache_time_to_live_parameter: quantos segundos que você deseja ter a resposta
     em cache
+  api_docs_collections_description: 'Dado o identificador de uma coleção, esta API
+    devolverá todos os metadados sobre a coleção e os elementos que contêm. A lista
+    de elementos pode ser filtrada pelo tipo de elemento e ordenada pelos atributos
+    listados. Alguns elementos contêm um atributo ''sort_field''. O campo de ordenação
+    é um segmento de texto fornecido pelo utilizador que é uma anotação especial de
+    um elemento da coleção. Pode ser qualquer cadeia de caracteres, mas se é uma data,
+    deve ter o formato AAAA-MM-DD. Os elementos do táxon contêm um ''richness_score''.
+    A riqueza é uma métrica representada por um número inteiro entre 0 e 100, com
+    um número maior que indica uma página com conteúdo rico de uma grande variedade
+    de fontes. Pode encontrar mais informações sobre a riqueza de táxones no separador
+    de atualizações de uma página de táxon, por exemplo: %{richness_url}.'
+  a_pipe_delimited_list_of_licenses: uma lista de licenças delimitadas com barra vertical
+    | ou 'all' para obter objetos sob qualquer licença. Licenças com abreviatura cc-
+    são todas licenças %{creative_commons_link}. Visite o site deles para mais informação
+    sobre as várias licenças que oferecem.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: '''overview'' para devolver
+    o texto do resumo (se existir), uma lista de nomes de temas separados por uma
+    barra vertical | da lista de %{subjects_text} (por exemplo, a TaxonBiology, FossilHistory),
+    ou ''all'' para obter o texto em qualquer tema. Sempre devolve um texto do resumo
+    (se existir no contexto especificado).'
   api_refer_to_the_getting_started_page: Veja a pagina<a href="%{link}">Começando
     agora</a> para exemplos de utilização da API EOL, termos de use informação sobre
     registro de chave API.
@@ -3864,6 +3884,10 @@ pt-BR:
   articles_in_other_languages_with_count:
     one: 'Artigo nesta página esta disponível em %{count} outra língua:'
     other: 'Artigos nesta página estão disponíveis em %{count} outras línguas:'
+  a_total_of_comment_were_found_matching_your_criteria:
+    one: Foi encontrado um %{count} comentário coincidentes com os seus critérios.
+    other: Foi encontrado um total de %{count} comentários coincidentes com os seus
+      critérios.
   assistive_overview_header: Visão geral
   assistive_data_header: Fatos e Informações
   assistive_media_header: Mídia

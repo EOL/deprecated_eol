@@ -1,0 +1,113 @@
+# Messages for Hebrew (עברית)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Amire80
+# Author: Inkbug
+# Author: Ofekalef
+# Author: Yoavd
+# Author: ערן
+---
+he:
+  translated_activities-name-activity_id-19: פרופיל
+  translated_activities-name-activity_id-50: לא מהימן
+  translated_activities-name-activity_id-51: הצגה
+  translated_activities-name-activity_id-52: ליצור
+  translated_activities-name-activity_id-53: הסתרה
+  translated_activities-name-activity_id-54: עדכון
+  translated_activities-name-activity_id-55: לא מתאים
+  translated_activities-name-activity_id-56: מחיקה
+  translated_activities-name-activity_id-57: שער
+  translated_activities-name-activity_id-58: אמין
+  translated_activities-name-activity_id-59: לא מבוקר
+  translated_activities-name-activity_id-63: לאסוף
+  translated_activities-name-activity_id-64: הסרה
+  translated_agent_roles-label-agent_role_id-10: מיזם
+  translated_agent_roles-label-agent_role_id-11: מוציא לאור
+  translated_agent_roles-label-agent_role_id-12: מקליט
+  translated_agent_roles-label-agent_role_id-13: מקור
+  translated_agent_roles-label-agent_role_id-14: מסד הנתונים המשמש כמקור
+  translated_agent_roles-label-agent_role_id-15: איש קשר
+  translated_agent_roles-label-agent_role_id-16: תורם
+  translated_agent_roles-label-agent_role_id-1: מנפיש
+  translated_agent_roles-label-agent_role_id-21: ספק
+  translated_agent_roles-label-agent_role_id-22: מתרגם
+  translated_agent_roles-label-agent_role_id-23: בודק מדעי
+  translated_agent_roles-label-agent_role_id-24: בודק לשוני
+  translated_agent_roles-label-agent_role_id-2: מחבר
+  translated_agent_roles-label-agent_role_id-3: מהדר
+  translated_agent_roles-label-agent_role_id-4: מלחין
+  translated_agent_roles-label-agent_role_id-5: יוצר
+  translated_agent_roles-label-agent_role_id-6: במאי
+  translated_agent_roles-label-agent_role_id-7: עורך
+  translated_agent_roles-label-agent_role_id-8: מאייר
+  translated_agent_roles-label-agent_role_id-9: צלם
+  translated_audiences-label-audience_id-1: משתמשים מומחים
+  translated_audiences-label-audience_id-2: הציבור
+  translated_audiences-label-audience_id-3: ילדים
+  translated_collection_types-label-collection_type_id-10: צלילים
+  translated_collection_types-label-collection_type_id-11: קישורים
+  translated_collection_types-label-collection_type_id-12: ספרות
+  translated_collection_types-label-collection_type_id-13: טקסונומיה
+  translated_collection_types-label-collection_type_id-15: תיאור
+  translated_collection_types-label-collection_type_id-16: תמונות
+  translated_collection_types-label-collection_type_id-17: תפוצה
+  translated_collection_types-label-collection_type_id-18: מצב שימור
+  translated_collection_types-label-collection_type_id-19: פרטי שם
+  translated_collection_types-label-collection_type_id-1: טקסונומיה
+  translated_collection_types-label-collection_type_id-20: מידע מולקולרי
+  translated_collection_types-label-collection_type_id-21: מינוח
+  translated_collection_types-label-collection_type_id-22: קולות
+  translated_collection_types-label-collection_type_id-23: קישורים
+  translated_collection_types-label-collection_type_id-24: ספרות
+  translated_collection_types-label-collection_type_id-3: תיאור
+  translated_collection_types-label-collection_type_id-4: תמונות
+  translated_collection_types-label-collection_type_id-5: תפוצה
+  translated_collection_types-label-collection_type_id-6: מצב שימור
+  translated_collection_types-label-collection_type_id-7: פרטי שם
+  translated_collection_types-label-collection_type_id-8: מידע מולקולרי
+  translated_collection_types-label-collection_type_id-9: מינוח
+  translated_contact_roles-label-contact_role_id-1: איש קשר ראשי
+  translated_licenses-description-license_id-2: © כל הזכויות שמורות
+  translated_licenses-description-license_id-34: נחלת הכלל
+  translated_licenses-description-license_id-35: נחלת הכלל
+  translated_ranks-label-rank_id-118: סוג
+  translated_ranks-label-rank_id-183: ממלכה
+  translated_ranks-label-rank_id-266: סדרה
+  translated_ranks-label-rank_id-280: מערכה
+  translated_ranks-label-rank_id-335: מין
+  translated_ranks-label-rank_id-352: תת משפחה
+  translated_ranks-label-rank_id-383: תת משפחה
+  translated_ranks-label-rank_id-394: תת סוג
+  translated_ranks-label-rank_id-396: תת מלכה
+  translated_ranks-label-rank_id-401: תת מערכה
+  translated_table_of_contents-label-table_of_contents_id-221: סיכונים
+  translated_table_of_contents-label-table_of_contents_id-227: חיפוש ברשת
+  translated_table_of_contents-label-table_of_contents_id-267: מורפולוגיה
+  translated_table_of_contents-label-table_of_contents_id-278: ביבליוגרפיה
+  translated_table_of_contents-label-table_of_contents_id-286: מצב שימור
+  translated_table_of_contents-label-table_of_contents_id-289: אבולוציה
+  translated_table_of_contents-label-table_of_contents_id-300: ויקיפדיה
+  translated_table_of_contents-label-table_of_contents_id-303: טקסונומיה ושמות
+  translated_table_of_contents-label-table_of_contents_id-305: שמות נרדפים
+  translated_table_of_contents-label-table_of_contents_id-306: סטטיסטיקת הדף
+  translated_table_of_contents-label-table_of_contents_id-307: תקציר תוכן
+  translated_table_of_contents-label-table_of_contents_id-309: תפוצה
+  translated_table_of_contents-label-table_of_contents_id-310: התפתחות
+  translated_table_of_contents-label-table_of_contents_id-312: נדידה
+  translated_table_of_contents-label-table_of_contents_id-313: מחלות וטפילים
+  translated_table_of_contents-label-table_of_contents_id-316: התנהגות
+  translated_table_of_contents-label-table_of_contents_id-318: מחזור החיים
+  translated_table_of_contents-label-table_of_contents_id-319: תוחלת החיים
+  translated_table_of_contents-label-table_of_contents_id-320: רבייה
+  translated_table_of_contents-label-table_of_contents_id-329: גנטיקה
+  translated_table_of_contents-label-table_of_contents_id-332: גנום
+  translated_table_of_contents-label-table_of_contents_id-333: ביולוגיה מולקולרית
+  translated_table_of_contents-label-table_of_contents_id-336: הערות
+  translated_table_of_contents-label-table_of_contents_id-345: מקורות נתונים
+  translated_table_of_contents-label-table_of_contents_id-347: טקסונומיה
+  translated_table_of_contents-label-table_of_contents_id-34: הערות
+  translated_table_of_contents-label-table_of_contents_id-41: בית גידול
+  translated_table_of_contents-label-table_of_contents_id-4: אקולוגיה
+  translated_table_of_contents-label-table_of_contents_id-8: שימור
+  translated_visibilities-label-visibility_id-2: תצוגה מקדימה
+...

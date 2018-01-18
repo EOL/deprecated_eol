@@ -1,0 +1,103 @@
+# Messages for Faroese (føroyskt)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: EileenSanda
+---
+fo:
+  translated_activities-name-activity_id-19: vangamynd
+  translated_activities-name-activity_id-50: óálítandi
+  translated_activities-name-activity_id-51: vís
+  translated_activities-name-activity_id-52: stovnað
+  translated_activities-name-activity_id-53: fjal
+  translated_activities-name-activity_id-54: dagfør
+  translated_activities-name-activity_id-55: óhóskandi
+  translated_activities-name-activity_id-56: strikað
+  translated_activities-name-activity_id-57: døm
+  translated_activities-name-activity_id-58: álítandi
+  translated_activities-name-activity_id-59: ongin hevur mett um hetta
+  translated_activities-name-activity_id-63: savnað
+  translated_activities-name-activity_id-64: tak burtur
+  translated_agent_roles-label-agent_role_id-10: Verkætlan
+  translated_agent_roles-label-agent_role_id-11: Útgevari
+  translated_agent_roles-label-agent_role_id-12: Gjørt upptøkuna hevur
+  translated_agent_roles-label-agent_role_id-13: Kelda
+  translated_agent_roles-label-agent_role_id-14: Keldu dátabasa
+  translated_agent_roles-label-agent_role_id-15: Kontaktpersónur
+  translated_agent_roles-label-agent_role_id-16: Veitari
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-21: útbjóðari
+  translated_agent_roles-label-agent_role_id-22: Umsetari
+  translated_agent_roles-label-agent_role_id-23: Vísindaligur rættlesari
+  translated_agent_roles-label-agent_role_id-2: Høvundur
+  translated_agent_roles-label-agent_role_id-3: Sett saman hevur
+  translated_agent_roles-label-agent_role_id-4: Tónaskald
+  translated_audiences-label-audience_id-3: Børn
+  translated_licenses-description-license_id-30: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-31: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-32: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-33: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-34: Alment domene
+  translated_licenses-description-license_id-35: Public Domain
+  translated_licenses-description-license_id-36: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-37: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-38: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-39: Alment domene
+  translated_licenses-description-license_id-3: Nøkur rættindi tilskilað
+  translated_licenses-description-license_id-42: Nøkur rættindi tilskilað
+  translated_table_of_contents-label-table_of_contents_id-13: Vanlig Nøvn
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Bókmentir Ávísingar
+  translated_table_of_contents-label-table_of_contents_id-194: Stødd
+  translated_table_of_contents-label-table_of_contents_id-1: Yvirlit
+  translated_table_of_contents-label-table_of_contents_id-218: Spjaðing
+  translated_table_of_contents-label-table_of_contents_id-221: Vandar
+  translated_table_of_contents-label-table_of_contents_id-225: Á Alnótini (Internetinum)
+  translated_table_of_contents-label-table_of_contents_id-227: Leita á netinum
+  translated_table_of_contents-label-table_of_contents_id-242: Almen Vistfrøði
+  translated_table_of_contents-label-table_of_contents_id-244: Bókmentir (Bibliografi)
+  translated_table_of_contents-label-table_of_contents_id-24: Viðmerking
+  translated_table_of_contents-label-table_of_contents_id-251: Fyrimunir
+  translated_table_of_contents-label-table_of_contents_id-267: Formlæra (Morfologi)
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Feløg
+  translated_table_of_contents-label-table_of_contents_id-286: Konservatión Støða
+  translated_table_of_contents-label-table_of_contents_id-289: Menningarlæra (Evolutión)
+  translated_table_of_contents-label-table_of_contents_id-292: Síggja eins út (Look
+    Alikes)
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostikkur Frágreiðing
+  translated_table_of_contents-label-table_of_contents_id-296: Leiðsla (Management)
+  translated_table_of_contents-label-table_of_contents_id-299: Útbúgving
+  translated_table_of_contents-label-table_of_contents_id-2: Stuttur Samandráttur
+  translated_table_of_contents-label-table_of_contents_id-300: Vikipedia (Wikipedia)
+  translated_table_of_contents-label-table_of_contents_id-303: Nøvn og taxonomi
+  translated_table_of_contents-label-table_of_contents_id-304: Líknandi nøvn
+  translated_table_of_contents-label-table_of_contents_id-306: Síðu hagtøl
+  translated_table_of_contents-label-table_of_contents_id-307: Innihalds samandráttur
+  translated_table_of_contents-label-table_of_contents_id-308: Umfatandi frágreiðing
+  translated_table_of_contents-label-table_of_contents_id-309: Útbreiðsla
+  translated_table_of_contents-label-table_of_contents_id-310: Menning
+  translated_table_of_contents-label-table_of_contents_id-312: Migratión
+  translated_table_of_contents-label-table_of_contents_id-313: Sjúkur og parasittar
+  translated_table_of_contents-label-table_of_contents_id-314: Populatións lívfrøði
+  translated_table_of_contents-label-table_of_contents_id-315: Lívssøga og atferð
+  translated_table_of_contents-label-table_of_contents_id-316: Atferð
+  translated_table_of_contents-label-table_of_contents_id-318: Lívs ringrás
+  translated_table_of_contents-label-table_of_contents_id-319: Væntað livitíð
+  translated_table_of_contents-label-table_of_contents_id-337: Útbúgving
+  translated_table_of_contents-label-table_of_contents_id-338: Útbúgving Leinkjur
+  translated_table_of_contents-label-table_of_contents_id-33: Rák (Trends)
+  translated_table_of_contents-label-table_of_contents_id-34: Viðmerkingar
+  translated_table_of_contents-label-table_of_contents_id-3: Kroppslig (Fysisk) Frágreiðing
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Vistfrøði
+  translated_table_of_contents-label-table_of_contents_id-6: Viðkomandi fyri Menniskju
+    og Vistskipan (Økoskipan)
+  translated_table_of_contents-label-table_of_contents_id-7: Ávísingar og Meira Kunning
+  translated_table_of_contents-label-table_of_contents_id-8: Varðveitan
+  translated_user_identities-label-user_identity_id-2: ein lesandi
+  translated_user_identities-label-user_identity_id-3: ein undirvísari
+  translated_vetted-label-vetted_id-0: Ókent
+  translated_vetted-label-vetted_id-4: Óálítandi
+  translated_vetted-label-vetted_id-5: Álítandi
+  translated_vetted-label-vetted_id-6: Óhóskandi
+...

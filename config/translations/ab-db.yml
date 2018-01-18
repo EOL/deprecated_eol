@@ -1,0 +1,118 @@
+# Messages for Abkhazian (Аҧсшәа)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Андрей
+---
+ab:
+  translated_activities-name-activity_id-19: Апрофиль
+  translated_activities-name-activity_id-51: иаарҧштәуп
+  translated_activities-name-activity_id-52: иаҧҵатәуп
+  translated_activities-name-activity_id-53: иҵәахтәуп
+  translated_activities-name-activity_id-54: ирҿыцтәуп
+  translated_activities-name-activity_id-55: изымуа
+  translated_activities-name-activity_id-56: ианыхтәуп
+  translated_activities-name-activity_id-59: изхәаҧшым
+  translated_activities-name-activity_id-64: иқәгатәуп
+  translated_agent_roles-label-agent_role_id-10: Апроеқт
+  translated_agent_roles-label-agent_role_id-12: Аҭаҩра
+  translated_agent_roles-label-agent_role_id-13: Ахыҵхырҭа
+  translated_agent_roles-label-agent_role_id-14: Адырқәа-ахыҵхырҭа рбаза
+  translated_agent_roles-label-agent_role_id-16: Автор
+  translated_agent_roles-label-agent_role_id-1: Аниматор
+  translated_agent_roles-label-agent_role_id-22: Аиҭагаҩ
+  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-3: Аиқәыршәаҩ
+  translated_agent_roles-label-agent_role_id-4: Акомпозитор
+  translated_agent_roles-label-agent_role_id-5: Аҧҵаҩы
+  translated_agent_roles-label-agent_role_id-6: Адиректор
+  translated_agent_roles-label-agent_role_id-7: Аредактор
+  translated_audiences-label-audience_id-1: Аҧышәа змоу ахархәаҩцәа
+  translated_audiences-label-audience_id-3: Ахәыҷқәа
+  translated_collection_types-label-collection_type_id-10: Абжьқәа
+  translated_collection_types-label-collection_type_id-11: Азхьарҧшқәа
+  translated_collection_types-label-collection_type_id-12: Алитература
+  translated_collection_types-label-collection_type_id-15: Ахҳәаа
+  translated_collection_types-label-collection_type_id-16: Асахьақәа
+  translated_collection_types-label-collection_type_id-21: Аноменклатура
+  translated_collection_types-label-collection_type_id-22: Абжьқәа
+  translated_collection_types-label-collection_type_id-23: Азхьарҧшқәа
+  translated_collection_types-label-collection_type_id-24: Алитература
+  translated_collection_types-label-collection_type_id-3: Ахҳәаа
+  translated_collection_types-label-collection_type_id-4: Асахьақәа
+  translated_collection_types-label-collection_type_id-5: Аларҵәара
+  translated_collection_types-label-collection_type_id-9: Аноменклатура
+  translated_contact_subjects-title-contact_subject_id-31: Асахьақәа, авидео ма абжьқәа
+  translated_contact_subjects-title-contact_subject_id-35: Азеиҧш зҵаарақәа
+  translated_content_partner_statuses-label-content_partner_status_id-2: Иактивуп
+  translated_content_partner_statuses-label-content_partner_status_id-4: Иактивӡам
+  translated_data_types-label-data_type_id-1: Асахьа
+  translated_data_types-label-data_type_id-2: Абжьы
+  translated_data_types-label-data_type_id-3: Атеқст
+  translated_data_types-label-data_type_id-4: Авидео
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Азинқәа хьчам
+  translated_licenses-description-license_id-29: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-2: © Азинқәа зегьы хьчоуп
+  translated_licenses-description-license_id-30: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-31: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-32: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-33: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-36: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-37: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-38: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-3: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-43: Алицензиа ахархәара ауам
+  translated_licenses-description-license_id-4: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-5: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-6: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-7: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-8: Азинқәа ҧыҭк хьчоуп
+  translated_licenses-description-license_id-9: Азинқәа ҧыҭк хьчоуп
+  translated_ranks-label-rank_id-106: аформа
+  translated_ranks-label-rank_id-335: ахкқәа
+  translated_ranks-label-rank_id-51: акласс
+  translated_ranks-label-rank_id-74: аҟәша
+  translated_resource_statuses-label-resource_status_id-1: Аҭагалара
+  translated_resource_statuses-label-resource_status_id-2: Иҭагалоуп
+  translated_resource_statuses-label-resource_status_id-3: Афаил аҭагалараан аиҧҟьара
+  translated_resource_statuses-label-resource_status_id-5: Игәаҭоуп
+  translated_resource_statuses-label-resource_status_id-6: Агәаҭара агха
+  translated_service_types-label-service_type_id-2: Даҽакы
+  translated_sort_styles-name-sort_style_id-3: Алфавитла
+  translated_sort_styles-name-sort_style_id-6: Ареитинг
+  translated_statuses-label-status_id-2: Ирҿыцуп
+  translated_statuses-label-status_id-3: Ҧсахрада
+  translated_synonym_relations-label-synonym_relation_id-17: ииашам ахьӡ
+  translated_synonym_relations-label-synonym_relation_id-1: асиноним
+  translated_synonym_relations-label-synonym_relation_id-23: ииашам ахьӡ
+  translated_synonym_relations-label-synonym_relation_id-24: мап зыцәку ахьӡ
+  translated_synonym_relations-label-synonym_relation_id-2: азеиҧш хьӡы
+  translated_synonym_relations-label-synonym_relation_id-48: ахьӡ ыҟам
+  translated_synonym_relations-label-synonym_relation_id-58: алексикатә вариант
+  translated_synonym_relations-label-synonym_relation_id-5: адоментә хьӡы
+  translated_table_of_contents-label-table_of_contents_id-13: азеиҧш хьӡқәа
+  translated_table_of_contents-label-table_of_contents_id-17: Алитература азхьарҧшқәа
+  translated_table_of_contents-label-table_of_contents_id-194: Ашәагаа
+  translated_table_of_contents-label-table_of_contents_id-1: Аҭыҧхәаҧшра
+  translated_table_of_contents-label-table_of_contents_id-225: Интернет аҟны
+  translated_table_of_contents-label-table_of_contents_id-227: Интернет аҟны аҧшаара
+  translated_table_of_contents-label-table_of_contents_id-242: Азеиҧш екологиа
+  translated_table_of_contents-label-table_of_contents_id-244: Абиблиографиақәа
+  translated_table_of_contents-label-table_of_contents_id-24: Аомментариқәа
+  translated_table_of_contents-label-table_of_contents_id-267: Аморфологиа
+  translated_table_of_contents-label-table_of_contents_id-278: Абиблиографиа
+  translated_table_of_contents-label-table_of_contents_id-299: Аҵара
+  translated_table_of_contents-label-table_of_contents_id-300: Авикипедиa
+  translated_table_of_contents-label-table_of_contents_id-305: Асинонимқәа
+  translated_table_of_contents-label-table_of_contents_id-306: Адаҟьа астатистика
+  translated_table_of_contents-label-table_of_contents_id-309: Аларҵәара
+  translated_user_identities-label-user_identity_id-2: астудент
+  translated_user_identities-label-user_identity_id-3: апедагог
+  translated_user_identities-label-user_identity_id-5: ипрофессионалтәу аҵарауаҩ
+  translated_vetted-label-vetted_id-0: Идырӡам
+  translated_view_styles-name-view_style_id-1: Ахьӡынҵа
+  translated_view_styles-name-view_style_id-2: Агалереиа
+  translated_visibilities-label-visibility_id-0: Иаҳамбо
+  translated_visibilities-label-visibility_id-1: Иаҳбо
+...

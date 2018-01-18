@@ -1,0 +1,119 @@
+# Messages for Talysh (толышә зывон)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Erdemaslancan
+# Author: Гусейн
+---
+tly:
+  translated_activities-name-activity_id-50: лупешт
+  translated_activities-name-activity_id-51: нишо дој
+  translated_activities-name-activity_id-52: офәјеј
+  translated_activities-name-activity_id-53: нијо кардеј
+  translated_activities-name-activity_id-56: рәдд кардеј
+  translated_activities-name-activity_id-58: успур быәнин
+  translated_agent_roles-label-agent_role_id-10: Нәхшә
+  translated_agent_roles-label-agent_role_id-11: Нәшрәкә
+  translated_agent_roles-label-agent_role_id-12: Нывыштәј
+  translated_agent_roles-label-agent_role_id-13: Сәвон
+  translated_agent_roles-label-agent_role_id-16: Мыәллиф
+  translated_agent_roles-label-agent_role_id-2: Мыәллиф
+  translated_agent_roles-label-agent_role_id-5: Мыәллиф
+  translated_audiences-label-audience_id-3: Әғылон
+  translated_collection_types-label-collection_type_id-10: Вангон
+  translated_collection_types-label-collection_type_id-11: Сәбонон
+  translated_collection_types-label-collection_type_id-15: Тәсвир
+  translated_collection_types-label-collection_type_id-16: Шикилон
+  translated_collection_types-label-collection_type_id-23: Сәбонон
+  translated_collection_types-label-collection_type_id-3: Тәсвир
+  translated_collection_types-label-collection_type_id-4: Шикилон
+  translated_data_types-label-data_type_id-10: Хәритә
+  translated_data_types-label-data_type_id-1: Шикил
+  translated_data_types-label-data_type_id-2: Ванг
+  translated_data_types-label-data_type_id-3: Мәтн
+  translated_data_types-label-data_type_id-4: Видео
+  translated_data_types-label-data_type_id-5: Шикил GBIF
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-30: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-31: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-32: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-33: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-36: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-37: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-38: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-3: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-42: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-4: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-5: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-6: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-7: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-8: Кали һәхон мыдофиә кардә быән
+  translated_licenses-description-license_id-9: Кали һәхон мыдофиә кардә быән
+  translated_ranks-label-rank_id-112: ғәбилә
+  translated_ranks-label-rank_id-113: ғәбилә.
+  translated_ranks-label-rank_id-118: ҹинс
+  translated_ranks-label-rank_id-183: подшоәти
+  translated_ranks-label-rank_id-266: сифориш
+  translated_ranks-label-rank_id-51: Синиф
+  translated_ranks-label-rank_id-74: Шобә
+  translated_ranks-label-rank_id-85: ф
+  translated_ranks-label-rank_id-86: ф.
+  translated_ranks-label-rank_id-99: хыјзон
+  translated_resource_statuses-label-resource_status_id-10: Нәшр быә
+  translated_resource_statuses-label-resource_status_id-1: Бо карде
+  translated_resource_statuses-label-resource_status_id-2: Бо жә быә
+  translated_statuses-label-status_id-2: Нуә кардә быә
+  translated_statuses-label-status_id-3: Бе дәгишон
+  translated_synonym_relations-label-synonym_relation_id-12: дыләдәш һесте
+  translated_table_of_contents-label-table_of_contents_id-13: Умумијә Номон
+  translated_table_of_contents-label-table_of_contents_id-17: Ситот бә әдәбијот
+  translated_table_of_contents-label-table_of_contents_id-194: Улгу
+  translated_table_of_contents-label-table_of_contents_id-1: Чәшику дәвоније
+  translated_table_of_contents-label-table_of_contents_id-221: Рискон
+  translated_table_of_contents-label-table_of_contents_id-225: Интернетәдә
+  translated_table_of_contents-label-table_of_contents_id-227: Интернетәдә нәве
+  translated_table_of_contents-label-table_of_contents_id-244: Библиографијә
+  translated_table_of_contents-label-table_of_contents_id-24: Комментарион
+  translated_table_of_contents-label-table_of_contents_id-251: Сангинәтијон
+  translated_table_of_contents-label-table_of_contents_id-278: Библиографијә
+  translated_table_of_contents-label-table_of_contents_id-285: Ассосиасијон
+  translated_table_of_contents-label-table_of_contents_id-289: Фатхәш
+  translated_table_of_contents-label-table_of_contents_id-293: Диазгнозинә тәсвир
+  translated_table_of_contents-label-table_of_contents_id-296: Идорә
+  translated_table_of_contents-label-table_of_contents_id-299: Маариф
+  translated_table_of_contents-label-table_of_contents_id-2: Кыртә сәкыштә
+  translated_table_of_contents-label-table_of_contents_id-300: Википедијә
+  translated_table_of_contents-label-table_of_contents_id-303: Номон ијән Таксономијә
+  translated_table_of_contents-label-table_of_contents_id-304: Ангыл кардә быа номон
+  translated_table_of_contents-label-table_of_contents_id-306: Сәһифә статистика
+  translated_table_of_contents-label-table_of_contents_id-308: Һартәрәфинә тәсвир
+  translated_table_of_contents-label-table_of_contents_id-310: Озавзије
+  translated_table_of_contents-label-table_of_contents_id-312: Куч карде
+  translated_table_of_contents-label-table_of_contents_id-315: Жимони тарых ијән әхлоғ
+  translated_table_of_contents-label-table_of_contents_id-316: Әхлоғ
+  translated_table_of_contents-label-table_of_contents_id-317: Довринәти
+  translated_table_of_contents-label-table_of_contents_id-318: Жимони мәрә
+  translated_table_of_contents-label-table_of_contents_id-319: Пештәпур беј бә жимони
+    дәвоминәти
+  translated_table_of_contents-label-table_of_contents_id-321: Перәсе
+  translated_table_of_contents-label-table_of_contents_id-335: Ғанунәдәти
+  translated_table_of_contents-label-table_of_contents_id-337: Маариф
+  translated_table_of_contents-label-table_of_contents_id-33: Мејлон
+  translated_table_of_contents-label-table_of_contents_id-344: Тарых
+  translated_table_of_contents-label-table_of_contents_id-345: Мәлумоти сәвонон
+  translated_table_of_contents-label-table_of_contents_id-34: Комментаријон
+  translated_table_of_contents-label-table_of_contents_id-3: Физикијә тәсвир
+  translated_table_of_contents-label-table_of_contents_id-41: Бејәти мыһит
+  translated_table_of_contents-label-table_of_contents_id-4: Екологијә
+  translated_table_of_contents-label-table_of_contents_id-5: Фатхәш ијән систематикә
+  translated_table_of_contents-label-table_of_contents_id-6: Мәно бо одәмон ијән екосистемон
+  translated_user_identities-label-user_identity_id-1: ентузиаст
+  translated_user_identities-label-user_identity_id-2: Тәләбә
+  translated_user_identities-label-user_identity_id-3: устод
+  translated_vetted-label-vetted_id-0: Номәлум
+  translated_vetted-label-vetted_id-4: Лупешт
+  translated_vetted-label-vetted_id-5: Успур быәнин
+  translated_vetted-label-vetted_id-6: Ујғун номә
+  translated_view_styles-name-view_style_id-1: Сијоһи
+  translated_visibilities-label-visibility_id-0: Нијони
+  translated_visibilities-label-visibility_id-2: Сыфтәнә нишо дој
+...

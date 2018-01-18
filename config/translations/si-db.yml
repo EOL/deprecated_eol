@@ -1,0 +1,102 @@
+# Messages for Sinhala (සිංහල)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Randeerjayasekara
+# Author: Sahan.ssw
+# Author: බිඟුවා
+# Author: සුරනිමල
+---
+si:
+  translated_activities-name-activity_id-19: පැතිකඩ
+  translated_activities-name-activity_id-50: අවිශ්වසනීය
+  translated_activities-name-activity_id-51: පෙන්වන්න
+  translated_activities-name-activity_id-52: තනන්න
+  translated_activities-name-activity_id-53: සඟවන්න
+  translated_activities-name-activity_id-54: යාවත්කාලීන කරන්න
+  translated_activities-name-activity_id-55: නුසුදුසු
+  translated_activities-name-activity_id-56: මකන්න
+  translated_activities-name-activity_id-57: තරාතිරම
+  translated_activities-name-activity_id-58: විශ්වසනීය
+  translated_activities-name-activity_id-59: නිරීක්ෂණය නොකෙරූ
+  translated_activities-name-activity_id-63: එක් කරනවා
+  translated_activities-name-activity_id-64: ඉවත් කරන්න
+  translated_agent_roles-label-agent_role_id-10: ව්‍යාපෘතිය
+  translated_agent_roles-label-agent_role_id-11: ප්‍රකාශකයා
+  translated_agent_roles-label-agent_role_id-12: පටිගත කරණය
+  translated_agent_roles-label-agent_role_id-13: mulaashraya
+  translated_agent_roles-label-agent_role_id-15: සබැඳි පුද්ගල
+  translated_agent_roles-label-agent_role_id-16: දායකයා
+  translated_agent_roles-label-agent_role_id-21: සපයන්නා
+  translated_agent_roles-label-agent_role_id-22: පරිවර්තකයා
+  translated_agent_roles-label-agent_role_id-23: විද්‍යාත්මක සමාලෝචකයා
+  translated_agent_roles-label-agent_role_id-24: භාෂාමය සමාලෝචකයා
+  translated_agent_roles-label-agent_role_id-2: කතෘ
+  translated_agent_roles-label-agent_role_id-5: සෑදූ අය
+  translated_agent_roles-label-agent_role_id-6: අධ්‍යක්ෂකවරයා
+  translated_agent_roles-label-agent_role_id-7: සංස්කාරක
+  translated_agent_roles-label-agent_role_id-8: චිත්‍රකරු
+  translated_audiences-label-audience_id-3: දරුවන්
+  translated_ranks-label-rank_id-183: රාජධානිය
+  translated_ranks-label-rank_id-51: පංතිය
+  translated_ranks-label-rank_id-74: අංශය
+  translated_ranks-label-rank_id-85: එෆ්
+  translated_ranks-label-rank_id-86: එෆ්.
+  translated_synonym_relations-label-synonym_relation_id-12: ඇතුළත් කර ඇත
+  translated_synonym_relations-label-synonym_relation_id-51: පිළිගන්නා ලදී
+  translated_table_of_contents-label-table_of_contents_id-13: සාමාන්‍ය නම්
+  translated_table_of_contents-label-table_of_contents_id-17: ශාස්ත්‍රීය යොමු
+  translated_table_of_contents-label-table_of_contents_id-194: විශාලත්වය
+  translated_table_of_contents-label-table_of_contents_id-1: සමාලෝචනය
+  translated_table_of_contents-label-table_of_contents_id-218: විසිරීම
+  translated_table_of_contents-label-table_of_contents_id-221: අවදානම්
+  translated_table_of_contents-label-table_of_contents_id-225: අන්තර්ජාලයේ
+  translated_table_of_contents-label-table_of_contents_id-226: අන්තර්ගත හවුල්කරුවන්
+  translated_table_of_contents-label-table_of_contents_id-227: අන්තර්ජාලයේ සොයන්න
+  translated_table_of_contents-label-table_of_contents_id-242: සාමාන්‍ය පාරිස්ථිකවිද්‍යාව
+  translated_table_of_contents-label-table_of_contents_id-24: පරිකථාව
+  translated_table_of_contents-label-table_of_contents_id-251: ප්‍රයෝජන
+  translated_table_of_contents-label-table_of_contents_id-267: පද විචාරය
+  translated_table_of_contents-label-table_of_contents_id-278: ග්‍රන්ථ විඥානය
+  translated_table_of_contents-label-table_of_contents_id-285: සමාගම
+  translated_table_of_contents-label-table_of_contents_id-286: සංරක්ෂණ තත්ත්වය
+  translated_table_of_contents-label-table_of_contents_id-289: පරිණාමය
+  translated_table_of_contents-label-table_of_contents_id-296: කළමනාකරණය
+  translated_table_of_contents-label-table_of_contents_id-2: කෙටි සාරාංශය
+  translated_table_of_contents-label-table_of_contents_id-300: විකිපීඩියාව
+  translated_table_of_contents-label-table_of_contents_id-303: නම් හා වර්ගීකරණය
+  translated_table_of_contents-label-table_of_contents_id-304: සම්බන්ධී නම්
+  translated_table_of_contents-label-table_of_contents_id-305: පර්යාය නාම
+  translated_table_of_contents-label-table_of_contents_id-306: පිටුවල සංඛ්‍යාන දත්ත
+  translated_table_of_contents-label-table_of_contents_id-307: අන්තර්ගත සාරාංශය
+  translated_table_of_contents-label-table_of_contents_id-308: පුළුල් විස්තරය
+  translated_table_of_contents-label-table_of_contents_id-309: ව්‍යාප්තිය
+  translated_table_of_contents-label-table_of_contents_id-310: ප්‍රවර්ධනය
+  translated_table_of_contents-label-table_of_contents_id-320: ප්‍රජනනය
+  translated_table_of_contents-label-table_of_contents_id-321: වර්ධනය
+  translated_table_of_contents-label-table_of_contents_id-322: ෆොසිල  ඉතිහාසය
+  translated_table_of_contents-label-table_of_contents_id-327: කායික විද්‍යාව
+  translated_table_of_contents-label-table_of_contents_id-328: සෛල ජීව විද්‍යාව
+  translated_table_of_contents-label-table_of_contents_id-329: ප්‍රවේණි විද්‍යාව
+  translated_table_of_contents-label-table_of_contents_id-331: තීරු කේතය
+  translated_table_of_contents-label-table_of_contents_id-332: ජෙනෝමය
+  translated_table_of_contents-label-table_of_contents_id-336: සටහන්
+  translated_table_of_contents-label-table_of_contents_id-337: අධ්‍යාපනය
+  translated_table_of_contents-label-table_of_contents_id-338: අධ්‍යාපන සබැඳි
+  translated_table_of_contents-label-table_of_contents_id-339: අධ්‍යාපන මුලාශ්‍ර
+  translated_table_of_contents-label-table_of_contents_id-33: උපනතීන්
+  translated_table_of_contents-label-table_of_contents_id-344: දත්ත
+  translated_table_of_contents-label-table_of_contents_id-347: වර්ගීකරණය
+  translated_table_of_contents-label-table_of_contents_id-34: පරිකථන
+  translated_table_of_contents-label-table_of_contents_id-3: භෞතික විස්තරය
+  translated_table_of_contents-label-table_of_contents_id-41: වාසස්ථානය
+  translated_table_of_contents-label-table_of_contents_id-4: පරිසර විද්‍යාව
+  translated_table_of_contents-label-table_of_contents_id-5: පරිණාමය හා වර්ගීකරණය
+  translated_table_of_contents-label-table_of_contents_id-6: මානවයන්ට හා පරිසර පද්ධතීන්ට
+    ඇති අදාළතාවය
+  translated_table_of_contents-label-table_of_contents_id-7: ආශ්‍රිත සහ තවද තොරතුරු
+  translated_table_of_contents-label-table_of_contents_id-8: සංරක්ෂණය
+  translated_vetted-label-vetted_id-0: අඥාත
+  translated_vetted-label-vetted_id-4: අවිශ්වසනීය
+  translated_vetted-label-vetted_id-5: විශ්වසනීය
+  translated_vetted-label-vetted_id-6: නුසුදුසු
+...

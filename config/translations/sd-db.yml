@@ -1,0 +1,113 @@
+# Messages for Sindhi (سنڌي)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Mehtab ahmed
+---
+sd:
+  translated_activities-name-activity_id-50: ڀروسو نه ڪيل
+  translated_activities-name-activity_id-51: ڏيکاريو
+  translated_activities-name-activity_id-52: تخليق ڪريو
+  translated_activities-name-activity_id-53: لڪايو
+  translated_activities-name-activity_id-56: ختم ڪريو
+  translated_activities-name-activity_id-58: ڀروسو ڪيل
+  translated_activities-name-activity_id-59: نظرثاني نه ٿيل
+  translated_activities-name-activity_id-63: جمع ڪريو
+  translated_activities-name-activity_id-64: هٽايو
+  translated_agent_roles-label-agent_role_id-10: منصوبو
+  translated_agent_roles-label-agent_role_id-11: ڇپيندڙ
+  translated_agent_roles-label-agent_role_id-13: ذريعو
+  translated_agent_roles-label-agent_role_id-15: شخص سان رابطو ڪريو
+  translated_agent_roles-label-agent_role_id-16: ڀاڱيدار
+  translated_agent_roles-label-agent_role_id-21: فراهم ڪندڙ
+  translated_agent_roles-label-agent_role_id-22: ترجمو ڪندڙ
+  translated_agent_roles-label-agent_role_id-2: ليکڪ
+  translated_agent_roles-label-agent_role_id-3: سهيڙيندڙ
+  translated_agent_roles-label-agent_role_id-5: تخليقڪار
+  translated_agent_roles-label-agent_role_id-6: هدايتڪار
+  translated_agent_roles-label-agent_role_id-7: ايڊيٽر
+  translated_agent_roles-label-agent_role_id-9: فوٽوگرافر
+  translated_audiences-label-audience_id-1: تجربيڪار يوزرس
+  translated_audiences-label-audience_id-2: عام عوام
+  translated_audiences-label-audience_id-3: ٻار
+  translated_collection_types-label-collection_type_id-10: آواز
+  translated_collection_types-label-collection_type_id-11: ڳنڍڻا
+  translated_collection_types-label-collection_type_id-12: ادب
+  translated_collection_types-label-collection_type_id-15: وضاحت
+  translated_collection_types-label-collection_type_id-16: عڪس
+  translated_collection_types-label-collection_type_id-17: ورهاست
+  translated_collection_types-label-collection_type_id-19: نالي جي معلومات
+  translated_collection_types-label-collection_type_id-22: آواز
+  translated_collection_types-label-collection_type_id-23: ڳنڍڻا
+  translated_collection_types-label-collection_type_id-24: ادب
+  translated_collection_types-label-collection_type_id-3: وضاحت
+  translated_collection_types-label-collection_type_id-4: عڪس
+  translated_collection_types-label-collection_type_id-5: ورهاست
+  translated_collection_types-label-collection_type_id-7: نالي جي معلومات
+  translated_contact_roles-label-contact_role_id-1: شروعاتي رابطو
+  translated_contact_roles-label-contact_role_id-2: انتظامي رابطو
+  translated_contact_roles-label-contact_role_id-3: تڪنيڪي رابطو
+  translated_contact_subjects-title-contact_subject_id-24: رڪنيت ۽ رجسٽريشن
+  translated_contact_subjects-title-contact_subject_id-26: سکڻ ۽ تعليم
+  translated_contact_subjects-title-contact_subject_id-31: عڪسن، وڊيوز يا آوازن ۾
+    ڀاڱيداري ڪريو
+  translated_contact_subjects-title-contact_subject_id-35: عام پذيرائي
+  translated_content_partner_statuses-label-content_partner_status_id-1: رڪيل
+  translated_content_partner_statuses-label-content_partner_status_id-2: سرگرم
+  translated_content_partner_statuses-label-content_partner_status_id-4: غير سرگرم
+  translated_content_tables-label-content_table_id-1: تفصيل
+  translated_data_types-label-data_type_id-10: نقشو
+  translated_data_types-label-data_type_id-1: عڪس
+  translated_data_types-label-data_type_id-2: آواز
+  translated_data_types-label-data_type_id-3: متن
+  translated_data_types-label-data_type_id-4: وڊيو
+  translated_data_types-label-data_type_id-5: GBIF عڪس
+  translated_data_types-label-data_type_id-8: يوٽيوب
+  translated_ranks-label-rank_id-494: قبيلو
+  translated_ranks-label-rank_id-51: جماعت
+  translated_ranks-label-rank_id-99: خاندان
+  translated_resource_statuses-label-resource_status_id-10: ڇپيل
+  translated_resource_statuses-label-resource_status_id-1: چاڙهيندي
+  translated_resource_statuses-label-resource_status_id-2: چڙهيل
+  translated_service_types-label-service_type_id-2: ٻيو
+  translated_sort_styles-name-sort_style_id-2: قديم ترين
+  translated_sort_styles-name-sort_style_id-3: الف بي وار
+  translated_statuses-label-status_id-1: وڌل
+  translated_statuses-label-status_id-3: غير تبديل ڪيل
+  translated_statuses-label-status_id-4: ٻيهر استعمال ڪيل
+  translated_synonym_relations-label-synonym_relation_id-48: غيرموجود نالو
+  translated_synonym_relations-label-synonym_relation_id-49: قابل قبول نالو
+  translated_synonym_relations-label-synonym_relation_id-50: قابل قبول
+  translated_synonym_relations-label-synonym_relation_id-51: قبول ڪيل
+  translated_synonym_relations-label-synonym_relation_id-63: قبول نه ڪيل
+  translated_synonym_relations-label-synonym_relation_id-64: ناقابل قبول
+  translated_table_of_contents-label-table_of_contents_id-194: ماپ
+  translated_table_of_contents-label-table_of_contents_id-1: نظرثاني
+  translated_table_of_contents-label-table_of_contents_id-251: فائدا
+  translated_table_of_contents-label-table_of_contents_id-296: انتظاميا
+  translated_table_of_contents-label-table_of_contents_id-299: تعليم
+  translated_table_of_contents-label-table_of_contents_id-2: مختصر تَتُ
+  translated_table_of_contents-label-table_of_contents_id-300: وڪيپيڊيا
+  translated_table_of_contents-label-table_of_contents_id-305: هڪ جهڙا لفظ
+  translated_table_of_contents-label-table_of_contents_id-306: صفحي جا انگ اکر
+  translated_table_of_contents-label-table_of_contents_id-309: ورهاست
+  translated_table_of_contents-label-table_of_contents_id-310: ترقي
+  translated_table_of_contents-label-table_of_contents_id-312: لڏپلاڻ
+  translated_table_of_contents-label-table_of_contents_id-316: سلوڪ
+  translated_table_of_contents-label-table_of_contents_id-321: واڌ ويجھ
+  translated_table_of_contents-label-table_of_contents_id-337: تعليم
+  translated_table_of_contents-label-table_of_contents_id-338: تعليمي ڳنڍڻا
+  translated_table_of_contents-label-table_of_contents_id-339: تعليمي ذريعا
+  translated_table_of_contents-label-table_of_contents_id-33: رجهان
+  translated_untrust_reasons-label-untrust_reason_id-3: گھٽ معيار
+  translated_untrust_reasons-label-untrust_reason_id-4: نقلي
+  translated_untrust_reasons-label-untrust_reason_id-5: ٻيو
+  translated_user_identities-label-user_identity_id-2: هڪ شاگرد
+  translated_user_identities-label-user_identity_id-3: هڪ تعليمدان
+  translated_vetted-label-vetted_id-0: اڻڄاتل
+  translated_vetted-label-vetted_id-4: ڀروسو نه ڪيل
+  translated_vetted-label-vetted_id-5: ڀروسو ڪيل
+  translated_view_styles-name-view_style_id-1: فهرست
+  translated_visibilities-label-visibility_id-0: لڪيل
+  translated_visibilities-label-visibility_id-1: ظاهر
+  translated_visibilities-label-visibility_id-2: پيش نگاھ
+...

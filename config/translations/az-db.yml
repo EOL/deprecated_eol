@@ -1,0 +1,129 @@
+# Messages for Azerbaijani (azərbaycanca)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: AZISS
+# Author: Cekli829
+# Author: Ebrahimi-amir
+# Author: Melikov Memmed
+# Author: Vago
+# Author: Мурад 97
+---
+az:
+  translated_activities-name-activity_id-51: Göstər
+  translated_activities-name-activity_id-52: Yarat
+  translated_activities-name-activity_id-53: Gizlət
+  translated_activities-name-activity_id-56: sil
+  translated_activities-name-activity_id-64: çıxar
+  translated_agent_roles-label-agent_role_id-10: Layihə
+  translated_agent_roles-label-agent_role_id-11: Naşir
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-22: Tərcüməçi
+  translated_agent_roles-label-agent_role_id-2: Müəllif
+  translated_agent_roles-label-agent_role_id-5: Müəllifi
+  translated_agent_roles-label-agent_role_id-6: Direktor
+  translated_agent_roles-label-agent_role_id-7: Redaktor
+  translated_agent_roles-label-agent_role_id-8: İllüstrator
+  translated_agent_roles-label-agent_role_id-9: Fotoqraf
+  translated_audiences-label-audience_id-3: Uşaqlar
+  translated_collection_types-label-collection_type_id-11: Keçidlər
+  translated_collection_types-label-collection_type_id-16: Şəkillər
+  translated_collection_types-label-collection_type_id-21: Nomenklatura
+  translated_collection_types-label-collection_type_id-22: Səslər
+  translated_collection_types-label-collection_type_id-23: Keçidlər
+  translated_collection_types-label-collection_type_id-24: Ədəbiyyat
+  translated_collection_types-label-collection_type_id-4: Şəkillər
+  translated_collection_types-label-collection_type_id-7: Ad haqqında məlumat
+  translated_contact_roles-label-contact_role_id-3: Texniki Kontakt
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktivdir
+  translated_content_partner_statuses-label-content_partner_status_id-4: Qeyri-aktiv
+  translated_content_tables-label-content_table_id-1: Ətraflı
+  translated_data_types-label-data_type_id-10: Xəritə
+  translated_data_types-label-data_type_id-1: Şəkil
+  translated_data_types-label-data_type_id-2: Səs
+  translated_data_types-label-data_type_id-3: Mətn
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-6: BTTSMB
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-29: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-2: © Bütün hüquqular qorunur
+  translated_licenses-description-license_id-30: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-31: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-32: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-33: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-34: İctimai istifadə
+  translated_licenses-description-license_id-35: İctimai istifadə
+  translated_licenses-description-license_id-36: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-37: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-38: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-39: İctimai istifadə
+  translated_licenses-description-license_id-3: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-42: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-4: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-5: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-6: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-7: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-8: Bəzi hüquqular qorunur
+  translated_licenses-description-license_id-9: Bəzi hüquqular qorunur
+  translated_ranks-label-rank_id-118: cins
+  translated_ranks-label-rank_id-169: infradəstə
+  translated_ranks-label-rank_id-175: infranöv
+  translated_ranks-label-rank_id-183: aləm
+  translated_ranks-label-rank_id-266: dəstə
+  translated_ranks-label-rank_id-313: seksiya
+  translated_ranks-label-rank_id-314: seksiya
+  translated_ranks-label-rank_id-333: növ
+  translated_ranks-label-rank_id-335: növ
+  translated_ranks-label-rank_id-352: yarımfəsilə
+  translated_ranks-label-rank_id-370: yarımsinif
+  translated_ranks-label-rank_id-375: yarımşöbə
+  translated_ranks-label-rank_id-383: yarımfəsilə
+  translated_ranks-label-rank_id-390: yarımcins
+  translated_ranks-label-rank_id-391: yarımcins
+  translated_ranks-label-rank_id-394: yarımcins
+  translated_ranks-label-rank_id-396: yarımaləm
+  translated_ranks-label-rank_id-399: yarımdəstə
+  translated_ranks-label-rank_id-401: yarımtip
+  translated_ranks-label-rank_id-408: yarımseksiya
+  translated_ranks-label-rank_id-413: yarımnöv
+  translated_ranks-label-rank_id-414: yarımnöv
+  translated_ranks-label-rank_id-415: yarımnöv
+  translated_ranks-label-rank_id-422: yarımtriba
+  translated_ranks-label-rank_id-463: fəsiləüstü
+  translated_ranks-label-rank_id-472: tipüstü
+  translated_ranks-label-rank_id-494: triba
+  translated_ranks-label-rank_id-503: ranqsız
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-51: sinif
+  translated_ranks-label-rank_id-74: şöbə
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fəs.
+  translated_ranks-label-rank_id-92: fəs.
+  translated_ranks-label-rank_id-99: fəsilə
+  translated_resource_statuses-label-resource_status_id-1: |-
+    Fayl yüklənir
+    Fayl yükləmə
+  translated_resource_statuses-label-resource_status_id-7: Prosesdə
+  translated_service_types-label-service_type_id-2: Digər
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-45: bazionum
+  translated_table_of_contents-label-table_of_contents_id-14: BTTSMB
+  translated_table_of_contents-label-table_of_contents_id-194: Ölçüsü
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologiya
+  translated_table_of_contents-label-table_of_contents_id-278: Biblioqrafiya
+  translated_table_of_contents-label-table_of_contents_id-300: Vikipediya
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonimlər
+  translated_table_of_contents-label-table_of_contents_id-306: Səhifə statistikası
+  translated_table_of_contents-label-table_of_contents_id-312: Miqrasiya
+  translated_table_of_contents-label-table_of_contents_id-331: Barkod
+  translated_table_of_contents-label-table_of_contents_id-336: Qeydlər
+  translated_table_of_contents-label-table_of_contents_id-337: Təhsil
+  translated_table_of_contents-label-table_of_contents_id-344: Tarix
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomiya
+  translated_table_of_contents-label-table_of_contents_id-34: Şərhlər
+  translated_untrust_reasons-label-untrust_reason_id-3: aşağı keyfiyyət
+  translated_untrust_reasons-label-untrust_reason_id-4: surəti
+  translated_untrust_reasons-label-untrust_reason_id-5: O biri
+  translated_user_identities-label-user_identity_id-2: tələbə
+  translated_vetted-label-vetted_id-0: Naməlum
+...

@@ -1,22 +1,33 @@
 # Messages for Turkish (Türkçe)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: phpyaml
 # Author: Aguzer
+# Author: AliceJ
 # Author: BetelgeuSeginus
+# Author: Captantrips
 # Author: Emperyan
 # Author: Erdemaslancan
+# Author: Hedda
 # Author: Homonihilis
 # Author: Incelemeelemani
 # Author: Karduelis
+# Author: KorkmazO
 # Author: Marmase
+# Author: McAang
 # Author: Meelo
+# Author: Sayginer
 # Author: SiLveRLeaD
+# Author: Sucsuzz
 # Author: Szoszv
 # Author: Talha Samil Cakir
+# Author: Tonmachine
 # Author: Trncmvsr
 # Author: Trockya
 # Author: Ugcan
 # Author: Underblue
+# Author: Uğurkent
+# Author: Vito Genovese
+# Author: Ömer Berkay
 ---
 tr:
   activerecord:
@@ -26,21 +37,21 @@ tr:
       collection:
         name: Koleksiyon adı
         description: Koleksiyon tanımı
-        sort_style_id: Varsayılan yönde sıralama
+        sort_style_id: Varsayılan sıralama yönü
         logo: Birincil koleksiyon görüntüsü
-        additional_annotation_fields: Ek anons alanları
-        show_references: Referanslar (Metin veya URL)
+        additional_annotation_fields: Ek açıklama alanları
+        show_references: Kaynaklar (Metin veya URL)
       collection_job:
-        overwrite: Yinelenenleri Değiştir
+        overwrite: Yinelenenleri değiştir
       collection_item:
         annotation: Ek açıklama
         sort_field: Sıralama
-        refs: Referanslar
+        refs: Kaynaklar
       comment:
         body: Yorum
       community:
         name: Topluluk adı
-        description: Topluluk tartışması
+        description: Topluluk açıklaması
         logo: Logo yükle
       contact:
         comments: Mesaj
@@ -53,24 +64,24 @@ tr:
         active: Yayınlandı
       content_partner:
         acronym: Proje kısaltması
-        auto_publish: Oto-Yayım
+        auto_publish: Otomatik yayımlama
         admin_notes: Yönetim notları
         content_partner_status: Proje durumu
         created_at: Oluşturuldu
-        description: Proje tanımı
+        description: Proje açıklaması
         display_name: Adı görüntüle
         full_name: Proje adı
-        homepage: Proje URL
-        id: Kimlik
+        homepage: Proje URL'si
+        id: ID
         notes: Proje notları
         is_public: Herkese açık
         resources: Kaynaklar
-        user_id: Tarafından yönetilen
-        vetted: İncelenmesi
+        user_id: Yöneten
+        vetted: İnceleme
       content_partner_agreement:
-        created_at: Oluşturulan
-        signed_by: Tarafından imzalanmış
-        signed_on_date: Tarihinde imzalanmış
+        created_at: Oluşturulma tarihi
+        signed_by: İmzalayan
+        signed_on_date: İmzalanma tarihi
       content_partner_contact:
         email_reports_frequency_hours: E-posta raporları sıklığı
       data_object:
@@ -78,37 +89,32 @@ tr:
         description: Metin
         object_title: Başlık
         rights_holder: Hak sahibi
-        rights_statement: Hak beyanı
-        source_url: Kaynak URL
+        rights_statement: Haklar beyanı
+        source_url: Kaynak URL'si
       data_object_link:
         description: Açıklama
-        source_url: Bağlantı URL
+        source_url: Bağlantı URL'si
       eol_statistic:
-        created_at: Tarihinde oluşturuldu
+        created_at: Oluşturulma tarihi
         members_count: Üyeler
         communities_count: Topluluklar
         collections_count: Koleksiyonlar
         pages_count: Toplam sayfa
-        pages_with_content: İçerikleriyle sayfalar
-        pages_with_text: Metinleriyle sayfalar
-        pages_with_image: Görselleriyle sayfalar
-        pages_with_map: Haritalarıyla sayfalar
-        pages_with_video: Videolarıyla sayfalar
-        pages_with_sound: Sesleriyle sayfalar
-        pages_without_text: Metin olmadan sayfalar
-        pages_without_image: Görsel olmadan sayfalar
-        pages_with_image_no_text: >
-          Görselleri olan ama metinleri olamayan
-          sayfalar
-        pages_with_text_no_image: >
-          Metinleri olan ama görselleri olamayan
-          sayfalar
+        pages_with_content: İçerikli sayfa
+        pages_with_text: Metin içeren sayfa
+        pages_with_image: Resimli sayfa
+        pages_with_map: Haritalı sayfa
+        pages_with_video: Videolu sayfa
+        pages_with_sound: Sesli sayfa
+        pages_without_text: Metin içermeyen sayfa
+        pages_without_image: Resim içermeyen sayfa
+        pages_with_image_no_text: Resim içeren fakat metin içermeyen sayfa
+        pages_with_text_no_image: Metin içeren fakat resim içermeyen sayfa
         base_pages: Temel sayfalar
         pages_with_at_least_a_trusted_object: Güvenilir nesneye sahip sayfalar
         pages_with_at_least_a_curatorial_action: Küratöryel eylem sayfaları
         pages_with_BHL_links: BHL bağlantılar içeren sayfalar
-        pages_with_BHL_links_no_text: >
-          Metin olmadan BHL bağlantılar içeren
+        pages_with_BHL_links_no_text: BHL bağlantıları olan fakat metin içermeyen
           sayfalar
         pages_with_BHL_links_only: Sadece BHL bağlantıları olan sayfalar
         data_objects: Veri nesneleri
@@ -120,116 +126,205 @@ tr:
         data_objects_trusted: Güvenilir veri nesneleri
         data_objects_unreviewed: İncelenmemiş veri nesneleri
         data_objects_untrusted: Güvenilmeyen veri nesneleri
+        data_objects_trusted_or_unreviewed_but_hidden: Güvenilir yada gözden geçirilmemiş
+          ancak saklanmış
+        udo_published: Kullanıcı tarafından gönderilmiş metin
+        udo_published_by_curators: Küratör tarafından gönderilen metin
+        udo_published_by_non_curators: Küratör tarafından gönderilmeyen metin
         content_partners: İçerik ortakları
+        content_partners_with_published_resources: Yayımlanmış kaynaklar ile
+        content_partners_with_published_trusted_resources: Yayımlanmış güvenilir kaynaklar
+          ile
         published_resources: Yayınlanmış kaynaklar
         published_trusted_resources: Yayınlanmış güvenilir kaynaklar
+        published_unreviewed_resources: Gözden geçirilmemiş yayımlanmış kaynaklar
+        newly_published_resources_in_the_last_30_days: Son ay içerisinde yeni yayımlanmış
+        marine_pages: Denizle ilgili sayfalar
+        marine_pages_in_col: CoL'de bulunan deniz sayfaları
+        marine_pages_with_objects: Veri nesnelerine sahip deniz sayfaları
+        marine_pages_with_objects_vetted: Güvenilir veri nesnelerine sahip deniz sayfaları
+        curators: Küratörler
+        curators_assistant: Yardımcı küratörler
+        curators_full: Tam küratörler
+        curators_master: Üstat küratörler
+        active_curators: Aktif küratörler
+        pages_curated_by_active_curators: Aktif küratörler tarafından hazırlanan sayfalar
+        objects_curated_in_the_last_30_days: Son 30 günde küratörlük yapılan nesneler
+        curator_actions_in_the_last_30_days: Son 30 gün içinde küratör eylemleri
         rich_pages: Zengin sayfalar
+        hotlist_pages: Etkin Liste sayfaları
+        rich_hotlist_pages: Zenginleştirilmiş Etkin Liste sayfaları
+        rich_hotlist_pages_percentage: Zenginleştirilmiş Etkin Liste sayfaları %
+        redhotlist_pages: Zenginleştirilmiş Etkin Liste sayfaları
+        rich_redhotlist_pages: Zenginleştirilmiş Kırmızı Etkin Liste sayfaları
+        rich_redhotlist_pages_percentage: Zenginleştirilmiş Kırmızı Etkin Liste sayfaları
+          %
         pages_with_score_10_to_39: Puanı 10-40 arası olan sayfalar
-        pages_with_score_less_than_10: "Puanı 10'dan daha az olan sayfalar"
+        pages_with_score_less_than_10: Puanı 10'dan daha az olan sayfalar
+        lifedesk_taxa: LifeDesks taksonu
+        lifedesk_data_objects: LifeDesks veri nesneleri
+        total_taxa_with_data: Veri içeren sayfalar
+        total_triples: Üçlükler
+        total_occurrences: Olaylar
+        total_measurements: Ölçümler
+        total_associations: Kuruluşlar
         total_measurement_types: Ölçüm Türü
         total_association_types: İlişki Türleri
+        total_user_added_data: Kullanıcı tarafından eklenen veriler
+        total_data_records: Veri Kayıtları
       forum:
         forum_category_id: Kategori
-        description: 'Açıklama <small>(isteğe bağlı)</small>'
+        name: Forum adı
+        description: Açıklama <small>(isteğe bağlı)</small>
       forum_category:
         title: Kategori adı
-        description: 'Açıklama <small>(isteğe bağlı)</small>'
+        description: Açıklama <small>(isteğe bağlı)</small>
       forum_post:
         subject: Konu
+        text: Gövde
+      forum_topic:
+        subject: Konu
+        text: Gövde
       harvest_event:
         resource: Kaynak
       hierarchy:
-        complete: Tamamlandı
+        browsable: Göz atılabilir
+        complete: Tamamlayınız
         description: Açıklama
+        descriptive_label: Tanımlayıcı etiket
         label: Etiket
+        request_publish: Yayımlama isteği
       known_uri:
+        clade_exemplar: Örnek olarak Taksonomik Grup Aralığı kullanımı
+        description: Açıklama
+        exclude_from_exemplars: Genel Bakış Hariç
+        group_by_clade: Taksonomik Grup Aralığı için kullanım
+        hide_from_glossary: Veri Sözlüğünü Gizle
         name: İsim
         toc_items: Kategoriler
+        uri: URI
+        uri_type: URI türü
+        value_is_text: Değerler URI değil yalnızca metin olmalıdır
+        value_is_verbatim: Değerler sayı değil yalnızca metin olmalıdır
+      known_uri_relationship:
+        from_known_uri_id: Konu URI
+        to_known_uri_id: Hedef URI
+        to_known_uri: Hedef URI
+        relationship_uri: İlişkili URI
       open_authentication:
         created_at: Oluşturuldu
-        user_id: 'Kullanıcı kimliği:'
+        guid: GUID
+        provider: Üçüncü taraf sağlayıcı
+        secret: Gizli
+        token: Anahtar
+        updated_at: Son güncelleme
+        user_id: 'Kullanıcı ID''si:'
+        verified_at: Son doğrulama
       name:
-        string: Ad
+        string: İsim
       news_item:
         page_name: Benzersiz isim
+        sort_order: Sıralama düzeni
         active: Yayınlandı
       notification:
-        reply_to_comment: >
-          Yaptığınız bir yoruma yanıt
-          geldiğinde
+        reply_to_comment: Yaptığınız bir yoruma yanıt geldiğinde
         comment_on_my_profile: Profilinize yorum yapıldığında
-        comment_on_my_collection: >
-          Yönettiğiniz bir derlemeye yorum
-          yapıldığında
-        comment_on_my_community: >
-          Üyesi olduğunuz topluluklardan birine
-          yorum yapıldığında
-        made_me_a_manager: >
-          Bir derleme veya topluluğun yöneticisi
-          yapıldığında
-        member_joined_my_community: >
-          Yönettiğiniz topluluğa yeni bir üye
-          katıldı.
-        member_joined_my_watched_community: >
-          Üyesi olduğun bir topluluğa yeni
-          üyeler katıldı
-        new_manager_in_my_community: >
-          Başka bir üye yönettiğiniz bir
-          topluluğun yöneticisi oldu
-        i_am_being_watched: >
-          Başka bir üyenin izleme listesine
-          eklendiniz
-        eol_newsletter: >
-          Bana her üç ayda bir EOL bülteni
-          gönder
+        comment_on_my_contribution: Yaptığınız katkıda bir yorumda ve(ya) küratöryel
+          eylemde
+        comment_on_my_collection: Yönettiğiniz bir derlemeye yorum yapıldığında
+        comment_on_my_community: Üyesi olduğunuz topluluklardan birine yorum yapıldığında
+        made_me_a_manager: Bir derleme veya topluluğun yöneticisi yapıldığınızda
+        member_joined_my_community: Yönettiğiniz topluluğa yeni bir üye katıldığında
+        comment_on_my_watched_item: İzleme listenizdeki nesneler, taksonlar, koleksiyonlar
+          veya topluluklar hakkında yorumlar
+        curation_on_my_watched_item: İzleme listenizdeki nesneler, taksonlar, koleksiyonlar
+          veya topluluklar üzerindeki küratör eylemleri
+        new_data_on_my_watched_item: İzleme listenizdeki taksonlara yapılan yeni katkılar
+        changes_to_my_watched_collection: İzleme listenizdeki koleksiyonlarda yapılan
+          değişiklikler
+        changes_to_my_watched_community: İzleme listenizdeki topluluklarda yapılan
+          değişiklikler
+        member_joined_my_watched_community: Üyesi olduğun bir topluluğa yeni üyeler
+          katıldı
+        member_left_my_community: Yönettiğiniz bir topluluktan üyeler ayrıldı
+        new_manager_in_my_community: Başka bir üye yönettiğiniz bir topluluğun yöneticisi
+          oldu
+        i_am_being_watched: Başka bir üyenin izleme listesine eklendiniz
+        eol_newsletter: Bana her üç ayda bir EOL bülteni gönder
       resource:
-        auto_publish: Oto-yayım
-        bibliographic_citation: Kaynakça takdirnamesi
+        accesspoint_url: Veri Kümesi Bağlantısı
+        auto_publish: Otomatik yayımlama
+        bibliographic_citation: Bibliyografik alıntı
+        dataset: Veri Kümesi dosyası
+        description: Kaynak açıklaması
+        dwc_archive_url: Darwin Core Archive Bağlantısı
+        dataset_source_url: Orijinal Veri Kaynağı
+        dataset_hosted_url: Kaynak Veri Kümesi (yerel kopya)
         harvest_events: Hasat olayları
         hierarchy: Hiyerarşi
         language_id: Varsayılan dil
         dataset_license_id: Lisans
         dataset_rights_holder: Hak sahibi
+        dataset_rights_statement: Haklar beyanı
         license_id: Varsayılan lisans
         notes: İşlem notları
         resource_status_id: Kaynak durumu
         rights_holder: Varsayılan hak sahibi
         rights_statement: Varsayılan haklar beyanı
         title: Kaynak adı
+        vetted: İnceleme
       translated_content_page:
         active_translation: Yayınlandı
         left_content: Gezinti
+        main_content: Gövde
+        meta_keywords: Üstveri anahtar kelimeleri
+        meta_description: Üstveri açıklaması
         title: Başlık
       translated_known_uri:
+        definition: Tanım
         comment: Yorum
       translated_news_item:
+        active_translation: Yayınlandı
+        body: Gövde
+        meta_keywords: Üstveri anahtar kelimeleri
+        meta_description: Üstveri açıklaması
         title: Başlık
       user:
+        agreed_with_terms: Kullanım koşulları sözleşmesi
+        api_key: API anahtarı
         bio: Hayatı
-        curator_scope: Stajyerlik olanağı
-        disable_email_notifications: >
-          Bana e-posta ile HİÇBİR güncelleme
-          gönderme
+        credentials: Kimlik bilgileri
+        curator_level: Küratör seviyesi
+        curator_scope: Küratörlük kapsamı
+        disable_email_notifications: Bana herhangi bir güncellemeyi e-posta ile GÖNDERME
         email: E-posta adresi
-        email_confirmation: 'E-posta adresi tekrar <small>(doğrulama için)</small>'
-        entered_password: Şifre
-        entered_password_confirmation: 'Şifreyi tekrarlayın <small>(doğrulamak için)</small>'
-        family_name: Soyadı
-        full_name: Tam adı
-        given_name: İlk adı
-        language_abbr: 'Tercih edilen diller (örneğin; tr,en,de):'
+        email_confirmation: E-posta adresi tekrar <small>(doğrulama için)</small>
+        entered_password: Parola
+        entered_password_confirmation: Şifreyi tekrarlayın <small>(doğrulamak için)</small>
+        family_name: Soyad
+        full_name: Tam ad
+        given_name: İlk ad
+        language_abbr: Tercih edilen dil
         permissions: İzinler
-        requested_curator_level_id: arzulanan stajyerlik seviyesi
+        requested_curator_level_id: İstenilen küratörlük seviyesi
+        tag_line: Slogan
         username: Kullanıcı adı
+      user_added_data:
+        predicate: Kişisel özellik
+        object: Değer
+        user: Ekleyen
+      user_added_data_metadata:
+        predicate: Öznitelik
+        object: Değer
     errors:
       format: '%{attribute} %{message}'
       template:
         header:
           one: '%{count} doğrulama hatası bulundu'
           other: '%{count} doğrulama hatası bulundu'
-        body: 'Aşağıdaki alanların doğrulaması başarısız oldu:'
+        body: 'Aşağıdaki alanlar doğrulamada başarısız oldu:'
       messages:
-        taken: zaten alınmış
+        taken: çoktan alındı
         record_invalid: 'Doğrulama başarısız: %{errors}'
         inclusion: listede yok
         exclusion: ayrılmıştır
@@ -239,143 +334,482 @@ tr:
         empty: boş olamaz
         blank: boş olamaz
         too_long:
-          one: 'çok uzun (en fazla %{count} karakter)'
-          other: 'çok uzun (en fazla %{count} karakter)'
+          one: çok uzun (en fazla %{count} karakter)
+          other: çok uzun (en fazla %{count} karakter)
         too_short:
-          one: 'çok kısa (en az %{count} karakter)'
-          other: 'çok kısa (en az %{count} karakter)'
+          one: çok kısa (en az %{count} karakter)
+          other: çok kısa (en az %{count} karakter)
+        wrong_length: hatalı uzunluk (%{count} karakter olmalıdır)
         not_a_number: bir sayı değil
-        not_an_integer: tam sayı olmalıdır
-        odd: tek sayı olmalıdır
-        even: çift sayı olmalıdır
+        not_an_integer: tamsayı olmalı
+        greater_than:
+          one: '%{count} yaşından büyük olmalı'
+          other: '%{count} yaşından büyük olmalı'
+        greater_than_or_equal_to: '%{count} yaşında ya da %{count} yaşından büyük
+          olmalı'
+        equal_to: '%{count} olmalı'
+        less_than:
+          one: '%{count} yaşından küçük olmalı}'
+          other: '%{count} yaşından küçük olmalı}'
+        less_than_or_equal_to: '%{count} yaşında ya da %{count} yaşından küçük olmalı'
+        odd: tek sayı olmalı
+        even: çift sayı olmalı
+        inaccessible: erişilemiyor
+        wrong_type: yanlış tip
+        models:
+          inaccessible: erişilemiyor
       full_messages:
         format: '%{attribute} %{message}'
       models:
+        data_object:
+          attributes:
+            rights_holder:
+              blank: CC BY lisansı için boş bırakılamaz
+              inclusion: Public Domain lisansı için boş bırakılmalı
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: yalnızca son hasat olayı için ve yalnızca o etkinlik zaten
+                yayımlanmamışsa izin verilir
+        inaccessible: Kayıt geçersiz olduğu için kaydedilemedi. Hataları düzeltip
+          yeniden gönderin.
+        known_uri:
+          attributes:
+            uri:
+              must_be_uri: iyi oluşturulmuş bir <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                olmalıdır.
+        open_authentications:
+          guid_provider_must_be_unique: üçüncü taraf hesabı zaten bir EOL hesabı ile
+            ilişkilendirilmiş
+          provider_user_id_must_be_unique: her üçüncü parti sağlayıcıdan yalnızca
+            bir hesap EOL hesabına bağlanabilir
         resource:
           attributes:
             accesspoint_url:
-              blank: >
-                kaynak bir dosya yüklemedikçe boş
+              blank: kaynak bir dosya yüklemedikçe boş bırakılamaz
+              inaccessible: erişilemiyor, bağlantının herkes tarafından erişilebilir
+                olması gerekiyor.
+              invalid: geçersiz; bir XML, XML.GZIP, XML.GZ veya ZIP dosyası belirtmelidir.
+            dataset:
+              blank: bunun yerine bir veri kümesi bağlantısı girmediğiniz sürece boş
                 bırakılamaz
+              wrong_type: yanlış tip; bir GZIP, TAR, ZIP ya da  XML dosyası belirtmelidir
+            dwc_archive_url:
+              inaccessible: erişilemiyor, bağlantının herkes tarafından erişilebilir
+                olması gerekiyor.
+              invalid: geçersiz; bir XML, XML.GZIP, XML.GZ veya ZIP dosyası belirtmelidir
+        user_added_data:
+          attributes:
+            predicate:
+              must_be_uri: iyi oluşturulmuş bir <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                olmalıdır.
+              namespace: Tanınmayan bir ad boşluğu kullanıldı
+            subject:
+              must_be_uri: iyi oluşturulmuş bir <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                olmalıdır.
+              namespace: Tanınmayan bir ad boşluğu kullanıldı
+        user_added_data_metadata:
+          attributes:
+            predicate:
+              must_be_uri: iyi oluşturulmuş bir <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                olmalıdır.
+              namespace: Tanınmayan bir ad boşluğu kullanıldı
+            subject:
+              must_be_uri: iyi oluşturulmuş bir <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                olmalıdır.
+              namespace: Tanınmayan bir ad boşluğu kullanıldı
+        known_uri_relationship:
+          attributes:
+            to_known_uri_id:
+              must_be_known_uri: Bilinen bir URI olmalı
+              must_be_measurement: bir ölçü birimi olmalı
+              must_be_different: Konu URI'dan farklı olmalı
+            relationship_uri:
+              only_one_measurement: 'izin verilmiyor: yalnızca bir varsayılan birim
+                olabilir'
   helpers:
     label:
       collection:
         view_style_id: Varsayılan görünüm
+      collection_item:
+        annotation: Ek açıklama
+        refs: Referanslar <small>(her referansı yeni bir satıra yazın)</small>
+        sort_field: <small>(tarih YYYY.AA.GG, sayı ya da metin)</small> göre sırala
+        sort_field_show: 'Sıralama değeri:'
       comment:
         body_edit: Yorumu düzenle
       contact:
         comments: Mesajınız
         contact_subject_id: Konu
         email: E-posta adresiniz
-        name: 'İsminiz:'
+        name: İsminiz
       content_page:
         active: Yayınlandı
+        active_more: Yayımlanan sayfalar herkes tarafından görülecektir. Genel kullanıcıların
+          bu sayfanın sürümlerini herhangi bir dilde görüntülemelerini önlemek istiyorsanız
+          <em>yayımlandı</em> kutusunun işaretini kaldırın.
+        page_name: Benzersiz ad <small>(küçük harfli ISO temel Latin alfasayısal karakterler
+          ve yalnızca alt çizgi)</small>
+        page_name_more: Bu sayfa için kendine özgü, açıklayıcı, anlamlı ve kalıcı
+          bir kimlik girin. Buraya girdiğiniz ad, bu sayfa için bağlantı oluşturmak
+          için kullanılacaktır, ör. benzersiz ad <em>terms_of_use</em> is converted
+          to the URL <em>http://eol.org/info/terms_of_use</em>.
+        parent_content_page_id: Üst
+        parent_content_page_id_more: İsteğe bağlı olarak bu sayfanın iç içe geçmiş
+          olması gereken bir üst sayfa seçin.
       content_partner:
+        created_at: Kayıtlı
+        current_agreement: Mevcut anlaşma
+        display_name: Görünen ad <small>(isteğe bağlı)</small>
+        display_name_more: <em>Projenizin adı</em> yerine alternatif olarak herkes
+          tarafından görünecek bir ad verin
+        description_of_data: Verilerin açıklaması <small>(gizli)</small>
+        description_of_data_more: Lütfen sahip olduğunuz bilgilerde ne kadar öge,
+          kaç tane öge bulunduğuna; hangi organizmalarla ilişkili olduğuna ve kalifiye
+          uzmanlar veya bilgili bir topluluk tarafından toplanıp kontrol edilip edilmediğine
+          dair bir açıklama ekleyin.
+        last_action: Son etkinlik
+        latest_published_harvest_event: Son yayımlanma
         logo_current: 'Güncel logo:'
+        logo_new: 'Yeni bir logo yükle:'
+        notes: Proje notları <small>(gizli)</small>
+        oldest_published_harvest_event: İlk yayımlanma
+        is_public_more: Herkese açık içerik iş ortağı profilleri herkes tarafından
+          görülebilir ve iş ortağı bilgileri içerik iş ortağı listelerinde yer alır.
+          İçerik iş ortağı ayrıntılarını listelerden çıkarmak için işareti kaldırın
+          ve içerik ortağını ve EOL yöneticilerini oluşturan kullanıcıya profil erişimini
+          kısıtlayın.
+        user_id: İçerik iş ortağı ayrıntılarını yöneten
+      content_partner_agreement:
+        mou_url: Sözleşme dosyası bağlantısı <small>(isteğe bağlı alternatif)</small>
+        mou_url_more: İsteğe bağlı olarak bu iş ortağının sözleşmesini içeren dosyanın
+          bağlantısını girin. Bu dosya başka herhangi bir sözleşme metnini geçersiz
+          kılacaktır. Dosyayı EOL içerik sunucularında depolamak istiyorsanız (örn.
+          Bir PDF dosyası) bağlantıyı elde etmek için önce <a href="%{upload_content_url}">dosyayı
+          yükleyin</a>.
+      content_partner_contact:
+        email_reports_frequency_hours_more: E-posta raporları, yalnızca verilerinizde
+          veya veri grubunuzla alakalı takson sayfalarında yorum veya küratörlük işlemleri
+          olması durumunda gönderilir.
       data_object:
-        description: 'Metin <small>(bazı HTML biçimlendirmelerine izin verilir)</small>'
+        bibliographic_citation: Bibliyografik alıntı
+        bibliographic_citation_more: Bu veri için bibliyografik referans olarak önerilen
+          bir atıf, verilerin mümkün olduğunca açık ve net bir şekilde tanımlanması
+          için yeterli ayrıntıyı içerir.
+        description: Metin <small>(bazı HTML biçimlendirmelerine izin verilir)</small>
         license_id: Lisans
-        license_id_more: |
-          <a href="%{policy_url}">EOL Lisanslama Politikası'nı</a> okuyun
+        license_id_more: <a href="%{policy_url}">EOL Lisanslama Politikası'nı</a>
+          okuyun
         object_title: Başlık
+        toc_item: Alt Bölüm
+        refs: Referanslar <small>(her referansı yeni bir satıra yazın)</small>
+        refs_order: '*Referanslar alfabetik sıraya göre sıralanır'
+        rights_holder: Hak sahibi
+        rights_holder_more: Bu verilerin haklarını sahibi ya da yöneten bir kişi ya
+          da kuruluş belirtin. Bu alanı boş bırakırsanız Public Domain hariç tüm lisansların
+          hak sahibi olduğunuzu varsayacağız. Public Domain alan lisansları bir hak
+          sahibi gerektirmez.
+        rights_statement: Haklar beyanı
+        rights_statement_more: Creative Commons Attribution (CC BY) lisanslarının
+          gerektirdiği kullanım haklarının beyanatı, lütfen <q cite="http://creativecommons.org/licenses/by/3.0">yazarın
+          veya lisans sahibinin belirttiği biçimde</q> nitelik atfetmesini belirtin.
+        source_url: Orijinal veri nesnesinin bağlantısı
       data_object_link:
-        description: 'Açıklama <small>(bazı HTML biçimlendirmelerine izin verilir)</small>'
+        description: Açıklama <small>(bazı HTML biçimlendirmelerine izin verilir)</small>
+        source_url: Bağlantı URL'si
+        toc_item: Konu
         link_type: Kategori
       data_search:
+        attribute: Bir nitelik seçin
+        max: En yüksek değer
+        max_with_val: 'En yüksek değer: %{val}'
         max_placeholder: Bir sayı girin
+        max_placeholder_disabled: Devre dışı bırakılan aralık
         min: En düşük değer
+        min_with_val: 'En düşük değer: %{val}'
+        min_placeholder: Bir sayı girin
+        min_placeholder_disabled: Devre dışı bırakılan aralık
+        q: Spesifik değer
+        q_with_val: 'Spesifik değer: %{val}'
         q_placeholder: Bir kelime, ifade veya sayı girin.
-        q_placeholder_disabled: >
-          Girilen aralıkta, belirli değer devre
-          dışı bırakılmış.
-        taxon_name_placeholder_value_removed: '%{taxon_group} çıkarıldı, yeni bir grup seçin'
+        q_placeholder_disabled: Girilen aralıkta, belirli değer devre dışı bırakılmış.
+        q_more: Örneğin, heterotrof.
+        taxon_name: Takson grubu
+        taxon_name_with_val: 'Takson grubu: %{val}'
+        taxon_name_placeholder: Grup seçmek için takson grubu adını girin
+        taxon_name_placeholder_value_removed: '%{taxon_group} çıkarıldı, yeni bir
+          grup seçin'
+        taxon_name_more: Örneğin, Sinek kuşugiller veya Balinalar girin. SADECE açılır
+          menüden seçimler yapılır, bir sonuç seçmeden metni düzenlemeyin.
+        taxa_found: Taksonlar Bulundu
+        total_results: 'Toplam sonuç: %{total}'
+        unit: Ölçü birimi
       eol_statistic:
         date_one: Tarih
         date_two: Tarih
+        download_all: Hepsi <small>(tüm sayfalardaki kayıtları dahil et)</small>
       google_analytics_partner_summaries:
-        taxa_pages: 'Sayfa <small>(sayfa sayısı)</small>'
-        taxa_pages_viewed: 'Görüntülenen sayfalar <small>(ziyaretçiler tarafından görüntülenen sayfa sayısı)</small>'
-        time_on_page: 'Sayfalarda harcanan toplam zaman <small>(saat)</small>'
+        taxa_pages: Sayfa <small>(sayfa sayısı)</small>
+        taxa_pages_viewed: Görüntülenen sayfalar <small>(ziyaretçiler tarafından görüntülenen
+          sayfa sayısı)</small>
+        unique_page_views: Benzersiz sayfa görüntüleme sayısı <small>(sayfaları görüntüleyen
+          ziyaretçi sayısı)</small>
+        page_views: Sayfa görüntüleme sayısı <small>(sayfalara yapılan ziyaret sayısı)</small>
+        time_on_page: Sayfalarda harcanan toplam zaman <small>(saat)</small>
       harvest_event:
         began_at: Başladı
         completed_at: Tamamlandı
+        first_published_at: İlk yayımlanma
+        publish_more: Yayımlanma için hasat olayını işaretler, içerik herkese hemen
+          açıklanmaz.
         published_at: Yayınlandı
         published_status: Durum
+        last_harvest_seconds: '%{time_in_words} sürdü'
+      hierarchy:
+        browsable_more: EOL'de birincil taranabilir hiyerarşilerden biri haline gelmek
+          için bu hiyerarşiyi tanıtmak için göz atılabilir duruma bakın.
+        browsable_status_with_colon: 'Taranabilir durum:'
+        complete: Küratörlük
+        complete_more: 'Kuratörlük hiyerarşisi, her girdinin benzersiz olması istenildiğini
+          varsayar yani eşleşen ad dizeleri eşadlı olarak ele alınacaktır. <strong>Uyarı:
+          Hiyerarşide eşadlıların durumundan emin olmadığınız sürece bu özniteliği
+          değiştirmeyin; bunu yaptığınızda verilerin bütünlüğünü tehlikeye atabilirsiniz.</strong>'
+        request_publish: Yayımlanma isteği
+        request_publish_more: Bu hiyerarşiyi, EOL'deki birincil taranabilir hiyerarşilerden
+          biri haline getirmek için bekleyen bir talep olup olmadığını belirtir.
+      known_uri_relationship:
+        from_known_uri: Bilinen URI için
+        relationship_uri: İlişki seçin
+        to_known_uri: Hedef URI girin ve seçin
+      news_item:
+        active: Yayınlandı
+        active_more: Yayımlanan haber ögeleri seçilen tarih ve saatte herkes tarafından
+          görülebilir. Genel kullanıcıların bu haberin herhangi bir dilde sürümlerini
+          görüntülemelerini önlemek istiyorsanız <em>yayımlandı</em> kutusunun işaretini
+          kaldırın.
+        page_name: Benzersiz ad <small>(küçük harfli ISO temel Latin alfasayısal karakterler
+          ve yalnızca alt çizgi)</small>
+        page_name_more: Bu haber ögesi için kendine özgü, açıklayıcı, anlamlı ve kalıcı
+          bir tanımlayıcı girin. Buraya girdiğiniz ad, bu sayfa için bağlantı oluşturmak
+          için kullanılacaktır, ör. benzersiz ad <em>terms_of_use</em> is converted
+          to the URL <em>http://eol.org/info/terms_of_use</em>.
       open_authentication:
-        connected: Bağlandı.
+        connected: Bağlandı
         connect: Ekle
       resource:
-        administration_settings: 'Yönetim ayarları <small>(yalnızca EOL yöneticilerine görünür)</small>'
-        dataset: Veri seti
+        administration_settings: Yönetim ayarları <small>(yalnızca EOL yöneticilerine
+          görünür)</small>
+        accesspoint_url: Veri Kümesi Bağlantısı
+        accesspoint_url_existing_remove: Bu kaynak şu anda URL bitişinden yükleniyor
+          <em>%{accesspoint_url}</em>. Mevcut URL'yi kaldırmak ve kaynağı bir dosyadan
+          yüklemek istiyorsanız bir dosya yükleyin (önerilmez).
+        dataset: Veri kümesi
+        dataset_existing_replace: <em>%{file_name}</em> dosyası, şu anda bu kaynakla
+          ilişkili. Mevcut <em>%{file_name}</em> dosyasını değiştirmek için yeni bir
+          dosya yükleyin.
+        dataset_existing_remove: <em>%{file_name}</em> dosyası, şu anda bu kaynakla
+          ilişkili. Mevcut <em>%{file_name}</em> dosyasını değiştirmek ve kaynağın
+          yerine bir URL'den yüklemek istiyorsanız bir URL girin (önerilir).
+        dwc_archive_url: 'Bu kaynakla ilişkili bir Darwin Core Archive varsa, URL''yi
+          buraya girin <small>(sadece TAR.GZIP, TAR.GZ veya TGZ)</small>:'
         hierarchy: Hiyerarşi
-        refresh_period_hours: Frekans
+        oldest_published_harvest_event: İlk yayımlanma
+        latest_published_harvest_event: Son yayımlanma
+        latest_harvest_event: Son hasat
+        refresh_period_hours: Sıklık
         resource_status_id: Durum
         resource_status: Durum
+        resource_url_or_file: Kaynak verileri <small>(URL'yi girmeyi veya bir dosya
+          yüklemeyi seç)</small>
+        resource_url_or_file_url: Kaynağı URL'den yükleyin
+        resource_url_or_file_upload: Kaynak dosyası yükleyin
+        title: Kaynak adı
       session:
-        password: Şifre
+        password: Parola
         remember_me: Girişimi iki hafta boyunca hatırla
         username_or_email: Kullanıcı adı ya da e-posta adresi
       translated_content_page:
         active_translation: Yayınlandı
+        active_translation_more: Yayımlanan çeviriler, sayfanın yayımlanmamış olması
+          durumu hariç herkes tarafından görülecektir. Genel kullanıcıların sayfanın
+          bu sürümünü görüntülemesini önlemek isterseniz <em>yayınlandı</em> kutusunun
+          işaretini kaldırın.
         language_id: Dil
-        title_more: >
-          İçeriğin başlığı sayfanın
-          üstbilgi alanında görünecektir.
-          Başlık, içerikle en alakalı anahtar
-          kelimeleri içermelidir.
+        left_content_more: '(İsteğe bağlı) Sıralama bağlantılı olmayan bir liste ekleyin.
+          Geçerli sayfa bağlantısını vurgulamak için <code>active</code> sınıf adını
+          kullanın. Örneğin; <code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>
+          kısmında  <code>:id</code> bölümü geçerli sayfa kimliğini (ID) veya benzersiz
+          adıdır ve <code>:title</code> bölümü ise sayfanın tanımlayıcı başlığıdır  (<strong>Not:
+          EOL CMS sayfalarına yapılan tüm bağlantılar eğik çizgi ile başlamalıdır:
+          <code>/info/:id</code></strong>). Bu değişiklikleri yapmak için HTML kaynak
+          kodunu doğrudan düzenlemeniz gerekir; bunu editör araç çubuğundaki <em>Source
+          (Kaynak)</em> kısmını seçerek yapın.'
+        main_content_more: 'Anasayfa içeriğini gövde kısmına girin. Uygun semantik
+          metin öğesini seçmek için <em>Format</em> açılır listesini kullanın. Örneğin
+          ikinci seviye için <em>Heading 2</em> kısmını seçin. Not: <em>Heading 1</em>
+          sayfa başlığı için ayrılmıştır bu nedenle gövde alanındaki başlıklar <em>Heading
+          2</em> ile başlar. El ile HTML eklemenize ve düzenlemenize izin veren HTML
+          kaynak kodu görünümüne geçmek için <em>Source (Kaynak)</em> kısmını seçin.'
+        meta_description_more: Sayfa içeriğinin temel kavramlarını özetleyen kısa
+          bir açıklama yapın. Bu açıklama, bazen web arama motorları tarafından hem
+          alâka düzeyini kontrol etmek hem de arama motoru sonuçlarında listelemek
+          için kullanılır.
+        meta_keywords_more: Sayfanın içeriğini en iyi şekilde yansıtacak şekilde virgülle
+          ayrılmış kelimelerin ve kısa cümlelerin listesini girin. Bu anahtar kelimeler
+          ve anahtar sözcükler, bazen web arama motorları tarafından sayfanın arama
+          terimlerine karşı alâka düzeyini değerlendirmek için kullanılır.
+        title_more: İçeriğin başlığı sayfanın üstbilgi alanında görünecektir. Başlık,
+          içerikle en alakalı anahtar kelimeleri içermelidir.
       translated_news_item:
+        active_translation: Yayınlandı
+        active_translation_more: Yayımlanan çeviriler, haberin kendisinin yayımlanmamış
+          olması durumu hariç herkes tarafından görülecektir. Genel kullanıcıların  haber
+          ögesinin bu sürümünü görüntülemelerini  önlemek isterseniz <em>yayınlandı</em>
+          kutusunun işaretini kaldırın.
         language_id: Dil
+        body_more: 'Haber ögesinin içeriğini gövde kısmına girin. Uygun semantik metin
+          öğesini seçmek için <em>Format</em> açılır listesini kullanın. Örneğin ikinci
+          seviye için <em>Heading 2</em> kısmını seçin. Not: <em>Heading 1</em>, haberler
+          ögesi başlığı için ayrılmıştır bu nedenle gövde alanındaki başlıklar <em>Heading
+          2</em> ile başlar. El ile HTML eklemenize ve düzenlemenize izin veren HTML
+          kaynak kodu görünümüne geçmek için <em>Source (Kaynak)</em> kısmını seçin.'
+        meta_description_more: Haber ögesinin içeriği ile ilgili temel kavramları
+          özetleyen kısa bir açıklama yapın. Bu açıklama bazen Web arama motorları
+          tarafından hem alaka düzeyini kontrol etmek hem de arama motoru sonuçlarında
+          listelemek için kullanılır.
+        meta_keywords_more: Haber ögesinin içeriğini en iyi şekilde yansıtacak şekilde
+          virgülle ayrılmış kelimelerin ve kısa cümlelerin listesini girin. Bu anahtar,
+          kelimeler ve anahtar sözcükleri, bazen web arama motorları tarafından, haber
+          ögesinin arama terimleriyle alâkalılığını değerlendirmek için kullanılır.
+        title_more: Haber ögesinin başlığı sayfanın üstbilgi alanında görünecektir.
+          Başlık, içerikle en alakalı anahtar kelimeleri içermelidir.
       user:
-        agreed_with_terms: '<a href="%{terms_url}">Kullanım koşullarını</a> kabul ediyorum'
+        agreed_with_terms: <a href="%{terms_url}">Kullanım koşullarını</a> kabul ediyorum
+        api_key_more: <a href="%{api_docs_url}">API çağrılarınıza bir anahtar ekleme</a>
+          hakkında daha fazla bilgi edinin
         bio: Hakkımda
-        email_reports_frequency_hours: >
-          Katkılarınız üzerinde gerçekleşen
-          aktivitiler hakkında ne sıklıkla
-          e-posta uyarısı almak istersiniz?
+        credentials: Kimlik bilgileri
+        curation_priveleges_credentials: Kimlik bilgileri <small>(yalnızca tam ve
+          üstat küratörler)</small>
+        credentials_more: 'Lütfen, bu listeden en az bir özel kimlik bilgisini belirtin:'
+        credentials_more_academic: İlgili üniversite veya kolej bölümünde öğretim
+          üyesi, personel veya lisansüstü öğrenci konumu.
+        credentials_more_author: Hakemli bir yayımın yazarlık belgesi (kaynakça belirtin).
+        credentials_more_professional: Profesyonel bir toplumun üyesi.
+        credentials_more_successful_assistant_curator: Asistan küratör olarak başarı
+          öyküsü.
+        credentials_more_referral: Mevcut küratörden verilen referans
+        curation_application: Küratör ol
+        curation_application_more: Küratör ayrıcalıklarınızı değiştirmek isterseniz
+          yalnızca bir başvuru gönderin ve biz de uygunluğunuzu gözden geçirelim.
+        curator_level: 'Şu anki durumunuz: %{curator_level_with_indefinite_article}'
+        curator_scope: Küratörlük kapsamı
+        curator_scope_more: 'Lütfen uzmanlığınızın kapsamını belirtin. Örneğin: "Borneo
+          Kemirgenleri", "Tri-trofik etkileşimler" veya "Balıklarda koruma sorunları".
+          Bu, küratörlük kabiliyetinizi sınırlamaz, EOL topluluğuna bilgi verir.'
+        email_reports_frequency_hours: Katkılarınız üzerinde gerçekleşen aktivitiler
+          hakkında ne sıklıkla e-posta uyarısı almak istersiniz?
         email_settings_submit: E-posta ayarları
         email: E-posta adresi
-        entered_password: 'Şifre <small>(4 - 16 harf)</small>'
+        entered_password: Şifre <small>(4 - 16 harf)</small>
+        generate_api_key: Bir API anahtarı isteyin
+        generate_api_key_more: EOL API'sini kullanmak istiyorsanız, uygulamanızı tanımlamak
+          için bir API anahtarı oluşturabilirsiniz. <a href="%{api_docs_url}">API
+          çağrılarınıza bir anahtar ekleme</a> hakkında daha fazla bilgi edinin
         logo: Yeni bir fotoğraf yükle
-        new_password: 'Yeni şifre <small>(4 - 16 harf)</small>'
-        new_password_confirmation: 'Yeni şifre <small>(doğrulamak için)</small>'
+        new_password: Yeni şifre <small>(4 - 16 harf)</small>
+        new_password_confirmation: Yeni şifre <small>(doğrulamak için)</small>
         news_in_preferred_language: haberleri tercih edilen dilde göster
         notification_settings: Bildirim ayarları
-        notification_settings_more: >
-          Bildirim ayarlarınızı
-          yapılandırın.
+        notification_settings_more: Bildirim ayarlarınızı yapılandırın.
         open_authentications: Bağlı hesaplar
+        open_authentications_more: EOL'da oturum açmak için kullanabileceğiniz üçüncü
+          taraf hesapların bağlantılarını yönetin. <a href="%{open_authentications_url}">Bağlantılı
+          hesapları düzenleyin</a>.
+        open_authentications_connected_accounts: Bağlı hesaplarınız
+        requested_curator_level: '%{curator_level_with_indefinite_article} olma isteğiniz
+          beklemede.'
+        requested_curator_level_id_more: Henüz herhangi bir kimlik bilginiz yoksa  <em>Asistan
+          Küratör</em>'ü seçin. Kimlik bilgilerine sahip profesyonel bir bilim insanı
+          veya lisansüstü öğrenciyseniz <em>Tam Küratör</em>'ü seçin. Deneyimli EOL
+          küratörü iseniz ve daha fazla sorumluluk almak istiyorsanız <em>Üstat Küratör</em>'ü
+          seçin.
+        tag_line: 'Slogan veya başlık <small>örnek: "Kuş meraklısı"</small>'
         user_identities: Ben
-        username: 'Kullanıcı adı <small>(4 - 32 harf)</small>'
+        username: Kullanıcı adı <small>(4 - 32 harf)</small>
         username_or_email: Kullanıcı adı ya da e-posta adresi
+      wikipedia_queue:
+        revision_url: Revizyon URL'si <small>(örneğin; https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+        revision_url_more: Bir Vikipedi revizyon URL'si girerek EOL'un söz konusu
+          revizyonu kontrol edildiği şekilde almasını istemektesiniz. EOL'deki makalenin
+          geçerli sürümünün yerine geçer.
     select:
       prompt: Lütfen seçiniz
     submit:
+      cancel: İptal
       create: '%{model} Oluştur'
+      filter_sort: Filtrele ve sırala
+      update: 'Güncelleyin: %{model}'
+      submit: 'Kaydedin: %{model}'
       collection_item:
         update: Kaydet
+      contact:
+        new: Geri bildirim gönder
       content_page:
         create: Sayfa oluştur
         edit: Düzenle
         preview: Ön izleme
+        update: Sayfayı güncelle
+      content_partner:
+        create: İçerik ortağı oluşturun
+        update: İçerik ortağı bilgilerini kaydedin
+      content_partner_agreement:
+        create: Yeni anlaşma oluştur
+        update: Anlaşma güncelle
+        agree: İçerik ortağı şartlarını kabul edin
+      content_partner_contact:
+        create: İletişim ekle
+        update: İletişim güncelle
+        destroy: İletişim sil
       data_object:
         create: Makale ekle
         create_text: Makale ekle
         update: Makaleyi kaydet
       data_object_link:
         create: Bağlantı Ekle
+        update: Bağlantıyı kaydet
+      eol_statistic:
+        change_date: Tarihler için istatistikleri alın
+        download_csv: CSV olarak indir
       harvest_event:
         publish: Yayınla
+      hierarchy:
+        update: Hiyerarşiyi güncelle
+        request_publish: Hiyerarşiyi tanıtmayı isteyin
+      name:
+        create: İsim ekle
+        update: İsim güncelle
       news_item:
+        create: Haber öğesi oluştur
         edit: Düzenle
         preview: Ön izleme
+        update: Haber öğesi güncelle
       open_authentication:
         create: Bağlan
         destroy: Bağlantıyı kes
+        update: Bağlantıyı doğrula
       resource:
         create: Kaynak Ekle
+        update: Kaynağı güncelle
+        update_settings: Ayarları güncelle
+        force_harvest: Hasat İsteyin
+        harvest_tonight: Hasat Akşamı
       session:
         create: Oturum aç
         sign_in_with_facebook: Facebook ile giriş yap
+        sign_in_with_google: Google ile oturum aç
+        sign_in_with_twitter: Twitter ile oturum aç
+        sign_in_with_yahoo: Yahoo ile oturum aç
       translated_content_page:
         create: Çeviri ekle
         update: Değişiklikleri çeviriye kaydet
@@ -385,136 +819,399 @@ tr:
       user:
         create: Hesap oluştur
         curation_application: Şimdi başvurun
+        curation_privileges: İstek gönderin
+        generate_api_key: Bir anahtar oluştur
         recover_account: E-posta gönder
         notification_settings: Bildirim ayarları
+        sign_up_with_facebook: Facebook ile kaydol
+        sign_up_with_google: Google ile kaydol
+        sign_up_with_twitter: Twitter ile kaydol
+        sign_up_with_yahoo: Yahoo ile kaydol
         update: Profil bilgilerini kaydet
+      wikipedia_queue:
+        create: İstek gönderin
   will_paginate:
     next_label: Sonraki
+    page_gap: '&hellip;'
     previous_label: Önceki
   datepicker:
     day_names:
-      - Pazar
-      - Pazartesi
-      - Salı
-      - Çarşamba
-      - Perşembe
-      - Cuma
-      - Cumartesi
+    - Pazar
+    - Pazartesi
+    - Salı
+    - Çarşamba
+    - Perşembe
+    - Cuma
+    - Cumartesi
     day_names_short:
-      - Paz
-      - Pzt
-      - Sal
-      - Çrş
-      - Prş
-      - Cum
-      - Cts
+    - Paz
+    - Pzt
+    - Sal
+    - Çrş
+    - Prş
+    - Cum
+    - Cts
     day_names_min:
-      - Paz
-      - Pzt
-      - Sal
-      - Çrş
-      - Prş
-      - Cum
-      - Cts
+    - Paz
+    - Pzt
+    - Sal
+    - Çrş
+    - Prş
+    - Cum
+    - Cts
     close: Kapat
     current: Bugün
     month_names:
-      - Ocak
-      - Şubat
-      - Mart
-      - Nisan
-      - Mayıs
-      - Haziran
-      - Temmuz
-      - Ağustos
-      - Eylül
-      - Ekim
-      - Kasım
-      - Aralık
+    - Ocak
+    - Şubat
+    - Mart
+    - Nisan
+    - Mayıs
+    - Haziran
+    - Temmuz
+    - Ağustos
+    - Eylül
+    - Ekim
+    - Kasım
+    - Aralık
     month_names_short:
-      - Oca
-      - Şub
-      - Mar
-      - Nis
-      - Mayıs
-      - Haz
-      - Tem
-      - Ağu
-      - Eyl
-      - Eki
-      - Kas
-      - Ara
+    - Oca
+    - Şub
+    - Mar
+    - Nis
+    - Mayıs
+    - Haz
+    - Tem
+    - Ağu
+    - Eyl
+    - Eki
+    - Kas
+    - Ara
     next: Sonraki
     previous: Önceki
   admins:
     eol_statistics:
+      content_partners:
+        menu_link: İçerik ortakları
+        page_header: İçerik Ortağı İstatistikleri
+        page_title: 'Yönetim: İçerik Ortağı İstatistikleri'
+      curators:
+        menu_link: Küratör istatistikleri
+        page_header: Küratör istatistikleri
+        page_title: 'Yönetim: Küratör İstatistikleri'
+      data_objects:
+        menu_link: Veri nesneleri
+        page_header: Veri Nesneleri İstatistikleri
+        page_title: 'Yönetim: Veri Nesnesi İstatistikleri'
       index:
         menu_link: Genel istatistikler
         page_header: Genel İstatistikler
+        page_title: 'Yönetim: Genel İstatistikler'
+        table_caption: '%{created_at_time} tarihinde oluşturulan genel site istatistikleri'
+      lifedesks:
+        menu_link: LifeDesks
+        page_header: LifeDesks İstatistikleri
+        page_title: 'Yönetim: LifeDesks İstatistikleri'
+      marine:
+        menu_link: Deniz istatistikleri
+        page_header: EOL'deki Deniz Kapsamı
+        page_title: 'Yönetim: Deniz İstatistikleri'
       page_richness:
         menu_link: Zengin sayfalar
+        page_header: Zengin Sayfa İstatistikleri
+        page_title: 'Yönetim: Zenginleştirilmiş Sayfa İstatistikleri'
+      users_data_objects:
+        menu_link: Kullanıcı tarafından gönderilmiş metin
+        page_header: Kullanıcı Tarafından Gönderilmiş Metin İstatistikleri
+        page_title: 'Yönetim: Kullanıcı Tarafından Gönderilen Metin İstatistikleri'
+  api:
+    docs:
+      forum_beta_test_text: Yeni EOL forumlarının beta testine erişmek için <a href="%{forums_link}">buraya
+        tıklayın.</a> Geri bildiriminiz memnuniyetle karşılanacaktır.
   contacts:
     errors:
-      message_not_sent: >
-        Üzgünüz, bir hata oluştu, iletiniz
-        gönderilemedi.
+      message_not_sent: Üzgünüz, bir hata oluştu, iletiniz gönderilemedi.
     notices:
-      message_sent: >
-        Geribildirim için teşekkürler,
-        iletiniz ilgili gruba gönderildi.
+      message_sent: Geribildirim için teşekkürler, iletiniz ilgili gruba gönderildi.
     new:
       page_title: Lütfen geribildirim yapın
   collections:
+    download_taxa_data:
+      attribute_header: Öznitelik
+      select_all_checkbox: Tümünü Seç
+      collection_download_under_processing: Koleksiyon indirme şimdi işleniyor. İndirme
+        tamamlandığında size bir e-posta gönderilecektir
+      user_downloaded_collection: '%{collection_name} için veri karşıdan yükleme'
+    show:
+      meta_description_default: '%{collection_name} adlı Encyclopedia of Life koleksiyonu'
+      meta_description_default_focus_collection: '%{collection_name} adlı Encyclopedia
+        of Life odaklı koleksiyonu'
+      meta_description_default_watch_collection: 'Encyclopedia of Life izleme listesi:
+        %{collection_name}.'
+      meta_keywords: '%{collection_name}, Encyclopedia of Life Koleksiyonu'
+    editors:
+      show:
+        meta_description: Encyclopedia of Life %{collection_name} koleksiyonunun yöneticileri
+        meta_keywords: '%{collection_name} Yöneticileri'
+        meta_title: '%{collection_name} Yöneticileri'
+        tweet_text: '%{collection_name} Yöneticileri'
     newsfeeds:
       show:
+        meta_description: Encyclopedia of Life koleksiyonu %{collection_name} için
+          haberler, yorumlar ve üye aktiviteleri.
         meta_keywords: '%{collection_name} Haberleri'
         meta_title: '%{collection_name} Haberleri'
         tweet_text: '%{collection_name} Haberleri'
+    inaturalists:
+      show:
+        add_observations: Gözlem Ekle
+        meta_description: Encyclopedia of Life koleksiyonu %{collection_name} için
+          iNaturalist Gözlemler
+        meta_keywords: '%{collection_name} iNaturalist Gözlemler'
+        meta_title: '%{collection_name} iNaturalist Gözlemler'
+        no_observations_added_to_this_project_yet: Bu projeye henüz bir gözlem eklenmedi.
+        observer_with_link: 'Gözlemci: %{observer_link}'
+        observation_date: 'Tarih: %{observed_on}'
+        observation_place: 'Yer: %{place}'
+        recent_observations: Son Gözlemler
+        some_taxon: Bir şey
+        taxa_observed:
+          one: '%{count} takson gözlemlendi'
+          other: '%{count} takson gözlemlendi'
+        top_contributors: En iNaturalist Katkıda Bulunanlar
+        tweet_text: '%{collection_name} iNaturalist Gözlemler'
+        view_all_observations_on_inaturalist: iNaturalist'teki %{project_title} projesine
+          ait tüm gözlemleri görüntüleyin
+        view_more_observations_on_inaturalist: iNaturalist'teki %{project_title} projesine
+          ait daha çok gözlem görüntüleyin
+        view_project_on_inaturalist: iNaturalist'teki %{project_title} projesini görüntüleyin
+  communities:
+    collections:
+      index:
+        meta_description: Topluluk koleksiyonları %{community_name} tarafından bir
+          araya getirildi, bir Encyclopedia of Life topluluğu.
+        meta_keywords: '%{community_name} Koleksiyonları'
+        meta_title: '%{community_name} Koleksiyonları'
+        tweet_text: '%{community_name} Koleksiyonları'
+    newsfeeds:
+      show:
+        meta_keywords: '%{community_name}, Encyclopedia of Life Topluluğu, %{community_name}
+          haber akışı, %{community_name} yorumlar, %{community_name} etkinlik'
+    show:
+      meta_description: The Encyclopedia of Life topluluğu %{community_name} sahibi
+        tarafından kaldırıldı.
+      meta_title: '%{community_name} Sahibi Tarafından Kaldırıldı'
   content:
     index:
-      meta_keywords: >
-        Hayvanlar, Hayvan Resimleri, Hayvan
-        Bilgileri, Bitkiler, Bitki Yaşamı,
-        Bitki Resimleri, Bitki Bilgileri, Bitey
-        (flora), Direy (fauna)
-      meta_title: 'Hayvanlar - Bitkiler - Resimler ve Bilgiler'
+      header_news: EOL Haberler
+      meta_description: The Encyclopedia of Life, bitki ve hayvan âleminde yaşayan
+        her şey için resim, bilgi, olgu ve daha fazlasının bulunduğu tüm hayvan ve
+        bitki yaşamı hakkında bilimsel bilgi toplama amacında olan benzeri görülmemiş
+        bir girişimdir.
+      meta_keywords: Hayvanlar, Hayvan Resimleri, Hayvan Bilgileri, Bitkiler, Bitki
+        Yaşamı, Bitki Resimleri, Bitki Bilgileri, Bitey (flora), Direy (fauna)
+      meta_title: Hayvanlar - Bitkiler - Resimler ve Bilgiler
+      see_all_eol_news: daha fazlasını görün <span class="assistive">EOL haberler</span>
+      see_all_recent_activites: daha fazlasını görün <span class="assistive">geçen
+        hafta etkinlikler</span>
+      see_all_statistics: daha fazlasını görün <span class="assistive">EOL istatistikleri</span>
   content_partners:
+    statistics:
+      show:
+        meta_description: '%{partner_name} verisi için kullanım istatistikleri.'
+        meta_keywords: '%{partner_name} İstastikleri, %{partner_name} Web Kullanımı'
+        meta_title: '%{partner_name} İstatistikleri'
+        tweet_text: '%{partner_name} kullanım istatistikleri'
     index:
-      meta_description: >
-        Yaşam Ansiklopedisi veri
-        sağlayıcıları ve içerik ortakları
+      meta_description: Yaşam Ansiklopedisi veri sağlayıcıları ve içerik ortakları
         listesi.
-      meta_keywords: >
-        Yaşam Ansiklopedisi İçerik
-        Ortakları, Yaşam Ansiklopedisi Veri
+      meta_keywords: Yaşam Ansiklopedisi İçerik Ortakları, Yaşam Ansiklopedisi Veri
         Sağlayıcıları
       meta_title: İçerik Ortakları
+    show:
+      meta_description: '%{partner_name}. %{partner_description}'
+      meta_keywords: '%{partner_name}, Encyclopedia of Life İçerik Ortağı'
+    edit:
+      meta_title: Düzenle %{partner_name}
+  data_objects:
+    show:
+      meta_description_article: Makale - %{dato_description}
+      meta_description_image: Resim - %{dato_description}
+      meta_description_image_map: Harita - %{dato_description}
+      meta_description_map: Harita - %{dato_description}
+      meta_description_sound: Ses - %{dato_description}
+      meta_description_video: Video - %{dato_description}
+      meta_description_default: '%{supplier} tarafından sağlanan %{dato_title}'
+      meta_description_default_article: Makale - %{supplier} tarafından sağlanan %{dato_title}.
+      meta_description_default_image: Resim - %{supplier} tarafından sağlanan %{dato_title}.
+      meta_description_default_image_map: Harita - %{supplier} tarafından sağlanan
+        %{dato_title}.
+      meta_description_default_map: Harita - %{supplier} tarafından sağlanan %{dato_title}.
+      meta_description_default_sound: Ses - %{supplier} tarafından sağlanan %{dato_title}.
+      meta_description_default_video: Video - %{supplier} tarafından sağlanan %{dato_title}.
+      meta_supplier_default: katkıda bulunan
+      meta_title: '%{supplier} tarafından sağlanan %{dato_title}'
+      tweet_text: '%{supplier} tarafından sağlanan %{dato_title}'
+  eol_statistics:
+    comparing_dates: <span class="date_one">%{date_one}</span> <span class="assistive">ve</span>
+      <span class="date_two">%{date_two}</span> <span class="assistive">kıyaslanması</span>
+    warnings:
+      stats_unavailable_for_date: Üzgünüz, istatistikler %{date} için kullanılamıyor.
+        Lütfen başka bir tarih seçin.
+    content_partners:
+      menu_link: İçerik ortakları
+      page_header: İçerik Ortağı İstatistikleri
+      page_title: İstatistikler
+    curators:
+      menu_link: Küratör istatistikleri
+      page_header: Küratör istatistikleri
+      page_title: İstatistikler
+    data_objects:
+      menu_link: Veri nesneleri
+      page_header: Veri Nesnesi İstatistikleri
+      page_title: İstatistikler
+    index:
+      menu_link: Genel istatistikler
+      page_header: Genel İstatistikler
+      page_title: İstatistikler
+    lifedesks:
+      menu_link: LifeDesks
+      page_header: LifeDesks İstatistikleri
+      page_title: İstatistikler
+    marine:
+      menu_link: Deniz istatistikleri
+      page_header: EOL'daki Deniz Kapsamı
+      page_title: İstatistikler
+    page_richness:
+      menu_link: Zengin sayfalar
+      page_header: Zengin Sayfa İstatistikleri
+      page_title: İstatistikler
+    users_data_objects:
+      menu_link: Kullanıcı tarafından gönderilmiş metin
+      page_header: Kullanıcı Tarafından Gönderilmiş Metin İstatistikleri
+      page_title: İstatistikler
+    data:
+      menu_link: Veri
+      page_header: Veri İstatistikleri
+      page_title: İstatistikler
   forums:
+    forums_heading: EOL Forumları
+    last_post: Son Gönderi
+    posts_heading: Gönderiler
+    replies: Yanıtlar
+    topics_heading: İş Parçacıkları
+    views: Görüntülenme
+    create: Bir forum oluştur
+    create_successful: Forum başarıyla oluşturuldu
+    create_failed: Üzgünüz, bir hata oldu, forum eklenemedi
+    update_successful: Forum başarıyla güncellendi
+    update_failed: Üzgünüz, bir hata oluştu, forum güncellenemedi
+    delete_successful: Forum başarıyla silindi
+    delete_failed_not_empty: Forum boş olmadığı için silinemedi
+    move_successful: Forum başarıyla taşındı
+    move_failed: Forum taşınamadı
+    edit: Forumu düzenle
+    post_by_user_at_time: '%{user} tarafından, %{time}'
+    actions: Eylemler
+    administration: Yönetim
+    no_topics: Bu forumda hiç başlık yok
+    buttons:
+      delete: sil
+      edit: düzenle
+      reply: yanıtla
+      link: bağla
     categories:
       create: Bir kategori oluştur
       edit: Kategori düzenle
       create_successful: Kategori başarıyla oluşturuldu
-      create_failed: >
-        Üzgünüz, bir hata oluştu, kategori
-        eklenemedi
+      create_failed: Üzgünüz, bir hata oluştu, kategori eklenemedi
       update_successful: Kategori başarıyla güncellendi
-      update_failed: >
-        Üzgünüz, bir hata oluştu, kategori
-        güncelleştirilemedi
+      update_failed: Üzgünüz, bir hata oluştu, kategori güncelleştirilemedi
       delete_successful: Kategori başarıyla silindi
-      delete_failed_not_empty: >
-        Kategori boş olmadığı için
-        silinemedi
+      delete_failed_not_empty: Kategori boş olmadığı için silinemedi
       move_successful: Kategori başarıyla taşındı
       move_failed: Kategori taşınamadı
     posts:
       joined_date: '%{date} tarihinde katıldı'
+      create: Yeni bir gönderi hazırla
+      edit: Gönderiyi düzenle
+      post_written_by_user: '%{user} yazdı:'
+      replying_to_post: 'Yanıtla:'
+      create_successful: Gönderi başarıyla oluşturuldu
+      create_failed: Üzgünüz, bir hata oluştu, gönderi eklenemedi
+      update_successful: Gönderi başarıyla güncellendi
+      update_failed: Üzgünüz, bir hata oluştu, gönderi güncellenemedi
+      delete_successful: Gönderi başarıyla silindi
+      topic_and_post_delete_successful: Gönderi ve başlık başarıyla silindi
+      delete_failed_topic_not_empty: Başlık boş olmadığı için gönderi silinemedi
+      post_has_been_deleted: Bu gönderi silinmiş
       deleted_subject: (silindi)
       no_subject: (konu yok)
+      permalink_to_this_post: 'Bu yayıma kalınca bağlantı:'
       close_window: kapat
+      posts_with_count:
+        one: '%{count} yayım'
+        other: '%{count} yayım'
+    topics:
+      create: Yeni bir başlık başlat
+      no_posts: Bu başlıkta hiç gönderi yok
+      create_successful: Başlık başarıyla oluşturuldu
+      create_failed: Üzgünüz, bir hata oluştu, başlık eklenemedi
+      delete_successful: Başlık başarıyla silindi
+      delete_failed_not_empty: Başlık boş olmadığı için silinemedi
+  known_uris:
+    add_a_relationship: İlişki Ekleyin
+    equivalent_to: Eşdeğerlik İlişkileri
+    import_successful: Ontoloji terimleri başarılı bir şekilde içeri aktarıldı
+    more_than_one_field_mapped_to_type: '%{type} için birden fazla öznitelik eşleştirir'
+    no_results: Seçilen istatistiğe uygun sonuç bulunamadı
+    no_relationships: Bu URI için hiçbir ilişki bulunamadı.
+    please_select_field_types: Lütfen her öznitelik için bir eşleme seçin
+    please_select_category_for_stats: Lütfen istatistikleri görüntülemek için bir
+      kategori seçin.
+    please_select_uris_to_import: Lütfen içe aktarılacaklar URI'leri seçin
+    relationships: İlişkiler
+    relationships_from_this_uri: Bu URI'yle ilişkiler
+    relationships_to_this_uri: Bu URI ile olan ilişkiler
+    select_a_category_to_view_stats: 'İstatistikleri görüntülemek için bir kategori
+      seçin:'
+    unrecognized_measurement_types: Tanınmayan Ölçüm Türü URI'leri
+    unrecognized_measurement_values: Tanınmayan Ölçüm Değeri URI'leri
+    unrecognized_measurement_units: Tanınmayan Ölçüm Birimi URI'leri
+    unrecognized_association_types: Tanınmayan Ölçüm Türü URI'leri
+    uri_placeholder_text: örneğin; http://purl.org/dc/terms/contributor
+    name_placeholder_text: örneğin; Katkıda Bulunanlar
+    definition_placeholder_text: örneğin; Kaynağa katkıda bulunmaktan sorumlu bir
+      varlık.
+    comment_placeholder_text: örneğin; Katkıda Bulunana örnek olarak bir kişi, kuruluş
+      veya bir hizmet.
+    attribution_placeholder_text: örneğin; Dublin Core'dan; bkz. http://dublincore.org/usage/terms/history/#contributorT-001.
+    ontology_information_url_placeholder_text: örneğin; http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: örneğin; http://dublincore.org/2012/06/14/dcterms.rdf
+    select_a_preferred_uri_for_this_group: Tercih Edilen Bir URI Seçin
+    preferred_for_equivalence_group: Tercih Edilmiş
+    select: seç
+  known_uri_relationships:
+    created: İlişki başarıyla oluşturuldu
+    create_failed: Üzgünüz, bir hata oluştu; ilişki eklenemedi.
+    deleted: İlişki başarıyla silindi
   layouts:
     application:
+      header_about: Yaşam Ansiklopedisi hakkında
+      header_learn_more: Daha fazlasını öğren
+      header_questions: Daha fazla bilgi
       about_link_what_is_eol: EOL nedir?
+      about_link_traitbank: TraitBank nedir?
+      about_link_eol_blog: EOL Blog
+      about_link_discover: Eğitim
+      about_link_statistics: İstatistikler
+      about_link_glossary: Sözlükçe
+      about_link_podcasts: Podcast
+      about_link_donate: EOL'a Bağış Yapın
+      about_link_citing: EOL'u Kaynak Gösterme
+      about_link_help: Yardım
+      about_link_terms_of_use: Kullanım Şartları
+      about_link_contact_us: Bize Ulaşın
       learn_more_link_animals: Hayvanlar
       learn_more_link_mammals: Memeliler
       learn_more_link_birds: Kuşlar
@@ -531,39 +1228,473 @@ tr:
       learn_more_link_flowering_plants: Çiçekli bitkiler
       learn_more_link_trees: Ağaçlar
       learn_more_link_fungi: Mantarlar
+      learn_more_link_mushrooms: Mantarlar
+      learn_more_link_molds: Küf Mantarları
+      learn_more_link_bacteria: Bakteriler
+      learn_more_link_protists: Tek Hücreli Canlılar
+      learn_more_link_archaea: Arkebakteriler
+      learn_more_link_viruses: Virüsler
+      learn_more_link_algae: Algler
+      questions_link_evolution: Evrim nedir?
+      questions_link_biodiversity: Biyoçeşitlilik nedir?
+      questions_link_species: Türler nedir?
+      questions_link_discovering_species: Türler nasıl belirlenir?
+      questions_link_naming_species: Türler nasıl isimlendirilir?
+      questions_link_binomial_nomenclature: Binom isimlendirme nedir?
+      questions_link_biological_classification: Biyolojik sınıflandırma nedir?
+      questions_link_invasive_species: İstilacı türler nedir?
+      questions_link_indicator_species: İndikatör türler nedir?
+      questions_link_model_organism: Model organizma nedir?
+      questions_link_contributing_to_research: Araştırmaya nasıl katkıda bulunabilirim?
+    data_search:
+      page_header: TraitBank'te Ara
+      page_header_results: TraitBank Arama Sonuçları
+    footer:
+      google_plus: Google+'da Yaşam Ansiklopedisi
+    taxa:
+      search_within_clade: Aynı soydan gelen canlılar içinde ara
+      search_traitbank: TraitBank'te Ara
+  members:
+    index:
+      meta_description: Bir Yaşam Ansiklopedisi topluluğu, %{community_name} üyeleri.
+      meta_keywords: '%{community_name} Üyeleri'
+      meta_title: '%{community_name} Üyeleri'
+      tweet_text: '%{community_name} Üyeleri'
+    show:
+      meta_description: '%{member_name}, Bir Yaşam Ansiklopedisi topluluğu %{community_name}
+        üyesidir.'
+      meta_keywords: '%{member_name} Topuluk Üyesi'
+      meta_title: '%{member_name}, %{community_name} Topluluğunun Üyesi'
+      tweet_text: '%{member_name}, %{community_name} topluluğunun üyesi'
+  news_items:
+    index:
+      page_title: Yaşam Ansiklopedisi Haberler
+      meta_title: Yaşam Ansiklopedisi Haberler
+      meta_keywords: yaşam ansiklopedisi haberler
   notifier:
-    greeting_dear_name_with_comma: 'Değerli %{name},'
+    activity_log_empty: Küratörler tarafından yakın zamanda yapılan herhangi bir eylem
+      yok.
+    activity_user_added_association_on_date: |-
+      %{object_name} (%{object_url}) için %{curator_level} %{users_name} (%{users_url}) tarafından bilinmeyen ilişki eklendi
+      %{action_date}.
+    activity_user_removed_association_on_date: |-
+      %{object_name} (%{object_url}) için %{curator_level} %{users_name} (%{users_url}) tarafından bilinmeyen ilişkilendirme kaldırıldı
+      %{action_date}.
+    activity_user_added_association_for_taxon_on_date: |-
+      %{object_name} (%{object_url}) için %{taxon_name} (%{taxon_url}) taksonu %{curator_level} %{users_name} (%{users_url}) tarafından ilişki eklendi
+      %{action_date}.
+    activity_user_removed_association_for_taxon_on_date: |-
+      %{object_name} (%{object_url}) için %{taxon_name} (%{taxon_url}) taksonu %{curator_level} %{users_name} (%{users_url}) tarafından ilişki kaldırıldı
+      %{action_date}.
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
+      %{taxon_name} (%{taxon_url}) için %{object_name} (%{object_url}), %{curator_level} %{users_name} (%{users_url}) tarafından güvenilir olarak işaretlendi
+      %{action_date}.
+    activity_user_marked_data_object_as_untrusted_on_date: |-
+      %{object_name} (%{object_url}), %{curator_level} %{users_name} (%{users_url}) tarafından güvenilir olmayan olarak işaretlendi
+      %{action_date}.
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
+      %{taxon_name} (%{taxon_url}) için %{object_name} (%{object_url}), %{curator_level} %{users_name} (%{users_url}) tarafından güvenilir olmayan olarak işaretlendi
+      %{action_date}.
+    activity_user_marked_data_object_as_inappropriate_on_date: |-
+      %{object_name} (%{object_url}), %{curator_level} %{users_name} (%{users_url}) tarafından uygunsuz olarak işaretlendi
+      %{action_date}.
+    comments_empty: Yakın zamanda yapılmış bir yorum yok.
+    greeting_dear_name_with_comma: Değerli %{name},
     signature_basic: The Encyclopedia of Life Takımı
-    signature_with_species_pages_group_contact: |
-      Herhangi bir sorunuz varsa, lütfen, bizimle "%{species_pages_group_email}" adresinden iletişime geçiniz.
-      
+    signature_with_contact_us_link: |-
+      Eğer bir sorunla karşılaşırsanız lütfen şu bağlantıdan bizimle iletişime geçin %{url}.
+
       Yaşam Ansiklopedisi Ekibi
+    signature_with_species_pages_group_contact: |-
+      Herhangi bir sorunuz varsa, lütfen, bizimle "%{species_pages_group_email}" adresinden iletişime geçiniz.
+
+      Yaşam Ansiklopedisi Ekibi
+    user_commented_on_something_date_body: |-
+      %{curator_level} %{users_name} (%{users_url}), %{commented_on_name} (%{commented_on_url}) hakkında yorum yaptı
+      %{comment_date}:
+      %{comment_body}
+    activity_on_content_partner_content:
+      subject: İçerik ortağı %{partner_full_name} tarafından Yaşam Ansiklopedisi'ne
+        sağlanan içerik üzerinde yakın zamanda gerçekleşen değişikliklerin özeti
+      message: |-
+        Bu, Encyclopedia of Life'ın (EOL) gönderdiği otomatik e-postadır ve içerik ortakları %{partner_full_name} (%{partner_profile_url}) tarafından EOL'a sunulan içerikle ilgili son yorumlar ve küratoryal eylemleri özetlemektedir. %{partner_full_name} için yetkili kişi olarak listelendiğiniz için bu özeti alıyorsunuz.
+
+        Herhangi bir sorunuz veya EOL üyesi hesabınıza erişmek için yardıma ihtiyacınız varsa lütfen %{species_pages_group_email} ile iletişime geçiniz.
+
+
+        Küratöryel eylemler:
+        %{curator_activity_log}
+
+        Veri nesneleri hakkında yorumlar:
+        %{data_object_comments}
+
+        Verilerinizin ilişkili olduğu sayfalardaki yorumlar:
+        %{page_comments}
+    activity_on_user_content:
+      subject: Encyclopedia of Life'a eklediğiniz içerikle ilgili son etkinliğin özeti
+      message: |-
+        Bu, Encyclopedia of Life'ın (EOL) otomatik bir e-postası olup üye hesabı ile EOL'a eklediğiniz içeriğe ilişkin son yorumları ve küratöryel eylemleri,  %{members_username} kullanıcı adı ile özetlemektedir.
+
+        Herhangi bir sorunuz veya EOL üyesi hesabınıza erişmek için yardıma ihtiyacınız varsa lütfen %{species_pages_group_email} ile iletişime geçin.
+
+
+        Küratöryel eylemler:
+        %{curator_activity_log}
+
+        Veri nesneleri hakkında yorumlar:
+        %{data_object_comments}
+
+        Verilerinizin ilişkili olduğu sayfalardaki yorumlar:
+        %{page_comments}
+    contact_us_message:
+      subject: 'Yaşam Ansiklopedisi''ne bir mesaj: %{title}'
+      message: |-
+        Aşağıdaki ileti formu İletişim Formu aracılığıyla EOL'a gönderildi:
+        Gönderen: %{from_name}
+        E-posta: %{from_email}
+        Konu: %{subject}
+
+        %{message}
     contact_us_auto_response:
-      subject: >
-        Yaşam Ansiklopedisi ile iletişime
-        geçtiğiniz için teşekkürler
+      subject: Yaşam Ansiklopedisi ile iletişime geçtiğiniz için teşekkürler
+      message: |-
+        Encyclopedia of Life projesi ile iletişim kurduğunuz için teşekkür ederiz. Yorumlarınız uygun gruba gönderilmiştir.
+
+        Geribildirim için teşekkürler.
+    content_partner_created:
+      subject: EOL kullanıcısı %{user_full_name}, %{partner_full_name} içerik ortağını
+        oluşturdu
+      message: |-
+        Bu, Tür Sayfaları Grubu için otomatik EOL sistem bildirimidir. İçerik ortağı %{partner_full_name}, kullanıcı %{user_full_name} tarafından oluşturuldu. Detaylar:
+
+        Kullanıcı: %{user_full_name}
+        E-posta: %{user_email}
+        Profil URL'si: %{user_profile_url}
+
+        Partner: %{partner_full_name}
+        Partner Profil URL'si: %{partner_profile_url}
+        Oluşturulma: %{partner_created_at_date}
+    content_partner_resource_created:
+      subject: '%{partner_full_name} adlı içerik ortağına EOL kullanıcısı %{user_full_name}
+        tarafından yeni kaynaklar %{resource_title} eklendi.'
+      message: |-
+        Bu, Tür Sayfaları Grubu için otomatik EOL sistem bildirimidir. %{partner_full_name} adlı içerik ortağına kullanıcı %{user_full_name} tarafından yeni kaynaklar %{resource_title} eklendi. Detaylar:
+
+        Kullanıcı: %{user_full_name}
+        E-posta: %{user_email}
+        Profil URL'si: %{user_profile_url}
+
+        Partner: %{partner_full_name}
+        Partner Kaynak URL'si: %{partner_resources_url}
+
+        Kaynak: %{resource_title}
+        Kaynak URL'si: %{resource_url}
+        Oluşturulma: %{resource_created_at_date}
+        Durum: %{resource_status}
+    content_partner_resource_harvest_requested_request:
+      subject: '%{partner_full_name} adlı içerik ortağına ait %{resource_title} kaynağı
+        için EOL kullanıcısı %{user_full_name} tarafından hasat talebinde bulunuldu.'
+      message: |-
+        Bu, Tür Sayfaları Grubu için otomatik EOL sistem bildirimidir. %{partner_full_name} adlı içerik ortağına ait %{resource_title} kaynağı için EOL kullanıcısı %{user_full_name} tarafından hasat talebinde bulunuldu. Detaylar:
+
+        Kullanıcı: %{user_full_name}
+        E-posta: %{user_email}
+        Profil URL'si: %{user_profile_url}
+
+        Partner: %{partner_full_name}
+        Partner Kaynak URL'si: %{partner_resources_url}
+
+        Kaynak: %{resource_title}
+        Kaynak URL'si: %{resource_url}
+        Güncellenme: %{resource_updated_at_date}
+        Durum: %{resource_status}
+    content_partner_resource_hierarchy_publish_request:
+      subject: '%{partner_full_name} adlı içerik ortağına ait %{resource_title} kaynağı
+        için EOL kullanıcısı %{user_full_name} tarafından hiyerarşi tanıtım talebinde
+        bulunuldu.'
+      message: |-
+        Bu, Tür Sayfaları Grubu için otomatik EOL sistem bildirimidir. %{partner_full_name} adlı içerik ortağına ait %{resource_title} kaynağı için EOL kullanıcısı %{user_full_name} tarafından hiyerarşi tanıtım talebinde bulunuldu. Detaylar:
+
+        Kullanıcı: %{user_full_name}
+        E-posta: %{user_email}
+        Profil URL'si: %{user_profile_url}
+
+        Partner: %{partner_full_name}
+        Partner Kaynak URL'si: %{partner_resources_url}
+
+        Kaynak: %{resource_title}
+        Kaynak URL'si: %{resource_url}
+        Düzenleme hiyerarşisi URL'si: %{hierarchy_edit_url}
+    content_partner_statistics_reminder:
+      subject: '%{partner_full_name}, %{month} %{year} için Encyclopedia of Life kullanım
+        istatistikleri hatırlatıcısı'
+      message: Bu, Encyclopedia of Life tarafından gönderilen otomatik olarak e-posta
+        hatırlatıcısıdır. %{month} %{year} için %{partner_full_name} tarafından EOL'a
+        aktarılan veriler için web kullanım istatistikleri şu anda %{partner_statistics_url}
+        adresinden edinilebilir.
+    curator_approved:
+      subject: Encyclopedia of Life küratör ayrıcalığı %{curator_level} için isteğiniz
+        onaylandı
+      message: |-
+        %{curator_level} küratör ayrıcalığı talebiniz için teşekkür ederiz. Talebiniz onaylandı.
+
+        Küratörlük ve hangi işlevlerin sizin için kullanılabilir olduğuna ilişkin daha fazla bilgi için http://eol.org/curators adresini ziyaret edin.
+    unsubscribed_to_notifications:
+      subject: Ayrılıyor olmanıza üzüldük...
+      message: |-
+        Encyclopedia of Life'tan gönderilen bildirimler için başarıyla aboneliğinizi iptal ettiniz. <a href='%{email_prefs_url}'>Bildirim tercihler sayfanızdan</a> e-posta ayarlarınızı değiştirebilir veya bildirimlere abone olabilirsiniz.
+
+        EOL koleksiyonlarını nasıl oluşturacağınız, EOL topluluklarına katılmayı ve içeriğe katkıda bulunmayı içeren EOL'u nasıl kullanılacağı hakkında daha fazla bilgi edinmek için lütfen http://eol.org/help adresindeki yardım sayfalarımızı ziyaret edin.
     user_activated:
-      message: |
-        Kayıt olduğunuz için teşekkürler! Yaşam Ansiklopedisine (EOL) hoş geldiniz! Kullanıcı adınızın %{username} ve profil bağlantınızın %{profile_url} olduğunu unutmayın.  http://www.eol.org/login adresinden oturum açabilirsiniz. 
-        
-        Yaşam Ansiklopedisini nasıl kullanacağınızı, koleksiyonları nasıl açacağınızı, topluluklara nasıl katılacağınızı ve içeriğe nasıl katkıda bulunacağınızı öğrenmek ve daha fazlasına ulaşmak için yardım sayfalarını (http://www.eol.org/help) ziyaret ediniz.
+      subject: Yaşam Ansiklopedisi hesabınız etkinleştirildi
+      message: "Kayıt olduğunuz için teşekkürler! Yaşam Ansiklopedisine (EOL) hoş
+        geldiniz! Kullanıcı adınızın %{username} ve profil bağlantınızın %{profile_url}
+        olduğunu unutmayın.  http://www.eol.org/login adresinden oturum açabilirsiniz.
+        \n\nYaşam Ansiklopedisini nasıl kullanacağınızı, koleksiyonları nasıl açacağınızı,
+        topluluklara nasıl katılacağınızı ve içeriğe nasıl katkıda bulunacağınızı
+        öğrenmek ve daha fazlasına ulaşmak için yardım sayfalarını (http://www.eol.org/help)
+        ziyaret ediniz."
+    user_activated_with_open_authentication:
+      subject: Yaşam Ansiklopedisi hesabınız etkinleştirildi
+      message: |-
+        Encyclopedia of Life (EOL)'a hoş geldiniz, kaydolduğunuz için teşekkür ederiz! Doğrulama amacıyla temel bilgilere erişmek için EOL izni veren %{oauth_provider} kullanarak kaydolduğunuzu lütfen unutmayın. %{profile_url} EOL'daki profil URL'nizdir. http://eol.org/login adresinde %{oauth_provider} kullanarak EOL hesabınızda oturum açabilirsiniz.
+
+        EOL koleksiyonlarını nasıl oluşturacağınız, EOL topluluklarına katılmayı ve içeriğe katkıda bulunmayı içeren EOL'u nasıl kullanılacağı hakkında daha fazla bilgi edinmek için lütfen http://eol.org/help adresindeki yardım sayfalarımızı ziyaret edin.
+    user_message:
+      subject: Yaşam Ansiklopedisi'nden bir mesaj
+    user_recover_account:
+      subject: Yaşam Ansiklopedisi hesabınızı kurtarın
+      message: |-
+        The Encyclopedia of Life (http://eol.org), hesabınızı kurtarmak için bir istek aldı. Bu isteği yapmadıysanız lütfen bu e-postayı yok sayın.
+
+        Aşağıdaki bağlantı, parolanızı değiştirmenize veya gelecekte oturum açmak için kullanabileceğiniz yeni bir bağlı hesap eklemenize olanak tanıyan tek kullanımlık giriş oluşturur.
+
+        %{temporary_login_url}
+
+        Bu bağlantının 24 saat sonra sona erdiğini ve bu süre sonunda hesabınıza erişmekte hala sorun yaşıyorsanız yeni bir geçici giriş bağlantısı isteğinde bulunmak için %{recover_account_url} adresini ziyaret edebileceğinizi lütfen unutmayın.
+    user_updated_email_preferences:
+      subject: E-posta adresi veya posta listesi tercihleri EOL kullanıcısı %{user_full_name}
+        tarafından değiştirildi.
+      message: |-
+        Bu, otomatik EOL sistem bildirimidir. E-posta adresi veya posta listesi tercihleri EOL kullanıcısı %{user_full_name} (%{user_profile_url}) tarafından güncellendi.
+
+        Önceki tercihler:
+        E-posta: %{previous_email}
+        Posta listesi tercihi: %{previous_mailing_list_preference}
+
+        Güncel tercihler:
+        E-posta: %{updated_email}
+        Posta listesi tercihi: %{updated_mailing_list_preference}
+        Güncellenme: %{updated_at}
+    user_verification:
+      subject: Lütfen, Encyclopedia of Life hesabınızı onaylayın
+      message: |-
+        Encyclopedia of Life'a kaydolduğunuz için teşekkür ederiz. Aşağıdaki bağlantı, kayıt işleminizi tamamlamak ve hesabınızı etkinleştirmek isteğinizi doğrulayacaktır:
+
+        %{verification_url}
+
+        Hesabınız etkinleştirildikten sonra bir onay e-postası alacaksınız.
+  recent_activity:
+    intro: İşte, %{time} için EOL etkinlik özetiniz!
+    intro_immediately: Merhaba, %{name} —
+    intro_weekly: İşte, hafta bitişi %{ending} için EOL etkinlik özetiniz!
+    unsubscribe: Giriş yapın ve <a href='%{email_prefs_url}' style='color:#195184'>bildirim
+      tercihler sayfanızda</a> e-posta ayarlarınızı değiştirin veya <a href='%{unsubscribe_url}'
+      style='color:#195184'>oturum açmadan TÜM otomatik EOL bildirimlerini iptal edin</a>.
+    contact_us_link: Herhangi bir sorun yaşarsanız lütfen <a href='http://eol.org/contact_us'
+      style='color:#195184'>bizimle irtibata geçin</a>.
+    see_all_activity: <a href='%{activity_url}' style='color:#195184'>Kullanıcı haber
+      akış sayfanızda</a> önceki etkinliklerinizi görüntüleyin.
+    resource_validation: 'Kaynak: %{resource} doğrulama tamamlandı'
+    bulk_comments_with_count:
+      one: '%{on} hakkında yeni bir yorum var'
+      other: '%{on} hakkında %{count} yeni yorum var'
+    bulk_comments_on_you_with_count:
+      one: <a href='%{url}' style='color:#195184'>profil sayfanızda</a> yeni bir yorum
+        var
+      other: <a href='%{url}' style='color:#195184'>Profil sayfanızda</a> %{count}
+        yeni yorum var
+    bulk_curation_with_count:
+      one: Küratörler tarafından %{to} için yeni bir gelişme kaydedildi
+      other: Küratörler tarafından %{to} için %{count} yeni gelişme kaydedildi
+    bulk_collection_activity_with_count:
+      one: '%{to} için bir güncelleme yapıldı'
+      other: '%{to} için %{count} yeni güncelleme yapıldı'
+    bulk_community_activity_with_count:
+      one: '%{to} için bir güncelleme yapıldı'
+      other: '%{to} için %{count} yeni güncelleme yapıldı'
+    bulk_community_joins_with_count:
+      one: '%{community} topluluğuna yeni bir üye katıldı'
+      other: '%{community} topluluğuna %{count} yeni üye katıldı'
+    default_subject: EOL ile ilgili son etkinlik
+    comment_body_brief: '%{body} - %{author}'
+    reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
+    comment_title: '%{who}, %{what} hakkında yorum yaptı'
+    comment_title_your_newsfeed: '%{who}, haber akışınız hakkında yorum yaptı'
+    collection_activity_log_title: '%{who}, bir koleksiyonu değiştirdi'
+    community_activity_log_title: '%{who}, bir topluluğu değiştirdi'
+    curator_activity_log_title: '%{who}, bir şeyin küratörlüğünü üstlendi'
+    data_object_title: '%{who}, Yaşam Ansiklopedisi''ne yeni içerik ekledi'
+    someone_commented_on_something: <b>%{who}</b>, <b>%{what}</b> hakkında yorum yaptı.
+    comment_link: Yorumları, EOL üzerinden görüntüleyin
+    collection_activity_by_user: <b>%{collection_name}</b> koleksiyonunda %{activity_name}
+      etkinliği <b>%{user_name}</b> tarafından uygulandı.
+    collection_activity_user_added_item: '%{collected_item_type} #%{collected_item_id},
+      <b>%{user_name}</b> tarafından <b>%{collection_name}</b> koleksiyonuna eklendi.'
+    collection_activity_user_watching_recipient: <b>%{user_name}</b>, seni izliyor.
+    community_activity_by_user: <b>%{community_name}</b> topluluğunda %{activity_name}
+      etkinliği <b>%{user_name}</b> tarafından uygulandı.
+    community_activity_user_joined: Kullanıcı <b>%{user_name}</b>, <b>%{community_name}</b>
+      topluluğuna dahil oldu.
+    community_activity_user_left: Kullanıcı <b>%{user_name}</b>, <b>%{community_name}</b>
+      topluluğundan ayrıldı.
+    community_activity_user_made_member_a_manager: <b>%{member_name}</b>, kullanıcı
+      <b>%{user_name}</b> tarafından <b>%{community_name}</b> topluluğunun yöneticisi
+      yapıldı.
+    curator_activity_on_data_object_by_user: '<b>%{user_name}</b>, <b>%{dato_title}</b>
+      (%{dato_type} #%{dato_id}) için %{activity_name} bir işlem gerçekleştirdi.'
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b>, <b>%{taxon_concept}</b>
+      (%{taxon_overview_url}) için %{activity_name} bir işlem gerçekleştirdi.
+    data_object_activity_article_added_by_user: <b>%{user_name}</b>, %{dato_title}
+      adlı bir makaleyi <b>%{taxon_concept}</b> (%{taxon_details_url}) taksonuna ekledi.
   recent_activities:
     index:
       list_header: Son 7 Gün
+      page_title: EOL Topluluk Etkinliği
+      meta_title: EOL Topluluk Etkinliği
+      meta_keywords: eol topluluk etkinliği, eol son etkinlik, encyclopedia of life
+        etkinlikleri
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      subject: EOL aramanız indirilmeye hazır
+      message: Bu ve diğer yüklemeleri, <a href='%{download_link}'>profilinizdeki
+        veri indirme sekmesini</a> ziyaret ederek görüntüleyebilirsiniz
+      header: İndirmeniz tamamlanmıştır!
+    collection_download_ready:
+      subject: EOL Koleksiyonunuz seçilen nitelikler indirilmeye hazır
+      message: Bu ve diğer yüklemeleri, <a href='%{download_link}'>profilinizdeki
+        veri indirme sekmesini</a> ziyaret ederek görüntüleyebilirsiniz
+      header: Koleksiyonunuz indirilmeye hazır!
   sessions:
     new:
+      login_with_facebook_assistive: Facebook kimlik bilgilerinizi kullanarak EOL'a
+        giriş yapın.
+      login_with_google_assistive: Google kimlik bilgilerinizi kullanarak EOL'a giriş
+        yapın.
+      login_with_twitter_assistive: Twitter kimlik bilgilerinizi kullanarak EOL'ye
+        giriş yapın.
+      login_with_yahoo_assistive: Yahoo kimlik bilgilerinizi kullanarak EOL'ye giriş
+        yapın.
+      login_with_eol_authentication_header: 'Veya EOL kimlik bilgilerinizle oturum
+        açın:'
       meta_title: Oturum aç
+      problems_signing_in_with_connected_accounts: Bağlı hesaplarınızla oturum açmada
+        sorun mu yaşıyorsunuz?
+      problems_signing_in_with_eol_authentication: Parolanızı mı unuttunuz?
+      tip: Mevcut kullanıcı? Profil ayarlarınızda EOL hesabınızı Facebook, Google
+        ve diğerleriyle bağlayın. Hesaplarınız bağlandıktan sonra bunları EOL'da oturum
+        açmak için kullanabilirsiniz.
   taxa:
+    communities:
+      index:
+        hierarchy_entry:
+          meta_description: '%{scientific_name} hakkında %{hierarchy_provider} tarafından
+            sınıflandırılmış bilgi ve uzmanlığı paylaşın'
+          meta_description_with_common_name: '%{preferred_common_name} hakkında %{hierarchy_provider}
+            tarafından sınıflandırılmış bilgi ve uzmanlığınızı paylaşın'
+          meta_keywords: '%{scientific_name} topluluğu, %{hierarchy_provider}'
+          meta_title: '%{scientific_name} ile ilgilenen, %{hierarchy_provider} tarafından
+            sınıflandırılmış kişiler'
+          meta_title_with_common_name: '%{preferred_common_name} ile ilgilenen kişiler
+            (%{scientific_name} , %{hierarchy_provider} tarafından sınıflandırıldı)'
+          tweet_text: '%{scientific_name} ile ilgilenen, %{hierarchy_provider} tarafından
+            sınıflandırılmış kişiler'
+        meta_description: '%{scientific_name} ile ilgileniyor musunuz? %{scientific_name}
+          uzmanlarına dahil olun ve %{scientific_name} hakkında kendi gözlemlerinizi
+          Encyclopdia of Life''ta paylaşın.'
+        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          ile ilgileniyor musunuz? %{preferred_common_name} uzmanlarına dahil olun
+          ve %{preferred_common_name} hakkında kendi gözlemlerinizi Encyclopdia of
+          Life''ta paylaşın.'
+        meta_keywords: '%{scientific_name} topluluğu'
+        meta_keywords_with_common_name: '%{preferred_common_name} topluluğu, %{scientific_name}
+          topluluğu'
+        meta_title: '%{scientific_name} ile ilgilenen kişiler'
+        meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          ile ilgilenen kişiler'
+        tweet_text: '%{scientific_name} ile ilgilenen kişiler'
+      collections:
+        hierarchy_entry:
+          meta_description: '%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            içeren koleksiyonlar'
+          meta_description_with_common_name: '%{preferred_common_name} içeren koleksiyonlar
+            (%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            ).'
+          meta_keywords: '%{scientific_name} Koleksiyonları, %{scientific_name} Gözlemleri,
+            %{hierarchy_provider} Koleksiyonları, %{hierarchy_provider} Gözlemleri,
+            %{hierarchy_provider} Türleri'
+          meta_title: '%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            koleksiyonu'
+          meta_title_with_common_name: '%{preferred_common_name} koleksiyonu (%{hierarchy_provider}
+            tarafından sınıflandırılmış %{scientific_name}).'
+          tweet_text: '%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            koleksiyonu'
+        meta_description: '%{scientific_name} içeren koleksiyonlar'
+        meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          içeren koleksiyonlar'
+        meta_keywords: '%{scientific_name} Koleksiyonları, %{scientific_name} Gözlemleri'
+        meta_keywords_with_common_name: '%{preferred_common_name} Koleksiyonları,
+          %{preferred_common_name} Gözlemleri, %{scientific_name} Koleksiyonları,
+          %{scientific_name} Gözlemleri'
+        meta_title: '%{scientific_name} Koleksiyonları'
+        meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          koleksiyonları'
+        tweet_text: '%{scientific_name} koleksiyonları'
+      curators:
+        hierarchy_entry:
+          meta_title: '%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            küratörleri'
+          meta_title_with_common_name: '%{preferred_common_name} uzmanları (%{hierarchy_provider}
+            tarafından sınıflandırılmış %{scientific_name}).'
+          tweet_text: '%{hierarchy_provider} tarafından sınıflandırılmış %{scientific_name}
+            küratörleri'
+        meta_description_with_common_name: Verileri, Encyclopedia of Life'ta izleyen
+          %{preferred_common_name} uzmanları (ayrıca %{scientific_name} uzmanları
+          olarak da bilinirler).
+        meta_keywords: '%{scientific_name} Uzmanları, %{scientific_name} Küratörleri'
+        meta_keywords_with_common_name: '%{preferred_common_name} Uzmanları, %{preferred_common_name}
+          Küratörleri, %{scientific_name} Uzmanları, %{scientific_name} Küratörleri'
+        meta_title: '%{scientific_name} Küratörleri'
+        meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          uzmanları'
+        tweet_text: '%{scientific_name} küratörleri'
+    data:
+      index:
+        hierarchy_entry:
+          meta_description: Encyclopedia of Life'ta %{hierarchy_provider} tarafından
+            %{scientific_name} hakkında sınıflandırılmış gerçekler
+          meta_description_no_data: Encyclopedia of Life'ta %{hierarchy_provider}
+            tarafından %{scientific_name} için sınıflandırılmış gerçekler mevcut değil.
+            EOL, %{scientific_name} hakkında gerçekleri eklemeniz için sizi davet
+            ediyor.
     details:
       index:
-        meta_title: '%{scientific_name} hakkında bilgi'
-        tweet_text: '%{scientific_name} hakkında bilgi'
+        meta_title: '%{scientific_name} hakkında açıklamalar ve makaleler'
+        tweet_text: '%{scientific_name} hakkında makaleler'
     names:
       synonyms:
-        meta_keywords: 'Sinonimler %{scientific_name}'
+        meta_keywords: Sinonimler %{scientific_name}
   users:
+    data_downloads:
+      is_complete: Evet
+      is_not_complete: Hayır
     newsfeeds:
       newsfeed_link: haber akışı
+    open_authentications:
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
   this_article_is_unpublished: Bu makale yayımlanmamıştır.
   0_or_1: 0 ya da 1
   0_1_or_2: 0, 1 ya da 2
@@ -572,7 +1703,6 @@ tr:
   account_information_menu: Hesap Bilgileri
   add: Ekle
   add_a_new_role: Yeni bir rol ekle
-  add_a_new_term: Yeni bir terim ekle
   add_a_new_user: Yeni bir kullanıcı ekle
   add_brief_summary_to_page_link_button: Bu sayfaya kısa bir özet ekle
   add_language: Dil ekle
@@ -591,23 +1721,23 @@ tr:
   admin_link: Genel bakış
   admin_page_title: 'Yönetici: Genel bakış'
   admin_statistics_link: İstatistikler
-  admin_translated_content_page_update_unsuccessful_error: >
-    Üzgünüz, bir hata oluştu, çeviri
-    güncelleştirilemedi.
+  admin_translated_content_page_update_unsuccessful_error: Üzgünüz, bir hata oluştu,
+    çeviri güncelleştirilemedi.
   all: tümü
   all_communities: Tüm topluluklar
   all_information: Tüm bilgiler
   already_a_member_question: Zaten üye misiniz?
+  alternative_name_colon: 'Alternatif isim:'
   application_version_advisory_information: Uygulama sürümü
   are_you_sure: Emin misiniz?
-  article_more_about: >
-    Bu madde hakkında daha fazla bilgi
-    edinin
+  article_more_about: Bu madde hakkında daha fazla bilgi edinin
+  assistive_overview_header: Genel bakış
   assistive_details_header: Ayrıntılar
   a_taxon: bir takson
   belongs_in_count_communities:
     one: '%{count} Topluluğa Ait'
     other: '%{count} Topluluğa Ait'
+  bhl_partner_footer: Biodiversity Heritage Library'yi ziyaret et
   cancel: İptal
   citing_link: Alıntı
   classifications_summary_header_with_count:
@@ -621,15 +1751,19 @@ tr:
   community: Topluluk
   community_activity: Topluluk Etkinliği
   community_members: Topluluk üyeleri
-  communities_summary_empty: >
-    Bu takson henüz herhangi bir toplulukta
-    yer edilmemiştir.
+  communities_summary_empty: Bu takson henüz herhangi bir toplulukta yer edilmemiştir.
+  confirm_delete_data_object: Bu veriyi silmek istediğinizden emin misiniz? Bu eylem
+    geri alınamaz.
   confirm_password_colon: 'Şifreyi Onayla:'
   contact: İletişim
   contact_information: İletişim bilgileri
   contact_us: bize ulaşın
   contact_us_link: Bize ulaşın
-  content_partner_latest_published_harvest_event_time_ago: 'Son güncelleme: %{time_passed} önce;'
+  content_partner_current_agreement_edit_link: Düzenle
+  content_partner_latest_published_harvest_event_time_ago: 'Son güncelleme: %{time_passed}
+    önce;'
+  content_partner_resource_edit_link: Düzenle
+  content_partner_resource_hierarchy_edit_link: Düzenle
   content_partner_resource_vetted_true: Evet
   content_partner_resource_vetted_false: Hayır
   content_partner_resource_view_link: Görüntüle
@@ -643,31 +1777,31 @@ tr:
   create_a_community: Bir topluluk oluştur
   create_a_collection: Bir koleksiyon oluştur
   create_collection_button: Koleksiyon oluştur
-  create_user_unsuccessful_error: >
-    Üzgünüz bir hata oluştu ve yeni
-    hesabınız oluşturulamadı. Lütfen
-    tüm alanları doğru bir şekilde
-    doldurduğunuzdan emin olunuz.
+  create_user_unsuccessful_error: Üzgünüz bir hata oluştu ve yeni hesabınız oluşturulamadı.
+    Lütfen tüm alanları doğru bir şekilde doldurduğunuzdan emin olunuz.
   curated_association_update_button: Değişiklikleri kaydet
   current_language: 'Dil: %{iso_code}'
   currently_in_eol: Yaşam Ansiklopedisinde şu an
   currently_published: şu anda yayınlanan
   data_search_limit:
-    one: 'Veri arama sonuçlarının indirilmesi %{count} sonuçla sınırlıdır.'
-    other: 'Veri arama sonuçlarının indirilmesi %{count} sonuçla sınırlıdır.'
+    one: Veri arama sonuçlarının indirilmesi %{count} sonuçla sınırlıdır.
+    other: Veri arama sonuçlarının indirilmesi %{count} sonuçla sınırlıdır.
+  data_object_deleted: Veri başarıyla silindi
   data_search:
     form:
+      equivalent_attributes: 'Eşit değerler:'
+      equivalent_values: 'Eşdeğer değerleri:'
       new_search_link: Yeni bir aramaya başlayın
       search_suggestions_subheader_colon: 'Aşağıdaki veri aramalardan birini deneyin:'
-      search_suggestion_blue_flowers: >
-        Hangi bitkilerin mavi çiçekleri
-        vardır?
+      search_suggestion_blue_flowers: Hangi bitkilerin mavi çiçekleri vardır?
   data_summary_ranges_header_with_count: Liste sonunda özet veri var.
+  delete_data_object: Sil
   detail: Detay
-  discover_link: Keşfet
+  discover_link: Eğitim
   displaying_numerical_range_eol_records_with_count:
-    one: 'Listede %{count} kayıt gösteriliyor'
-    other: 'Listede %{start_number} &ndash; %{end_number} arası %{count} kayıt gösteriliyor'
+    one: Listede %{count} kayıt gösteriliyor
+    other: Listede %{start_number} &ndash; %{end_number} arası %{count} kayıt gösteriliyor
+  download_collection_data: Veriyi indir
   edit: düzenle
   edit_my_profile: Profili düzenle
   edit_table_of_contents: içindekiler tablosunu düzenle
@@ -679,11 +1813,18 @@ tr:
   eol_news: Yaşam Ansiklopedisi Haberleri
   eol_pages: Sayfalar
   error_404_page_title: Bulunamadı
-  error_404_description: "Üzgünüz, bu URL'de bir sayfa bulunamadı."
+  error_404_description: Üzgünüz, bu URL'de bir sayfa bulunamadı.
   error_500_page_title: Hay aksi!
-  error_500_description: 'Üzgünüz, bir sorunla karşılaştık. Sorun devam ederse <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> adresine e-posta gönderiniz.'
-  error_default_description: 'Üzgünüz, bir sorunla karşılaştık. Sorun devam ederse <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> adresine e-posta gönderiniz.'
+  error_500_description: Üzgünüz, bir sorunla karşılaştık. Sorun devam ederse <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+    adresine e-posta gönderiniz.
+  error_default_description: Üzgünüz, bir sorunla karşılaştık. Sorun devam ederse
+    <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a> adresine
+    e-posta gönderiniz.
   error_default_page_title: Hay aksi!
+  exceptions:
+    security_violations:
+      missing_delete_acess_to_forum_category: Üzgünüm, bu forum kategorisini sadece
+        yöneticiler silebilir.
   explore: Keşfet
   external_link_header: Dış Bağlantı
   facebook: Facebook
@@ -696,54 +1837,47 @@ tr:
   filter_by_status: Duruma göre filtre uygula
   filter_by_type_image_option: Görüntüler
   flickr: Flickr
-  forgot_password: Şifremi unuttum
+  forgot_password: Parolamı unuttum
   forgot_password_form_cancel: İptal
-  forgot_password_form_username_or_email_blank_error: >
-    Şifrenizi sıfırlamak için
-    kullanıcı adınızı ya da e-posta
-    adresinizi giriniz.
+  forgot_password_form_username_or_email_blank_error: Şifrenizi sıfırlamak için kullanıcı
+    adınızı ya da e-posta adresinizi giriniz.
   forgot_password_form_header: Şifrenizi sıfırlayın
-  forgot_password_form_helper: "Şifre sıfırlama e-postalarının e-posta süzgeçleri tarafından <em>çoğunlukla</em> 'Spam (Yığın ileti)' olarak işaretlendiğini unutmayınız. Bir saat içinde e-posta almazsanız spam (yığın ileti) dosyanızı gözden geçiriniz."
-  global_access_tagline: "Dünya'daki yaşam hakkında bilgilere küresel erişim olanağı"
+  forgot_password_form_helper: Şifre sıfırlama e-postalarının e-posta süzgeçleri tarafından
+    <em>çoğunlukla</em> 'Spam (Yığın ileti)' olarak işaretlendiğini unutmayınız. Bir
+    saat içinde e-posta almazsanız spam (yığın ileti) dosyanızı gözden geçiriniz.
+  global_access_tagline: Yeryüzündeki yaşam hakkındaki bilgilere küresel erişim
   go: Git
   google_analytic_results: Google Analytics sonuçları
   google_analytics_active: Google Analytics etkin
-  google_analytics_google_account_and_access_required: >
-    Google Analytics (Google hesabı ve
-    erişimi gerekmektedir)
+  google_analytics_google_account_and_access_required: Google Analytics (Google hesabı
+    ve erişimi gerekmektedir)
   google: Google
   google_images: Google Görseller
   google_scholar: Google Akademik
-  hello_user: 'Merhaba %{user}'
+  hello_user: Merhaba %{user}
   help: Yardım
-  home: Ana Sayfa
-  home_page_link_advisory_information: >
-    Bu bağlantı sizi Yaşam
-    Ansiklopedisinin ana sayfasına
-    götürür
+  home: Anasayfa
+  home_page_link_advisory_information: Bu bağlantı sizi Yaşam Ansiklopedisinin ana
+    sayfasına götürür
   image_not_found: Resim bulunamadı
   images: Görüntüler
-  images_in_red_are_not_trusted: >
-    Kırmızı görüntüler güvenilir
-    değildir.
-  join_eol_community_html: '<abbr title="Encyclopedia of Life">Yaşam Ansiklopedisi</abbr> topluluğunun bir parçası olun!'
-  join_eol_button_html: '<abbr title="Encyclopedia of Life">Yaşam Ansiklopedisi</abbr>ne şimdi katılın'
+  images_in_red_are_not_trusted: Kırmızı görüntüler güvenilir değildir.
+  join_eol_community_html: <abbr title="Encyclopedia of Life">Yaşam Ansiklopedisi</abbr>
+    topluluğunun bir parçası olun!
+  join_eol_button_html: <abbr title="Encyclopedia of Life">Yaşam Ansiklopedisi</abbr>ne
+    şimdi katılın
+  resume_pending_harvests: Hasata devam etmek
   language: 'Dil:'
   languages: Diller
   learn_about_collections: Nasıl oluşturabilirim?
   learn_about_content_partners: Nasıl olabilirim?
   learn_about_communities: Nasıl katılabilirim?
-  learn_about_eol: >
-    Yaşam Ansiklopedisini nasıl
-    kullanabilirim?
+  learn_about_eol: Yaşam Ansiklopedisini nasıl kullanabilirim?
   learn_about_contributing: Nasıl katkıda bulunabilirim?
   learn_about_joining: Nasıl katılabilirim?
-  learn_more_about_communities_link: >
-    Topluluklar hakkında daha fazla bilgi
+  learn_more_about_communities_link: Topluluklar hakkında daha fazla bilgi edinin
+  learn_more_about_names_for_this_taxon: Bu takson adları hakkında daha fazla bilgi
     edinin
-  learn_more_about_names_for_this_taxon: >
-    Bu takson adları hakkında daha fazla
-    bilgi edinin
   license: Lisans
   license_gnu_fdl: GNU Özgür Belgeleme Lisansı (GNU FDL)
   license_gnu_gpl: GNU Genel Kamu Lisansı (GNU/GPL)
@@ -751,7 +1885,8 @@ tr:
   location: Konum
   login_required_button: Oturum açmanız gerekli
   login: oturum aç
-  login_header: '<abbr title="Yaşam Ansiklopedisi">Yaşam Ansiklopedisi</abbr> hesabınıza giriş yapın'
+  login_header: <abbr title="Yaşam Ansiklopedisi">Yaşam Ansiklopedisi</abbr> hesabınıza
+    giriş yapın
   login_or_create_account: Oturum aç / Hesap Oluştur
   logo_header: Logo
   logout: Oturumu kapat
@@ -760,9 +1895,7 @@ tr:
   members_with_count:
     one: '%{count} üye'
     other: '%{count} üye'
-  must_be_logged_in: >
-    Bu eylemi gerçekleştirebilmek için
-    oturum açmalısınız.
+  must_be_logged_in: Bu eylemi gerçekleştirebilmek için oturum açmalısınız.
   my_activity: Etkinliklerim
   my_info: Hakkımda
   mobile:
@@ -770,7 +1903,10 @@ tr:
       maps: Haritalar
   new_search_suggestion: Yeni Arama Önerileri
   newsfeed: Haber beslemesi
+  newsletter_banner: EOL topluluğunun bir parçası olun&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>EOL
+    Haber Bülteni'ne bugün kaydolun</a>
   no_answer: Hayır
+  "no": Hayır
   not_evaluated: Değerlendirilmedi
   notification_frequency_send_immediately: Hemen gönder
   other_category_subtab: Diğer
@@ -778,18 +1914,14 @@ tr:
     one: '%{count} diğer ögeler'
     other: '%{count} diğer ögeler'
   overview: Genel bakış
-  password_must_be_4to16_characters: >
-    Şifre uzunluğu 4 ila 16 harf arasında
-    olmalıdır.
-  password_colon: 'Şifre:'
+  password_must_be_4to16_characters: Şifre uzunluğu 4 ila 16 harf arasında olmalıdır.
+  password_colon: 'Parola:'
   personal_space: Kişisel alan
   please_wait: Lütfen bekleyin...
   post_comment: Yorum Gönder
   profile: Profil
   profile_newsfeed: Güncellemelerim
-  recaptcha: >
-    Aşağıda gördüğünüz iki
-    sözcüğü yazınız
+  recaptcha: Aşağıda gördüğünüz iki sözcüğü ya da sayıları yazınız
   recent_updates: Son güncellemeler
   recently_visited: Son zamanlarda ziyaret edilenler
   remove_membership: Üyelik kaldırma
@@ -801,24 +1933,20 @@ tr:
   search_placeholder: Yaşam Ansiklopedisinde ara ...
   search_the_site: Site içi arama
   see_all_of_your_collections: Bütün koleksiyonlarınızı görün
-  select_tool_and_go: "Bir araç seçin ve 'Git' tuşuna basın:"
-  selected_language_advisory_information: >
-    Bu dil, şu an seçmiş olduğunuz
-    dildir.
+  select_tool_and_go: 'Bir araç seçin ve ''Git'' tuşuna basın:'
+  selected_language_advisory_information: Bu dil, şu an seçmiş olduğunuz dildir.
   send_email_colon: 'E-posta gönder:'
   send: Gönder
   show_more_row_data_link: daha fazla
   sign_in: Oturum aç
   sign_in_successful_notice: Giriş başarılı.
-  sign_in_unsuccessful_error: >
-    Oturum açma eylemi başarısız oldu.
-    Geçersiz kullanıcı adı, e-posta
-    adresi ya da şifresi.
+  sign_in_unsuccessful_error: Oturum açma eylemi başarısız oldu. Geçersiz kullanıcı
+    adı, e-posta adresi ya da şifresi.
   sign_out: Oturumu Kapat
   site_information: Site bilgileri
   skip_to_content: İçeriğe geç
   social_sharing_twitter_tweet_button: Tweet
-  social_sharing_twitter_follow_eol_button: "@eol 'u takip et"
+  social_sharing_twitter_follow_eol_button: '@eol ''u takip et'
   sort_by_newest_option: En yeniler
   sounds_with_count:
     one: '%{count} Ses dosyası'
@@ -826,36 +1954,35 @@ tr:
   source_url: Kaynak URL
   subject: konu
   table_of_contents: İçindekiler Tablosu
-  taxon_page_content_disclaimer: >
-    Yaşam Ansiklopedisi içeriği otomatik
-    olarak birçok farklı içerik
-    sağlayıcılarından derlenir. Bunun
-    sonucunda, zaman zaman kafa
-    karıştırıcı Yaşam Ansiklopedisi
-    sayfaları bulabilirsiniz.
-  taxon_page_content_disclaimer_suggest_improvement: >
-    Lütfen, bir iyileştirme istemek için
-    sayfa üzerinde bir yorum bırakın.
-    Teşekkürler!
+  taxon_page_content_disclaimer: Yaşam Ansiklopedisi içeriği otomatik olarak birçok
+    farklı içerik sağlayıcılarından derlenir. Bunun sonucunda, zaman zaman kafa karıştırıcı
+    Yaşam Ansiklopedisi sayfaları bulabilirsiniz.
+  taxon_page_content_disclaimer_suggest_improvement: Lütfen, bir iyileştirme istemek
+    için sayfa üzerinde bir yorum bırakın. Teşekkürler!
   terms_agreement_form_header: Kullanım koşulları
   terms_agreement_form_submit: Kabul ediyorum
-  terms_of_use_link: 'Kullanım koşulları &amp; gizlilik'
+  terms_of_use_link: Kullanım koşulları &amp; gizlilik
   text_summary_empty_header: Kısa özet
   text_with_count:
     one: '%{count} Madde'
     other: '%{count} Madde'
-  threat_status_header_colon: '<abbr title="Dünya Doğa ve Doğal Kaynakları Koruma Birliği">IUCN</abbr> tehlike durumu:'
+  threat_status_header_colon: '<abbr title="Dünya Doğa ve Doğal Kaynakları Koruma
+    Birliği">IUCN</abbr> tehlike durumu:'
   time_ago: '%{time_passed} önce'
   twitter: Twitter
   unknown: Bilinmeyen
-  user_activation_successful_notice: 'Hoş geldiniz ve Yaşam Ansiklopedisi ekibine katıldığınız için teşekkürler. Hesabınız <em>%{username}</em> kullanıcı adı ile etkinleştirildi. Lütfen giriş yapınız.'
+  user_activation_successful_notice: Hoş geldiniz ve Yaşam Ansiklopedisi ekibine katıldığınız
+    için teşekkürler. Hesabınız <em>%{username}</em> kullanıcı adı ile etkinleştirildi.
+    Lütfen giriş yapınız.
   user_comment: Kullanıcı yorum
   username_colon: 'Kullanıcı adı:'
   username: Kullanıcı adı
-  user_system_down: 'Özür dileriz, ancak kullanıcı kayıt sistemi şu anda kullanılabilir değil.  Lütfen daha sonra tekrar deneyin.'
+  user_system_down: Özür dileriz, ancak kullanıcı kayıt sistemi şu anda kullanılabilir
+    değil.  Lütfen daha sonra tekrar deneyin.
   user: Kullanıcı
   users_about_me_header: Hakkımda
   users_my_info_header: Hakkımda
+  versions_colon: 'Sürümler:'
   what_is_eol: Yaşam Ansiklopedisi Nedir?
   what_is_this_question: Bu nedir?
   your_email_address: E-posta adresiniz
@@ -863,3 +1990,4 @@ tr:
   your_preferences: Tercihleriniz
   youtube: YouTube
   youtube_video: YouTube videosu
+...

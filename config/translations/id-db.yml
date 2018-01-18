@@ -1,0 +1,105 @@
+# Messages for Indonesian (Bahasa Indonesia)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Anashir
+# Author: De.crown
+# Author: Lukman Tomayahu
+---
+id:
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: tidak dapat dipercaya
+  translated_activities-name-activity_id-51: tampilkan
+  translated_activities-name-activity_id-52: membuat
+  translated_activities-name-activity_id-53: sembunyikan
+  translated_activities-name-activity_id-54: pembaruan
+  translated_activities-name-activity_id-56: hapus
+  translated_activities-name-activity_id-57: tingkat
+  translated_activities-name-activity_id-58: dapat dipercaya
+  translated_activities-name-activity_id-59: belum ditinjau
+  translated_activities-name-activity_id-63: mengumpulkan
+  translated_activities-name-activity_id-64: hapus
+  translated_agent_roles-label-agent_role_id-10: proyek
+  translated_agent_roles-label-agent_role_id-11: Penerbit
+  translated_agent_roles-label-agent_role_id-12: Perekam
+  translated_agent_roles-label-agent_role_id-13: Sumber
+  translated_table_of_contents-label-table_of_contents_id-13: Nama umum
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Rujukan pustaka
+  translated_table_of_contents-label-table_of_contents_id-194: Ukuran
+  translated_table_of_contents-label-table_of_contents_id-1: Ikhtisar
+  translated_table_of_contents-label-table_of_contents_id-218: Pemencaran
+  translated_table_of_contents-label-table_of_contents_id-221: Resiko
+  translated_table_of_contents-label-table_of_contents_id-225: Pada web
+  translated_table_of_contents-label-table_of_contents_id-226: Mitra konten
+  translated_table_of_contents-label-table_of_contents_id-227: Cari web
+  translated_table_of_contents-label-table_of_contents_id-242: Ekologi umum
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-24: Komentar
+  translated_table_of_contents-label-table_of_contents_id-251: Kegunaan
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologi
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Asosiasi
+  translated_table_of_contents-label-table_of_contents_id-286: Status konservasi
+  translated_table_of_contents-label-table_of_contents_id-289: Solusi
+  translated_table_of_contents-label-table_of_contents_id-292: Melihat alikes
+  translated_table_of_contents-label-table_of_contents_id-293: Deskripsi diagnostik
+  translated_table_of_contents-label-table_of_contents_id-296: Manajemen
+  translated_table_of_contents-label-table_of_contents_id-297: Strategi trofik
+  translated_table_of_contents-label-table_of_contents_id-299: Pendidikan
+  translated_table_of_contents-label-table_of_contents_id-2: Ringkasan Singkat
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Nama dan taksonomi
+  translated_table_of_contents-label-table_of_contents_id-304: Nama lainnya
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonim
+  translated_table_of_contents-label-table_of_contents_id-306: Statistik Halaman
+  translated_table_of_contents-label-table_of_contents_id-307: Konten singkat
+  translated_table_of_contents-label-table_of_contents_id-308: Deskripsi menyeluruh
+  translated_table_of_contents-label-table_of_contents_id-309: Pencatuan
+  translated_table_of_contents-label-table_of_contents_id-310: Pengembangan
+  translated_table_of_contents-label-table_of_contents_id-311: Identifikasi sumber
+    daya
+  translated_table_of_contents-label-table_of_contents_id-312: Migrasi
+  translated_table_of_contents-label-table_of_contents_id-313: penyakit dan parasit
+  translated_table_of_contents-label-table_of_contents_id-314: Populasi biologi
+  translated_table_of_contents-label-table_of_contents_id-315: Sejarah Hehidupan dan
+    Tingkah laku
+  translated_table_of_contents-label-table_of_contents_id-316: Tingkah Laku
+  translated_table_of_contents-label-table_of_contents_id-317: Cyclicity
+  translated_table_of_contents-label-table_of_contents_id-318: Siklus kehidupan
+  translated_table_of_contents-label-table_of_contents_id-319: Harapan hidup
+  translated_table_of_contents-label-table_of_contents_id-320: Perkembang-biakan
+  translated_table_of_contents-label-table_of_contents_id-321: Pertumbuhan
+  translated_table_of_contents-label-table_of_contents_id-322: Fosil sejarah
+  translated_table_of_contents-label-table_of_contents_id-323: Sistematika atau filogenetik
+  translated_table_of_contents-label-table_of_contents_id-324: Adaptasi fungsiona
+  translated_table_of_contents-label-table_of_contents_id-325: Fisioogi dan Biologi
+    Sel
+  translated_table_of_contents-label-table_of_contents_id-326: Biologi Molekuler dan
+    Genetika
+  translated_table_of_contents-label-table_of_contents_id-327: Fisiologi
+  translated_table_of_contents-label-table_of_contents_id-328: Biologi sel
+  translated_table_of_contents-label-table_of_contents_id-329: Genetika
+  translated_table_of_contents-label-table_of_contents_id-330: Urutan nukleotida
+  translated_table_of_contents-label-table_of_contents_id-331: Kode bar
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Biologi molekuler
+  translated_table_of_contents-label-table_of_contents_id-334: Ancaman
+  translated_table_of_contents-label-table_of_contents_id-335: Pendaftaran
+  translated_table_of_contents-label-table_of_contents_id-336: Catatan
+  translated_table_of_contents-label-table_of_contents_id-337: Pendidikan
+  translated_table_of_contents-label-table_of_contents_id-33: Trend
+  translated_table_of_contents-label-table_of_contents_id-34: Komentar
+  translated_table_of_contents-label-table_of_contents_id-3: Deskripsi Fisik
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologi
+  translated_table_of_contents-label-table_of_contents_id-5: Perkembangan dan Sistematika
+  translated_table_of_contents-label-table_of_contents_id-6: Relevansi bagi manusia
+    dan ekosistem
+  translated_table_of_contents-label-table_of_contents_id-7: Referensi dan info lebih
+    lanjut
+  translated_table_of_contents-label-table_of_contents_id-8: Konservasi
+  translated_vetted-label-vetted_id-0: Tidak diketahui
+  translated_vetted-label-vetted_id-4: Tidak terpercaya
+  translated_vetted-label-vetted_id-5: Terpercaya
+  translated_vetted-label-vetted_id-6: Tidak pantas
+...

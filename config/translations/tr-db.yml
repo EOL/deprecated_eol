@@ -5,6 +5,7 @@
 # Author: Cekli829
 # Author: Emperyan
 # Author: Erdemaslancan
+# Author: Hedda
 # Author: Incelemeelemani
 # Author: Karduelis
 # Author: Sae1962
@@ -138,19 +139,26 @@ tr:
   translated_ranks-label-rank_id-183: âlem
   translated_ranks-label-rank_id-266: takım
   translated_ranks-label-rank_id-280: şube
+  translated_ranks-label-rank_id-313: sect
+  translated_ranks-label-rank_id-314: sect.
   translated_ranks-label-rank_id-317: seksiyon
   translated_ranks-label-rank_id-324: seri
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
   translated_ranks-label-rank_id-335: türler
   translated_ranks-label-rank_id-352: alt familya
   translated_ranks-label-rank_id-370: alt sınıf
   translated_ranks-label-rank_id-375: alt bölüm
   translated_ranks-label-rank_id-383: alt familya
+  translated_ranks-label-rank_id-390: subgen
+  translated_ranks-label-rank_id-391: subgen.
   translated_ranks-label-rank_id-394: alt cins
   translated_ranks-label-rank_id-396: alt âlem
   translated_ranks-label-rank_id-399: alt takım
   translated_ranks-label-rank_id-401: alt şube
   translated_ranks-label-rank_id-408: alt seksiyon
   translated_ranks-label-rank_id-411: alt seri
+  translated_ranks-label-rank_id-413: subsp
   translated_ranks-label-rank_id-414: subsp.
   translated_ranks-label-rank_id-415: alt tür
   translated_ranks-label-rank_id-422: alt oymak
@@ -163,6 +171,7 @@ tr:
   translated_ranks-label-rank_id-517: varyeteler
   translated_ranks-label-rank_id-518: varyete
   translated_ranks-label-rank_id-51: sınıf
+  translated_ranks-label-rank_id-562: nothogenus
   translated_ranks-label-rank_id-74: bölüm
   translated_ranks-label-rank_id-85: |2-
 

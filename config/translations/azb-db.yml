@@ -1,0 +1,107 @@
+# Messages for South Azerbaijani (تۆرکجه)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Alp Er Tunqa
+# Author: Arjanizary
+# Author: Koroğlu
+---
+azb:
+  translated_activities-name-activity_id-19: پروفایل
+  translated_activities-name-activity_id-51: گؤستر
+  translated_activities-name-activity_id-52: یارات
+  translated_activities-name-activity_id-53: گیزلت
+  translated_activities-name-activity_id-54: گونجل‌له
+  translated_activities-name-activity_id-55: ایغونسوز
+  translated_activities-name-activity_id-56: سیل
+  translated_activities-name-activity_id-63: ییغ
+  translated_activities-name-activity_id-64: سیل
+  translated_agent_roles-label-agent_role_id-10: پروژه
+  translated_agent_roles-label-agent_role_id-11: یاییملاییجی
+  translated_agent_roles-label-agent_role_id-13: قایناق
+  translated_agent_roles-label-agent_role_id-22: ترجومه‌چی
+  translated_agent_roles-label-agent_role_id-2: یازار
+  translated_agent_roles-label-agent_role_id-5: یارادان
+  translated_agent_roles-label-agent_role_id-6: ایداره‌چی
+  translated_agent_roles-label-agent_role_id-7: دَییشدیرن
+  translated_audiences-label-audience_id-3: اوشاقلار
+  translated_collection_types-label-collection_type_id-10: سسلر
+  translated_collection_types-label-collection_type_id-11: باغلانتیلار
+  translated_collection_types-label-collection_type_id-12: ادبیات
+  translated_collection_types-label-collection_type_id-15: آچیقلاما
+  translated_collection_types-label-collection_type_id-16: عکسلر
+  translated_collection_types-label-collection_type_id-19: آد بیلگیلری
+  translated_collection_types-label-collection_type_id-22: سسلر
+  translated_collection_types-label-collection_type_id-23: باغلانتیلار
+  translated_collection_types-label-collection_type_id-24: ادبیات
+  translated_collection_types-label-collection_type_id-3: آچیقلاما
+  translated_collection_types-label-collection_type_id-4: عکسلر
+  translated_contact_roles-label-contact_role_id-1: ایلک ایلگی
+  translated_contact_subjects-title-contact_subject_id-26: اؤیرنمه و اؤیرتمه
+  translated_content_partner_statuses-label-content_partner_status_id-2: چالیشقان
+  translated_content_partner_statuses-label-content_partner_status_id-3: ساخلانجلانمیش
+  translated_content_partner_statuses-label-content_partner_status_id-4: چالیشمایان
+  translated_data_types-label-data_type_id-10: خریطه
+  translated_data_types-label-data_type_id-1: شکیل
+  translated_data_types-label-data_type_id-2: سس
+  translated_data_types-label-data_type_id-3: متن
+  translated_data_types-label-data_type_id-4: ویدیو
+  translated_data_types-label-data_type_id-5: GBIF گؤرونتو
+  translated_data_types-label-data_type_id-7: فلاش
+  translated_data_types-label-data_type_id-8: یوتیوب
+  translated_licenses-description-license_id-1: هئچ حق قورونمور
+  translated_licenses-description-license_id-29: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-2: © بوتون حاقلار قوْرونور
+  translated_licenses-description-license_id-30: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-31: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-32: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-33: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-34: گنل یییه‌لیک
+  translated_licenses-description-license_id-35: گنل یییه‌لیک
+  translated_licenses-description-license_id-36: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-37: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-38: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-39: گنل یییه‌لیک
+  translated_licenses-description-license_id-3: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-42: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-4: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-5: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-6: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-7: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-8: بیر سیرا حقلر قورونور
+  translated_licenses-description-license_id-9: بیر سیرا حقلر قورونور
+  translated_ranks-label-rank_id-106: فوْرم
+  translated_ranks-label-rank_id-107: فوْرم
+  translated_ranks-label-rank_id-112: ژئن
+  translated_ranks-label-rank_id-113: ژن.
+  translated_ranks-label-rank_id-183: بویورچو
+  translated_ranks-label-rank_id-280: بوداق
+  translated_ranks-label-rank_id-317: بؤلوم
+  translated_ranks-label-rank_id-335: گیل
+  translated_ranks-label-rank_id-503: سیرالانمامیش
+  translated_ranks-label-rank_id-74: بؤلونوش
+  translated_ranks-label-rank_id-99: اوْجاق
+  translated_resource_statuses-label-resource_status_id-10: یاییملاندی
+  translated_resource_statuses-label-resource_status_id-1: یوکله‌نیر
+  translated_resource_statuses-label-resource_status_id-2: یوکلندی
+  translated_resource_statuses-label-resource_status_id-3: یوکلنمدی
+  translated_resource_statuses-label-resource_status_id-5: اوْنایلانمیش
+  translated_resource_statuses-label-resource_status_id-6: اوْنایلانمادی
+  translated_resource_statuses-label-resource_status_id-7: چالیشیر
+  translated_service_types-label-service_type_id-2: باشقا
+  translated_sort_styles-name-sort_style_id-1: یئنی آرتیریلمیش
+  translated_sort_styles-name-sort_style_id-2: ان اسکی
+  translated_sort_styles-name-sort_style_id-3: الفبایی
+  translated_sort_styles-name-sort_style_id-6: دیرلندیرمه
+  translated_statuses-label-status_id-2: گونجل‌لنیب
+  translated_synonym_relations-label-synonym_relation_id-50: گئچرلی
+  translated_synonym_relations-label-synonym_relation_id-64: گئچرسیز
+  translated_table_of_contents-label-table_of_contents_id-194: اؤلچو
+  translated_table_of_contents-label-table_of_contents_id-306: صفحه آمارلاری
+  translated_table_of_contents-label-table_of_contents_id-336: نوتلار
+  translated_untrust_reasons-label-untrust_reason_id-5: باشقا
+  translated_user_identities-label-user_identity_id-2: بیر اؤیرنجی
+  translated_vetted-label-vetted_id-0: بیلینمه‌ین
+  translated_visibilities-label-visibility_id-0: گؤرونمز
+  translated_visibilities-label-visibility_id-1: گؤرونن
+  translated_visibilities-label-visibility_id-2: سیناق‌گؤستریش
+...

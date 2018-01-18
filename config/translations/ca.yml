@@ -1,11 +1,16 @@
 # Messages for Catalan (català)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Abella
 # Author: Alvaro Vidal-Abarca
 # Author: BroOk
+# Author: Cedric31
+# Author: Eduardo Martinez
 # Author: Edustus
 # Author: Fitoschido
 # Author: Gemmaa
+# Author: Jaumeortola
+# Author: Macofe
 # Author: Mlforcada
 # Author: Pitort
 # Author: Qllach
@@ -18,10 +23,10 @@ ca:
       collection:
         name: Nom de la col·lecció
         description: Descripció de la col·lecció
-        sort_style_id: Direcció d'ordenació per defecte
+        sort_style_id: Direcció predeterminada de la classificació
         logo: Imatge principal de la col·lecció
         additional_annotation_fields: Camps addicionals d'anotacions
-        show_references: Referències (Text o URL)
+        show_references: Referències (text o URL)
       collection_job:
         overwrite: Substitueix els duplicats
       collection_item:
@@ -31,9 +36,9 @@ ca:
       comment:
         body: Comentari
       community:
-        name: Nom de comunitat
+        name: Nom de la comunitat
         description: Descripció de la comunitat
-        logo: Carrega un logotip
+        logo: Puja un logotip
       contact:
         comments: Missatge
         contact_subject_id: Assumpte del contacte
@@ -44,25 +49,25 @@ ca:
         sort_order: Ordre de classificació
         active: Publicat
       content_partner:
-        acronym: Abreviatura de projecte
-        auto_publish: Auto-publicar
+        acronym: Abreviatura del projecte
+        auto_publish: Publicar automàticament
         admin_notes: Notes de l'administració
         content_partner_status: Estat del projecte
         created_at: Creada
         description: Descripció del projecte
-        display_name: Nom de visualització
+        display_name: Nom que es mostrarà
         full_name: Nom del projecte
         homepage: URL del projecte
         id: ID
-        notes: Projecte notes
+        notes: Notes del projecte
         is_public: Públic
         resources: Recursos
         user_id: Gestionat per
-        vetted: Investigat
+        vetted: Aprovat
       content_partner_agreement:
         created_at: Creada a les
         signed_by: Signat per
-        signed_on_date: Signat i datat a data
+        signed_on_date: Signat a la data
       content_partner_contact:
         email_reports_frequency_hours: Freqüència dels informes per correu electrònic
       data_object:
@@ -70,8 +75,8 @@ ca:
         description: Text
         object_title: Títol
         rights_holder: Titular dels drets
-        rights_statement: Declaració de drets
-        source_url: URL de la font
+        rights_statement: Declaració sobre els Drets
+        source_url: URL d'origen
       data_object_link:
         description: Descripció
         source_url: Vincle URL
@@ -82,20 +87,21 @@ ca:
         collections_count: Col·leccions
         pages_count: Nombre total de pàgines
         pages_with_content: Pàgines amb contingut
-        pages_with_text: Pàgines amb el text
-        pages_with_image: Pàgines amb imatges
+        pages_with_text: Pàgines amb text
+        pages_with_image: Pàgines amb imatge
         pages_with_map: Pàgines amb mapa
         pages_with_video: Pàgines amb vídeo
-        pages_with_sound: Pàgines amb sons
+        pages_with_sound: Pàgines amb àudio
         pages_without_text: Pàgines sense text
         pages_without_image: Pàgines sense imatge
         pages_with_image_no_text: Pàgines amb imatge però sense text
         pages_with_text_no_image: Pàgines amb text però sense imatge
         base_pages: Pàgines base
         pages_with_at_least_a_trusted_object: Pàgines amb objecte de confiança
+        pages_with_at_least_a_curatorial_action: Pàgines amb acció de manteniment
         pages_with_BHL_links: Pàgines amb enllaços BHL
         pages_with_BHL_links_no_text: Pàgines amb enllaços BHL però sense text
-        pages_with_BHL_links_only: Pàgines amb només enllaços BHL
+        pages_with_BHL_links_only: Pàgines només amb enllaços BHL
         data_objects: Objectes de dades
         data_objects_texts: Objectes de text
         data_objects_images: Objectes d'imatge
@@ -107,13 +113,19 @@ ca:
         data_objects_untrusted: Objectes de dades que no són de confiança
         data_objects_trusted_or_unreviewed_but_hidden: De confiança o sense revisar
           però amagats
-        udo_published: Text enviat per usuari
-        content_partners: Socis de contingut
+        udo_published: Text enviat per l'usuari
+        udo_published_by_curators: Text lliurat per un responsable de manteniment
+        udo_published_by_non_curators: Text no lliurat per cap responsable de manteniment
+        content_partners: Socis del contingut
         content_partners_with_published_resources: Amb recursos publicats
         content_partners_with_published_trusted_resources: Amb recursos fiables publicats
         published_resources: Recursos publicats
+        published_trusted_resources: Recursos publicats fiables
+        published_unreviewed_resources: Recursos publicats sense revisar
         newly_published_resources_in_the_last_30_days: Publicat recentment en l'últim
           mes
+        marine_pages: Pàgines marines
+        marine_pages_in_col: Pagines marines trobades a CoL
         marine_pages_with_objects: Pàgines marines amb objectes de dades
         marine_pages_with_objects_vetted: Pàgines marines amb objectes de dades fiables
         curators: Supervisors
@@ -122,20 +134,30 @@ ca:
         curators_master: Supervisors mestres
         active_curators: Supervisors actius
         pages_curated_by_active_curators: Pàgines supervisades per supervisors actius
+        objects_curated_in_the_last_30_days: Objectes supervisats els darrers 30 dies
         curator_actions_in_the_last_30_days: Accions de supervisió dels últims 30
           dies.
         rich_pages: Pàgines populars
         hotlist_pages: Pàgines sol·licitades
         rich_hotlist_pages: Pàgines populars més sol·licitades
         rich_hotlist_pages_percentage: Llista de pàgines més sol·licitades %
+        redhotlist_pages: Pàgines vermelles més sol·licitades
+        rich_redhotlist_pages: Pàgines riques vermelles més sol·licitades
+        rich_redhotlist_pages_percentage: Pàgines riques vermelles més sol·licitades
+          %
         pages_with_score_10_to_39: Pàgines amb puntuació 10-40
         pages_with_score_less_than_10: Pàgines amb puntuació inferior a 10
         lifedesk_taxa: Tàxons dels LifeDesks
+        lifedesk_data_objects: Objectes de dades de LifeDesks
         total_taxa_with_data: Pàgines amb contingut
+        total_triples: Triples
+        total_occurrences: Aparicions
         total_measurements: Mesures
         total_associations: Associacions
         total_measurement_types: Tipus de mesura
         total_association_types: Tipus d'associació
+        total_user_added_data: Dades afegides per l'usuari
+        total_data_records: Registres de dades
       forum:
         forum_category_id: Categoria
         name: Nom del fòrum
@@ -159,14 +181,26 @@ ca:
         label: Etiqueta
         request_publish: Sol. licitud publicar
       known_uri:
+        clade_exemplar: Emprar com representant del Rang del Grup Taxonòmic
         description: Descripció
+        exclude_from_exemplars: Excloure de la Revisió
+        group_by_clade: Utilitza per a intervals de grups taxonòmics
+        hide_from_glossary: Amagar de l'Índex de Dades
         name: Nom
         toc_items: Categories
         uri: URI
         uri_type: Tipus d'URI
+        value_is_text: Els valors no poden ser URIs, només text
+        value_is_verbatim: Els valors no poden ser nombres, només text
+      known_uri_relationship:
+        from_known_uri_id: URI del Tema
+        to_known_uri_id: URI de destinació
+        to_known_uri: URI de destinació
+        relationship_uri: URI de la relació
       open_authentication:
         created_at: Creat
         guid: GUID
+        provider: Proveïdor extern
         secret: Secret
         token: Testimoni
         updated_at: Última actualització
@@ -176,31 +210,63 @@ ca:
         string: Nom
       news_item:
         page_name: Nom únic
+        sort_order: Ordre de classificació
         active: Publicat
       notification:
         reply_to_comment: Una resposta a un comentari que vas fer
         comment_on_my_profile: Un comentari sobre el teu perfil
+        comment_on_my_contribution: Un comentari i/o revisió d'una contribució teva
         comment_on_my_collection: Un comentari sobre la col·lecció que gestiones
         comment_on_my_community: Un comentari en una de les comunitats de les quals
           ets membre
+        made_me_a_manager: Se t'ha fet administrador d'una col·lecció o comunitat
         member_joined_my_community: Un nou membre s'ha incorporat a la comunitat que
           gestiones
+        comment_on_my_watched_item: Comentaris sobre els objectes, tàxons, col·leccions
+          o comunitats de la llista de seguiment
+        curation_on_my_watched_item: Revisions d'objectes, tàxons, col·leccions o
+          comunitats a la teva llista de seguiment
+        new_data_on_my_watched_item: Noves contribucions a tàxons de la teva llista
+          de seguiment
+        changes_to_my_watched_collection: Canvis a col·leccions de la teva llista
+          de seguiment
+        changes_to_my_watched_community: Canvis a comunitats de la seva llista de
+          seguiment
+        member_joined_my_watched_community: S'han unit nous membres a una comunitat
+          de la que ets membre
+        member_left_my_community: Membres que han abandonat una comunitat que administres
+        new_manager_in_my_community: Un altre membre s'ha convertir en administrador
+          d'una comunitat que administres
+        i_am_being_watched: Has estat agregat a la llista de seguiment d'un altre
+          membre
+        eol_newsletter: Envia'm el butlletí trimestral d'EOL
       resource:
-        accesspoint_url: Conjunt de dades URL
+        accesspoint_url: URL del conjunt de dades
         auto_publish: Auto-publicar
         bibliographic_citation: Citació bibliogràfica
         dataset: Conjunt de dades d'arxiu
         description: Descripció de recursos
-        dwc_archive_url: Darwin central arxiu URL
+        dwc_archive_url: URL de l'arxiu central Darwin
+        dataset_source_url: Font de dades original
+        dataset_hosted_url: Joc de dades font (còpia local)
+        harvest_events: Recollir events
         hierarchy: Jerarquia
         language_id: Idioma per defecte
         dataset_license_id: Llicència
         dataset_rights_holder: Titular dels drets
+        dataset_rights_statement: Declaració sobre els Drets
         license_id: Llicència per defecte
+        notes: Processant notes
+        resource_status_id: Estat dels recursos
+        rights_holder: Titular per defecte dels drets
+        rights_statement: Declaració per defecte dels Drets
+        title: Nom del recurs
+        vetted: Aprovat
       translated_content_page:
         active_translation: Publicat
         left_content: Navegació
         main_content: Cos
+        meta_keywords: Paraules clau de les metadades
         meta_description: Descripció de les metadades
         title: Títol
       translated_known_uri:
@@ -214,14 +280,19 @@ ca:
         title: Títol
       user:
         agreed_with_terms: Condicions d'ús
+        api_key: Clau de l'API
+        bio: Biografia
         credentials: Credencials
-        curator_level: Nivell de curador
+        curator_level: Nivell de supervisor
+        curator_scope: Abast del Supervisor
+        disable_email_notifications: No enviar CAP actualització per correu electrònic
         email: Adreça de correu electrònic
         email_confirmation: Repetiu l'adreça de correu <small>(per confirmar-la)</small>
         entered_password: Contrasenya
         entered_password_confirmation: Repetiu la contrasenya de correu <small>(per
           confirmar-la)</small>
         family_name: Cognoms
+        full_name: Nom complet
         given_name: Nom
         language_abbr: Llengua preferida.
         permissions: Permisos
@@ -229,6 +300,7 @@ ca:
         tag_line: Lema
         username: Nom d'usuari
       user_added_data:
+        predicate: Tret
         object: Valor
         user: Afegit per
       user_added_data_metadata:
@@ -259,7 +331,7 @@ ca:
           other: és massa curt (el nombre mínim de caràcters és de %{count})
         wrong_length: la longitud és incorrecta (hauria de ser de %{count} caràcters)
         not_a_number: no és un nombre
-        not_an_integer: ha de ser un nombre enter
+        not_an_integer: ha de ser un nombre sencer
         greater_than:
           one: ha de ser més gran que  %{count}
           other: han de ser més grans que %{count}
@@ -283,18 +355,67 @@ ca:
             rights_holder:
               blank: no es pot quedar en blanc a una llicència CC-BY
               inclusion: ha d'estar en blanc a una llicència de domini públic
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: només està permès pel darrer event recollit i únicament si
+                l'event no ha estat ja pubicat
+        inaccessible: El registre no es pot desar per que no és vàlid. Comprova les
+          errades de validació i torna a enviar-ho
+        known_uri:
+          attributes:
+            uri:
+              must_be_uri: ha de ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                ben formada
+        open_authentications:
+          guid_provider_must_be_unique: el compte extern ja ha estat connectat amb
+            un compte d'EOL
+          provider_user_id_must_be_unique: només pot connectar-se un compte extern
+            a un compte d'EOL
         resource:
           attributes:
+            accesspoint_url:
+              blank: no pot quedar buit, a menys que pugeu un fitxer de recurs
+              inaccessible: és inaccessible, l'URL ha de ser públicament accessible
+              invalid: no és vàlid, ha d'apuntar un arxiu XML, XML.GZOP, XML.GZ o
+                ZIP
             dataset:
+              blank: no pot quedar en blanc, a menys que subministris l'URL d'un conjunt
+                de dades
               wrong_type: és un tipus incorrecte, hauria de ser un arxiu GZIP, TAR,
                 ZIP o XML
             dwc_archive_url:
               inaccessible: és inaccessible, l'adreça URL ha de ser públicament accessible
+              invalid: és invàlid, ha d'apuntat a un arxiu TAR.GZIP, TAR.GZ, TGZ o
+                ZIP.
+        user_added_data:
+          attributes:
+            predicate:
+              must_be_uri: ha de ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                ben formada
+              namespace: s'ha usat un espai de noms que no ha estat reconegut
+            subject:
+              must_be_uri: ha de ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                ben formada
+              namespace: s'ha utilitzat un espai de noms no reconegut
+        user_added_data_metadata:
+          attributes:
+            predicate:
+              must_be_uri: ha de ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                ben formada
+              namespace: s'ha utilitzat un espai de noms no reconegut
+            subject:
+              must_be_uri: ha de ser una <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+                ben formada
+              namespace: s'ha utilitzat un espai de noms no reconegut
         known_uri_relationship:
           attributes:
             to_known_uri_id:
               must_be_known_uri: ha de ser un URI conegut
               must_be_measurement: ha de ser una mesura d'unitat
+              must_be_different: ha de ser diferent que l’URI de l’assumpte
+            relationship_uri:
+              only_one_measurement: No permès - només pot haver una unitat per defecte
   helpers:
     label:
       collection:
@@ -313,6 +434,15 @@ ca:
         name: El vostre nom
       content_page:
         active: Publicat
+        active_more: Les pàgines publicades seran visibles públicament. Desmarca <em>publicat</em>
+          si vols evitar que els usuaris generals puguin veure versions d'aquesta
+          pàgina en qualsevol idioma
+        page_name: Nom únic <small> (amb caràcters alfanumèrics en minúscules de l'alfabet
+          ISO Llatí bàsic i el guió baix) </small>
+        page_name_more: Introduïu un únic identificador, auto-descriptiu, significatiu
+          i persistent per a aquesta pàgina. El nom que introdueixi aquí s'utilitza
+          per generar l'URL d'aquesta pàgina, per exemple, el nom únic <em>terms_of_use</em>
+          es converteix en l'URL <em>http://www.eol.org/info/terms_of_use</em> URL.
       content_partner:
         created_at: Enregistrat
         current_agreement: Acord actual
@@ -325,26 +455,37 @@ ca:
         logo_current: 'Logotip actual:'
         logo_new: 'Carregar un nou logotip:'
         oldest_published_harvest_event: Primera publicació
+      content_partner_agreement:
+        mou_url: URL d'arxiu de l'acord (<small>alternativa opcional</small>)
       data_object:
         bibliographic_citation: Citació bibliogràfica
+        description: Text <small>(es permeten certs tipus de marcatge HTML)</small>
         license_id: Llicència
         object_title: Títol
         toc_item: Subcapítol
         refs: Referències <small>(poseu cada referència en una línia nova)</small>
+        refs_order: '*Les referències apareixen en ordre alfabètic'
         rights_holder: Titular dels drets
+        rights_statement: Declaració de drets
+        source_url: URL a l'objecte de dades original
       data_object_link:
+        description: Descripció <small>(es permeten certs tipus de marcatge HTML)</small>
         source_url: URL de l'enllaç
         toc_item: Assumpte
         link_type: Categoria
       data_search:
         attribute: Seleccioneu un atribut
         max: Valor més alt
+        max_with_val: 'Valor més alt: %{val}'
         max_placeholder: Introduïu un número
         min: Valor més baix
+        min_with_val: 'Valor més baix: %{val}'
         min_placeholder: Introduïu un número
+        min_placeholder_disabled: Rang desactivat
         q: Valor específic
         q_with_val: 'Valor específic: %{val}'
         q_placeholder: Introduïu una paraula, frase o nombre
+        q_placeholder_disabled: Rang introduït, valor específic desactivat
         q_more: Per exemple, heteròtrof.
         total_results: 'Resultats totals: %{total}'
         unit: Unitat de mesura
@@ -362,13 +503,16 @@ ca:
         published_at: Publicat
         published_status: Estat
       known_uri_relationship:
+        from_known_uri: Per URI conegut
         relationship_uri: Seleccionar la relació
+        to_known_uri: Entrar i seleccionar URI objectiu
       news_item:
         active: Publicat
       open_authentication:
         connected: Connectat
         connect: Afegeix
       resource:
+        accesspoint_url: URL del conjunt de dades
         dataset: Conjunt de dades
         hierarchy: Jerarquia
         oldest_published_harvest_event: Primera publicació
@@ -377,6 +521,8 @@ ca:
         refresh_period_hours: Freqüència
         resource_status_id: Estat
         resource_status: Estat
+        resource_url_or_file_url: Càrrega de recursos des de la URL
+        resource_url_or_file_upload: Pujar fitxer de recursos
         title: Nom del recurs
       session:
         password: Contrasenya
@@ -397,13 +543,14 @@ ca:
         credentials_more_successful_assistant_curator: Historial d'èxit com a curador
           auxiliar
         curation_application: Convertir-se en curador
+        curator_level: Actualment sou %{curator_level_with_indefinite_article}.
         email_reports_frequency_hours: Amb quina freqüència desitjaria rebre alertes
           per e-mail sobre l'activitat en les vostres contributions?
         email_settings_submit: configuració del correu electrònic
         email: Adreça de correu electrònic
-        entered_password: Contrasenya <small>(4-16 caracters)</small>
+        entered_password: Contrasenya <small>(4-16 caràcters)</small>
         generate_api_key: Sol·licitar una clau d'API
-        logo: Carregar una foto nova
+        logo: Carrega una foto nova
         new_password: Nova contrasenya <small>(4-16 caràcters)</small>
         new_password_confirmation: Nova contrasenya <small>(per confirmar)</small>
         news_in_preferred_language: Mostrar les notícies en l'idioma preferit
@@ -531,7 +678,7 @@ ca:
     month_names:
     - gener
     - febrer
-    - març
+    - Març
     - abril
     - maig
     - juny
@@ -566,19 +713,32 @@ ca:
         menu_link: Estadístiques dels curadors
         page_header: Estadístiques dels curadors
         page_title: 'Administració: Estadístiques dels curadors'
+      data_objects:
+        menu_link: Objectes de dades
       index:
         menu_link: Estadístiques generals
         page_header: Estadístiques generals
         page_title: 'Administració: Estadístiques generals'
       lifedesks:
         menu_link: LifeDesks
-        page_header: Estadístiques dels LifeDesks
-        page_title: 'Administració: Estadístiques dels LifeDesks'
+        page_header: Estadístiques de LifeDesks
+        page_title: 'Administració: Estadístiques de LifeDesks'
+      users_data_objects:
+        menu_link: Text enviat per usuari
   contacts:
     errors:
       message_not_sent: Ho sentim, s'ha produït un error, el seu missatge no s'ha
         enviat
+    notices:
+      message_sent: Gràcies per la seva resposta, el vostre missatge ha estat enviat
+        a la corresponent grup.
+    new:
+      page_title: Si us plau, deixeu els vostres comentaris
   collections:
+    download_taxa_data:
+      attribute_header: Atribut
+      select_all_checkbox: Seleccionar Tots
+      user_downloaded_collection: Descàrrega de dades per a %{collection_name}
     editors:
       show:
         meta_description: Gestors de la col·lecció %{collection_name} de l'Enciclopèdia
@@ -603,7 +763,7 @@ ca:
         tweet_text: '%{collection_name} Observacions a iNaturalist'
         view_all_observations_on_inaturalist: Veure totes les observacions de %{project_title}
           a iNaturalist
-        view_more_observations_on_inaturalist: Veure més observacions de % {project_title}
+        view_more_observations_on_inaturalist: Vegeu més observacions de %{project_title}
           a iNaturalist
         view_project_on_inaturalist: Veure %{project_title} a iNaturalist
   communities:
@@ -619,6 +779,8 @@ ca:
       header_news: Notícies de la EOL
       meta_title: Animals - Plantes - Imatges i informació
       see_all_eol_news: veure més <span class="assistive"> notícies de l'EOL</span>
+      see_all_recent_activites: veure més <span class="assistive">activitats en l'última
+        setmana</span>
       see_all_statistics: veure més <span class="assistive">estadístiques de l'EOL</span>
   content_partners:
     statistics:
@@ -628,8 +790,8 @@ ca:
       meta_title: Socis de contingut
     show:
       meta_description: '%{partner_name}. %{partner_description}'
-      meta_keywords: '% {partner_name}, soci de contingut de l''Enciclopèdia de la
-        vida'
+      meta_keywords: '%{partner_name}, soci del contingut de l''Enciclopèdia de la
+        Vida'
     edit:
       meta_title: Modifica %{partner_name}
   data_objects:
@@ -669,7 +831,7 @@ ca:
       page_title: Estadístiques
     lifedesks:
       menu_link: LifeDesks
-      page_header: Estadístiques dels LifeDesks
+      page_header: Estadístiques de LifeDesks
       page_title: Estadístiques
     marine:
       page_title: Estadístiques
@@ -715,10 +877,10 @@ ca:
       delete_failed_not_empty: La categoria no s'ha pogut eliminar perquè no és buida
       move_failed: La categoria no s'ha pogut traslladar
     posts:
-      joined_date: Es va unir a %{cita}
+      joined_date: S'hi va unir el %{date}
       create: Crear un nou missatge
       edit: Editar el missatge
-      post_written_by_user: '%{usuari} va escriure:'
+      post_written_by_user: '%{user} va escriure:'
       replying_to_post: 'Responent a:'
       create_successful: El missatge s'ha creat correctament
       create_failed: Ho sentim, s'ha produït un error, el missatge no s'ha pogut afegir
@@ -788,7 +950,7 @@ ca:
       questions_link_model_organism: Què és un organisme model?
       questions_link_contributing_to_research: Com puc contribuir a la recerca?
     footer:
-      google_plus: L'Enciclopèdia de la vida a Googgle+
+      google_plus: L'Enciclopèdia de la vida a Google+
   members:
     index:
       meta_keywords: Membres de %{community_name}
@@ -798,7 +960,7 @@ ca:
     index:
       page_title: Notícies de l'EOL
       meta_title: Notícies de l'EOL
-      meta_keywords: notícies de l'EOL, notícies de l'Enciclopèdia de la vida
+      meta_keywords: notícies de l'EOL, notícies de l'Enciclopèdia de la Vida
   notifier:
     activity_log_empty: No hi ha activitat recent dels curadors
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
@@ -813,7 +975,7 @@ ca:
     unsubscribed_to_notifications:
       subject: Sentim veure'l marxar...
     user_message:
-      subject: Un missatge de la Enciclopèdia de la vida
+      subject: Un missatge des de la Enciclopèdia de la Vida
     user_recover_account:
       subject: Recuperar el meu compte l'Enciclopèdia de la vida
   recent_activity:
@@ -839,8 +1001,8 @@ ca:
         tweet_text: Persones interessades en %{scientific_name}
       collections:
         hierarchy_entry:
-          meta_description: Coŀleccions que contenen % {scientific_name} classificats
-            per % {hierarchy_provider}.
+          meta_description: Col·leccions que contenen %{scientific_name} segons classificació
+            de %{hierarchy_provider}.
           meta_description_with_common_name: Coŀleccions que contenen %{preferred_common_name}
             (%{scientific_name} classificats per %{hierarchy_provider}).
         meta_title: Col·leccions de %{scientific_name}
@@ -961,13 +1123,12 @@ ca:
   add_a_comment_colon: 'Afegeix un comentari:'
   add: Afegeix
   add_a_new_role: Afegeix un nou rol
-  add_a_new_term: Afegeix un nou terme
   add_a_new_user: Afegeix un nou usuari
   add_article_to_page_button: Afegeix un article
   add_association_submit_button: afegeix una associació
   add_language: Afegeix una llengua
   add_link_to_page_button: Afegeix un enllaç
-  add_new_association_link: Afegeix una nova associació
+  add_new_association_link: Afegeix una associació nova
   add_new_tag_suggestion: Afegeix una nova proposta d'etiqueta
   add_page: Afegeix una pàgina
   admin_content_page_active: Publicat
@@ -1003,6 +1164,7 @@ ca:
   all_sources: Totes les fonts
   all_taxa: Tots els tàxons
   all_videos: Tots els vídeos
+  alternative_name_colon: 'Nom alternatiu:'
   anonymous_user_full_name: Usuari anònim
   anonymous_user_given_name: Anònim
   and: i
@@ -1083,6 +1245,9 @@ ca:
   description: Descripció
   description_of: Descripció de
   edit_my_profile: Edita el meu perfil
+  exceptions:
+    security_violations:
+      no_access: Hem inhabilitat aquesta funció temporalment. Torneu aviat.
   filter_by_type_link_option: Enllaços
   filter_by_type_text_option: Articles
   filter_by_type_sound_option: Sons
@@ -1122,7 +1287,6 @@ ca:
   invite_members_label: Convidar d'altres membres
   ip_address: Adreça IP
   ip: IP
-  term_is_already_def_error: '''%{term}'' ja ha estat definit'
   item_added_to_watch_collection_notice: '"%{item_name}" va ser afegit a %{collection_name}.'
   item_type_article: Article
   item_type_collection: Col·lecció
@@ -1146,7 +1310,8 @@ ca:
   item_type_sound_assistive: Aquest element és un so
   item_type_taxon_assistive: Aquest element és un tàxon
   item_type_video_assistive: Aquest element és un vídeo
-  item_not_added_already_in_collection: Aquest element ja ha estat afegit a la col·lecció.
+  item_not_added_already_in_collection: Aquest element:%{value} ja ha estat afegit
+    a la col·lecció.
   item_updated_in_collection_notice: Article actualitzat correctament en la col. lecció
     <em>%{collection_name}</em> .
   items_no_copy_none_selected_warning: No hi ha elements s'han copiat com cap van
@@ -1161,13 +1326,14 @@ ca:
   items_with_count_semi_colon:
     one: '%{count} element; '
     other: ' %{count} articles;'
-  iucn_red_list_status_advisory_information: Aquest enllaç us portarà a la Unió Internacional
-    per a la conservació de la natura (IUCN) Web lloc on vostè pot trobar més informació
-    sobre la IUCN llista vermella d'espècies amenaçades.
+  iucn_red_list_status_advisory_information: Aquest enllaç us portarà al lloc web
+    de la Unió internacional per a la conservació de la natura (IUCN), on trobareu
+    més informació sobre la llista vermella de la IUCN per a les espècies amenaçades.
   join_community_button: Unir-se a aquesta comunitat
-  join_eol_community_html: Convertir-se en part de la comunitat <abbr title="Encyclopedia
-    of Life">EOL</abbr> !
-  join_eol_button_html: Uneix-te a <abbr title="Encyclopedia of Life">EOL</abbr> ara
+  join_eol_community_html: Convertir-se en part de la comunitat <abbr title="Enciclopèdia
+    de la Vida">EOL</abbr>!
+  join_eol_button_html: Uneix-te a <abbr title="Enciclopèdia de la Vida">EOL</abbr>
+    ara
   joined_time_ago: Es va unir a %{time_passed} fa
   json_response: Resposta de JSON
   just_pages_with_pictures_and_text: Només les pàgines amb imatges i text
@@ -1201,8 +1367,8 @@ ca:
   licensing: Llicència
   link_name: Nom de l'enllaç
   links_with_count:
-    one: '%{count} link'
-    other: '%{count} links'
+    one: '%{count} enllaç'
+    other: '%{count} enllaços'
   literature_empty: No s'ha trobat cap referència
   literature_header: Referències
   login_or_create_account: Inicia una sessió o crea un compte
@@ -1250,7 +1416,7 @@ ca:
   moderator_colon: Moderador
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; pàgina de l''espècie>>'
   never: Mai
-  new_collection: Nova col·lecció
+  new_collection: Col·lecció nova
   new_news_item: Nou element de notícies
   next: Següent
   "no": "No"
@@ -1272,7 +1438,7 @@ ca:
   percentage_of_children_with_images: '% dels nens amb imatges'
   percentage_of_children_with_text: '% dels nens amb el text'
   only_show_authoritative_conten: 'Només Mostra el contingut amb autoritat:'
-  option_please_select: Si us plau Seleccioni
+  option_please_select: Si us plau, seleccioneu
   or_add_it_to_an_existing_collection: o afegir-lo a una col. lecció existent
   or_copy_them_to_existing_collection: o afegir-lo a una col. lecció existent
   or_email_education: O, envieu el vostre suggeriment a %{link}.
@@ -1289,8 +1455,8 @@ ca:
     other: ' %{count} altres tàxons'
   overview: Vista general
   page_name: Nom de la pàgina
-  page_reference: '"%{title}". Encyclopedia of Life, disponible a "<a href="http://%{domain_or_ip}%{this_url}"
-    target="_blank">http://%{domain_or_ip}%{this_url}</a>". Consultada el %{date}'
+  page_reference: «%{title}». Enciclopèdia de la Vida, disponible a «<a href="http://%{domain_or_ip}%{this_url}"
+    target="_blank">http://%{domain_or_ip}%{this_url}</a>». Consultada el %{date}
   pages_title: Referències
   pages_with_count:
     one: '%{count}'
@@ -1395,7 +1561,7 @@ ca:
     other: from persones de %{count}
   rating_added_notice: L'índex s'ha afegit correctament.
   rating_not_added_error: Ho sento, s'ha produït un error, l'índex no han pogut afegir.
-  recaptcha: Escriviu les dues paraules que vostè veu per sota de
+  recaptcha: Escriviu les dues paraules o nombres que veieu a sota
   recaptcha_incorrect_error_with_anchor: Els <a href="#%{recaptcha_anchor}">personatges
     reCaptcha</a> feia no coincideixen amb, si us plau provar una altra vegada.
   recent_updates: Últimes actualitzacions
@@ -1416,4 +1582,5 @@ ca:
     les jerarquies subministrats per EOL socis de contingut. La resposta s'inclouen
     l'etiqueta de la jerarquia i l'IDENTIFICADOR únic EOL en representació de la jerarquia
   twitter: Twitter
+  versions_colon: 'Versions:'
 ...

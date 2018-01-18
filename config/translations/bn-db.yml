@@ -1,0 +1,122 @@
+# Messages for Bangla (বাংলা)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Aftabuzzaman
+# Author: Ali Haidar Khan
+# Author: Mnzrr
+# Author: Rasal Lia
+---
+bn:
+  translated_activities-name-activity_id-19: প্রোফাইল
+  translated_activities-name-activity_id-50: অবিশ্বস্ত
+  translated_activities-name-activity_id-51: দেখান
+  translated_activities-name-activity_id-52: তৈরি করুন
+  translated_activities-name-activity_id-53: আড়াল করুন
+  translated_activities-name-activity_id-54: হালনাগাদ করুন
+  translated_activities-name-activity_id-55: অনুপযুক্ত
+  translated_activities-name-activity_id-56: অপসারণ
+  translated_activities-name-activity_id-57: হার
+  translated_activities-name-activity_id-58: বিশ্বস্ত
+  translated_activities-name-activity_id-59: অপর্যালোচিত
+  translated_activities-name-activity_id-63: সংগ্রহ করুন
+  translated_activities-name-activity_id-64: সরান
+  translated_agent_roles-label-agent_role_id-10: প্রকল্প
+  translated_agent_roles-label-agent_role_id-11: প্রকাশক
+  translated_agent_roles-label-agent_role_id-12: কন্ঠ রেকর্ড যন্ত্র
+  translated_agent_roles-label-agent_role_id-13: উৎস
+  translated_agent_roles-label-agent_role_id-14: উপাত্ত উৎস
+  translated_agent_roles-label-agent_role_id-15: যোগাযোগের ব্যক্তি
+  translated_agent_roles-label-agent_role_id-16: অবদানকারী
+  translated_agent_roles-label-agent_role_id-21: সরবরাহকারী
+  translated_agent_roles-label-agent_role_id-22: অনুবাদক
+  translated_agent_roles-label-agent_role_id-23: বৈজ্ঞানিক পর্যালোচক
+  translated_agent_roles-label-agent_role_id-24: ভাষা পর্যালোচক
+  translated_agent_roles-label-agent_role_id-2: লেখক
+  translated_agent_roles-label-agent_role_id-3: সমন্বয়কারী
+  translated_agent_roles-label-agent_role_id-4: সম্পাদনকারী
+  translated_agent_roles-label-agent_role_id-5: নির্মাতা
+  translated_agent_roles-label-agent_role_id-6: পরিচালক
+  translated_agent_roles-label-agent_role_id-7: সম্পাদক
+  translated_agent_roles-label-agent_role_id-8: বিশ্লেষণকারী
+  translated_agent_roles-label-agent_role_id-9: আলোকচিত্ৰকর
+  translated_audiences-label-audience_id-1: দক্ষ ব্যবহারকারী
+  translated_audiences-label-audience_id-2: সাধারণ জনগণ
+  translated_audiences-label-audience_id-3: শিশু
+  translated_collection_types-label-collection_type_id-10: শব্দ
+  translated_collection_types-label-collection_type_id-11: সংযোগ
+  translated_collection_types-label-collection_type_id-12: সাহিত্য
+  translated_collection_types-label-collection_type_id-15: বিস্তারিত
+  translated_collection_types-label-collection_type_id-16: চিত্রাদি
+  translated_collection_types-label-collection_type_id-17: বিতরণ
+  translated_collection_types-label-collection_type_id-18: রক্ষণ ব্যবস্থা
+  translated_collection_types-label-collection_type_id-19: নামের তথ্য
+  translated_collection_types-label-collection_type_id-22: শব্দাদি
+  translated_collection_types-label-collection_type_id-23: সংযোগ
+  translated_collection_types-label-collection_type_id-24: সাহিত্য
+  translated_collection_types-label-collection_type_id-3: বিস্তারিত
+  translated_collection_types-label-collection_type_id-4: চিত্রাদি
+  translated_collection_types-label-collection_type_id-5: বিতরণ
+  translated_collection_types-label-collection_type_id-6: রক্ষণ ব্যবস্থা
+  translated_collection_types-label-collection_type_id-7: নাম তথ্য
+  translated_contact_roles-label-contact_role_id-1: যোগাযোগের প্রাথমিক ঠিকানা
+  translated_contact_roles-label-contact_role_id-2: প্রশাসনের ঠিকানা
+  translated_contact_roles-label-contact_role_id-3: কারিগরি বিষয়ে যোগাযোগ ঠিকানা
+  translated_contact_subjects-title-contact_subject_id-24: সদস্যতা এবং নিবন্ধন
+  translated_contact_subjects-title-contact_subject_id-25: ব্যবহারের শর্তাবলি এবং
+    লাইসেন্স
+  translated_contact_subjects-title-contact_subject_id-26: জ্ঞানার্জন ও শিক্ষা
+  translated_ranks-label-rank_id-106: ফরম
+  translated_ranks-label-rank_id-51: শ্রেণি
+  translated_ranks-label-rank_id-74: বিভাদ
+  translated_ranks-label-rank_id-99: পরিবার
+  translated_table_of_contents-label-table_of_contents_id-13: প্রচলিত নাম সমূহ
+  translated_table_of_contents-label-table_of_contents_id-14: আইইউসিএন
+  translated_table_of_contents-label-table_of_contents_id-17: বিষয়ভিত্তিক তথ্যসূত্র
+  translated_table_of_contents-label-table_of_contents_id-194: আকার
+  translated_table_of_contents-label-table_of_contents_id-1: ভূমিকা
+  translated_table_of_contents-label-table_of_contents_id-218: বিস্তৃতি
+  translated_table_of_contents-label-table_of_contents_id-221: ঝুঁকি সমূহ
+  translated_table_of_contents-label-table_of_contents_id-225: Web এর মধ্যে আছে
+  translated_table_of_contents-label-table_of_contents_id-226: উপকরণ সহযোগী
+  translated_table_of_contents-label-table_of_contents_id-227: ওয়েব এ খুজুন
+  translated_table_of_contents-label-table_of_contents_id-242: সাধারণ প্রতিবেশ
+  translated_table_of_contents-label-table_of_contents_id-244: গ্রন্থবিবরণী
+  translated_table_of_contents-label-table_of_contents_id-24: মন্তব্য
+  translated_table_of_contents-label-table_of_contents_id-251: উপকারসমূহ
+  translated_table_of_contents-label-table_of_contents_id-267: অঙ্গসংস্থানবিদ্যা
+  translated_table_of_contents-label-table_of_contents_id-278: গ্রন্থবিবরণী
+  translated_table_of_contents-label-table_of_contents_id-285: সহযোগীগণ
+  translated_table_of_contents-label-table_of_contents_id-289: বিবর্তন
+  translated_table_of_contents-label-table_of_contents_id-296: ব্যবস্থাপনা
+  translated_table_of_contents-label-table_of_contents_id-2: সংক্ষিপ্তসার
+  translated_table_of_contents-label-table_of_contents_id-300: উইকিপিডিয়া
+  translated_table_of_contents-label-table_of_contents_id-303: নাম এবং শ্রেণীবিন্যাস
+  translated_table_of_contents-label-table_of_contents_id-306: পাতার পরিসংখ্যান
+  translated_table_of_contents-label-table_of_contents_id-310: উন্নয়ন
+  translated_table_of_contents-label-table_of_contents_id-316: আচরণ
+  translated_table_of_contents-label-table_of_contents_id-318: জীবন চক্র
+  translated_table_of_contents-label-table_of_contents_id-320: বংশবিস্তার
+  translated_table_of_contents-label-table_of_contents_id-321: বৃদ্ধি
+  translated_table_of_contents-label-table_of_contents_id-326: আণবিক জীববিজ্ঞান ও
+    জিনবিদ্যা
+  translated_table_of_contents-label-table_of_contents_id-328: কোষ জীববিজ্ঞান
+  translated_table_of_contents-label-table_of_contents_id-337: শিক্ষা
+  translated_table_of_contents-label-table_of_contents_id-33: প্রবণতা
+  translated_table_of_contents-label-table_of_contents_id-344: উপাত্ত
+  translated_table_of_contents-label-table_of_contents_id-345: উপাত্তসূত্র
+  translated_table_of_contents-label-table_of_contents_id-34: মন্তব্যসমূহ
+  translated_table_of_contents-label-table_of_contents_id-3: বাহ্যিক বর্ণনা
+  translated_table_of_contents-label-table_of_contents_id-41: বাসস্থান
+  translated_table_of_contents-label-table_of_contents_id-4: বাস্তুসংস্থান
+  translated_table_of_contents-label-table_of_contents_id-6: মানুষ এবং পরিবেশ ব্যবস্থার
+    প্রতি প্রাসঙ্গিক
+  translated_table_of_contents-label-table_of_contents_id-7: তথ্যসূত্র এবং আরও তথ্য
+  translated_table_of_contents-label-table_of_contents_id-8: সংরক্ষণ
+  translated_user_identities-label-user_identity_id-1: একজন উৎসাহী
+  translated_user_identities-label-user_identity_id-2: একজন শিক্ষার্থী
+  translated_user_identities-label-user_identity_id-5: একজন পেশাদার বিজ্ঞানী
+  translated_vetted-label-vetted_id-0: অজানা
+  translated_vetted-label-vetted_id-4: অবিশ্বস্ত
+  translated_vetted-label-vetted_id-5: বিশ্বস্ত
+  translated_vetted-label-vetted_id-6: অনুপযুক্ত
+...

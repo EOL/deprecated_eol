@@ -50,13 +50,6 @@
     %dd
       = partner_form.text_area :notes
       %p= partner_form.allowed_html_help_tip
-    %dt
-      = partner_form.label :logo
-    %dd.logo
-      %p= I18n.t("helpers.label.content_partner.logo_current")
-      = image_tag @partner.logo_url
-      %p= I18n.t("helpers.label.content_partner.logo_new")
-      = partner_form.file_field :logo
   - if current_user.is_admin?
     %fieldset
       %h4= I18n.t(:content_partner_administration_settings_header)

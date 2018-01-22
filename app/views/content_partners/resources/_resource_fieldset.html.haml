@@ -46,7 +46,8 @@
                 %p= raw(I18n.t('helpers.label.resource.dataset_existing_replace', :file_name => @resource.dataset_file_name))
             - else
               %p= raw(I18n.t('helpers.label.resource.accesspoint_url_existing_remove', :accesspoint_url => @resource.accesspoint_url.sub(/^.*\//, '')))
-            = resource_form.file_field :dataset
+            Sorry, uploading a file directly has been removed due to a security vulnerability. Please speak to your admin.
+            -# = resource_form.file_field :dataset
   %dl
     %dt
       = resource_form.label :dataset_license_id

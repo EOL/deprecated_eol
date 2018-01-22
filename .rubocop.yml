@@ -1,4 +1,4 @@
 Style/StringLiterals:
   EnforcedStyle: double_quotes
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing

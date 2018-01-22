@@ -33,10 +33,6 @@
       %dd
         - vs_id = @collection.view_style_id || @collection.view_style_or_default.id
         = f.select :view_style_id, options_from_collection_for_select(@view_as_options, :id, :name, vs_id)
-      %dt
-        = f.label :logo
-      %dd
-        = f.file_field :logo, :size=>10
   %fieldset.actions
     = submit_tag I18n.t(:update_collection_submit_button), :class => 'button'
     = link_to I18n.t(:go_back), collection_path(@collection)

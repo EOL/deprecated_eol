@@ -14,11 +14,6 @@
         = f.text_area :description
         %p= f.allowed_html_help_tip
       %dt
-        = f.label :logo
-        %p= I18n.t(:upload_logo_help_text)
-      %dd
-        = f.file_field :logo, :size=>25
-      %dt
         %label= I18n.t(:invite_members_label)
         %p= I18n.t(:invite_members_help_text)
       %dd.invite

@@ -6890,4 +6890,14 @@ pms:
   trusted_text_objects: Artìcoj fidà
   tumblr: Tumblr
   twitter: Twitter
+  type: Sòrt
+  unable_to_copy_items_to_collection_error: An dëspias, i l'oma nen podù copié j'element
+    ëd la colession an %{name}.
+  unable_to_invite_users_to_community_with_count:
+    one: L'anvit a l'ha nen podù esse mandà a %{list}.
+    other: J'anvit a l'han nen podù esse mandà a %{list}.
+  unique_page_views_th: Pàgine ùniche visualisà
+  unit_of_measure: Unità dë mzura
+  unknown: Nen conossù
+  unknown_hierarchy: Gerarchìa sconossùa
 ...

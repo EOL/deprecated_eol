@@ -35,7 +35,7 @@ ar:
       collection:
         name: اسم المجموعة
         description: وصف المجموعة
-        sort_style_id: اتجاه التصنيف المبدئي
+        sort_style_id: اتجاه التصنيف الافتراضي
         logo: صورة المجموعة الأساسية
         additional_annotation_fields: حقول هوامش إضافية
         show_references: مراجع (نص أو عنوان URL)
@@ -59,13 +59,13 @@ ar:
       content_page:
         page_name: اسم فريد
         sort_order: الترتيب
-        active: نشر
+        active: تم نشره
       content_partner:
         acronym: اختصار المشروع
         auto_publish: انشر تلقائيا
         admin_notes: ملاحظات الإدارة
         content_partner_status: وضع المشروع
-        created_at: أنشئ في
+        created_at: تم الإنشاء
         description: وصف المشروع
         display_name: الاسم الظاهر
         full_name: اسم المشروع
@@ -77,7 +77,7 @@ ar:
         user_id: يديره
         vetted: تم تقييمه
       content_partner_agreement:
-        created_at: تم إنشائه في
+        created_at: تم إنشاؤه في
         signed_by: وَقَّعَهُ
         signed_on_date: وقعت في تاريخ
       content_partner_contact:
@@ -93,7 +93,7 @@ ar:
         description: وصف
         source_url: رابط URL
       eol_statistic:
-        created_at: تم إنشائه في
+        created_at: تم إنشاؤه في
         members_count: الأعضاء
         communities_count: المجتمعات
         collections_count: المجموعات
@@ -101,7 +101,7 @@ ar:
         pages_with_content: صفحات تضم محتوى
         pages_with_text: صفحات تحوي نصوصا
         pages_with_image: صفحات تحوي صورا
-        pages_with_map: صفحات تحوي خرائطا
+        pages_with_map: صفحات تحوي خرائط
         pages_with_video: صفحات تحوي مقاطع  فيديو
         pages_with_sound: صفحات تحوي مقاطع صوتية
         pages_without_text: صفحات بلا نصوص
@@ -130,7 +130,8 @@ ar:
         udo_published_by_non_curators: نص غير مقدم من المشرف
         content_partners: شركاء المحتوى
         content_partners_with_published_resources: بها موارد منشورة
-        content_partners_with_published_trusted_resources: بها موارد موثوق بها
+        content_partners_with_published_trusted_resources: بها موارد منشورة موثوق
+          بها
         published_resources: موارد منشورة
         published_trusted_resources: موارد منشورة موثوق بها
         published_unreviewed_resources: موارد منشورة غير مراجعة
@@ -141,18 +142,18 @@ ar:
         marine_pages_with_objects_vetted: صفحات بحرية تضم عناصر بيانات موثوق بها
         curators: المشرفون
         curators_assistant: المشرفون المساعدون
-        curators_full: المشرفون
+        curators_full: كامل المشرفين
         curators_master: المشرفون الرؤساء
         active_curators: المشرفون النشطون
         pages_curated_by_active_curators: صفحات راجعها مشرفون نشطون
         objects_curated_in_the_last_30_days: عناصر قُيِّمت خلال الشهر الماضي
         curator_actions_in_the_last_30_days: نشاطات الإشراف خلال الشهر الماضي
         rich_pages: الصفحات الغنية
-        hotlist_pages: الصفحات المفضلة
-        rich_hotlist_pages: الصفحات المفضلة الغنية
+        hotlist_pages: صفحات القائمة السريعة
+        rich_hotlist_pages: صفحات القائمة السريعة الغنية
         rich_hotlist_pages_percentage: صفحات القائمة السريعة الغنية %
-        redhotlist_pages: الصفحات المفضلة للغاية
-        rich_redhotlist_pages: الصفحات الغنية و المفضلة للغاية
+        redhotlist_pages: صفحات القائمة السريعة الغنية
+        rich_redhotlist_pages: صفحات القائمة السريعة الحمراء الغنية و المفضلة للغاية
         rich_redhotlist_pages_percentage: صفحات القائمة الحمراء السريعة الغنية %
         pages_with_score_10_to_39: صفحات ذات تقييم 10-40
         pages_with_score_less_than_10: صفحات ذات تقييم أقل من 10
@@ -169,13 +170,13 @@ ar:
         total_data_records: سجلات البيانات
       forum:
         forum_category_id: فئة
-        name: إسم النموذج
+        name: اسم النموذج
         description: الوصف <small>(اختياري)</small>
       forum_category:
-        title: إسم التصنيف
+        title: اسم التصنيف
         description: الوصف <small>(اختياري)</small>
       forum_post:
-        subject: الموضع
+        subject: الموضوع
         text: نص الرسالة
       forum_topic:
         subject: موضوع
@@ -193,7 +194,7 @@ ar:
         clade_exemplar: استخدام كمثال مجموعة التصنيف التصنيفية
         description: الوصف
         exclude_from_exemplars: استبعاد من لمحة عامة
-        group_by_clade: استخدام لمجموعة التصنيف التصنيفية
+        group_by_clade: استخدام لنطاقات التصنيف التصنيفية
         hide_from_glossary: إخفاء من معجم البيانات
         name: الاسم
         toc_items: تصنيفات
@@ -230,17 +231,17 @@ ar:
         made_me_a_manager: تم تعيينك مدير مجموعة أو مجتمع
         member_joined_my_community: عضو جديد انضم إلى مجتمع تديره
         comment_on_my_watched_item: تعليقات على كائنات أو أصنوفات أو مجموعات أو مجتمعات
-          في قائمة مراقباتك.
+          في قائمة مراقبتك.
         curation_on_my_watched_item: عمليات إشرافية على كائنات أو أصنوفات أو مجموعات
-          أو مجتمعات في قائمة مراقباتك
-        new_data_on_my_watched_item: إسهامات جديدة في أصنوفات في قائمة مراقباتك
-        changes_to_my_watched_collection: تغييرات في مجموعات في قائمة مراقباتك
-        changes_to_my_watched_community: تغييرات في مجتمعات في قائمة مراقباتك
-        member_joined_my_watched_community: أعضاء جدد انضموا إلى مجتمع تديره
+          أو مجتمعات في قائمة مراقبتك
+        new_data_on_my_watched_item: إسهامات جديدة في أصنوفات في قائمة مراقبتك
+        changes_to_my_watched_collection: تغييرات في مجموعات في قائمة مراقبتك
+        changes_to_my_watched_community: تغييرات في مجتمعات في قائمة مراقبتك
+        member_joined_my_watched_community: أعضاء جدد انضموا إلى مجتمع أنت عضو فيه
         member_left_my_community: أعضاء فارقوا مجتمعا تديره
         new_manager_in_my_community: عضو آخر صار مديرًا لمجتمع تديره
-        i_am_being_watched: تمت إضافتك إلى قائمة مراقبات عضو آخر.
-        eol_newsletter: ارسل لي النشرة الإخبارية الفصلية
+        i_am_being_watched: تمت إضافتك إلى قائمة مراقبة عضو آخر.
+        eol_newsletter: أرسل لي النشرة الإخبارية الفصلية لموسوعة الحياة
       resource:
         accesspoint_url: مسار مجموعة بيانات
         auto_publish: انشر تلقائيا
@@ -252,23 +253,23 @@ ar:
         dataset_hosted_url: مصدر مجموعة البيانات (نسخة محلية)
         harvest_events: عمليات تجميع البيانات
         hierarchy: تراتُبية
-        language_id: اللغة المبدئية
+        language_id: اللغة الافتراضية
         dataset_license_id: ترخيص
         dataset_rights_holder: صاحب حقوق الملكية
         dataset_rights_statement: بيان حقوق
-        license_id: الرخصة المبدئية
+        license_id: الرخصة الافتراضية
         notes: تجري معالجة الملاحظات
         resource_status_id: حالة المصدر
-        rights_holder: مالك الحقوق المبدئي
-        rights_statement: إقرار الحقوق المبدئي
+        rights_holder: مالك الحقوق الافتراضي
+        rights_statement: إقرار الحقوق الافتراضي
         title: اسم المصدر
         vetted: تم تقييمه
       translated_content_page:
-        active_translation: نشر
+        active_translation: تم نشره
         left_content: التنقل
         main_content: المتن
-        meta_keywords: كلمات مفتاحية للبيانات الفوقية
-        meta_description: وصف البيانات الفوقية
+        meta_keywords: كلمات مفتاحية للبيانات الوصفية
+        meta_description: وصف البيانات الوصفية
         title: عنوان
       translated_known_uri:
         definition: تعريف
@@ -276,11 +277,11 @@ ar:
       translated_news_item:
         active_translation: تم نشره
         body: المتن
-        meta_keywords: كلمات مفتاحية للبيانات الفوقية
-        meta_description: وصف البيانات الفوقية
+        meta_keywords: كلمات مفتاحية للبيانات الوصفية
+        meta_description: وصف البيانات الوصفية
         title: العنوان
       user:
-        agreed_with_terms: اتفاقية شروط الاستخدام
+        agreed_with_terms: الموافقة على شروط الاستخدام
         api_key: مفتاح واجهة برمجة التطبيقات
         bio: السيرة
         credentials: الاعتمادات
@@ -302,7 +303,7 @@ ar:
       user_added_data:
         predicate: سمة
         object: قيمة
-        user: أضيفت من طرف
+        user: أضيفت بواسطة
       user_added_data_metadata:
         predicate: خاصية
         object: قيمة
@@ -310,11 +311,10 @@ ar:
       format: '%{attribute} %{message}'
       template:
         header:
-          one: '%{count} خطأ في التحقق'
-          other: '%{count} خطأ في التحقق'
+          other: تم العثور على %{count} خطأ في التحقق
         body: 'تعذر التحقق من الخانات التالية:'
       messages:
-        taken: غير متاح
+        taken: قد تم أخذه بالفعل
         record_invalid: 'تعذر التحقق: %{errors}'
         inclusion: غير موجود بالقائمة
         exclusion: محجوز
@@ -324,11 +324,9 @@ ar:
         empty: لا يمكن أن يترك خاليًا
         blank: لا يمكن أن يترك فارغًا
         too_long:
-          one: 'طويل جدًا (الحد الأقصى %{count} حرف) '
-          other: 'طويل جدًا (الحد الأقصى %{count} حرف) '
+          one: طويل جدًا (الحد الأقصى %{count} حرف)
         too_short:
-          one: قصير جدًا (الحد الأدنى %{count} حرف)
-          other: قصير جدًا (الحد الأدنى %{count} حرف)
+          one: قصير جدًا (الحد الأدنى %{count} حرف))
         wrong_length: عدد الحروف خاطئ (يجب أن يكون %{count} حرف)
         not_a_number: ليس رقم
         not_an_integer: يجب ان يكون عدد صحيح
@@ -339,12 +337,11 @@ ar:
         equal_to: يجب أن يساوي %{count}
         less_than:
           one: يجب ان يكون أقل من %{count}
-          other: يجب ان يكون أقل من %{count}
         less_than_or_equal_to: يجب أن يكون أقل من أو يساوي %{count}
         odd: يجب ان يكون عدد فردي
         even: يجب أن يكون عدد زوجي
         inaccessible: يتعذر الوصول إليه
-        wrong_type: صيغة خاطئة
+        wrong_type: هو النوع الخاطيء
         models:
           inaccessible: يتعذر الوصول إليه
       full_messages:
@@ -354,7 +351,7 @@ ar:
           attributes:
             rights_holder:
               blank: لا يمكن تركها خالية لرخصة CC-BY.
-              inclusion: يجب أن تظل خالية لرخصة ملك عام.
+              inclusion: يجب أن تظل خالية لرخصة ملكية عامة.
         harvest_event:
           attributes:
             publish:
@@ -364,54 +361,53 @@ ar:
         known_uri:
           attributes:
             uri:
-              must_be_uri: المسار <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>يجب
-                أن يكون بشكل جيد</a>
+              must_be_uri: يجب أن يكون <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>المسار</a>
+                بشكل جيد
         open_authentications:
           guid_provider_must_be_unique: حساب الطرف الثالث متصل مسبقا بحساب موسوعة
-            الحياة EOL
-          provider_user_id_must_be_unique: يمكن لحساب واحد، لكل موفر طرف ثالث، من
-            الإتصال بحساب موسوعة الحياة EOL
+            الحياة
+          provider_user_id_must_be_unique: يمكن لحساب واحد لكل موفر طرف ثالث الاتصال
+            بحساب موسوعة الحياة
         resource:
           attributes:
             accesspoint_url:
               blank: لا يمكن تركه خاليًا، إلا إذا قمت بتحميل ملف لمصدر عوضًا عن ذلك
-              inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان
-                الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة XML، XML.GZIP، XML.GZ
-                أو ZIP
+              inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى المسار
+              invalid: |-
+                غير صالح،  يجب أن يشير إلى ملف بصيغة XML أو XML.GZIP
+                أو XML.GZ أو ZIP
             dataset:
-              blank: لا يمكن تركه خاليًا، إلا إذا قمت بإضافة عنوان إلكتروني خاص بمجموعة
-                بيانات عوضًا عن ذلك
-              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP، TAR، ZIP أو ملف XML
+              blank: لا يمكن تركه خاليًا، إلا إذا قمت بإضافة مسار مجموعة بيانات عوضًا
+                عن ذلك
+              wrong_type: صيغة خاطئة، يجب أن يكون بصيغة GZIP أو TAR أو ZIP أو XML
             dwc_archive_url:
-              inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى العنوان
-                الإلكتروني
-              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة TAR.GZIP، TAR.GZ، TGZ
-                أو ZIP
+              inaccessible: يتعذر الوصول إليه، يجب أن يتمكن العامة من الوصول إلى المسار
+              invalid: غير صالح،  يجب أن يشير إلى ملف بصيغة TAR.GZIP. أو TAR.GZ أو
+                TGZ أو ZIP
         user_added_data:
           attributes:
             predicate:
-              must_be_uri: المسار <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>يجب
-                أن يكون بشكل جيد</a>
+              must_be_uri: يجب أن يكون <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>المسار</a>
+                بشكل جيد
               namespace: تم استخدام نطاق لم يتم التعرف عليه
             subject:
-              must_be_uri: المسار <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>يجب
-                أن يكون بشكل جيد</a>
+              must_be_uri: يجب أن يكون <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>المسار</a>
+                بشكل جيد
               namespace: تم استخدام نطاق لم يتم التعرف عليه
         user_added_data_metadata:
           attributes:
             predicate:
-              must_be_uri: المسار <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>يجب
-                أن يكون بشكل جيد</a>
+              must_be_uri: يجب أن يكون <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>المسار</a>
+                بشكل جيد
               namespace: تم استخدام نطاق لم يتم التعرف عليه
             subject:
-              must_be_uri: المسار <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>يجب
-                أن يكون بشكل جيد</a>
+              must_be_uri: يجب أن يكون <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>المسار</a>
+                بشكل جيد
               namespace: تم استخدام نطاق لم يتم التعرف عليه
         known_uri_relationship:
           attributes:
             to_known_uri_id:
-              must_be_known_uri: URI يجب أن يكون معروفا
+              must_be_known_uri: يجب أن يكون مسارا معروفا
               must_be_measurement: يجب أن تكون وحدة قياس
               must_be_different: يجب أن يكون مختلفًا عن موضوع المسار
             relationship_uri:
@@ -420,81 +416,81 @@ ar:
   helpers:
     label:
       collection:
-        view_style_id: عرض مبدئي
+        view_style_id: عرض افتراضي
       collection_item:
         annotation: تعليق توضيحي
         refs: المراجع <small>( أضف كل مرجع في سطر جديد)</small>
-        sort_field: فرز حسب <small>(date YYYY.MM.DD, number, or text)</small>
+        sort_field: فرز حسب <small>(التاريخ عععع.شش.يي، رقم، أو نص)</small>
         sort_field_show: قيمة التصنيف
       comment:
         body_edit: عدل التعليق
       contact:
-        comments: الرسالة الخاصة بك
+        comments: رسالتك
         contact_subject_id: الموضوع
         email: عنوان بريدك الإلكتروني
         name: اسمك
       content_page:
-        active: نشر
-        active_more: سوف تكون الصفحات المنشورة ظاهرة للعامة. أزل العلامة أمام <em>published</em>
-          إذا كنت ترغب في منع عامة المستخدمين من مشاهدة نسخ من تلك الصفحة بأي لغة.
-        page_name: الأسم المميز  <small>(lowercase ISO basic Latin alphanumeric characters
-          and underscores only)</small>
-        page_name_more: أدخل مًعرف مميز، ووصفي، وذا معنى وثابت لتلك الصفحة. سوف يتم
-          استخدام الأسم المضاف هنا لتطوير عنوان إلكتروني لتلك الصفحة كما تم تحويل
-          الإسم المميز <em>terms_of_use</em> إلى العنوان الإلكتروني <em>http://www.eol.org/info/terms_of_use</em>.
+        active: تم نشره
+        active_more: سوف تكون الصفحات المنشورة ظاهرة للعامة، أزل العلامة أمام <em>تم
+          النشر</em> إذا كنت ترغب في منع عامة المستخدمين من مشاهدة نسخ من تلك الصفحة
+          بأية لغة.
+        page_name: الاسم المميز <small>(أحرف أيزو صغيرة للأبجدية اللاتينة الأساسية
+          و التسطير فقط)</small>
+        page_name_more: أدخل مًعرفا مميزا، ووصفيا، وذا معنى وثابتا لتلك الصفحة، سوف
+          يتم استخدام الاسم المضاف هنا لتطوير مسار تلك الصفحة، مثل الاسم الفريد <em>شروط
+          الاستخدام</em> يتم تحويله إلى المسار <em>http://www.eol.org/info/terms_of_use</em>.
         parent_content_page_id: رئيسي
-        parent_content_page_id_more: يمكنك اختيار صفحة رئيسية لتتبعها تلك الصفحة.
+        parent_content_page_id_more: اختياريا اختر صفحة رئيسية لتتبعها تلك الصفحة.
       content_partner:
         created_at: مسجل
-        current_agreement: الاتفاقية الحالية
+        current_agreement: الموافقة الحالية
         display_name: الاسم الظاهر <small>(اختياري)</small>
-        display_name_more: يرجى إضافة إسم بديل ظاهر للعامة عوضًا عن <em> إسم المشروع</em>.
-        description_of_data: وصف البيانات  <small>( خاصة)</small>
+        display_name_more: وفر اسما بديلا ظاهرا للعامة عوضًا عن <em>اسم المشروع</em>.
+        description_of_data: وصف البيانات <small>(خاصة)</small>
         description_of_data_more: يرجى تقديم وصف لنوع المعلومات التي تمتلكها، وعدد
           العناصر المتاحة، وما هي الكائنات الحية المرتبطة بها، وما إذا كان تم جمعها
-          أو فحصها من قبل خبراء مؤهلون أو مجتمع معترف به.
+          أو فحصها من قبل خبراء مؤهلين أو مجتمع معترف به.
         last_action: آخر خطوة
         latest_published_harvest_event: آخر ما نشر
         logo_current: 'الشعار الحالي:'
         logo_new: 'تحميل شعار جديد:'
         notes: ملاحظات المشروع  <small>(خاصة)</small>
         oldest_published_harvest_event: أول ما نشر
-        is_public_more: تظهر صفحات شركاء المحتوى العام  للجميع كما يتم إضافة المعلومات
+        is_public_more: تظهر صفحات شركاء المحتوى العام  للجميع كما تتم إضافة المعلومات
           الخاصة بهم في قوائم شركاء المحتوى. قم بإزالة العلامة لاستبعاد بيانات شركاء
           المحتوى من القوائم واقصر إمكانية مشاهدة الصفحات الخاصة بهم على كل من المستخدم
           الذي أنشأ شريك المحتوى ومشرفي موسوعة الحياة.
-        user_id: يتم إدارة معلومات شريك المحتوى بواسطة
+        user_id: تتم إدارة معلومات شريك المحتوى بواسطة
       content_partner_agreement:
-        mou_url: العنوان الإلكتروني لملف الاتفاقية <small>(بديل اختياري)</small>
-        mou_url_more: يمكنك إدخال عنوان إلكتروني للملف الذي يضم الاتفاقية مع هذا الشريك
-          وسوف يطغى هذا الملف على أي نص لاتفاقيات أخرى. إذا كنت ترغب في حفظ الملف
-          (ملف من نوع PDF، على سبيل المثال) في خوادم محتوى موسوعة الحياة، يجب أن تقوم
-          أولاً <a href="%{upload_content_url}">بتحميل الملف</a> للحصول على العنوان
-          الإلكتروني.
+        mou_url: مسار ملف الموافقة <small>(بديل اختياري)</small>
+        mou_url_more: يمكنك إدخال مسار للملف الذي يضم موافقة هذا الشريك وسوف يطغى
+          هذا الملف على أي نص لموافقات أخرى، إذا كنت ترغب في حفظ الملف (ملف من نوع
+          PDF، على سبيل المثال) في خوادم محتوى موسوعة الحياة، يجب أن تقوم أولاً <a
+          href="%{upload_content_url}">بتحميل الملف</a> للحصول على المسار
       content_partner_contact:
         email_reports_frequency_hours_more: يتم إرسال تقارير البريد الإلكتروني فقط
           إذا كانت هناك تعليقات أو إجراءات من مشرف على البيانات الخاصة بك أو على صفحات
           الأصنوفات ذات الصلة بمجموعة البيانات الخاصة بك.
       data_object:
-        bibliographic_citation: الإقتباس الببليوغرافي
+        bibliographic_citation: الاقتباس الببليوغرافي
         bibliographic_citation_more: هذه صيغة اقتباس موصى بها لهذه البيانات في صورة
           مرجع ببليوجرافي، يُرجى ذكر تفاصيل كافية لتعريف هذه البيانات بأقصى دقة ممكنة.
-        description: النص <small>(some HTML markup is allowed)</small>
+        description: النص <small>(مسموح ببعض ترميز HTML)</small>
         license_id: الرخصة
-        license_id_more: قراءة <a href="%{policy_url}">  سياسة ترخيص موسوعة الحياة  </a>
+        license_id_more: اقرأ <a href="%{policy_url}">سياسة ترخيص موسوعة الحياة</a>
         object_title: عنوان
         toc_item: فصل فرعي
         refs: المراجع <small>( أضف كل مرجع في سطر جديد)</small>
         refs_order: ستعرض المصادر بالترتيب الابجدي
         rights_holder: صاحب حقوق الملكية
-        rights_holder_more: حدد شخص أو منظمة تملك أو تدير حقوق هذه البيانات. لو تركت
-          هذه الخانة خالية سيُفترض أنك أنت الحامل لكل رخص الملكية باستثناء الملك العام.
-          رخص الملك العام لا تتطلب حامل لحقوق الملكية
+        rights_holder_more: حدد شخصا أو منظمة تملك أو تدير حقوق هذه البيانات، لو تركت
+          هذه الخانة خالية سيُفترض أنك أنت الحامل لكل رخص الملكية باستثناء الملكية
+          العامة، رخص الملكية العامة لا تتطلب حامل لحقوق الملكية
         rights_statement: إقرار الحقوق
-        rights_statement_more: يرجى ذكر بيان حق الاستخدام حسب رخص المشاع الإبداعي(Attribution
-          (CC-BY ، وذكر النسبة <q cite="http://creativecommons.org/licenses/by/3.0">
-          بالطريقة التي حددها صاحب العمل أو مُقدم الرخصة </q>.
-        source_url: العنوان الإلكتروني الخاص بعنصر البيانات الأصلي
+        rights_statement_more: يرجى ذكر بيان حق الاستخدام حسب رخص المشاع الإبداعي
+          (Attribution (CC-BY، وذكر النسبة <q cite="http://creativecommons.org/licenses/by/3.0">
+          بالطريقة التي حددها صاحب العمل أو مُقدم الرخصة</q>.
+        source_url: مسار عنصر البيانات الأصلي
       data_object_link:
         description: الوصف <small>(يسمح ببعض توصيفات لغة توصيف النصوص المترابطة)</small>
         source_url: إضافة رابط المسار
@@ -504,9 +500,9 @@ ar:
         attribute: حدد خاصية
         max: القيمة الاعلى
         max_with_val: 'أعلى قيمة: %{val}'
-        max_placeholder: أدخل رقم
+        max_placeholder: أدخل رقما
         max_placeholder_disabled: تم تعطيل المجموعة
-        min: القيمة الادنى
+        min: القيمة الأدنى
         min_with_val: 'أعلى قيمة: %{val}'
         min_placeholder: أدخل رقما
         min_placeholder_disabled: تم تعطيل المجموعة
@@ -518,8 +514,8 @@ ar:
         taxon_name: مجموعة تصنيفية
         taxon_name_with_val: 'مجموعة تصنيفية: %{val}'
         taxon_name_placeholder: أدخل اسم المجموعة التصنيفية لتحديد مجموعة
-        taxon_name_placeholder_value_removed: '%{taxon_group} تمت إزالتها، حدد مجموعة
-          جديدة'
+        taxon_name_placeholder_value_removed: تمت إزالة %{taxon_group}؛ حدد مجموعة
+          جديدة
         taxon_name_more: على سبيل المثال، أدخل طيور طنانة أو حيتان، الاختيارات من
           القائمة المنسدلة فقط سيتم استخدامها، لا تعدل النص دون تحديد نتيجة لذلك.
         taxa_found: أصناف تم العثور عليها
@@ -530,8 +526,8 @@ ar:
         date_two: التاريخ
         download_all: الجميع <small>(تضم السجلات من كافة الصفحات)</small>
       google_analytics_partner_summaries:
-        taxa_pages: الصفحات <small>( عدد الصفحات)</small>
-        taxa_pages_viewed: الصفحات التي تم مشاهدتها <small>( عدد الصفحات التي شاهدها
+        taxa_pages: الصفحات <small>(عدد الصفحات)</small>
+        taxa_pages_viewed: الصفحات التي تمت مشاهدتها <small>(عدد الصفحات التي شاهدها
           الزائرون)</small>
         unique_page_views: عدد مشاهدات الصفحة المميزة <small>(عدد زائري الصفحة)</small>
         page_views: عدد مشاهدات الصفحة <small>(عدد مرات زيارة الصفحة)</small>
@@ -540,9 +536,9 @@ ar:
         began_at: بدأ
         completed_at: انتهى
         first_published_at: نشر للمرة الأولى
-        publish_more: الأعلام تحصي الأحداث استعدادًا للنشر، ولن يُنشر المحتوى على
+        publish_more: الأعلام تحصد الأحداث استعدادًا للنشر، ولن يُنشر المحتوى على
           الفور
-        published_at: نشر
+        published_at: تم نشره
         published_status: الحالة
         last_harvest_seconds: استغرق %{time_in_words}
       hierarchy:
@@ -551,23 +547,23 @@ ar:
         browsable_status_with_colon: 'حالة قابلية التصفح:'
         complete: تم تقييمه
         complete_more: 'يفترض التسلسل الهرمي المختار فردية كل مدخل، أي أنه سوف يتم
-          التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس.  <strong> تحذير:  لا تغير
-          هذه الخاصية إلا إذا كنت متأكد من حالة الجناس في التسلسل الهرمي، حيث أن هذا
-          من شأنه تعريض سلامة البيانات إلى الخطر. </strong>'
+          التعامل مع التسلسلات ذات الاسماء المتطابقة كجناس،<strong> تحذير: لا تغير
+          هذه الخاصية إلا إذا كنت متأكدا من حالة الجناس في التسلسل الهرمي، حيث أن
+          هذا من شأنه تعريض سلامة البيانات للخطر. </strong>'
         request_publish: تم طلب النشر
         request_publish_more: يشير إلى ما إذا كان هناك طلب معلق لتطوير هذا التسلسل
           الهرمي ليصبح أحد التسلسلات الهرمية الرئيسية القابلة للتصفح بموسوعة الحياة.
       known_uri_relationship:
         from_known_uri: لURI معروف
-        relationship_uri: اختار العلاقة
+        relationship_uri: اختر العلاقة
         to_known_uri: ادخل وحدد URI الهدف
       news_item:
         active: تم نشره
-        active_more: عناصر الأخبار المنشورة ستكون مرئية علنا في الوقت والتاريخ المحدد.
+        active_more: عناصر الأخبار المنشورة ستكون مرئية علنا في الوقت والتاريخ المحدد،
           أزل علامة التحديد من زر <em>تم نشره</em> إذا كنت ترغب في منع عامة المستخدمين
-          من الإطلاع على إصدارات عناصر الأخبار هذه في أي لغة.
-        page_name: الأسم المميز  <small>(أحرف ISO صغيرة للأبجدية اللاتينة الأساسية
-          و التسطير فقط )</small>
+          من الاطلاع على إصدارات عناصر الأخبار هذه بأية لغة.
+        page_name: الاسم المميز <small>(أحرف أيزو صغيرة للأبجدية اللاتينة الأساسية
+          و التسطير فقط)</small>
         page_name_more: "أدخل مًعرف مميز، ووصفي، وذا معنى وثابت لعنصر الأخبار. \nسوف
           يتم استخدام الاسم المضاف هنا لإنشاء عنوان إلكتروني لصفحة عنصر الأخبار هذه،
           على سبيل المثال سيتم تحويل الاسم المميز <em>new_version_of_eol</em> إلى
@@ -576,13 +572,12 @@ ar:
         connected: متصل
         connect: أضف
       resource:
-        administration_settings: إعدادات الإدارة <small> (ظاهرة إلى مشرفي موسوعة الحياة
+        administration_settings: إعدادات الإدارة <small>(ظاهرة لإداريي موسوعة الحياة
           فقط)<small>
-        accesspoint_url: العنوان الإلكتروني لمجموعة البيانات
-        accesspoint_url_existing_remove: يتم تحميل ذلك المصدر حاليًا من العنوان الإلكتروني
-          الذي ينتهي بـ <em>%{accesspoint_url}</em>. قم بتحميل ملف إذا كنت ترغب في
-          حذف العنوان الإلكتروني الحالي وتحميل المصدر من ملف عوضًا عن ذلك (لا ينصح
-          بذلك)
+        accesspoint_url: مسار مجموعة البيانات
+        accesspoint_url_existing_remove: يتم تحميل ذلك المصدر حاليًا من المسار الذي
+          ينتهي بـ<em>%{accesspoint_url}</em>، قم بتحميل ملف إذا كنت ترغب في حذف المسار
+          الحالي وتحميل المصدر من ملف عوضًا عن ذلك (لا ينصح بذلك)
         dataset: مجموعة بيانات
         dataset_existing_replace: يرتبط ملف <em>%{file_name}</em> بذلك المصدر حاليًا.
           حمل ملف جديد لاستبدال ملف <em>%{file_name}</em> الحالي.

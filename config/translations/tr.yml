@@ -349,8 +349,8 @@ tr:
           olmalı'
         equal_to: '%{count} olmalı'
         less_than:
-          one: '%{count} yaşından küçük olmalı}'
-          other: '%{count} yaşından küçük olmalı}'
+          one: '%{count} yaşından küçük olmalı'
+          other: '%{count} yaşından küçük olmalı'
         less_than_or_equal_to: '%{count} yaşında ya da %{count} yaşından küçük olmalı'
         odd: tek sayı olmalı
         even: çift sayı olmalı
@@ -1600,8 +1600,9 @@ tr:
         hierarchy_entry:
           meta_description: '%{scientific_name} hakkında %{hierarchy_provider} tarafından
             sınıflandırılmış bilgi ve uzmanlığı paylaşın'
-          meta_description_with_common_name: '%{preferred_common_name} hakkında %{hierarchy_provider}
-            tarafından sınıflandırılmış bilgi ve uzmanlığınızı paylaşın'
+          meta_description_with_common_name: '%{preferred_common_name} (%{scientific_name})
+            hakkında %{hierarchy_provider} tarafından sınıflandırılmış bilgi ve uzmanlığınızı
+            paylaşın'
           meta_keywords: '%{scientific_name} topluluğu, %{hierarchy_provider}'
           meta_title: '%{scientific_name} ile ilgilenen, %{hierarchy_provider} tarafından
             sınıflandırılmış kişiler'
@@ -1677,6 +1678,21 @@ tr:
             tarafından %{scientific_name} için sınıflandırılmış gerçekler mevcut değil.
             EOL, %{scientific_name} hakkında gerçekleri eklemeniz için sizi davet
             ediyor.
+          meta_description_with_common_name: Encyclopedia of Life'ta %{hierarchy_provider}
+            tarafından %{scientific_name} şeklinde sınıflandırılmış ve bilimsel olarak
+            %{scientific_name} bilinen %{preferred_common_name} hakkında gerçekler.
+          meta_description_with_common_name_no_data: Encyclopedia of Life'ta %{hierarchy_provider}
+            tarafından %{scientific_name} şeklinde sınıflandırılmış ve bilimsel olarak
+            %{scientific_name} bilinen %{preferred_common_name} hakkında gerçekler
+            mevcut değil. %{preferred_common_name} (%{scientific_name}) hakkında gerçekler
+            ve veriler eklemeniz için EOL, sizi katkı yapmaya davet ediyor.
+          meta_description_with_common_name_with_topics: '%{hierarchy_provider} tarafından
+            sınıflandırılan %{preferred_common_name} hakkında gerçekler? %{topics}
+            hakkında bilgi içeren %{scientific_name} ile ilgili veriler.'
+          meta_title: '%{hierarchy_provider} tarafından sınıflandırılan %{scientific_name}
+            hakkında gerçekler'
+          meta_title_with_common_name: '%{preferred_common_name} (%{hierarchy_provider}
+            tarafından sınıflandırılan %{scientific_name}) hakkından gerçekler'
     details:
       index:
         meta_title: '%{scientific_name} hakkında açıklamalar ve makaleler'

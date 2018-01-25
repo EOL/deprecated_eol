@@ -1702,15 +1702,124 @@ tr:
         meta_keywords: Sinonimler %{scientific_name}
   users:
     data_downloads:
+      download: indir
+      page_title: Veri İndirme
+      query_head: Sorgu
+      attribute_head: Öznitelik
+      created_head: Oluşturuldu
+      updated_head: Son Etkinlik
+      complete_head: Tamamlandı mı?
+      actions_head: Eylemler
       is_complete: Evet
       is_not_complete: Hayır
+      query_empty: (filtresiz)
+      processing: işleniyor
+      error: bu dosyada bir şeyler ters gitti
+      refresh: yenile
+      row_count: Sayı
+      search_again: tekrar arama yap
+      file_not_processed: Bu dosya henüz işlenmedi,
+      contact_us: lütfen yardım için bizimle iletişime geçin.
+    edit:
+      form_tip_account: EOL'de oturum açmak için bir EOL kullanıcı adı ve şifresi
+        gerekmektedir veya üçüncü taraf hesabı bağlayabilirsiniz. Bağlı bir hesabınız
+        yoksa kullanıcı adı ve şifre gereklidir ancak mevcut şifrenizi değiştirmek
+        isterseniz yalnızca buraya yeni şifre girin. E-posta adresi ve tercih edilen
+        dil (%{required_icon}) tüm kullanıcılar için gereklidir.
+      form_tip_account_oauth: E-posta adresi ve tercih edilen dilde %{required_icon}
+        tüm kullanıcılar için gereklidir.
+      form_tip_profile: Gerekli olarak işaretlenmiş ögeler %{required_icon} genel
+        kullanıcılar için isteğe bağlıdır ancak küratörler için gereklidir.
+    new:
+      complete_registration_header: EOL kaydınızı tamamlayın
+      create_user_header: Yeni bir <abbr title="Encyclopedia of Life">EOL</abbr> hesabı
+        oluşturun
+      create_user_with_eol_authentication_header: 'Veya yeni kimlik bilgileri sağlayın:'
+      meta_title: EOL'e katılın
+      sign_up_with_facebook_assistive: Facebook kimlik bilgilerinizi kullanarak EOL'e
+        kaydolun.
+      sign_up_with_google_assistive: Google kimlik bilgilerinizi kullanarak EOL'e
+        giriş yapın.
+      sign_up_with_twitter_assistive: Twitter kimlik bilgilerinizi kullanarak EOL'e
+        giriş yapın.
+      sign_up_with_yahoo_assistive: Yahoo kimlik bilgilerinizi kullanarak EOL'e giriş
+        yapın.
     newsfeeds:
+      activity_link: etkinlik
+      comments_link: yorumlar
       newsfeed_link: haber akışı
+      show:
+        meta_description: '%{user_full_name} için haberler, etkinlik güncellemeleri
+          ve yorumlar.'
+        meta_title: '%{user_full_name} Kullanıcısının Haber Akışı'
+        tweet_text: '%{user_full_name} kullanıcısının haber akışı'
+      comments:
+        meta_description: '%{user_full_name} için yorum beslemesi'
+        meta_title: '%{user_full_name} İçin Yorum Beslemesi'
+        tweet_text: '%{user_full_name} için yorum beslemesi'
+      activity:
+        meta_title: '%{user_full_name} İçin Etkinlik Beslemesi'
+        tweet_text: '%{user_full_name} için etkinlik beslemesi'
+    notifications:
+      edit:
+        page_title: Bildirim ayarları
+      update:
+        notification_settings_successfully_updated: Bildirim ayarları başarıyla güncellendi.
+        sorry_notification_settings_could_not_be_updated: Üzgünüz, bildirim ayarları
+          güncellenemedi.
     open_authentications:
+      errors:
+        missing_attributes: Üzgünüz, üçüncü taraf hesap bilgilerinize erişirken bir
+          sorun oluştu.
+        not_authorized_to_add_authentication: Üzgünüz, bu hesabı bağlanma yetkimiz
+          yok.
+        not_authorized_to_login: Üzgünüz, sizi bu hesapla EOL'de oturum açmaya yetkili
+          değiliz.
+        remove_connection_failed: Maalesef bir hata oluştu, bağlantı kaldırılamadı.
+        facebook:
+          missing_attributes: Üzgünüz, Facebook bilgilerinize erişirken bir sorun
+            oluştu.
+          new_authentication_not_added: Üzgünüz, bir hata oluştu, Facebook hesabınıza
+            bağlanamadık.
+          not_authorized_to_add_authentication: Üzgünüz, Facebook hesabınızı bağlanmak
+            için yetkimiz yok.
+          not_authorized_to_login: Maalesef, Facebook hesabınızı kullanarak EOL'de
+            sizin için oturum açmaya yetkili değiliz.
+          not_authorized_to_signup: Maalesef, Facebook hesabınızı kullanarak sizi
+            EOL'e kaydetme yetkimiz yok.
       facebook: Facebook
       google: Google
       twitter: Twitter
       yahoo: Yahoo!
+    recover_account:
+      form_header: Hesabı kurtar
+      form_tip: EOL hesabınızı kurtarmak için o hesapla ilişkili e-posta adresini
+        girin. Bir saat içinde bir hesap kurtarma e-postası almadıysanız lütfen spam
+        klasörünüzü kontrol edin.
+      notices:
+        recovery_email_sent: Hesap kurtarma e-postası daha fazla talimatla gönderildi.
+          Lütfen güvenli gönderenler listenize %{from_address} ekleyin ve bir saat
+          içinde e-postayı almazsanız spam filtrenizi kontrol edin.
+        temporarily_logged_in_update_authentication_details: Hesap kurtarma işlemine
+          izin vermek için geçici olarak oturum açtınız, başarıyla oturum açabilmeniz
+          için şifrenizi değiştirin veya bağlı hesaplarınızı güncelleyin.
+      meta_title: Hesabı kurtar
+    recover_account_choose_account:
+      errors:
+        user_not_found_choose_again: Maalesef bir hata oluştu ve e-posta gönderilmedi.
+          Lütfen erişimi kurtarmak istediğiniz hesabı seçin ve tekrar deneyin.
+      form_header: Hesabı kurtar
+      form_tip: <em>%{email}</em> e-posta adresine kayıtlı birkaç hesap var, lütfen
+        erişebilmek için hangi hesabı geri yüklemek istediğinizi seçin.
+      legend_choose_account: Bir hesap seçin
+  user_added_data:
+    add_data_header: Kendi verilerinize katkıda bulunun
+    additional_fields: Bu kayıtla ilgili veriler
+    edit_data_header: Verilerinizi düzenleyin
+    add_metadata_header: Ek Bilgi
+    edit_metadata_header: Meta-verileri düzenleyin
+    new_value: Değer
+    source_field_helper: Çevrimiçi veri kaynağına kaynak referans veya URL ekleyin.
   this_article_is_unpublished: Bu makale yayımlanmamıştır.
   0_or_1: 0 ya da 1
   0_1_or_2: 0, 1 ya da 2

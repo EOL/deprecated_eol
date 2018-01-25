@@ -31,6 +31,8 @@ el:
   translated_agent_roles-label-agent_role_id-1: Εμψυχωτής
   translated_agent_roles-label-agent_role_id-21: πάροχος
   translated_agent_roles-label-agent_role_id-22: Μεταφραστής
+  translated_agent_roles-label-agent_role_id-23: Επιστημονικός θεωρητής
+  translated_agent_roles-label-agent_role_id-24: Γλωσσικός θεωρητής
   translated_agent_roles-label-agent_role_id-2: Συγγραφέας
   translated_agent_roles-label-agent_role_id-3: Μεταγλωττιστής
   translated_agent_roles-label-agent_role_id-4: Συνθέτης
@@ -68,6 +70,7 @@ el:
   translated_collection_types-label-collection_type_id-9: Ονοματολογία
   translated_contact_roles-label-contact_role_id-1: Κύρια Επικοινωνία
   translated_contact_roles-label-contact_role_id-2: Διαχειριστική Επικοινωνία
+  translated_contact_roles-label-contact_role_id-3: Τεχνική επικοινωνία
   translated_contact_subjects-title-contact_subject_id-24: Συνδρομή και εγγραφή
   translated_contact_subjects-title-contact_subject_id-25: Όροι χρήσης και άδεια
   translated_contact_subjects-title-contact_subject_id-26: Μάθηση και εκπαίδευση
@@ -89,19 +92,37 @@ el:
   translated_data_types-label-data_type_id-2: Ήχος
   translated_data_types-label-data_type_id-3: Κείμενο
   translated_data_types-label-data_type_id-4: Βίντεο
+  translated_data_types-label-data_type_id-5: Εικόνα GBIF
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Δεν διατηρούνται δικαιώματα
   translated_licenses-description-license_id-29: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-2: '&#169; Όλα τα δικαιώματα διατηρούνται'
+  translated_licenses-description-license_id-30: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-31: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-32: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-33: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-34: Κοινό κτήμα
   translated_licenses-description-license_id-35: Κοινό κτήμα
   translated_licenses-description-license_id-36: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-37: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-38: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-39: Κοινό κτήμα
+  translated_licenses-description-license_id-3: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-42: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-43: Η άδεια δεν είναι εφαρμόσιμη
+  translated_licenses-description-license_id-4: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-5: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-6: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-7: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-8: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-9: Ορισμένα δικαιώματα διατηρούνται
   translated_ranks-label-rank_id-106: μορφή
   translated_ranks-label-rank_id-183: βασίλειο
   translated_ranks-label-rank_id-266: σειρά
   translated_ranks-label-rank_id-313: αίρεση
   translated_ranks-label-rank_id-314: αίρεση.
   translated_ranks-label-rank_id-317: τμήμα
+  translated_ranks-label-rank_id-324: σειρά
   translated_ranks-label-rank_id-335: είδη
   translated_ranks-label-rank_id-352: υπο-οικογένεια
   translated_ranks-label-rank_id-370: υποκλάση

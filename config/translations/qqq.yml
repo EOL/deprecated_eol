@@ -1445,6 +1445,7 @@ qqq:
     background jobs. This field is a label used on the administration page where the
     admin will see the status of the resque work queue. Notice 'Resque' is the specific
     name of the tool; don't translate that.
+  return: '{{Identical|Return}}'
   rights_holder: '{{Identical|Rights holder}}'
   sci_name_avg_table_head: 'This is seen only by admins, on a page reporting on searches.
     This string is used as the heading of a column of data: each row represents a

@@ -253,7 +253,7 @@ pt-PT:
         bibliographic_citation: Citação bibliográfica
         dataset: Ficheiro do conjunto de dados
         description: Descrição dos recursos
-        dwc_archive_url: Darwin Core Arquivo URL
+        dwc_archive_url: URL do arquivo Darwin Core
         dataset_source_url: Fonte de Dados Original
         dataset_hosted_url: Origem do conjunto de dados (cópia local)
         harvest_events: Recolher eventos
@@ -381,8 +381,8 @@ pt-PT:
         resource:
           attributes:
             accesspoint_url:
-              blank: não pode ficar em branco, a menos que carregue um arquivo de
-                recurso em vez
+              blank: não pode ficar em branco, a menos que carregue um ficheiro de
+                recurso
               inaccessible: é inacessível, o URL deve ser acessível ao público
               invalid: é inválido, deveria ser um ficheiro XML, XML.GZIP, XML.GZ ou
                 ZIP
@@ -478,11 +478,11 @@ pt-PT:
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement:
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>
-        mou_url_more: Opcionalmente digite a URL do ficheiro que contenha o acordo
+        mou_url_more: Opcionalmente digite o URL do ficheiro que contenha o acordo
           deste provedor de conteúdos associados. Este ficheiro irá sobrescrever qualquer
-          outro texto. Se pretende armazenar o ficheiro (por exemplo num arquivo PDF)
-          nos servidores do conteúdo EOL, então primeiro <a href="%{upload_content_url}">faça
-          o upload do arquivo</a>, para obter a URL.
+          outro texto. Se pretende armazenar o ficheiro (por exemplo num ficheiro
+          PDF) nos servidores do conteúdo da EOL, então primeiro <a href="%{upload_content_url}">carregue
+          o ficheiro</a>, para obter o URL.
       content_partner_contact:
         email_reports_frequency_hours_more: Os relatórios por correio eletrónico são
           enviados apenas se houver comentários ou ações de curadores nos seus dados
@@ -1353,6 +1353,10 @@ pt-PT:
         meta_title_with_common_name: Pessoas interessadas em %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Pessoas interessadas em %{scientific_name}
+      collections:
+        meta_title: Coleções de %{scientific_name}
+        meta_title_with_common_name: Coleções de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Coleções de %{scientific_name}
     maps:
       show:
         meta_title: Mapas de %{scientific_name}
@@ -1366,6 +1370,9 @@ pt-PT:
           meta_keywords: Sinónimos de %{scientific_name}
           meta_keywords_with_common_name: Sinónimos de %{preferred_common_name}, sinónimos
             de %{scientific_name}
+        meta_title: Sinónimos de %{scientific_name}
+        meta_title_with_common_name: Sinónimos de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sinónimos de %{scientific_name}
   users:
     data_downloads:
       empty: Você não tem nenhum download. Pode <a href='%{data_search_url}'>pesquisar
@@ -1378,6 +1385,7 @@ pt-PT:
       is_complete: Sim
       is_not_complete: Não
       query_empty: (sem filtros)
+      processing: a processar
       refresh: atualizar
       search_again: pesquisar novamente
     new:
@@ -1389,13 +1397,41 @@ pt-PT:
       facebook: Facebook
       google: Google
       index:
+        connected_unverified: Ligado; Não verificado;
         not_connected: Não conectado;
         page_title: Contas conectadas
       twitter: Twitter
       yahoo: Yahoo!
+    recover_account:
+      form_header: Recuperar conta
+      meta_title: Recuperar conta
+  article_from_supplier: Artigo de %{whom}
+  sound_from_supplier: Som de %{whom}
+  image_from_supplier: Imagem de %{whom}
+  map_from_supplier: Mapa de %{whom}
+  image_map_from_supplier: Mapa de %{whom}
+  video_from_supplier: Vídeo de %{whom}
+  article_of_taxon: Artigo de %{taxon_name}
+  sound_of_taxon: Áudio de %{taxon_name}
+  image_of_taxon: Imagem de %{taxon_name}
+  map_of_taxon: Mapa de %{taxon_name}
+  image_map_of_taxon: Mapa de %{taxon_name}
+  video_of_taxon: Vídeo de %{taxon_name}
+  article_rating: Avaliação do artigo
+  community_rating: Avaliação da comunidade
+  collection_rating: Avaliação da coleção
+  image_map_rating: Avaliação do mapa
+  link_rating: Avaliação da hiperligação
+  image_rating: Avaliação da imagem
+  person_rating: Avaliação da pessoa
+  sound_rating: Avaliação do som
+  taxon_rating: Avaliação do táxon
+  video_rating: Avaliação do vídeo
+  map_rating: Avaliação de mapa
   0_or_1: 0 ou 1
   0_1_or_2: 0, 1 ou 2
   about_eol: Sobre a EOL
+  about_resources: Sobre os recursos
   account_information: Informações sobre a conta
   account_registered_but_not_ready_try_later: A sua conta está registada, mas ainda
     não lhe pode aceder. Tente novamente dentro de cinco minutos, por favor.
@@ -1403,6 +1439,7 @@ pt-PT:
   action_not_available_error: Desculpe, essa ação não está disponível.
   actions: Ações
   active_colon: 'Ativo:'
+  active: Ativo
   activity: Atividade
   activity_log_empty: Ninguém forneceu atualizações ainda.
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}"
@@ -1413,7 +1450,7 @@ pt-PT:
   add_a_comment_colon: 'Adicione um comentário:'
   add: Adicionar
   add_a_new_common_name: Adicionar um novo nome comum
-  add_a_new_file_brackets: '[adicionar um novo arquivo]'
+  add_a_new_file_brackets: '[adicionar um novo ficheiro]'
   add_a_new_user: Adicionar um novo usuário
   add_a_taxon_association_label: Adicionar uma associação de táxon
   add_article_to_page_button: Adicionar um artigo
@@ -1907,10 +1944,10 @@ pt-PT:
     com sucesso.
   content_partner_resource_licensing_details_header: Direitos &amp; atribuição
   content_partner_resource_new_edit_form_tip: Introduza informação sobre esta fonte
-    de dados. Certifique-se que fornece um nome de recurso e escreva a URL pública
-    do arquivo de dados ou carregue o seu arquivo em formato GZIP, TAR ou XML. Se
-    fornecer uma URL, pode especificar quantas vezes gostaria que os seus dados sejam
-    recolhidos pela EOL. Por favor, certifique-se que o seu arquivo de dados está
+    de dados. Certifique-se que fornece um nome de recurso e escreva o URL público
+    do ficheiro de dados ou carregue o seu ficheiro em formato GZIP, TAR ou XML. Se
+    fornecer um URL, pode especificar quantas vezes gostaria que os seus dados sejam
+    recolhidos pela EOL. Por favor, certifique-se que o seu ficheiro de dados está
     num formato que pode ser importado pela EOL. <a href="%{more_url}">Aprenda mais
     sobre formatos de dados suportados</a>.
   content_partner_resource_new_link: Adicionar um novo recurso
@@ -2213,8 +2250,8 @@ pt-PT:
   family_name_colon: 'Apelido:'
   feedback: Comentários
   file: Ficheiro
-  file_id: ID do arquivo
-  file_size: Tamanho do arquivo
+  file_id: ID do ficheiro
+  file_size: Tamanho do ficheiro
   fill_in_a_message_below_to_send_email_to_user: 'Preencha a mensagem abaixo para
     mandar um e-mail a este usuário a partir do site. A mensagem será enviada quando
     enviar o formulário:'

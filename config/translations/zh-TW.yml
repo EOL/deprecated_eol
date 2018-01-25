@@ -4923,7 +4923,7 @@ zh-TW:
   results: 結果
   results_offset: <em>%{for}</em>的結果，%{total}中%{to}的%{from}
   return_common_names_for_the_page_taxon: 回報此頁面分類單元的所有俗名
-  return: 回報
+  return: 返回
   return_all_common_names_for_this_taxon: 回報這個分類單元的所有俗名
   return_all_synonyms_for_this_taxon: 回報這個分類單元的所有同種異名
   return_references_for_the_page_taxon: 回報此頁面分類單元的所有參考文獻

@@ -6900,4 +6900,16 @@ pms:
   unit_of_measure: Unità dë mzura
   unknown: Nen conossù
   unknown_hierarchy: Gerarchìa sconossùa
+  unknown_data_object_title: Oget ëd dàit scononnù
+  unable_to_determine_title: Impossìbil determiné ël tìtol ëd costa pàgina an sl'aragnà
+  unpublished: Nen publicà
+  unpublished_collections_with_count:
+    one: '%{count} colession ëstërmà'
+    other: '%{count} colession ëstërmà'
+  unreviewed: Nen revisionà
+  unreviewed_images: Plance nen revisionà
+  unreviewed_maps: Carte nen revisionà
+  unreviewed_text_objects: Artìcoj nen revisionà
+  untrusted: Nen fidà
+  update: Agiorné
 ...

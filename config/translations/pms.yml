@@ -6912,4 +6912,23 @@ pms:
   unreviewed_text_objects: Artìcoj nen revisionà
   untrusted: Nen fidà
   update: Agiorné
+  update_collection_submit_button: Agiorné ij detaj dla colession
+  update_language: Agiorné la lenga
+  update_page: Agiorné la pàgina
+  update_user_successful_notice: Ël cont a l'é stàit agiornà për da bin.
+  update_user_unsuccessful_error: An dëspias, a-i é staje n'eror, sò cont a l'é nen
+    ëstàit agiorn. Për piasì, ch'as sigura che tuti ij camp a son compilà për da bin.
+  updated_community: La comunità a l'é stàita agiornà për da bin.
+  updated_member: Ël mèmber a l'é stàit agiornà për da bin.
+  updated: Agiornà
+  updated_colon: 'Agiornà:'
+  updates: Agiornament
+  upload_content: carié ël contnù
+  upload_logo_help_text: Costa-sì a sarà la plancia prinsipal për arpresenté soa comunità
+    - a peul esse tut lòn ch'a veul.
+  uploaded_by: Carià da
+  uploaded_content: Contnù carià
+  uploaded_on: Carià su
+  upload: Carié
+  uri: URI
 ...

@@ -1,11 +1,13 @@
 # Messages for Serbian (Cyrillic script) (српски (ћирилица)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Acamicamacaraca
 # Author: Arabesque46
 # Author: Milicevic01
 # Author: Obsuser
 # Author: Rancher
 # Author: Srdjan m
+# Author: Zoranzoki21
 # Author: Сербијана
 ---
 sr:
@@ -349,7 +351,7 @@ sr:
         request_publish_more: Означава да ли на чекању постоји захтев хијерархије
           да се она унапреди у једну од главних прегледљивих хијерархија.
       resource:
-        administration_settings: Административне поставке <small>(видљиво само за
+        administration_settings: Административна подешавања <small>(видљиво само за
           администраторе EOL-а)</small>
         accesspoint_url: Адреса скупа података
         accesspoint_url_existing_remove: Ресурс се тренутно учитава из адресе са завршетком
@@ -437,7 +439,7 @@ sr:
         entered_password: Лозинка <small>(4-16 знакова)</small>
         generate_api_key: Захтевај API кључ
         generate_api_key_more: Ако сте заинтересовани да користите додатак АПИ за
-          EOL, можете створити АПИ кључ за препознавање вашег програма. Прочитајте
+          EOL, можете генерисати АПИ кључ за препознавање вашег програма. Прочитајте
           више о <a href="%{api_docs_url}">додавању кључа на АПИ позиве</a>.
         logo: Отпреми нову слику
         new_password: Нова лозинка <small>(4-16 знакова)</small>
@@ -499,7 +501,7 @@ sr:
       resource:
         create: Додај ресурс
         update: Ажурирај ресурс
-        update_settings: Ажурирај поставке
+        update_settings: Ажурирај подешавања
         force_harvest: Затражи наметнуто преузимање
       session:
         create: Пријава
@@ -512,7 +514,7 @@ sr:
         create: Отвори налог
         curation_application: Поднеси захтев
         curation_privileges: Поднеси захтев
-        generate_api_key: Створи кључ
+        generate_api_key: Генериши кључ
         notification_settings: Поставке обавештавања
         update: Сачувај податке на профилу
       wikipedia_queue:
@@ -774,7 +776,8 @@ sr:
     user_message:
       subject: Порука од Енциклопедије живота
     user_updated_email_preferences:
-      subject: '%{user_full_name} промени своју е-адресу или поставке за дописну листу'
+      subject: '%{user_full_name} промени своју е-адресу или подешавања за дописну
+        листу'
       message: |-
         Ово је системско самообавештење. %{user_full_name} (%{user_profile_url}) промени своју е-адресу или поставке за дописну листу.
 
@@ -1530,7 +1533,7 @@ sr:
   content_partner_about_header: О партнеру %{partner_name}
   content_partner_administration_notes_empty: Нема административних белешки.
   content_partner_administration_notes_header: Административне белешке
-  content_partner_administration_settings_header: Административне поставке
+  content_partner_administration_settings_header: Административна подешавања
   content_partner_administration_settings_introduction: Следећа административна поља
     могу да гледају и уређују само администратори на EOL-у.
   content_partner_collections_empty: Збирка партнера за садржај наводи податке које
@@ -1657,7 +1660,7 @@ sr:
   content_partner_resource_new_subheader: Додавање новог ресурса
   content_partner_resource_preview_collection_header: Прегледај збирку
   content_partner_resource_preview_collection_show_link: Преглед збирке
-  content_partner_resource_processing_header: Стање обраде и поставке
+  content_partner_resource_processing_header: Стање обраде и подешавања
   content_partner_resource_resource_status_new: Направљено
   content_partner_resource_show_link_back_to: назад на ресурс
   content_partner_resource_show_subheader: Детаљи ресурса <em>%{resource_title}</em>
@@ -2206,13 +2209,13 @@ sr:
     да додајете тривијалне називе.
   insufficient_privileges_to_curate_names: Нажалост, немате довољно овлашћења да кустосирате
     називе.
-  internal_ip_address: унутрашња ИП адреса
+  internal_ip_address: унутрашња IP адреса
   inverse_sort: Поређај обрнуто
   invite_members_label: Позивање чланова
   invite_members_help_text: Овде додајте кориснике EOL-а који ће примити позивницу
     за вашу нову заједницу.
-  ip_address: ИП адреса
-  ip: ИП адреса
+  ip_address: IP адреса
+  ip: IP адреса
   item_added_to_watch_collection_notice: Ставка „%{item_name}“ је додата у %{collection_name}.
   item_added_to_collection_notice: Ставка је додата у збирку <em>%{collection_name}</em>
   item_details_missing: Нажалост, дошло је до грешке. Не могу да преузмем детаље о
@@ -2897,7 +2900,7 @@ sr:
     one: Порука је послата на %{users}.
     other: Поруке су послате на %{users}.
   sep_emails_with_commas_note: (одвојите адресе запетама)
-  server_ip_address: ИП адреса сервера
+  server_ip_address: IP адреса сервера
   set_as_exemplar: Постави као пример
   share_a_collection: Дели збирку
   show: Прикажи
@@ -3463,7 +3466,7 @@ sr:
     да користите обликовање.
   your_email_address: Ваша имејл адреса
   you_removed_the_member_from_the_community: Уклонили сте овог члана из заједнице.
-  your_ip_address: Ваша ИП адреса
+  your_ip_address: Ваша IP адреса
   your_preferences: Поставке
   your_rating: Ваша оцена
   youtube: Јутјуб

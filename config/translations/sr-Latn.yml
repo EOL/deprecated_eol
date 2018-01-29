@@ -1,9 +1,11 @@
 # Messages for Serbian (Latin script) (srpski (latinica)‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Acamicamacaraca
 # Author: Milicevic01
 # Author: Obsuser
 # Author: Rancher
+# Author: Zoranzoki21
 # Author: Сербијана
 ---
 sr-Latn:
@@ -270,8 +272,8 @@ sr-Latn:
         request_publish_more: Označava da li na čekanju postoji zahtev hijerarhije
           da se ona unapredi u jednu od glavnih pregledljivih hijerarhija.
       resource:
-        administration_settings: Administrativne postavke <small>(vidljivo samo za
-          administratore EOL-a)</small>
+        administration_settings: Administrativna podešavanja <small>(vidljivo samo
+          za administratore EOL-a)</small>
         accesspoint_url: Adresa skupa podataka
         accesspoint_url_existing_remove: Resurs se trenutno učitava iz adrese sa završetkom
           <em>%{accesspoint_url}</em>. Otpremite datoteku ako želite da uklonite postojeću
@@ -351,9 +353,9 @@ sr-Latn:
         email_reports_frequency_hours: Koliko često želite da primate e-obaveštenja
           o aktivnostima u vezi s vašim doprinosima?
         entered_password: Lozinka <small>(4-16 znakova)</small>
-        generate_api_key: Zahtevanje API ključa
+        generate_api_key: Zatraži API ključ
         generate_api_key_more: Ako ste zainteresovani da koristite dodatak API za
-          EOL, možete stvoriti API ključ za prepoznavanje vašeg programa. Pročitajte
+          EOL, možete generisati API ključ za prepoznavanje vašeg programa. Pročitajte
           više o <a href="%{api_docs_url}">dodavanju ključa na API pozive</a>.
         logo: Otpremi novu sliku
         new_password: Nova lozinka <small>(4-16 znakova)</small>
@@ -412,7 +414,7 @@ sr-Latn:
       resource:
         create: Dodaj resurs
         update: Ažuriraj resurs
-        update_settings: Ažuriraj postavke
+        update_settings: Ažuriraj podešavanja
         force_harvest: Zatraži nametnuto preuzimanje
       session:
         create: Prijava
@@ -423,7 +425,7 @@ sr-Latn:
         create: Otvori nalog
         curation_application: Podnesi zahtev
         curation_privileges: Podnesi zahtev
-        generate_api_key: Stvori ključ
+        generate_api_key: Generiši ključ
         update: Sačuvaj podatke na profilu
       wikipedia_queue:
         create: Podnesi zahtev
@@ -604,7 +606,8 @@ sr-Latn:
     user_message:
       subject: Poruka od Enciklopedije života
     user_updated_email_preferences:
-      subject: '%{user_full_name} promeni svoju e-adresu ili postavke za dopisnu listu'
+      subject: '%{user_full_name} promeni svoju e-adresu ili podešavanja za dopisnu
+        listu'
       message: |-
         Ovo je sistemsko samoobaveštenje. %{user_full_name} (%{user_profile_url}) promeni svoju e-adresu ili postavke za dopisnu listu.
 
@@ -1185,7 +1188,7 @@ sr-Latn:
   content_partner_about_header: O partneru %{partner_name}
   content_partner_administration_notes_empty: Nema administrativnih beleški.
   content_partner_administration_notes_header: Administrativne beleške
-  content_partner_administration_settings_header: Administrativne postavke
+  content_partner_administration_settings_header: Administrativne podešavanja
   content_partner_administration_settings_introduction: Sledeća administrativna polja
     mogu da gledaju i uređuju samo administratori na EOL-u.
   content_partner_collections_empty: Zbirka partnera za sadržaj navodi podatke koje
@@ -1309,7 +1312,7 @@ sr-Latn:
   content_partner_resource_new_subheader: Dodavanje novog resursa
   content_partner_resource_preview_collection_header: Pregledaj zbirku
   content_partner_resource_preview_collection_show_link: Pregled zbirke
-  content_partner_resource_processing_header: Stanje obrade i postavke
+  content_partner_resource_processing_header: Stanje obrade i podešavanja
   content_partner_resource_resource_status_new: Napravljeno
   content_partner_resource_show_link_back_to: nazad na resurs
   content_partner_resource_show_subheader: Detalji resursa <em>%{resource_title}</em>

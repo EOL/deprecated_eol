@@ -15,6 +15,7 @@
 # Author: Marmase
 # Author: McAang
 # Author: Meelo
+# Author: Rapsar
 # Author: Sayginer
 # Author: SiLveRLeaD
 # Author: Sucsuzz
@@ -1783,10 +1784,10 @@ tr:
             bağlanamadık.
           not_authorized_to_add_authentication: Üzgünüz, Facebook hesabınızı bağlanmak
             için yetkimiz yok.
-          not_authorized_to_login: Maalesef, Facebook hesabınızı kullanarak EOL'de
+          not_authorized_to_login: Maalesef Facebook hesabınızı kullanarak EOL'de
             sizin için oturum açmaya yetkili değiliz.
-          not_authorized_to_signup: Maalesef, Facebook hesabınızı kullanarak sizi
-            EOL'e kaydetme yetkimiz yok.
+          not_authorized_to_signup: Maalesef Facebook hesabınızı kullanarak sizi EOL'e
+            kaydetme yetkimiz yok.
       facebook: Facebook
       google: Google
       twitter: Twitter
@@ -1817,7 +1818,7 @@ tr:
     additional_fields: Bu kayıtla ilgili veriler
     edit_data_header: Verilerinizi düzenleyin
     add_metadata_header: Ek Bilgi
-    edit_metadata_header: Meta-verileri düzenleyin
+    edit_metadata_header: Meta verilerini değiştirin
     new_value: Değer
     source_field_helper: Çevrimiçi veri kaynağına kaynak referans veya URL ekleyin.
   this_article_is_unpublished: Bu makale yayımlanmamıştır.

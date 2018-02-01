@@ -6931,4 +6931,35 @@ pms:
   uploaded_on: Carià su
   upload: Carié
   uri: URI
+  url: Adrëssa an sl'aragnà
+  url_not_accessible: S'adrëssa an sl'aragnà a l'é nen acessìbil
+  us_dollars_100: 100 US$
+  us_dollars_35: 35 US$
+  us_dollars_50: 50 US$
+  us_dolars_75: 75 US$
+  use_as_examplar_button: dovré 'me model
+  use_as_examplar_note_preferred: 'Nòta: Costa classificassion a l''é preferìa. Probabilman
+    a vorërà dovré costa-sì.'
+  used_for_friendly_url_note: (dovrà për generé na liura acujenta për j'utent, a peul
+    nen conten-e djë spassi o ëd caràter ëspeciaj)
+  user_activation_failed_resent_validation_email_error: An dëspias, a-i é staje n'eror,
+    sò cont a l'ha nen podù esse verificà. Ëd sòlit sòn a-i riva cand la liura ëd
+    verìfica che chiel a l'ha butà o selessionà a l'é nen arconossùa. J'anstrussion
+    d'ativassion a son ëstàite torna mandà a l'adrëssa ëd pòsta eletrònica con la
+    qual chiel a l'é argistrasse, për piasì ch'as sigura che la liura ëd verìfica
+    ch'a deuvra a rëspond a cola fornìa ant ël mëssagi d'ativassion.
+  user_activation_failed_user_not_found_error: An dëspias, a-i é staje n'eror, ël
+    cont ch'a sërca ëd verifiché a l'é nen trovasse. Për piasì, ch'as sigura che la
+    liura ëd verìfica ch'a deuvra a rëspond a cola fornìa ant ël mëssagi d'ativassion
+    ch'a l'ha arseivù apress ess-se argistrasse.
+  user_activation_successful_notice: Bin-ëvnù, e mersì d'avèj argionzù l'echip ëd
+    l'Enciclopedìa dla Vita. Sò cont con lë stranòm <em>%{username}</em> a l'é adess
+    ativ, për piasì ch'a rintra ant ël sistema.
+  user_activity_click_on_the_numbers: Ch'a sgnaca an sij nùmer për vëdde ij fluss
+    d'atività rispetiv.
+  user_activity_report_intro: Rapòrt ëd l'atività dl'utent. Ch'a selession-a n'utent
+    ëspessìfich për vëdde soe atività ordinà për moment ëd creassion dechërsent. Ch'a
+    selession-a 'Tute' për vëdde tute j'atività ëd l'utent. Peui ch'a sgnaca su 'Arserché'
+    për andé anans (ch'a deuvra ël boton andaré ëd sò navigador për torné ambelessì).
+  user_activity_page_title: Atività ëd l'utent
 ...

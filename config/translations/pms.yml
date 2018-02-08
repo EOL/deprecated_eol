@@ -6962,4 +6962,91 @@ pms:
     selession-a 'Tute' për vëdde tute j'atività ëd l'utent. Peui ch'a sgnaca su 'Arserché'
     për andé anans (ch'a deuvra ël boton andaré ëd sò navigador për torné ambelessì).
   user_activity_page_title: Atività ëd l'utent
+  user_activity_stats_articles_added:
+    one: '%{count} artìcol giontà'
+    other: '%{count} artìcoj giontà'
+  user_activity_stats_articles_added_dropdown: Artìcoj giontà
+  user_activity_stats_comment_submitted:
+    one: '%{count} coment mandà'
+    other: '%{count} coment mandà'
+  user_activity_stats_common_names_added:
+    one: '%{count} nòm comun giontà'
+    other: '%{count} nòm comun giontà'
+  user_activity_stats_common_names_curated:
+    one: '%{count} nòm comun goernà'
+    other: '%{count} nòm comun goernà'
+  user_activity_stats_common_names_removed:
+    one: '%{count} nòm comun gavà'
+    other: '%{count} nòm comun gavà'
+  user_activity_stats_data_added:
+    one: '%{count} argistrassion ëd dàit giontà'
+    other: '%{count} argistrassion ëd dàit giontà'
+  user_activity_stats_data_added_dropdown: Dàit giontà
+  user_activity_stats_header: Atività
+  user_activity_stats_objects_curated:
+    one: '%{count} oget goernà'
+    other: '%{count} oget goernà'
+  user_activity_stats_objects_curated_dropdown: Oget conservà
+  user_activity_stats_preferred_classifications_selected:
+    one: '%{count} classificassion preferìa selessionà'
+    other: '%{count} classificassion preferìe selessionà'
+  user_activity_stats_selected_articles_for_overview:
+    one: '%{count} artìcol selessionà për previsualisassion'
+    other: '%{count} artìcoj selessionà për previsualisassion'
+  user_activity_stats_set_exemplar:
+    one: '%{count} plancia definìa coma model'
+    other: '%{count} plance definìe coma model'
+  user_activity_stats_taxa_commented:
+    one: '%{count} tassonomìa comentà'
+    other: '%{count} tassonomìe comentà'
+  user_activity_stats_taxa_comments:
+    one: '%{count} coment ëd tassonomìa'
+    other: '%{count} coment ëd tassonomìa'
+  user_activity_stats_taxa_comments_dropdown: Coment dle tassonomìe
+  user_activity_stats_taxa_curated:
+    one: '%{count} tassonomìa goernà'
+    other: '%{count} tassonomìe goernà'
+  user_activity_stats_wikipedia_nominated:
+    one: '%{count} artìcoj ëd Wikipedia nominà'
+    other: '%{count} artìcoj ëd Wikipedia nominà'
+  new_uri_warning: Ël tèrmin ch'a stà për gionté a l'é nen un tèrmin arcomandà da
+    EdV.
+  user_agent: Agent utent
+  user_already_active_notice: Sò cont a l'é già ativ, për piasì ch'a rintra ant ël
+    sistema.
+  user_comments: Coment d'utent
+  user_comment: Coment d'utent
+  user_commented_on_something_colon: '<strong>%{user}</strong> a l''ha fàit un coment
+    su «%{what}» :'
+  user_commented_on_older_data_object_colon: '<strong>%{user}</strong> a l''ha comentà
+    na veja version ëd %{what}:'
+  user_commented_on_themself: '<strong>%{user_with_link}</strong> a l''ha fàit un
+    coment an sël <a href=''%{link}''>fil d''anformassion ëd %{username}</a>:'
+  user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> a l''ha fàit
+    un coment an sla pàgina ëd n''utent ch''a l''à stàit dëscancelà:'
+  user_commented_on_your_image: |-
+    <strong>%{user}</strong> a l'ha fàit un coment su soa plancia an sël <a href='%{data_object_link}'>sit ëd l'Enciclopedìa dla Vita</a>:
+    %{comment_body}
+  user_commented_on_removed_data: <strong>%{user}</strong> a l'ha comentà di dàit
+    ch'a son ëstàit eliminà.
+  user_count_reindexed: Ij conteur ëd l'utent a son ëstàit reandicisà
+  user_full_name_with_curator: '%{user} (%{curator_level})'
+  user_id: ID ëd l'utent
+  user_index_intro: Tuti j'utilisator an sl'aragnà anscrit ant ël sistema a son ësmonù
+    sì-sota, ordinà për órdin d'anscrission anvertì. Ch'a armarca che le dàite d'anscrission
+    për j'utent anterior a EdV V2 (5 gené 2009) a son nen disponìbij. Ch'a sgnaca
+    an s'në stranòm për modifiché col utent.
+  user_joined_community_on_date: '%{username} a l''ha argionzù sa comunità ai %{date}.'
+  user_joined_when: «%{user}» da %{when}
+  user_left_comment_on_date: '%{username} a l''ha lassà un coment ai %{date}.'
+  user_no_longer_active_message: S'utent-sì a l'é pi nen ativ
+  user_no_longer_has_manager_access_to_collection: '%{user} a l''ha pi l''acess da
+    mansé a «%{collection}».'
+  user_pending_notifications_assitive: <span class="assistive">notìfiche</span>
+  user_pending_notifications_with_count:
+    one: '%{count} notìfica'
+    other: '%{count} notìfiche'
+  user_pending_notifications_with_count_assitive:
+    one: '%{count}<span class="assistive"> notìfica</span>'
+    other: '%{count}<span class="assistive"> notìfiche</span>'
 ...

@@ -276,7 +276,7 @@ sv:
         email: E-postadresser
         email_confirmation: E-postadress igen <small>(för att bekräfta)</small>
         entered_password: Lösenord
-        entered_password_confirmation: Lösenord igen <small>(bekräftelse)</small>
+        entered_password_confirmation: Lösenord igen <small>(för att bekräfta)</small>
         family_name: Efternamn
         full_name: Fullständigt namn
         given_name: Förnamn
@@ -836,6 +836,9 @@ sv:
     download_taxa_data:
       attribute_header: Attribut
       select_all_checkbox: Markera alla
+      collection_download_under_processing: En nedladdning av samlingen bearbetas
+        nu. Ett e-postmeddelande kommer att skickas till dig när nedladdningen är
+        färdig
       user_downloaded_collection: Datanedladdning för %{collection_name}
     show:
       meta_description_default: En Encyclopedia of Life-samling med titeln %{collection_name}.
@@ -4132,6 +4135,9 @@ sv:
     har uppdaterats till %{resource_status}.
   content_partner_resource_status_update_unsuccessful_error: Tyvärr, ett fel uppstod.
     Status för resursen %{resource_title} kunde inte uppdateras till %{resource_status}.
+  content_partner_resource_update_successful_notice: 'Resursdetaljer om innehållspartner
+    uppdaterades. Nuvarande status för resursdata: %{resource_status}'
+  content_partner_resource_update_successful: Resursdetaljer om innehållspartner uppdaterades.
   content_partner_resource_update_unsuccessful_error: Tyvärr, ett fel uppstod. Resursdetaljerna
     uppdaterades inte.
   content_partner_resource_upload_unsuccessful_error: 'Tyvärr, ett fel uppstod. Resursdetaljerna
@@ -4330,6 +4336,8 @@ sv:
   data_column_source: Leverantör
   data_database_colon: 'Data:'
   data_glossary: Dataordlista
+  data_glossary_contribute: För att bidra nya termer i denna ordlista, <a href=%{url}>överväg
+    att ladda upp data</a>.
   data_link_to_record: Länk till denna post
   data_logging_active: Dataloggning aktiv
   data_master_database_colon: 'Datamaster:'
@@ -4651,6 +4659,7 @@ sv:
   filter_by_type_image_option_with_count:
     one: Bild (%{count})
     other: Bilder (%{count})
+  filter_by_type_data_option: Egenskaper
   filter_by_type_link_option: Länkar
   filter_by_type_text_option: Artiklar
   filter_by_type_user_option: Människor
@@ -4798,7 +4807,9 @@ sv:
   content_upload_restrictions_note: (måste vara mindre än 10 MB i storlek, filen kommer
     att sparas när den laddas upp, t.ex. bilderna kommer inte storleksändras)
   id: ID
+  reindex_data_object_button: Omindexera objekt
   reindex_page_button: Omindexera sida
+  reindex_users_button: Omindexera användarantal
   image: Bild
   image_cropped_notice: Bilden beskärdes utan problem.
   image_crop_failed_error: Tyvärr, ett fel uppstod. Bilden kunde inte beskäras.
@@ -4896,6 +4907,12 @@ sv:
   known_uri_missing_translation: Oöversatt, var god redigera
   known_uri_name_and_uri: '%{name} (%{uri})'
   known_uri_updated: URI uppdaterad.
+  known_uri_label_inverse: är en motsats till
+  known_uri_label_allowed_val: tillåter ett värde på
+  known_uri_label_allowed_unit: tillåter enheten
+  known_uri_label_unit: har standardenheten
+  known_uri_label_equivalent: motsvarar
+  known_uri_label_indirectly_equivalent: motsvarar indirekt
   known_uris_none: Ingen har lagt till någon URI för denna typ.
   pending_harvests_none: Det finns inga väntande datainsamlingar nu
   pending_harvests_title: Väntande datainsamlingar
@@ -4961,6 +4978,11 @@ sv:
   license_not_applicable: Licens är inte tillämplig
   license_public_domain: Public Domain
   licensing: Licensiering
+  limits_the_number_of_returned_image_objects: begränsar antalet bildobjekt som returneras
+  limits_the_number_of_returned_text_objects: begränsar antalet textobjekt som returneras
+  limits_the_number_of_returned_video_objects: begränsar antalet videoobjekt som returneras
+  limits_the_number_of_returned_sound_objects: begränsar antalet ljudobjekt som returneras
+  limits_the_number_of_returned_map_objects: begränsar antalet kartobjekt som returneras
   link_more_about: Läs mer om denna länk
   link_name: Länknamn
   link_to_this_term: länk till denna term

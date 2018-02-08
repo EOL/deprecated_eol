@@ -632,7 +632,7 @@ it:
       session:
         password: Password
         remember_me: Mantienimi colleggato per 2 settimane
-        username_or_email: Nome utente o indirizzo e-mail
+        username_or_email: Nome utente o indirizzo email
       translated_content_page:
         active_translation: Pubblicato
         active_translation_more: Le traduzioni pubblicate saranno pubblicamente visibili
@@ -721,7 +721,7 @@ it:
         email_reports_frequency_hours: Quanto spesso vorresti ricevere avvisi via
           email sulle attività sui tuoi contributi?
         email_settings_submit: impostazioni e-mail
-        email: Indirizzo e-mail
+        email: Indirizzo email
         entered_password: Password <small>(4-16 caratteri)</small>
         generate_api_key: Richiedi una chiave API
         generate_api_key_more: Se sei interessato ad utilizzare le API di EOL puoi
@@ -749,7 +749,7 @@ it:
         tag_line: 'Titolo o tag <small>esempio: "Appassionato di Uccelli"</small>'
         user_identities: Io sono
         username: Nome utente <small>(4-32 caratteri)</small>
-        username_or_email: Nome utente o indirizzo e-mail
+        username_or_email: Nome utente o indirizzo email
       wikipedia_queue:
         revision_url: URL versione <small>(ad esempio https://it.wikipedia.org/w/index.php?title=Giraffa_camelopardalis&oldid=48980577)</small>
         revision_url_more: Immettendo un URL di revisione di Wikipedia si sta richiedendo

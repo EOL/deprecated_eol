@@ -480,6 +480,9 @@ da:
           er indehaver af alle licensrettigheder undtagen for offentlig ejendom. Offentlig
           Ejendom-licenser kræver ikke en licensindehaver.
         rights_statement: Rettighedserklæring
+        rights_statement_more: Brugerklæring som krævet af Creative Commons Navngivelse-licenser
+          (CC-BY), angiv venligst attribution <q cite="http://creativecommons.org/licenses/by/3.0">på
+          den måde forfatteren eller licenshaver har angivet</q>.
         source_url: URL-adresse til det oprindelige dataobjekt
       data_object_link:
         description: Beskrivelse <small>(noget HTML-opmærkning er tilladt)</small>
@@ -514,6 +517,7 @@ da:
       eol_statistic:
         date_one: Dato
         date_two: Dato
+        download_all: Alle <small>(inkluder poster fra alle sider)</small>
       google_analytics_partner_summaries:
         taxa_pages: Sider <small>(antal sider)</small>
         taxa_pages_viewed: Sidevisninger <small>(antal sider, som er set af besøgende)</small>
@@ -529,6 +533,7 @@ da:
           ikke blive offentliggjort med det samme.
         published_at: Udgivet
         published_status: Status
+        last_harvest_seconds: Tog %{time_in_words}
       hierarchy:
         browsable_more: Marker "gennemsøgelig" for at gøre dette hierarki til et af
           de primære hierarkier i EOL, som kan gennemses.

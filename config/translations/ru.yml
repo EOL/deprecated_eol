@@ -29,6 +29,7 @@
 # Author: Mariya
 # Author: Meshkov.a
 # Author: Metastasis
+# Author: Michgrig
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
@@ -1450,7 +1451,7 @@ ru:
       message: |-
         Благодарим вас за запрос кураторских привилегий %{curator_level}. Ваш запрос был одобрен.
 
-        Для получения дополнительной информации о курирование и какие функции доступны для вас, посетите http://eol.org/curators.
+        Для получения дополнительной информации о курировании и о том, какие функции вам доступны, посетите сайт http://eol.org/curators.
     unsubscribed_to_notifications:
       subject: Жаль, что вы улетаете...
       message: |-

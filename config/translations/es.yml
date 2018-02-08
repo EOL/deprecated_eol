@@ -2497,19 +2497,19 @@ es:
   this_image_is_unpublished: Esta imagen no ha sido publicada.
   this_image_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado
     porque no ha sido publicado.
-  this_image_map_is_unpublished: Este mapa no ha sido publicado.
+  this_image_map_is_unpublished: Este mapa no se ha publicado.
   this_link_cannot_be_curated_because_unpublished: Este enlace no puede ser supervisado
     porque no ha sido publicado.
-  this_link_is_unpublished: Este enlace no ha sido publicado.
+  this_link_is_unpublished: Este enlace no se ha publicado.
   this_map_cannot_be_curated_because_unpublished: Este mapa no puede ser supervisado
     porque no ha sido publicado.
-  this_map_is_unpublished: Este mapa no ha sido publicado.
+  this_map_is_unpublished: Este mapa no se ha publicado.
   this_video_cannot_be_curated_because_unpublished: Este vídeo no puede ser supervisado
     porque no ha sido publicado.
-  this_video_is_unpublished: Este vídeo no ha sido publicado.
+  this_video_is_unpublished: Este vídeo no se ha publicado.
   this_sound_cannot_be_curated_because_unpublished: Este sonido no puede ser supervisado
     porque no ha sido publicado.
-  this_sound_is_unpublished: Este sonido no ha sido publicado.
+  this_sound_is_unpublished: Este sonido no se ha publicado.
   article_not_associated_with_any_published_entries: Este artículo no está asociado
     con ninguno de los taxones publicados.
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados
@@ -4456,7 +4456,7 @@ es:
     que el socio ha proporcionado a través de sus recursos. No se encontraron colecciones
     publicadas en este momento.
   content_partner_column_header_partner: Socio
-  content_partner_contact_create_successful_notice: Contacto ha sido agregado.
+  content_partner_contact_create_successful_notice: Se añadió el contacto.
   content_partner_contact_create_unsuccessful_error: Lo sentimos, ha ocurrido un error,
     el contacto no se agregó.
   content_partner_contact_delete_successful_notice: Se ha eliminado el contacto.

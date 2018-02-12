@@ -2168,7 +2168,7 @@ ar:
             الحياة تمامًا; يجب تعديل إعدادات حسابك في فيسبوك.
         google:
           new_authentication_added: تمت إضافة توثيق جوجل إلى حسابك.
-          removed_connection: للقد تم حذف الرابط ما بين حسابك في جوجل وموسوعة الحياة
+          removed_connection: لقد تم حذف الرابط ما بين حسابك في جوجل وموسوعة الحياة
             بنجاح، لإلغاء السماح بالتداخلات المستقبلية ما بين حسابك في جوجل وموسوعة
             الحياة تمامًا; يجب تعديل إعدادات حسابك في جوجل.
         twitter:
@@ -2295,22 +2295,22 @@ ar:
     أصنوفات منشورة.
   link_not_associated_with_any_published_entries: لا يرتبط ذلك الرابط بأي من الأصناف
     المنشورة.
-  sound_alt_text: هذا التسجيل الصوتي %{vetted_status} هو للأصنوفة %{taxon_name}
-  image_alt_text: هذه الصورة %{vetted_status} هي للأصنوفة %{taxon_name}
-  map_alt_text: هذه الخريطة %{vetted_status} هي للأصنوفة %{taxon_name}.
-  image_map_alt_text: هذه الخريطة %{vetted_status} هي للأصنوفة %{taxon_name}.
-  video_alt_text: مقطع الفيديو هذا %{vetted_status} لـ %{taxon_name}.
+  sound_alt_text: هذا التسجيل الصوتي %{vetted_status} للأصنوفة %{taxon_name}
+  image_alt_text: هذه الصورة %{vetted_status} للأصنوفة %{taxon_name}
+  map_alt_text: هذه الخريطة %{vetted_status} للأصنوفة %{taxon_name}.
+  image_map_alt_text: هذه الخريطة %{vetted_status} للأصنوفة %{taxon_name}.
+  video_alt_text: مقطع الفيديو هذا %{vetted_status} لـ%{taxon_name}.
   article_from_supplier: المقال من %{whom}.
   sound_from_supplier: الصوت من %{whom}.
   image_from_supplier: الصورة من %{whom}.
   map_from_supplier: الخريطة من %{whom}.
   image_map_from_supplier: الخريطة من %{whom}.
   video_from_supplier: مقطع الفيديو من %{whom}.
-  article_of_taxon: مقال عن%{taxon_name}
-  sound_of_taxon: مقطع فيديو عن%{taxon_name}
-  image_of_taxon: صورة لـ %{taxon_name}
-  map_of_taxon: خريطة لـ %{taxon_name}
-  image_map_of_taxon: خريطة لـ %{taxon_name}
+  article_of_taxon: مقال عن %{taxon_name}
+  sound_of_taxon: مقطع صوتي عن %{taxon_name}
+  image_of_taxon: صورة لـ%{taxon_name}
+  map_of_taxon: خريطة لـ%{taxon_name}
+  image_map_of_taxon: خريطة لـ%{taxon_name}
   video_of_taxon: مقطع فيديو عن %{taxon_name}
   article_rating: تقييم المقال
   community_rating: تقييم المجتمع
@@ -2323,8 +2323,8 @@ ar:
   taxon_rating: تقييم الأصنوفة
   video_rating: تقييم الفيديو
   map_rating: تقييم الخريطة
-  0_or_1: 0، أو 1
-  0_1_or_2: 0، 1 أو 2
+  0_or_1: 0 أو 1
+  0_1_or_2: 0 أو 1 أو 2
   about_eol: عن موسوعة الحياة
   about_resources: حول الموارد
   about_resources_title: وصلات إلى المصادر الخارجية
@@ -2334,13 +2334,13 @@ ar:
   about_resources_notice: ملاحظة&mdash;كل الروابط تخضع لشروط موسوعة الحياة في الاستخدام
     والمراجعة من قبل القيمين<br />إذا كانت لديك أسئلة بخصوص مورد تريد أن توصله إلى
     موسوعة الحياة، يُرجَى <a href='%{contact_us_link}'>الاتصال بنا</a>.
-  account_information: بيانات الحساب
-  account_information_menu: المعلومات الخاصة بالحساب
-  account_registered_but_not_ready_try_later: تم تسجيل الحساب ولكنه غير جاهز لتسجيل
-    الدخول. يرجى المحاولة مرة أخرى خلال خمس دقائق.
-  action: خطوة
-  action_not_available_error: عفوًا، لا يمكن تنفيذ تلك الخطوة
-  actions: خطوات
+  account_information: معلومات الحساب
+  account_information_menu: معلومات الحساب
+  account_registered_but_not_ready_try_later: تم تسجيل حسابك ولكنه غير جاهز لتسجيل
+    الدخول; الرجاء المحاولة مرة أخرى خلال خمس دقائق.
+  action: إجراء
+  action_not_available_error: عفوًا، هذه الخطوة غير متاحة
+  actions: إجراءات
   active_colon: 'نشط:'
   active: نشط
   activity: النشاط
@@ -2357,60 +2357,59 @@ ar:
         user_of_it: تمت إضافة <strong>%{user}</strong> كمدير
       bulk_add:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: قام مستخدم مجهول
-          بأضافة عناصر بكمية كبيرة إلى مجموعة غير معروفة.
+          بإضافة عناصر بكمية كبيرة إلى مجموعة غير معروفة.
         an_unknown_user_added_bulk_items_to_collection: قام مستخدم غير معروف بإضافة
           عناصر بكميات كبير إلى المجموعة "%{collection}".
-        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> قام
+        user_added_bulk_items_to_an_unknown_collection: قام <strong>%{user}</strong>
           بإضافة عناصر بكميات كبيرة على مجموعة غير معروفة.
-        user_added_bulk_items_to_collection: <strong>%{user}</strong> قام بإضافة عناصر
+        user_added_bulk_items_to_collection: قام <strong>%{user}</strong> بإضافة عناصر
           بكميات كبيرة إلى المجموعة "%{collection}".
         an_unknown_user_added_bulk_items_to_it: قام مستخدم غير معروف بإضافة عناصر
           بكميات كبيرة.
-        user_of_it: <strong>%{user}</strong> قام بإضافة عناصر بكميات كبيرة.
+        user_of_it: قام <strong>%{user}</strong> بإضافة عناصر بكميات كبيرة.
       create:
         an_unknown_user_created_an_unknown_collection: قام مستخدم غير معروف بإنشاء
           مجموعة غير معروفة.
         an_unknown_user_created_collection: قام مستخدم غير معروف بإنشاء المجموعة "%{collection}".
-        user_created_an_unknown_collection: قام المستخدم <strong>%{user}</strong>
-          بإنشاء مجموعة غير معروفة.
-        user_created_collection: قام المستخدم <strong>%{user}</strong> بإنشاء المجموعة
-          "%{collection}".
-        an_unknown_user_created_it: قام مستخدم غير معروف بإنشاءها.
-        user_created_it: قام المستخدم <strong>%{user}</strong> بإنشاءها.
+        user_created_an_unknown_collection: قام <strong>%{user}</strong> بإنشاء مجموعة
+          غير معروفة.
+        user_created_collection: قام <strong>%{user}</strong> بإنشاء المجموعة "%{collection}".
+        an_unknown_user_created_it: قام مستخدم غير معروف بإنشائها.
+        user_created_it: قام <strong>%{user}</strong> بإنشائها.
       remove_all:
-        an_unknown_user_cleared_an_unknown_collection: قام مستخدم غير معروف بمسح كل
-          العناصر من مجموعة غير معروفة.
-        an_unknown_user_cleared_collection: قام مستخدم غير معروف بمسح كل العناصر من
-          المجموعة "%{collection}".
-        user_cleared_an_unknown_collection: قام المستخدم <strong>%{user}</strong>
-          بمسح كل العناصر من مجموعة غير معروفة.
-        user_cleared_collection: قام المستحدم <strong>%{user}</strong> بمسح كل العناصر
+        an_unknown_user_cleared_an_unknown_collection: قام مستخدم غير معروف بإزالة
+          كل العناصر من مجموعة غير معروفة.
+        an_unknown_user_cleared_collection: قام مستخدم غير معروف بإزالة كل العناصر
           من المجموعة "%{collection}".
-        an_unknown_user_cleared_it: قام مستخدم غير معروف بمسح كل العناصر
-        user_cleared_it: قام <strong>%{user}</strong> بمسح كل العناصر
+        user_cleared_an_unknown_collection: قام <strong>%{user}</strong> بإزالة كل
+          العناصر من مجموعة غير معروفة.
+        user_cleared_collection: قام <strong>%{user}</strong> بإزالة كل العناصر من
+          المجموعة "%{collection}".
+        an_unknown_user_cleared_it: قام مستخدم غير معروف بإزالة كل العناصر
+        user_cleared_it: قام <strong>%{user}</strong> بإزالة كل العناصر
       remove:
         an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: قام مستخدم
-          غير معروف بمسح عنصر غير معروف من مجموعة غير معروفة.
+          غير معروف بإزالة عنصر غير معروف من مجموعة غير معروفة.
         an_unknown_user_removed_an_unknown_item_from_collection: قام مستخدم غير معروف
-          بمسح عنصر غير معروف من المجموعة "%{collection}".
+          بإزالة عنصر غير معروف من المجموعة "%{collection}".
         an_unknown_user_removed_item_from_an_unknown_collection: قام مستخدم غير معروف
-          بمسح "%{item}" من مجموعة غير معروفة.
-        an_unknown_user_removed_item_from_collection: قام مستخدم غير معروف بمسح "%{item}"
-          من المجموعة "%{collection}".
+          بإزالة "%{item}" من مجموعة غير معروفة.
+        an_unknown_user_removed_item_from_collection: قام مستخدم غير معروف بإزالة
+          "%{item}" من المجموعة "%{collection}".
         user_removed_an_unknown_item_from_an_unknown_collection: قام <strong>%{user}</strong>
-          بمسح عنصر غير معروف من مجموعة غير معروفة.
+          بإزالة عنصر غير معروف من مجموعة غير معروفة.
         user_removed_an_unknown_item_from_collection: قام <strong>%{user}</strong>
-          بمسح عنصر غير معروف من المجموعة "%{collection}".
+          بإزالة عنصر غير معروف من المجموعة "%{collection}".
         user_removed_item_from_an_unknown_collection: قام <strong>%{user}</strong>
-          بمسح "%{item}"  من مجموعة غير معروفة.
-        user_removed_item_from_collection: قام <strong>%{user}</strong> بمسح "%{item}"
+          بإزالة "%{item}" من مجموعة غير معروفة.
+        user_removed_item_from_collection: قام <strong>%{user}</strong> بإزالة "%{item}"
           من مجموعة "%{collection}".
-        an_unknown_user_removed_an_unknown_item_from_it: قام مستخدم غير معروف بمسح
+        an_unknown_user_removed_an_unknown_item_from_it: قام مستخدم غير معروف بإزالة
           عنصر غير معروف.
-        an_unknown_user_removed_item_from_it: قام مستخدم غير معروف بمسح "%{item}".
-        user_removed_an_unknown_item_from_it: قام <strong>%{user}</strong> بمسح عنصر
-          غير معروف.
-        user_removed_item_from_it: قام <strong>%{user}</strong> بمسح "%{item}".
+        an_unknown_user_removed_item_from_it: قام مستخدم غير معروف بإزالة "%{item}".
+        user_removed_an_unknown_item_from_it: قام <strong>%{user}</strong> بإزالة
+          عنصر غير معروف.
+        user_removed_item_from_it: قام <strong>%{user}</strong> بإزالة "%{item}".
       collect:
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: قام مستخدم
           غير معروف بإضافة عنصرًا غير معروف إلى مجموعة غير معروفة.
@@ -2421,9 +2420,9 @@ ar:
         an_unknown_user_added_item_to_collection: أضاف مستخدم غير معروف "%{item}"
           لمجموعة "%{collection}".
         user_added_an_unknown_item_to_an_unknown_collection: أضاف <strong>%{user}</strong>
-          عنصرًا غير معروفًا لمجموعة غير معروفة.
+          عنصرًا غير معروف لمجموعة غير معروفة.
         user_added_an_unknown_item_to_collection: أضاف <strong>%{user}</strong> عنصرًا
-          غير معروفًا لمجموعة "%{collection}".
+          غير معروف لمجموعة "%{collection}".
         user_added_item_to_an_unknown_collection: قام <strong>%{user}</strong> بإضافة
           "%{item}" لمجموعة غير معروفة.
         user_added_item_to_collection: قام <strong>%{user}</strong> بإضافة "%{item}"
@@ -2432,7 +2431,7 @@ ar:
           غير معروف.
         an_unknown_user_added_item_to_it: قام مستخدم غير معروف بإضافة "%{item}".
         user_added_an_unknown_item_to_it: أضاف <strong>%{user}</strong> عنصرًا غير
-          معروفًا
+          معروف
         user_added_item_to_it: قام <strong>%{user}</strong> بإضافة "%{item}".
       other_actions:
         an_unknown_user_modified_an_unknown_collection: قام مستخدم غير معروف بتعديل
@@ -2461,10 +2460,10 @@ ar:
         user_joined_community: انضم <strong>%{user}</strong> لمجتمع "%{community}".
       leave:
         an_unknown_user_left_an_unknown_community: قام مستخدم غير معروف بمغادرة مجتمعًا
-          غير معروفًا
+          غير معروف
         an_unknown_user_left_community: قام مستخدم غير معروف بمغادرة مجتمع "%{community}".
         user_left_an_unknown_community: قام <strong>%{user}</strong> بمغادرة مجتمعًا
-          غير معروفًا.
+          غير معروف.
         user_left_community: غادر <strong>%{user}</strong> مجتمع "%{community}".
       change_description:
         an_unknown_user_changed_the_description_of_an_unknown_community: قام مستخدم
@@ -2497,9 +2496,9 @@ ar:
         an_unknown_user_added_an_unknown_manager_to_an_unknown_community: قام مستخدم
           غير معروف بإضافة مدير غير معروف لمجتمع غير معروف.
         an_unknown_user_added_an_unknown_manager_to_community: أضاف مستخدم غير معروف
-          مديرًا غير معروفًا لمجتمع "%{community}".
+          مديرًا غير معروف لمجتمع "%{community}".
         an_unknown_user_added_manager_to_an_unknown_community: قام مستخدم غير معروف
-          بإضافة  "%{manager}" كمدير لمجتمع غير معروف.
+          بإضافة "%{manager}" كمدير لمجتمع غير معروف.
         an_unknown_user_added_manager_to_community: قام مستخدم غير معروف بإضافة "%{manager}"
           كمدير لمجتمع "%{community}".
         user_added_an_unknown_manager_to_an_unknown_community: قام <strong>%{user}</strong>
@@ -2522,13 +2521,14 @@ ar:
       reasons_to_hide: 'أسباب الإخفاء: %{reasons}'
       trusted:
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف باعتبار النسخة الأقدم من "%{data_object}" موثوقًا بها في
-          سياق غير معروف.
+          مستخدم غير معروف بالتعليم على نسخة الأقدم من "%{data_object}" موثوقًا بها
+          في سياق غير معروف.
         an_unknown_user_trusted_an_older_data_object_on_association: قام مستخدم غير
-          معروف باعتبار نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}"
+          معروف بالتعليم على نسخة أقدم من "%{data_object}" موثوقًا بها على صفحة "%{association}"
           .
         an_unknown_user_trusted_an_unknown_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف باعتبار كائن بيانات غير معروف موثوقًا به في سياق غير معروف.
+          مستخدم غير معروف بالتعليم على كائن بيانات غير معروف موثوقًا به في سياق غير
+          معروف.
         an_unknown_user_trusted_an_unknown_data_object_on_association: قام مستخدم
           غير معروف بوضع علامة "موثوق به" على كائن بيانات غير معروف في صفحة "%{association}".
         an_unknown_user_trusted_data_object_on_an_unknown_association: قام مستخدم
@@ -2536,9 +2536,9 @@ ar:
         an_unknown_user_trusted_data_object_on_association: قام مستخدم غير معروف بوضع
           علامة "موثوق به" على "%{data_object}" في صفحة "%{association}".
         user_trusted_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "موثوق به" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+          بالتعليم على نسخة أقدم من "%{data_object}" كموثوق بها في سياق غير معروف.
         user_trusted_an_older_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "موثوق به" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+          بالتعليم على نسخة أقدم من "%{data_object}" كموثوق بها في صفحة "%{association}".
         user_trusted_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
           بوضع علامة "موثوق به" على كائن بيانات غير معروف في سياق غير معروف.
         user_trusted_an_unknown_data_object_on_association: قام <strong>%{user}</strong>
@@ -2553,33 +2553,32 @@ ar:
           به" عليها في صفحة "%{association}".
         an_unknown_user_trusted_it_on_an_unknown_association: قام مستخدم غير معروف
           بوضع علامة "موثوق به" عليها في سياق غير معروف.
-        an_unknown_user_trusted_it_on_association: قام مستخدم غير معروف باعتبارها
-          موثوقًا بها على صفحة "%{association}".
+        an_unknown_user_trusted_it_on_association: قام مستخدم غير معروف بالتعليم عليها
+          كموثوق بها في صفحة "%{association}".
       untrusted:
         an_unknown_user_untrusted_an_older_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها في
-          سياق غير معروف.
+          مستخدم غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كغير موثوق بها
+          في سياق غير معروف.
         an_unknown_user_untrusted_an_older_data_object_on_association: قام مستخدم
-          غير معروف باعتبار نسخة أقدم من "%{data_object}" غير موثوقًا بها على صفحة
+          غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كغير موثوق بها في صفحة
           "%{association}".
         an_unknown_user_untrusted_an_unknown_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف باعتبار كائن بيانات غير معروف غير موثوقًا به في سياق غير
+          مستخدم غير معروف باعتبار كائن بيانات غير معروف غير موثوق به في سياق غير
           معروف.
         an_unknown_user_untrusted_an_unknown_data_object_on_association: قام مستخدم
-          غير معروف باعتبار كائن بيانات غير معروف "غير موثوقًا به" على صفحة "%{association}".
+          غير معروف باعتبار كائن بيانات غير معروف "غير موثوقً به" في صفحة "%{association}".
         an_unknown_user_untrusted_data_object_on_an_unknown_association: قام مستخدم
-          غير معروف باعتبار "%{data_object}" غير موثوقًا به في سياق غير معروف.
+          غير معروف باعتبار "%{data_object}" غير موثوق به في سياق غير معروف.
         an_unknown_user_untrusted_data_object_on_association: قام مستخدم غير معروف
-          باعتبار "%{data_object}" غير موثوقًا به في صفحة "%{association}".
-        user_untrusted_an_older_data_object_on_an_unknown_association: اعتبر المستخدم
-          <strong>%{user}</strong> نسخة أقدم من "%{data_object}" غير موثوقًا بها في
-          سياق غير معروف.
-        user_untrusted_an_older_data_object_on_association: اعتبر <strong>%{user}</strong>
-          نسخة أقدم من "%{data_object}" غير موثوقًا بها في صفحة "%{association}".
+          باعتبار "%{data_object}" غير موثوق به في صفحة "%{association}".
+        user_untrusted_an_older_data_object_on_an_unknown_association: علم <strong>%{user}</strong>
+          نسخة أقدم من "%{data_object}" كغير موثوق بها في سياق غير معروف.
+        user_untrusted_an_older_data_object_on_association: علم <strong>%{user}</strong>
+          نسخة أقدم من "%{data_object}" كغير موثوق بها في صفحة "%{association}".
         user_untrusted_an_unknown_data_object_on_an_unknown_association: اعتبر <strong>%{user}</strong>
           كائن بيانات غير معروف "غير موثوق به" في سياق غير معروف.
         user_untrusted_an_unknown_data_object_on_association: اعتبر <strong>%{user}</strong>
-          كائن بيانات غير معروف "غير موثوق به" على صفحة "%{association}".
+          كائن بيانات غير معروف "غير موثوق به" في صفحة "%{association}".
         user_untrusted_data_object_on_an_unknown_association: اعتبر <strong>%{user}</strong>
           أن "%{data_object}" غير موثوق به في سياق غير معروف.
         user_untrusted_data_object_on_association: اعتبر <strong>%{user}</strong>
@@ -2587,17 +2586,17 @@ ar:
         an_unknown_user_untrusted_it_on_an_unknown_association: قام مستخدم غير معروف
           باعتبارها "غير موثوق بها" في سياق غير معروف.
         an_unknown_user_untrusted_it_on_association: قام مستخدم غير معروف باعتبارها
-          "غير موثوق بها" على صفحة "%{association}".
+          "غير موثوق بها" في صفحة "%{association}".
         user_untrusted_it_on_an_unknown_association: اعتبرها <strong>%{user}</strong>
           "غير موثوق بها" في سياق غير معروف.
         user_untrusted_it_on_association: اعتبرها <strong>%{user}</strong> غير موثوق
-          بها على صفحة "%{association}".
+          بها في صفحة "%{association}".
       show:
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في
-          سياق غير معروف.
+          مستخدم غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كمرئية في سياق
+          غير معروف.
         an_unknown_user_showed_an_older_data_object_on_association: قام مستخدم غير
-          معروف بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" على صفحة "%{association}".
+          معروف بالتعليم على نسخة أقدم من "%{data_object}" كمرئية في صفحة "%{association}".
         an_unknown_user_showed_an_unknown_data_object_on_an_unknown_association: قام
           مستخدم غير معروف بوضع علامة "مرئي" على كائن بيانات غير معروف في سياق غير
           معروف.
@@ -2608,9 +2607,9 @@ ar:
         an_unknown_user_showed_data_object_on_association: قام مستخدم غير معروف بوضع
           علامة "مرئي" على "%{data_object}" في صفحة "%{association}".
         user_showed_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+          بالتعليم على نسخة أقدم من "%{data_object}" كمرئية في سياق غير معروف.
         user_showed_an_older_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "مرئي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+          بالتعليم على نسخة أقدم من "%{data_object}" كمرئية في صفحة "%{association}".
         user_showed_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
           بوضع علامة "مرئي" على كائن بيانات غير معروف في سياق غير معروف.
         user_showed_an_unknown_data_object_on_association: قام <strong>%{user}</strong>
@@ -2629,87 +2628,87 @@ ar:
           عليها في صفحة "%{association}".
       hide:
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: قام مستخدم
-          غير معروف بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في سياق غير
+          غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كمخفية في سياق غير
           معروف.
         an_unknown_user_hid_an_older_data_object_on_association: قام مستخدم غير معروف
-          بوضع علامة "مخفي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+          بالتعليم على نسخة أقدم من "%{data_object}" كمخفية في صفحة "%{association}".
         an_unknown_user_hid_an_unknown_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف بوضع علامة "مخفِّي" على كائن بيانات غير معروف في سياق غير
+          مستخدم غير معروف بوضع علامة "مخفي" على كائن بيانات غير معروف في سياق غير
           معروف.
         an_unknown_user_hid_an_unknown_data_object_on_association: قام مستخدم غير
-          معروف بوضع علامة "مخفِّي" على كائن بيانات غير معروف في صفحة "%{association}".
+          معروف بوضع علامة "مخفي" على كائن بيانات غير معروف في صفحة "%{association}".
         an_unknown_user_hid_data_object_on_an_unknown_association: قام مستخدم غير
-          معروف بوضع علامة "مخفِّي" على "%{data_object}" في سياق غير معروف.
+          معروف بوضع علامة "مخفي" على "%{data_object}" في سياق غير معروف.
         an_unknown_user_hid_data_object_on_association: قام مستخدم غير معروف بوضع
-          علامة "مخفِّي" على "%{data_object}" في صفحة "%{association}".
+          علامة "مخفي" على "%{data_object}" في صفحة "%{association}".
         user_hid_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "مخفِّي" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+          بالتعليم على نسخة أقدم من "%{data_object}" كمخفية في سياق غير معروف.
         user_hid_an_older_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "مخفِّي" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+          بالتعليم على نسخة أقدم من "%{data_object}" كمخفية في صفحة "%{association}".
         user_hid_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "مخفِّي" على كائن بيانات غير معروف في سياق غير معروف.
+          بوضع علامة "مخفي" على كائن بيانات غير معروف في سياق غير معروف.
         user_hid_an_unknown_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "مخفِّي" على كائن بيانات غير معروف في صفحة "%{association}".
+          بوضع علامة "مخفي" على كائن بيانات غير معروف في صفحة "%{association}".
         user_hid_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "مخفِّي" على "%{data_object}" في سياق غير معروف.
+          بوضع علامة "مخفي" على "%{data_object}" في سياق غير معروف.
         user_hid_data_object_on_association: قام <strong>%{user}</strong> بوضع علامة
-          "مخفّي"على "%{data_object}"  في صفحة "%{association}".
+          "مخفي"على "%{data_object}"  في صفحة "%{association}".
         an_unknown_user_hid_it_on_an_unknown_association: قام مستخدم غير معروف بوضع
-          علامة "مخفّي" عليها في سياق غير معروف.
-        an_unknown_user_hid_it_on_association: قام مستخدم غير معروف بوضع علامة "مخفّي"
+          علامة "مخفي" عليها في سياق غير معروف.
+        an_unknown_user_hid_it_on_association: قام مستخدم غير معروف بوضع علامة "مخفي"
           عليها في صفحة "%{association}".
         user_hid_it_on_an_unknown_association: قام <strong>%{user}</strong> بوضع علامة
-          "مخفّي" عليها في سياق غير معروف.
-        user_hid_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفّي"
-          عليها في صفحة "%{association}".
+          "مخفي" عليها في سياق غير معروف.
+        user_hid_it_on_association: قام <strong>%{user}</strong> بوضع علامة "مخفي"
+          عليها في صفحة "%{association}".%{user}
       unreviewed:
         an_unknown_user_unreviewed_an_older_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}"
+          مستخدم غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كغير مراجعة
           في سياق غير معروف.
         an_unknown_user_unreviewed_an_older_data_object_on_association: قام مستخدم
-          غير معروف بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة
+          غير معروف بالتعليم على نسخة أقدم من "%{data_object}" كغير مراجعة في صفحة
           "%{association}".
         an_unknown_user_unreviewed_an_unknown_data_object_on_an_unknown_association: قام
-          مستخدم غير معروف بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في سياق
+          مستخدم غير معروف بوضع علامة "غير مراجعة" على كائن بيانات غير معروف في سياق
           غير معروف.
         an_unknown_user_unreviewed_an_unknown_data_object_on_association: قام مستخدم
-          غير معروف بوضع علامة "لم تُراجع"على كائن بيانات غير معروف في صفحة "%{association}".
+          غير معروف بوضع علامة "غير مراجعة" على كائن بيانات غير معروف في صفحة "%{association}".
         an_unknown_user_unreviewed_data_object_on_an_unknown_association: قام مستخدم
-          غير معروف بوضع علامة "لم تُراجع" على "%{data_object}" في سياق غير معروف.
+          غير معروف بوضع علامة غير مراجعة على "%{data_object}" في سياق غير معروف.
         an_unknown_user_unreviewed_data_object_on_association: قام مستخدم غير معروف
-          بوضع علامة "لم تُراجع"على "%{data_object}" في صفحة "%{association}".
+          بوضع علامة "غير مراجعة" على "%{data_object}" في صفحة "%{association}".
         user_unreviewed_an_older_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في سياق غير معروف.
+          بالتعليم على نسخة أقدم من "%{data_object}" كغير مراجعة في سياق غير معروف.
         user_unreviewed_an_older_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" على نسخة أقدم من "%{data_object}" في صفحة "%{association}".
+          بالتعليم على نسخة أقدم من "%{data_object}" كغير مراجعة في صفحة "%{association}".
         user_unreviewed_an_unknown_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في سياق غير معروف.
+          بوضع علامة "غير مراجع" على كائن بيانات غير معروف في سياق غير معروف.
         user_unreviewed_an_unknown_data_object_on_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" على كائن بيانات غير معروف في صفحة "%{association}".
+          بوضع علامة "غير مراجع" على كائن بيانات غير معروف في صفحة "%{association}".
         user_unreviewed_data_object_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" على "%{data_object}" في سياق غير معروف.
+          بوضع علامة "غير مراجع" على "%{data_object}" في سياق غير معروف.
         user_unreviewed_data_object_on_association: قام <strong>%{user}</strong> بوضع
-          علامة "لم تُراجع" على "%{data_object}"  في صفحة "%{association}".
+          علامة "غير مراجع" على "%{data_object}" في صفحة "%{association}".
         an_unknown_user_unreviewed_it_on_an_unknown_association: قام مستخدم غير معروف
-          بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
+          بوضع علامة "غير مراجعة" عليها في سياق غير معروف.
         an_unknown_user_unreviewed_it_on_association: قام مستخدم غير معروف بوضع علامة
-          "لم تُراجع" عليها في صفحة "%{association}".
+          "غير مراجعة" عليها في صفحة "%{association}".
         user_unreviewed_it_on_an_unknown_association: قام <strong>%{user}</strong>
-          بوضع علامة "لم تُراجع" عليها في سياق غير معروف.
+          بوضع علامة "غير مراجعة" عليها في سياق غير معروف.
         user_unreviewed_it_on_association: قام <strong>%{user}</strong> بوضع علامة
-          "لم تُراجع" عليها في صفحة "%{association}".
+          "غير مراجعة" عليها في صفحة "%{association}".
       add_association:
         an_unknown_user_associated_an_older_data_object_to_an_unknown_association: قام
           مستخدم غير معروف بإضافة ارتباط بين نسخة أقدم من "%{data_object}" وصفحة غير
           معروفة.
         an_unknown_user_associated_an_older_data_object_to_association: قام مستخدم
-          غير معروف بإضافة ارتباط بين نسخة أقدم من "%{data_object}" و "%{association}".
+          غير معروف بإضافة ارتباط بين نسخة أقدم من "%{data_object}" و"%{association}".
         an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: قام
           مستخدم غير معروف بإضافة ارتباط غير معروف.
         an_unknown_user_associated_an_unknown_data_object_to_association: قام مستخدم
-          غير معروف بإضافة ارتباط بين كائن بيانات غير معروف و "%{association}".
+          غير معروف بإضافة ارتباط بين كائن بيانات غير معروف و"%{association}".
         an_unknown_user_associated_data_object_to_an_unknown_association: قام كائن
-          غير معروف بإضافة ارتباط بين "%{data_object}"  وصفحة غير معروفة.
+          غير معروف بإضافة ارتباط بين "%{data_object}" وصفحة غير معروفة.
         an_unknown_user_associated_data_object_to_association: قام مستخدم غير معروف
           بإضافة ارتباط بين "%{data_object}" و"%{association}".
         user_associated_an_older_data_object_to_an_unknown_association: قام <strong>%{user}</strong>
@@ -2723,7 +2722,7 @@ ar:
         user_associated_data_object_to_an_unknown_association: قام <strong>%{user}</strong>
           بإضافة ارتباط بين "%{data_object}" وصفحة غير معروفة.
         user_associated_data_object_to_association: قام <strong>%{user}</strong> بإضافة
-          ارتباط بين "%{data_object}" و "%{association}".
+          ارتباط بين "%{data_object}" و"%{association}".
         an_unknown_user_associated_it_to_an_unknown_association: قام مستخدم غير معروف
           بإضافة ارتباط بصفحة غير معروفة.
         an_unknown_user_associated_it_to_association: قام مستخدم غير معروف بإضافة
@@ -2772,7 +2771,7 @@ ar:
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير
           معروف بوضع "%{data_object}"  كنموذج على "%{taxon}".
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام
-          مستخدم غير معروف بوضع صورة نموذج غير معروف.
+          مستخدم غير معروف بوضع صورة نموذج غير معروفة.
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: قام مستخدم
           غير معروف بوضع كائن بيانات غير معروف كنموذج عن "%{taxon}".
         an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: قام مستخدم
@@ -2784,13 +2783,13 @@ ar:
         user_chose_exemplar_an_older_data_object_on_taxon: قام <strong>%{user}</strong>
           بوضع نسخة أقدم من "%{data_object}" كنموذج على "%{taxon}".
         user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بوضع صورة نموذج غير معروف.
+          بوضع صورة نموذج غير معروفة.
         user_chose_exemplar_an_unknown_data_object_on_taxon: قام <strong>%{user}</strong>
           بوضع كائن بيانات غير معروف كنموذج على "%{taxon}".
         user_chose_exemplar_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong>
           بوضع "%{data_object}" كنموذج على صفحة غير معروفة.
         user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> بوضع
-          "%{data_object}" كنموذج على"%{taxon}".
+          "%{data_object}" كنموذج على "%{taxon}".
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: قام مستخدم غير معروف
           بوضعها كنموذج على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_it_on_taxon: قام مستخدم غير معروف بوضعها كنموذج
@@ -2802,103 +2801,102 @@ ar:
       choose_exemplar_article:
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام
           مستخدم غير معروف باختيار نسخة أقدم من "%{data_object}" لعرضها كنظرة عامة
-          لصفحة غير معروفة.
+          على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: قام مستخدم غير
-          معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+          معروف باختيار "%{data_object}" لعرضها ضمن النظرة العامة على "%{taxon}".
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام
-          مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة في صفحة
+          مستخدم غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة على صفحة
           غير معروفة.
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: قام مستخدم
-          غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن "%{taxon}".
+          غير معروف باختيار مقال غير معروف لعرضه ضمن النظرة العامة على "%{taxon}".
         an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: قام مستخدم
-          غير معروف باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن صفحة غير
+          غير معروف باختيار "%{data_object}" لعرضها ضمن النظرة العامة على صفحة غير
           معروفة.
         an_unknown_user_chose_exemplar_data_object_on_taxon: قام مستخدم غير معروف
-          باختيار "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+          باختيار "%{data_object}" لعرضها ضمن النظرة العامة على "%{taxon}".
         user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن صفحة غير
-          معروفة.
+          باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة على صفحة
+          غير معروفة.
         user_chose_exemplar_an_older_data_object_on_taxon: قام <strong>%{user}</strong>
-          باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة عن "%{taxon}".
+          باختيار نسخة أقدم من "%{data_object}" لعرضها ضمن النظرة العامة على "%{taxon}".
         user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          باختيار مقال غير معروف لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+          باختيار مقال غير معروف لعرضه ضمن النظرة العامة على صفحة غير معروفة.
         user_chose_exemplar_an_unknown_data_object_on_taxon: قام <strong>%{user}</strong>
-          باختيار عنصر بيانات غير معروف لعرضها ضمن النظرة العامة عن"%{taxon}".
+          باختيار عنصر بيانات غير معروف لعرضه ضمن النظرة العامة على "%{taxon}".
         user_chose_exemplar_data_object_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          باختيار "%{data_object}" لعرضه ضمن النظرة العامة عن صفحة غير معروفة.
+          باختيار "%{data_object}" لعرضه ضمن النظرة العامة على صفحة غير معروفة.
         user_chose_exemplar_data_object_on_taxon: قام <strong>%{user}</strong> باختيار
-          "%{data_object}"  لعرضها ضمن النظرة العامة عن "%{taxon}".
+          "%{data_object}" لعرضها ضمن النظرة العامة على "%{taxon}".
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: قام مستخدم غير معروف
-          باختيارها للعرض ضمن النظرة العامة عن صفحة غير معروفة.
+          باختيارها للعرض ضمن النظرة العامة على صفحة غير معروفة.
         an_unknown_user_chose_exemplar_it_on_taxon: قام مستخدم غير معروف باختيارها
-          لعرضها ضمن النظرة العامة عن "%{taxon}".
+          لعرضها ضمن النظرة العامة على "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: قام <strong>%{user}</strong> باختيارها
-          للعرض ضمن النظرة العامة عن صفحة غير معروفة.
-        user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> باختيارها  للعرض
-          ضمن النظرة العامة عن "%{taxon}".
+          للعرض ضمن النظرة العامة على صفحة غير معروفة.
+        user_chose_exemplar_it_on_taxon: قام <strong>%{user}</strong> باختيارها للعرض
+          ضمن النظرة العامة على "%{taxon}".
       data_point_uri:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: قام مستخدم غير معروف
           بوضع بيانات كنموذج على صفحة غير معروفة.
         an_unknown_user_set_exemplar_data_on_taxon: قام مستخدم غير معروف بوضع بيانات
           كنموذج على "%{taxon}".
-        user_set_exemplar_data_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضعه
+        user_set_exemplar_data_on_an_unknown_taxon: قام <strong>%{user}</strong> بوضع
           بيانات كنموذج على صفحة غير معروفة.
-        user_set_exemplar_data_on_taxon: قام <strong>%{user}</strong> بوضعه بيانات
+        user_set_exemplar_data_on_taxon: قام <strong>%{user}</strong> بوضع بيانات
           كنموذج على "%{taxon}".
         an_unknown_user_hide_data_on_an_unknown_taxon: اختار مستخدم غير معروف إخفاء
-          البيانات على صفحة مجهولة.
+          البيانات في صفحة مجهولة.
         an_unknown_user_hide_data_on_taxon: اختار مستخدم غير معروف إخفاء البيانات
-          على "%{taxon}".
+          في "%{taxon}".
         user_hide_data_on_an_unknown_taxon: اختار <strong>%{user}</strong> إخفاء البيانات
-          على صفحة مجهولة.
-        user_hide_data_on_taxon: اختار <strong>%{user}</strong> إخفاء البيانات على
+          في صفحة مجهولة.
+        user_hide_data_on_taxon: اختار <strong>%{user}</strong> إخفاء البيانات في
           %{taxon}.
         an_unknown_user_unhide_data_on_an_unknown_taxon: اختار مستخدم غير معروف إظهار
-          البيانات على صفحة مجهولة.
+          البيانات في صفحة مجهولة.
         an_unknown_user_unhide_data_on_taxon: اختار مستخدم غير معروف إظهار البيانات
-          على "%{taxon}".
+          في "%{taxon}".
         user_unhide_data_on_an_unknown_taxon: اختار <strong>%{user}</strong> إظهار
-          البيانات على صفحة مجهولة.
-        user_unhide_data_on_taxon: اختار <strong>%{user}</strong> إظهار البيانات على
+          البيانات في صفحة مجهولة.
+        user_unhide_data_on_taxon: اختار <strong>%{user}</strong> إظهار البيانات في
           %{taxon}.
       add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام
           مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة غير
           معروفة.
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام
-          مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة%{language}إلى صفحة غير
+          مستخدم غير معروف بإضافة اسم شائع غير معروف باللغة %{language} إلى صفحة غير
           معروفة.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام
-          مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفةإلى %{taxon}.
+          مستخدم غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة إلى %{taxon}.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: قام مستخدم غير
           معروف بإضافة اسم شائع غير معروف باللغة %{language} إلى "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام
           مستخدم غير معروف بإضافة الاسم الشائع %{name} بلغة غير معروفة إلى صفحة غير
           معروفة.
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: قام مستخدم غير
-          معروف بإضافة الأسم الشائع الخاص بـ"%{name}"  باللغة %{language} إلى صفحة
-          غير معروفة.
+          معروف بإضافة الاسم الشائع "%{name}" باللغة %{language} إلى صفحة غير معروفة.
         an_unknown_user_added_name_in_an_unknown_language_to_taxon: قام مستخدم غير
           معروف بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى "%{taxon}".
         an_unknown_user_added_name_in_language_to_taxon: قام مستخدم غير معروف بإضافة
-          الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
+          الاسم الشائع "%{name}" باللغة %{language} إلى "%{taxon}".
         user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: قام
           <strong>%{user}</strong> بإضافة اسم شائع غير معروف بلغة غير معروفة إلى صفحة
           غير معروفة.
         user_added_an_unknown_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong>
-          بإضافة اسم شائع غير معروف باللغة %{language}إلى صفحة غير معروفة.
+          بإضافة اسم شائع غير معروف باللغة %{language} إلى صفحة غير معروفة.
         user_added_an_unknown_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong>
-          بإضافة اسم شائع غير معروف بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+          بإضافة اسم شائع غير معروف بلغة غير معروفة إلى "%{taxon}".
         user_added_an_unknown_name_in_language_to_taxon: قام <strong>%{user}</strong>
-          بإضافة اسم شائع غير معروف باللغة %{language}إلى الإصنوفة "%{taxon}".
+          بإضافة اسم شائع غير معروف باللغة %{language} إلى "%{taxon}".
         user_added_name_in_an_unknown_language_to_an_unknown_taxon: قام <strong>%{user}</strong>
           بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى صفحة غير معروفة.
         user_added_name_in_language_to_an_unknown_taxon: قام <strong>%{user}</strong>
-          بإضافة الاسم الشائع "%{name}" باللغة %{language}إلى صفحة غير معروفة.
+          بإضافة الاسم الشائع "%{name}" باللغة %{language} إلى صفحة غير معروفة.
         user_added_name_in_an_unknown_language_to_taxon: قام <strong>%{user}</strong>
-          بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى الإصنوفة "%{taxon}".
+          بإضافة الاسم الشائع "%{name}" بلغة غير معروفة إلى "%{taxon}".
         user_added_name_in_language_to_taxon: قام <strong>%{user}</strong> بإضافة
-          الاسم الشائع "%{name}" باللغة %{language}إلى الإصنوفة "%{taxon}".
+          الاسم الشائع "%{name}" باللغة %{language} إلى "%{taxon}".
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: قام مستخدم
           غير معروف بإضافة اسم شائع غير معروف بلغة غير معروفة.
         an_unknown_user_added_an_unknown_name_in_language_to_it: قام مستخدم غير معروف
@@ -2942,383 +2940,373 @@ ar:
           شائع باللغة %{language}.
       trust_common_name:
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة بصفحة غير معروفة
-          "كموثوق به".
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة بصفحة غير
+          معروفة كموثوق به.
         an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} بصفحة غير
-          معروفة "كموثوق به".
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف باللغة %{language} بصفحة
+          غير معروفة "كموثوق به".
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}"
+          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة من "%{taxon}"
           "كموثوق به".
         an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: قام مستخدم غير
-          معروف بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق
+          معروف بالتعليم على اسم شائع غير معروف باللغة %{language} من "%{taxon}" "كموثوق
           به".
         an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وبصفحة غير
-          معروفة "كموثوق به".
+          مستخدم غير معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من
+          صفحة غير معروفة "كموثوق به".
         an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: قام مستخدم غير
-          معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} بصفحة غير معروفة
-          "كموثوق به".
+          معروف بالتعليم على الاسم الشائع "%{name}" باللغة %{language} من صفحة غير
+          معروفة "كموثوق به".
         an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: قام مستخدم غير
-          معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}"
+          معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من "%{taxon}"
           "كموثوق به".
-        an_unknown_user_trusted_name_in_language_on_taxon: قام مستخدم غير معروف بتصنيف
-          الاسم الشائع "%{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_taxon: قام مستخدم غير معروف بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} من "%{taxon}" "كموثوق به".
         user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة في صفحة
-          غير معروفة "كموثوق به".
+          <strong>%{user}</strong> بالتعليم على اسم شائع غير معروف بلغة غير معروفة
+          من صفحة غير معروفة "كموثوق به".
         user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} في صفحة غير معروفة "كموثوق
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من صفحة غير معروفة "كموثوق
           به".
         user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق به".
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة من "%{taxon}" "كموثوق به".
         user_trusted_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" "كموثوق
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من "%{taxon}" "كموثوق
           به".
         user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بإضافة الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة "كموثوق
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة "كموثوق
           به".
         user_trusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتصنيف الاسم الشائع" %{name}" باللغة %{language} في صفحة غير معروفة "كموثوق
-          به".
+          بالتعليم على الاسم الشائع" %{name}" باللغة %{language} من صفحة غير معروفة
+          "كموثوق به".
         user_trusted_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بإضافة الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" "كموثوق
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من "%{taxon}" "كموثوق
           به".
-        user_trusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف
-          الاسم الشائع" %{name}" باللغة %{language} للإصنوفة "%{taxon}" "كموثوق به".
+        user_trusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بالتعليم
+          على الاسم الشائع" %{name}" باللغة %{language} من "%{taxon}" "كموثوق به".
         an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة "كموثوق به".
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة "كموثوق
+          به".
         an_unknown_user_trusted_an_unknown_name_in_language_on_it: قام مستخدم غير
-          معروف بتصنيف اسم شائع غير معروف باللغة %{language} "كموثوق به".
+          معروف بالتعليم على اسم شائع غير معروف باللغة %{language} "كموثوق به".
         an_unknown_user_trusted_name_in_an_unknown_language_on_it: قام مستخدم غير
-          معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة "كموثوق به".
-        an_unknown_user_trusted_name_in_language_on_it: قام مستخدم غير معروف بتصنيف
-          الاسم الشائع "%{name}" باللغة %{language} كموثوق به.
+          معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة "كموثوق به".
+        an_unknown_user_trusted_name_in_language_on_it: قام مستخدم غير معروف بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} كموثوق به.
         user_trusted_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف بلغة غير معروفة كموثوق به.
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة كموثوق به.
         user_trusted_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} كموثوق به.
+          بالتعليم على اسم شائع غير معروف باللغة %{language} كموثوق به.
         user_trusted_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف الاسم الشائع "%{name}"  بلغة غير معروفة كموثوق به.
-        user_trusted_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف الاسم
-          الشائع "%{name}" باللغة %{language} كموثوق به.
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة كموثوق به.
+        user_trusted_name_in_language_on_it: قام <strong>%{user}</strong> بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} كموثوق به.
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة بصفحة غير معروفة
-          كغير موثوق به.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة من صفحة
+          غير معروفة كغير موثوق به.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} بصفحة غير
-          معروفة كغير موثوق به.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف باللغة %{language} من صفحة
+          غير معروفة كغير موثوق به.
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف للإصنوفة "%{taxon}" بلغة غير
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف من "%{taxon}" بلغة غير
           معروفة كغير موثوق به.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: قام مستخدم
-          غير معروف بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}"
+          غير معروف بالتعليم على اسم شائع غير معروف باللغة %{language} من "%{taxon}"
           كغير موثوق به.
         an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وبصفحة غير
-          معروفة كغير موثوق به.
+          مستخدم غير معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من
+          صفحة غير معروفة كغير موثوق به.
         an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: قام مستخدم
-          غير معروف بتصنيف الاسم الشائع "%{name}" باللغة %{language} بصفحة غير معروفة
-          كغير موثوق به.
+          غير معروف بالتعليم على الاسم الشائع "%{name}" باللغة %{language} من صفحة
+          غير معروفة كغير موثوق به.
         an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: قام مستخدم
-          غير معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}"
+          غير معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من "%{taxon}"
           كغير موثوق به.
         an_unknown_user_untrusted_name_in_language_on_taxon: قام مستخدم غير معروف
-          بتصنيف الاسم الشائع "%{name}" باللغة %{language} للإصنوفة "%{taxon}" كغير
+          بالتعليم على الاسم الشائع "%{name}" باللغة %{language} من "%{taxon}" كغير
           موثوق به.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          <strong>%{user}</strong> بتصنيف اسم شائع غير معروف بلغة غير معروفة في صفحة
-          غير معروفة كغير موثوق به.
+          <strong>%{user}</strong> بالتعليم على اسم شائع غير معروف بلغة غير معروفة
+          من صفحة غير معروفة كغير موثوق به.
         user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} في صفحة غير معروفة كغير موثوق
-          به.
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من صفحة غير معروفة كغير
+          موثوق به.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف بلغة غير معروفة للإصنوفة "%{taxon}" كغير موثوق
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة من "%{taxon}" كغير موثوق
           به.
         user_untrusted_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من "%{taxon}" كغير موثوق
           به.
         user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة وفي صفحة غير معروفة كغير موثوق
-          به.
-        user_untrusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتصنيف الاسم الشائع" %{name}" باللغة %{language} في صفحة غير معروفة كغير
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة كغير
           موثوق به.
+        user_untrusted_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
+          بالتعليم على الاسم الشائع" %{name}" باللغة %{language} من صفحة غير معروفة
+          كغير موثوق به.
         user_untrusted_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بإضافة الاسم الشائع "%{name}" بلغة غير معروفة للإصنوفة "%{taxon}" كغير موثوق
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من "%{taxon}" كغير موثوق
           به.
-        user_untrusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بتصنيف
-          الاسم الشائع" %{name}" باللغة %{language} للإصنوفة "%{taxon}" كغير موثوق
-          به.
+        user_untrusted_name_in_language_on_taxon: قام <strong>%{user}</strong> بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} من "%{taxon}" كغير موثوق به.
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: قام
-          مستخدم غير معروف بتصنيف اسم شائع غير معروف بلغة غير معروفة كغير موثوق به.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة كغير موثوق
+          به.
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: قام مستخدم غير
-          معروف بتصنيف اسم شائع غير معروف باللغة %{language} كغير موثوق به.
+          معروف بالتعليم على اسم شائع غير معروف باللغة %{language} كغير موثوق به.
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: قام مستخدم غير
-          معروف بتصنيف الاسم الشائع "%{name}" بلغة غير معروفة كغير موثوق به.
-        an_unknown_user_untrusted_name_in_language_on_it: قام مستخدم غير معروف بتصنيف
-          الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
+          معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة كغير موثوق به.
+        an_unknown_user_untrusted_name_in_language_on_it: قام مستخدم غير معروف بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
         user_untrusted_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف بلغة غير معروفة كغير موثوق به.
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة كغير موثوق به.
         user_untrusted_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف اسم شائع غير معروف باللغة %{language} كغير موثوق به.
+          بالتعليم على اسم شائع غير معروف باللغة %{language} كغير موثوق به.
         user_untrusted_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بتصنيف الاسم الشائع "%{name}"  بلغة غير معروفة كغير موثوق به.
-        user_untrusted_name_in_language_on_it: قام <strong>%{user}</strong> بتصنيف
-          الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة كغير موثوق به.
+        user_untrusted_name_in_language_on_it: قام <strong>%{user}</strong> بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} كغير موثوق به.
       unreview_common_name:
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير
-          معروفة من صفحة غير معروفة.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة من صفحة
+          غير معروفة كغير مراجع.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}
-          من صفحة غير معروفة.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف باللغة %{language} من صفحة
+          غير معروفة كغير مراجع.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: قام
-          مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير
-          معروفة من "%{taxon}".
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة من %{taxon}
+          كغير مراجع.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: قام مستخدم
-          غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}
-          من "%{taxon}".
+          غير معروف بالتعليم على اسم شائع غير معروف باللغة %{language} من %{taxon}
+          كغير مراجع.
         an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          مستخدم غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة
-          غير معروفة من صفحة غير معروفة.
+          مستخدم غير معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من
+          صفحة غير معروفة كغير مراجع.
         an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: قام مستخدم
-          غير معروف بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من
-          صفحة غير معروفة.
+          غير معروف بالتعليم على الاسم الشائع "%{name}" باللغة %{language} من صفحة
+          غير معروفة كغير مراجع.
         an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: قام مستخدم
-          غير معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير
-          معروفة من "%{taxon}".
+          غير معروف بالتعليم على الاسم الشائع %{name} بلغة غير معروفة من %{taxon}
+          كغير مراجع.
         an_unknown_user_unreviewed_name_in_language_on_taxon: قام مستخدم غير معروف
-          بوضع علامة "غير مُراجع" لـ%{language} على الاسم الشائع "%{name}" من "%{taxon}".
+          بالتعليم على الاسم الشائع %{name} باللغة %{language} من %{taxon}كغير مراجع.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: قام
-          <strong>%{user}</strong> بوضع علامة "غير مُراجع" على اسم شائع غير معروف
-          في لغة غير معروفة من صفحة غير معروفة.
+          <strong>%{user}</strong> بالتعليم على اسم شائع غير معروف بلغة غير معروفة
+          من صفحة غير معروفة كغير مراجع.
         user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من صفحة غير
-          معروفة.
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من صفحة غير معروفة كغير
+          مراجع.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة من "%{taxon}".
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة من %{taxon} كغير مراجع.
         user_unreviewed_an_unknown_name_in_language_on_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language} من "%{taxon}".
+          بالتعليم على اسم شائع غير معروف باللغة %{language} من "%{taxon}" كغير مراجع.
         user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من
-          صفحة غير معروفة.
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من صفحة غير معروفة كغير
+          مراجع.
         user_unreviewed_name_in_language_on_an_unknown_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من صفحة غير
-          معروفة.
+          بالتعليم على الاسم الشائع "%{name}" باللغة %{language} من صفحة غير معروفة
+          كغير مراجع.
         user_unreviewed_name_in_an_unknown_language_on_taxon: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة من
-          "%{taxon}".
-        user_unreviewed_name_in_language_on_taxon: قام <strong>%{user}</strong> بوضع
-          علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}" من "%{taxon}".
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة من %{taxon} كغير مراجع.
+        user_unreviewed_name_in_language_on_taxon: قام <strong>%{user}</strong> بالتعليم
+          على الاسم الشائع "%{name}" باللغة %{language} من "%{taxon}" كغير مراجع.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام
-          مستخدم غير معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف من لغة غير
-          معروفة.
+          مستخدم غير معروف بالتعليم على اسم شائع غير معروف بلغة غير معروفة كغير مراجع.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: قام مستخدم غير
-          معروف بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+          معروف بالتعليم على اسم شائع غير معروف باللغة %{language} كغير مراجع.
         an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: قام مستخدم غير
-          معروف بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}" في لغة غير معروفة.
-        an_unknown_user_unreviewed_name_in_language_on_it: قام مستخدم غير معروف بوضع
-          علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+          معروف بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة كغير مراجع.
+        an_unknown_user_unreviewed_name_in_language_on_it: قام مستخدم غير معروف بالتعليم
+          على الاسم الشائع "%{name}" بالغة %{language} كغير مراجع.
         user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على اسم شائع غير معروف في لغة غير معروفة.
+          بالتعليم على اسم شائع غير معروف بلغة غير معروفة كغير مراجع.
         user_unreviewed_an_unknown_name_in_language_on_it: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على اسم شائع غير معروف في %{language}.
+          بالتعليم على اسم شائع غير معروف باللغة %{language} كغير مراجع.
         user_unreviewed_name_in_an_unknown_language_on_it: قام <strong>%{user}</strong>
-          بوضع علامة "غير مُراجع" على الاسم الشائع "%{name}"  في لغة غير معروفة.
-        user_unreviewed_name_in_language_on_it: قام <strong>%{user}</strong> بوضع
-          علامة "غير مُراجع" لـ%{language} الاسم الشائع "%{name}".
+          بالتعليم على الاسم الشائع "%{name}" بلغة غير معروفة كغير مراجع.
+        user_unreviewed_name_in_language_on_it: قام <strong>%{user}</strong> بالتعليم
+          على  الاسم الشائع "%{name}" باللغة %{language} كغير مراجع.
       preferred_classification:
         an_unknown_user_preferred_unknown_classification_on_an_unknown_taxon: قام
-          مستخدم مجهول بتعليم تنصيف        غير معروف كمفضل لصنف غير معروف.
-        an_unknown_user_preferred_unknown_classification_on_it: قام مستخدم مجهول بتعليم
-          تصنيف غير معروف    كمفضل.
+          مستخدم مجهول بالتعليم على تصينف غير معروف كمفضل لأصنوفة غير معروفة.
+        an_unknown_user_preferred_unknown_classification_on_it: قام مستخدم مجهول بالتعليم
+          على تصينف غير معروف كمفضل.
         an_unknown_user_preferred_unknown_classification_on_taxon: قام مستخدم مجهول
-          بتعليم تنصيف غير معروف كمفضل لـ "%{taxon}".
-        user_preferred_unknown_classification_on_an_unknown_taxon: <strong>%{user}</strong>
-          قام بتعليم          تصنيف مجهول كمفضل لصنف مجهول.
-        user_preferred_unknown_classification_on_it: <strong>%{user}</strong> قام
-          بتعليم تصنيف مجهول      كمفضل.
-        user_preferred_unknown_classification_on_taxon: <strong>%{user}</strong> قام
-          بتعليم تنصيف مجهول   كمفضل من أجل "%{taxon}".
+          بالتعليم على تصينف غير معروف كمفضل ل%{taxon}.
+        user_preferred_unknown_classification_on_an_unknown_taxon: قام %{user} بالتعليم
+          على تصينف غير معروف كمفضل لأصنوفة غير معروفة.
+        user_preferred_unknown_classification_on_it: قام %{user} بالتعليم على تصينف
+          غير معروف كمفضل.
+        user_preferred_unknown_classification_on_taxon: قام %{user} بالتعليم على تصينف
+          غير معروف كمفضل ل%{taxon}.
         an_unknown_user_preferred_classification_on_an_unknown_taxon: قام مستخدم مجهول
-          بتعليم تنصيف من "%{provider}" كمفضل لصنف غير معروف.
-        an_unknown_user_preferred_classification_on_it: قام مستخدم مجهول بتعليم تنصيف
-          من "%{provider}" كمفضل.
-        an_unknown_user_preferred_classification_on_taxon: قام مستخدم مجهول بتعليم
-          تنصيف من "%{provider}" كمفضل لـ "%{taxon}".
-        user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong>
-          قام بتعليم التصنيف من "%{provider}" كمفضل لصنف غير معروف.
-        user_preferred_classification_on_it: <strong>%{user}</strong> قام بتعليم التصنيف
-          من "%{provider}" كمفضل.
-        user_preferred_classification_on_taxon: <strong>%{user}</strong> قام بتعليم
-          التصنيف من "%{provider}" كمفضل لـ "%{taxon}".
+          بالتعليم على التصينف من %{provider} كمفضل لأصنوفة غير معروفة.
+        an_unknown_user_preferred_classification_on_it: قام مستخدم مجهول بالتعليم
+          على التصينف من %{provider} كمفضل.
+        an_unknown_user_preferred_classification_on_taxon: قام مستخدم مجهول بالتعليم
+          على التصينف من %{provider} كمفضل ل%{taxon}.
+        user_preferred_classification_on_an_unknown_taxon: قام %{user} بالتعليم على
+          التصينف من %{provider} كمفضل لأصنوفة غير معروفة.
+        user_preferred_classification_on_it: قام %{user} بالتعليم على التصينف من %{provider}
+          كمفضل.
+        user_preferred_classification_on_taxon: قام %{user} بالتعليم على التصينف من
+          %{provider} كمفضل ل%{taxon}.
       classification_curation:
         split:
           an_unknown_user_split_classifications_from_an_unknown_taxon: قام مستخدم
-            غير معروف بفصل التصنيفات الخاصة بـ%{classifications} عن صفحة غير معروفة
-            وإضافتها إلى <a href='%{to}'>their own page</a> الصفحة الخاصة به.
+            غير معروف بفصل تصنيفات ـ%{classifications} عن صفحة غير معروفة وإضافتها
+            إلى <a href='%{to}'>صفحته الخاصة</a>.
           an_unknown_user_split_classifications_from_taxon: قام مستخدم غير معروف بفصل
-            التصنيفات الخاصة بـ%{classifications} عن %{taxon} وإضافتها إلى <a href='%{to}'>their
-            own page</a> الصفحة الخاصة به.
+            تصنيفات ـ%{classifications} عن %{taxon} وإضافتها إلى <a href='%{to}'>صفحته
+            الخاصة</a>.
           an_unknown_user_split_classifications_from_it: قام مستخدم غير معروف بفصل
-            التصنيفات الخاصة بـ%{classifications} وإضافتها إلى a href='%{to}'>their
-            own page</a> الصفحة الخاصة به.
+            تصنيفات ـ%{classifications} عن صفحة غير معروفة وإضافتها إلى <a href='%{to}'>صفحته
+            الخاصة</a>.
           user_split_classifications_from_an_unknown_taxon: قام <strong>%{user}</strong>
-            بفصل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى <a href='%{to}'>their
-            own page</a> الصفحة الخاصة به.
+            بفصل تصنيفات ـ%{classifications} عن صفحة غير معروفة وإضافتها إلى <a href='%{to}'>صفحته
+            الخاصة</a>.
           user_split_classifications_from_taxon: قام <strong>%{user}</strong> بفصل
-            التصنيفات الخاصة بـ%{classifications} من %{taxon} وإضافتها إلى a href='%{to}'>their
-            own page</a> الصفحة الخاصة به.
+            تصنيفات ـ%{classifications} عن %{taxon} وإضافتها إلى <a href='%{to}'>صفحته
+            الخاصة</a>.
           user_split_classifications_from_it: قسم <strong>%{user}</strong> تصنيفات
             %{classifications} إلى <a href='%{to}'>صفحاتهم الخاصة</a>.
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: قام مستخدم غير معروف بدمج صفحتين
             غير معروفتين.
-          an_unknown_user_merged_to_taxon: مستخدم غير معروف بدمج صفحة أخرى بـ%{target}.
+          an_unknown_user_merged_to_taxon: قام مستخدم غير معروف بدمج صفحة أخرى بـ%{target}.
           an_unknown_user_merged_to_it: قام مستخدم غير معروف بدمج صفحة أخرى بتلك الصفحة.
-          user_merged_to_it: قام <strong>%{user}</strong> بدمج صفحة أخرى بتلك الصفحة.
+          user_merged_to_it: قام <strong>%{user}</strong> بدمج صفحة أخرى بهذه.
           user_merged_to_an_unknown_taxon: قام <strong>%{user}</strong> بدمج صفحتين
             غير معروفتين.
           user_merged_to_taxon: قام <strong>%{user}</strong> بدمج صفحة أخرى بـ%{target}.
         move:
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: قام
-            مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير
-            معروفة إلى صفحة أخرى غير معروفة.
+            مستخدم غير معروف بنقل تصنيفات %{classifications} من صفحة غير معروفة إلى
+            صفحة أخرى غير معروفة.
           an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: قام
-            مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير
-            معروفة إلى %{target}.
-          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: قام
-            مستخدم غير معروف بنقل التصنيفات الخاصة بـ%{classifications} من الإصنوفة
-            %{taxon}إلى صفحة غير معروفة.
-          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: قام مستخدم
-            غير معروف بنقل التصنيفات الخاصة بـ%{classifications} إلى صفحة غير معروفة.
-          an_unknown_user_moved_classifications_from_taxon_to_taxon: قام مستخدم غير
-            معروف بنقل التصنيفات الخاصة بـ%{classifications} من الإصنوفة %{taxon}إلى
+            مستخدم غير معروف بنقل تصنيفات %{classifications} من صفحة غير معروفة إلى
             %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: قام
+            مستخدم غير معروف بنقل تصنيفات %{classifications} من %{taxon} إلى صفحة
+            غير معروفة.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: قام مستخدم
+            غير معروف بنقل تصنيفات %{classifications} إلى صفحة غير معروفة.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: قام مستخدم غير
+            معروف بنقل تصنيفات %{classifications} من %{taxon} إلى %{target}.
           an_unknown_user_moved_classifications_from_it_to_taxon: قام مستخدم غير معروف
-            بنقل التصنيفات الخاصة بـ%{classifications} إلى %{target}.
+            بنقل تصنيفات %{classifications} إلى %{target}.
           user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: قام
-            <strong>%{user}</strong> بنقل التصنيفات الخاصة بـ%{classifications} من
-            صفحة غير معروفة إلى صفحة أخرى غير معروفة.
+            <strong>%{user}</strong> بنقل تصنيفات %{classifications} من صفحة غير معروفة
+            إلى صفحة أخرى غير معروفة.
           user_moved_classifications_from_an_unknown_taxon_to_taxon: قام <strong>%{user}</strong>
-            بنقل التصنيفات الخاصة بـ%{classifications} من صفحة غير معروفة إلى %{target}.
+            بنقل تصنيفات %{classifications} من صفحة غير معروفة إلى %{target}.
           user_moved_classifications_from_taxon_to_an_unknown_taxon: قام <strong>%{user}</strong>
-            بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى صفحة غير معروفة.
+            بنقل تصنيفات %{classifications} من %{taxon} إلى صفحة غير معروفة.
           user_moved_classifications_from_it_to_an_unknown_taxon: قام <strong>%{user}</strong>
-            بنقل التصنيفات الخاصة بـ%{classifications} صفحة غير معروفة.
+            بنقل تصنيفات %{classifications} إلى صفحة غير معروفة.
           user_moved_classifications_from_taxon_to_taxon: قام <strong>%{user}</strong>
-            بنقل التصنيفات الخاصة بـ%{classifications} من %{taxon} إلى %{target}.
+            بنقل تصنيفات %{classifications} من %{taxon} إلى %{target}.
           user_moved_classifications_from_it_to_taxon: قام <strong>%{user}</strong>
-            بنقل التصنيفات الخاصة بـ%{classifications} إلى %{target}.
+            بنقل تصنيفات %{classifications} إلى %{target}.
       split:
         an_unknown_user_split_unknown_entry_from_an_unknown_taxon: قام مستخدم مجهول
-          بتقسيم تصنيف غير معلوم لصنف غير معروف.
-        an_unknown_user_split_unknown_entry_from_it: قام مستخدم غير معروف بفصل تنصيف
-          غير معروف.
+          بتقسيم تصنيف غير معلوم من أصنوفة غير معروفة.
+        an_unknown_user_split_unknown_entry_from_it: قام مستخدم مجهول بتقسيم تصنيف
+          غير معلوم.
         an_unknown_user_split_unknown_entry_from_taxon: قام مستخدم مجهول بتقسيم تصنيف
           غير معلوم من "%{taxon}".
         user_split_unknown_entry_from_an_unknown_taxon: قام <strong>%{user}</strong>
-          بتقسيم تنصيف غير معلوم من صنف مجهول.
+          بتقسيم تنصيف غير معلوم من أصنوفة غير معروفة.
         user_split_unknown_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف
           غير معروف.
         user_split_unknown_entry_from_taxon: قام <strong>%{user}</strong> بتقسيم تصنيف
           غير معلوم من "%{taxon}".
         an_unknown_user_split_entry_from_an_unknown_taxon: قام مستخدم غير معروف بفصل
-          التصنيف المقدم من "%{provider}" عن إصنوفة غير معروفة.
-        an_unknown_user_split_entry_from_it: قام مستخدم غير معروف بفصل التصنيف المقدم
-          من "%{provider}".
-        an_unknown_user_split_entry_from_taxon: قام مستخدم غير معروف بفصل التصنيف
-          المقدم من "%{provider}" عن "%{taxon}".
-        user_split_entry_from_an_unknown_taxon: قام <strong>%{user}</strong> بفصل
-          التصنيفالمقدم من "%{provider}" عن إصنوفة غير معروفة.
-        user_split_entry_from_it: قام <strong>%{user}</strong> بفصل التصنيف المقدم
-          من "%{provider}".
-        user_split_entry_from_taxon: قام <strong>%{user}</strong> بفصل التصنيف المقدم
-          من "%{provider}" عن "%{taxon}".
+          تصنيف "%{provider}" من أصنوفة غير معروفة.
+        an_unknown_user_split_entry_from_it: قام مستخدم غير معروف بفصل تصنيف "%{provider}".
+        an_unknown_user_split_entry_from_taxon: قام مستخدم غير معروف بفصل تصنيف "%{provider}"
+          من %{taxon}.
+        user_split_entry_from_an_unknown_taxon: قام %{user} بفصل تصنيف "%{provider}"
+          عن أصنوفة غير معروفة.
+        user_split_entry_from_it: قام <strong>%{user}</strong> بفصل تصنيف "%{provider}".
+        user_split_entry_from_taxon: قام <strong>%{user}</strong> بفصل تصنيف "%{provider}"
+          عن "%{taxon}".
       merge:
         an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: قام مستخدم غير معروف
-          بنقل تصنيف غير معروف إلى إصنوفة غير معروفة.
+          بنقل تصنيف غير معروف إلى أصنوفة غير معروفة.
         an_unknown_user_merged_unknown_entry_to_it: قام مستخدم غير معروف بإضافة تصنيف
           غير معروف.
         an_unknown_user_merged_unknown_entry_to_taxon: قام مستخدم مجهول بنقل تصنيف
           غير معروف إلى "%{taxon}".
         user_merged_unknown_entry_to_an_unknown_taxon: قام <strong>%{user}</strong>
-          بنقل تنصيف غير معروف إلى إصنوفة غير معروفة.
+          بنقل تنصيف غير معروف إلى أصنوفة غير معروفة.
         user_merged_unknown_entry_to_it: قام <strong>%{user}</strong> بإضافة تصنيف
           غير معروف.
         user_merged_unknown_entry_to_taxon: قام <strong>%{user}</strong> بنقل تصنيف
           غير معروف إلى "%{taxon}".
         an_unknown_user_merged_entry_to_an_unknown_taxon: قام مستخدم غير معروف بنقل
-          التصنيفات المُعدة بواسطة "%{provider}" إلى إصنوفة غير معروفة.
-        an_unknown_user_merged_entry_to_it: قام مستخدم غير معروف بإضافة التصنيف المُعد
-          بواسطة "%{provider}".
-        an_unknown_user_merged_entry_to_taxon: قام مستخدم غير معروف بنقل التصنيف المُعد
-          بواسطة "%{provider}" إلى "%{taxon}".
-        user_merged_entry_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل التصنيفات
-          المُعدة بواسطة "%{provider}" إلى إصنوفة غير معروفة.
-        user_merged_entry_to_it: قام <strong>%{user}</strong> بإضافة التصنيف المُعد
-          بواسطة "%{provider}".
-        user_merged_entry_to_taxon: قام <strong>%{user}</strong> بنقل التصنيفات المُعدة
-          بواسطة "%{provider}" إلى "%{taxon}".
+          تصنيف "%{provider}" إلى أصنوفة غير معروفة.
+        an_unknown_user_merged_entry_to_it: قام مستخدم غير معروف بإضافة تصنيف "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: قام مستخدم غير معروف بنقل تصنيف "%{provider}"
+          إلى "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: قام <strong>%{user}</strong> بنقل تصنيف
+          "%{provider}" إلى أصنوفة غير معروفة.
+        user_merged_entry_to_it: قام <strong>%{user}</strong> بإضافة تصنيف "%{provider}".
+        user_merged_entry_to_taxon: قام <strong>%{user}</strong> بنقل تصنيف "%{provider}"
+          إلى "%{taxon}".
       unlock:
-        merge_of_an_unknown_taxon_unlocked: لقد تمت عملية الدمج المطلوبة حديثًا، ولكن
-          تعذر إيجاد الصفحة.
-        merge_of_it_unlocked: تم تنفيذ عملية الدمج المطلوبة مؤخرًا لتلك الصفحة بنجاح،
-          وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
-        merge_of_taxon_unlocked: تم تنفيذ الدمج المطلوب مؤخرًا لصفحة %{taxon} بنجاح،
-          وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
-        move_of_an_unknown_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بنجاح،
+        merge_of_an_unknown_taxon_unlocked: لقد تمت عملية الدمج التي طلبتها حديثًا،
           ولكن تعذر إيجاد الصفحة.
-        move_of_it_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بتلك الصفحة بنجاح،
-          وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
-        move_of_taxon_unlocked: تم تنفيذ نقل التصنيف المطلوب مؤخرًا بصفحة "%{taxon}"
+        merge_of_it_unlocked: تم تنفيذ عملية الدمج التي طلبتها مؤخرًا لتلك الصفحة
           بنجاح، وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
-        split_of_an_unknown_taxon_unlocked: لقد تمت عملية فصل التصنيف المطلوبة حديثًا،
-          ولكن تعذر إيجاد الصفحة.
-        split_of_it_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا بتلك الصفحة
-          وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها الخاصة،
+        merge_of_taxon_unlocked: تم تنفيذ الدمج الذي طلبته مؤخرًا لصفحة %{taxon} بنجاح،
           وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
-        split_of_taxon_unlocked: تم تنفيذ عملية فصل التصنيف المطلوبة حديثًا  والخاصة
-          بـ"%{taxon}"  وتم نقل التصنيفات إلى <a href='%{to}'>their own page</a> صفحتها
-          الخاصة، وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة
-          للاستكمال.
+        move_of_an_unknown_taxon_unlocked: تم تنفيذ نقل التصنيف الذي طلبته مؤخرًا
+          بنجاح، ولكن تعذر إيجاد الصفحة.
+        move_of_it_unlocked: تم تنفيذ نقل التصنيف الذي طلبته مؤخرًا بتلك الصفحة بنجاح،
+          وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
+        move_of_taxon_unlocked: تم تنفيذ نقل التصنيف الذي طلبته مؤخرًا لصفحة "%{taxon}"
+          بنجاح، وتُجرَي حاليا إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
+        split_of_an_unknown_taxon_unlocked: لقد تمت عملية فصل التصنيف التي طلبتها
+          حديثًا، ولكن تعذر إيجاد الصفحة.
+        split_of_it_unlocked: تم تنفيذ عملية فصل التصنيف التي طلبتها حديثًا بتلك الصفحة
+          وتم نقل التصنيفات إلى <a href='%{to}'>صفحاتهم الخاصة</a>، وتُجرَي حاليا
+          إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
+        split_of_taxon_unlocked: تم تنفيذ عملية فصل التصنيف التي طلبتها حديثًا لـ"%{taxon}"
+          وتم نقل التصنيفات إلى <a href='%{to}'>صفحاتهم الخاصة</a>، وتُجرَي حاليا
+          إعادة فهرسة الصفحات وسوف تتطلب ما يصل الى 25 ساعة للاستكمال.
       unlock_with_error:
-        merge_of_an_unknown_taxon_unlocked_with_error: 'لقد تعذر <strong>failed</strong>
-          تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة
-          المعنية.'
-        merge_of_it_unlocked_with_error: 'تعذر <strong>failed</strong> تنفيذ عملية
-          الدمج المطلوبة مؤخرًا بتلك الصفحة: %{error}.'
-        merge_of_taxon_unlocked_with_error: لقد تعذر <strong>failed</strong> تنفيذ
-          دمج صفحة "%{taxon}" المطلوب مؤخرًا %{error}.
-        move_of_an_unknown_taxon_unlocked_with_error: 'لقد تعذر <strong>failed</strong>
-          تنفيذ عملية دمج الصفحة المطلوبة مؤخرًا: %{error}. كما تعذر إيجاد الصفحة
-          المعنية.'
-        move_of_it_unlocked_with_error: 'تعذر <strong>failed</strong> تنفيذ عملية
-          نقل التصنيف المطلوب مؤخرًا بتلك الصفحة: %{error}.'
-        move_of_taxon_unlocked_with_error: 'لقد تعذر <strong>failed</strong> تنفيذ
-          عملية نقل التصنيف المطلوبة مؤخرًا بصفحة "%{taxon}" : %{error}.'
-        split_of_an_unknown_taxon_unlocked_with_error: 'لقد تعذر <strong>failed</strong>
-          تنفيذ عملية فصل التصنيف المطلوبة حديثًا: %{error}. كما تعذر إيجاد الصفحة
-          المعنية.'
-        split_of_it_unlocked_with_error: 'لقد تعذر <strong>failed</strong> تنفيذ عملية
-          فصل التصنيف المطلوبة حديثًا بتلك الصفحة: %{error}.'
-        split_of_taxon_unlocked_with_error: 'لقد تعذر <strong>failed</strong> تنفيذ
-          عملية فصل التصنيف المطلوبة حديثًا والخاصة بـ"%{taxon}": %{error}.'
+        merge_of_an_unknown_taxon_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ
+          عملية دمج الصفحة التي طلبتها مؤخرًا: %{error}، كما تعذر إيجاد الصفحة المعنية.'
+        merge_of_it_unlocked_with_error: '<strong>فشل</strong> تنفيذ عملية الدمج التي
+          طلبتها مؤخرًا بتلك الصفحة: %{error}.'
+        merge_of_taxon_unlocked_with_error: لقد <strong>فشل</strong> تنفيذ دمج صفحة
+          "%{taxon}" الذي طلبته مؤخرًا %{error}.
+        move_of_an_unknown_taxon_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ
+          عملية دمج الصفحة الذي طلبته مؤخرًا: %{error}، كما تعذر إيجاد الصفحة المعنية.'
+        move_of_it_unlocked_with_error: '<strong>فشل</strong> تنفيذ عملية نقل التصنيف
+          التي طلبتها مؤخرًا بتلك الصفحة: %{error}.'
+        move_of_taxon_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ عملية نقل
+          التصنيف التي طلبتها مؤخرًا بصفحة "%{taxon}" : %{error}.'
+        split_of_an_unknown_taxon_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ
+          عملية فصل التصنيف التي طلبتها حديثًا: %{error}، كما تعذر إيجاد الصفحة المعنية.'
+        split_of_it_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ عملية فصل
+          التصنيف التي طلبتها مؤخرًا حديثًا بتلك الصفحة: %{error}.'
+        split_of_taxon_unlocked_with_error: 'لقد <strong>فشل</strong> تنفيذ عملية
+          فصل التصنيف التي طلبتها حديثًا لـ"%{taxon}": %{error}.'
       crop:
         an_unknown_user_cropped_an_older_data_object: غير مستخدم غير معروف الصورة
-          المصغرة لof "%{data_object}".
-        an_unknown_user_cropped_an_unknown_data_object: غير مستخدم غير معروف الصورة
-          المصغرة غير المعروفة
+          المصغرة ل"%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: غير مستخدم غير معروف صورة
+          مصغرة غير معروفة
         an_unknown_user_cropped_data_object: غير مستخدم غير معروف الصورة المصغرة ل%{data_object}
         user_cropped_an_older_data_object: غير <strong>%{user}</strong> الصورة المصغرة
           للنسخة القديمة من "%{data_object}".
-        user_cropped_an_unknown_data_object: غير <strong>%{user}</strong> الصورة المصغرةغير
-          المعروفة.
+        user_cropped_an_unknown_data_object: غير <strong>%{user}</strong> صورة مصغرة
+          غير معروفة.
         user_cropped_data_object: غير <strong>%{user}</strong> الصورة المصغرة ل"%{data_object}".
-        an_unknown_user_cropped_it: غير مستخدم غير معروف الصورة المصغرة غير المعروفة
-        user_cropped_it: غير <strong>%{user}</strong> الصورة المصغرة غير المعروفة.
+        an_unknown_user_cropped_it: غير مستخدم غير معروف صورة مصغرة غير معروفة.
+        user_cropped_it: غير <strong>%{user}</strong> صورة مصغرة غير معروفة.
       user_added_data:
         an_unknown_user_create_data_on_an_unknown_taxon: أضاف مستخدم غير معروف بيانات
           إلى صفحة مجهولة.
@@ -3327,7 +3315,7 @@ ar:
         user_create_data_on_taxon: أضاف <strong>%{user}</strong> بيانات إلى "%{taxon}".
         an_unknown_user_update_data_on_an_unknown_taxon: حدث مستخدم غير معروف بيانات
           في صفحة مجهولة.
-        an_unknown_user_update_data_on_taxon: حدث غير معروف بيانات في "%{taxon}".
+        an_unknown_user_update_data_on_taxon: حدث مستخدم غير معروف بيانات في "%{taxon}".
         user_update_data_on_an_unknown_taxon: حدث %{user} بيانات في صفحة مجهولة.
         user_update_data_on_taxon: حدث <strong>%{user}</strong> بيانات في "%{taxon}".
       other_actions:
@@ -3341,85 +3329,84 @@ ar:
         user_curated_an_unknown_data_object: قام <strong>%{user}</strong> بالإشراف
           على موضوع بيانات غير معروف.
         user_curated_data_object: قام <strong>%{user}</strong> بالإشراف على "%{data_object}".
-        an_unknown_user_curated_it: قام مستخدم غير معروف بالإشراف عليها، إلا أن الإجراء
-          الذي تم بالتفصيل قد فٌقِد.
-        user_curated_it: قام <strong>%{user}</strong> بالإشراف عليها، إلا أن الإجراء
+        an_unknown_user_curated_it: قام مستخدم غير معروف بالإشراف عليها، لكن الإجراء
           الذي تم بالتفصيل قد فُقِد.
-  a_maximum_of_30_results_are_returned: يتم إرجاع 30 نتيجة بالصفحة الواحدة بحد أقصى.
-    هذا الموسيط يسمح لك بجلب المزيد من صفحات النتائج إذا كان هناك أكثر من 30 نتيجة
-  activity_log_empty: لم يتم إضافة تحديثات بعد.
+        user_curated_it: قام <strong>%{user}</strong> بالإشراف عليها، لكن الإجراء
+          الذي تم بالتفصيل قد فُقِد.
+  a_maximum_of_30_results_are_returned: يتم إرجاع 30 نتيجة بالصفحة الواحدة بحد أقصى،
+    هذا الوسيط يسمح لك بجلب المزيد من صفحات النتائج إذا كان هناك أكثر من 30 نتيجة
+  activity_log_empty: لم تتم إضافة تحديثات بعد.
   activity_user_created_data: أضاف <strong>%{user}</strong> بيانات عن "%{object_name}"
     إلى "%{taxon_concept}".
   activity_user_created_link: قام <strong>%{user}</strong> بإضافة رابط إلى "%{object_name}"
     حول "%{taxon_concept}".
-  activity_user_created_text: <strong>%{user}</strong> أضاف نص إلى "%{object_name}"
+  activity_user_created_text: <strong>%{user}</strong> أضاف نصا إلى "%{object_name}"
     في "%{taxon_concept}".
   activity_user_updated_link: قام <strong>%{user}</strong> بتحديث رابط "%{object_name}"
     حول "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> حدث نص "%{object_name}" في
     "%{taxon_concept}" .
-  add_a_collection_to_a_community: أضف "%{collection}"  لمجتمع.
-  add_a_comment: أضف تعليق.
+  add_a_collection_to_a_community: أضف "%{collection}" لمجتمع.
+  add_a_comment: أضف تعليقا.
   add_a_comment_colon: 'أضف تعليقًا:'
   add: أضف
   add_a_new_common_name: أضف اسمًا شائعًا جديدًا
-  add_a_new_file_brackets: '[أضف ملف جديد]'
-  add_a_new_role: أضف دور جديد
+  add_a_new_file_brackets: '[أضف ملفا جديدا]'
+  add_a_new_role: أضف دورا جديدا
   add_a_new_search_suggestion: أضف اقتراح بحث جديد
-  add_a_new_topic_area: أضف موضوع جديد
-  add_a_new_user: اضف مستخدم جديد
-  add_a_taxon_association_label: أضف رابط لأصنوفة
+  add_a_new_topic_area: أضف منطقة موضوع جديدة
+  add_a_new_user: اضف مستخدما جديدا
+  add_a_taxon_association_label: أضف رابط أصنوفة
   add_another_metadata_field: إضافة حقل بيانات وصفية جديد
-  add_article_instead: عوضًا عن ذلك، أضف مقال
+  add_article_instead: أضف مقالا عوضًا عن ذلك
   add_article_to_page_button: إضافة مقال
   add_association_submit_button: إضافة رابط
-  add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى تلك الصفحة
-  add_citizen_science_resources_to_page_link_button: أضف رابط مواطن العلم لهذه الصفحة
+  add_brief_summary_to_page_link_button: أضف نبذة مختصرة إلى هذه الصفحة
+  add_citizen_science_resources_to_page_link_button: أضف رابط علم الجميع لهذه الصفحة
   add_classifications: إضافة تصنيفات مختارة للنقل
   add_collection_to_a_new_community: أضف "%{collection}"  لمجتمع جديد
   add_collection_to_community: أضف المجموعة للمجتمع
-  add_education_resources_to_page_link_button: اضف مصادر  تعليمية إلى هذه الصفحة
-  add_identification_resources_to_page_link_button: اضف مصادر تعريفية إلى هذه الصفحة
+  add_education_resources_to_page_link_button: أضف مصادر  تعليمية إلى هذه الصفحة
+  add_identification_resources_to_page_link_button: أضف مصادر تعريفية إلى هذه الصفحة
   add_item_to_new_collection: أضف "%{item}" إلى مجموعة جديدة
   add_language: أضف لغة
-  add_link_instead: عوضًا عن ذلك، أضف رابط
+  add_link_instead: أضف رابطا عوضًا عن ذلك
   add_link_to_page_button: إضافة رابط
   add_new_association_link: أضف رابط جديد
-  add_new_tag_suggestion: أضف اقتراح جديد على بطاقة دلالية
-  add_new_known_uri_link: إضافة رابط جديد
+  add_new_tag_suggestion: أضف اقتراح وسم جديد
+  add_new_known_uri_link: إضافة مسار جديد
   add_page: أضف صفحة
-  add_sub_chapter: أضف فصل فرعي
+  add_sub_chapter: أضف فصلا فرعيا
   add_to_a_community: أضف إلى مجتمع.
   add_to_my_collection_button: أضف إلى مجموعة
-  admin_content_page_active: نشر
+  admin_content_page_active: تم النشر
   admin_content_page_not_active: لم يتم نشره
   admin_content_page_child_new_link: إنشاء صفحة فرعية
   admin_content_page_create_successful_notice: تم إنشاء صفحة <a href="#%{anchor}"><em>%{page_name}</em></a>
     بنجاح
-  admin_content_page_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء الصفحة.
+  admin_content_page_create_unsuccessful_error: عفوًا، حدث خطأ; تعذر إنشاء الصفحة.
   admin_content_page_delete_confirmation: هل أنت متأكد من رغبتك في حذف "%{page_name}"
-    وجميع ترجماتها. لا يمكن استرجاع الصفحات المحذوفة.
+    وجميع ترجماتها؟ لا يمكن استرجاع الصفحات المحذوفة.
   admin_content_page_delete_successful_notice: تم حذف صفحة %{page_name} وجميع الترجمات
-    التابعة لها.
-  admin_content_page_edit_header: تحديث المعلومات الأساسية لصفحة  <em>%{page_name}</em>
-  admin_content_page_edit_tip: يوصى بعدم تعديل الأسم المميز الخاص بتلك الصفحة ما لم
-    تكن ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط إلى تلك الصفحة، أو
-    المسارات المذكورة. يجب أن يتم إدخال %{required_icon} الأسم المميز.
+    المرتبطة.
+  admin_content_page_edit_header: تحديث المعلومات الأساسية ل<em>%{page_name}</em>
+  admin_content_page_edit_tip: يُوصَى بعدم تعديل الاسم الفريد لهذه لصفحة ما لم تكن
+    ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط إلى تلك الصفحة، أو المسارات
+    المذكورة، الاسم المميز %{required_icon} مطلوب.
   admin_content_page_new_header: إنشاء صفحة محتوى جديدة
   admin_content_page_new_link: إنشاء صفحة جديدة
-  admin_content_page_new_tip: أدخل المعلومات الأساسية عن تلك الصفحة.  يجب أن يتم إدخال  %{required_icon}
-    الأسم المميز.
-  admin_content_page_parent_option_root: لا يوجد صفحة رئيسية
+  admin_content_page_new_tip: أدخل المعلومات الأساسية عن هذهالصفحة، الاسم المميز %{required_icon}
+    مطلوب.
+  admin_content_page_parent_option_root: لا توجد صفحة أم
   admin_content_page_root: أساس
   admin_content_page_sort_order_updated: تم تغيير ترتيب الصفحات.
   admin_content_page_update_successful_notice: تم تحديث صفحة <a href="#%{anchor}"><em>%{page_name}</em></a>
     بنجاح
-  admin_content_page_update_unsuccessful_error: عفوًا، حدث خطأ، لم يتم تحديث الصفحة.
+  admin_content_page_update_unsuccessful_error: عفوًا، حدث خطأ; لم يتم تحديث الصفحة.
   admin_content_pages_empty: لم يتم العثور على صفحات محتوى.
   admin_content_pages_index_information: تضم القائمة التالية جميع الصفحات الثابتة
-    المتاحة حاليًا بالموقع الإلكتروني لموسوعة الحياة. هنالك ترجمة أو أكثر لكل صفحة.
-    عندما تقوم بإنشاء صفحة جديدة، سوف يطلب منك إضافة ترجمة. يتم إتاحة الترجمات المنشورة
-    إلى العامة.
+    المتاحة حاليًا بموقع لموسوعة الحياة، هناك ترجمة أو أكثر لكل صفحة، عندما تقوم بإنشاء
+    صفحة جديدة، سوف تُطلَب منك إضافة ترجمة، الترجمات المنشورة متاحة للجمهور.
   admin_content_pages_link: إدارة المحتوى
   admin_content_pages_page_title: 'الإدارة: إدارة المحتوى'
   admin_content_partners_index_header: شركاء المحتوى
@@ -3432,92 +3419,91 @@ ar:
   admin_content_partners_notifications_statistics_reminder_header: تذكير بإحصائيات
     استخدام موسوعة الحياة
   admin_content_partners_notifications_statistics_reminder_description: 'يرسل رسالة
-    بريد إلكتروني إلى جميع شركاء المحتوى لإخطارهم بإمكانية الاطلاع على احصائيات استخدام
+    بريد إلكتروني إلى جميع شركاء المحتوى لإخطارهم بإمكانية الاطلاع على إحصائيات استخدام
     الويب الخاصة ببياناتهم بموسوعة الحياة للشهر السابق. ملاحظة: إن ارسال ذلك الإخطار
-    بصورة يدوية هو حل مؤقت ويجب أن يتم إيقافه حالما يتم إضافة حل أتوماتيكي.'
+    بصورة يدوية حل مؤقت ويجب أن يتم إيقافه حالما تتم إضافة حل آلي.'
   admin_content_partners_notifications_statistics_reminder_send_submit: إرسال التذكير
   admin_content_partners_notifications_statistics_reminder_send_confirmation: هل أنت
     متأكد من رغبتك في إرسال رسالة تذكير بإحصائيات استخدام موسوعة الحياة إلى جميع شركاء
     المحتوى؟
   admin_content_partners_statistics_date_from_label: من
   admin_content_partners_statistics_date_to_label: إلى
-  admin_content_partners_statistics_first_published_header: موارد نشرت لأول مرة
+  admin_content_partners_statistics_first_published_header: موارد نُشِرت لأول مرة
   admin_content_partners_statistics_first_published_caption: شركاء المحتوى أصحاب الموارد
-    التي نشرت لأول مرة في الفترة ما بين %{date_from} و%{date_to}.
+    التي نُشِرت لأول مرة في الفترة ما بين %{date_from} و%{date_to}.
   admin_content_partners_statistics_first_published_empty: لا توجد موارد تابعة لشركاء
-    المحتوى تم نشرها لأول مرة في الفترة ما بين  %{date_from} و%{date_to}.
+    المحتوى تم نشرها لأول مرة في الفترة ما بين %{date_from} و%{date_to}.
   admin_content_partners_statistics_first_published_download_csv_submit: تحميل بصيغة
-    (CSV)
+    CSV
   admin_content_partners_statistics_link: الإحصائيات
   admin_content_partners_statistics_page_title: 'الإدارة: إحصائيات شركاء المحتوى'
   admin_home: الصفحة الرئيسية للمشرفين
   admin_news_item_active: تم نشره
-  admin_news_item_create_successful_notice: تم إنشاء عنصر أخبار <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_news_item_create_successful_notice: تم إنشاء عنصر الأخبار <a href="#%{anchor}"><em>%{page_name}</em></a>
     بنجاح.
-  admin_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إنشاء عنصر الأخبار.
+  admin_news_item_create_unsuccessful_error: عفوًا، حدث خطأ; تعذر إنشاء عنصر الأخبار.
   admin_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف "%{page_name}"
-    وجميع ترجماتها. لا يمكن استرجاع الصفحات المحذوفة.
+    وجميع ترجماتها؟ لا يمكن استرجاع الصفحات المحذوفة.
   admin_news_item_delete_successful_notice: عنصر الأخبار %{page_name} وجميع الترجمات
-    التابعة لها تم حذفها.
+    المرتبطة تم حذفهم.
   admin_news_item_edit_header: حدث معلومات عناصر الأخبار الأساسية للصفحة <em>%{page_name}</em>
-  admin_news_item_edit_tip: |-
-    يوصى بعدم تعديل الأسم المميز الخاص لعنصر الأخبار هذا ما لم تكن ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط في تلك الصفحة، أو المسارات المذكورة.
-    يجب إدخال %{required_icon} الأسم المميز.
-  admin_news_item_new_link: أنشئ عنصر الأخبار
-  admin_news_item_new_header: أنشئ عنصر أخبار جديد
-  admin_news_item_new_tip: أدخل المعلومات الأساسية لهذه الصفحة. المطلوب هو %{required_icon}
-    اسم وحيد.
+  admin_news_item_edit_tip: يُوصَى بعدم تعديل الاسم الفريد لعنصر الأخبار هذا ما لم
+    تكن ملمًا بالعواقب بشكل كامل، بما في ذلك أثر ذلك على الراوبط إلى تلك الصفحة، أو
+    المسارات المذكورة، الاسم المميز %{required_icon} مطلوب.
+  admin_news_item_new_link: أنشئ عنصر أخبار
+  admin_news_item_new_header: أنشئ عنصر أخبار جديدا
+  admin_news_item_new_tip: أدخل المعلومات الأساسية عن هذه الصفحة، الاسم المميز %{required_icon}
+    مطلوب.
   admin_news_item_not_active: غير منشور
   admin_news_item_update_successful_notice: تم تحديث عنصر الأخبار <a href="#%{anchor}"><em>%{page_name}</em></a>
     بنجاح.
-  admin_news_item_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث عنصر الأخبار.
-  admin_news_items_empty: لم يتم العثور على أي عناصر أخبار.
-  admin_news_items_index_information: تضم القائمة التالية جميع عناصر الأخبار المتاحة
-    حاليًا بالموقع الإلكتروني لموسوعة الحياة وكذا عناصر الأخبار المستقبلية. هنالك
-    ترجمة أو أكثر لكل صفحة. عندما تقوم بإنشاء عنصر أخبار، سوف يطلب منك إضافة ترجمة.
-    جميع الترجمات المنشورة متاحة للعامة.
+  admin_news_item_update_unsuccessful_error: عفوًا، حدث خطأ; تعذر تحديث عنصر الأخبار.
+  admin_news_items_empty: لم يتم العثور على أية عناصر أخبار.
+  admin_news_items_index_information: تضم القائمة التالية جميع عناصر أخبار الثابتة
+    المتاحة حاليًا بموقع موسوعة الحياة، هناك ترجمة أو أكثر لكل عناصر أخبار، عندما
+    تقوم بإنشاء عناصر أخبار جديد، سوف تُطلَب منك إضافة ترجمة، الترجمات المنشورة متاحة
+    للجمهور.
   admin_news_items_page_title: 'الإدارة: أخبار'
   admin_news_link: الأخبار
   admin_notes_not_visible_to_user: 'ملاحظات المشرف (غير ظاهرة للمستخدم):'
   admin_information: هذه هي واجهة التحكم الجديدة في النسخة الثانية من موقع موسوعة
-    الحياة.  نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى. إذا كان قسم الإدارة الذي
-    تبحث عنه غير مدرج بالقائمة التالية، يرجى زيارة  <a href="/administrator">واجهة
-    التحكم للنسخة اﻷولى لموقع موسوعة الحياة</a>.
-  admin_options_warning: حفظ التغييرات ربما تستغرق 10 دقائق لتصبح فعالة
-  admin_option_all_users_can_see_data: جميع المستخدمين بإمكانهم الاطلاع على البيانات
-    . وليس فقط اصحاب السماحيات
+    الحياة، نمر حاليًا بمرحلة نقل الإدارة من النسخة الأولى، إذا كان قسم الإدارة الذي
+    تبحث عنه غير مدرج، الرجاء زيارة <a href="/administrator">واجهة التحكم للنسخة الأولى
+    من موقع موسوعة الحياة</a>.
+  admin_options_warning: ربما تستغرق التغييرات 10 دقائق لتصبح فعالة
+  admin_option_all_users_can_see_data: جميع المستخدمين بإمكانهم الاطلاع على البيانات،
+    وليس فقط ذوو الصلاحيات
   admin_link: نظرة عامة
-  admin_page_title: 'الإدارة: نبذة عامة.'
+  admin_page_title: 'الإدارة: نظرة عامة.'
   admin_resource_delete_confirmation: هل أنت متأكد أنك تريد حذف هذه الموارد؟ يأخذ
-    هذا الأمر وقتًا طويلًا للتشغيل، قد تحصل على مهلة عند استخدامه، لا تعد الإرسال.
+    هذا الأمر وقتًا طويلًا للتشغيل; قد تحصل على مهلة عند استخدامه، لا تعد الإرسال.
   admin_simple_actions_header: 'إجراءات بسيطة:'
   admin_spam_delete: حذف الرسائل المزعجة
   admin_statistics_link: الإحصائيات
   admin_translated_content_page_create_successful_notice: تمت إضافة الترجمة إلى  <a
     href="#%{anchor}"><em>%{page_name}</em></a>
-  admin_translated_content_page_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة
+  admin_translated_content_page_create_unsuccessful_error: عفوًا، حدث خطأ; تعذرت إضافة
     الترجمة.
   admin_translated_content_page_delete_confirmation: هل أنت متأكد من رغبتك في حذف
-    النسخة %{language} لصفحة "%{page_name}". لا يمكن استرجاع الصفحات المحذوفة.
+    نسخة %{language} لصفحة "%{page_name}"؟ لا يمكن استرجاع الصفحات المحذوفة.
   admin_translated_content_page_delete_successful_notice: تم حذف الترجمة %{language}
-    لصفحة  <em>%{page_name}</em>
-  admin_translated_content_page_edit_subheader: تعديل الترجمة %{language} لصفحة  <em>%{page_name}</em>
-  admin_translated_content_page_edit_tip: يجب إضافة %{required_icon} العنوان والنص.
-  admin_translated_content_page_new_header: أختر اللغة وأضف المحتوى.
-  admin_translated_content_page_new_tip: يجب إضافة %{required_icon} اللغة، والعنوان،
-    والنص.
+    لصفحة <em>%{page_name}</em>
+  admin_translated_content_page_edit_subheader: تعديل الترجمة %{language} لصفحة <em>%{page_name}</em>
+  admin_translated_content_page_edit_tip: العنوان والنص %{required_icon} مطلوبان.
+  admin_translated_content_page_new_header: اختر اللغة وأضف المحتوى.
+  admin_translated_content_page_new_tip: اللغة والعنوان والنص %{required_icon} مطلوبون.
   admin_translated_content_page_new_link: أضف ترجمة
-  admin_translated_content_page_new_subheader: أضف ترجمة لصفحة <em>%{page_name}</em>
+  admin_translated_content_page_new_subheader: أضف ترجمة ل<em>%{page_name}</em>
   admin_translated_content_page_update_successful_notice: تم تحديث الترجمة %{language}
-    الخاصة بـ <a href="#%{anchor}"><em>%{page_name}</em></a>
-  admin_translated_content_page_update_unsuccessful_error: عفوًا، حدث خطأ، تعذر تحديث
+    الخاصة بـ<a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_update_unsuccessful_error: عفوًا، حدث خطأ; تعذر تحديث
     الترجمة.
   admin_translated_news_item_active: منشور
   admin_translated_news_item_create_successful_notice: تمت إضافة الترجمة إلى <a href="#%{anchor}"><em>%{page_name}</em></a>
-  admin_translated_news_item_create_unsuccessful_error: عفوًا، حدث خطأ، تعذر إضافة
+  admin_translated_news_item_create_unsuccessful_error: عفوًا، حدث خطأ; تعذرت إضافة
     الترجمة.
   admin_translated_news_item_delete_confirmation: هل أنت متأكد من رغبتك في حذف النسخة
-    %{language} لصفحة "%{page_name}". لا يمكن استرجاع الصفحات المحذوفة.
+    %{language} لصفحة "%{page_name}"؟ لا يمكن استرجاع الصفحات المحذوفة.
   admin_translated_news_item_delete_successful_notice: تم حذف ترجمة عنصر الأخبار %{language}
     للصفحة  <em>%{page_name}</em>.
   admin_translated_news_item_edit_subheader: تعديل الترجمة %{language} لصفحة  <em>%{page_name}</em>

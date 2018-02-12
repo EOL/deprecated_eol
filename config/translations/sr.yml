@@ -5,6 +5,7 @@
 # Author: Arabesque46
 # Author: Milicevic01
 # Author: Obsuser
+# Author: Prevodim
 # Author: Rancher
 # Author: Srdjan m
 # Author: Zoranzoki21
@@ -22,6 +23,8 @@ sr:
         logo: Слика главне збирке
         additional_annotation_fields: Додатна поља за забелешке
         show_references: Наводи (текст или адреса)
+      collection_job:
+        overwrite: Замени дупликате
       collection_item:
         annotation: Забелешка
         sort_field: Поређај по
@@ -71,6 +74,7 @@ sr:
         source_url: Изворна адреса
       data_object_link:
         description: Опис
+        source_url: Адреса везе
       eol_statistic:
         created_at: Направљено на
         members_count: Чланови
@@ -137,6 +141,19 @@ sr:
         pages_with_score_less_than_10: Странице с оценом мањом од 10
         lifedesk_taxa: Таксони Лајфдескса
         lifedesk_data_objects: Објекти података Лајфдескса
+        total_taxa_with_data: Странице са подацима
+        total_measurements: Мерења
+        total_measurement_types: Врсте мерења
+      forum:
+        forum_category_id: Категорија
+      forum_category:
+        title: Назив категорије
+      forum_post:
+        subject: Наслов
+        text: Текст
+      forum_topic:
+        subject: Наслов
+        text: Текст
       harvest_event:
         resource: Ресурс
       hierarchy:
@@ -147,9 +164,18 @@ sr:
         label: Ознака
         request_publish: Затражи објављивање
       known_uri:
+        description: Опис
+        name: Име
         toc_items: Категорије
+      open_authentication:
+        token: Жетон
+        user_id: Кориснички ID
       name:
         string: Назив
+      news_item:
+        page_name: Јединствени назив
+        sort_order: Редослед сврставања
+        active: Објављено
       resource:
         accesspoint_url: Адреса скупа података
         auto_publish: Самообјави
@@ -175,6 +201,13 @@ sr:
         meta_keywords: Кључне речи метаподатака
         meta_description: Опис метаподатака
         title: Наслов
+      translated_known_uri:
+        definition: Дефиниција
+        comment: Коментар
+      translated_news_item:
+        active_translation: Објављено
+        body: Текст
+        title: Наслов
       user:
         agreed_with_terms: Услови коришћења
         api_key: АПИ кључ
@@ -189,9 +222,14 @@ sr:
         full_name: Име и презиме
         given_name: Име
         language_abbr: Жељени језик
+        permissions: Дозволе
         requested_curator_level_id: Жељени ниво кустосирања
         tag_line: Мото
         username: Корисничко име
+      user_added_data:
+        object: Вредност
+      user_added_data_metadata:
+        predicate: Атрибут
     errors:
       format: '%{attribute} %{message}'
       template:
@@ -231,6 +269,8 @@ sr:
         even: мора бити паран број
         inaccessible: је неприступачно
         wrong_type: је погрешне врсте
+        models:
+          inaccessible: је недоступно
       full_messages:
         format: '%{attribute} %{message}'
       models:
@@ -265,6 +305,10 @@ sr:
         sort_field_show: 'Вредност сврставања:'
       comment:
         body_edit: Уреди коментар
+      contact:
+        contact_subject_id: Наслов
+        email: Ваша имејл адреса
+        name: Ваше име
       content_page:
         active: Објављено
         active_more: Објављене странице ће бити јавно истакнуте. Дештриклирајте <em>објављено</em>
@@ -324,6 +368,11 @@ sr:
         rights_holder: Носилац права
         rights_statement: Изјава о правима
         source_url: Адреса до изворног објекта података
+      data_object_link:
+        toc_item: Наслов
+        link_type: Категорија
+      data_search:
+        min_placeholder: Унеси број
       eol_statistic:
         download_all: Све <small>(укључи записе са свих страница)</small>
       google_analytics_partner_summaries:

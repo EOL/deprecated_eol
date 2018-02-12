@@ -7049,4 +7049,32 @@ pms:
   user_pending_notifications_with_count_assitive:
     one: '%{count}<span class="assistive"> notìfica</span>'
     other: '%{count}<span class="assistive"> notìfiche</span>'
+  user_pending_notifications_comments_assistive: <span class="assistive">coment</span>
+  user_pending_notifications_comments_with_count:
+    one: '%{count} coment'
+    other: '%{count} coment'
+  user_pending_notifications_comments_with_count_assistive:
+    one: '%{count}<span class="assistive"> coment</span>'
+    other: '%{count}<span class="assistive"> coment</span>'
+  user_was_added_as_editor_of_collection: St'utent-sì a l'é stàit giontà coma mansé
+    ëd "%{collection}".
+  username_taken: '%{name} a l''é già pijà'
+  username_colon: 'Stranòm:'
+  username: Stranòm
+  user_response: Rispòsta dl'utent
+  user_says_colon: '%{users_name} a dis:'
+  user_submitted_text_found: 'Test mandà da l''utent trovà:'
+  user_submitted_text: Test mandà da l'utent
+  user_system_down: An dëspias, ma ël sistema d'argistrassion ëd j'utent a l'é nen
+    disponìbil ant ës moment-sì. Për piasì, ch'a preuva torna pi tard.
+  user: Utent
+  users_about_me_header: A propòsit ëd mi
+  users_content_partners_header: Cambrada ëd contnù
+  users_content_partners_information: I cambrada ëd contnù EdV a son ëd përson-e o
+    d'organisassion ch'a partagio ij sò dàit an sla biodiversità con ël mond a travers
+    dl'EdV. Për savèjne ëd pi an sij <a href="%{more_url}">Cambrada ëd contnù EdV</a>.
+  users_content_partners_with_count:
+    one: '%{count} cambrada ëd contnù atual'
+    other: '%{count} cambrada ëd contnù atuaj'
+  users_curation_header: Qualìfiche ëd conservator
 ...

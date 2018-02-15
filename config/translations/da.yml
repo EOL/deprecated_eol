@@ -852,6 +852,9 @@ da:
         menu_link: Brugerindsendt tekst
         page_header: Brugerindsendt tekststatistik
         page_title: 'Administration: Statistik for brugerindsendt tekst'
+  contacts:
+    new:
+      page_title: Giv venligst en tilbagemelding
   collections:
     download_taxa_data:
       attribute_header: Attribut
@@ -1196,6 +1199,23 @@ da:
           inklusive målinger og fænotyper for  %{preferred_common_name} (videnskabeligt
           kendt som %{scientific_name}). Beregnede data for %{scientific_name} inklusive
           %{topics} fra videnskabelig forskning leveret af videnskabsmænd.'
+    details:
+      index:
+        hierarchy_entry:
+          meta_description_with_common_name_with_chapter_list: Beskrivelser og artikler
+            om %{preferred_common_name}, videnskabeligt kendt som %{scientific_name}
+            som klassificeret af %{hierarchy_provider} i Encyclopedia of Life. Inkluderer
+            %{chapter_list}.
+          meta_title: Beskrivelser om %{scientific_name} som klassificeret af %{hierarchy_provider}
+        tweet_text: Artikler om %{scientific_name}
+    literature:
+      show:
+        tweet_text: Artikler og bøger om %{scientific_name}
+    maps:
+      show:
+        hierarchy_entry:
+          meta_description: Geografisk information om %{scientific_name} som klassificeret
+            af %{hierarchy_provider} hvor de lever og hvor de er indfødte i verden.
     resources:
       education:
         meta_title: Undervisningsressourcer for %{scientific_name}

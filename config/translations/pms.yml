@@ -7077,4 +7077,18 @@ pms:
     one: '%{count} cambrada ëd contnù atual'
     other: '%{count} cambrada ëd contnù atuaj'
   users_curation_header: Qualìfiche ëd conservator
+  user_counts_refresh_daily: ij conteur a son rinfrëscà tuti ij di
+  users_form_account_header: Sò cont
+  users_form_curation_header: Qualìfiche ëd conservator
+  users_form_profile_info_header: Anformassion dël profil pùblich
+  users_form_tip: Lë stranòm a l'é obligatòri për tuti j'utent, antant che d'àutri
+    element marcà tanme necessari %{required_icon} a son facoltativ për j'utent generaj
+    ma a son obligatòri për ij conservator.
+  users_member_of_count_communities:
+    one: Mèmber d'%{count} comunità
+    other: Mèmber ëd %{count} comunità
+  users_my_info_header: Mie anformassion
+  users_that_can_edit_this_collection: Utent ch'a peulo masenté sa colession
+  using_the_site: Usagi dël sit
+  validation_error: Eror ëd validassion
 ...

@@ -6282,49 +6282,48 @@ ar:
   thumbnail_page_colon: 'صفحة مصغرة:'
   time_ago: منذ %{time_passed}
   title: عنوان
-  toc_entry_col_header: المُدخل الموجود في جدول المحتويات
-  toc_no_longer_available: المعلومات المتعلقة بجدول المحتويات لم تعد متوفرة.
+  toc_entry_col_header: مدخل جدول المحتويات
+  toc_no_longer_available: معلومات جدول المحتويات لم تعد متوفرة.
   toc: الفهرس
-  topic_area: موضوع
+  topic_area: منطقة الموضوع
   topic: موضوع
-  to_process_your_donation_please_proceed: رجاء الاستمرار لتنفيذ التبرع
-  to_remedy_this: لتصحيح هذا، نحن سيتم إغلاق هذه الحسابات غير النشطة ونطلب يمكنك زيارة
-    eol.org لإنشاء حساب جديد. عندما تتلقى تأكيد بالبريد الإلكتروني، يرجى النقر على
-    الرابط للتحقق من صحة الحساب الخاص بك.
-  to_send_email_enter_text: لإرسال بريد إلكتروني لهذا المستخدم ادخل النص أدناه وانقر
+  to_process_your_donation_please_proceed: ارجاء الاستمرار لتنفيذ التبرع
+  to_remedy_this: لتصحيح هذا; سنغلق هذه الحسابات غير النشطة ونطلب منك زيارة eol.org
+    لإنشاء حساب جديد، عندما تتلقى تأكيد بالبريد الإلكتروني، يُرجَى النقر على الرابط
+    للتحقق من صحة حسابك.
+  to_send_email_enter_text: لإرسال بريد إلكتروني لهذا المستخدم; أدخل النص أدناه وانقر
     'إرسال'.
-  to_submit_a_species_photograph_for: لتقديم صورة أنواع لـ %{taxon} ارسل الصور إلى
-    %{flickr_link} واتبع التعليمات الظاهرة على الصفحة الرئيسية لهذه المجموعة .
+  to_submit_a_species_photograph_for: لتقديم صورة أنواع ل%{taxon}، الرجاء إرسال الصور
+    إلى %{flickr_link} واتبع التعليمات الظاهرة على الصفحة الرئيسية لتلك المجموعة.
   total_comments_have_been_submitted:
     one: '%{count} تعليق تم تقديمه في %{string}'
     other: '%{count} مجموع التعليقات التي تم تقديمها في %{string}'
   total_distinct_searches: 'مجموع عمليات بحث منفصلة:'
   total_items_with_count:
     one: '%{count} عنصر'
-    other: '%{count} عنصر'
   total_searches: 'مجموع عمليات البحث:'
   total: مجموع
   traitbank_banner: <strong>تقديم<a href='/traitbank'>TraitBank</a>:</strong> ابحث
     في الملايين من سجلات البيانات في موسوعة الحياة &nbsp; <small>•</small> &nbsp;
-    <a href='/traitbank'>اعرف المزيد</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Search
-    data</a>
-  translation_deleted: تم حذف الترجمة
+    <a href='/traitbank'>اعرف المزيد</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>ابحث
+    عن البيانات</a>
+  translation_deleted: تم حفظ الترجمة
   translation_information_header: معلومات الترجمة
-  translation_log: I18n مفتاح تردد الرسم البياني
+  translation_log: I18n مفتاح تردد المدرج التكراري
   translation_saved: تم حفظ الترجمة
   translations_submit: عرض الترجمة
   trigger_search_term_entered_by: تنبيه مصطلح بحث أدخله مستخدم
   "true": صحيح
-  true_label: حقيقي
+  true_label: صحيح
   truncated_comment_omission: '... <a href=''%{link}''>المزيد</a>'
   truncated_comment_omission_linkless: '...'
-  truncated_news_item_omission: '... <a href=''%{link}''>more</a> المزيد'
+  truncated_news_item_omission: '... <a href=''%{link}''>المزيد</a>'
   trusted: موثوق به
   trusted_images: صور موثوق بها
   trusted_maps: خرائط موثوق بها
   trusted_text_objects: مقاﻻت موثوق بها
-  tumblr: منصة تدوين تمبلر
-  twitter: موقع تويتر
+  tumblr: تمبلر
+  twitter: تويتر
   type: النوع
   unable_to_copy_items_to_collection_error: عفوًا، تعذر نسخ عناصر المجموعة إلى %{name}.
   unable_to_invite_users_to_community_with_count:
@@ -6333,9 +6332,9 @@ ar:
   unique_page_views_th: مشاهدات متفردة للصفحة
   unit_of_measure: وحدة القياس
   unknown: غير معروف
-  unknown_hierarchy: نسلسل هرمي غير معروف
+  unknown_hierarchy: تسلسل هرمي غير معروف
   unknown_data_object_title: كائن بيانات غير معروف
-  unable_to_determine_title: تعذر تحديد عنوان صفحة الويب
+  unable_to_determine_title: تعذر تحديد عنوان صفحة الويب هذه
   unpublished: غير منشور
   unpublished_collections_with_count:
     one: '%{count} مجموعة مخفية'
@@ -6350,7 +6349,7 @@ ar:
   update_language: تحديث اللغة
   update_page: تحديث الصفحة
   update_user_successful_notice: تم تحديث الحساب بنجاح
-  update_user_unsuccessful_error: عفوًا، حدث خطأ، لم يتم تحديث حسابك. يرجى التأكد
+  update_user_unsuccessful_error: عفوًا، حدث خطأ، لم يتم تحديث حسابك; يُرجَى التأكد
     من ملء جميع الخانات بشكل صحيح.
   updated_community: تم تحديث المجتمع بنجاح.
   updated_member: تم تحديث العضو
@@ -6358,37 +6357,37 @@ ar:
   updated_colon: 'تم التحديث:'
   updates: تحديثات
   upload_content: رفع المحتوى
-  upload_logo_help_text: سوف تكون تلك الصورة هي الصورة الرئيسية التي تمثل مجتمعك .
-    يمكن أن تكون أي صورة تفضلها.
-  uploaded_by: قام بالتحميل
-  uploaded_content: المحتوى الذي تم تحميله
+  upload_logo_help_text: سوف تكون هذه هي الصورة الرئيسية التي تمثل مجتمعك، يمكن أن
+    تكون أي صورة تفضلها.
+  uploaded_by: الرافع
+  uploaded_content: المحتوى المرفوع
   uploaded_on: تم التحميل في
   upload: رفع
   uri: مسار
-  url: عنوان URL
-  url_not_accessible: لا يمكن الوصول إلى ذلك العنوان الإلكتروني
+  url: مسار
+  url_not_accessible: لا يمكن الوصول إلى هذا المسار
   us_dollars_100: 100 دولار أمريكي
   us_dollars_35: 35 دولارًا أمريكيًّا
   us_dollars_50: 50 دولارًا أمريكيًّا
   us_dolars_75: 75 دولارًا أمريكيًّا
   use_as_examplar_button: تعيين كنموذج
-  use_as_examplar_note_preferred: 'ملاحظة: هذه الملاحظة المفضلة. قد ترغب في استخدامها.'
-  used_for_friendly_url_note: (يستخدم لتوليد رابط سهل الاستخدام للمستخدمين، لا يمكن
-    أن يحتوي على مسافات أو رموز)
-  user_activation_failed_resent_validation_email_error: عفوًا، حدث خطأ، لم يتم التحقق
-    من حسابك. عادة ما يحدث ذلك عندما لا يتم التعرف على رابط التحقق المدخل. تم إرسال
-    تعليمات التفعيل إلى البريد الإلكتروني الذي قمت بالتسجيل عن طريقه، يرجى التأكد
+  use_as_examplar_note_preferred: 'ملاحظة: هذه الملاحظة مفضلة; قد ترغب في استخدامها.'
+  used_for_friendly_url_note: (يُستخدَم لتوليد رابط سهل الاستخدام للمستخدمين، لا يمكن
+    أن يحتوي على مسافات أو حروف خاصة)
+  user_activation_failed_resent_validation_email_error: عفوًا، حدث خطأ; لم يتم التحقق
+    من حسابك، عادة ما يحدث هذا عندما لا يتم التعرف على رابط التحقق المدخل، تم إرسال
+    تعليمات التفعيل إلى البريد الإلكتروني الذي قمت بالتسجيل عن طريقه، يُرجَى التأكد
     من أن رابط التحقق المستخدم يطابق ذلك المذكور في رسالة التفعيل.
-  user_activation_failed_user_not_found_error: عفوًا، حدث خطأ، لم نتمكن من إيجاد الحساب
-    الذي تحاول التحقق منه. يرجى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد
+  user_activation_failed_user_not_found_error: عفوًا، حدث خطأ; لم نتمكن من إيجاد الحساب
+    الذي تحاول التحقق منه، يُرجَى التأكد من أن رابط التحقق المستخدم يطابق ذلك المتواجد
     في رسالة التفعيل التي تلقيتها عقب التسجيل.
-  user_activation_successful_notice: مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة.
-    تم تفعيل حسابك بإسم المستخدم <em>%{username}</em> ، يرجى تسجيل الدخول.
-  user_activity_click_on_the_numbers: انقر على الأرقام لاستعراض أخبار الأنشطة لكل
-    واحد على حدة.
-  user_activity_report_intro: تقرير نشاط مستخدم. اختر مستخدم معين لرؤية أنشطته مرتبة
-    بالعكس حسب تاريخ إنشاءه. اختر "الكل" لاستعراض كل أنشطة المستخدم. ثم انقر "ابحث"
-    للمتابعة (استخدم زر الرجوع للخلف في المتصفح الخاص بك للرجوع هنا).
+  user_activation_successful_notice: مرحبا بك، وشكرًا لإنضمامك لفريق موسوعة الحياة،
+    تم تفعيل حسابك باسم المستخدم <em>%{username}</em>، يُرجَى تسجيل الدخول.
+  user_activity_click_on_the_numbers: انقر على الأرقام لرؤية أخبار الأنشطة لكل واحد
+    على حدة.
+  user_activity_report_intro: تقرير نشاط مستخدم، اختر مستخدما معينا لرؤية أنشطته مرتبة
+    عكسيا حسب تاريخ إنشائه، اختر "الكل" لعرض كل أنشطة المستخدم، ثم انقر على "ابحث"
+    للمتابعة (استخدم زر الرجوع للخلف في متصفحك للرجوع هنا).
   user_activity_page_title: نشاط المستخدم
   user_activity_stats_articles_added: تمت إضافة %{count} مقال
   user_activity_stats_articles_added_dropdown: مقالات مُضافة
@@ -6402,95 +6401,93 @@ ar:
   user_activity_stats_objects_curated: خضع %{count} كائن للإشراف
   user_activity_stats_objects_curated_dropdown: الكائنات التي خضعت للإشراف
   user_activity_stats_preferred_classifications_selected:
-    one: 'تم اختيار %{count} تصنيف مُفضل '
-    other: ' تم اختيار %{count} تصنيف مُفضل'
+    one: تم اختيار %{count} تصنيف مُفضل
   user_activity_stats_selected_articles_for_overview:
-    one: '%{count} مقال أخُتير ليتم إضافته إلى النظرة العامة '
-    other: '%{count} ليتم إضافته إلى النظرة العامة'
+    one: '%{count} مقال اُختير لتتم إضافته إلى النظرة العامة'
   user_activity_stats_set_exemplar: تم وضع %{count} صورة كنموذج
   user_activity_stats_taxa_commented: تم التعليق على %{count} أصنوفة.
-  user_activity_stats_taxa_comments: تعليقات خاصة بـ %{count} أصنوفة.
-  user_activity_stats_taxa_comments_dropdown: تعليقات الأصنوفات
+  user_activity_stats_taxa_comments:
+    one: '%{count} تعليق على أصنوفة'
+    other: '%{count} تعليق على أصناف.'
+  user_activity_stats_taxa_comments_dropdown: تعليقات الأصناف
   user_activity_stats_taxa_curated: خضعت %{count} أصنوفة للإشراف.
-  user_activity_stats_wikipedia_nominated: تم ترشيح %{count} مقال من ويكيبيديا
-  new_uri_warning: المصطلح الذي على وشك أن تضيفه ليس في مدى موسوعة الحياة الموصى به.
+  user_activity_stats_wikipedia_nominated: تم ترشيح %{count} مقال ويكيبيديا
+  new_uri_warning: المصطلح الذي أنت على وشك أن تضيفه ليس موصى به في موسوعة الحياة.
   user_agent: وكيل المستخدم
-  user_already_active_notice: تم تفعيل حسابك، يرجى تسجيل الدخول.
+  user_already_active_notice: تم تفعيل حسابك، يُرجَى تسجيل الدخول.
   user_comments: تعليقات المستخدم
   user_comment: تعليق المستخدم
   user_commented_on_something_colon: '<strong>%{user}</strong> علق على %{what}:'
-  user_commented_on_older_data_object_colon: '<strong>%{user}</strong> قام بإضافة
-    تعليق على نسخة قديمة لـ%{what}:'
-  user_commented_on_themself: 'قام <strong>%{user_with_link}</strong> بالتعليق على
-    الخبر <a href=''%{link}''>%{username}''s newsfeed</a>:'
-  user_commented_on_deleted_user: قام <strong>%{user_with_link}</strong> بالتعليق
-    على صفحة خاصة بمستخدم تم حدفه.
+  user_commented_on_older_data_object_colon: '<strong>%{user}</strong> علق على نسخة
+    قديمة لـ%{what}:'
+  user_commented_on_themself: '<strong>%{user_with_link}</strong> علق على خلاصة أخبار
+    <a href=''%{link}''>%{username}</a>:'
+  user_commented_on_deleted_user: <strong>%{user_with_link}</strong> علق على صفحة
+    مستخدم تم حدفه.
   user_commented_on_your_image: |-
-    قام <strong>%{user}</strong> بالتعليق على صورتك على <a href='%{data_object_link}'>موقع موسوعة الحياة</a>:
+    <strong>%{user}</strong> علق على صورتك في <a href='%{data_object_link}'>موقع موسوعة الحياة</a>:
     %{comment_body}
   user_commented_on_removed_data: علق <strong>%{user}</strong> على البيانات التي تمت
     إزالتها.
   user_count_reindexed: تمت إعادة فهرسة عد المستخدم
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: مُعرِّف المستخدم
-  user_index_intro: فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا وفقًا
-    لتاريخ التسجيل. لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية
-    من موسوعة الحياة (5 يناير،2009) غير متاحة. انقر على اسم المستخدم لتعديل ذلك المستخدم.
-  user_joined_community_on_date: '%{username} انضم إلى ذلك المجتمع في %{date}.'
-  user_joined_when: انضم المستخدم "%{user}" في %{when}
-  user_left_comment_on_date: '%{username} أضاف تعليق في %{date}.'
-  user_no_longer_active_message: هذا المستخدم غير نشط
-  user_no_longer_has_manager_access_to_collection: لا يمكن للمستخدم %{user} الدخول
-    على "%{collection}" كمدير.
-  user_pending_notifications_assitive: <span class="assistive">notifications</span>
+  user_index_intro: فيما يلي جميع مستخدمي الويب المسجلين في النظام مرتبين عكسيًا حسب
+    تاريخ التسجيل، لاحظ أن تواريخ تسجيل المستخدمين في الفترة ما قبل النسخة الثانية
+    من موسوعة الحياة (5 يناير 2009) غير متاحة، انقر على اسم المستخدم لتعديل ذلك المستخدم.
+  user_joined_community_on_date: '%{username} انضم إلى هذا المجتمع في %{date}.'
+  user_joined_when: انضم "%{user}" في %{when}
+  user_left_comment_on_date: '%{username} ترك تعليقا في %{date}.'
+  user_no_longer_active_message: لم يعد هذا المستخدم نشطا
+  user_no_longer_has_manager_access_to_collection: لم يعد لدى %{user} وصول المدير
+    إلى "%{collection}".
+  user_pending_notifications_assitive: <span class="assistive">إخطارات</span>
   user_pending_notifications_with_count:
     one: '%{count} إخطار'
     other: '%{count} إخطارات'
   user_pending_notifications_with_count_assitive:
-    one: '%{count}<span class="assistive"> notification</span>'
-    other: '%{count}<span class="assistive"> notifications</span>'
-  user_pending_notifications_comments_assistive: <span class="assistive">comments</span>
+    one: '%{count}<span class="assistive"> إخطار</span>'
+    other: '%{count}<span class="assistive"> إخطارات</span>'
+  user_pending_notifications_comments_assistive: <span class="assistive">نعليقات</span>
   user_pending_notifications_comments_with_count:
     one: '%{count} تعليق'
     other: '%{count} تعليقات'
   user_pending_notifications_comments_with_count_assistive:
-    one: '%{count}<span class="assistive"> comments</span>'
-    other: '%{count}<span class="assistive"> comments</span>'
-  user_was_added_as_editor_of_collection: تمت إضافة هذا المستخدم كمدير لـ "%{collection}".
-  username_taken: مستخدم مسبقًا  %{name}
+    one: '%{count}<span class="assistive"> تعليق</span>'
+    other: '%{count}<span class="assistive"> تعليقات</span>'
+  user_was_added_as_editor_of_collection: تمت إضافة هذا المستخدم كمدير لـ"%{collection}".
+  username_taken: '%{name} مأخوذ بالفعل'
   username_colon: 'اسم المستخدم:'
   username: اسم المستخدم
   user_response: رد المستخدم
   user_says_colon: '%{users_name} يقول:'
-  user_submitted_text_found: 'النص المضاف من قبل المستخدم:'
+  user_submitted_text_found: 'تم العثور على نص مقدم من المستخدم:'
   user_submitted_text: نص قدمه مستخدم
-  user_system_down: نعتذر، فنظام تسجيل المستخدمين غير متاح حاليًّا. يرجى المحاولة
+  user_system_down: نعتذر، لكن نظام تسجيل المستخدمين غير متاح حاليًّا; الرجاء المحاولة
     لاحقًا.
   user: مستخدم
-  users_about_me_header: التعريف بي
+  users_about_me_header: عني
   users_content_partners_header: شركاء المحتوى
-  users_content_partners_information: يتمثل شركاء محتوى موسوعة الحياة في أفراد ومنظمات
-    تشارك ما تملكه من بيانات التنوع الحيوي مع العالم عبر موسوعة الحياة. تعرف على المزيد
-    عن  <a href="%{more_url}">شركاء محتوى موسوعة الحياة</a> .
+  users_content_partners_information: شركاء محتوى موسوعة الحياة هم أفراد ومنظمات يشاركون
+    ما يمتلكونه من بيانات التنوع الحيوي مع العالم عبر موسوعة الحياة، تعرف على المزيد
+    عن <a href="%{more_url}">شركاء محتوى موسوعة الحياة</a>.
   users_content_partners_with_count:
     one: '%{count} شريك محتوى حالي'
-    other: '%{count} شريك محتوى حالي'
+    other: '%{count} شركاء محتوى حاليون'
   users_curation_header: مؤهلات المشرف
   user_counts_refresh_daily: '* يتم تحديث العد يوميا'
   users_form_account_header: حسابك
   users_form_curation_header: مؤهلات المشرف
   users_form_profile_info_header: المعلومات الشخصية العامة
-  users_form_tip: يلزم على جميع المستخدمين إدخال أسم المستخدم، الخانات الأخرى المشار
-    إلي أنها مطلوبة %{required_icon} اختيارية بالنسبة لعامة المستخدمين ولكن يلزم على
-    المشرفين ملئها.
+  users_form_tip: اسم المستخدم مطلوب لكل المستخدمين، الخانات الأخرى المعلمة كمطلوبة
+    %{required_icon} اختيارية لعامة المستخدمين ولكن مطلوبة من المشرفين.
   users_member_of_count_communities:
     one: عضو في %{count} مجتمع
-    other: عضو في %{count} مجتمع
   users_my_info_header: معلومات عني
   users_that_can_edit_this_collection: المستخدمين الذين يمكنهم إدارة هذه المجموعة
   using_the_site: استخدام الموقع
   validation_error: خطأ في التحقق
-  validation_following_fields: 'هنالك مشكلة بالخانات التالية:'
+  validation_following_fields: 'هناك مشكلة بالخانات التالية:'
   values: قيم
   value: القيمة
   value_empty: (فارغ)
@@ -6500,13 +6497,12 @@ ar:
   versions_colon: 'إصدارات:'
   vetted: تم تقييمه
   video_from: فيديو من
-  video_object: كائن من الفيديو
-  video_objects_page_number: صفحة الفيديو
+  video_object: كائن فيديو
+  video_objects_page_number: صفحة مقاطع الفيديو
   video_title_not_available_in_language: العنوان غير متاح باللغة %{language}
   videos_with_count:
     one: '%{count} فيديو'
-    other: '%{count} فيديو'
-  view_verb: استعرض
+  view_verb: عرض
   view_added_text: عرض النص المضاف
   view_as_button: تغيير طريقة العرض
   view_as_label: اعرض في شكل
@@ -6526,83 +6522,88 @@ ar:
   view_sound_source: عرض مصدر المقطع الصوتي
   view_source: اعرض المصدر
   view_video_source: عرض مصدر مقطع الفيديو
-  view_only_pages_with_at_least_a_picture_or_piece_of_text: عرض الصفحات التي تضم صورة
-    أو جزء من نص
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: اعرض فقط الصفحات التي
+    تضم صورة أو جزءا من نص
   view_this_hierarchy: عرض التسلسل الهرمي هذا
   view_user_comments: عرض تعليقات المستخدم
-  view_your_curator_profile: اعرض الصفحة الشخصية الخاصة بك كمشرف.
+  view_your_curator_profile: اعرض ملفك الشخصي كمشرف.
   vimeo: فيميو
   visible_title: مرئي
   visitors: الزوار
   vivisimo: فيفيسيمو
   wants_colon: 'الاحتياجات:'
-  watch_list: قائمة المشاهدة
-  watch_list_newsfeed: تحديثات قائمة المشاهدة
+  watch_list: قائمة المراقبة
+  watch_list_newsfeed: حلاصة أخبار قائمة المراقبة
   watch_collections_cannot_be_destroyed: هذه المجموعة هي المجموعة الوحيدة المرتبطة
     بمجتمعها ولا يمكن حذفها.
-  warning_you_are_editing_as_admin: 'تحذير: يسمح لك بتعديل هذه الصفحة، فقط لأنك مدير.'
-  web_service_base_url: عنوان قاعدة خدمة الإنترنت
-  web_users: مستخدمي شبكة الإنترنت
+  warning_you_are_editing_as_admin: 'تحذير: يُسمَح لك بتعديل هذه الصفحة فقط لأنك مدير.'
+  web_service_base_url: مسار قاعدة خدمة الويب
+  web_users: مستخدمو الويب
   weekly: أسبوعيًّا
   welcome_and_you_were_logged_out: مرحبًا بك في موسوعة الحياة الجديدة! حدث خطأ في
-    بيانات التسجيل القديمة، لذلك تم تسجيل الخروج. مع ذلك، يجب أن تتمكن من تسجيل الدخول
-    باستخدام تلك البيانات مرة أخرى، عذرًا!
-  welcome_to_the_eol_administrat: أهلاً بك في ركن الإدارة بموسوعة الحياة. رجاء اختيار
-    مهمة من القائمة الموجودة إلى يسار الصفحة.
+    بيانات التسجيل القديمة; لذلك تم تسجيل الخروج، مع ذلك، يجب أن تعمل معلومات تسجيل
+    دخولك القديمة مرة أخرى، عذرًا!
+  welcome_to_the_eol_administrat: أهلاً بك في ركن الإدارة بموسوعة الحياة، الرجاء اختيار
+    مهمة من الإبحار في يسار الصفحة.
   welcome: أهلاً بك.
   what_do_these_numbers_mean: ماذا تعني تلك الأرقام؟
   what_is_eol: ما هي موسوعة الحياة؟
   what_is_this_question: ما هذا؟
   who_registered_before: إلى
-  who_registered_from: الذي قام بالتسجيل من
+  who_registered_from: من قام بالتسجيل من
   wikipedia_queue_create_successful_notice: تمت إضافة النسخة المراجعة %{rev} من مقال
-    ويكيبيديا %{article} لقائمة النقل إلى موسوعة الحياة.
-  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ، لم تتم إضافة مقال ويكيبيديا
-    لقائمة النقل إلى موسوعة الحياة. <br /> رابط النسخة المراجعة يجب أن يطابق  https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
-  wikipedia_queue_new_intro: اضف نسخة مراجعة من أحد مقالات ويكيبيديا ليتم ضمها إلى
-    موسوعة الحياة كعنصر بيانات مقيم.
-  wikipedia_queue_new_instructions_intro: 'لإيجاد رابط النسخة المراجعة لإحدى مقالات
-    ويكيبيديا:'
+    ويكيبيديا %{article} لقائمة الاستيراد إلى موسوعة الحياة.
+  wikipedia_queue_create_unsuccessful_error: عفوًا، حدث خطأ; لم تتم إضافة مقال ويكيبيديا
+    لقائمة الاستيراد إلى موسوعة الحياة. <br/> مسار النسخة المراجعة يجب أن يطابق https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_new_intro: أضف مراجعة من مقالة ويكيبيديا ليتم ضمها إلى موسوعة الحياة
+    كعنصر بيانات مقيم.
+  wikipedia_queue_new_instructions_intro: 'لإيجاد مسار مراجعة مقالة ويكيبيديا:'
   wikipedia_queue_new_instructions_step_one: انتقل إلى صفحة المقال بموقع ويكيبيديا،
     مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_two: قم بتمديد قائمة "صندوق الأدوات" المدرجة
-    في خانة التنقل، ويجب أن ترى بند "الرابط الدائم" متضمن في داخلها.
+    في خانة التنقل، ويجب أن ترى بند "الرابط الدائم" بداخلها.
   wikipedia_queue_new_instructions_step_three: اتبع بند "الرابط الدائم" بالقائمة،
-    ذلك هو العنوان الإلكتروني الحالي للنسخة المراجعة وسوف ينقلك إلى النسخة الحالية
-    من المقال والتي يمكنك من خلالها الانتقال إلى النسخ السابقة.
-  wikipedia_queue_new_instructions_step_four: قم بنسخ رابط المراجعة من المتصفح والصقه
-    في نموذج طلب النقل بموقع ويكيبيديا المعروض هنا، يجب أن يبدوا رابط النسخة المراجعة
-    مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
-  wikipedia_queue_new_page_title: اطلب نسخة منقولة من أحد مقالات ويكيبيديا
+    هذا هو المسار الحالي للمراجعة وسوف ينقلك إلى النسخة الحالية من المقال والتي يمكنك
+    من خلالها الانتقال إلى النسخ السابقة.
+  wikipedia_queue_new_instructions_step_four: قم بنسخ مسار المراجعة من المتصفح والصقه
+    في نموذج طلب استيراد بموقع ويكيبيديا المعروض هنا، يجب أن يبدو مسار النسخة المراجعة
+    مثل <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_page_title: اطلب استيراد مقالة ويكيبيديا
   will_find_taxon_pages_matching_the_search_term: سوف يتم إيجاد صفحات الأصنوفة إذا
-    ما كان العنوان أو أي مرادف أو اسم شائع يطابق مصطلح البحث
+    كان العنوان أو أي مرادف أو اسم شائع يطابق مصطلح البحث
   would_you_like_to_become_a_curator_notice: هل تود أن تصبح مشرفاََ؟ يمكنك طلب الحصول
     على إذن على <a href='%{url}'>صفحة ملفك الشخصي</a>.
   worklist: قائمة العمل
-  xml_response: استجابة بصيغة إكس إم إل
+  xml_response: استجابة XML
   yahoo_images: صور ياهو
   yahoo: ياهو
   year: عام
   yes_answer: نعم
-  you_are_an_admin_so_i_will_show_you_that_the_error_was: 'أنت مشرف، لذا يسمح لك بمشاهدة
-    رسالة الخطأ:'
-  you_are_not_authorized_to_perform_this_action: أنت غير مخول لتنفيذ تلك الخطوة
-  you_are_viewing_this_rank_as_classified_by: 'تشاهد تلك %{rank} وفقًا لتصنيف:'
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: 'أنت إداري; لذا يُسمَح لك
+    بمشاهدة رسالة الخطأ:'
+  you_are_not_authorized_to_perform_this_action: أنت غير مخول لتنفيذ هذا الفعل
+  you_are_viewing_this_rank_as_classified_by: 'تعرض هذا %{rank} حسب:'
   you_can_edit_those_later_if_ne: يمكنك تحريرهم في وقت لاحق إن أردت
   you_can_identify_yourself_to_eol: 'يمكنك تعريف هويتك بموسوعة الحياة عن طريق إضافة
     مفتاح بواجهة برمجة التطبيقات في طلباتك (قم بتسجيل الدخول وإنشاء مفتاح بفتح صفحة
-    التفضيلات الخاصة بك في ملف موسوعة الحياة للتحرير، سيتم حفظ المفتاح هنا، افتح ملف
-    التعريف الخاص بك للتحرير مرة أخرى لاسترجاعه في وقت لاحق):'
+    تفضيلاتك في ملف موسوعة الحياة للتحرير، سيتم حفظ المفتاح هنا، افتح ملف التعريف
+    الخاص بك للتحرير مرة أخرى لاسترجاعه في وقت لاحق):'
   you_have_been_logged_in_as_username: لقد تم تسجيل دخولك باسم %{username}
   you_have_been_logged_out: تم تسجيل الخروج.
-  you_joined_community: لقد انضممت للمجتمع بنجاح.
-  you_left_community: لقد غادرت المجتمع بنجاح.
-  you_may_upload_static_files_fo: |2-
-
-    يمكنك تحميل الملفات الثابتة (مثل PDF، ووورد والصور، الخ) لاستخدامها هنا في برامج إدارة المحتوى. ولا يمكنك تحميل محتوى على صفحات الأنواع – بل يمكن التحميل فقط على غير  صفحات الأنواع (مثل إعلانات التوظيف والنشرات الإخبارية، ومذكرات التفاهم، الخ.). ويمكنك ربط ملفات الـ PDFمثل مذكرات التفاهم وملفات النشرات الإخبارية، مع عناوين URL صديقة إذا رغبت (وهذا سيوجهك مباشرة إلى عنوان المحتوى الكامل). أما مع الصور المتضمنة في صفحة ما والتي لها مرجع ذو رمز (tag) &lt;img&gt; فعليك أن تستخدم عنوان المحتوى كاملاً. وقد يُظهر العنوان الكامل للمحتوى رقم خادم محتوى مختلف في كل مرة تقوم فيها بتحديث الصفحة (مثل: "content2.eol.org"، "content3.eol.org"، الخ.) – وهذا طبيعي ويمكنك استخدام أيهم حين تقوم بإنشاء الروابط الخاصة بك إذ أنهم جميعهم متساويين.
-  you_must_be_comfortable: يجب أن تكون على دراية بـ HTML إذا كنت ترغب في إنشاء روابط
+  you_joined_community: لقد انضممت لهذا المجتمع بنجاح.
+  you_left_community: لقد غادرت هذا المجتمع بنجاح.
+  you_may_upload_static_files_fo: 'يمكنك تحميل الملفات الثابتة (مثل PDF، ووورد والصور،
+    إلخ) لاستخدامها هنا في برامج إدارة المحتوى، ولا يمكنك تحميل محتوى على صفحات الأنواع
+    – بل يمكن التحميل فقط على غير صفحات الأنواع (مثل إعلانات التوظيف والنشرات الإخبارية،
+    ومذكرات التفاهم، إلخ.)، ويمكنك ربط ملفات PDF مثل مذكرات التفاهم وملفات النشرات
+    الإخبارية، مع مسارات صديقة إذا رغبت (وهذا سيوجهك مباشرة إلى مسار المحتوى الكامل)،
+    أما مع الصور المتضمنة في صفحة ما والتي لها مرجع ذو رمز (tag) &lt;img&gt; فعليك
+    أن تستخدم مسار المحتوى كاملاً، وقد يُظهر المسار الكامل للمحتوى رقم خادم محتوى
+    مختلف في كل مرة تقوم فيها بتحديث الصفحة (مثل: "content2.eol.org"، "content3.eol.org"،
+    إلخ.) – وهذا طبيعي ويمكنك استخدام أيهم حين تقوم بإنشاء روابطك إذ أن جميعهم متساوون.'
+  you_must_be_comfortable: يجب أن تكون على دراية بـHTML إذا كنت ترغب في إنشاء روابط
     تشعبية أو استخدام التنسيق.
-  your_browser_does_not_support: متصفحك لا يدعم ملقات الفيديو HTML5.
+  your_browser_does_not_support: متصفحك لا يدعم مقاطع الفيديو HTML5.
   your_email_address: عنوان بريدك الإلكتروني
   you_removed_the_member_from_the_community: تم حذف العضو من المجتمع بنجاح.
   your_ip_address: عنوان آي بي الخاص بك

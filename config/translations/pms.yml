@@ -7091,4 +7091,27 @@ pms:
   users_that_can_edit_this_collection: Utent ch'a peulo masenté sa colession
   using_the_site: Usagi dël sit
   validation_error: Eror ëd validassion
+  validation_following_fields: 'A-é staje dij problema con costi camp-sì:'
+  values: Valor
+  value: Valor
+  value_empty: (veuid)
+  value_default: (stàndard)
+  version_1_0_uses_fields_from_the_latest_version: la version 1.0 a deuvra dij camp
+    ëd l'ùltima version ëd lë schema %{link}
+  versions_colon: 'Version:'
+  vetted: Aprovà
+  video_from: filmà da
+  video_object: Oget filmà
+  video_objects_page_number: Pàgine ëd filmà
+  video_title_not_available_in_language: Tìtol nen disponìbil an %{language}
+  videos_with_count:
+    one: '%{count} filmà'
+    other: '%{count} filmà'
+  view_verb: Smon-e
+  view_added_text: vëdde ël test giontà
+  view_as_button: Cangé 'd vista
+  view_as_label: Vëdde coma
+  view_contact_us_submissions: vëdde le spedission ëd Contatene
+  view_curators: vëdde ij conservator
+  view_current_version_link: Smone la version corenta
 ...

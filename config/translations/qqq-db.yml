@@ -9,6 +9,7 @@
 # Author: Nemo bis
 # Author: Shirayuki
 # Author: Siebrand
+# Author: ديفيد
 ---
 qqq:
   translated_activities-name-activity_id-19: '{{Identical|Profile}}'
@@ -95,9 +96,8 @@ qqq:
   translated_synonym_relations-label-synonym_relation_id-64: '{{Identical|Invalid}}'
   translated_table_of_contents-label-table_of_contents_id-13: '{{Identical|Common
     name}}'
-  translated_table_of_contents-label-table_of_contents_id-14: IUCN stands for stands
-    for [https://en.wikipedia.org/wiki/International_Union_for_Conservation_of_Nature
-    International Union for Conservation of Nature]
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN stands for [[W:International
+    Union for Conservation of Nature]]
   translated_table_of_contents-label-table_of_contents_id-194: '{{Identical|Size}}'
   translated_table_of_contents-label-table_of_contents_id-1: '{{Identical|Overview}}'
   translated_table_of_contents-label-table_of_contents_id-285: '{{Identical|Association}}'

@@ -7114,4 +7114,17 @@ pms:
   view_contact_us_submissions: vëdde le spedission ëd Contatene
   view_curators: vëdde ij conservator
   view_current_version_link: Smone la version corenta
+  view_in_classification: vëdde ant la classificassion
+  view_translation_source_link: Vëdde la sorgiss ëd la tradussion
+  view_error_log: vëdde l'argistr d'eror
+  view_full_size_image: Vëdde la plancia a taja antrega
+  view_harvesting_log: smon-e l'argistr ëd cujìa
+  view_current_harvesting: Smon-e la cujìa atual
+  view_article_source: Vëdde la sorgiss ëd l'artìcol
+  view_image_source: Vëdde la sorgiss ëd la plancia
+  view_image_map_source: Vëdde la sorgiss ëd la carta
+  view_map_source: Vëdde la sorgiss ëd la carta
+  view_sound_source: Smon-e la sorgiss dël sonor
+  view_source: Smon-a la sorgiss
+  view_video_source: Smon-e la sorgiss dël filmà
 ...

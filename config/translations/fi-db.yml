@@ -190,6 +190,7 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-293: Diagnostiikan kuvaus
   translated_table_of_contents-label-table_of_contents_id-296: Hallinta
   translated_table_of_contents-label-table_of_contents_id-299: Koulutus
+  translated_table_of_contents-label-table_of_contents_id-2: Lyhyt tiivistelmä
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nimet ja taksonomia
   translated_table_of_contents-label-table_of_contents_id-304: Liittyvät nimet
@@ -208,6 +209,7 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-321: Kasvu
   translated_table_of_contents-label-table_of_contents_id-322: Fossiilisten polttoaineiden
     historia
+  translated_table_of_contents-label-table_of_contents_id-327: Fysiologi
   translated_table_of_contents-label-table_of_contents_id-328: Solubiologia
   translated_table_of_contents-label-table_of_contents_id-329: Genetiikka
   translated_table_of_contents-label-table_of_contents_id-331: Viivakoodi
@@ -219,11 +221,14 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-338: Koulutuksen linkit
   translated_table_of_contents-label-table_of_contents_id-339: Opetusresurssit
   translated_table_of_contents-label-table_of_contents_id-33: Trendit
+  translated_table_of_contents-label-table_of_contents_id-345: Tietolähteet
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomia
+  translated_table_of_contents-label-table_of_contents_id-34: Kommentit
   translated_table_of_contents-label-table_of_contents_id-4: Ekologia
   translated_table_of_contents-label-table_of_contents_id-5: Evoluutio ja systematiikka
   translated_untrust_reasons-label-untrust_reason_id-3: alhainen laatu
   translated_untrust_reasons-label-untrust_reason_id-4: kaksoiskappale
+  translated_untrust_reasons-label-untrust_reason_id-5: Muu
   translated_user_identities-label-user_identity_id-1: harrastaja
   translated_user_identities-label-user_identity_id-2: opiskelija
   translated_user_identities-label-user_identity_id-3: kouluttaja

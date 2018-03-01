@@ -7127,4 +7127,56 @@ pms:
   view_sound_source: Smon-e la sorgiss dël sonor
   view_source: Smon-a la sorgiss
   view_video_source: Smon-e la sorgiss dël filmà
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Vëdde mach le pàgine con
+    almanch na plancia o un tòch ëd test
+  view_this_hierarchy: smon-e sa gerarchìa
+  view_user_comments: smon-e ij coment d'utent
+  view_your_curator_profile: Vëdde sò profil ëd conservator
+  vimeo: Vimeo
+  visible_title: Visìbil
+  visitors: Visitador
+  vivisimo: Vivisimo
+  wants_colon: 'A veul:'
+  watch_list: Lista dla ròba ch'as ten sot-euj
+  watch_list_newsfeed: Beiché la lista Fil ëd neuve
+  watch_collections_cannot_be_destroyed: Sa colession-sì a l'é l'ùnica associà a sta
+    comunità e a peul nen esse eliminà.
+  warning_you_are_editing_as_admin: 'Atension: A l''é autorisà a modifiché costa pàgina
+    mach përché chiel a l''é n''aministrator.'
+  web_service_base_url: Adrëssa ëd base dël servissi an sl'aragnà
+  web_users: Utent ëd l'aragnà
+  weekly: Ebdomadari
+  welcome_and_you_were_logged_out: Bin-ëvnù an sla neuva EdV! A-i é staje un problema
+    con soa veja conession, i l'oma antlora falo seurte dal sistema. Comsëssìa, j'anformassion
+    ëd soa veja conession a dovrìa torna marcé. Ch'a në scusa!
+  welcome_to_the_eol_administrat: Bin-ëvnù ant ël Quàder d'aministrassion EdV. Për
+    piasì, ch'a selession-a na fonsion ant la navigassion a snistra.
+  welcome: Bin ëvnù
+  what_do_these_numbers_mean: Lòn ch'a veulo dì se gifre?
+  what_is_eol: Lòn ch'a l'é l'EdV?
+  what_is_this_question: Lòn ch'a l'é sossì?
+  who_registered_before: a
+  who_registered_from: ch'a l'é anscrivusse da
+  wikipedia_queue_create_successful_notice: La modìfica %{rev} ëd l'artìcol %{article}
+    ëd Wikipedia a l'é stàita butà an coa për l'amportassion.
+  wikipedia_queue_create_unsuccessful_error: An dëspias, a-i é staje n'eror, l'artìcol
+    ëd Wikipedia a l'é nen ëstàit butà an coa për l'amportassion.<br />L'adrëssa ëd
+    la revision a dev corësponde a https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_new_intro: Mandé la revision ëd n'artìcol ëd Wikipedia për esse
+    antëgrà ant l'EdV coma oget testual aprovà.
+  wikipedia_queue_new_instructions_intro: 'Për trové l''adrëssa dla revision ëd n''artìcol
+    ëd Wikipedia:'
+  wikipedia_queue_new_instructions_step_one: Andé a la pàgina dl'artìcol su Wikipedia,
+    për esempi <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_two: Espande lë mnu 'Bòita dj'utiss' listà
+    ant la colòna ëd navigassion, e andrinta a dovrìa podèj vëdde l'element dë mnu
+    'Liura Përmanenta'.
+  wikipedia_queue_new_instructions_step_three: Andeje dapress a l'element dë mnu 'Liura
+    Përmanenta'. A l'é l'adrëssa dla revision atual e lo mnerà a la version atual
+    ëd l'artìcol, d'anté che a podrà navighé a le version precedente.
+  wikipedia_queue_new_instructions_step_four: Ch'a còpia l'adrëssa ëd la revision
+    da sò navigador e ch'a l'ancòla ant ël formolari d'arcesta d'amportassion Wikipedia
+    smonù ambelessì; l'adrëssa dla revision a dovrìa smijé a cheicòs parèj ëd <a rel="nofollow"
+    href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
+  wikipedia_queue_new_page_title: Ciamé l'amportassion ëd n'artìcol ëd Wikipedia
 ...

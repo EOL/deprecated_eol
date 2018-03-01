@@ -30,6 +30,7 @@
 # Author: Meshkov.a
 # Author: Metastasis
 # Author: Michgrig
+# Author: Mouse21
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
@@ -568,6 +569,7 @@ ru:
         publish_more: Содержимое отмеченное урожаем будет публиковаться не сразу.
         published_at: Опубликовано
         published_status: Состояние
+        last_harvest_seconds: Взял %{time_in_words}
       hierarchy:
         browsable_more: Отметьте "Просматриваемая" чтобы посодействовать тому, чтобы
           эта иерархия стала одной из основных для просмотра на EOL.
@@ -1575,6 +1577,7 @@ ru:
         загрузок данных в вашем профиле</a>.
       header: Загрузка готова!
     collection_download_ready:
+      subject: Выбранные атрибуты EOL Collection готовы для загрузки
       message: Вы можете просмотреть то, что Вы загрузили, перейдя <a href='%{download_link}'>в
         раздел "Загрузки" в Вашем профиле</a>.
       header: Ваша коллекция готова для скачивания!
@@ -1817,6 +1820,7 @@ ru:
         meta_title: Сообщества %{user_full_name}
         tweet_text: сообщества %{user_full_name}
     data_downloads:
+      empty_taxa_collection: В этой коллекции не было найдено никаких признаков
       no_selected_attributes: Не выбран ни один атрибут. Пожалуйста, выберите по крайней
         мере один.
       download: скачать
@@ -1831,9 +1835,11 @@ ru:
       is_not_complete: Нет
       query_empty: (без фильтров)
       processing: обработка
+      error: что-то пошло не так с этим файлом
       refresh: обновить
       row_count: Количество
       search_again: искать снова
+      file_not_processed: Этот файл еще не обработан,
       contact_us: для получения помощи свяжитесь с нами, пожалуйста
     new:
       complete_registration_header: Завершить регистрацию на EOL

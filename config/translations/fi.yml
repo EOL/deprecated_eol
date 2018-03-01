@@ -1,12 +1,14 @@
 # Messages for Finnish (suomi)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: phpyaml
 # Author: Centerlink
 # Author: Crt
 # Author: Konstaduck
 # Author: Linnea
+# Author: Macofe
 # Author: MrTapsa
 # Author: Nike
+# Author: Pyscowicz
 # Author: Silvonen
 # Author: Smite
 # Author: Stryn
@@ -20,8 +22,11 @@ fi:
         name: Kokoelman nimi
         description: Kokoelman kuvaus
         sort_style_id: Lajittelun oletussuunta
+        logo: Ensisijainen kokoelmakuva
         additional_annotation_fields: Lisähuomautuskentät
         show_references: Viittaukset (teksti tai URL-osoite)
+      collection_job:
+        overwrite: Korvaa päällekkäisyydet
       collection_item:
         annotation: Huomautus
         sort_field: Lajitteluperuste
@@ -61,14 +66,35 @@ fi:
         created_at: 'Luotu:'
         signed_by: 'Allekirjoittanut:'
         signed_on_date: Allekirjoitettiin päivämääränä
+      content_partner_contact:
+        email_reports_frequency_hours: Sähköpostiraporttien tiheys
       data_object:
-        description: Kuvaus
+        description: Teksti
         object_title: Otsikko
         source_url: Lähteen URL-osoite
+      data_object_link:
+        description: Kuvaus
       eol_statistic:
+        created_at: Luotu
         members_count: Jäsenet
+        communities_count: Yhteisöt
+        collections_count: kokoelmaa
         pages_count: Sivuja yhteensä
+        pages_with_content: Sivut joissa sisältöä
+        pages_with_text: Sivut joissa tekstiä
+        pages_with_image: Sivut, joissa on kuva
+        pages_with_map: Sivut, joissa on kartta
+        pages_with_video: Sivut, joissa on videoita
+        pages_with_sound: Sivut, joissa on ääntä
+        pages_without_text: Sivuja ilman tekstiä
+        pages_without_image: Sivuja ilman kuvaa
+        pages_with_image_no_text: Sivut, joissa on kuvia muttei tekstiä
+        pages_with_text_no_image: Sivut, joissa on tekstiä muttei kuvia
         base_pages: Perussivut
+        pages_with_at_least_a_trusted_object: Sivut joissa luotettavia kohteita
+        pages_with_BHL_links: Sivut joissa BHL linkkejä
+        pages_with_BHL_links_no_text: Sivut joissa BHL linkkejä muttei tekstiä
+        pages_with_BHL_links_only: Sivut joissa vain BHL linkkejä
         data_objects: Dataobjektit
         data_objects_texts: Tekstiobjektit
         data_objects_images: Kuvaobjektit
@@ -83,41 +109,94 @@ fi:
         curators_full: Kuraattorit
         curators_master: Mestarikuraattorit
         active_curators: Aktiiviset kuraattorit
+        rich_pages: Rikkaat sivuja
+        total_taxa_with_data: Sivut joissa dataa
+        total_associations: Yhdistykset
+      forum:
+        forum_category_id: Luokka
+        name: Foorumin nimi
+        description: Kuvaus <small>(valinnainen)</small>
+      forum_category:
+        title: Luokan nimi
+        description: Kuvaus <small>(valinnainen)</small>
+      forum_post:
+        subject: Aihe
       harvest_event:
         resource: Resurssi
       hierarchy:
+        complete: Valmis
         description: Kuvaus
+      known_uri:
+        description: Kuvaus
+        name: Nimi
+        toc_items: Luokat
+        uri: URI
       open_authentication:
         created_at: Luotu
+        guid: GUID
+        updated_at: Viimeksi päivitetty
         user_id: Käyttäjätunniste
+        verified_at: Viimeksi todennettu
       name:
         string: Nimi
+      news_item:
+        page_name: Yksilöllinen nimi
+        sort_order: Lajittelujärjestys
+        active: Julkaistu
+      notification:
+        comment_on_my_profile: Kommentti profiilissasi
       resource:
         bibliographic_citation: Bibliografinen lainaus
+        dataset: Aineistotiedosto
         description: Resurssin kuvaus
+        dataset_source_url: Alkuperäinen tietolähde
+        dataset_hosted_url: Lähdeaineisto (paikallinen kopio)
         hierarchy: Hierarkia
         language_id: Oletuskieli
+        dataset_license_id: Lisenssi
         license_id: Oletuslisenssi
         resource_status_id: Resurssin tila
         title: Resurssinimi
         vetted: Tarkastettu
       translated_content_page:
         active_translation: Julkaistu
+        left_content: Valikko
+        main_content: Runko
+        meta_keywords: Metatietojen avainsanat
+        meta_description: Metatietojen kuvaus
+        title: Otsikko
+      translated_known_uri:
+        definition: Määritelmä
+        comment: Kommentti
+      translated_news_item:
+        active_translation: Julkaistu
+        body: Runko
         meta_keywords: Metatietojen avainsanat
         meta_description: Metatietojen kuvaus
         title: Otsikko
       user:
         agreed_with_terms: Käyttöehtosopimus
+        api_key: API-avain
+        bio: Bio
+        credentials: Käyttäjätiedot
         curator_level: Kuraattoritaso
+        disable_email_notifications: Älä lähetä minulle mitään päivityksiä sähköpostilla
         email: Sähköpostiosoite
-        email_confirmation: 'Sähköpostiosoite uudelleen <small>(vahvistamaan)</small>'
+        email_confirmation: Sähköpostiosoite uudelleen <small>(vahvistamaan)</small>
         entered_password: Salasana
-        entered_password_confirmation: 'Salasana uudelleen <small>(vahvistamaan)</small>'
+        entered_password_confirmation: Salasana uudelleen <small>(vahvistamaan)</small>
         family_name: Sukunimi
         full_name: Täydellinen nimi
         given_name: Etunimi
         language_abbr: Ensisijainen kieli
+        permissions: Käyttöoikeudet
         username: Käyttäjätunnus
+      user_added_data:
+        object: Arvo
+        user: Lisätty
+      user_added_data_metadata:
+        predicate: Määrite
+        object: Arvo
     errors:
       format: '%{attribute} %{message}'
       template:
@@ -130,49 +209,49 @@ fi:
         empty: ei voi olla tyhjä
         blank: ei voi olla tyhjä
         too_long:
-          one: 'on liian pitkä (enintään %{count} merkki)'
-          other: 'on liian pitkä (enintään %{count} merkkiä)'
+          one: on liian pitkä (enintään %{count} merkki)
+          other: on liian pitkä (enintään %{count} merkkiä)
         too_short:
-          one: 'on liian lyhyt (vähintään %{count} merkki)'
-          other: 'on liian lyhyt (vähintään %{count} merkkiä)'
-        wrong_length: 'on väärän pituinen (pitäisi olla %{count} merkkiä)'
+          one: on liian lyhyt (vähintään %{count} merkki)
+          other: on liian lyhyt (vähintään %{count} merkkiä)
+        wrong_length: on väärän pituinen (pitäisi olla %{count} merkkiä)
         not_a_number: ei ole numero
         not_an_integer: on oltava kokonaisluku
         greater_than:
-          one: 'on oltava suurempi kuin %{count}'
-          other: 'on suurempi kuin %{count}'
-        greater_than_or_equal_to: 'on oltava suurempi tai yhtäsuuri kuin %{count}'
-        equal_to: 'on oltava sama kuin %{count}'
+          one: on oltava suurempi kuin %{count}
+          other: on suurempi kuin %{count}
+        greater_than_or_equal_to: on oltava suurempi tai yhtäsuuri kuin %{count}
+        equal_to: on oltava sama kuin %{count}
         less_than:
-          one: 'on oltava vähemmän kuin %{count}'
-          other: 'on oltava vähemmän kuin %{count}'
-        less_than_or_equal_to: 'on oltava pienempi tai yhtäsuuri kuin %{count}'
+          one: on oltava vähemmän kuin %{count}
+          other: on oltava vähemmän kuin %{count}
+        less_than_or_equal_to: on oltava pienempi tai yhtäsuuri kuin %{count}
         odd: on oltava pariton
         even: on oltava parillinen
         inaccessible: ei ole käytettävissä
         wrong_type: on väärän tyyppinen
+        models:
+          inaccessible: ei ole saatavilla
       models:
-        inaccessible: >
-          Tietueen tallentaminen epäonnistui,
-          koska se on kelvoton. Tarkista
+        inaccessible: Tietueen tallentaminen epäonnistui, koska se on kelvoton. Tarkista
           validointivirheet ja tallenna uudestaan.
         resource:
           attributes:
             dataset:
               wrong_type: 'on väärää tyyppiä (tuetut muodot: gzip, tar, zip tai xml)'
             dwc_archive_url:
-              inaccessible: >
-                ei ole käytettävissä –
-                verkko-osoitteen on oltava julkinen
-              invalid: 'on virheellinen – sen pitää osoittaa tar.gzip-, tar.gz-, tgz- tai zip-tiedostoon'
+              inaccessible: ei ole käytettävissä – verkko-osoitteen on oltava julkinen
+              invalid: on virheellinen – sen pitää osoittaa tar.gzip-, tar.gz-, tgz-
+                tai zip-tiedostoon
   helpers:
     label:
       collection:
         view_style_id: Oletusnäkymä
       collection_item:
         annotation: Huomautus
-        refs: 'Viitteet <small>(laita jokainen viite uudelle riville)</small>'
-        sort_field: 'Lajittele <small>(päivämäärän YYYY.MM.DD, numeron, tai tekstin)</small> mukaan'
+        refs: Viitteet <small>(laita jokainen viite uudelle riville)</small>
+        sort_field: Lajittele <small>(päivämäärän YYYY.MM.DD, numeron, tai tekstin)</small>
+          mukaan
         sort_field_show: 'Lajitteluarvo:'
       comment:
         body_edit: Muokkaa kommenttia
@@ -186,27 +265,43 @@ fi:
         parent_content_page_id: Ylemmän tason
       content_partner:
         created_at: Rekisteröity
+        display_name: Näyttönimi <small>(valinnainen)</small>
         last_action: Viimeisin toiminto
         latest_published_harvest_event: Viimeksi julkaistu
         logo_current: 'Nykyinen logo:'
         logo_new: 'Tallenna uusi logo:'
         oldest_published_harvest_event: Julkaistu ensimmäisen kerran
       data_object:
-        description: 'Teksti <small>(jotkut HTML-koodit on sallittuja)</small>'
+        description: Teksti <small>(jotkut HTML-koodit on sallittuja)</small>
         license_id: Lisenssi
         object_title: Otsikko
+        refs_order: '*Viitteet näkyvät aakkosjärjestyksessä'
         rights_holder: Oikeuksien haltija
+      data_object_link:
+        link_type: Luokka
       data_search:
+        max: Korkein arvo
+        max_with_val: 'Korkein arvo: %{val}'
+        max_placeholder: Syötä numero
+        min: Alin arvo
         min_with_val: 'Alin arvo: %{val}'
+        min_placeholder: Syötä numero
         q_with_val: 'Anna arvo: %{val}'
+        q_placeholder: Kirjoita sana, lause tai numero
+        taxon_name: Taksoniryhmä
+        taxon_name_with_val: 'Taksoniryhmä: %{val}'
+        taxon_name_placeholder: Syötä taksoniryhmän nimi valitaksesi ryhmän
+        taxon_name_placeholder_value_removed: '%{taxon_group} poistettu, valitse uusi
+          ryhmä'
       eol_statistic:
         date_one: Päivämäärä
         date_two: Päivämäärä
       google_analytics_partner_summaries:
-        taxa_pages: 'Sivut <small>(sivujen määrä)</small>'
-        taxa_pages_viewed: 'Katsottuja sivuja <small>(kävijöiden katsomien sivujen lukumäärä)</small>'
-        page_views: 'Sivun tarkastelukertoja <small>(sivujen kävijöiden määrä)</small>'
-        time_on_page: 'Sivuilla vierailuun käytetty kokonaisaika <small>(tuntia)</small>'
+        taxa_pages: Sivut <small>(sivujen määrä)</small>
+        taxa_pages_viewed: Katsottuja sivuja <small>(kävijöiden katsomien sivujen
+          lukumäärä)</small>
+        page_views: Sivun tarkastelukertoja <small>(sivujen kävijöiden määrä)</small>
+        time_on_page: Sivuilla vierailuun käytetty kokonaisaika <small>(tuntia)</small>
       harvest_event:
         began_at: Käynnistetty
         completed_at: Valmis
@@ -215,10 +310,17 @@ fi:
         published_status: Tila
       hierarchy:
         browsable_status_with_colon: 'Selattavuus:'
+        complete: Kuratoitu
+        request_publish: Julkaisua pyydetty
+      known_uri_relationship:
+        relationship_uri: Valitse suhde
+      news_item:
+        active: Julkaistu
       open_authentication:
         connected: Yhdistetty
         connect: Lisää
       resource:
+        dataset: Aineisto
         hierarchy: Hierarkia
         oldest_published_harvest_event: Julkaistu ensimmäisen kerran
         latest_published_harvest_event: Viimeksi julkaistu
@@ -230,26 +332,35 @@ fi:
         title: Resurssinimi
       session:
         password: Salasana
+        remember_me: Pidä minut kirjautuneena 2 viikon ajan
         username_or_email: Käyttäjätunnus tai sähköpostiosoite
       translated_content_page:
         active_translation: Julkaistu
         language_id: Kieli
+      translated_news_item:
+        active_translation: Julkaistu
+        language_id: Kieli
       user:
+        agreed_with_terms: Hyväksyn <a href="%{terms_url}">käyttöehdot</a>
         bio: Tietoja minusta
         credentials: Käyttäjätiedot
         credentials_more_referral: Lähete nykyiseltä kuraattorilta.
         curation_application: Ryhdy kuraattoriksi
         email_settings_submit: sähköpostiasetukset
         email: Sähköpostiosoite
-        entered_password: 'Salasana <small>(4–16 merkkiä)</small>'
-        new_password: 'Uusi salasana <small>(4–16 merkkiä)</small>'
-        new_password_confirmation: 'Uusi salasana <small>(vahvistus)</small>'
+        entered_password: Salasana <small>(4–16 merkkiä)</small>
+        generate_api_key: Pyydä API-avainta
+        logo: Lataa uusi kuva
+        new_password: Uusi salasana <small>(4–16 merkkiä)</small>
+        new_password_confirmation: Uusi salasana <small>(vahvistus)</small>
+        news_in_preferred_language: näytä uutiset ensisijaisella kielellä
         notification_settings: Ilmoitusasetukset
         notification_settings_more: Määritä ilmoitusasetukset.
         open_authentications: Yhdistetyt tilit
         open_authentications_connected_accounts: Yhdistetyt tilisi
+        tag_line: 'Tunnisterivi tai otsikko <small>esimerkiksi: "Lintuharrastaja"</small>'
         user_identities: Olen
-        username: 'Käyttäjätunnus <small>(4–32 merkkiä)</small>'
+        username: Käyttäjätunnus <small>(4–32 merkkiä)</small>
         username_or_email: Käyttäjätunnus tai sähköpostiosoite
       wikipedia_queue:
         revision_url: 'Muutoksen verkko-osoite <small>(esim: https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>'
@@ -257,10 +368,10 @@ fi:
       prompt: Valitse
     submit:
       cancel: Peru
-      create: 'Luo %{model}'
+      create: Luo %{model}
       filter_sort: Suodata ja lajittele
-      update: 'Päivitä %{model}'
-      submit: 'Tallenna %{model}'
+      update: Päivitä %{model}
+      submit: Tallenna %{model}
       collection_item:
         update: Tallenna
       contact:
@@ -279,7 +390,13 @@ fi:
         destroy: Poista yhteystieto
       data_object:
         create: Lisää artikkeli
+        create_text: Lisää artikkeli
         update: Tallenna artikkeli
+      data_object_link:
+        create: Lisää linkki
+        update: Tallenna linkki
+      eol_statistic:
+        download_csv: Lataa CSV:nä
       harvest_event:
         publish: Julkaise
       hierarchy:
@@ -287,6 +404,9 @@ fi:
       name:
         create: Lisää nimi
         update: Päivitä nimi
+      news_item:
+        edit: Muokkaa
+        preview: Esikatselu
       open_authentication:
         create: Yhdistä
         destroy: Katkaise yhteys
@@ -294,6 +414,7 @@ fi:
       resource:
         create: Lisää resurssi
         update: Päivitä resurssi
+        update_settings: Päivitä asetukset
       session:
         create: Kirjaudu sisään
         sign_in_with_facebook: Kirjaudu käyttämällä Facebookia
@@ -303,6 +424,8 @@ fi:
       translated_content_page:
         create: Lisää käännös
         update: Tallenna muutokset käännökseen
+      translated_news_item:
+        create: Lisää käännös
       user:
         create: Luo tunnus
         curation_application: Käytä nyt
@@ -318,61 +441,61 @@ fi:
       wikipedia_queue:
         create: Lähetä pyyntö
   will_paginate:
-    next_label: 'Seuraava &#8594;'
+    next_label: Seuraava &#8594;
     previous_label: '&#8592; Edellinen'
   datepicker:
     day_names:
-      - Sunnuntai
-      - Maanantai
-      - Tiistai
-      - Keskiviikko
-      - Torstai
-      - Perjantai
-      - Lauantai
+    - Sunnuntai
+    - Maanantai
+    - Tiistai
+    - Keskiviikko
+    - Torstai
+    - Perjantai
+    - Lauantai
     day_names_short:
-      - su
-      - ma
-      - ti
-      - ke
-      - to
-      - pe
-      - la
+    - su
+    - ma
+    - ti
+    - ke
+    - to
+    - pe
+    - la
     day_names_min:
-      - su
-      - ma
-      - ti
-      - ke
-      - to
-      - pe
-      - la
+    - su
+    - ma
+    - ti
+    - ke
+    - to
+    - pe
+    - la
     close: Sulje
     current: Tänään
     month_names:
-      - Tammikuu
-      - Helmikuu
-      - Maaliskuu
-      - Huhtikuu
-      - Toukokuu
-      - Kesäkuu
-      - Heinäkuu
-      - Elokuu
-      - Syyskuu
-      - Lokakuu
-      - Marraskuu
-      - Joulukuu
+    - Tammikuu
+    - Helmikuu
+    - Maaliskuu
+    - Huhtikuu
+    - Toukokuu
+    - Kesäkuu
+    - Heinäkuu
+    - Elokuu
+    - Syyskuu
+    - Lokakuu
+    - Marraskuu
+    - Joulukuu
     month_names_short:
-      - tammikuu
-      - helmikuu
-      - maaliskuu
-      - huhtikuu
-      - toukokuu
-      - kesäkuu
-      - heinäkuu
-      - elokuu
-      - syyskuu
-      - lokakuu
-      - marraskuu
-      - joulukuu
+    - tammikuu
+    - helmikuu
+    - maaliskuu
+    - huhtikuu
+    - toukokuu
+    - kesäkuu
+    - heinäkuu
+    - elokuu
+    - syyskuu
+    - lokakuu
+    - marraskuu
+    - joulukuu
     next: Seuraava
     previous: Edellinen
   admins:
@@ -385,29 +508,66 @@ fi:
         menu_link: Yleiset tilastot
         page_header: Yleiset tilastot
         page_title: 'Hallinto: Yleiset tilastot'
+      lifedesks:
+        menu_link: LifeDesks
       marine:
         menu_link: Merenkulkutilastot
+      page_richness:
+        menu_link: Rikkaat sivut
+  collections:
+    download_taxa_data:
+      attribute_header: Ominaisuus
+      select_all_checkbox: Valitse kaikki
+    editors:
+      show:
+        meta_keywords: '%{collection_name} managerit'
+        meta_title: '%{collection_name} managerit'
+        tweet_text: '%{collection_name} managerit'
+    newsfeeds:
+      show:
+        meta_keywords: '%{collection_name} uutiset'
+        meta_title: '%{collection_name} uutiset'
+        tweet_text: '%{collection_name} uutiset'
+    inaturalists:
+      show:
+        add_observations: Lisää havaintoja
+        meta_keywords: '%{collection_name} iNaturalist-havainnot'
+        meta_title: '%{collection_name} iNaturalist-havainnot'
+        no_observations_added_to_this_project_yet: Tähän projektiin ei ole vielä lisätty
+          havaintoja
+        observer_with_link: 'Havainnoija: %{observer_link}'
+        observation_place: 'Paikka: %{place}'
+        some_taxon: Jotain
+        taxa_observed:
+          one: '%{count} taksoni havaittu'
+          other: '%{count} taksonia havaittu'
   content:
     index:
-      meta_keywords: >
-        Eläimet, eläinkuvat, eläintiedot,
-        kasvit, kasvien elämä, kasvikuvat,
+      header_news: EOL uutiset
+      meta_keywords: Eläimet, eläinkuvat, eläintiedot, kasvit, kasvien elämä, kasvikuvat,
         kasvitiedot, kasvisto, eläimistö
-      meta_title: 'Eläimet - Kasvit - Kuvia ja tietoja'
+      meta_title: Eläimet - Kasvit - Kuvia ja tietoja
+      see_all_eol_news: katso lisää <span class="assistive">EOL uutiset</span>
+      see_all_statistics: katso lisää <span class="assistive">EOL tilastot</span>
   content_partners:
     statistics:
       show:
         meta_title: '%{partner_name}-tilastot'
+    index:
+      meta_title: Sisältökumppanit
     edit:
-      meta_title: 'Muokkaa %{partner_name}'
+      meta_title: Muokkaa %{partner_name}
   data_objects:
     show:
-      meta_description_article: 'Artikkeli - %{dato_description}'
-      meta_description_image: 'Kuva - %{dato_description}'
-      meta_description_sound: 'Ääni - %{dato_description}'
-      meta_description_video: 'Video - %{dato_description}'
-      meta_description_default_image_map: 'Kartta - %{dato_title} lähteestä %{supplier}.'
-      meta_description_default_map: 'Kartta - %{dato_title} lähteestä %{supplier}.'
+      meta_description_article: Artikkeli - %{dato_description}
+      meta_description_image: Kuva - %{dato_description}
+      meta_description_image_map: Kartta - %{dato_description}
+      meta_description_map: Kartta - %{dato_description}
+      meta_description_sound: Ääni - %{dato_description}
+      meta_description_video: Video - %{dato_description}
+      meta_description_default_image_map: Kartta - %{dato_title} lähteestä %{supplier}.
+      meta_description_default_map: Kartta - %{dato_title} lähteestä %{supplier}.
+      meta_supplier_default: avustaja
       meta_title: '%{dato_title} lähteestä %{supplier}'
       tweet_text: '%{dato_title} lähteestä %{supplier}'
   eol_statistics:
@@ -426,6 +586,7 @@ fi:
       page_header: Yleiset tilastot
       page_title: Tilastot
     lifedesks:
+      menu_link: LifeDesks
       page_title: Tilastot
     marine:
       page_title: Tilastot
@@ -433,70 +594,183 @@ fi:
       page_title: Tilastot
     users_data_objects:
       page_title: Tilastot
+    data:
+      page_title: Tilastot
+  forums:
+    forums_heading: EOL-foorumit
+    last_post: Viimeisin viesti
+    posts_heading: Viestit
+    replies: Vastaukset
+    topics_heading: Aiheet
+    views: Näyttökerrat
+    create: Luo foorumi
+    create_successful: Foorumi luotiin onnistuneesti
+    move_successful: Foorumi siirrettiin onnistuneesti
+    edit: Muokkaa foorumia
+    post_by_user_at_time: käyttäjän %{user} toimesta, %{time}
+    actions: Toiminnot
+    administration: Ylläpito
+    buttons:
+      delete: poista
+      edit: muokkaa
+      reply: vastaa
+      link: linkki
+    categories:
+      create: Luo luokka
+      edit: Muokkaa luokkaa
+      create_successful: Luokka luotiin onnistuneesti
+      update_successful: Luokka luotiin onnistuneesti
+      delete_successful: Luokka poistettiin onnistuneesti
+      move_successful: Luokka siirrettiin onnistuneesti
+      move_failed: Luokkaa ei voitu siirtää
+    posts:
+      joined_date: Liittynyt %{date}
+      create: Luo uus iviesti
+      edit: Muokkaa viestiä
+      post_written_by_user: '%{user} kirjoitti:'
+      close_window: sulje
+    topics:
+      create: Aloita uusi viestiketju
+      create_successful: Viestiketju luotiin onnistuneesti
   known_uris:
-    please_select_category_for_stats: >
-      Valitse luokka, jonka tilastoja haluat
-      nähdä.
+    add_a_relationship: Lisää suhde
+    please_select_category_for_stats: Valitse luokka, jonka tilastoja haluat nähdä.
+    relationships: Relaatiot
+    uri_placeholder_text: esim. http://purl.org/dc/terms/contributor
+    ontology_information_url_placeholder_text: esim. http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: esim. http://dublincore.org/documents/dcmi-terms/
+    select: valitse
   layouts:
     application:
+      header_about: Tietoja EOL:ästä
       header_questions: Kerro lisää
+      about_link_what_is_eol: Mikä on EOL?
+      about_link_traitbank: Mikä on TraitBank?
+      about_link_eol_blog: EOL-blogi
+      about_link_discover: Opetus
+      about_link_statistics: Tilastot
+      about_link_glossary: Sanasto
+      about_link_donate: Lahjoita EOL:älle
+      about_link_help: Apua
+      about_link_contact_us: Ota yhteyttä
+      learn_more_link_animals: Eläimet
+      learn_more_link_mammals: Nisäkkäät
+      learn_more_link_birds: Linnut
+      learn_more_link_amphibians: Sammakkoeläimet
+      learn_more_link_reptiles: Matelijat
+      learn_more_link_fish: Kalat
+      learn_more_link_worms: Madot
+      learn_more_link_invertebrates: Selkärangattomat
+      learn_more_link_crustaceans: Äyriäiset
+      learn_more_link_mollusks: Nilviäiset
+      learn_more_link_insects: Hyönteiset
+      learn_more_link_spiders: Hämähäkit
+      learn_more_link_plants: Kasvit
+      learn_more_link_flowering_plants: Kukkivat kasvit
+      learn_more_link_trees: Puut
+      learn_more_link_fungi: Sienet
+      learn_more_link_mushrooms: Sienet
+      learn_more_link_bacteria: Bakteerit
+      learn_more_link_protists: Alkueliöt
+      learn_more_link_archaea: Arkeonit
+      learn_more_link_viruses: Virukset
+      learn_more_link_algae: Levät
+      questions_link_evolution: Mitä on evoluutio?
+      questions_link_biodiversity: Mitä on luonnon monimuotoisuus?
+      questions_link_species: Mitä lajit ovat?
+      questions_link_discovering_species: Miten lajeja löydetään?
+      questions_link_naming_species: Miten lajit on nimetty?
+      questions_link_binomial_nomenclature: Mitä on binominimikkeistö?
+    footer:
+      google_plus: Encyclopedia of Life Google+:ssa
   members:
     index:
+      meta_description: Yhteisön %{community_name} jäsenet, Encyclopedia of Life -yhteisö.
       meta_keywords: '%{community_name} jäsenet'
       meta_title: '%{community_name} jäsenet'
       tweet_text: '%{community_name} jäsenet'
     show:
       meta_keywords: '%{member_name} yhteisöjäsen'
+  news_items:
+    index:
+      page_title: EOL-uutiset
+      meta_title: EOL-uutiset
+      meta_keywords: eol uutiset, encyclopedia of life uutiset
   notifier:
     activity_log_empty: Ei kuraattorien äskettäisiä toimia.
     comments_empty: Ei äskettäisiä kommentteja.
-    greeting_dear_name_with_comma: 'Hyvä %{name},'
+    greeting_dear_name_with_comma: Hyvä %{name},
     signature_basic: Encyclopedia of Life -ryhmä
-    signature_with_contact_us_link: |
+    signature_with_contact_us_link: |-
       Jos kohtaat ongelmia, ota yhteyttä %{url}.
-      
+
       Encyclopedia of Life -ryhmä
-    signature_with_species_pages_group_contact: |
+    signature_with_species_pages_group_contact: |-
       Jos sinulla on kysyttävää, ota yhteyttä osoitteeseen %{species_pages_group_email}.
-      
+
       Encyclopedia of Life -ryhmä
     contact_us_auto_response:
-      subject: >
-        Kiitokset yhteydenotosta Encyclopedia of
-        Life -sivustoon
+      subject: Kiitokset yhteydenotosta Encyclopedia of Life -sivustoon
     unsubscribed_to_notifications:
       subject: Pahoittelemme poistumistasi...
     user_activated:
-      subject: >
-        Encyclopedia of Life -tilisi on
-        aktivoitu
+      subject: Encyclopedia of Life -tilisi on aktivoitu
     user_activated_with_open_authentication:
-      subject: >
-        Encyclopedia of Life -tilisi on
-        aktivoitu
+      subject: Encyclopedia of Life -tilisi on aktivoitu
     user_message:
       subject: Viesti Encyclopedia of Life -sivustolta
     user_recover_account:
       subject: Palauta Encyclopedia of Life -tilisi
   recent_activity:
-    intro_immediately: 'Hei, %{name} —'
+    intro_immediately: Hei, %{name} —
     bulk_curation_with_count:
-      one: 'Kuraattorit paransivat kohdetta %{to}'
-      other: 'Kuraattorit tekivät %{count} parannusta kohteeseen %{to}'
+      one: Kuraattorit paransivat kohdetta %{to}
+      other: Kuraattorit tekivät %{count} parannusta kohteeseen %{to}
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> tarkkailee sinua.
+    community_activity_user_joined: Käyttäjä <b>%{user_name}</b> liittyi yhteisöön
+      <b>%{community_name}</b>.
   recent_activities:
     index:
       list_header: Viimeisen 7 päivän aikana
+      page_title: EOL yhteisön toiminta
+      meta_title: EOL yhteisön toiminta
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      header: Latauksesi on valmis!
   sessions:
     new:
+      login_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
+      login_with_twitter_assistive: Kirjaudu sisään EOL:ään käyttämällä Twitter-pääsytietojasi
+      login_with_eol_authentication_header: 'Tai kirjaudu sisään EOL-pääsytiedoillasi:'
       meta_title: Kirjaudu sisään
-      problems_signing_in_with_connected_accounts: >
-        Pulmia kirjautuessasi yhdistetyille
+      problems_signing_in_with_connected_accounts: Pulmia kirjautuessasi yhdistetyille
         tileillesi?
       problems_signing_in_with_eol_authentication: Unohtuiko salasana?
+      tip: Olemassa oleva käyttäjä? Yhdistä EOL-tilisi Facebookiin, Googleen ja muuhun
+        profiiliasetuksissasi. Kun tilisi on yhdistetty, voit käyttää niitä EOL:ään
+        kirjautumiseen.
   users:
+    activities:
+      show:
+        meta_title: '%{user_full_name}:n toiminta'
+    data_downloads:
+      download: lataa
+      created_head: Luotu
+      updated_head: Viimeisin toiminto
+      is_complete: Kyllä
+      is_not_complete: Ei
+      processing: käsitellään
+      refresh: päivitä
+      search_again: hae uudelleen
+    new:
+      meta_title: Liity EOL:ään
+      sign_up_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
+      sign_up_with_google_assistive: Kirjaudu sisään EOL:ään käyttämällä Google-pääsytietojasi
+      sign_up_with_twitter_assistive: Kirjaudu sisään EOL:ään käyttämällä Twitter-pääsytietojasi
     newsfeeds:
       activity_link: toiminta
       comments_link: kommentit
+      newsfeed_link: uutisvirta
     notifications:
       edit:
         page_title: Ilmoitusasetukset
@@ -506,6 +780,7 @@ fi:
       facebook: Facebook
       google: Google
       index:
+        connected_last_verified: Yhdistetty; Viimeksi tarkistettu %{time_passed} sitten;
         not_connected: Ei ole yhdistetty;
         page_title: Yhdistetyt tilit
       twitter: Twitter
@@ -513,20 +788,32 @@ fi:
     pending:
       header: Kiitos rekisteröitymisestä!
     recover_account:
+      errors:
+        user_not_found_by_email_address: EOL-tiliä tällä sähköpostiosoitteella ei
+          löytynyt.
       form_header: Tilin palautus
       meta_title: Palauta tili
     recover_account_choose_account:
+      form_header: Palauta tili
       legend_choose_account: Valitse tili
+  user_added_data:
+    edit_metadata_header: Muokkaa metatietoa
+    create_successful: Tiedot lisättiin onnistuneesti
+    delete_successful: Tiedot poistettiin onnistuneesti
+    new_field: Uusi viestiketju...
+  data_search_files:
+    from: Alin arvo
+    to: Korkein arvo
   this_article_is_unpublished: Tämä artikkeli on julkaisematon.
   this_image_is_unpublished: Tämä kuva on julkaisematon.
   this_map_is_unpublished: Tämä kartta on julkaisematon.
   this_video_is_unpublished: Tämä video on julkaisematon.
   this_sound_is_unpublished: Tämä ääni on julkaisematon.
-  article_from_supplier: 'Artikkeli lähettäjältä %{whom}'
-  sound_from_supplier: 'Ääni lähettäjältä %{whom}'
-  image_from_supplier: 'Kuva lähettäjältä %{whom}'
-  map_from_supplier: 'Kartta lähettäjältä %{whom}'
-  video_from_supplier: 'Video lähettäjältä %{whom}'
+  article_from_supplier: Artikkeli lähettäjältä %{whom}
+  sound_from_supplier: Ääni lähettäjältä %{whom}
+  image_from_supplier: Kuva lähettäjältä %{whom}
+  map_from_supplier: Kartta lähettäjältä %{whom}
+  video_from_supplier: Video lähettäjältä %{whom}
   article_rating: Artikkelin arvosana
   community_rating: Yhteisöarvosana
   collection_rating: Kokoelma-arvosana
@@ -539,12 +826,13 @@ fi:
   map_rating: Kartan arvosana
   0_or_1: 0 tai 1
   0_1_or_2: 0, 1 tai 2
+  about_eol: Tietoja EOL:ästä
+  about_resources: Tietoja resursseista
+  about_resources_title: Linkit ulkoisiin resursseihin
   account_information: Tilitiedot
   account_information_menu: Tilitiedot
-  account_registered_but_not_ready_try_later: >
-    Tilisi on rekisteröity, mutta ei ole
-    vielä valmis käytettäväksi. Yritä
-    uudelleen viiden minuutin kuluttua.
+  account_registered_but_not_ready_try_later: Tilisi on rekisteröity, mutta ei ole
+    vielä valmis käytettäväksi. Yritä uudelleen viiden minuutin kuluttua.
   action: Toiminto
   action_not_available_error: Tuo toiminto ei ole käytettävissä.
   actions: Toiminnot
@@ -556,27 +844,29 @@ fi:
       create:
         an_unknown_user_created_it: Tuntematon käyttäjä loi sen.
       remove_all:
-        an_unknown_user_cleared_it: >
-          Tuntematon käyttäjä poisti kaikki
-          kohteet.
+        an_unknown_user_cleared_collection: Tuntematon käyttäjä poisti kaikki kohteet
+          kokoelmasta "%{collection}".
+        an_unknown_user_cleared_it: Tuntematon käyttäjä poisti kaikki kohteet.
       remove:
-        an_unknown_user_removed_an_unknown_item_from_it: >
-          Tuntematon käyttäjä poisti
+        an_unknown_user_removed_an_unknown_item_from_it: Tuntematon käyttäjä poisti
           tuntemattoman kohteen.
-        an_unknown_user_removed_item_from_it: 'Tuntematon käyttäjä on poistanut kohteen "%{item}".'
+        an_unknown_user_removed_item_from_it: Tuntematon käyttäjä on poistanut kohteen
+          "%{item}".
     community_activity_log:
       leave:
-        an_unknown_user_left_community: 'Tuntematon käyttäjä poistui yhteisöstä "%{community}".'
+        an_unknown_user_left_community: Tuntematon käyttäjä poistui yhteisöstä "%{community}".
     curator_activity_log:
       reasons_to_untrust: 'Syyt epäluottamukseen: %{reasons}'
       reasons_to_hide: 'Syyt piilottamiseen: %{reasons}'
+  activity_log_empty: Kukaan ei ole vielä toimittanut päivityksiä.
   add_a_comment: Lisää kommentti.
   add_a_comment_colon: 'Lisää kommentti:'
   add: Lisää
   add_a_new_file_brackets: '[lisää uusi tiedosto]'
   add_a_new_role: Lisää uusi rooli
-  add_a_new_term: Lisää uusi termi
   add_a_new_user: Lisää uusi käyttäjä
+  add_brief_summary_to_page_link_button: Lisää lyhyt tiivistelmä tälle sivulle
+  add_item_to_new_collection: Lisää "%{item}" uuteen kokoelmaan
   add_language: Lisää kieli
   add_page: Lisää sivu
   add_to_a_community: Lisää yhteisöön
@@ -585,6 +875,7 @@ fi:
   admin_content_page_not_active: Julkaisematon
   admin_content_page_child_new_link: Luo alisivu
   admin_content_page_create_unsuccessful_error: Tapahtui virhe, sivua ei luotu.
+  admin_content_page_new_header: Luo uusi sisältösivu
   admin_content_page_new_link: Luo uusi sivu
   admin_content_partners_notifications_statistics_reminder_send_submit: Lähetä muistutus
   admin_content_partners_statistics_date_from_label: Lähettäjä
@@ -593,23 +884,30 @@ fi:
   admin_link: Yleiskatsaus
   admin_page_title: 'Hallinto: Yleiskuvaus'
   admin_statistics_link: Tilastot
-  admin_translated_content_page_create_successful_notice: 'Käännös on lisätty sivulle <a href="#%{anchor}"><em>%{page_name}</em></a>'
-  admin_translated_content_page_delete_confirmation: 'Oletko varma, että haluat poistaa %{language}-kielisen version sivusta "%{page_name}". Poistamistoimintoa ei voi perua.'
-  admin_translated_content_page_delete_successful_notice: '%{language}-kielinen käännös sivulle <em>%{page_name}</em> on poistettu.'
-  admin_translated_content_page_edit_subheader: 'Muokkaa %{language}-kielistä käännöstä sivulla <em>%{page_name}</em>'
+  admin_translated_content_page_create_successful_notice: Käännös on lisätty sivulle
+    <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_delete_confirmation: Oletko varma, että haluat poistaa
+    %{language}-kielisen version sivusta "%{page_name}". Poistettuja sivuja  ei voi
+    saada takaisin.
+  admin_translated_content_page_delete_successful_notice: '%{language}-kielinen käännös
+    sivulle <em>%{page_name}</em> on poistettu.'
+  admin_translated_content_page_edit_subheader: Muokkaa %{language}-kielistä käännöstä
+    sivulla <em>%{page_name}</em>
   admin_translated_content_page_new_header: Valitse kieli ja lisää sisältöä
-  admin_translated_content_page_new_tip: 'Kieli, otsikko ja runko %{required_icon} ovat pakollisia.'
+  admin_translated_content_page_new_tip: Kieli, otsikko ja runko %{required_icon}
+    ovat pakollisia.
   admin_translated_content_page_new_link: Lisää käännös
-  admin_translated_content_page_new_subheader: 'Lisää käännös sivulle <em>%{page_name}</em>'
-  admin_translated_content_page_update_successful_notice: '%{language}-kielinen käännös sivulle <a href="#%{anchor}"><em>%{page_name}</em></a> on päivitetty.'
-  admin_translated_content_page_update_unsuccessful_error: >
-    Tapahtui virhe, käännöstä ei voitu
-    päivittää.
+  admin_translated_content_page_new_subheader: Lisää käännös sivulle <em>%{page_name}</em>
+  admin_translated_content_page_update_successful_notice: '%{language}-kielinen käännös
+    sivulle <a href="#%{anchor}"><em>%{page_name}</em></a> on päivitetty.'
+  admin_translated_content_page_update_unsuccessful_error: Tapahtui virhe, käännöstä
+    ei voitu päivittää.
   agent: Agentti
   all: kaikki
   all_articles: Kaikki artikkelit
   all_changes: Kaikki muutokset
   all_collections: Kaikki kokoelmat
+  all_communities: Kaikki yhteisöt
   all_filter: kaikki
   all_images: Kaikki kuvat
   all_information: Kaikki tiedot
@@ -618,13 +916,21 @@ fi:
   all_videos: Kaikki videot
   already_a_member_question: Oletko jo jäsen?
   an_unknown_user: Tuntematon käyttäjä
+  annotation_cabs_colon: 'Huomautus:'
+  annotation_submit: lähetä kommentti
   anonymous_user_full_name: Anonyymi käyttäjä
   anonymous_user_given_name: Anonyymi
   and: ja
   and_between_form_items: ja
   any_string: mikätahansa merkkijono
   are_you_sure: Oletko varma?
+  articles_with_count:
+    one: '%{count} artikkeli'
+    other: '%{count} artikkelia'
   assistive_overview_header: Yleiskatsaus
+  assistive_details_header: Tiedot
+  assistive_literature_header: Kirjallisuus
+  assistive_names_related_header: Liittyvät nimet
   assistive_names_synonyms_header: Synonyymit
   assistive_maps_header: Kartat
   assistive_taxon_community_header: Yhteisö
@@ -644,6 +950,10 @@ fi:
   average_rating_value_of_total: 'Arvosanan keskiarvo: %{rating} / %{total}'
   back: Takaisin
   back_to_profile: Palaa profiiliin
+  belongs_in_count_communities:
+    one: Kuuluu %{count} yhteisöön
+    other: Kuuluu %{count} yhteisöön
+  bhl_partner_footer: Käy Biodiversity Heritage Libraryssä
   bi_monthly: Kahdesti kuukaudessa
   by_caps: Tekijänä
   cancel: Peruuta
@@ -657,17 +967,25 @@ fi:
   change_rating_to_5_of_5: Vaihda arvosanaan 5 / 5
   choose_collection_header: Valitse kokoelma
   citing_link: Lainaus
+  clade: Taksonominen ryhmä
   classification_already_preferred: 'Virhe: Tämä luokittelu on jo merkitty ensijaiseksi.'
   classification_preferred_for_taxon: Ensisijainen
   classification_summary_section_header: Luokitus
   classification_tree_header: Luokitus
   classifications_preferred_column_header: Ensisijainen
-  collection_api_sort_field_notes: >
-    Jos sort_field-parametri on asetettu,
-    vain palautetaan vain ne kokoelman
-    kohteet, joiden lajittelukentän arvo
-    täsmää annettuun merkkijonoon.
+  classifications_rank_column_header: Arvo
+  cms_available_in_languages: 'Tämä sivu on käytettävissä kielellä:'
+  cms_missing_content_title: Puuttuva käännös
+  cms_missing_content_message: Valitettavasti tämä sivu ei ole käytettävissä valitulla
+    kielellä %{selected_language}.
+  collection_api_sort_field_notes: Jos sort_field-parametri on asetettu, vain palautetaan
+    vain ne kokoelman kohteet, joiden lajittelukentän arvo täsmää annettuun merkkijonoon.
   collection_destroyed: Kokoelma on poistettu.
+  collections_filter: Kokoelmat
+  collections_page_title: Kokoelmat
+  collections_summary_header_with_count:
+    one: Esiintyy %{count} kokoelmassa
+    other: Esiintyy %{count} kokoelmassa
   comment: Kommentti
   comment_added_notice: Kommentin lisääminen onnistui.
   comment_body_label: Kommenttisi
@@ -678,29 +996,38 @@ fi:
   comments_with_count:
     one: '%{count} kommentti'
     other: '%{count} kommenttia'
+  common_names_with_count:
+    one: '%{count} yleinen nimi'
+    other: '%{count} yleisintä nimeä'
   communities_filter: Yhteisöt
+  communities_link: yhteisöä
   communities_page_title: Yhteisöt
   communities_index_empty: Ei ole aktiivisia yhteistöjä.
   communities_index_header: Aktiivit yhteisöt
   community: Yhteisö
+  community_activity: Yhteisön toiminta
   community_members: Yhteisön jäsenet
   community_name_label: Yhteisön nimi
+  community_tab_collections_header: Kokoelmat
+  communities_summary_header_with_count:
+    one: Kuuluu %{count} yhteisöön
+    other: Kuuluu %{count} yhteisöön
   confirm_password_colon: 'Vahvista salasana:'
   contact: Yhteystiedot
   contact_information: Yhteystiedot
+  contact_us_link: Ota yhteyttä
   content_partner_agreement_cancel_edit_agreement_link: Peru
   content_partner_agreement_cancel_new_agreement_link: Peru
   content_partner_agreement_cancel_sign_agreement_link: Peru
+  content_partner_about_header: Tietoja %{partner_name}
   content_partner_column_header_partner: Kumppani
   content_partner_contact_create_successful_notice: Yhteystieto on lisätty.
-  content_partner_contact_create_unsuccessful_error: >
-    Tapahtui virhe, yhteystietoa ei
-    lisätty.
+  content_partner_contact_create_unsuccessful_error: Tapahtui virhe, yhteystietoa
+    ei lisätty.
   content_partner_contact_delete_successful_notice: Yhteystieto on poistettu.
   content_partner_contact_edit_link: Muokkaa yhteystietoa
-  content_partner_contact_update_unsuccessful_error: >
-    Tapahtui virhe, yhteystietoa ei
-    päivitetty.
+  content_partner_contact_update_unsuccessful_error: Tapahtui virhe, yhteystietoa
+    ei päivitetty.
   content_partner_contacts_header: Yhteystiedot
   content_partner_current_agreement_view_link: Näytä
   content_partner_current_agreement_edit_link: Muokkaa
@@ -708,10 +1035,18 @@ fi:
   content_partner_filter_option_vetted_no: Ei
   content_partner_filter_option_published_no_resources: Ei resursseja
   content_partner_filter_published: Julkaistu
+  content_partner_latest_published_harvest_event_time_ago: Viimeksi päivitetty %{time_passed}
+    sitten;
+  content_partner_oldest_published_harvest_event_time_ago: Julkaistu ensimmäisen kerran
+    EOL:ssä %{time_passed} sitten;
   content_partner_public_false: Yksityinen
   content_partner_public_true: Julkinen
+  content_partner_registered_time_ago: Rekisteröity %{time_passed} sitten;
+  content_partner_resource_about_header: Tietoja resurssista
   content_partner_resource_auto_publish_true: Kyllä
   content_partner_resource_auto_publish_false: Ei
+  content_partner_resource_collections_header: Kokoelmat
+  content_partner_resource_collection_header: Julkaistu kokoelma
   content_partner_resource_edit_link: Muokkaa
   content_partner_resource_harvest_event_current_published: Julkaistu
   content_partner_resource_harvest_event_not_published: Ei julkaistu
@@ -721,27 +1056,29 @@ fi:
   content_partner_resource_hierarchy_request_publish: Pyyntö odottamassa
   content_partner_resource_hierarchy_unknown: Tuntematon
   content_partner_resource_hierarchy_update_successful_notice: Hierarkia on päivitetty.
-  content_partner_resource_hierarchy_update_unsuccessful_error: >
-    Tapahtui virhe, hierarkiaa ei
-    päivitetty.
+  content_partner_resource_hierarchy_update_unsuccessful_error: Tapahtui virhe, hierarkiaa
+    ei päivitetty.
   content_partner_resource_new_link: Lisää uusi resurssi
   content_partner_resource_new_subheader: Lisää uusi resurssi
+  content_partner_resource_preview_collection_header: Esikatsele kokoelmaa
   content_partner_resource_resource_status_new: Luotu
   content_partner_resource_vetted_true: Kyllä
   content_partner_resource_vetted_false: Ei
   content_partner_resource_view_link: Näkymä
   content_partner_resources_header: Resurssit
-  content_partner_resources_link: 'Resurssit &amp; yhteystiedot'
+  content_partner_resources_link: Resurssit &amp; yhteystiedot
   content_partner_statistics_column_header_total_count: Kaikki sivut
   content_partner_statistics_month_label: Kuukausi
   content_partner_statistics_year_label: Vuosi
   content_partner_statistics_link: Käyttötilastot
   content_partner_status_empty: Tuntematon tila
+  content_partners_link: sisältökumppania
   content_type: Sisältötyyppi
   contribute: Avusta
   copy: Kopioi
   could_not_find_collection_error: Tuota kokoelmaa ei löytynyt.
   could_not_find_user: Et ole yhteisön jäsen.
+  create_a_new_collection: Luo uusi kokoelma
   create_community: Luo yhteisö
   create_a_community: Luo yhteisö
   create_a_collection: Luo kokoelma
@@ -763,45 +1100,64 @@ fi:
   your_current_rating_3_of_5: 'Nykyinen arvosanasi: 3 / 5'
   your_current_rating_4_of_5: 'Nykyinen arvosanasi: 4 / 5'
   your_current_rating_5_of_5: 'Nykyinen arvosanasi: 5 / 5'
-  current_language: 'Kieli: % {iso_code}'
+  your_watch_collection: tarkkailulistasi
+  current_language: 'Kieli: %{iso_code}'
+  currently_in_eol: Tällä hetkellä Encyclopedia of Lifessa
+  institutional_sponsors: Institutionaaliset sponsorit
   daily: Päivittäin
   dashboard: Kojelauta
   data_object_ignore: Ohita tämä kohde
+  data_point_uri_source_missing: lähde puuttuu
+  data_search:
+    form:
+      new_search_link: Aloita uusi haku
+      search_suggestion_blue_flowers: Millä kasveilla on siniset kukat?
+      search_tools_show_link: Näytä hakuasetukset
+  data_subtab_about: Tietoja
+  data_summary_header_with_count:
+    zero: EOL:ällä ei ole piirretietoa
+    one: EOL:ällä on tiedot 1 piirteelle
+    other: EOL:ällä on tiedot %{count} piirteelle
   date_caps: Päivämäärä
   dato_create_cancel: Peru
   dato_edit_cancel: Peru
   dato_new_edit_user_text_fieldset_content_header: Artikkelin sisältö
   dato_new_edit_user_text_fieldset_information_header: Artikkelitiedot
+  dato_new_text_for_taxon_page_title: Lisää artikkeli taksoniin <i>%{taxon}</i>
+  development_version_name: EOL V2 Beta
   default: Oletus
-  definition: Määritelmä
+  default_watch_collection_name: Käyttäjän %{username} tarkkailulista
   delete_community: Poista tämä yhteisö
   delete: poista
   deleted_colon: 'poistettu:'
   delete_firstcap: Poista
   description: Kuvaus
+  details: Tiedot
+  discover_link: Opetus
+  donate_link: Lahjoita
   dublin_core: Dublin Core
   edit_comment: Muokkaa kommenttia
   edit_comment_lowercase: muokkaa kommenttia
   edit_community: Muokkaa yhteisöä
-  edit: Muokkaa
+  edit: muokkaa
   edited_colon: 'muokattu:'
   edit_hierarchy: Muokkaa hierarkiaa
+  edit_collection_details: Muokkaa kokoelman tietoja
   edit_my_profile: Muokkaa profiiliani
   edit_page_contents: muokkaa sivun sisältöä
-  edit_the_user_s_comment_below: >
-    Muokkaa alla olevaa käyttäjän
-    kommenttia.
-  edit_username: 'Muokkaa käyttäjää %{username}'
+  edit_the_user_s_comment_below: Muokkaa alla olevaa käyttäjän kommenttia.
+  edit_username: Muokkaa käyttäjää %{username}
   email: Sähköposti
   email_colon: 'Sähköposti:'
   email_recipients: Sähköpostin vastaanottajat
   encyclopedia_of_life: Encyclopedia of Life
+  eol_api_pages: 'EOL API: Sivut'
+  eol_api_search: 'EOL API: Haku'
+  eol_colon: 'EOL:'
   eol_news: EOL-uutisia
-  eol_pages: Sivut
+  eol_pages: sivua
   error_403_page_title: Kielletty
-  error_403_description: >
-    Sinulla ei ole tuon verkko-osoitteen
-    käyttöoikeutta.
+  error_403_description: Sinulla ei ole tuon verkko-osoitteen käyttöoikeutta.
   error_404_page_title: Ei löydy
   error_500_page_title: Hups.
   example_colon: 'Esimerkki:'
@@ -810,33 +1166,53 @@ fi:
     security_violations:
       default: Pääsy kielletty.
   explore: Tutustu
+  external_link_header: Ulkoinen linkki
   external_link_icon_alt_text: Ulkoinen linkki.
+  filter_by_status_trusted_option: Luotettu
   filter_by_type_collection_option: Kokoelmat
   filter_by_type_community_option: Yhteisöt
   filter_by_type_content_page_option: Tietoja EOL-sivustosta
   filter_by_type_image_option: Kuvat
   filter_by_type_image_option_with_count:
-    one: 'Kuva (%{count})'
-    other: 'Kuvia (%{count})'
+    one: Kuva (%{count})
+    other: Kuvia (%{count})
   filter_by_type_text_option: Artikkelit
   filter_by_type_user_option: Ihmiset
   filter_by_type_sound_option: Äänet
   filter_by_type_video_option: Videot
   filter_by_type_comment_option: Kommentit
   filter_by_type_name_option: Nimet
+  filter_by_type_taxa_comment_option: Taksonien kommentit
   filter_newsfeed_option_all: Kaikki
   filter_newsfeed_option_messages: Kommentit
   filter_newsfeed_option_community: Yhteisö
   filter_newsfeed_option_collections: Kokoelmat
   filter_newsfeed_option_watchlist: Tarkkailulista
+  filter_newsfeed_option_curation: Kuraatio
+  taxon_concept_search_keyword:
+    one: taksoni
+    other: taksonia
+  video_search_keyword:
+    one: video
+    other: videota
+  text_search_keyword:
+    one: artikkeli
+    other: artikkelia
+  link_search_keyword:
+    one: linkki
+    other: linkkiä
+  community_search_keyword:
+    one: yhteisö
+    other: yhteisöä
+  collection_search_keyword:
+    one: kokoelma
+    other: kokoelmaa
   flash_video: Flash-video
   forgot_password: Unohtuiko salasana?
   forgot_password_form_cancel: Peruuta
   forgot_password_form_choose_username_legend: Valitse tili
-  forgot_password_form_username_or_email_blank_error: >
-    Kirjoita käyttäjätunnuksesi tai
-    sähköpostiosoitteesi salasanasi
-    nollaamiseksi.
+  forgot_password_form_username_or_email_blank_error: Kirjoita käyttäjätunnuksesi
+    tai sähköpostiosoitteesi salasanasi nollaamiseksi.
   forgot_password_form_header: Nollaa salasana
   frequency: Taajuus
   frequency_daily: Päivittäin
@@ -844,16 +1220,14 @@ fi:
   frequency_never: Ei koskaan
   frequency_weekly: Viikoittain
   given_name_colon: 'Etunimi:'
-  glossary_is_empty: (sanasto on tyhjä)
-  glossary_term: termi
-  glossary_terms: Sanastotermit
+  global_access_tagline: Maailmanlaajuinen pääsy tietoihin maan elämästä
   google_analytic_results: Google Analytics-tulokset
   google_analytics_active: Google Analytics aktiivinen
-  google_analytics_google_account_and_access_required: >
-    Google Analytics (Google-tili ja
-    -käyttöoikeus vaadittu)
+  google_analytics_google_account_and_access_required: Google Analytics (Google-tili
+    ja -käyttöoikeus vaadittu)
   google: Google
   google_images: Google kuvahaku
+  google_plus: Encyclopedia of Life Google+:ssa
   help: Ohje
   hidden: Piilotettu
   hidden_comment: piilotettu kommentti
@@ -861,6 +1235,12 @@ fi:
   hierarchy: Hierarkia
   hierarchy_updated: Hierarkia päivitetty
   id: Tunniste
+  images: kuvaa
+  images_with_count:
+    one: '%{count} kuva'
+    other: '%{count} kuvaa'
+  in_collection: kokoelmassa
+  item_added_to_watch_collection_notice: '"%{item_name}" lisättiin kokoelmaan %{collection_name}.'
   item_type_article: Artikkeli
   item_type_collection: Kokoelma
   item_type_community: Yhteisö
@@ -880,17 +1260,22 @@ fi:
   item_type_sound_assistive: Tämä kohde on ääni
   item_type_taxon_assistive: Tämä kohde on taksoni
   item_type_video_assistive: Tämä kohde on video
-  item_not_added_already_in_collection: Tämä kohde on jo lisätty kokoelmaan.
-  joined_time_ago: 'Liittyi %{time_passed} sitten'
+  item_not_added_already_in_collection: Tämä kohde:%{value} on jo lisätty kokoelmaan.
+  join_eol_community_html: Ryhdy osaksi <abbr title="Encyclopedia of Life">EOL</abbr>
+    -yhteisöä!
+  joined_time_ago: Liittyi %{time_passed} sitten
   json_response: JSON-vastaus
   language: 'Kieli:'
   languages: Kielet
   language_with_count: '%{language} (%{count})'
   last_updated: Viimeksi päivitetty
-  last_updated_time_ago: 'Viimeksi päivitetty %{time_passed} sitten'
+  last_updated_time_ago: Viimeksi päivitetty %{time_passed} sitten
   learn_about_communities: Kuinka voin osallistua?
+  learn_about_eol: Miten voin käyttää EOL:ää
   learn_about_contributing: Kuinka voin avustaa?
   learn_about_joining: Miten voin liittyä?
+  learn_more_about_communities_link: Lisätietoja yhteisöistä
+  learn_more_about_names_for_this_taxon: lue lisää nimistä tälle taksonille
   learn_more_lowercase: opi lisää
   leave_community_button: Jätä tämä yhteisö
   leave_a_comment: Jätä kommentti
@@ -901,6 +1286,17 @@ fi:
   license_public_domain: Vapaasti käytettävä
   licensing: Lisensointi
   link_name: Linkin nimi
+  links_with_count:
+    one: '%{count} linkki'
+    other: '%{count} linkkiä'
+  literature: Kirjallisuus
+  login_header: Kirjaudu sisään <abbr title="Encyclopedia of Life">EOL</abbr>-tiliisi
+  login_to_the_website_as: Kirjaudu verkkosivustolle nimellä %{username}
+  maps_with_count:
+    one: '%{count} kartta'
+    other: '%{count} karttaa'
+  maps_image_maps_header: Media, joka merkitty nimellä "kartta"
+  members_like_you: jäsentä kuten sinä
   members_with_count:
     one: '%{count} jäsen'
     other: '%{count} jäsentä'
@@ -916,27 +1312,166 @@ fi:
   name_colon: 'Nimi:'
   name: Nimi
   name_preferred_for_language_yes: Ensisijainen
+  name_preferred_for_language_help_tip: '%{icon} merkitsee jokaiselle kielelle halutun
+    nimen.'
   name_preferred_taxonomically_for_source_yes: Ensisijainen
   names: Nimet
   names_filter: Nimet
   names_children_column_header: Lapset
+  names_curation_column_header: Kuraatio
   names_name_column_header: Nimi
   names_preferred_column_header: Ensisijainen
   names_relationship_column_header: Suhde
   names_sources_column_header: Lähteet
   names_status_column_header: Tila
+  mobile:
+    contents:
+      explore_eol: Tutki EOL:ää
+    taxa:
+      details: Tiedot
+      literature: Kirjallisuus
+      resources: Resurssit
+      images: Kuvat
   moderator_colon: 'Moderaattori:'
   never: Ei koskaan
+  new_collection: Uusi kokoelma
+  news_available_in_languages: 'Tämä sivu on käytettävissä kielellä:'
+  news_missing_content_title: Puuttuva käännös
+  news_missing_content_message: Valitettavasti tämä sivu ei ole käytettävissä valitulla
+    kielellä %{selected_language}.
+  newsfeed: Uutisvirta
   new_user: Uusi käyttäjä
   next: Seuraava
-  no: Ei
-  note_about_homonym_problems: 'Huomautus: Älä muuta tätä attribuuttia ellet ole varma. Poistaminen saattaa aiheuttaa vakavia homonyymiongelmia.'
+  "no": Ei
+  note_about_homonym_problems: 'Huomautus: Älä muuta tätä attribuuttia ellet ole varma.
+    Poistaminen saattaa aiheuttaa vakavia homonyymiongelmia.'
+  object_status_trusted_option: Luotettu
+  object_type_collection_option: Kokoelma
+  other_collection_items_with_count:
+    one: '%{count} muu kohde'
+    other: '%{count} muuta kohdetta'
+  pages_title: Viitteet
+  pages_with_pictures_and_text: Sivut, joissa kuvia ja tekstiä
+  pagination_next: Seuraava
+  pagination_previous: Edellinen
+  permissions_list_header: Käyttöoikeudet EOL:ässä
+  permissions_users_count:
+    one: '%{count} käyttäjä'
+    other: '%{count} käyttäjää'
+  post_comment: Lähetä kommentti
+  previously_published: aiemmin julkaistu
+  profile_newsfeed: Uutisvirtani
+  profile_picture: Profiilikuva
+  rank_recognized_by_agent: '%{rank} tunnistettu %{agent} toimesta'
+  recent_updates: Viimeisimmät päivitykset
+  recently_visited: Äskettäin vierailtu
+  references_cabs_colon: 'Viitteet:'
+  related_names_with_count:
+    one: '%{count} liittyvä nimi'
+    other: '%{count} liittyvää nimeä'
+  reply: Vastaa
+  resource_import_frequency:
+    hours_with_count:
+      one: '%{count} tunti'
+      other: '%{count} tuntia'
+  resources: Resurssit
+  search: Haku
+  search_previous_label: Edellinen
+  search_field_label: Etsi EOL:stä
+  search_placeholder: Etsi EOL:stä ...
+  see_all_of_your_collections: Näe kaikki kokoelmasi
+  see_all_of_your_communities: Näytä kaikki yhteisösi
+  see_all_media_link: Näytä kaikki media
+  see_all_maps_link: Näytä kaikki kartat
+  select_tool_and_go: 'Valitse työkalu ja klikkaa ''Go'':'
+  share_a_collection: Jaa kokoelma
+  show: Näytä
+  sign_in: Kirjaudu sisään
+  sign_in_successful_notice: Kirjautuminen onnistui.
+  sign_in_unsuccessful_error: Kirjautuminen epäonnistui. Virheellinen käyttäjätunnus,
+    sähköpostiosoite tai salasana.
+  sign_out: Kirjaudu ulos
+  social_sharing_header: EOL sosiaalisen median sivustoilla
+  social_sharing_twitter_follow_eol_button: Seuraa @eol
+  sort_by_label: Lajittele
+  sort_by_title_ascending: Nouseva otsikko
+  sort_by_title_descending: Laskeva otsikko
+  sort_by_year_ascending: Nouseva vuosi
+  sort_by_year_descending: Laskeva vuosi
+  sort_by: Lajittele
+  sounds_with_count:
+    one: '%{count} ääni'
+    other: '%{count} ääntä'
+  source: Lähde
+  source_url: Lähteen URL-osoite
+  special_collection: Erikoiskokoelma
+  synonyms_with_count:
+    one: '%{count} synonyymi'
+    other: '%{count} synonyymiä'
+  taxa_with_count:
+    one: '%{count} taksoni'
+    other: '%{count} taksonia'
+  taxon_newsfeed: Taksonin uutisvirta
+  text_summary_empty: Kukaan ei ole antanut lyhyttä tiivistelmää tälle sivulle.
+  text_with_count:
+    one: '%{count} artikkeli'
+    other: '%{count} artikkelia'
   thank_you_for_your_generous_support: Kiitokset anteliaasti tuesta!
+  time_ago: '%{time_passed} sitten'
+  update_collection_submit_button: Päivitä kokoelman tietoja
+  updates: Päivitykset
+  user_activity_page_title: Käyttäjän toiminta
+  user_activity_stats_articles_added:
+    one: '%{count} artikkeli lisätty'
+    other: '%{count} artikkelia lisätty'
+  user_activity_stats_comment_submitted:
+    one: '%{count} kommentti jätetty'
+    other: '%{count} kommenttia jätetty'
+  user_activity_stats_header: Toiminta
+  user_activity_stats_objects_curated:
+    one: '%{count} kohde kuratoitu'
+    other: '%{count} kohdetta kuratoitu'
+  user_activity_stats_taxa_commented:
+    one: '%{count} taksoni kommentoitu'
+    other: '%{count} taksonia kommentoitu'
+  user_activity_stats_taxa_comments_dropdown: Taksonikommentit
+  user_activity_stats_taxa_curated:
+    one: '%{count} taksoni kuratoitu'
+    other: '%{count} taksonia kuratoitu'
   user_id: Käyttäjätunniste
+  user_left_comment_on_date: '%{username} jätti kommentin %{date}.'
   user_pending_notifications_with_count:
     one: '%{count} ilmoitus'
     other: '%{count} ilmoitusta'
   user_pending_notifications_comments_with_count:
     one: '%{count} kommentti'
     other: '%{count} kommenttia'
+  username_colon: 'Käyttäjänimi:'
+  users_about_me_header: Tietoja minusta
+  user_counts_refresh_daily: '*määrät päivitetään päivittäin'
+  users_form_profile_info_header: Julkiset profiilin tiedot
+  users_member_of_count_communities:
+    one: '%{count} yhteisön jäsen'
+    other: '%{count} yhteisön jäsen'
+  users_my_info_header: Omat tiedot
+  users_that_can_edit_this_collection: Käyttäjät jotka voivat hoitaa tätä kokoelmaa
+  videos_with_count:
+    one: '%{count} video'
+    other: '%{count} videota'
+  view_as_label: Näytä
+  view_translation_source_link: Näytä käännöksen lähde
+  view_article_source: Näytä artikkelin lähde
+  view_image_map_source: Näytä kartan lähde
+  view_sound_source: Näytä äänen lähde
+  view_video_source: Näytä videon lähde
   vimeo: Vimeo
+  watch_list: Tarkkailulista
+  watch_list_newsfeed: Tarkkailulistan uutisvirta
+  what_is_eol: Mikä on EOL?
+  what_is_this_question: Mikä tämä on?
+  wikipedia_queue_new_instructions_step_one: Mene artikkeliin Wikipediassa, esim.
+    <a rel="nofollow" href="https://fi.wikipedia.org/w/index.php?title=Kirahvi">https://fi.wikipedia.org/w/index.php?title=Kirahvi</a>
+  yahoo_images: Yahoo-kuvat
+  year: Vuosi
+  you_have_been_logged_in_as_username: Olet kirjautunut sisään käyttäjänä %{username}
+...

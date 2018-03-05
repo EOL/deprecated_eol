@@ -7179,4 +7179,41 @@ pms:
     smonù ambelessì; l'adrëssa dla revision a dovrìa smijé a cheicòs parèj ëd <a rel="nofollow"
     href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: Ciamé l'amportassion ëd n'artìcol ëd Wikipedia
+  will_find_taxon_pages_matching_the_search_term: a trovrà le pàgine ëd tassonomìa
+    si ël tìtol o un qualsëssìa sinònim o nòm comun a rëspond con precision al criteri
+    d'arserca
+  would_you_like_to_become_a_curator_notice: A-j piasrìa dventé conservator? A peul
+    ciamé l'acess su <a href='%{url}'>soa pàgina ëd profil</a>.
+  worklist: Lista dle ròbe da fé
+  xml_response: Rispòsta XML
+  yahoo_images: Plance Yahoo
+  yahoo: Yahoo
+  year: Ann
+  yes_answer: É
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: 'Chiel a l''é n''aministrator.
+    A peul vëdde ël mëssagi d''eror:'
+  you_are_not_authorized_to_perform_this_action: Chiel a l'é nen autorisà a fé st'assion-sì.
+  you_are_viewing_this_rank_as_classified_by: 'A s-ciàira ës %{rank} coma classificà
+    da:'
+  you_can_edit_those_later_if_ne: A podrà modificheje apress, si necessari.
+  you_can_identify_yourself_to_eol: 'A peul identifichesse an sl''EdV an giontant
+    soa ciav API a soa arcesta (ch''a intra ant ël sistema e ch''a génera soa ciav
+    an duvertand sò profil EdV an modìfica. La ciav a sarà argistrà ambelelà; ch''a
+    duverta sò profil për modifichela torna e trovela torna pi tard):'
+  you_have_been_logged_in_as_username: A l'é intrà ant ël sistema coma %{username}
+  you_have_been_logged_out: A l'é surtì da 'nt ël sistema.
+  you_joined_community: A l'é giontasse con sucess a costa comunità.
+  you_left_community: A l'ha chità con sucess costa comunità.
+  you_may_upload_static_files_fo: A peul carié dj'archivi stàtich për dovreje ant
+    ël CMS ambelessì (për esempi, PDF, document Word, plance e via fòrt). A dev nen
+    dovré sòn për carié dël contnù ëd pàgine dle spece - a venta mach dovrlo për le
+    pàgine nen dë spece (tanme anonsi ëd travaj, boletin, MOU e via fòrt). Për j'archivi
+    PDF tanme ij MOU e j'archivi ëd boletin, s'a veul a peul buté na liura vers n'«adrëssa
+    simpàtica» (che a ridirigg-rà an automàtich vers l'«adrëssa completa dël contnù»).
+    Për le plance ch'a son contnùe an na pàgina e a l'han n'arferiment con na tichëtta
+    &lt;img&gt;, a dev dovré l'«adrëssa completa dël contnù». L'«adrëssa completa
+    dël contnù» a peul ësmon-e un nùmer ëd servent ëd contnù diferent minca na vira
+    ch'a rinfrësca la pàgina (për esempi «content2.eol.org», «content3.eol.org» e
+    via fòrt) - sòn a l'é normal e un-a qualsëssìa a peul esse dovrà cand a crea soe
+    liure, përchè a son tute equivalente.
 ...

@@ -190,6 +190,7 @@ fi:
         given_name: Etunimi
         language_abbr: Ensisijainen kieli
         permissions: Käyttöoikeudet
+        tag_line: Tunnisterivi
         username: Käyttäjätunnus
       user_added_data:
         object: Arvo
@@ -202,6 +203,8 @@ fi:
       template:
         body: 'Seuraavien kenttien oikeellisuustarkistus epäonnistui:'
       messages:
+        taken: on jo varattu
+        record_invalid: 'Vahvistus epäonnistui: %{errors}'
         inclusion: ei sisälly luetteloon
         exclusion: on varattu
         invalid: on virheellinen
@@ -232,6 +235,8 @@ fi:
         wrong_type: on väärän tyyppinen
         models:
           inaccessible: ei ole saatavilla
+      full_messages:
+        format: '%{attribute} %{message}'
       models:
         inaccessible: Tietueen tallentaminen epäonnistui, koska se on kelvoton. Tarkista
           validointivirheet ja tallenna uudestaan.
@@ -554,6 +559,8 @@ fi:
       show:
         meta_title: '%{partner_name}-tilastot'
     index:
+      meta_keywords: Encyclopedia of Life sisältökumppanit, Encyclopedia of Life tietojen
+        tarjoajat
       meta_title: Sisältökumppanit
     edit:
       meta_title: Muokkaa %{partner_name}
@@ -629,8 +636,12 @@ fi:
       edit: Muokkaa viestiä
       post_written_by_user: '%{user} kirjoitti:'
       close_window: sulje
+      posts_with_count:
+        one: '%{count} viesti'
+        other: '%{count} viestiä'
     topics:
       create: Aloita uusi viestiketju
+      no_posts: Tässä ketjussa ei ole viestejä
       create_successful: Viestiketju luotiin onnistuneesti
   known_uris:
     add_a_relationship: Lisää suhde
@@ -726,6 +737,16 @@ fi:
     bulk_curation_with_count:
       one: Kuraattorit paransivat kohdetta %{to}
       other: Kuraattorit tekivät %{count} parannusta kohteeseen %{to}
+    bulk_community_joins_with_count:
+      one: Uusi jäsen liittyi yhteisöön %{community}
+      other: '%{count} uutta jäsentä liittyi yhteisöön %{community}'
+    default_subject: Viimeisimmät tapahtumat EOL:ssä
+    comment_title_your_newsfeed: '%{who} on kommentoinut uutisvirtaasi'
+    collection_activity_log_title: '%{who} on muokannut kokoelmaa'
+    community_activity_log_title: '%{who} on muokannut yhteisöä'
+    curator_activity_log_title: '%{who} on kuratoinut jotain'
+    data_object_title: '%{who} on lisännyt uutta sisältöä EOL:ään'
+    comment_link: Näytä kommentti EOL:ssä
     collection_activity_user_watching_recipient: <b>%{user_name}</b> tarkkailee sinua.
     community_activity_user_joined: Käyttäjä <b>%{user_name}</b> liittyi yhteisöön
       <b>%{community_name}</b>.
@@ -740,7 +761,9 @@ fi:
   sessions:
     new:
       login_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
+      login_with_google_assistive: Kirjaudu sisään EOL:ään käyttämällä Google-pääsytietojasi
       login_with_twitter_assistive: Kirjaudu sisään EOL:ään käyttämällä Twitter-pääsytietojasi
+      login_with_yahoo_assistive: Kirjaudu sisään EOL:ään käyttämällä Yahoo-pääsytietojasi
       login_with_eol_authentication_header: 'Tai kirjaudu sisään EOL-pääsytiedoillasi:'
       meta_title: Kirjaudu sisään
       problems_signing_in_with_connected_accounts: Pulmia kirjautuessasi yhdistetyille
@@ -749,6 +772,11 @@ fi:
       tip: Olemassa oleva käyttäjä? Yhdistä EOL-tilisi Facebookiin, Googleen ja muuhun
         profiiliasetuksissasi. Kun tilisi on yhdistetty, voit käyttää niitä EOL:ään
         kirjautumiseen.
+  taxa:
+    names:
+      synonyms:
+        hierarchy_entry:
+          meta_keywords: '%{scientific_name} synonyymit'
   users:
     activities:
       show:
@@ -771,6 +799,9 @@ fi:
       activity_link: toiminta
       comments_link: kommentit
       newsfeed_link: uutisvirta
+      show:
+        meta_title: '%{user_full_name} uutisvirta'
+        tweet_text: '%{user_full_name} uutisvirta'
     notifications:
       edit:
         page_title: Ilmoitusasetukset
@@ -1347,6 +1378,7 @@ fi:
     Poistaminen saattaa aiheuttaa vakavia homonyymiongelmia.'
   object_status_trusted_option: Luotettu
   object_type_collection_option: Kokoelma
+  object_type_text_option: Teksti
   other_collection_items_with_count:
     one: '%{count} muu kohde'
     other: '%{count} muuta kohdetta'
@@ -1412,6 +1444,7 @@ fi:
     one: '%{count} taksoni'
     other: '%{count} taksonia'
   taxon_newsfeed: Taksonin uutisvirta
+  text: teksti
   text_summary_empty: Kukaan ei ole antanut lyhyttä tiivistelmää tälle sivulle.
   text_with_count:
     one: '%{count} artikkeli'

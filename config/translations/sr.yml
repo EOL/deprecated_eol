@@ -2181,7 +2181,7 @@ sr:
   grant_manager_link: Додели улогу „руководилац“
   grant_full_curator_link: Додели
   harvest_id: Назнака преузимања
-  harvesting_processes_log: Записник поступка преузимања
+  harvesting_processes_log: Дневник поступка преузимања
   harvests_for: Преузимања од %{resource}
   has_already_been_taken: је заузето.
   has_colon: 'Има:'

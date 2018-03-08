@@ -640,6 +640,112 @@ qqq:
   activity: |-
     This is only used in the admin interface and refers to user activity (ie: actions that users take).
     {{Identical|Activity}}
+  activity_logs:
+    curator_activity_log:
+      add_association:
+        an_unknown_user_associated_an_older_data_object_to_an_unknown_association: '{{related|Website-activity
+          logs.curator activity log.add association}}'
+      untrust_common_name:
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        an_unknown_user_untrusted_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_language_on_an_unknown_taxon: '{{Related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_language_on_taxon: '{{related|Website-activity logs.curator
+          activity log}}'
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_an_unknown_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log.untrust common name}}'
+        an_unknown_user_untrusted_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log}}'
+        an_unknown_user_untrusted_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_an_unknown_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log}}'
+        user_untrusted_name_in_language_on_it: '{{related|Website-activity logs.curator
+          activity log}}'
+      unreview_common_name:
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_an_unknown_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_language_on_an_unknown_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_an_unknown_language_on_taxon: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_language_on_taxon: '{{related|Website-activity logs.curator
+          activity log.unreview common name}}'
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        an_unknown_user_unreviewed_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_an_unknown_name_in_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_an_unknown_language_on_it: '{{related|Website-activity
+          logs.curator activity log.unreview common name}}'
+        user_unreviewed_name_in_language_on_it: '{{related|Website-activity logs.curator
+          activity log.unreview common name}}'
+      unlock:
+        merge_of_an_unknown_taxon_unlocked: '{{related|Website-activity logs.curator
+          activity log.unlock}}'
   add: '{{Identical|Add}}'
   add_a_taxon_association_label: A 'taxon association' is the association between
     a data object (for example, an image) and a single species (or other single taxonomic

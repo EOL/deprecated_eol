@@ -145,6 +145,9 @@ fi:
         active: Julkaistu
       notification:
         comment_on_my_profile: Kommentti profiilissasi
+        member_joined_my_community: Uusi jäsen on liittynyt johtamaasi yhteisöön
+        member_joined_my_watched_community: Uusia jäseniä on liittynyt yhteisöön,
+          jossa olet jäsen
       resource:
         bibliographic_citation: Bibliografinen lainaus
         dataset: Aineistotiedosto
@@ -519,6 +522,9 @@ fi:
         menu_link: Merenkulkutilastot
       page_richness:
         menu_link: Rikkaat sivut
+  contacts:
+    new:
+      page_title: Jätä palautteesi
   collections:
     download_taxa_data:
       attribute_header: Ominaisuus
@@ -542,6 +548,7 @@ fi:
           havaintoja
         observer_with_link: 'Havainnoija: %{observer_link}'
         observation_place: 'Paikka: %{place}'
+        recent_observations: Viimeaikaiset havainnot
         some_taxon: Jotain
         taxa_observed:
           one: '%{count} taksoni havaittu'
@@ -613,10 +620,12 @@ fi:
     create: Luo foorumi
     create_successful: Foorumi luotiin onnistuneesti
     move_successful: Foorumi siirrettiin onnistuneesti
+    move_failed: Foorumia ei voitu siirtää
     edit: Muokkaa foorumia
     post_by_user_at_time: käyttäjän %{user} toimesta, %{time}
     actions: Toiminnot
     administration: Ylläpito
+    no_topics: Tässä foorumissa ei ole ketjuja
     buttons:
       delete: poista
       edit: muokkaa
@@ -626,8 +635,11 @@ fi:
       create: Luo luokka
       edit: Muokkaa luokkaa
       create_successful: Luokka luotiin onnistuneesti
+      create_failed: Tapahtui virhe, luokkaa ei voitu lisätä
       update_successful: Luokka luotiin onnistuneesti
+      update_failed: Tapahtui virhe, luokkaa ei voitu päivittää
       delete_successful: Luokka poistettiin onnistuneesti
+      delete_failed_not_empty: Luokkaa ei voitu poistaa, koska se ei ole tyhjä
       move_successful: Luokka siirrettiin onnistuneesti
       move_failed: Luokkaa ei voitu siirtää
     posts:
@@ -692,6 +704,7 @@ fi:
       questions_link_discovering_species: Miten lajeja löydetään?
       questions_link_naming_species: Miten lajit on nimetty?
       questions_link_binomial_nomenclature: Mitä on binominimikkeistö?
+      questions_link_biological_classification: Mikä on biologinen luokitus?
     footer:
       google_plus: Encyclopedia of Life Google+:ssa
   members:
@@ -726,6 +739,11 @@ fi:
       subject: Pahoittelemme poistumistasi...
     user_activated:
       subject: Encyclopedia of Life -tilisi on aktivoitu
+      message: |-
+        Tervetuloa Encyclopedia Of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa että käyttäjänimesi on {username} ja profiilisi URL-osoite on %{profile_url}. Voit kirjautua tilillesi osoitteessa http://eol.org/login.
+
+        Oppiaksesi lisää EOL:än käytöstä, mukaan lukien miten luoda EOL-kokoelmia, osallistua EOL-yhteisöihin ja edistää sisältöä, vieraile ohjesivuillamme osoitteessa
+        http://eol.org/help.
     user_activated_with_open_authentication:
       subject: Encyclopedia of Life -tilisi on aktivoitu
     user_message:
@@ -741,6 +759,8 @@ fi:
       one: Uusi jäsen liittyi yhteisöön %{community}
       other: '%{count} uutta jäsentä liittyi yhteisöön %{community}'
     default_subject: Viimeisimmät tapahtumat EOL:ssä
+    comment_body_brief: '%{body} - %{author}'
+    reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
     comment_title_your_newsfeed: '%{who} on kommentoinut uutisvirtaasi'
     collection_activity_log_title: '%{who} on muokannut kokoelmaa'
     community_activity_log_title: '%{who} on muokannut yhteisöä'
@@ -795,6 +815,7 @@ fi:
       sign_up_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
       sign_up_with_google_assistive: Kirjaudu sisään EOL:ään käyttämällä Google-pääsytietojasi
       sign_up_with_twitter_assistive: Kirjaudu sisään EOL:ään käyttämällä Twitter-pääsytietojasi
+      sign_up_with_yahoo_assistive: Kirjaudu sisään EOL:ään käyttämällä Yahoo-pääsytietojasi
     newsfeeds:
       activity_link: toiminta
       comments_link: kommentit
@@ -837,6 +858,10 @@ fi:
     to: Korkein arvo
   this_article_is_unpublished: Tämä artikkeli on julkaisematon.
   this_image_is_unpublished: Tämä kuva on julkaisematon.
+  this_image_map_is_unpublished: Tämä kartta on julkaisematon.
+  this_link_cannot_be_curated_because_unpublished: Tätä linkkiä ei voi kuratoida,
+    koska se on julkaisematon.
+  this_link_is_unpublished: Tämä linkki on julkaisematon.
   this_map_is_unpublished: Tämä kartta on julkaisematon.
   this_video_is_unpublished: Tämä video on julkaisematon.
   this_sound_is_unpublished: Tämä ääni on julkaisematon.
@@ -873,7 +898,10 @@ fi:
   activity_logs:
     collection_activity_log:
       create:
+        an_unknown_user_created_an_unknown_collection: Tuntematon käyttäjä lisäsi
+          tuntemattoman kokoelman.
         an_unknown_user_created_it: Tuntematon käyttäjä loi sen.
+        user_created_it: <strong>%{user}</strong> loi sen.
       remove_all:
         an_unknown_user_cleared_collection: Tuntematon käyttäjä poisti kaikki kohteet
           kokoelmasta "%{collection}".
@@ -883,7 +911,20 @@ fi:
           tuntemattoman kohteen.
         an_unknown_user_removed_item_from_it: Tuntematon käyttäjä on poistanut kohteen
           "%{item}".
+      other_actions:
+        an_unknown_user_modified_an_unknown_collection: Tuntematon käyttäjä muokkasi
+          tuntematonta kokoelmaa.
+        an_unknown_user_modified_collection: Tuntematon käyttäjä muokkasi kokoelmaa
+          "%{collection}".
     community_activity_log:
+      create:
+        an_unknown_user_created_an_unknown_community: Tuntematon käyttäjä loi tuntemattoman
+          yhteisön.
+      join:
+        an_unknown_user_joined_an_unknown_community: Tuntematon käyttäjä liittyi tuntemattomaan
+          yhteisöön.
+        user_joined_an_unknown_community: <strong>%{user}</strong> liittyi tuntemattomaan
+          yhteisöön.
       leave:
         an_unknown_user_left_community: Tuntematon käyttäjä poistui yhteisöstä "%{community}".
     curator_activity_log:
@@ -1037,6 +1078,7 @@ fi:
   communities_index_header: Aktiivit yhteisöt
   community: Yhteisö
   community_activity: Yhteisön toiminta
+  community_invitation_comment: Haluaisin kutsua sinut liittymään yhteisöön "%{community}".
   community_members: Yhteisön jäsenet
   community_name_label: Yhteisön nimi
   community_tab_collections_header: Kokoelmat
@@ -1270,7 +1312,9 @@ fi:
   images_with_count:
     one: '%{count} kuva'
     other: '%{count} kuvaa'
+  inaturalist_tab_label: iNaturalist-havainnot
   in_collection: kokoelmassa
+  ip_address: IP-osoite
   item_added_to_watch_collection_notice: '"%{item_name}" lisättiin kokoelmaan %{collection_name}.'
   item_type_article: Artikkeli
   item_type_collection: Kokoelma
@@ -1292,6 +1336,7 @@ fi:
   item_type_taxon_assistive: Tämä kohde on taksoni
   item_type_video_assistive: Tämä kohde on video
   item_not_added_already_in_collection: Tämä kohde:%{value} on jo lisätty kokoelmaan.
+  join_community_button: Liity tähän yhteisöön
   join_eol_community_html: Ryhdy osaksi <abbr title="Encyclopedia of Life">EOL</abbr>
     -yhteisöä!
   joined_time_ago: Liittyi %{time_passed} sitten
@@ -1373,6 +1418,7 @@ fi:
   newsfeed: Uutisvirta
   new_user: Uusi käyttäjä
   next: Seuraava
+  no_answer: Ei
   "no": Ei
   note_about_homonym_problems: 'Huomautus: Älä muuta tätä attribuuttia ellet ole varma.
     Poistaminen saattaa aiheuttaa vakavia homonyymiongelmia.'
@@ -1416,6 +1462,7 @@ fi:
   see_all_media_link: Näytä kaikki media
   see_all_maps_link: Näytä kaikki kartat
   select_tool_and_go: 'Valitse työkalu ja klikkaa ''Go'':'
+  server_ip_address: Palvelimen IP-osoite
   share_a_collection: Jaa kokoelma
   show: Näytä
   sign_in: Kirjaudu sisään
@@ -1472,6 +1519,7 @@ fi:
     one: '%{count} taksoni kuratoitu'
     other: '%{count} taksonia kuratoitu'
   user_id: Käyttäjätunniste
+  user_joined_community_on_date: '%{username} liittyi tähän yhteisöön %{date}.'
   user_left_comment_on_date: '%{username} jätti kommentin %{date}.'
   user_pending_notifications_with_count:
     one: '%{count} ilmoitus'
@@ -1480,6 +1528,7 @@ fi:
     one: '%{count} kommentti'
     other: '%{count} kommenttia'
   username_colon: 'Käyttäjänimi:'
+  username: Käyttäjänimi
   users_about_me_header: Tietoja minusta
   user_counts_refresh_daily: '*määrät päivitetään päivittäin'
   users_form_profile_info_header: Julkiset profiilin tiedot
@@ -1506,5 +1555,8 @@ fi:
     <a rel="nofollow" href="https://fi.wikipedia.org/w/index.php?title=Kirahvi">https://fi.wikipedia.org/w/index.php?title=Kirahvi</a>
   yahoo_images: Yahoo-kuvat
   year: Vuosi
+  yes_answer: Kyllä
   you_have_been_logged_in_as_username: Olet kirjautunut sisään käyttäjänä %{username}
+  you_joined_community: Olet liittynyt tähän yhteisöön onnistuneesti.
+  your_ip_address: IP-osoitteesi
 ...

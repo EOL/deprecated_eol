@@ -2615,50 +2615,50 @@ zh-TW:
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個
-          %{language} 的不明俗名標記為未驗證的。
+          %{language} 的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: 一位不明使用者將
           "%{taxon}" 一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_taxon: 一位不明使用者將 "%{taxon}"
-          一個 %{language} 的不明俗名標記為未驗證的。
+          一個 %{language} 的不明俗名標記為不可信的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的俗名
           "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個
-          %{language} 的俗名 "%{name}" 標記為未驗證的。
+          %{language} 的俗名 "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_taxon: 一位不明使用者將 "%{taxon}"
           一個不明語言的俗名 "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_taxon: 一位不明使用者將 "%{taxon}" 一個
-          %{language} 的俗名 "%{name}" 標記為未驗證的。
+          %{language} 的俗名 "%{name}" 標記為不可信的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
           將一個不明頁面上一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          將一個不明頁面上一個 %{language} 的不明俗名標記為未驗證的。
+          將一個不明頁面上一個 %{language} 的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
           將 "%{taxon}" 一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_taxon: <strong>%{user}</strong>
-          將 "%{taxon}" 一個 %{language} 的不明俗名標記為未驗證的。
+          將 "%{taxon}" 一個 %{language} 的不明俗名標記為不可信的。
         user_untrusted_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong>
           將一個不明頁面上一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong>
-          將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
+          將一個不明頁面上一個 %{language} 的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_an_unknown_language_on_taxon: <strong>%{user}</strong>
           將 "%{taxon}" 一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_taxon: <strong>%{user}</strong> 將 "%{taxon}"
-          一個 %{language} 的俗名 "%{name}" 標記為未驗證的。
+          一個 %{language} 的俗名 "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的不明俗名標記為不可信的。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 一位不明使用者將一個 %{language}
-          的不明俗名標記為未驗證的。
+          的不明俗名標記為不可信的。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 一位不明使用者將一個不明語言的俗名
           "%{name}" 標記為不可信的。
         an_unknown_user_untrusted_name_in_language_on_it: 一位不明使用者將一個 %{language} 的俗名
-          "%{name}" 標記為未驗證的。
+          "%{name}" 標記為不可信的。
         user_untrusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
           將一個不明語言的不明俗名標記為不可信的。
         user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>
-          將一個 %{language} 的不明俗名標記為未驗證的。
+          將一個 %{language} 的不明俗名標記為不可信的。
         user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>
           將一個不明語言的俗名 "%{name}" 標記為不可信的。
         user_untrusted_name_in_language_on_it: <strong>%{user}</strong> 將一個 %{language}
-          的俗名 "%{name}" 標記為未驗證的。
+          的俗名 "%{name}" 標記為不可信的。
       unreview_common_name:
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個不明語言的不明俗名標記為未審核的。
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_an_unknown_taxon: 一位不明使用者將一個不明頁面上一個

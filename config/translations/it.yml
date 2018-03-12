@@ -35,20 +35,21 @@
 # Author: Rosh
 # Author: Semiramide
 # Author: Statix64
+# Author: Urielejh
 # Author: Viscontino
 # Author: Ximo17
 ---
 it:
   activerecord:
     models:
-      user: utenza
+      user: account
     attributes:
       collection:
-        name: Nome della collezione
-        description: Descrizione della collezione
+        name: Nome della raccolta
+        description: Descrizione della raccolta
         sort_style_id: Direzione di ordinamento predefinita
-        logo: Immagine principale della collezione
-        additional_annotation_fields: Campi addizionali annotazioni
+        logo: Immagine principale della raccolta
+        additional_annotation_fields: Campi di annotazione aggiuntiva
         show_references: Riferimenti (Testo o URL)
       collection_job:
         overwrite: Sostituisci i duplicati
@@ -194,7 +195,7 @@ it:
         subject: Soggetto
         text: Corpo del messaggio
       harvest_event:
-        resource: Fonte
+        resource: Risorsa
       hierarchy:
         browsable: Navigabile
         complete: Completa

@@ -77,6 +77,8 @@ fi:
   translated_contact_subjects-title-contact_subject_id-29: Kuraattorien tuki
   translated_contact_subjects-title-contact_subject_id-30: Korjata (oikeinkirjoitus
     ja kielioppi, kuvat, tiedot)
+  translated_contact_subjects-title-contact_subject_id-31: Lisää kuvia, videoita tai
+    ääniä
   translated_contact_subjects-title-contact_subject_id-33: Lahjoita rahaa
   translated_contact_subjects-title-contact_subject_id-34: Tekniset kysymykset (ongelmat
     haun kanssa, verkkosivun toiminnallisuus)
@@ -130,6 +132,10 @@ fi:
   translated_ranks-label-rank_id-463: yläheimo
   translated_ranks-label-rank_id-494: tribus
   translated_ranks-label-rank_id-51: luokka
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: heimo
   translated_resource_statuses-label-resource_status_id-10: Julkaistu
   translated_resource_statuses-label-resource_status_id-1: Lähetetään
@@ -143,6 +149,7 @@ fi:
   translated_sort_styles-name-sort_style_id-2: Vanhin
   translated_sort_styles-name-sort_style_id-3: Aakkosjärjestyksessä
   translated_sort_styles-name-sort_style_id-4: Käänteisessä aakkosjärjestyksessä
+  translated_sort_styles-name-sort_style_id-6: Arvioinnit
   translated_statuses-label-status_id-2: Päivitetty
   translated_statuses-label-status_id-3: Muuttamaton
   translated_synonym_relations-label-synonym_relation_id-10: geenipankkisynonyymi
@@ -170,10 +177,13 @@ fi:
   translated_synonym_relations-label-synonym_relation_id-57: vaihtoehtoinen tavaus
   translated_synonym_relations-label-synonym_relation_id-58: sanastollinen variantti
   translated_synonym_relations-label-synonym_relation_id-63: ei hyväksytty
+  translated_synonym_relations-label-synonym_relation_id-64: kelpaamaton
   translated_synonym_relations-label-synonym_relation_id-6: vastaava nimi
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Kirjallisuusviitteet
   translated_table_of_contents-label-table_of_contents_id-194: Koko
   translated_table_of_contents-label-table_of_contents_id-1: Yleiskatsaus
+  translated_table_of_contents-label-table_of_contents_id-218: Hajottaminen
   translated_table_of_contents-label-table_of_contents_id-221: Riskit
   translated_table_of_contents-label-table_of_contents_id-225: Webissä
   translated_table_of_contents-label-table_of_contents_id-226: Sisällön kumppanit
@@ -213,6 +223,7 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-328: Solubiologia
   translated_table_of_contents-label-table_of_contents_id-329: Genetiikka
   translated_table_of_contents-label-table_of_contents_id-331: Viivakoodi
+  translated_table_of_contents-label-table_of_contents_id-332: Perimä
   translated_table_of_contents-label-table_of_contents_id-333: Molekyylibiologia
   translated_table_of_contents-label-table_of_contents_id-334: Uhat
   translated_table_of_contents-label-table_of_contents_id-335: Lainsäädäntö
@@ -221,11 +232,14 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-338: Koulutuksen linkit
   translated_table_of_contents-label-table_of_contents_id-339: Opetusresurssit
   translated_table_of_contents-label-table_of_contents_id-33: Trendit
+  translated_table_of_contents-label-table_of_contents_id-344: Tiedot
   translated_table_of_contents-label-table_of_contents_id-345: Tietolähteet
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomia
   translated_table_of_contents-label-table_of_contents_id-34: Kommentit
+  translated_table_of_contents-label-table_of_contents_id-41: Elinympäristö
   translated_table_of_contents-label-table_of_contents_id-4: Ekologia
   translated_table_of_contents-label-table_of_contents_id-5: Evoluutio ja systematiikka
+  translated_table_of_contents-label-table_of_contents_id-8: Suojelu
   translated_untrust_reasons-label-untrust_reason_id-3: alhainen laatu
   translated_untrust_reasons-label-untrust_reason_id-4: kaksoiskappale
   translated_untrust_reasons-label-untrust_reason_id-5: Muu

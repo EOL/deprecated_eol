@@ -404,7 +404,7 @@ fi:
         create: Lisää linkki
         update: Tallenna linkki
       eol_statistic:
-        download_csv: Lataa CSV:nä
+        download_csv: Lataa CSV-tiedostona
       harvest_event:
         publish: Julkaise
       hierarchy:
@@ -1443,6 +1443,7 @@ fi:
   rank_recognized_by_agent: '%{rank} tunnistettu %{agent} toimesta'
   recent_updates: Viimeisimmät päivitykset
   recently_visited: Äskettäin vierailtu
+  reference: Viite
   references_cabs_colon: 'Viitteet:'
   related_names_with_count:
     one: '%{count} liittyvä nimi'
@@ -1454,6 +1455,7 @@ fi:
       other: '%{count} tuntia'
   resources: Resurssit
   search: Haku
+  search_next_label: Seuraava
   search_previous_label: Edellinen
   search_field_label: Etsi EOL:stä
   search_placeholder: Etsi EOL:stä ...

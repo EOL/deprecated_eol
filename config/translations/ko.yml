@@ -4095,7 +4095,7 @@ ko:
   google_analytics_google_account_and_access_required: Google 웹로그 분석 (Google 계정 및
     접속 필요)
   google: Google
-  google_images: Google 이미지
+  google_images: 구글 이미지
   google_plus: Google+에서의 생명의 백과사전
   google_scholar: Google 학술 검색
   grant_manager_link: 관리자 역할 부여
@@ -4142,8 +4142,8 @@ ko:
   image_title_without_taxa: 알 수 없는 분류의 그림
   images: 그림
   images_with_count:
-    one: 이미지 %{count}개
-    other: 이미지 %{count}개
+    one: 영상 %{count}개
+    other: 영상 %{count}개
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
   import_once: 한 번에 가져오기

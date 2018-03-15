@@ -42,7 +42,7 @@
 it:
   activerecord:
     models:
-      user: account
+      user: utenza
     attributes:
       collection:
         name: Nome della raccolta

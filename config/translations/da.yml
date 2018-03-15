@@ -621,6 +621,14 @@ da:
           <em>offentliggjort</em>, hvis du vil forhindre, at almindelige brugere får
           vist denne version af nyhedselementet.
         language_id: Sprog
+        meta_description_more: Giv en kort beskrivelse, som opsummerer nøglekomponenterne
+          i nyhedens indhold. Denne beskrivelse bruges af og til af søgemaskiner på
+          nettet både til at tjekke relevans og til at blive listet som svar blandt
+          søgningsresultaterne.
+        meta_keywords_more: Indsæt en kommasepareret liste med ord eller korte fraser,
+          som bedst afspejler indholdet af nyheden. Disse nøgleord eller nøglefraser
+          benyttes ofte af søgemaskiner på internettet til at bedømme nyhedens relevans
+          i forhold til søgekriterier.
       user:
         agreed_with_terms: Jeg accepterer <a href="%{terms_url}">vilkårene for anvendelse</a>
         api_key_more: Læs mere om at <a href="%{api_docs_url}">føje en nøgle til dine
@@ -932,14 +940,20 @@ da:
       meta_title: '%{dato_title} fra %{supplier}'
       tweet_text: '%{dato_title} fra %{supplier}'
   eol_statistics:
+    warnings:
+      stats_unavailable_for_date: Beklager, statistik er ikke tilgængelig for %{date}.
+        Vælg venligst en anden dato.
     content_partners:
       menu_link: Indholdspartnere
       page_header: Statistik for indholdspartnere
       page_title: Statistik
     curators:
+      menu_link: Kuratorstatistik
+      page_header: Kuratorstatistik
       page_title: Statistik
     data_objects:
       menu_link: Dataobjekter
+      page_header: Dataobjektstatistik
       page_title: Statistik
     index:
       menu_link: Samlet statistik
@@ -954,8 +968,12 @@ da:
       page_header: Dækning af marinbiologi i EOL
       page_title: Statistik
     page_richness:
+      menu_link: Rich-sider
+      page_header: Rich-sidestatistik
       page_title: Statistik
     users_data_objects:
+      menu_link: Brugerindsendt tekst
+      page_header: Brugerindsendt tekststatistik
       page_title: Statistik
     data:
       menu_link: Data
@@ -963,6 +981,8 @@ da:
       page_title: Statistik
   forums:
     forums_heading: EOL-fora
+    last_post: Sidste indlæg
+    posts_heading: Indlæg
     replies: Svar
     topics_heading: Tråde
     views: Visninger
@@ -1026,6 +1046,7 @@ da:
       delete_failed_not_empty: Tråd kunne ikke slettes da den ikke er tom
   known_uris:
     add_a_relationship: Tilføj en relation
+    equivalent_to: Ækvivalensforhold
     no_results: Der er ingen resultater for den valgte statistik
     relationships: Relationer
     relationships_from_this_uri: Relationer fra denne URI

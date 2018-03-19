@@ -34,6 +34,7 @@
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
+# Author: Patrick Star
 # Author: Putnik
 # Author: Sprinter
 # Author: Striking Blue
@@ -1992,6 +1993,18 @@ ru:
   this_image_map_cannot_be_curated_because_unpublished: У этой карты нет куратора,
     потому что она не опубликована.
   this_image_map_is_unpublished: Эта карта не опубликована.
+  this_link_cannot_be_curated_because_unpublished: У этой ссылки нет куратора, потому
+    что она не опубликована.
+  this_link_is_unpublished: Эта ссылка не опубликована.
+  this_map_cannot_be_curated_because_unpublished: У этой карты нет куратора, потому
+    что она не опубликована.
+  this_map_is_unpublished: Эта карта не опубликована.
+  this_video_cannot_be_curated_because_unpublished: У этого видео нет куратора, потому
+    что оно не опубликовано.
+  this_video_is_unpublished: Это видео не опубликовано.
+  this_sound_cannot_be_curated_because_unpublished: У этого звуки нет куратора, потому
+    что оно не опубликовано.
+  this_sound_is_unpublished: Этот звук не опубликован.
   map_of_taxon: Карта %{taxon_name}
   image_map_of_taxon: Карта %{taxon_name}
   video_of_taxon: Видео %{taxon_name}
@@ -2016,6 +2029,8 @@ ru:
   action: Действие
   action_not_available_error: К сожалению, это действие недоступно.
   actions: Действия
+  active_colon: 'Активен:'
+  active: Активен
   activity: Действия
   activity_logs:
     collection_activity_log:

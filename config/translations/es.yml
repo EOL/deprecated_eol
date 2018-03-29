@@ -78,7 +78,7 @@ es:
       content_partner:
         acronym: Abreviatura del proyecto
         auto_publish: Publicar automáticamente
-        admin_notes: Notas de la administración
+        admin_notes: Notas de administración
         content_partner_status: Estado del proyecto
         created_at: Creado
         description: Descripción del proyecto

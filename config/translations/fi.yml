@@ -740,7 +740,7 @@ fi:
     user_activated:
       subject: Encyclopedia of Life -tilisi on aktivoitu
       message: |-
-        Tervetuloa Encyclopedia Of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa että käyttäjänimesi on {username} ja profiilisi URL-osoite on %{profile_url}. Voit kirjautua tilillesi osoitteessa http://eol.org/login.
+        Tervetuloa Encyclopedia Of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa että käyttäjänimesi on %{username} ja profiilisi URL-osoite on %{profile_url}. Voit kirjautua tilillesi osoitteessa http://eol.org/login.
 
         Oppiaksesi lisää EOL:än käytöstä, mukaan lukien miten luoda EOL-kokoelmia, osallistua EOL-yhteisöihin ja edistää sisältöä, vieraile ohjesivuillamme osoitteessa
         http://eol.org/help.
@@ -750,6 +750,8 @@ fi:
       subject: Viesti Encyclopedia of Life -sivustolta
     user_recover_account:
       subject: Palauta Encyclopedia of Life -tilisi
+    user_updated_email_preferences:
+      subject: EOL käyttäjä % %{user_full_name} muutti sähköpostiosoitteensa tai postituslistaasetuksia
   recent_activity:
     intro_immediately: Hei, %{name} —
     bulk_curation_with_count:
@@ -911,6 +913,8 @@ fi:
           tuntemattoman kohteen.
         an_unknown_user_removed_item_from_it: Tuntematon käyttäjä on poistanut kohteen
           "%{item}".
+      collect:
+        an_unknown_user_added_item_to_it: Tuntematon käyttäjä lisäsi kohteen "%{item}".
       other_actions:
         an_unknown_user_modified_an_unknown_collection: Tuntematon käyttäjä muokkasi
           tuntematonta kokoelmaa.

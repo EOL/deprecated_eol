@@ -126,6 +126,7 @@ fi:
       hierarchy:
         complete: Valmis
         description: Kuvaus
+        request_publish: Pyydä julkaisua
       known_uri:
         description: Kuvaus
         name: Nimi
@@ -144,10 +145,12 @@ fi:
         sort_order: Lajittelujärjestys
         active: Julkaistu
       notification:
+        reply_to_comment: Vastaus tekemääsi kommenttiin
         comment_on_my_profile: Kommentti profiilissasi
         member_joined_my_community: Uusi jäsen on liittynyt johtamaasi yhteisöön
         member_joined_my_watched_community: Uusia jäseniä on liittynyt yhteisöön,
           jossa olet jäsen
+        member_left_my_community: Jäsenet ovat jättäneet johtamasi yhteisön
       resource:
         bibliographic_citation: Bibliografinen lainaus
         dataset: Aineistotiedosto
@@ -1050,7 +1053,7 @@ fi:
   classification_tree_header: Luokitus
   classifications_preferred_column_header: Ensisijainen
   classifications_rank_column_header: Arvo
-  cms_available_in_languages: 'Tämä sivu on käytettävissä kielellä:'
+  cms_available_in_languages: 'Tämä sivu on käytettävissä kielillä:'
   cms_missing_content_title: Puuttuva käännös
   cms_missing_content_message: Valitettavasti tämä sivu ei ole käytettävissä valitulla
     kielellä %{selected_language}.
@@ -1082,8 +1085,12 @@ fi:
   communities_index_header: Aktiivit yhteisöt
   community: Yhteisö
   community_activity: Yhteisön toiminta
+  community_empty_notice: Tällä yhteisöllä ei ole jäseniä.
   community_invitation_comment: Haluaisin kutsua sinut liittymään yhteisöön "%{community}".
   community_members: Yhteisön jäsenet
+  community_members_with_count:
+    one: '%{count} yhteisön jäsen'
+    other: '%{count} yhteisön jäsentä'
   community_name_label: Yhteisön nimi
   community_tab_collections_header: Kokoelmat
   communities_summary_header_with_count:
@@ -1298,6 +1305,7 @@ fi:
   frequency_weekly: Viikoittain
   given_name_colon: 'Etunimi:'
   global_access_tagline: Maailmanlaajuinen pääsy tietoihin maan elämästä
+  go_back: mene takaisin
   google_analytic_results: Google Analytics-tulokset
   google_analytics_active: Google Analytics aktiivinen
   google_analytics_google_account_and_access_required: Google Analytics (Google-tili
@@ -1318,6 +1326,7 @@ fi:
     other: '%{count} kuvaa'
   inaturalist_tab_label: iNaturalist-havainnot
   in_collection: kokoelmassa
+  invite_members_label: Kutsu jäseniä
   ip_address: IP-osoite
   item_added_to_watch_collection_notice: '"%{item_name}" lisättiin kokoelmaan %{collection_name}.'
   item_type_article: Artikkeli
@@ -1387,6 +1396,7 @@ fi:
   meta_title_site_name: Encyclopedia of Life
   method: Menetelmä
   methods: Menetelmät
+  most_active_members: Aktiivisimmat jäsenet
   my_activity: Oma toiminta
   my_info: Omat tiedot
   name_colon: 'Nimi:'
@@ -1415,7 +1425,7 @@ fi:
   moderator_colon: 'Moderaattori:'
   never: Ei koskaan
   new_collection: Uusi kokoelma
-  news_available_in_languages: 'Tämä sivu on käytettävissä kielellä:'
+  news_available_in_languages: 'Tämä sivu on käytettävissä kielillä:'
   news_missing_content_title: Puuttuva käännös
   news_missing_content_message: Valitettavasti tämä sivu ei ole käytettävissä valitulla
     kielellä %{selected_language}.
@@ -1444,6 +1454,7 @@ fi:
   previously_published: aiemmin julkaistu
   profile_newsfeed: Uutisvirtani
   profile_picture: Profiilikuva
+  public: Julkinen
   rank_recognized_by_agent: '%{rank} tunnistettu %{agent} toimesta'
   recent_updates: Viimeisimmät päivitykset
   recently_visited: Äskettäin vierailtu
@@ -1452,6 +1463,7 @@ fi:
   related_names_with_count:
     one: '%{count} liittyvä nimi'
     other: '%{count} liittyvää nimeä'
+  remove_membership: Poista jäsenyys
   reply: Vastaa
   resource_import_frequency:
     hours_with_count:
@@ -1479,6 +1491,7 @@ fi:
   social_sharing_header: EOL sosiaalisen median sivustoilla
   social_sharing_twitter_follow_eol_button: Seuraa @eol
   sort_by_label: Lajittele
+  sort_by_recently_added_option: Äskettäin lisätty
   sort_by_title_ascending: Nouseva otsikko
   sort_by_title_descending: Laskeva otsikko
   sort_by_year_ascending: Nouseva vuosi
@@ -1524,6 +1537,7 @@ fi:
   user_activity_stats_taxa_curated:
     one: '%{count} taksoni kuratoitu'
     other: '%{count} taksonia kuratoitu'
+  user_already_active_notice: Tilisi on jo aktiivinen, ole hyvä ja kirjaudu.
   user_id: Käyttäjätunniste
   user_joined_community_on_date: '%{username} liittyi tähän yhteisöön %{date}.'
   user_left_comment_on_date: '%{username} jätti kommentin %{date}.'
@@ -1537,7 +1551,8 @@ fi:
   username: Käyttäjänimi
   users_about_me_header: Tietoja minusta
   user_counts_refresh_daily: '*määrät päivitetään päivittäin'
-  users_form_profile_info_header: Julkiset profiilin tiedot
+  users_form_account_header: Tilisi
+  users_form_profile_info_header: Julkiset profiilitiedot
   users_member_of_count_communities:
     one: '%{count} yhteisön jäsen'
     other: '%{count} yhteisön jäsen'

@@ -1942,7 +1942,7 @@ zh-CN:
     delete_successful: 数据已被成功删除
     new_field: 新的领域......
     new_value: 值
-    source_field_helper: 将参考文献或 URL 添加到在线数据资源库。
+    source_field_helper: 将参考文献或URL添加到在线数据资源库。
     submit_data: 提交数据值
     update_successful: 数据已被成功更新
     update_failed: 无法更新您的数据：%{errors}

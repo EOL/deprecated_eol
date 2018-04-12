@@ -944,6 +944,7 @@ fi:
   add_a_new_file_brackets: '[lisää uusi tiedosto]'
   add_a_new_role: Lisää uusi rooli
   add_a_new_user: Lisää uusi käyttäjä
+  add_another_metadata_field: Lisää uusi metatietokenttä
   add_brief_summary_to_page_link_button: Lisää lyhyt tiivistelmä tälle sivulle
   add_item_to_new_collection: Lisää "%{item}" uuteen kokoelmaan
   add_language: Lisää kieli
@@ -1219,6 +1220,7 @@ fi:
   details: Tiedot
   discover_link: Opetus
   donate_link: Lahjoita
+  download_collection_data: Lataa tiedot
   dublin_core: Dublin Core
   edit_comment: Muokkaa kommenttia
   edit_comment_lowercase: muokkaa kommenttia

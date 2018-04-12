@@ -11,6 +11,7 @@
 # Author: Juandev
 # Author: Kalerme
 # Author: Mormegil
+# Author: Patriccck
 # Author: Paxt
 # Author: Reaperman
 # Author: Utar
@@ -484,10 +485,10 @@ cs:
         q_more: Například heterotrofní.
         taxon_name: Skupina taxonu
         taxon_name_placeholder: Zadejte název taxonu skupiny pro výběr skupiny
-        taxon_name_placeholder_value_removed: '% {taxon_group} odstraněna, vyberte
+        taxon_name_placeholder_value_removed: '%{taxon_group} odstraněna, vyberte
           novou skupinu'
-        taxon_name_more: Zadejte například Trochilidae nebo velryby a vyberte odpovídající
-          skupinu.
+        taxon_name_more: Zadejte například Trochilidae nebo Velryby. POUZE výběry
+          z rozbalovací nabídky budou použity, neměňte text bez výběru výsledku.
         total_results: 'Celkové výsledky: %{total}'
         unit: Měrná jednotka
       eol_statistic:
@@ -719,7 +720,7 @@ cs:
         create: Přidat zdroj
         update: Aktualizovat zdroj
         update_settings: Aktualizovat nastavení
-        force_harvest: Vynucení sklizně
+        force_harvest: Žádost o sklizeň
       session:
         create: Přihlásit se
         sign_in_with_facebook: Přihlásit se prostřednictvím Facebooku
@@ -1090,7 +1091,7 @@ cs:
       header_questions: Chci vědět víc
       about_link_what_is_eol: Co je EOL?
       about_link_eol_blog: EOL Blog
-      about_link_discover: Poznejte
+      about_link_discover: Vzdělání
       about_link_statistics: Statistika
       about_link_glossary: Glosář
       about_link_podcasts: Podcasty
@@ -1232,7 +1233,7 @@ cs:
         Následující zpráva byla zaslána na EOL přes Kontaktní formulář:
         Od: %{from_name}
         E-mail: %{from_email}
-        Předmět: %{téma}
+        Předmět: %{subject}
 
         %{message}
     contact_us_auto_response:
@@ -1422,7 +1423,7 @@ cs:
   admin_translated_content_page_create_unsuccessful_error: Omlouváme se, došlo k chybě
     a překlad nebyl přidán.
   admin_translated_content_page_delete_confirmation: Opravdu chcete smazat %{language}
-    verzi "%{page_name}". Tato operace nelze vrátit zpět.
+    verzi "%{page_name}"? Smazané stránky nelze obnovit.
   admin_translated_content_page_delete_successful_notice: '%{language} překlad stránky
     <em>%{page_name}</em> byl smazán.'
   admin_translated_content_page_edit_subheader: Upravit %{language} překlad pro <em>%{page_name}</em>
@@ -1470,9 +1471,9 @@ cs:
   associated_submit_button: připojené
   associated_with_header: Asociace s
   associated_with_article_header: V nejnovějším článku
-  associated_with_image_header: Na tomto obrázku
-  associated_with_sound_header: V tomto audiu
-  associated_with_video_header: V tomto videu
+  associated_with_image_header: Na posledním obrázku
+  associated_with_sound_header: V posledním audiu
+  associated_with_video_header: V posledním videu
   associations_more_link: více <span class="assistive">asociací taxonu</span>
   a_taxon: taxon
   attribute: Vlastnost
@@ -1679,7 +1680,7 @@ cs:
   duplicate_items_were_ignored: Duplicitní položky byly ignorovány.
   edit_community: Upravit komunitu
   edit_contact_us_topics: Upravit témata kontaktování
-  edit: Upravit
+  edit: editovat
   edited_colon: 'upraveno:'
   edit_hierarchy: upravit hierarchii
   edit_collection_details: Upravit podrobnosti o sbírce
@@ -1806,7 +1807,7 @@ cs:
   item_type_sound_assistive: Tato položka je zvuk
   item_type_taxon_assistive: Tato položka je taxon
   item_type_video_assistive: Tato položka je video
-  item_not_added_already_in_collection: Tato položka už byla přidána do sbírky.
+  item_not_added_already_in_collection: Tato položka:%{value} už byla přidána do sbírky.
   join_community_button: Přidat se k této komunitě
   join_eol_community_html: Staňte se součástí komunity <abbr title="Encyclopedia of
     Life">EOL</abbr>!
@@ -2035,7 +2036,8 @@ cs:
   source_information_header: Zdrojové informace
   source_and_additional_information: Zdroj a další informace
   source_url: URL zdroje
-  special_collections_cannot_be_destroyed: Tato sbírka je speciální a nemůže být zničena.
+  special_collections_cannot_be_destroyed: Tato sbírka je jediná sbírka sdružená s
+    její komunitou a nelze ji smazat.
   species_profile_model: Profilový model druhu
   species: Druh
   stat: Statistiky
@@ -2066,7 +2068,7 @@ cs:
   text_summary_empty_header: Stručný souhrn
   text_summary_more_link: Číst celou položku
   thanks_for_your_time: Díky za váš čas,
-  thank_you_for_your_generous_support: Děkujeme za Vaši podporu
+  thank_you_for_your_generous_support: Děkujeme za vaši velkorysou podporu!
   thank_you: Děkujeme
   the_comment_was_successfully_updated: Komentář byl úspěšně aktualizován.
   the_comment_was_successfully_deleted: Komentář byl úspěšně odstraněn.
@@ -2116,8 +2118,8 @@ cs:
   us_dollars_50: US $50
   us_dolars_75: US $75
   user_activity_stats_articles_added:
-    one: '%{count} článek'
-    other: přidány %{count} články
+    one: '%{count} článek přidán'
+    other: '%{count} články přidány'
   user_activity_stats_header: Činnost
   username_taken: '%{name} již existuje'
   username_colon: Uživatelské jméno

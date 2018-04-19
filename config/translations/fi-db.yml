@@ -128,6 +128,9 @@ fi:
   translated_ranks-label-rank_id-394: alasuku
   translated_ranks-label-rank_id-396: alakunta
   translated_ranks-label-rank_id-399: alalahko
+  translated_ranks-label-rank_id-401: alajakso
+  translated_ranks-label-rank_id-408: alaosasto
+  translated_ranks-label-rank_id-411: alasarjat
   translated_ranks-label-rank_id-415: alalaji
   translated_ranks-label-rank_id-463: yläheimo
   translated_ranks-label-rank_id-494: tribus
@@ -153,7 +156,9 @@ fi:
   translated_sort_styles-name-sort_style_id-6: Arvioinnit
   translated_statuses-label-status_id-2: Päivitetty
   translated_statuses-label-status_id-3: Muuttamaton
+  translated_statuses-label-status_id-4: Uudelleenkäytetty
   translated_synonym_relations-label-synonym_relation_id-10: geenipankkisynonyymi
+  translated_synonym_relations-label-synonym_relation_id-12: sisältää
   translated_synonym_relations-label-synonym_relation_id-13: harhaanjohtava
   translated_synonym_relations-label-synonym_relation_id-14: kirjoitusvirhe
   translated_synonym_relations-label-synonym_relation_id-16: moniselitteinen synonyymi
@@ -241,6 +246,8 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-4: Ekologia
   translated_table_of_contents-label-table_of_contents_id-5: Evoluutio ja systematiikka
   translated_table_of_contents-label-table_of_contents_id-8: Suojelu
+  translated_untrust_reasons-label-untrust_reason_id-1: väärin tunnistettu
+  translated_untrust_reasons-label-untrust_reason_id-2: virheellinen/harhaanjohtava
   translated_untrust_reasons-label-untrust_reason_id-3: alhainen laatu
   translated_untrust_reasons-label-untrust_reason_id-4: kaksoiskappale
   translated_untrust_reasons-label-untrust_reason_id-5: Muu
@@ -250,8 +257,12 @@ fi:
   translated_user_identities-label-user_identity_id-4: siviilitiedemies
   translated_user_identities-label-user_identity_id-5: ammattitiedemies
   translated_vetted-label-vetted_id-0: Tuntematon
+  translated_vetted-label-vetted_id-4: Epäluotettava
+  translated_vetted-label-vetted_id-5: Luotettu
+  translated_vetted-label-vetted_id-6: Sopimaton
   translated_view_styles-name-view_style_id-1: Luettelo
   translated_view_styles-name-view_style_id-2: Galleria
+  translated_view_styles-name-view_style_id-3: Selityksin varustettu
   translated_visibilities-label-visibility_id-0: Näkymätön
   translated_visibilities-label-visibility_id-1: Näkyvä
   translated_visibilities-label-visibility_id-2: Esikatselu

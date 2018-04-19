@@ -844,7 +844,7 @@ es:
         sign_in_with_facebook: Iniciar sesión con Facebook
         sign_in_with_google: Inicia sesión con Google
         sign_in_with_twitter: Iniciar sesión con Twitter
-        sign_in_with_yahoo: Iniciar sesión con Yahoo
+        sign_in_with_yahoo: Acceder con Yahoo
       translated_content_page:
         create: Agregar traducción
         update: Guardar los cambios a la traducción

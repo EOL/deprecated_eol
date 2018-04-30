@@ -82,6 +82,7 @@ el:
   translated_contact_subjects-title-contact_subject_id-33: Κάνετε μια οικονομική δωρεά
   translated_contact_subjects-title-contact_subject_id-34: Τεχνικά θέματα (προβλήματα
     με την αναζήτηση, τη λειτουργία του ιστότοπου)
+  translated_contact_subjects-title-contact_subject_id-35: Γενική ανατροφοδότηση
   translated_content_partner_statuses-label-content_partner_status_id-1: Σε εκκρεμότητα
   translated_content_partner_statuses-label-content_partner_status_id-2: Ενεργό
   translated_content_partner_statuses-label-content_partner_status_id-3: Αποθηκευμένο
@@ -93,6 +94,8 @@ el:
   translated_data_types-label-data_type_id-3: Κείμενο
   translated_data_types-label-data_type_id-4: Βίντεο
   translated_data_types-label-data_type_id-5: Εικόνα GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Φλας
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Δεν διατηρούνται δικαιώματα
   translated_licenses-description-license_id-29: Ορισμένα δικαιώματα διατηρούνται
@@ -135,6 +138,7 @@ el:
   translated_ranks-label-rank_id-463: υπερφυλή
   translated_ranks-label-rank_id-494: φυλή
   translated_ranks-label-rank_id-518: ποικιλία
+  translated_ranks-label-rank_id-74: Διαίρεση
   translated_ranks-label-rank_id-99: οικογένεια
   translated_resource_statuses-label-resource_status_id-10: Δημοσιεύθηκε
   translated_resource_statuses-label-resource_status_id-11: Δημοσίευση σε Αναμονή
@@ -156,10 +160,36 @@ el:
   translated_sort_styles-name-sort_style_id-5: Πλούτος
   translated_sort_styles-name-sort_style_id-6: Βαθμολογία
   translated_statuses-label-status_id-1: Εισήχθη
+  translated_statuses-label-status_id-2: Ενημερωμένο
+  translated_statuses-label-status_id-3: Μη αλλαγμένο
+  translated_statuses-label-status_id-4: επαναχρησιμοποιημένο
+  translated_synonym_relations-label-synonym_relation_id-12: συμπεριλαμβάνει
   translated_synonym_relations-label-synonym_relation_id-14: ορθογραφικό λάθος
   translated_synonym_relations-label-synonym_relation_id-15: τελεομορφή
   translated_synonym_relations-label-synonym_relation_id-16: διφορούμενο συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-17: μη εφαρμοσμένο όνομα
+  translated_synonym_relations-label-synonym_relation_id-18: προσωρινά δεκτό όνομα
+  translated_synonym_relations-label-synonym_relation_id-19: δεκτό όνομα
+  translated_synonym_relations-label-synonym_relation_id-1: Συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-20: καλλιτέχνημα βάσης δεδομένων
+  translated_synonym_relations-label-synonym_relation_id-21: άλλα, προβολή σχολίων
+  translated_synonym_relations-label-synonym_relation_id-22: ορθογραφική παραλλαγή
+    (λάθος ορθογραφίας)
+  translated_synonym_relations-label-synonym_relation_id-23: μη εφαρμοσμένο
+  translated_synonym_relations-label-synonym_relation_id-24: απορριφθέν όνομα
+  translated_synonym_relations-label-synonym_relation_id-49: έγκυρο όνομα
+  translated_synonym_relations-label-synonym_relation_id-50: ισχύει
+  translated_synonym_relations-label-synonym_relation_id-51: Δεκτό
+  translated_synonym_relations-label-synonym_relation_id-52: αρχή
+  translated_synonym_relations-label-synonym_relation_id-53: αδημοσίευτο όνομα
+  translated_synonym_relations-label-synonym_relation_id-56: λάθος ορθογραφίας
+  translated_synonym_relations-label-synonym_relation_id-57: εναλλακτική ορθογραφίας
+  translated_synonym_relations-label-synonym_relation_id-58: λεξιλογική παραλλαγή
+  translated_synonym_relations-label-synonym_relation_id-62: ανώτερο συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-63: μη δεκτό
   translated_synonym_relations-label-synonym_relation_id-64: Μη έγκυρο
+  translated_synonym_relations-label-synonym_relation_id-66: εναλλακτική εκπροσώπηση
+  translated_synonym_relations-label-synonym_relation_id-6: ισοδύναμο όνομα
   translated_table_of_contents-label-table_of_contents_id-13: Κοινά ονόματα
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Λογοτεχνικές Αναφορές
@@ -167,6 +197,7 @@ el:
   translated_table_of_contents-label-table_of_contents_id-1: Επισκόπηση
   translated_table_of_contents-label-table_of_contents_id-221: Κίνδυνοι
   translated_table_of_contents-label-table_of_contents_id-225: Στο διαδίκτυο
+  translated_table_of_contents-label-table_of_contents_id-226: Συνεργάτες περιεχομένου
   translated_table_of_contents-label-table_of_contents_id-227: Αναζήτηση στο διαδίκτυο
   translated_table_of_contents-label-table_of_contents_id-242: Γενική Οικολογία
   translated_table_of_contents-label-table_of_contents_id-244: Βιβλιογραφίες
@@ -174,6 +205,7 @@ el:
   translated_table_of_contents-label-table_of_contents_id-251: Οφέλη
   translated_table_of_contents-label-table_of_contents_id-267: Μορφολογία
   translated_table_of_contents-label-table_of_contents_id-278: Βιβλιογραφία
+  translated_table_of_contents-label-table_of_contents_id-285: Συσχετισμοί
   translated_table_of_contents-label-table_of_contents_id-286: Κατάσταση διατήρησης
   translated_table_of_contents-label-table_of_contents_id-289: Εξέλιξη
   translated_table_of_contents-label-table_of_contents_id-293: Διαγνωστικά περιγραφή
@@ -242,7 +274,9 @@ el:
   translated_untrust_reasons-label-untrust_reason_id-1: μη - αναγνωρίσιμό
   translated_untrust_reasons-label-untrust_reason_id-2: λάθος/ανακριβές
   translated_untrust_reasons-label-untrust_reason_id-3: χαμηλή ποιήτητα
+  translated_untrust_reasons-label-untrust_reason_id-4: Διπλότυπο
   translated_untrust_reasons-label-untrust_reason_id-5: Άλλο
+  translated_user_identities-label-user_identity_id-1: ένας ενθουσιαστής
   translated_user_identities-label-user_identity_id-2: σπουδαστής
   translated_user_identities-label-user_identity_id-3: Εκπαιδευτικός
   translated_user_identities-label-user_identity_id-4: ένας πολιτικός επιστήμονας

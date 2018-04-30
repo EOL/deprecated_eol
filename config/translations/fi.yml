@@ -563,6 +563,12 @@ fi:
         taxa_observed:
           one: '%{count} taksoni havaittu'
           other: '%{count} taksonia havaittu'
+  communities:
+    collections:
+      index:
+        meta_keywords: '%{community_name} kokoelmat'
+        meta_title: '%{community_name} kokoelmat'
+        tweet_text: '%{community_name} kokoelmat'
   content:
     index:
       header_news: EOL uutiset
@@ -660,6 +666,7 @@ fi:
       create: Luo uus iviesti
       edit: Muokkaa viestiä
       post_written_by_user: '%{user} kirjoitti:'
+      deleted_subject: (poistettu)
       close_window: sulje
       posts_with_count:
         one: '%{count} viesti'

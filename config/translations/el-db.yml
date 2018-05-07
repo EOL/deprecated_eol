@@ -77,8 +77,12 @@ el:
   translated_contact_subjects-title-contact_subject_id-27: Γίνετε συνεργάτης περιεχομένου
   translated_contact_subjects-title-contact_subject_id-28: Υποστήριξη συνεργατών περιεχομένου
   translated_contact_subjects-title-contact_subject_id-29: Υποστήριξη επιμέλειας
+  translated_contact_subjects-title-contact_subject_id-30: Κάντε μια διόρθωση (ορθογραφία
+    και γραμματική, εικόνες, πληροφορίες)
   translated_contact_subjects-title-contact_subject_id-31: Συνεισφορά σε εικόνες,
     βίντεο ή ήχο
+  translated_contact_subjects-title-contact_subject_id-32: Αιτήματα τύπου (συνεντεύξεις,
+    αναφορές στον τύπο, αιτήματα λογοτύπου)
   translated_contact_subjects-title-contact_subject_id-33: Κάνετε μια οικονομική δωρεά
   translated_contact_subjects-title-contact_subject_id-34: Τεχνικά θέματα (προβλήματα
     με την αναζήτηση, τη λειτουργία του ιστότοπου)
@@ -120,8 +124,12 @@ el:
   translated_licenses-description-license_id-8: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-9: Ορισμένα δικαιώματα διατηρούνται
   translated_ranks-label-rank_id-106: μορφή
+  translated_ranks-label-rank_id-112: γέν
+  translated_ranks-label-rank_id-113: γέν.
+  translated_ranks-label-rank_id-118: γένος
   translated_ranks-label-rank_id-183: βασίλειο
   translated_ranks-label-rank_id-266: σειρά
+  translated_ranks-label-rank_id-280: Συνομοταξία
   translated_ranks-label-rank_id-313: αίρεση
   translated_ranks-label-rank_id-314: αίρεση.
   translated_ranks-label-rank_id-317: τμήμα
@@ -131,17 +139,28 @@ el:
   translated_ranks-label-rank_id-370: υποκλάση
   translated_ranks-label-rank_id-375: υποδιαίρεση
   translated_ranks-label-rank_id-383: υποοικογένεια
+  translated_ranks-label-rank_id-390: υπογεν
+  translated_ranks-label-rank_id-391: υπογεν.
+  translated_ranks-label-rank_id-394: υπογένος
   translated_ranks-label-rank_id-396: υποβασίλειο
+  translated_ranks-label-rank_id-399: υποσειρά
+  translated_ranks-label-rank_id-401: υποσυνομοταξία
   translated_ranks-label-rank_id-408: υποτμήμα
+  translated_ranks-label-rank_id-411: υποσειρά
   translated_ranks-label-rank_id-415: υποείδη
   translated_ranks-label-rank_id-422: υποφυλή
   translated_ranks-label-rank_id-463: υπερφυλή
+  translated_ranks-label-rank_id-472: υπερσυνομοταξία
   translated_ranks-label-rank_id-494: φυλή
+  translated_ranks-label-rank_id-503: μη κατατεταγμένο
   translated_ranks-label-rank_id-518: ποικιλία
+  translated_ranks-label-rank_id-51: Κλάση
   translated_ranks-label-rank_id-74: Διαίρεση
   translated_ranks-label-rank_id-99: οικογένεια
   translated_resource_statuses-label-resource_status_id-10: Δημοσιεύθηκε
   translated_resource_statuses-label-resource_status_id-11: Δημοσίευση σε Αναμονή
+  translated_resource_statuses-label-resource_status_id-12: Ξεδημοσίευση εκκρεμούντων
+  translated_resource_statuses-label-resource_status_id-13: Η συγκομιδή έχει αιτηθεί
   translated_resource_statuses-label-resource_status_id-1: Μεταφόρτωση
   translated_resource_statuses-label-resource_status_id-2: Μεταφορτώθηκαν
   translated_resource_statuses-label-resource_status_id-3: Φόρτωση Αρχείου
@@ -152,6 +171,7 @@ el:
   translated_resource_statuses-label-resource_status_id-7: Γίνεται Eπεξεργασία
   translated_resource_statuses-label-resource_status_id-8: Επεξεργασμένα
   translated_resource_statuses-label-resource_status_id-9: Η Επεξεργασία Απέτυχε
+  translated_service_types-label-service_type_id-1: Σχήμα μεταφοράς EOL
   translated_service_types-label-service_type_id-2: Άλλο
   translated_sort_styles-name-sort_style_id-1: Προστέθηκαν Πρόσφατα
   translated_sort_styles-name-sort_style_id-2: Παλαιότερο
@@ -163,6 +183,7 @@ el:
   translated_statuses-label-status_id-2: Ενημερωμένο
   translated_statuses-label-status_id-3: Μη αλλαγμένο
   translated_statuses-label-status_id-4: επαναχρησιμοποιημένο
+  translated_synonym_relations-label-synonym_relation_id-10: συνώνυμο γενικής τράπεζας
   translated_synonym_relations-label-synonym_relation_id-12: συμπεριλαμβάνει
   translated_synonym_relations-label-synonym_relation_id-14: ορθογραφικό λάθος
   translated_synonym_relations-label-synonym_relation_id-15: τελεομορφή
@@ -177,6 +198,28 @@ el:
     (λάθος ορθογραφίας)
   translated_synonym_relations-label-synonym_relation_id-23: μη εφαρμοσμένο
   translated_synonym_relations-label-synonym_relation_id-24: απορριφθέν όνομα
+  translated_synonym_relations-label-synonym_relation_id-25: ομωνύμιο (παράνομο)
+  translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: κατώτερο συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-2: 'Κοινό όνομα:'
+  translated_synonym_relations-label-synonym_relation_id-30: μη διαθέσιμο, καλλιτέχνημα
+    βάσης δεδομένων
+  translated_synonym_relations-label-synonym_relation_id-31: μη αναγκαία αντικατάσταση
+  translated_synonym_relations-label-synonym_relation_id-32: ακόλουθο όνομα/συνδυασμός
+  translated_synonym_relations-label-synonym_relation_id-34: αρχικό όνομα/συνδυασμός
+  translated_synonym_relations-label-synonym_relation_id-3: ακρωνύμιο
+  translated_synonym_relations-label-synonym_relation_id-40: μη διαθέσιμο, άλλα
+  translated_synonym_relations-label-synonym_relation_id-41: μη διαθέσιμο, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: μη έγκυρα δημοσιευμένο,
+    άλλα
+  translated_synonym_relations-label-synonym_relation_id-44: μη έγκυρα δημοσιευμένο,
+    nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-45: βασιωνύμιο
+  translated_synonym_relations-label-synonym_relation_id-46: ετεροτυπικό συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-47: ομοτυπικό συνώνυμο
+  translated_synonym_relations-label-synonym_relation_id-48: μη διαθέσιμο όνομα
   translated_synonym_relations-label-synonym_relation_id-49: έγκυρο όνομα
   translated_synonym_relations-label-synonym_relation_id-50: ισχύει
   translated_synonym_relations-label-synonym_relation_id-51: Δεκτό
@@ -190,6 +233,8 @@ el:
   translated_synonym_relations-label-synonym_relation_id-64: Μη έγκυρο
   translated_synonym_relations-label-synonym_relation_id-66: εναλλακτική εκπροσώπηση
   translated_synonym_relations-label-synonym_relation_id-6: ισοδύναμο όνομα
+  translated_synonym_relations-label-synonym_relation_id-7: ακρωνύμιο γενικής τράπεζας
+  translated_synonym_relations-label-synonym_relation_id-9: κοινό όνομα γενικής τράπεζας
   translated_table_of_contents-label-table_of_contents_id-13: Κοινά ονόματα
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Λογοτεχνικές Αναφορές
@@ -222,6 +267,7 @@ el:
   translated_table_of_contents-label-table_of_contents_id-308: Αναλυτική περιγραφή
   translated_table_of_contents-label-table_of_contents_id-309: Διανομή
   translated_table_of_contents-label-table_of_contents_id-310: Ανάπτυξη
+  translated_table_of_contents-label-table_of_contents_id-311: Πόροι αναγνώρισης
   translated_table_of_contents-label-table_of_contents_id-312: Μετανάστευση
   translated_table_of_contents-label-table_of_contents_id-313: Ασθένειες και παράσιτα
   translated_table_of_contents-label-table_of_contents_id-314: Βιολογία Πληθυσμού
@@ -267,6 +313,7 @@ el:
     τύπο
   translated_table_of_contents-label-table_of_contents_id-34: Σχόλια
   translated_table_of_contents-label-table_of_contents_id-3: Φυσική περιγραφή
+  translated_table_of_contents-label-table_of_contents_id-41: Καταφύγιο
   translated_table_of_contents-label-table_of_contents_id-4: Οικολογία
   translated_table_of_contents-label-table_of_contents_id-7: Αναφορές και επιπλέον
     πληροφορίες

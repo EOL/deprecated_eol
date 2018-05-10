@@ -774,12 +774,17 @@ fi:
     user_activated:
       subject: Encyclopedia of Life -tilisi on aktivoitu
       message: |-
-        Tervetuloa Encyclopedia Of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa että käyttäjänimesi on %{username} ja profiilisi URL-osoite on %{profile_url}. Voit kirjautua tilillesi osoitteessa http://eol.org/login.
+        Tervetuloa Encyclopedia Of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa, että käyttäjänimesi on %{username} ja profiilisi URL-osoite on %{profile_url}. Voit kirjautua tilillesi osoitteessa http://eol.org/login.
 
         Saadaksesi lisätietoja EOL:än käytöstä, mukaan lukien miten luoda EOL-kokoelmia, osallistua EOL-yhteisöihin ja edistää sisältöä, vieraile ohjesivuillamme osoitteessa
         http://eol.org/help.
     user_activated_with_open_authentication:
       subject: Encyclopedia of Life -tilisi on aktivoitu
+      message: |-
+        Tervetuloa Encyclopedia of Lifeen (EOL) ja kiitos rekisteröitymisestäsi! Huomaa, että rekisteröidyit käyttämällä palvelua %{oauth_provider} antaen EOL:le oikeuden päästä perustietoihisi todennustarkoituksessa. Profiilisi URL-osoite EOL:ssä on %{profile_url}. Voit kirjautua EOL-tilillesi palvelulla %{oauth_provider} osoitteessa http://eol.org/login.
+
+        Saadaksesi lisätietoja EOL:än käytöstä, mukaan lukien miten luoda EOL-kokoelmia, osallistua EOL-yhteisöihin ja edistää sisältöä, vieraile ohjesivuillamme osoitteessa
+        http://eol.org/help.
     user_message:
       subject: Viesti Encyclopedia of Life -sivustolta
     user_recover_account:
@@ -1070,6 +1075,7 @@ fi:
   all_taxa: Kaikki taksonit
   all_title: Kaikki
   all_videos: Kaikki videot
+  allow_user_logins: Salli käyttäjien kirjautumiset
   already_a_member_question: Oletko jo jäsen?
   alternative_name_colon: 'Vaihtoehtoinen nimi:'
   an_unknown_user: Tuntematon käyttäjä
@@ -1389,6 +1395,8 @@ fi:
     security_violations:
       default: Pääsy kielletty.
       hidden_user_login: Kirjautuminen ei ole käytössä tälle tilille.
+      hidden_user_temporary_login: Tilin palautus ja kirjautuminen on poistettu käytöstä
+        tälle tilille.
       must_be_logged_in: Sinun täytyy olla kirjautunut sisään
       can_not_edit_permissions: Et voi muokata oikeuksia
   explore: Tutustu

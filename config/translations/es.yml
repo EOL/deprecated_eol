@@ -2195,7 +2195,7 @@ es:
       processing: procesando
       error: algo salió mal con este archivo
       refresh: actualizar
-      row_count: Conteo
+      row_count: Recuento
       search_again: buscar de nuevo
       file_not_processed: Este archivo no se ha procesado todavía,
       contact_us: contáctanos para obtener ayuda

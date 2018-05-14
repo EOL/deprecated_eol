@@ -69,6 +69,7 @@ fi:
       content_partner_contact:
         email_reports_frequency_hours: Sähköpostiraporttien tiheys
       data_object:
+        bibliographic_citation: Bibliografinen lainaus
         description: Teksti
         object_title: Otsikko
         rights_holder: Oikeuksien haltija
@@ -76,6 +77,7 @@ fi:
         source_url: Lähteen URL-osoite
       data_object_link:
         description: Kuvaus
+        source_url: Linkin URL
       eol_statistic:
         created_at: Luotu
         members_count: Jäsenet
@@ -537,6 +539,8 @@ fi:
       page_richness:
         menu_link: Rikkaat sivut
   contacts:
+    errors:
+      message_not_sent: Tapahtui virhe, viestiäsi ei ole lähetetty.
     new:
       page_title: Jätä palautteesi
   collections:
@@ -609,6 +613,9 @@ fi:
       meta_title: '%{dato_title} lähteestä %{supplier}'
       tweet_text: '%{dato_title} lähteestä %{supplier}'
   eol_statistics:
+    warnings:
+      stats_unavailable_for_date: Tilastot eivät ole saatavana päivämäärälle %{date}.
+        Valitse toinen päivämäärä.
     content_partners:
       menu_link: Sisällön kumppanit
       page_header: Sisältökumppaneiden tilastot
@@ -644,6 +651,7 @@ fi:
     views: Näyttökerrat
     create: Luo foorumi
     create_successful: Foorumi luotiin onnistuneesti
+    create_failed: Tapahtui virhe, foorumia ei voitu lisätä.
     update_successful: Foorumi päivitettiin onnistuneesti.
     delete_successful: Foorumi poistettiin onnistuneesti
     delete_failed_not_empty: Foorumia ei voitu poistaa, koska se ei ole tyhjä
@@ -692,6 +700,8 @@ fi:
     ontology_information_url_placeholder_text: esim. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: esim. http://dublincore.org/documents/dcmi-terms/
     select: valitse
+  known_uri_relationships:
+    create_failed: Tapahtui virhe, suhdetta ei voitu lisätä.
   layouts:
     application:
       header_about: Tietoja EOL:ästä
@@ -837,6 +847,9 @@ fi:
         profiiliasetuksissasi. Kun tilisi on yhdistetty, voit käyttää niitä EOL:ään
         kirjautumiseen.
   taxa:
+    data:
+      index:
+        tweet_text: Faktoja %{scientific_name}:sta
     names:
       synonyms:
         hierarchy_entry:
@@ -887,6 +900,8 @@ fi:
         page_title: Ilmoitusasetukset
       update:
         notification_settings_successfully_updated: Ilmoitusasetukset on päivitetty.
+        sorry_notification_settings_could_not_be_updated: Ilmoitusasetuksia ei voitu
+          päivittää.
     open_authentications:
       facebook: Facebook
       google: Google
@@ -1051,12 +1066,16 @@ fi:
   admin_translated_content_page_update_unsuccessful_error: Tapahtui virhe, käännöstä
     ei voitu päivittää.
   admin_translated_news_item_active: Julkaistu
+  admin_translated_news_item_create_unsuccessful_error: Tapahtui virhe, käännöstä
+    ei voitu lisätä.
   admin_translated_news_item_new_link: Lisää käännös
   admin_translated_news_item_new_subheader: Lisää käännös sivulle <em>%{page_name}</em>
   admin_translated_news_item_new_tip: Kieli, otsikko ja runko %{required_icon} vaaditaan.
   admin_translated_news_item_not_active: Julkaisematon
   admin_translated_news_item_update_successful_notice: Kielen %{language} käännös
     sivulle <a href="#%{anchor}"><em>%{page_name}</em></a> on päivitetty.
+  admin_translated_news_item_update_unsuccessful_error: Tapahtui virhe, käännöstä
+    ei voitu päivittää.
   agent: Agentti
   all: kaikki
   all_articles: Kaikki artikkelit
@@ -1152,9 +1171,12 @@ fi:
   collection_destroyed: Kokoelma on poistettu.
   collection_name_cannot_be_blank: Kokoelman nimi ei voi olla tyhjä
   collection_name_label: Kokoelman nimi
+  collection_not_created_error: Tapahtui virhe, kokoelmaa <em>%{collection_name}</em>
+    ei voitu luoda.
   collection_not_destroyed_error: Kokoelmaa ei ole poistettu.
   collection_not_found_error: Tuota kokoelmaa ei löytynyt.
   collection_created_notice: Kokoel,a <em>%{collection_name}</em> luotu onnistuneesti.
+  collection_not_updated_error: Tapahtui virhe, kokoelmaa ei voitu päivittää.
   collection_was_added_to_community: Kokoelma "%{collection}" lisättiin tähän yhteisöön.
   collections_filter: Kokoelmat
   collections_link: Kokoelmat
@@ -1174,6 +1196,8 @@ fi:
   comment_edit_by_javascript_not_authorized_error: Sinulla ei ole oikeutta muokata
     tätä kommenttia. Jos olet kommentin tekijä, lataa sivu uudelleen ja tarkista,
     että olet kirjautunut sisään.
+  comment_not_added_error: Tapahtui virhe, kommenttia ei voitu luoda.
+  comment_not_updated_error: Tapahtui virhe, kommenttia ei voitu päivittää.
   comment_new_title: Lisää uusi kommentti
   comments: Kommentit
   comments_filter: Kommentit
@@ -1345,7 +1369,7 @@ fi:
   dato_edit_link_title: Muokkaa linkkiä
   dato_edit_text_title: Muokkaa artikkelia
   dato_new_text_for_taxon_page_title: Lisää artikkeli taksoniin <i>%{taxon}</i>
-  development_version_name: EOL V2 Beta
+  development_version_name: EOL V2 Beeta
   default: Oletus
   default_watch_collection_name: Käyttäjän %{username} tarkkailulista
   delete_community: Poista tämä yhteisö

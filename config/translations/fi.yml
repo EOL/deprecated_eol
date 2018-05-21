@@ -116,6 +116,7 @@ fi:
         rich_pages: Rikkaat sivuja
         total_taxa_with_data: Sivut joissa dataa
         total_associations: Yhdistykset
+        total_user_added_data: Käyttäjän lisäämät tiedot
       forum:
         forum_category_id: Luokka
         name: Foorumin nimi
@@ -128,6 +129,7 @@ fi:
       harvest_event:
         resource: Resurssi
       hierarchy:
+        browsable: Selattavissa
         complete: Valmis
         description: Kuvaus
         request_publish: Pyydä julkaisua
@@ -158,6 +160,7 @@ fi:
         member_joined_my_watched_community: Uusia jäseniä on liittynyt yhteisöön,
           jossa olet jäsen
         member_left_my_community: Jäsenet ovat jättäneet johtamasi yhteisön
+        i_am_being_watched: Sinut lisättiin toisen jäsenen tarkkailulistaan
       resource:
         auto_publish: Automaattinen julkaisu
         bibliographic_citation: Bibliografinen lainaus
@@ -285,6 +288,7 @@ fi:
       content_partner:
         created_at: Rekisteröity
         display_name: Näyttönimi <small>(valinnainen)</small>
+        description_of_data: Tiedon kuvaus <small>(yksityinen)</small>
         last_action: Viimeisin toiminto
         latest_published_harvest_event: Viimeksi julkaistu
         logo_current: 'Nykyinen logo:'
@@ -293,7 +297,9 @@ fi:
       data_object:
         description: Teksti <small>(jotkut HTML-koodit on sallittuja)</small>
         license_id: Lisenssi
+        license_id_more: Lue <a href="%{policy_url}">EOL lisensointikäytäntö</a>
         object_title: Otsikko
+        toc_item: Alaosasto
         refs: Viitteet <small>(aseta jokainen viite uudelle riville)</small>
         refs_order: '*Viitteet näkyvät aakkosjärjestyksessä'
         rights_holder: Oikeuksien haltija
@@ -345,6 +351,7 @@ fi:
         hierarchy: Hierarkia
         oldest_published_harvest_event: Julkaistu ensimmäisen kerran
         latest_published_harvest_event: Viimeksi julkaistu
+        latest_harvest_event: Viimeksi korjattu
         refresh_period_hours: Taajuus
         resource_status_id: Tila
         resource_status: Tila
@@ -547,6 +554,8 @@ fi:
     download_taxa_data:
       attribute_header: Ominaisuus
       select_all_checkbox: Valitse kaikki
+    show:
+      meta_keywords: '%{collection_name}, Encyclopedia of Life kokoelma'
     editors:
       show:
         meta_keywords: '%{collection_name} managerit'
@@ -560,6 +569,7 @@ fi:
     inaturalists:
       show:
         add_observations: Lisää havaintoja
+        meta_description: iNaturalist-havainnot Encyclopedia of Life kokoelmalle %{collection_name}.
         meta_keywords: '%{collection_name} iNaturalist-havainnot'
         meta_title: '%{collection_name} iNaturalist-havainnot'
         no_observations_added_to_this_project_yet: Tähän projektiin ei ole vielä lisätty
@@ -572,6 +582,7 @@ fi:
         taxa_observed:
           one: '%{count} taksoni havaittu'
           other: '%{count} taksonia havaittu'
+        tweet_text: '%{collection_name} iNaturalist-havainnot'
         view_project_on_inaturalist: Näytä %{project_title} iNaturalistissa
   communities:
     collections:
@@ -579,6 +590,10 @@ fi:
         meta_keywords: '%{community_name} kokoelmat'
         meta_title: '%{community_name} kokoelmat'
         tweet_text: '%{community_name} kokoelmat'
+    newsfeeds:
+      show:
+        meta_keywords: '%{community_name}, Encyclopedia of Life -yhteisö, %{community_name}
+          uutisvirta, %{community_name} kommentit, %{community_name} toiminta'
   content:
     index:
       header_news: EOL uutiset
@@ -705,6 +720,7 @@ fi:
   layouts:
     application:
       header_about: Tietoja EOL:ästä
+      header_learn_more: Lisätietoja
       header_questions: Kerro lisää
       about_link_what_is_eol: Mikä on EOL?
       about_link_traitbank: Mikä on TraitBank?
@@ -712,6 +728,7 @@ fi:
       about_link_discover: Opetus
       about_link_statistics: Tilastot
       about_link_glossary: Sanasto
+      about_link_podcasts: Podcastit
       about_link_donate: Lahjoita EOL:lle
       about_link_help: Apua
       about_link_terms_of_use: Käyttöehdot
@@ -832,6 +849,8 @@ fi:
   recent_activity_mailer:
     data_search_file_download_ready:
       header: Latauksesi on valmis!
+    collection_download_ready:
+      header: Kokoelmasi lataaminen on valmis!
   sessions:
     new:
       login_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
@@ -847,6 +866,11 @@ fi:
         profiiliasetuksissasi. Kun tilisi on yhdistetty, voit käyttää niitä EOL:ään
         kirjautumiseen.
   taxa:
+    communities:
+      index:
+        meta_keywords: '%{scientific_name} yhteisö'
+        meta_keywords_with_common_name: '%{preferred_common_name} yhteisö, %{scientific_name}
+          yhteisö'
     data:
       index:
         tweet_text: Faktoja %{scientific_name}:sta
@@ -877,8 +901,11 @@ fi:
       is_not_complete: Ei
       processing: käsitellään
       refresh: päivitä
+      row_count: Määrä
       search_again: hae uudelleen
     new:
+      complete_registration_header: Suorita EOL-rekisteröitymisesi loppuun
+      create_user_header: Luo uusi <abbr title="Encyclopedia of Life">EOL</abbr>-tili
       meta_title: Liity EOL:ään
       sign_up_with_facebook_assistive: Kirjaudu sisään EOL:ään käyttämällä Facebook-pääsytietojasi
       sign_up_with_google_assistive: Kirjaudu sisään EOL:ään käyttämällä Google-pääsytietojasi
@@ -909,6 +936,15 @@ fi:
         connected_last_verified: Yhdistetty; Viimeksi tarkistettu %{time_passed} sitten;
         not_connected: Ei ole yhdistetty;
         page_title: Yhdistetyt tilit
+      notices:
+        facebook:
+          new_authentication_added: Facebook-todennus on lisätty tiliisi.
+        google:
+          new_authentication_added: Google-todennus on lisätty tiliisi.
+        twitter:
+          new_authentication_added: Twitter-todennus on lisätty tiliisi.
+        yahoo:
+          new_authentication_added: Yahoo!-todennus on lisätty tiliisi.
       twitter: Twitter
       yahoo: Yahoo!
     pending:
@@ -974,15 +1010,25 @@ fi:
   activity: Toiminto
   activity_logs:
     collection_activity_log:
+      add_editor:
+        an_unknown_user_of_an_unknown_collection: Tuntematon käyttäjä lisättiin tuntemattoman
+          kokoelman johtajana.
       create:
         an_unknown_user_created_an_unknown_collection: Tuntematon käyttäjä lisäsi
           tuntemattoman kokoelman.
         an_unknown_user_created_it: Tuntematon käyttäjä loi sen.
         user_created_it: <strong>%{user}</strong> loi sen.
       remove_all:
+        an_unknown_user_cleared_an_unknown_collection: Tuntematon käyttäjä poisti
+          kaikki kohteet tuntemattomasta kokoelmasta.
         an_unknown_user_cleared_collection: Tuntematon käyttäjä poisti kaikki kohteet
           kokoelmasta "%{collection}".
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> poisti kaikki
+          kohteet tuntemattomasta kokoelmasta.
+        user_cleared_collection: <strong>%{user}</strong> poisti kaikki kohteet kokoelmasta
+          "%{collection}".
         an_unknown_user_cleared_it: Tuntematon käyttäjä poisti kaikki kohteet.
+        user_cleared_it: <strong>%{user}</strong> poisti kaikki kohteet.
       remove:
         an_unknown_user_removed_an_unknown_item_from_it: Tuntematon käyttäjä poisti
           tuntemattoman kohteen.
@@ -1009,6 +1055,11 @@ fi:
     curator_activity_log:
       reasons_to_untrust: 'Syyt epäluottamukseen: %{reasons}'
       reasons_to_hide: 'Syyt piilottamiseen: %{reasons}'
+      merge:
+        an_unknown_user_merged_unknown_entry_to_it: Tuntematon käyttäjä lisäsi tuntemattoman
+          luokituksen.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> lisäsi tuntemattoman
+          luokituksen.
   activity_log_empty: Kukaan ei ole vielä toimittanut päivityksiä.
   add_a_comment: Lisää kommentti.
   add_a_comment_colon: 'Lisää kommentti:'
@@ -1171,6 +1222,7 @@ fi:
   collection_destroyed: Kokoelma on poistettu.
   collection_name_cannot_be_blank: Kokoelman nimi ei voi olla tyhjä
   collection_name_label: Kokoelman nimi
+  collection_newsfeed: Kokoelman uutisvirta
   collection_not_created_error: Tapahtui virhe, kokoelmaa <em>%{collection_name}</em>
     ei voitu luoda.
   collection_not_destroyed_error: Kokoelmaa ei ole poistettu.
@@ -1223,6 +1275,7 @@ fi:
     one: '%{count} yhteisön jäsen'
     other: '%{count} yhteisön jäsentä'
   community_name_label: Yhteisön nimi
+  community_newsfeed: Yhteisön uutisvirta
   community_tab_collections_header: Kokoelmat
   communities_summary_header_with_count:
     one: Kuuluu %{count} yhteisöön
@@ -1698,6 +1751,7 @@ fi:
     Time)
   notification_frequency_never: Ei koskaan
   notification_frequency_weekly: Viikoittain
+  notification_frequency_newsfeed_only: Vain uutisvirta
   notifications_tab_name: Ilmoitukset
   not_published_yet: ei vielä julkaistu
   object_status_all_option: Kaikki
@@ -1804,6 +1858,7 @@ fi:
   select_an_item_from_the_menu: Valitse kohde valikosta
   select_tool_and_go: 'Valitse työkalu ja klikkaa ''Mene'':'
   select_colon: Valitse
+  selected_language_advisory_information: Tämä on tällä hetkellä valittu kieli.
   send_email_colon: 'Lähettää sähköposti:'
   send: Lähetä
   server_ip_address: Palvelimen IP-osoite

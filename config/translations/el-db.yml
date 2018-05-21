@@ -124,9 +124,11 @@ el:
   translated_licenses-description-license_id-8: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-9: Ορισμένα δικαιώματα διατηρούνται
   translated_ranks-label-rank_id-106: μορφή
+  translated_ranks-label-rank_id-107: φόρμα
   translated_ranks-label-rank_id-112: γέν
   translated_ranks-label-rank_id-113: γέν.
   translated_ranks-label-rank_id-118: γένος
+  translated_ranks-label-rank_id-175: ενδοείδος
   translated_ranks-label-rank_id-183: βασίλειο
   translated_ranks-label-rank_id-266: σειρά
   translated_ranks-label-rank_id-280: Συνομοταξία
@@ -134,6 +136,8 @@ el:
   translated_ranks-label-rank_id-314: αίρεση.
   translated_ranks-label-rank_id-317: τμήμα
   translated_ranks-label-rank_id-324: σειρά
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
   translated_ranks-label-rank_id-335: είδη
   translated_ranks-label-rank_id-352: υπο-οικογένεια
   translated_ranks-label-rank_id-370: υποκλάση

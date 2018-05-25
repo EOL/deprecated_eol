@@ -3649,6 +3649,8 @@ sv:
   associated_with_map_header: På den senaste kartan
   associated_with_sound_header: I det senaste ljudet
   associated_with_video_header: I den senaste videon
+  association_added_flash: Associationen lades till. Det kan ta några minuter för
+    sidan/sidorna att uppdateras.
   association_trusted_for_taxa:
     one: 'Pålitlig för:'
     other: 'Pålitliga för:'
@@ -3809,6 +3811,9 @@ sv:
     det kommenterade objektet (använd din webbläsares tillbakaknapp för att återvända
     hit), klicka på "redigera" för att redigera kommentaren eller klicka på "radera"
     för att permanent radera kommentaren.
+  click_on_a_user_to_view_the_users_detailed_profile: Klicka på en användare för att
+    se användarens detaljerade profil, klicka på arter för att se sidor där texten
+    finns (använd tillbakaknappen i din webbläsare för att återvända hit).
   close_this_window_to_return_to_edit_window: STÄNG DETTA FÖNSTER FÖR ATT ÅTERVÄNDA
     TILL REDIGERINGSFÖNSRET
   collect_item: Samla in objekt
@@ -4577,6 +4582,14 @@ sv:
       inactive_user_login: Tyvärr, detta konto är ännu inte aktivt. Om du inte fick
         en bekräftelse via e-post när du registrerade dig, var god återställ ditt
         konto för att verifiera din e-postadress och aktivera ditt konto.
+      min_master_curators_only: Tyvärr, åtkomst är begränsat till EOL-kuratorer med
+        en minimal kuratornivå av Mästare.
+      min_full_curators_only: Tyvärr, åtkomst är begränsat till EOL-kuratorer med
+        en minimal kuratornivå av Full.
+      min_assistant_curators_only: Tyvärr, åtkomst är begränsat till EOL-kuratorer
+        med en minimal kuratornivå av Assistent.
+      admin_or_master_curators_only: Tyvärr, åtkomst är begränsat till EOL-administratörer
+        och EOL-kuratorer med en minimal kuratornivå av Mästare.
       no_access: Tyvärr, denna funktion är tillfälligt inaktiverad. Kom tillbaka senare.
       missing_edit_acess_to_forum_category: Tyvärr, endast administratörer kan redigera
         denna forumskategori
@@ -4586,12 +4599,31 @@ sv:
         ägare kan redigera detta foruminlägg
       missing_delete_acess_to_forum_post: Tyvärr, endast administratörer eller inläggets
         ägare kan radera detta foruminlägg
+      missing_set_article_as_exemplar_privilege: Tyvärr, endast kuratorer kan ange
+        artiklar som exemplar
+      missing_delete_access_to_synonym: Tyvärr, endast agenter raderar denna synonym
+      missing_delete_access_to_data_search_file: Tyvärr, endast administratörer, mästarkuratorer
+        eller filens ägare kan radera denna fil
+      missing_permission_to_view_open_authentications: Tyvärr, endast administratörer
+        och kontots ägare kan se öppna autentiseringar för detta konto
+      missing_permission_to_add_open_authentications: Tyvärr, endast administratörer
+        och kontots ägare kan lägga till öppna autentiseringar för detta konto
+      missing_permission_to_delete_open_authentications: Tyvärr, endast administratörer
+        och kontots ägare kan radera öppna autentiseringar för detta konto
+      this_action_requires_higher_curation_level: Tyvärr, denna åtgärd kräver en högre
+        kuratornivå
       admins_and_joined_only_can_read: Tyvärr, du bör kunna gå med i denna samling
         för att se den
+      owner_and_managers_only_can_edit: Tyvärr, endast samlingens ägare eller hanterare
+        kan redigera den
       error_revoking_editor_on_watch_collection: Tyvärr, redigerare kan inte tas bort
         från bevakningssamlingar
       error_revoking_editor_on_an_empty_community: Tyvärr, redigerare kan inte tas
         bort från en tom gemenskap
+      only_managers_can_edit_community: Tyvärr, endast hanterare kan redigera denna
+        gemenskap
+      only_managers_can_delete_community: Tyvärr, endast hanterare kan radera denna
+        gemenskap
       only_admins_can_view_content_pages: Tyvärr, endast administratörer kan se innehållssidor
       only_admins_can_view_translated_content_pages: Tyvärr, endast administratörer
         kan se översatta innehållssidor
@@ -4606,6 +4638,7 @@ sv:
       only_data_owner_can_delete: Tyvärr, endast dataägare kan radera den
       error_editing_someone_account: Tyvärr, du kan endast redigera ditt eget konto
       can_not_edit_permissions: Tyvärr, du kan inte redigera behörigheter
+      collection_job_not_valid: Samlingsjobbet är inte giltigt
   excluded_icon_tip: Rader markerade med undantagsikonen %{excluded_icon} kommer aldrig
     visas på översiktssidorna för taxon.
   expand_all_children: expandera alla undersidor
@@ -4635,6 +4668,7 @@ sv:
     för ditt jobb</a> när som helst.
   file_id: Fil-ID
   file_size: Filstorlek
+  filed_under_label_with_date: Lades in under %{label} den %{date}
   fill_in_a_message_below_to_send_email_to_user: 'Skriv ett meddelande nedan för att
     skicka ett e-postmeddelande till denna användare från webbplatsen. Meddelandet
     kommer att skickas när du skickar formuläret:'

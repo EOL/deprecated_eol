@@ -161,6 +161,7 @@ fi:
           jossa olet jäsen
         member_left_my_community: Jäsenet ovat jättäneet johtamasi yhteisön
         i_am_being_watched: Sinut lisättiin toisen jäsenen tarkkailulistaan
+        eol_newsletter: Lähetä minulle neljännesvuosittainen EOL-uutiskirje
       resource:
         auto_publish: Automaattinen julkaisu
         bibliographic_citation: Bibliografinen lainaus
@@ -257,6 +258,9 @@ fi:
       models:
         inaccessible: Tietueen tallentaminen epäonnistui, koska se on kelvoton. Tarkista
           validointivirheet ja tallenna uudestaan.
+        open_authentications:
+          guid_provider_must_be_unique: kolmannen osapuolen tili on jo yhdistetty
+            EOL-tilillä
         resource:
           attributes:
             dataset:

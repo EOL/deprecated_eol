@@ -437,8 +437,10 @@ fi:
         create: Lisää nimi
         update: Päivitä nimi
       news_item:
+        create: Luo uutiskohde
         edit: Muokkaa
         preview: Esikatselu
+        update: Päivitä uutiskohde
       open_authentication:
         create: Yhdistä
         destroy: Katkaise yhteys

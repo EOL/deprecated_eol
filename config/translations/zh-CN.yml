@@ -383,18 +383,18 @@ zh-CN:
           attributes:
             predicate:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
-              namespace: 使用的是未确认的名字空间
+              namespace: 使用的是未受认可的名字空间
             subject:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
-              namespace: 使用的是未确认的名字空间
+              namespace: 使用的是未受认可的名字空间
         user_added_data_metadata:
           attributes:
             predicate:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
-              namespace: 使用的是未确认的命名空间
+              namespace: 使用的是未受认可的名字空间
             subject:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
-              namespace: 使用的是未确认的命名空间
+              namespace: 使用的是未受认可的名字空间
         known_uri_relationship:
           attributes:
             to_known_uri_id:

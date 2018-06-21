@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Acamicamacaraca
 # Author: Arabesque46
+# Author: BadDog
 # Author: Milicevic01
 # Author: Obsuser
 # Author: Prevodim
@@ -436,7 +437,7 @@ sr:
           је сама страница необјављена. Дештриклирајте <em>објављено</em> ако желите
           да сакријете ово издање странице од обичних корисника.
         language_id: Језик
-        left_content_more: '(Необавезно) Можете додати несређен списак навигацијских
+        left_content_more: '(необавезно) Можете додати несређен списак навигацијских
           веза. Користие име класе <code>active</code> како бисте нагласили тренутну
           везу странице, нпр. <code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>
           где је <code>:id</code> тренутни ИД или уникатно име странице и <code>:title</code>

@@ -18,6 +18,7 @@
 # Author: Macofe
 # Author: Mordecaista
 # Author: PedroMaia
+# Author: Pedrofariasm
 # Author: Rodrigo codignoli
 # Author: SoraRenard
 # Author: TheGabrielZaum
@@ -5810,10 +5811,12 @@ pt-BR:
   page_navigation: Navegação da página
   page_not_found: Página não encontrada
   page: Página
+  page_urls: 'URL(s) da página:'
   pages_title: Referências
   pages_with_count:
     one: '%{count}'
     other: '%{count}'
+  page_statistics_and_tools: estatísticas e ferramentas da página
   pages_with_pictures_and_text: Páginas com fotos e texto
   pages_with_pictures_or_text: Páginas com fotos ou texto
   page_statistics: Estatísticas de páginas
@@ -5837,6 +5840,7 @@ pt-BR:
   partner_page: página do parceiro
   partner: Parceiro
   partner_web_site_colon: 'Site do parceiro:'
+  password_must_be_4to16_characters: A senha deve ter entre 4 e 16 caracteres.
   password_colon: 'Senha:'
   pause: pausar
   people_with_count:
@@ -5855,10 +5859,14 @@ pt-BR:
   personal_space: Espaço pessoal
   pinterest: Pinterest
   please_confirm_your_donation_details: Por favor confirme os detalhes da doação
+  please_note_that_some_of_these: Tenha em conta que algumas dessas ferramentas estão
+    em beta e devem mudar com o tempo ou contém problemas.
   please_refresh: Por favor, atualize seu navegador para ver a versão mais recente
     do site EOL
   please_indicate_curation_reason: 'Por favor selecione um motivo e/ou, opcionalmente,
     deixe um comentário de curadoria:'
+  please_state_one_credential: 'Por favor, indique pelo menos uma credencial específica
+    desta lista:'
   please_note_wiki_etc_are_not_spm: '* Por favor, note que a Wikipédia, Educação e
     Código de barras são assuntos internos da EOL e não fazem parte do SPM.'
   please_return_to_eol_homepage: Por favor, volte à página inicial da EOL

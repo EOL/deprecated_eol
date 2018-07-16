@@ -8,6 +8,7 @@
 # Author: Irus
 # Author: Lvova
 # Author: Meddoc13
+# Author: Movses
 ---
 ru:
   translated_activities-name-activity_id-19: профиль
@@ -46,7 +47,7 @@ ru:
   translated_audiences-label-audience_id-1: Опытные пользователи
   translated_audiences-label-audience_id-2: Обычные пользователи
   translated_audiences-label-audience_id-3: Дети
-  translated_collection_types-label-collection_type_id-10: Звуки
+  translated_collection_types-label-collection_type_id-10: Аудио
   translated_collection_types-label-collection_type_id-11: Ссылки
   translated_collection_types-label-collection_type_id-12: Литература
   translated_collection_types-label-collection_type_id-13: Таксономия
@@ -59,7 +60,7 @@ ru:
   translated_collection_types-label-collection_type_id-1: Таксономия
   translated_collection_types-label-collection_type_id-20: Молекулярные данные
   translated_collection_types-label-collection_type_id-21: Номенклатура
-  translated_collection_types-label-collection_type_id-22: Звуки
+  translated_collection_types-label-collection_type_id-22: Аудио
   translated_collection_types-label-collection_type_id-23: Ссылки
   translated_collection_types-label-collection_type_id-24: Литература
   translated_collection_types-label-collection_type_id-2: Молекулярные штрих-коды
@@ -83,7 +84,7 @@ ru:
   translated_contact_subjects-title-contact_subject_id-30: Корректировки (орфография
     и грамматика, изображения, информация)
   translated_contact_subjects-title-contact_subject_id-31: Изображения, видео или
-    звуки
+    аудио
   translated_contact_subjects-title-contact_subject_id-32: Запрос медиа-ресурсов (интервью,
     пресс-релизы, логотип)
   translated_contact_subjects-title-contact_subject_id-33: Сделать денежное пожертвование
@@ -97,7 +98,7 @@ ru:
   translated_content_tables-label-content_table_id-1: Детали
   translated_data_types-label-data_type_id-10: Карта
   translated_data_types-label-data_type_id-1: Изображение
-  translated_data_types-label-data_type_id-2: Звук
+  translated_data_types-label-data_type_id-2: Аудио
   translated_data_types-label-data_type_id-3: Текст
   translated_data_types-label-data_type_id-4: Видео
   translated_data_types-label-data_type_id-5: Изображение от ГИФБ

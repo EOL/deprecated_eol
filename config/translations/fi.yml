@@ -323,6 +323,7 @@ fi:
         taxon_name_placeholder: Syötä taksoniryhmän nimi valitaksesi ryhmän
         taxon_name_placeholder_value_removed: '%{taxon_group} poistettu, valitse uusi
           ryhmä'
+        total_results: 'Kokonaistulokset: %{total}'
       eol_statistic:
         date_one: Päivämäärä
         date_two: Päivämäärä
@@ -602,7 +603,7 @@ fi:
           uutisvirta, %{community_name} kommentit, %{community_name} toiminta'
   content:
     index:
-      header_news: EOL uutiset
+      header_news: EOL Uutiset
       meta_keywords: Eläimet, eläinkuvat, eläintiedot, kasvit, kasvien elämä, kasvikuvat,
         kasvitiedot, kasvisto, eläimistö
       meta_title: Eläimet - Kasvit - Kuvia ja tietoja
@@ -782,8 +783,8 @@ fi:
       meta_keywords: '%{member_name} yhteisöjäsen'
   news_items:
     index:
-      page_title: EOL-uutiset
-      meta_title: EOL-uutiset
+      page_title: EOL Uutiset
+      meta_title: EOL Uutiset
       meta_keywords: eol uutiset, encyclopedia of life uutiset
   notifier:
     activity_log_empty: Ei kuraattorien äskettäisiä toimia.
@@ -1465,7 +1466,7 @@ fi:
   eol_api_pages: 'EOL API: Sivut'
   eol_api_search: 'EOL API: Haku'
   eol_colon: 'EOL:'
-  eol_news: EOL-uutisia
+  eol_news: EOL uutiset
   eol_pages: sivua
   error_403_page_title: Kielletty
   error_403_description: Sinulla ei ole tuon verkko-osoitteen käyttöoikeutta.

@@ -31,6 +31,7 @@
 # Author: Metastasis
 # Author: Michgrig
 # Author: Mouse21
+# Author: Movses
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
@@ -2002,9 +2003,9 @@ ru:
   this_video_cannot_be_curated_because_unpublished: У этого видео нет куратора, потому
     что оно не опубликовано.
   this_video_is_unpublished: Это видео не опубликовано.
-  this_sound_cannot_be_curated_because_unpublished: У этого звуки нет куратора, потому
-    что оно не опубликовано.
-  this_sound_is_unpublished: Этот звук не опубликован.
+  this_sound_cannot_be_curated_because_unpublished: У этого аудио нет куратора, потому
+    что оно не опубликована.
+  this_sound_is_unpublished: Эта звукозапись не опубликована.
   map_of_taxon: Карта %{taxon_name}
   image_map_of_taxon: Карта %{taxon_name}
   video_of_taxon: Видео %{taxon_name}
@@ -2015,7 +2016,7 @@ ru:
   link_rating: Рейтинг ссылки
   image_rating: Рейтинг изображения
   person_rating: Рейтинг пользователя
-  sound_rating: Рейтинг звукового файла
+  sound_rating: Рейтинг аудио
   taxon_rating: Рейтинг таксона
   video_rating: Рейтинг видео
   map_rating: Рейтинг карты
@@ -2029,7 +2030,7 @@ ru:
   action: Действие
   action_not_available_error: К сожалению, это действие недоступно.
   actions: Действия
-  active_colon: 'Активен:'
+  active_colon: 'Активны:'
   active: Активен
   activity: Действия
   activity_logs:
@@ -2303,7 +2304,7 @@ ru:
   all_items: Все элементы
   all_news: все новости
   all_people: Все люди
-  all_sounds: Все звуки
+  all_sounds: Все аудио
   all_sources: Все источники
   all_taxa: Все таксоны
   all_title: Все
@@ -2717,7 +2718,7 @@ ru:
   filter_by_type_link_option: Ссылки
   filter_by_type_text_option: Статьи
   filter_by_type_user_option: Люди
-  filter_by_type_sound_option: Звуки
+  filter_by_type_sound_option: Аудио
   filter_by_type_video_option: Видео
   filter_by_type_comment_option: Комментарии
   filter_newsfeed_option_messages: Комментарии
@@ -2754,7 +2755,7 @@ ru:
   item_type_link: Ссылка
   item_type_map: Карта
   item_type_person: Человек
-  item_type_sound: Звуки
+  item_type_sound: Аудио
   item_type_video: Видео
   join_community_button: Присоединиться к этому сообществу
   joined_time_ago: Присоединился %{time_passed} назад
@@ -2849,7 +2850,7 @@ ru:
       taxon_details: Детали таксона
       taxon_media: Мультимедиа таксона
       images: Иллюстрации
-      sounds: Звуки
+      sounds: Аудио
       videos: Видео
     search:
       suggestions: Предложения

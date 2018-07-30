@@ -140,22 +140,28 @@ sv:
   translated_ranks-label-rank_id-335: arter
   translated_ranks-label-rank_id-352: underfamilj
   translated_ranks-label-rank_id-370: underklass
+  translated_ranks-label-rank_id-375: underdivision
   translated_ranks-label-rank_id-383: underfamilj
   translated_ranks-label-rank_id-390: undersl
   translated_ranks-label-rank_id-391: undersl.
   translated_ranks-label-rank_id-394: undersläkte
   translated_ranks-label-rank_id-396: underkungarike
   translated_ranks-label-rank_id-399: underordning
+  translated_ranks-label-rank_id-401: understam
   translated_ranks-label-rank_id-408: underavsnitt
   translated_ranks-label-rank_id-411: underserier
+  translated_ranks-label-rank_id-413: underart
   translated_ranks-label-rank_id-414: underart
   translated_ranks-label-rank_id-415: underart
+  translated_ranks-label-rank_id-422: undertribus
   translated_ranks-label-rank_id-463: överfamilj
+  translated_ranks-label-rank_id-472: understam
   translated_ranks-label-rank_id-494: stam
   translated_ranks-label-rank_id-503: oklassificerad
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-51: klass
+  translated_ranks-label-rank_id-74: division
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
@@ -163,6 +169,7 @@ sv:
   translated_ranks-label-rank_id-99: familj
   translated_resource_statuses-label-resource_status_id-10: Publicerad
   translated_resource_statuses-label-resource_status_id-11: Publicering pågår
+  translated_resource_statuses-label-resource_status_id-12: Avpublicering pågår
   translated_resource_statuses-label-resource_status_id-13: Datainsamling begärd
   translated_resource_statuses-label-resource_status_id-1: Laddar upp
   translated_resource_statuses-label-resource_status_id-2: Uppladdat

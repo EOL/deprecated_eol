@@ -1,0 +1,104 @@
+# Messages for Burmese (မြန်မာဘာသာ)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Dr Lotus Black
+---
+my:
+  translated_activities-name-activity_id-19: ပရိုဖိုင်
+  translated_activities-name-activity_id-50: မယုံကြည်ရသော
+  translated_activities-name-activity_id-51: ပြ
+  translated_activities-name-activity_id-52: ဖန်တီး
+  translated_activities-name-activity_id-53: ဝှက်
+  translated_activities-name-activity_id-54: မွမ်းမံ
+  translated_activities-name-activity_id-55: မသင့်လျော်
+  translated_activities-name-activity_id-56: ဖျက်
+  translated_activities-name-activity_id-58: ယုံကြည်ရသော
+  translated_activities-name-activity_id-64: ဖယ်ရှားရန်
+  translated_agent_roles-label-agent_role_id-10: ပရောဂျက်
+  translated_agent_roles-label-agent_role_id-13: ရင်းမြစ်
+  translated_agent_roles-label-agent_role_id-22: ဘာသပြန်သူ
+  translated_agent_roles-label-agent_role_id-5: ဖန်တီးသူ
+  translated_agent_roles-label-agent_role_id-6: ဒါရိုက်တာ
+  translated_agent_roles-label-agent_role_id-7: တည်းဖြတ်သူ
+  translated_audiences-label-audience_id-1: ဝါရင့် အသုံးပြုသူများ
+  translated_audiences-label-audience_id-3: ကလေးငယ်
+  translated_collection_types-label-collection_type_id-10: အသံ
+  translated_collection_types-label-collection_type_id-11: လင့်ခ်များ
+  translated_collection_types-label-collection_type_id-12: စာပေ
+  translated_collection_types-label-collection_type_id-15: ဖော်ပြချက်
+  translated_collection_types-label-collection_type_id-17: ဖြန့်ဖြူးခြင်း
+  translated_collection_types-label-collection_type_id-19: အမည် အချက်အလက်
+  translated_collection_types-label-collection_type_id-20: မော်လီကျူလာ ဒေတာ
+  translated_collection_types-label-collection_type_id-22: အသံ
+  translated_collection_types-label-collection_type_id-23: လင့်ခ်များ
+  translated_collection_types-label-collection_type_id-24: စာပေ
+  translated_collection_types-label-collection_type_id-3: ဖော်ပြချက်
+  translated_collection_types-label-collection_type_id-4: ရုပ်ပုံ
+  translated_collection_types-label-collection_type_id-7: အမည် အချက်အလက်
+  translated_collection_types-label-collection_type_id-8: မော်လီကျူလာ ဒေတာ
+  translated_contact_roles-label-contact_role_id-1: ပင်မ ဆက်သွယ်ရန်
+  translated_contact_roles-label-contact_role_id-2: စီမံရေးရာ ဆက်သွယ်ရန်
+  translated_contact_roles-label-contact_role_id-3: နည်းပညာပိုင်း ဆက်သွယ်ရန်
+  translated_contact_subjects-title-contact_subject_id-24: အဖွဲ့ဝင်နှင့် မှတ်ပုံတင်ခြင်း
+  translated_contact_subjects-title-contact_subject_id-26: သင်ယူရေးနှင့် ပညာရေး
+  translated_contact_subjects-title-contact_subject_id-33: ငွေကြေး လှူဒါန်းရန်
+  translated_contact_subjects-title-contact_subject_id-35: အထွေထွေ အကြံပေးချက်
+  translated_content_partner_statuses-label-content_partner_status_id-2: လက်ရှိအသုံးပြုနေသည်
+  translated_content_tables-label-content_table_id-1: အသေးစိတ်အကြောင်းအရာများ
+  translated_data_types-label-data_type_id-10: မြေပုံ
+  translated_data_types-label-data_type_id-1: ရုပ်ပုံ
+  translated_data_types-label-data_type_id-2: အသံ
+  translated_data_types-label-data_type_id-3: စာသား
+  translated_data_types-label-data_type_id-4: ဗီဒီယို
+  translated_service_types-label-service_type_id-2: အခြား
+  translated_statuses-label-status_id-2: မွမ်းမံပြီး
+  translated_statuses-label-status_id-3: မပြောင်းလဲ
+  translated_statuses-label-status_id-4: ပြန်လည်သုံးခဲ့သည်
+  translated_synonym_relations-label-synonym_relation_id-51: လက်ခံခဲ့သည်
+  translated_synonym_relations-label-synonym_relation_id-52: အခွင့်အာဏာ
+  translated_synonym_relations-label-synonym_relation_id-56: စာလုံးပေါင်းမှား
+  translated_synonym_relations-label-synonym_relation_id-63: လက်မခံပါ
+  translated_synonym_relations-label-synonym_relation_id-64: မသင့်လျော်သော
+  translated_table_of_contents-label-table_of_contents_id-13: ဘုံအမည်များ
+  translated_table_of_contents-label-table_of_contents_id-17: စာပေ ကိုးကားချက်များ
+  translated_table_of_contents-label-table_of_contents_id-194: အရွယ်အစား
+  translated_table_of_contents-label-table_of_contents_id-1: ခြုံငုံသုံးသပ်ချက်
+  translated_table_of_contents-label-table_of_contents_id-225: ဝဘ်ပေါ်တွင်
+  translated_table_of_contents-label-table_of_contents_id-242: အထွေထွေ ဂေဟစနစ်
+  translated_table_of_contents-label-table_of_contents_id-244: သမ္မာကျမ်းစာများ
+  translated_table_of_contents-label-table_of_contents_id-24: ရှင်းလက်ချက်မှတ်စု
+  translated_table_of_contents-label-table_of_contents_id-251: အကျိုးကျေးဇူးများ
+  translated_table_of_contents-label-table_of_contents_id-289: ဆင့်ကဲပြောင်းလဲမှု
+  translated_table_of_contents-label-table_of_contents_id-296: စီမံခန့်ခွဲခြင်း
+  translated_table_of_contents-label-table_of_contents_id-299: ပညာရေး
+  translated_table_of_contents-label-table_of_contents_id-2: အကျဉ်းချုပ်
+  translated_table_of_contents-label-table_of_contents_id-300: ဝီကီပီးဒီးယား
+  translated_table_of_contents-label-table_of_contents_id-304: ဆက်နွယ် အမည်များ
+  translated_table_of_contents-label-table_of_contents_id-309: ဖြန့်ဖြူးခြင်း
+  translated_table_of_contents-label-table_of_contents_id-310: ဖွံ့ဖြိုးတိုးတက်မှု
+  translated_table_of_contents-label-table_of_contents_id-314: လူဦးရေ ဇီဝဗေဒ
+  translated_table_of_contents-label-table_of_contents_id-316: အပြုအမူ
+  translated_table_of_contents-label-table_of_contents_id-318: သက်ရှိ သံသရာ
+  translated_table_of_contents-label-table_of_contents_id-319: သက်တမ်း
+  translated_table_of_contents-label-table_of_contents_id-320: မျိုးပွားခြင်း
+  translated_table_of_contents-label-table_of_contents_id-321: ကြီးထွားမှု
+  translated_table_of_contents-label-table_of_contents_id-322: ရုပ်ကြွင်းသမိုင်း
+  translated_table_of_contents-label-table_of_contents_id-333: မော်လီကျူလာ ဇီဝဗေဒ
+  translated_table_of_contents-label-table_of_contents_id-336: မှတ်ချက်များ
+  translated_table_of_contents-label-table_of_contents_id-337: ပညာရေး
+  translated_table_of_contents-label-table_of_contents_id-338: ပညာရေးလင့်ခ်များ
+  translated_table_of_contents-label-table_of_contents_id-339: ပညာရေး ရင်းမြစ်များ
+  translated_table_of_contents-label-table_of_contents_id-344: ဒေတာ
+  translated_table_of_contents-label-table_of_contents_id-345: ဒေတာ ရင်းမြစ်များ
+  translated_untrust_reasons-label-untrust_reason_id-5: အခြား
+  translated_user_identities-label-user_identity_id-2: ကျောင်းသားတစ်ယောက်
+  translated_vetted-label-vetted_id-0: မသိရ
+  translated_vetted-label-vetted_id-4: မယုံကြည်ရသော
+  translated_vetted-label-vetted_id-5: ယုံကြည်ရသော
+  translated_vetted-label-vetted_id-6: မသင့်လျော်
+  translated_view_styles-name-view_style_id-1: စာရင်း
+  translated_view_styles-name-view_style_id-2: ပြခန်း
+  translated_visibilities-label-visibility_id-0: မမြင်ရသော
+  translated_visibilities-label-visibility_id-1: မြင်
+  translated_visibilities-label-visibility_id-2: ကြိုတင်အစမ်းကြည့်ရှုရန်
+...

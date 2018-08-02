@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Athena in Wonderland
 # Author: GoEThe
+# Author: Hamilton Abreu
 # Author: Luckas
 ---
 pt-PT:
@@ -80,8 +81,8 @@ pt-PT:
     e gramática, imagens, informação)
   translated_contact_subjects-title-contact_subject_id-31: Contribua com imagens,
     vídeos ou sons
-  translated_contact_subjects-title-contact_subject_id-32: Solicitação dos média (entrevistas,
-    questões da imprensa, pedidos de logótipo)
+  translated_contact_subjects-title-contact_subject_id-32: Solicitações dos meios
+    de comunicação (entrevistas, questões da imprensa, pedidos de logótipos)
   translated_contact_subjects-title-contact_subject_id-33: Faça uma doação monetária
   translated_contact_subjects-title-contact_subject_id-34: Questões técnicas (problemas
     com busca, funcionalidade do site)

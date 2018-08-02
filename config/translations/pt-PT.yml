@@ -2537,8 +2537,8 @@ pt-PT:
     de colecção.
   media: Multimédia
   media_list_empty: Ninguém contribuiu qualquer multimédia para esta página.
-  media_list_empty_search: Nenhum média disponível coincidente com os critérios de
-    pesquisa.
+  media_list_empty_search: Nenhum dos ficheiros multimédia disponíveis corresponde
+    aos critérios da pesquisa.
   media_list_empty_contribute_instructions: Saiba como contribuir com multimédia para
     a EOL.
   media_with_count:

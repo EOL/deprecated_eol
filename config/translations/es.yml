@@ -21,6 +21,7 @@
 # Author: Invadinado
 # Author: Jacobo
 # Author: Jcfidy
+# Author: Jelou
 # Author: Jgauthier
 # Author: Koavf
 # Author: Larjona
@@ -101,8 +102,8 @@ es:
         bibliographic_citation: Cita bibliográfica
         description: Texto
         object_title: Título
-        rights_holder: Posesor de los derechos
-        rights_statement: Declaración de los derechos
+        rights_holder: Titular de los derechos
+        rights_statement: Declaración de derechos
         source_url: URL de origen
       data_object_link:
         description: Descripción
@@ -278,7 +279,7 @@ es:
         hierarchy: Jerarquía
         language_id: Idioma predeterminado
         dataset_license_id: Licencia
-        dataset_rights_holder: Posesor de los derechos
+        dataset_rights_holder: Titular de los derechos
         dataset_rights_statement: Declaración de derechos
         license_id: Licencia predeterminada
         notes: Notas de procesamiento
@@ -521,7 +522,7 @@ es:
         toc_item: Subcapítulo
         refs: Referencias <small>(ponga cada referencia en una nueva línea)</small>
         refs_order: '*Las referencias aparecerán en orden alfabético'
-        rights_holder: Posesor de los derechos
+        rights_holder: Titular de los derechos
         rights_holder_more: Especifica una persona u organización que sea propietaria
           o administre los derechos de autor de estos datos. Si dejas el campo en
           blanco, asumiremos que eres el poseedor de los derechos para todas las licencias

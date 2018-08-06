@@ -5,6 +5,7 @@
 # Author: EPO
 # Author: Joedalton
 # Author: Peter Alberti
+# Author: Saederup92
 # Author: Sir48
 # Author: Tjernobyl
 ---
@@ -1151,6 +1152,8 @@ da:
       subject: 'En besked til EOL: %{title}'
     contact_us_auto_response:
       subject: Tak, fordi du har kontaktet Encyclopedia of Life (EOL)
+    unsubscribed_to_notifications:
+      subject: Træls at se dig gå...
     user_activated_with_open_authentication:
       subject: Din Encyclopedia of Life-konto er blevet aktiveret
     user_message:
@@ -1191,6 +1194,8 @@ da:
       problems_signing_in_with_eol_authentication: Glemt adgangskode?
   taxa:
     communities:
+      index:
+        meta_keywords: '%{scientific_name} fællesskab'
       collections:
         meta_title_with_common_name: Samlinger af %{preferred_common_name} (%{scientific_name})
         tweet_text: Samlinger af %{scientific_name}
@@ -1268,6 +1273,13 @@ da:
       contact_us: kontakt os venligst for assistance
     newsfeeds:
       activity_link: aktivitet
+    open_authentications:
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
+  user_added_data:
+    edit_data_header: Rediger din data
   0_or_1: 0 eller 1
   0_1_or_2: 0, 1 eller 2
   about_eol: Om EOL

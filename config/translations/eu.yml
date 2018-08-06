@@ -585,6 +585,11 @@ eu:
     download_taxa_data:
       attribute_header: Atributoa
       select_all_checkbox: Hautatu dena
+    editors:
+      show:
+        meta_keywords: '%{collection_name} bildumaren administratzaileak'
+        meta_title: '%{collection_name} bildumaren administratzaileak'
+        tweet_text: '%{collection_name} bildumaren administratzaileak'
     newsfeeds:
       show:
         meta_keywords: '%{collection_name} Albisteak'
@@ -866,6 +871,9 @@ eu:
       header_with_count:
         one: Datuen jaitsiera
         other: '%{count} datuen jaitsierak'
+      empty: Ez daukazu deskargarik. <a href='%{data_search_url}'> datuak bilatu </a>
+        eta emaitzen deskarga eskatu ditzakezu.
+      no_selected_attributes: Ez da atributurik aukeratu. Mesedez, aukeratu bat gutxienez
       download: deskargatu
       page_title: Datu deskarga
       query_head: Kontsulta
@@ -1027,7 +1035,18 @@ eu:
         connected_unverified: Konektatuta; Ez egiaztatua;
         not_connected: Konektatu gabe;
         page_title: Lotutako kontuak
+      notices:
+        yahoo:
+          new_authentication_added: Yahoo! autentifikazioa gehitu da zure kontura.
+          removed_connection: Arazorik gabe kendu dugu EOLen lotura zure Yahoo! kontuarekin.
+            Etorkizunean Yahoo! eta EOL kontuen artean egon daitezkeen elkareraginak
+            guztiz desgaitzeko Yahoo!-ra joan behar duzu eta zure kontuko ezarpenak
+            aldatu.
       twitter: Twitter
+      warnings:
+        no_way_to_login: Dagoeneko ez daukazu konturik lotuta, ezin izango duzu EOL
+          saioa hasi, lotutako beste kontu bat gehitu edo EOL erabiltzaile eta pasahitza
+          gehitu ezean.
       yahoo: Yahoo!
     pending:
       header: Eskerrik asko erregistratzeagatik!
@@ -1035,7 +1054,20 @@ eu:
         egiaztapen mezu bat bidali da emandako helbide elektronikora. Erregistro prozesua
         amaitu eta EOL kide bihurtzeko, mesedez, egin klik bidalitako mezuan agertzen
         den estekan. Eskerrik asko!
+      verify_email_tip: Mesedez kontuan hartu kontuak aktibatzeko emailak <em>askotan</em>
+        'Spam' bezala sailkatzen direla helbide elektronikoen iragazkietan. Mesedez,
+        egiaztatu zure spam karpeta ordu betean mezua jasotzen ez baduzu.
     recover_account:
+      errors:
+        temporary_login_user_not_found: Barkatu, ez da berreskuratu nahi duzun EOL
+          kontua aurkitu, mesedez eskatu kontua berreskuratzeko beste email bat.
+        token_expired_or_invalid: Barkatu, saioa hasteko epe laburreko esteka iraungi
+          da edo ez da baliozkoa, mesedez eskatu kontua berreskuratzeko beste email
+          bat.
+        user_not_found_by_email_address: Ezin izan da helbide elektroniko hori daukan
+          EOL kontu bat aurkitu.
+        unable_to_update_token: Barkatu, arazo bat egon da eta emaila ez bidali, mesedez
+          saiatu berriro.
       form_header: Kontua berreskuratu
       form_tip: Zure EOL kontua berreskuratzeko, sartu kontuarekin lotuta dagoen helbide
         elektronikoa. Mesedez, begiratu spam atalean ordu bete igarota kontua berreskuratzeko
@@ -1060,15 +1092,19 @@ eu:
       unsubscribe_notifications_failed: Barkatu, arazo bat egon da, ezin izan da erabiltzailearen
         jakinarazpenetarako harpidetza ezeztatu.
   user_added_data:
+    add_data_header: Zure datu propioekin lagundu
+    additional_fields: Dokumentu honen inguruko datuak
     edit_data_header: Zure datuak aldatu
     add_metadata_header: Informazio Gehigarria
     edit_metadata_header: Metadatuak aldatu
     create_successful: Datuak arazorik gabe gehitu dira
+    create_failed: 'Ezin izan dira zure datuak gehitu: %{errors}'
     delete_successful: Datuak arazorik gabe ezabatu dira
     new_field: Eremu berria...
     new_value: Balioa
     submit_data: datuen balioa bidali
     update_successful: Datuak arazorik gabe eguneratu dira
+    update_failed: 'Ezin izan dira zure datuak eguneratu: %{errors}'
   data_search_files:
     from: Gutxieneko balorea
     to: Gehienezko balorea
@@ -1082,6 +1118,32 @@ eu:
   this_sound_is_unpublished: Soinu hau ez da argitaratu.
   article_not_associated_with_any_published_entries: Artikulu hau ez dago argitaratutako
     taxon batekin lotuta.
+  unknown_type_not_associated_with_any_published_entries: Datu hauek ez daude argitaratutako
+    taxon batekin lotuta.
+  image_not_associated_with_any_published_entries: Irudi hau ez dago argitaratutako
+    taxon batekin lotuta.
+  image_map_not_associated_with_any_published_entries: Mapa hau ez dago argitaratutako
+    taxon batekin lotuta.
+  map_not_associated_with_any_published_entries: Mapa hau ez dago argitaratutako taxon
+    batekin lotuta.
+  video_not_associated_with_any_published_entries: Bideo hau ez dago argitaratutako
+    taxon batekin lotuta.
+  sound_not_associated_with_any_published_entries: Soinu hau ez dago argitaratutako
+    taxon batekin lotuta.
+  link_not_associated_with_any_published_entries: Esteka hau ez dago argitaratutako
+    taxon batekin lotuta.
+  article_from_supplier: '%{whom}-(r)en artikulua'
+  sound_from_supplier: '%{whom}-(r)en soinua'
+  image_from_supplier: '%{whom}-(r)en irudia'
+  map_from_supplier: '%{whom}-(r)en mapa'
+  image_map_from_supplier: '%{whom}-(r)en mapa'
+  video_from_supplier: '%{whom}-(r)en bideoa'
+  article_of_taxon: '%{taxon_name}-(r)en artikulua'
+  sound_of_taxon: '%{taxon_name}-(r)en audioa'
+  image_of_taxon: '%{taxon_name}-(r)en irudia'
+  map_of_taxon: '%{taxon_name}-(r)en mapa'
+  image_map_of_taxon: '%{taxon_name}-(r)en mapa'
+  video_of_taxon: '%{taxon_name}-(r)en bideoa'
   article_rating: Artikuluaren balorazioa
   community_rating: Komunitatearen balorazioa
   collection_rating: Bildumaren balorazioa
@@ -1096,6 +1158,14 @@ eu:
   0_or_1: 0 edo 1
   0_1_or_2: 0, 1 edo 2
   about_eol: EOLi buruz
+  about_resources_body: Erakunde edo erakunde talde honekin lotura daukaten kanpoko
+    webguneen estekak ematera animatzen zaitugu. Adibidez, identifikazio gakoak, artikuluak,
+    blogak edo hezkuntza eta zientzia herrikoirako baliabideak esakintzen dituzten
+    webguneak.
+  account_information: Kontuaren informazioa
+  account_information_menu: Kontuaren informazioa
+  account_registered_but_not_ready_try_later: Zure kontua erregistratuta dago, baina
+    oraindik ez dago zu sartzeko prest. Mesedez, saiatu berriro bost minutu geroago.
   action: Ekintza
   action_not_available_error: Barka, baina ekintza hori ez dago erabilgarri.
   actions: Ekintzak
@@ -1104,7 +1174,115 @@ eu:
   activity: Jarduera
   activity_logs:
     collection_activity_log:
+      add_editor:
+        an_unknown_user_of_an_unknown_collection: Erabiltzaile ezezagun bat bilduma
+          ezezagun baten administratzaile bezala gehitu da.
+        an_unknown_user_of_collection: Erabiltzaile ezezagun bat "%{collection}" bildumaren
+          administratzaile bezala gehitu da.
+        user_of_an_unknown_collection: <strong>%{user}</strong> erabiltzailea bilduma
+          ezezagun baten administratzaile bezala gehitu da.
+        user_of_collection: <strong>%{user}</strong> erabiltzailea "%{collection}"
+          bildumaren administratzaile bezala gehitu da.
+        an_unknown_user_of_it: Erabiltzaile ezezagun bat administratzaile bezala gehitu
+          da.
+        user_of_it: <strong>%{user}</strong> erabiltzaile aadministratzaile bezala
+          gehitu da.
+      bulk_add:
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: Erabiltzaile ezezagun
+          batek elementu kantitate handia gehitu du bilduma ezezagun batean.
+        an_unknown_user_added_bulk_items_to_collection: Erabiltzaile ezezagun batek
+          elementu kantitate handia gehitu du "%{collection}" bildumara.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          elementu kantitate handia gehitu du bilduma ezezagun batera.
+        user_added_bulk_items_to_collection: <strong>%{user}</strong> elementu kantitate
+          handia gehitu du "%{collection}" bilduman.
+        an_unknown_user_added_bulk_items_to_it: Erabiltzaile ezezagun batek elementu
+          kantitate handia gehitu du.
+        user_of_it: <strong>%{user}</strong> erabiltzaileak elementu kantitate handia
+          gehitu du.
+      create:
+        an_unknown_user_created_an_unknown_collection: Erabiltzaile ezezagun batek
+          bilduma ezezagun bat sortu du.
+        an_unknown_user_created_collection: Erabiltzaile ezezagun batek "%{collection}"
+          bilduma sortu du.
+        user_created_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          bilduma ezezagun bat sortu du.
+        user_created_collection: <strong>%{user}</strong> erabiltzaileak "%{collection}"
+          bilduma sortu du.
+        an_unknown_user_created_it: Erabiltzaile ezezagun batek sortu du.
+        user_created_it: <strong>%{user}</strong> erabiltzaileak sortu du.
+      remove_all:
+        an_unknown_user_cleared_an_unknown_collection: Erabiltzaile ezezagun batek
+          bilduma ezezagun bateko elementu guztiak ezabatu ditu.
+        an_unknown_user_cleared_collection: Erabiltzaile ezezagun batek "%{collection}"
+          bildumako elementu guztiak ezabatu ditu.
+        user_cleared_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          bilduma ezezagun bateko elementu guztiak ezabatu ditu.
+        user_cleared_collection: <strong>%{user}</strong> erabiltzaileak "%{collection}"
+          bildumako elementu guztiak ezabatu ditu.
+        an_unknown_user_cleared_it: Erabiltzaile ezezagun batek elementu guztiak ezabatu
+          ditu.
+        user_cleared_it: <strong>%{user}</strong> erabiltzaileak elementu guztiak
+          ezabatu ditu.
+      remove:
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Erabiltzaile
+          ezezagun batek bilduma ezezagun bateko elementu ezezagun bat ezabatu du.
+        an_unknown_user_removed_an_unknown_item_from_collection: Erabiltzaile ezezagun
+          batek "%{collection}" bildumako elementu ezezagun bat ezabatu du.
+        an_unknown_user_removed_item_from_an_unknown_collection: Erabiltzaile ezezagun
+          batek bilduma ezezagun bateko "%{item}" elementua ezabatu du.
+        an_unknown_user_removed_item_from_collection: Erabiltzaile ezezagun batek
+          "%{collection}" bildumako "%{item}" elementua ezabatu du.
+        user_removed_an_unknown_item_from_an_unknown_collection: <strong>%{user}</strong>
+          erabiltzaileak bilduma ezezagun bateko elementu ezezagun bat ezabatu du.
+        user_removed_an_unknown_item_from_collection: <strong>%{user}</strong> erabiltzaileak
+          "%{collection}" bildumako elementu ezezagun bat ezabatu du.
+        user_removed_item_from_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          bilduma ezezagun bateko "%{item}" elementua ezabatu du.
+        user_removed_item_from_collection: <strong>%{user}</strong> erabiltzaileak
+          "%{collection}" bildumako "%{item}" elementua ezabatu du.
+        an_unknown_user_removed_an_unknown_item_from_it: Erabiltzaile ezezagun batek
+          elementu ezezagun bat ezabatu du.
+        an_unknown_user_removed_item_from_it: Erabiltzaile ezezagun batek "%{item}"
+          elementua ezabatu du.
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> erabiltzaileak
+          elementu ezezagun bat ezabatu du.
+        user_removed_item_from_it: <strong>%{user}</strong> erabiltzaileak "%{item}"
+          elementua ezabatu du.
+      collect:
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Erabiltzaile
+          ezezagun batek elementu bat gehitu du bilduma ezezagun batean.
+        an_unknown_user_added_an_unknown_item_to_collection: Erabiltzaile ezezagun
+          batek elementu ezezagun bat gehitu du "%{collection}" bilduman.
+        an_unknown_user_added_item_to_an_unknown_collection: Erabiltzaile ezezagun
+          batek "%{item}" elementua gehitu du bilduma ezezagun batean.
+        an_unknown_user_added_item_to_collection: Erabiltzaile ezezagun batek "%{item}"
+          elementua gehitu du "%{collection}" bilduman.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong>
+          erabiltzaileak elementu ezezagun bat gehitu du bilduma ezezagun batean.
+        user_added_an_unknown_item_to_collection: <strong>%{user}</strong> erabiltzaileak
+          elementu ezezagun bat gehitu du "%{collection}" bilduman.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          "%{item}" elementua gehitu du bilduma ezezagun batean.
+        user_added_item_to_collection: <strong>%{user}</strong> erabiltzaileak "%{item}"
+          elementua gehitu du "%{collection}" bilduman.
+        an_unknown_user_added_an_unknown_item_to_it: Erabiltzaile ezezagun batek elementu
+          ezezagun bat gehitu du.
+        an_unknown_user_added_item_to_it: Erabiltzaile ezezagun batek "%{item}" elementua
+          gehitu du.
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> erabiltzaileak
+          elementu ezezagun bat gehitu du.
+        user_added_item_to_it: <strong>%{user}</strong> erabiltzaileak "%{item}" elementua
+          gehitu du.
       other_actions:
+        an_unknown_user_modified_an_unknown_collection: Erabiltzaile ezezagun batek
+          bilduma ezezagun bat aldatu du.
+        an_unknown_user_modified_collection: Erabiltzaile ezezagun batek "%{collection}"
+          bilduma aldatu du.
+        user_modified_an_unknown_collection: <strong>%{user}</strong> erabiltzaileak
+          bilduma ezezagun bat aldatu du.
+        user_modified_collection: <strong>%{user}</strong> erabiltzaileak "%{collection}"
+          bilduma aldatu du.
         an_unknown_user_modified_it: Erabiltzaile ezezagun batek aldatu du, eta aldaketa
           zehatza ez da gorde.
         user_modified_it: <strong>%{user}</strong> erabiltzailek aldatu du, eta ez
@@ -1196,6 +1374,128 @@ eu:
     curator_activity_log:
       reasons_to_untrust: 'Ez fidagarria bezala sailkatzeko arrazoiak: %{reasons}'
       reasons_to_hide: 'Ezkutatzeko arrazoiak: %{reasons}'
+      trusted:
+        an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Erabiltzaile
+          ezezagun batek "%{data_object}"(ar)en bertsio zahar bat fidagarri bezala
+          markatu du testuinguru ezezagun batean.
+      untrusted:
+        an_unknown_user_untrusted_it_on_an_unknown_association: Erabiltzaile ezezagun
+          batek ez fidagarri bezala markatu du testuinguru ezezagun batean.
+        an_unknown_user_untrusted_it_on_association: Erabiltzaile ezezagun batek ez
+          fidagarri bezala markatu du "%{association}" orrian.
+        user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> erabiltzaileak
+          ez fidagarri bezala markatu du testuinguru ezezagun batean.
+      show:
+        an_unknown_user_showed_it_on_an_unknown_association: Erabiltzaile ezezagun
+          batek ikusgai bezala markatu du testuinguru ezezagun batean.
+      hide:
+        an_unknown_user_hid_it_on_an_unknown_association: Erabiltzaile ezezagun batek
+          ezkutatua bezala markatu du testuinguru ezezagun batean.
+        an_unknown_user_hid_it_on_association: Erabiltzaile ezezagun batek ezkutatua
+          bezala markatu du "%{association}" orrian.
+        user_hid_it_on_an_unknown_association: <strong>%{user}</strong> erabiltzaileak
+          ezkutatua bezala markatu du testuinguru ezezagun batean.
+        user_hid_it_on_association: <strong>%{user}</strong> erabiltzaileak ezkutatua
+          bezala markatu du "%{association}" orrian.
+      add_common_name:
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Erabiltzaile
+          ezezagun batek izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean
+          orri ezezagun batean.
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Erabiltzaile
+          ezezagun batek izen arrunt ezezagun bat gehitu du %{language} hizkuntzan
+          orri ezezagun batean.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Erabiltzaile
+          ezezagun batek izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean
+          "%{taxon}" taxonean.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Erabiltzaile ezezagun
+          batek izen arrunt ezezagun bat gehitu du %{language} hizkuntzan "%{taxon}"
+          taxonean.
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Erabiltzaile
+          ezezagun batek izen arrunt bat gehitu du hizkuntza ezezagun batean orri
+          ezezagun batean.
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Erabiltzaile ezezagun
+          batek "%{name}" izen arrunta gehitu du %{language} hizkuntzan orri ezezagun
+          batean.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Erabiltzaile ezezagun
+          batek "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean "%{taxon}"
+          taxonean.
+        an_unknown_user_added_name_in_language_to_taxon: Erabiltzaile ezezagun batek
+          "%{name}" izen arrunta gehitu du %{language} hizkuntzan "%{taxon}" taxonean.
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean
+          orri ezezagun batean.
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt ezezagun bat gehitu du %{language} hizkuntzan
+          orri ezezagun batean.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean
+          "%{taxon}" taxonean.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt ezezagun bat gehitu du %{language} hizkuntzan
+          "%{taxon}" taxonean.
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean
+          orri ezezagun batean.
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak "%{name}" izen arrunta gehitu du %{language} hizkuntzan orri
+          ezezagun batean.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>
+          erabiltzaileak "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean
+          "%{taxon}" taxonean.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> erabiltzaileak
+          "%{name}" izen arrunta gehitu du %{language} hizkuntzan "%{taxon}" taxonean.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Erabiltzaile
+          ezezagun batek izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Erabiltzaile ezezagun
+          batek izen arrunt ezezagun bat gehitu du %{language} hizkuntzan.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: Erabiltzaile ezezagun
+          batek "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean.
+        an_unknown_user_added_name_in_language_to_it: Erabiltzaile ezezagun batek
+          "%{name}" izen arrunta gehitu du %{language} hizkuntzan.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt ezezagun bat gehitu du hizkuntza ezezagun batean.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> erabiltzaileak
+          izen arrunt ezezagun bat gehitu du %{language} hizkuntzan.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> erabiltzaileak
+          "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> erabiltzaileak
+          "%{name}" izen arrunta gehitu du %{language} hizkuntzan.
+      remove_common_name:
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: Erabiltzaile
+          ezezagun batek izen arrunt bat ezabatu du hizkuntza ezezagun batean orri
+          ezezagun batetik.
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: Erabiltzaile
+          ezezagun batek izen arrunt bat ezabatu du %{language} hizkuntzan orri ezezagun
+          batetik.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: Erabiltzaile
+          ezezagun batek izen arrunt bat ezabatu du hizkuntza ezezagun batean "%{taxon}"
+          taxonetik.
+        an_unknown_user_removed_name_in_language_from_taxon: Erabiltzaile ezezagun
+          batek izen arrunt bat ezabatu du %{language} hizkuntzan "%{taxon}" taxonetik.
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt bat ezabatu du hizkuntza ezezagun batean orri
+          ezezagun batetik.
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt bat ezabatu du %{language} hizkuntzan orri ezezagun
+          batetik.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt bat ezabatu du hizkuntza ezezagun batean "%{taxon}"
+          taxonetik.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> erabiltzaileak
+          izen arrunt bat ezabatu du %{language} hizkuntzan "%{taxon}" taxonetik.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: Erabiltzaile
+          ezezagun batek izen arrunt bat ezabatu du hizkuntza ezezagun batean.
+        an_unknown_user_removed_name_in_language_from_it: Erabiltzaile ezezagun batek
+          izen arrunt bat ezabatu du %{language} hizkuntzan.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>
+          erabiltzaileak izen arrunt bat ezabatu du hizkuntza ezezagun batean.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> erabiltzaileak
+          izen arrunt bat ezabatu du %{language} hizkuntzan.
+      merge:
+        an_unknown_user_merged_unknown_entry_to_it: Erabiltzaile ezezagun batek sailkapen
+          ezezagun bat gehitu du.
+        an_unknown_user_merged_unknown_entry_to_taxon: Erabiltzaile ezezagun batek
+          sailkapen ezezagun bat mugitu du "%{taxon}" taxonera.
   add_a_comment: Gehitu iruzkina.
   add_a_comment_colon: 'Gehitu iruzkina:'
   add: Gehitu

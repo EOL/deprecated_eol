@@ -401,12 +401,18 @@ eu:
         refresh_period_hours: Frekuentzia
         resource_status_id: Egoera
         resource_status: Egoera
+        resource_url_or_file_upload: Baliabide fitxategia igo
+        title: Baliabidearen izena
       session:
         password: Pasahitza
         remember_me: Manten nazazu izen emanda 2 astez
         username_or_email: Erabiltzaile izena edo e-posta helbidea
       translated_content_page:
         active_translation: Argitaratua
+        active_translation_more: Argitaratutako itzulpenak publikoki ikusgai egongo
+          dira, orria bera argitaratu gabe egon ezean. Kendu <em>argitaratua</em>
+          marka, erabitzaileek orokorrean orriaren bertsio hau ikustea saiestu nahi
+          baduzu.
         language_id: Hizkuntza
       translated_news_item:
         active_translation: Argitaratua
@@ -1531,48 +1537,95 @@ eu:
   admin_content_page_update_unsuccessful_error: Barkatu, arazo bat egon da, ezin izan
     da orria eguneratu.
   admin_content_pages_empty: Ez da eduki orririk aurkitu.
+  admin_content_pages_link: Eduki administrazioa
   admin_content_partners_notifications_link: Jakinarazpenak
   admin_content_partners_notifications_statistics_reminder_send_submit: Gogorarazpena
     bidali
   admin_content_partners_statistics_date_from_label: Igorlea
   admin_content_partners_statistics_date_to_label: Hartzailea
+  admin_content_partners_statistics_first_published_download_csv_submit: Jaitsi CSV
+    formatuan
   admin_content_partners_statistics_link: Estatistikak
   admin_news_item_active: Argitaratua
   admin_news_item_create_unsuccessful_error: Barkatu, arazo bat egon da, albiste berria
     ez da sortu.
+  admin_news_item_new_link: Albistea sortu
+  admin_news_item_new_header: Albiste berria sortu
   admin_news_item_not_active: Argitaratu gabea
+  admin_news_item_update_unsuccessful_error: Barkatu, arazo bat egon da, ezin izan
+    da albistea eguneratu.
+  admin_news_items_empty: Ez da albisterik aurkitu.
+  admin_news_items_index_information: Jarraian dagoen estekak EOL webgunean momentuan
+    eskuragarri dauden albiste guztiak baita etorkizunean sor daitezkeenak biltzen
+    ditu. Orri bakoitzak itzulpen bat edo gehiago ditu. Albiste bat sortzean, itzulpen
+    bat gehitzeko eskatuko zaizu. Argitaratutako itzulpen guztiak publikoki ikusgai
+    daude.
+  admin_news_items_page_title: 'Administrazioa: Albisteak'
   admin_news_link: Albisteak
+  admin_options_warning: Hemen egindako aldaketek 10 minutu beharko dituzte eragina
+    izateko.
+  admin_option_all_users_can_see_data: Erabiltzaile guztiek ikus ditzakete datuak,
+    ez bakarrik baimena duten erabiltzaileek.
+  admin_simple_actions_header: 'Ekintza sinpleak:'
   admin_spam_delete: Spama ezabatu
   admin_statistics_link: Estatistikak
+  admin_translated_content_page_create_successful_notice: Itzulpena hona gehitu da
+    <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_content_page_create_unsuccessful_error: Barkatu, arazo bat egon
     da, ezin izan da itzulpena gehitu.
+  admin_translated_content_page_delete_confirmation: Ziur zaude "%{page_name}" orriaren
+    %{language} hizkuntzako bertsioa ezabatu nahi duzula? Ezabatutako orriak ezin
+    dira berreskuratu.
+  admin_translated_content_page_delete_successful_notice: <em>%{page_name}</em> orriaren
+    %{language} itzulpena ezabatua izan da.
+  admin_translated_content_page_edit_subheader: <em>%{page_name} orriaren</em> %{language}
+    hizkuntzarako itzulpena aldatu
   admin_translated_content_page_new_header: Hizkuntza aukeratu eta edukia gehitu
   admin_translated_content_page_new_link: Itzulpena gehitu
+  admin_translated_content_page_new_subheader: <em>%{page_name}</em> orrirako itzulpena
+    gehitu
+  admin_translated_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
+    orriaren %{language} hizkuntzarako itzulpena eguneratu da.
   admin_translated_content_page_update_unsuccessful_error: Barkatu, arazo bat egon
     da, ezin izan da itzulpena eguneratu.
   admin_translated_news_item_active: Argitaratua
+  admin_translated_news_item_create_successful_notice: Itzulpena hona gehitu da <a
+    href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Barkatu, arazo bat egon da,
     ezin izan da itzulpena gehitu.
+  admin_translated_news_item_delete_confirmation: Ziur zaude "%{page_name}" orriaren
+    %{language} hizkuntzako bertsioa ezabatu nahi duzula? Ezabatutako orriak ezin
+    dira berreskuratu.
+  admin_translated_news_item_delete_successful_notice: <em>%{page_name}</em> albistearen
+    %{language} hizkuntzarako itzulpena ezabatua izan da.
+  admin_translated_news_item_edit_subheader: <em>%{page_name} orriaren</em> %{language}
+    hizkuntzarako itzulpena aldatu
   admin_translated_news_item_new_header: Hizkuntza aukeratu eta edukia gehitu
   admin_translated_news_item_new_link: Gehitu itzulpena
   admin_translated_news_item_not_active: Argitaratu gabea
+  admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a>
+    orriaren %{language} hizkuntzarako itzulpena eguneratu da.
   admin_translated_news_item_update_unsuccessful_error: Barkatu, arazo bat egon da,
     ezin izan da itzulpena eguneratu.
   admin_user_delete_successful_notice: Erabiltzailea ezabatua izan da
   admin_user_hide_successful_notice: Erabiltzailea ezkutatu da
   admin_user_unhide_successful_notice: Erabiltzaileak ezkutatuta egoteari utzi dio
+  agent: Agentea
   all: guztiak
   all_articles: Artikulu guztiak
   all_categories: Dena
   all_changes: Aldaketa guztiak
   all_collections: Bilduma guztiak
   all_communities: Komunitate guztiak
+  all_count: Denak (%{count})
+  all_filter: denak
   all_images: Irudi guztiak
   all_information: Informazio guztia
   all_items: Elementu guztiak
   all_news: albiste guztiak
   all_people: Jende guztia
   all_sounds: Soinu guztiak
+  all_sources: Iturri guztiak
   all_taxa: Taxon guztiak
   all_title: Denak
   all_user_submitted_texts_on_the_website: Jarraian erakusten dira erabiltzaileak
@@ -1591,6 +1644,8 @@ eu:
   annotations_with_count:
     one: Anotazio %{count}
     other: '%{count} anotazio'
+  annotation_submit: Iruzkina argitaratu
+  annotation_body_default: galdera edo iruzkin bat gehitu ...
   anonymous_user_full_name: Erabiltzaile anonimoa
   anonymous_user_given_name: Anonimoa
   anonymous_user_tag_line: Saioa hasi gabe
@@ -1630,11 +1685,21 @@ eu:
   association_trusted_for_taxa:
     one: 'Fidagarria honentzat:'
     other: 'Fidagarria honentzat:'
+  association_unreviewed_for_taxa:
+    one: 'Berrikusi gabea:'
+    other: 'Berrikusi gabeak:'
+  association_untrusted_for_taxa:
+    one: 'Ez fidagarria honentzat:'
+    other: 'Ez fidagarriak honentzat:'
+  association_hidden_for_taxa:
+    one: 'Honek ezkutatua:'
+    other: 'Honek ezkutatuak:'
   a_taxon: taxon bat
   attribute: Atributua
   audio_play: erreproduzitu
   audio_pause: pausatu
   audio_stop: gelditu
+  audio_mute: Isildu
   available: erabilgarri
   average_rating: batezbesteko kalifikazioa
   back: Atzera
@@ -1675,23 +1740,50 @@ eu:
   change_rating_to_5_of_5: Kalifikazioa 5etik 5era aldatu
   choose_collection_header: Bilduma aukeratu
   clade: Talde taxonomikoa
+  classification_preferred_for_taxon: Nahiago duzuna
+  classification_preferred_for_taxon_help_tip: '%{icon} ikonoak taxon honetarako nahiago
+    duzun sailkapena markatzen du.'
   classification_summary_section_header: Sailkapena
   classification_tree_header: Sailkapena
+  classifications_preferred_column_header: Nahiago duzuna
+  classifications_hierarchy_column_header: Sailkapena
+  classifications_recognized_by_column_header: Honek ezagutua
+  clear_entire_cache_store: Cache memoria erabat hustu
+  cms_available_in_languages: 'Orri hau erabilgarri dago hemen:'
+  cms_editor: CMS editorea
+  cms_missing_content_title: Itzulpena falta da
+  cms_missing_content_message: Barkatu, orri hau ez dago aukeratutako %{selected_language}
+    hizkuntzarako eskuragarri.
   click: Klikatu
   clicked_time: Klikaren ordua
+  click_on_an_activity_to_see_th: Klikatu ekintza batean, bost minutuko tarte batean
+    gauzatu den beste edozein ekintza ikusteko.
+  collect_item: Artikulua bildu
+  collection_create_failure: Errorea bilduma sortzerakoan.
   collection_delete_link: Bilduma hau betirako ezabatu
   collection_destroyed: Bilduma ezabatua izan da.
   collection_removed: '%{collection} bilduma ezabatu da.'
   collection_update_failure: Arazoa %{collection} bilduma eguneratzean. Egiaztatu
     bildumako elementuetan arazorik dagoen
   collection_not_existing: '%{collection} bilduma ez da existitzen.'
+  collection_error_no_items_selected: 'Errorea: ez da artikulurik aukeratu, ez da
+    ekintzarik burutu.'
   collection_image: Bildumaren irudia
   collection_is_empty: Bilduma hutsik dago.
+  collection_item_edit_page_title: <em>%{collection_name}</em> bildumako elementua
+    aldatu
   collection_item_not_found_error: Ezin izan da bilduma elementu hori aurkitu.
+  collection_item_edit_by_javascript_not_authorized_error: Barkatu, ez daukazu bildumako
+    elementu hau aldatzeko baimenik. Bildumako jabea edo editorea bazara, mesedez
+    kargatu orria berriro eta egiaztatu saioa hasi duzula.
   collection_items_count:
     zero: Hutsik
     one: Elementu %{count}
     other: '%{count} elementu'
+  collection_items_duplicate_ids: Ezin da bildumarik sortu bikoiztutako ID bat(zu)etik
+    %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type can''t
+    be nil in:%{item}'
   collection_move_choose_all_items_target_title: 'Mugitu "%{collection}" bildumako
     elementu guztiak hona:'
   collection_name_cannot_be_blank: Bildumaren izena ezin da hutsik egon
@@ -1713,14 +1805,51 @@ eu:
   collections_link: Bildumak
   collections_page_title: Bildumak
   collections_summary_empty: Orri hau oraindik ez dago bilduma batean ere ez.
+  collections_with_count:
+    one: Bilduma %{count}
+    other: '%{count} bilduma'
+  comment: Iruzkina
+  comment_added_notice: Iruzkina arazorik gabe gehitu da.
+  comment_body_label: Zure iruzkina
+  comment_delete_confirm: Ziur zaude iruzkina ezabatu nahi duzula?
+  comment_edit_by_javascript_not_authorized_error: Barkatu, ez daukazu iruzkin hau
+    aldatzeko baimenik. Iruzkinaren egilea bazara, mesedez kargatu orria berriro eta
+    egiaztatu saioa hasi duzula.
+  comment_or_rate_on_this_article: artikulu hau iruzkindu edo kalifikatu
+  comment_or_rate_on_this_link: esteka hau iruzkindu edo kalifikatu
+  comment_not_added_error: Barkatu, arazo bat egon da, ezin izan da iruzkina gehitu.
+  comment_not_deleted_error: Barkatu, arazo bat egon da, ezin izan da iruzkina ezabatu.
+  comment_not_updated_error: Barkatu, arazo bat egon da, ezin izan da iruzkina eguneratu.
+  comment_new_title: Iruzkin berri bat gehitu
+  comment_new_posters_image_alt: Zure profilaren irudia, bat eman baduzu.
+  comment_new_posters_image_advisory_info: Zure profil irudia eta izena zure iruzkinaren
+    ondoan agertuko dira zerrendetan.
+  comment_show_posters_image_alt: Iruzkin hau gehitu duen %{posters_name}-(r)en profileko
+    irudia.
+  comments: Iruzkinak
+  comments_filter: Iruzkinak
+  common_activities_by_logged_in: Saioa hasi duten erabiltzaileen ekintza arruntak.
+  common_name: Izen arrunta
+  common_name_exists: <em>%{name_string}</em> izen arrunta dagoeneko existitzen da
+  common_names_with_count:
+    one: Izen arrunt%{count}
+    other: '%{count} izen arrunt'
+  common_user_activity_page_title: Erabiltzaile ekintza arrunta
   communities_with_count:
     one: Komunitate %{count}
     other: '%{count} komunitate'
   communities_filter: Komunitateak
   communities_link: Komunitateak
   communities_page_title: Komunitateak
+  communities_index_empty: Ez dago komunitate aktiborik.
   communities_index_header: Komunitate aktiboak
+  communities_that_can_edit_this_collection: Bilduma hau administratu dezaketen komunitateak
   community: Komunitatea
+  community_activity: Komunitatearen jarduera
+  community_destroyed: Komunitate hau ezabatu duzu. Ez da taxonaren orrietan edo bilaketetan
+    berriro agertuko.
+  community_description_default: Encyclopedia of Life komunitate bat.
+  community_empty_notice: komunitate honek ez dauka kiderik.
   community_focus: Administratutako bildumak
   community_focus_items_with_count:
     one: Elementu %{count}
@@ -1728,15 +1857,28 @@ eu:
   community_invitation_comment: '"%{community}" komunitatera batzera gonbidatu nahi
     zintuzket.'
   community_logo_alt_text: '%{community_name} komunitatearen logoa'
+  community_managers_with_count:
+    one: Komunitatearen administratzaile %{count}
+    other: Komunitatearen %{count} administratzaile
   community_members: Komunitateko kideak
+  community_members_with_count:
+    one: Komunitateko kide %{count}
+    other: Komunitateko %{count} kide
   community_name_label: Komunitatearen izena
   community_newsfeed: Komunitatearen newsfeed-a
+  community_no_longer_has_manager_access_to_collection: '"%{community}" komunitateak
+    jada ez dauka administratzaile sarbiderik "%{collection}" bildumara.'
   community_not_destroyed_error: Barkatu, arazo bat egon da eta komunitatea ez da
     ezabatu.
   community_tab_collections_header: Bildumak
   community_removed_by_owner: Bilduma hau jabeak ezabatu du.
+  communities_summary_empty: Taxon hau oraindik ez du komunitate batek ere nabarmendu.
+  communities_summary_header_with_count:
+    one: Komunitate bati dagokio
+    other: '%{count} komunitateri dagokio'
   completed: Bukatua
   completed_colon: 'Bukatua:'
+  confirm_deactivate_user: Ziur zaude kontu hau desaktibatu nahi duzula?
   confirm_leave: Ziur zaude komunitate hau utzi nahi duzula?
   confirm_password_colon: 'Berretsi pasahitza:'
   contact: Kontaktua
@@ -1744,26 +1886,374 @@ eu:
   contact_updated: Kontaktua eguneratua
   contact_us: Jarri gurekin harremanetan
   contact_us_link: Jarri gurekin harremanetan
+  containing_value: '%{value} duena.'
+  content_has_been_updated: Edukia eguneratu da.
   content_partner_agreement_cancel_edit_agreement_link: Utzi
   content_partner_agreement_cancel_new_agreement_link: Utzi
   content_partner_agreement_cancel_sign_agreement_link: Utzi
+  content_partner_administration_settings_header: Administrazio ezarpenak
+  content_partner_contact_create_unsuccessful_error: Barkatu, arazo bat egon da, ez
+    da kontaktua gehitu.
+  content_partner_contact_delete_successful_notice: Kontaktua ezabatua izan da.
+  content_partner_contact_delete_unsuccessful_error: Barkatu, arazo bat egon da, ez
+    da kontaktua ezabatu.
+  content_partner_contact_edit_link: Kontaktua aldatu
+  content_partner_contact_edit_page_subheader: Kontaktua aldatu
+  content_partner_contact_new_link: Kontaktu berria gehitu
+  content_partner_contact_new_page_subheader: Kontaktua gehitu
+  content_partner_contact_new_edit_form_tip: Izena, abizena eta helbide elektronikoa
+    %{required_icon} beharrezkoak dira.
+  content_partner_contact_update_successful_notice: Kontaktua arazorik gabe eguneratu
+    da.
+  content_partner_contact_update_unsuccessful_error: Barkatu, arazo bat egon da, ez
+    da kontaktua eguneratu.
+  content_partner_contacts_header: Kontaktuak
+  content_partner_current_agreement_signed_on_with_date: 'Sinadura data: %{date}'
+  content_partner_current_agreement_view_link: Ikusi
+  content_partner_current_agreement_edit_link: Aldatu
+  content_partner_current_agreement_create_link: Berria sortu
+  content_partner_current_agreement_not_accepted: Ez da oraindik onartu
+  content_partner_data_description_header: Datuen deskribapena
+  content_partner_data_description_empty: Inork ez du emandako datuen deskribapenik
+    gehitu.
   content_partner_filter_option_vetted_yes: Bai
   content_partner_filter_option_vetted_no: Ez
+  content_partner_filter_option_published_latest_harvest_not_published: Azken argitaratu
+    gabeak
+  content_partner_filter_option_published_latest_harvest_pending_publish: Azken argitaratzekoak
+  content_partner_filter_option_published_latest_harvest_published: Azken argitalpenak
+  content_partner_filter_published: Argitaratua
+  content_partner_has_unpublished_content_true: Argitaratu gabeko edukia
+  content_partner_has_unpublished_content_false: Ez dago argitaratu gabeko edukirik
+  content_partner_latest_published_harvest_event_time_ago: Azken eguneraketa duela
+    %{time_passed};
+  content_partner_managed_by_header: Honek administratua
+  content_partner_new_edit_form_tip: Hemen sartu duzun informazioaren zati bat publikoki
+    ikusgai egongo da. Proiektuaren izena eta deskribapena %{required_icon} beharrezkoak
+    dira.
+  content_partner_oldest_published_harvest_event_time_ago: Lehen aldiz EOLen argitaratua
+    duela %{time_passed};
+  content_partner_overview_agreement_link: Ikusi indarrean dagoen hitzarmena
   content_partner_public_false: Pribatua
   content_partner_public_true: Publikoa
+  content_partner_resource_about_header: Baliabidearen inguruan
   content_partner_resource_auto_publish_true: Bai
   content_partner_resource_auto_publish_false: Ez
+  content_partner_resource_collection_empty: Ez da baliabide honetarako bildumarik
+    sortu.
+  content_partner_resource_collections_header: Bildumak
+  content_partner_resource_collection_header: Argitaratutako bilduma
+  content_partner_resource_collection_show_link: Argitaratutako bildumak ikusi
+  content_partner_resource_confirm_harvest_requested: Ziur zaude %{resource_title}
+    baliabidearen bilketa bortxatu nahi duzula?
+  content_partner_resource_create_unsuccessful_error: Barkatu, arazo bat egon da,
+    ez da baliabidea gehitu.
   content_partner_resource_delete_with_type_link: Dena ezabatu
+  content_partner_resource_description_empty: Ez da baliabide honetarako deskribapenik
+    eman.
+  content_partner_resource_edit_link: Aldatu
+  content_partner_resource_edit_subheader: Baliabidea aldatu
+  content_partner_resource_edit_with_type_link: Baliabidea aldatu
+  content_partner_resource_harvest_event_current_published: Argitaratuta daudenak
+  content_partner_resource_harvest_event_not_published: Argitaratu gabe
+  content_partner_resource_harvest_event_previously_published: Lehenago argitaratua
+  content_partner_resource_harvest_event_publish_pending: Argitaratzeko
+  content_partner_resource_hierarchy_edit_link: Aldatu
+  content_partner_resource_hierarchy_edit_subheader: <em>%{resource_title}</em> baliabidearen
+    hierarkia aldatu
+  content_partner_resource_hierarchy_unknown: Ezezaguna
+  content_partner_resource_hierarchy_update_successful_notice: Hierarkia arazorik
+    gabe eguneratu da.
+  content_partner_resource_hierarchy_update_unsuccessful_error: Barkatu, arazo bat
+    egon da, ez da hierarkia eguneratu.
+  content_partner_resource_new_link: Baliabide berria gehitu
+  content_partner_resource_new_subheader: Baliabide berria gehitu
+  content_partner_resource_preview_collection_header: Bildumaren aurrebista
+  content_partner_resource_preview_collection_show_link: Bildumaren aurrebista ikusi
+  content_partner_resource_processing_header: Egoera eta ezarpenak prozesatzen
+  content_partner_resource_resource_status_new: Sortua
+  content_partner_resource_show_link_back_to: baliabidera itzuli
+  content_partner_resource_show_subheader: <em>%{resource_title}</em> baliabidearen
+    xehetasunak
+  content_partner_resource_status_update_illegal_transition_error: Barkatu, %{resource_title}
+    baliabidearen oraingo egoera %{current_resource_status} da eta ezin da %{requested_resource_status}
+    egoerara aldatu.
+  content_partner_resource_status_update_successful_notice: '%{resource_title} baliabidearen
+    egoera arazorik gabe eguneratu da %{resource_status} egoerara.'
+  content_partner_resource_status_update_unsuccessful_error: Barkatu, arazo bat egon
+    da, %{resource_title} baliabidearen egoera ezin izan da %{resource_status} egoerara
+    eguneratu.
+  content_partner_resource_update_unsuccessful_error: Barkatu, arazo bat egon da,
+    ez dira baliabidearen xehetasunak eguneratu.
+  content_partner_resource_upload_unsuccessful_error: 'Barkatu, arazo bat egon da,
+    baliabidearen xehetasunak eguneratu dira, baina baliabidea bera ez da eguneratu:
+    %{resource_status}'
+  content_partner_resource_validation_unsuccessful_error: Barkatu, baliabidearen xehetasunak
+    eguneratu dira, baina ezin izan da baliabidea baliozkotu. Ikusi azpian prozesamenduaren
+    oharrak.
   content_partner_resource_vetted_true: Bai
   content_partner_resource_vetted_false: Ez
+  content_partner_resource_view_link: Ikusi
+  content_partner_resources_header: Baliabideak
+  content_partner_resources_link: Baliabideak &amp; Kontaktuak
+  content_partner_statistics_column_header_statistic: '%{month_name} hilabeterako
+    neurketa estatistikoa, %{year}'
+  content_partner_statistics_column_header_provider_count: Hornitzailearen edukia
+    daukaten orriak
+  content_partner_statistics_column_header_total_count: Orri guztiak
+  content_partner_statistics_column_header_provider_proportion: Hornitzaile portzentajea
+  content_partner_statistics_empty: Ez da %{month_name} %{year} hilabeterako estatistikarik
+    aurkitu.
+  content_partner_statistics_month_label: Hilabetea
+  content_partner_statistics_year_label: Urtea
+  content_partner_statistics_summary_caption: '%{partner_name}-(e)k hornitutako edukia
+    daukaten taxon orrien erabilera estatistiken laburpena, EOL webgunearen erabilera
+    estatistikei dagokionez.'
+  content_partner_statistics_link: Erabilera estatistikak
+  content_partner_statistics_taxa_page_caption: '%{partner_name}-(e)k hornitutako
+    edukia daukaten taxon orrien erabilera estatistiken xehetasunak.'
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Denbora
+    orrian (segunduak)
+  content_partner_status_empty: Egoera ezezaguna
+  content_partner_vetted_false: Berrikusi gabea
+  content_servers: Eduki zerbitzariak
+  content_setting_colon: 'Eduki ezarpenak:'
+  content_summary_table_type_status_column_header: Eduki mota eta egoera
+  content_summary_table_count_column_header: Zenbatekoa
+  content_summary_table_type_trusted_images_row: Irudi fidagarrien zenbatekoa
+  content_summary_table_type_unreviewed_images_row: Berrikusi gabeko irudien zenbatekoa
+  content_summary_table_type_trusted_text_row: Testu elementu fidagarrien zenbatekoa
+  content_summary_table_type_unreviewed_text_row: Berrikusi gabeko testu elementuen
+    zenbatekoa
+  content_type: Eduki-mota
+  contribute: Lagundu
+  copy: Kopiatu
   copy_of_name: '%{name}(r)en kopia'
+  copyright: 'COPYRIGHT:'
+  correct_donation_message_with_link: Informazio hau okerra bada, mesedez <a href='%{link}'>joan
+    atzera</a> aldaketak egiteko.
+  could_not_find_collection_error: Barkatu, ezin izan da bilduma hori aurkitu.
+  could_not_find_user: Ez zara komunitate honen kide.
+  count: Zenbatekoa
+  create_account: kontua sortu
+  create_a_new_collection: Bilduma berria sortu
+  create_community_unsuccessful_error: Barkatu, arazo bat egon da, zure komunitatea
+    ez da sortu. Mesedez egiaztatu eremu guztiak zuzen beteta daudela.
+  create_community: Komunitate bat sortu
+  create_community_about_heading: Komunitate bat sortzearen inguruan
+  create_community_around_this_collection_header: Komunitate bat sortu bilduma honen
+    inguruan
+  create_a_community: Komunitate bat sortu
+  create_a_community_login_advisory: Saioa hasteko eskatuko zaizu zure komunitatea
+    sortu baino lehen
+  create_a_collection: Bilduma bat sortu
+  create_collection_button: Bilduma sortu
+  create_community_button: Komunitate bat sortu
+  create_user_unsuccessful_error: Barkatu, arazo bat egon da, zure kontu berria ez
+    da sortu. Mesedez egiaztatu eremu guztiak zuzen beteta daudela.
+  created_by: 'Nork sortua:'
+  created_colon: 'Sortua:'
+  created_community: Komunitatea arazorik gabe sortu da
+  created: Sortua
+  creative_commons: Creative Commons
+  credentials: Kredentzialak
+  credentials_colon: 'Kredentzialak:'
+  crop_image: irudia moztu
+  curated_association_update_button: Aldaketak gorde
+  curation_error_no_hide_reasons_given: Mesedez, aukeratu aukeratu %{association}
+    orrian hau ezkutatzeko arrazoi bat, edo utzi iruzkin bat zergatik ezkutatzen duzun
+    azalduz.
+  curation_error_hide_reasons_invalid: '%{association} ezkutatzeko arrazoiak ez dira
+    baliozkoak'
+  curation_reason_placeholder: xehetasun gehigarriak (aukerakoa)
+  your_current_rating_0_of_5: 'Zure oraingo kalifikazioa: 0 5etik'
+  your_current_rating_1_of_5: 'Zure oraingo kalifikazioa: 1 5etik'
+  your_current_rating_2_of_5: 'Zure oraingo kalifikazioa: 2 5etik'
+  your_current_rating_3_of_5: 'Zure oraingo kalifikazioa: 3 5etik'
+  your_current_rating_4_of_5: 'Zure oraingo kalifikazioa: 4 5etik'
+  your_current_rating_5_of_5: 'Zure oraingo kalifikazioa: 5 5etik'
+  your_watch_collection: zure jarraipen zerrenda
   current_language: 'Hizkuntza: %{iso_code}'
+  create_download_data_file: Fitxategia sortu
+  institutional_sponsors: Babesle instituzionala
+  currently_published: argitaratuta daudenak
   daily: Egunero
+  darwin_core: Darwin Core
   data: Datuak
+  data_about_this_record: Dokumentu honen inguruko datuak
+  data_column_tc_id: EOL orriaren IDa
+  data_column_sci_name: Izen zientifikoa
+  data_column_common_name: Izen arrunta
+  data_column_classification_summary: Sailkapenaren laburpena
+  data_column_measurement: Neurketa
+  data_column_value: Balioa
+  data_column_measurement_uri: URI neurketa
+  data_column_value_uri: URI balioa
+  data_column_name_uri: URI neurketa
   data_database_colon: 'Datuak:'
+  data_glossary: Datu glosarioa
+  data_link_to_record: Lotura erregistro honetara
+  data_logging_active: Datuen erregistro aktiboa
+  data_object: Datu objektua
+  data_object_deleted: Datu objektua arazorik gabe ezabatu da
+  data_object_not_associated_with_any_hierarchies: Datu objektu hau ez dago hierarkia
+    batekin ere lotuta.
+  data_point_uri_source_missing: iturria faltan
+  data_provided_by_user: 'nork hornitua: %{whom}'
+  data_provided_by_content_partner: 'Hornitzailea: %{whom}'
+  data_ranges: Datu laburpenak
+  data_ranges_subheader: Talde taxonomiko honetarako datu laburpenak
+  data_row_additional_detail_alt: Xehetasun gehigarria
+  data_row_additional_detail_show_alt: Xehetasun gehigarria erakutsi
+  data_row_additional_detail_hide_alt: Xehetasun gehigarria ezkutatu
+  data_row_additional_detail_loading_alt: Xehetasun gehigarriak kargatzen
+  data_search:
+    form:
+      search_again_for_attributes: berriro bilatu aukeratutako atributuak gehitzeko
+      search_again_for_values: berriro bilatu aukeratutako baloreak gehitzeko
+      header_assistive: Bilaketa formularioa
+      input_summary_intro: Aukeratutako bilaketak aukerak
+      new_search_link: Bilaketa berri bat hasi
+      or_range_header: Edo <span class="assistive">zehaztu tarte bat</span>
+      search_suggestions_header: Ez dakizu nondik hasi?
+      search_suggestions_subheader_colon: 'Probatu ondoko datu bilaketaren bat:'
+      search_suggestion_whale_mass: Zein balea motak pisatzen du 10.000kg baino gehiago?
+      search_suggestion_diatom_shape: Zeintzuk dira diatomeoen forma desberdinak?
+      search_suggestion_cavity_nests: Zein espeziek egiten dituzte habiak zuloetan?
+      search_suggestion_blue_flowers: Zein landarek dauzkate lore urdinak?
+      search_tools_show_link: Bilaketa aukerak erakutsi
+      search_tools_hide_link: Bilaketa aukerak ezkutatu
+      search_value_or_range_header: Balore zehatz bat edo tarte bat bilatu
+      search_within_taxon_group_header: Taxon talde baten barruan bilatu
+      search_within_taxon_group_intro_with_count: '{{PLURAL|Taxon talde baten barruan
+        bilatzea %{count} taxon baino gutziagoko taldeetara mugatuta dago oraindik.
+        <a href="%{contact_us_tech_url}">Jarri gurekin harremanetan</a> talde handiagoetan
+        bilatzearen inguruan gehiago jakiteko.'
+      sort_header: Emaitzak ordenatu
+    notice:
+      clade_has_no_data: Inork ez du oraindik %{taxon_name} taxonerako erregistrorik
+        eman.<a href="%{contribute_path}">Ikasi nola lagundu dezakezun</a>.
+  data_search_link: Datu zientifikoen bilaketa EOLen
+  data_search_destroyed: Lan hau ez da gehiago prozesatua izango.
+  data_search_files_with_count:
+    one: Datuen jaitsiera %{count}
+    other: '%{count} datuen jaitsierak'
+  data_server_unavailable: Datuak ez dira EOLen eskuragarri egongo epe baterako. Mesedez
+    egiaztatu geroago. Barkatu eragozpenengatik.
+  data_show_n_more_rows: NNN gehiago erakutsi...
   data_subtab_about: Honi buruz
+  data_summary_ranges_header_with_count: EOLek datu laburpen bat dauka
+  data_usage_reports: Datu erabileraren txostenak
   date_caps: Data
+  date_uploaded: Igotze data
+  dato_create_cancel: Utzi
+  dato_edit_cancel: Utzi
+  dato_create_user_link_error: Barkatu, arazo bat egon da, ezin izan da esteka gehitu.
+  dato_create_user_text_error: Barkatu, arazo bat egon da, ezin izan da artikulua
+    gehitu.
+  dato_location_created: 'Kokapena sortua: %{loc}'
+  dato_new_edit_user_text_fieldset_content_header: Artikuluaren edukia
+  dato_new_edit_user_text_link_fieldset_content_header: Estekaren datuak
+  dato_new_edit_user_text_fieldset_information_header: Artikuluaren informazioa
+  dato_create_user_text_validation_error: Mesedez ziurtatu formularioa zuzen bete
+    duzula.
+  dato_update_users_text_not_owner_exception: Testu objejktu honen egileak bakarrik
+    alda dezake.
+  dato_edit_link_button: Esteka hau aldatu
+  dato_edit_text_button: Artikulu hau aldatu
+  dato_edit_text_title: Artikulua aldatu
+  dato_update_user_text_error: Barkatu, arazo bat egon da, ezin izan da artikulua
+    eguneratu.
+  deactivate: Desaktibatu
+  development_version_name: EOL V2 Beta
+  default: Lehenetsia
+  default_rating: kalifikazio lehenetsia
+  default_rating_value_of_total: 'Kalifikazio lehenetsia: %{rating} %{total}(e)tik'
+  default_watch_collection_name: '%{username} erabiltzailearen jarraipen zerrenda'
+  delete_community: Komunitate hau ezabatu
+  delete_data_object: Ezabatu
+  delete: ezabatu
+  deleted_colon: 'ezabatua:'
+  delete_firstcap: Ezabatu
+  description: Deskribapena
+  descriptive_label: Etiketa deskribatzailea
+  destination_inappropriate_for_logged_in_users: Saio hasi duzu.
+  destroy: Desegin
+  detail: Xehetasuna
+  details: Xehetasunak
+  details_title: Xehetasunak
+  did_you_mean: 'Hau esan nahi izan duzu: %{suggestions}?'
+  disabled_for_now: ORAINGOZ DESGAITUAK
   discover_link: Hezkuntza
+  donate_link: Dohaintza egin
+  done_already: Dagoeneko egina
+  download_wav_file: WAV fitxategia deskargatu
+  download_data: Datuak jaitsi
+  download_collection_data: Datuak jaitsi
+  dublin_core: Dublin Core
+  duplicate_comment_warning: 'Ez da iruskina gorde: badirudi iruzkin hau lehen ere
+    argitaratu duzula... Bi aldiz klikatu duzu ''iruskina argitaratu'' botoia?'
+  duplicate_text_warning: 'Ez da testua gorde: badirudi artikulu hau lehen ere argitaratu
+    duzula... Bi aldiz klikatu duzu ''iruskina argitaratu'' botoia?'
+  edit_comment: Iruzkina aldatu
+  edit_comment_lowercase: iruzkina aldatu
+  edit_community: Komunitatea aldatu
+  edit_contact_us_topic: Kontaktuaren gaia aldatu
+  edit: aldatu
+  edited_colon: 'aldatua:'
+  edit_hierarchy: hierarkia aldatu
+  edit_collection_details: Bildumaren xehetasunak aldatu
+  edit_collection_details_header: Bildumaren xehetasunak aldatu
+  edit_my_profile: Nire profila aldatu
+  edit_news_items: albisteak aldatu
+  edit_page_contents: orriaren edukiak aldatu
+  edit_search_suggestion: Bilaketa iradokizunak aldatu
+  edit_search_suggestions: Bilaketa iradokizunak aldatu
+  edit_user_details_instructions: Erabiltzailearen xehetasunak jarraian aldatu. Mezu
+    bat bidali diezaiokezu erabiltzaile honi sistema erabiliz, 'helbide elektroniko
+    mezuen eremua erakutsi' klikatuz eta mezuaren edukia idatziz. Pasahitz berria
+    pasahitza aldatu nahi izatekotan bakarrik sartu, bestela hutsik utzi.
+  edit_the_user_s_comment_below: Erabiltzailearen iruzkina jarraian aldatu.
+  edit_username: '%{username} erabiltzaile izena aldatu'
+  edit_web_users: web erabiltzaileak aldatu
+  editors_tab_label: Administratzaileak
+  email: Helbide elektronikoa
+  email_colon: 'Emaila:'
+  email_recipients: Emailaren hartzaileak
+  eol_accepted_subjects: EOLek onartutako gaiak
+  eol_api: EOL API
+  eol_api_hierarchies: 'EOL API: Hierarkiak'
+  eol_api_pages: 'EOL API: Orriak'
+  eol_api_provider_hierarchies: 'EOL API: Hornitzaile hierarkiak'
+  eol_api_search: 'EOL API: Bilatu'
+  eol_api_collections: 'EOL API: Bildumak'
+  eol_colon: 'EOL:'
+  eol_news: EOL Albisteak
+  eol_pages: Orriak
+  error_log: Errore erregistroa
+  error_logging_active: Erroreen erregistro aktiboa
+  error_violates_tos: BAdirudi zure edukiak EOLen baldintzak bortxatzen dituela. Akatsa
+    izan dela uste baduzu, jarri gurekin harremanetan laguntza eskatzeko.
+  error_revoking_editor_on_watch_collection: Ezin dira jarraipen bildumetako editoreak
+    ezabatu
+  error_401_page_title: Ez baimendua
+  error_401_description: Barkatu, ez zaude URL horretara sartzeko baimendua.
+  error_403_page_title: Debekatuta
+  error_403_description: Barkatu, ez zaude URL horretara sartzeko baimendua.
+  error_404_page_title: Ez da aurkitu
+  error_404_description: Sentitzen dugu, ezin izan dugu orria URL horretan aurkitu.
+  error_500_description: Sentitzen dugu, arazo bat aurkitu dugu. Arazoak badirau,
+    mesedez bidali email bat helbide elektroniko honetara <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_description: Sentitzen dugu, arazo bat aurkitu dugu. Arazoak badirau,
+    mesedez bidali email bat helbide elektroniko honetara <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  example_colon: 'Adibidea:'
+  exceptions:
+    security_violations:
+      default: Sarbide ukatua.
+      admins_and_joined_only_can_read: Barkatu, bildumetara batu behar zara ikusi
+        ahal izateko
+      owner_and_managers_only_can_edit: Barkatu, bakarrik bildumaren jabe eta administratzaileek
+        aldatu dezakete
   explore: Esploratu
   flickr: Flickr
   go: Joan

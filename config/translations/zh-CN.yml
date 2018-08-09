@@ -5,6 +5,7 @@
 # Author: Arthur2e5
 # Author: Assoc
 # Author: Chenxiaoqino
+# Author: Chixvv
 # Author: Gaoxuewei
 # Author: Hydra
 # Author: Hzy980512
@@ -2485,6 +2486,8 @@ zh-CN:
         an_unknown_user_split_unknown_entry_from_it: 一个未知用户添加了一个未知的关联。
         an_unknown_user_split_unknown_entry_from_taxon: 一个未知用户从 "%{taxon}"分离出一个未知分类。
         an_unknown_user_split_entry_from_it: 一个未知用户使用 "%{provider}"对类别进行划分。
+      merge:
+        an_unknown_user_merged_unknown_entry_to_it: 未知用户添加了一个未知的等级。
       unlock:
         merge_of_an_unknown_taxon_unlocked: 您最近请求的页面合并已完成，但找不到页面。
       unlock_with_error:
@@ -3376,6 +3379,7 @@ zh-CN:
       search_within_taxon_group_intro_with_count:
         other: 在分类组中搜索目前限定为少于%{count}分类群的组。<a href="%{contact_us_tech_url}">联络我们</a>以查找更多有关搜索更大群组的信息。
       sort_header: 排序结果
+  data_search_link: 在EOL上搜索科学数据
   data_search_attribute: 在TraitBank搜索带%{attribute}数据的记录
   data_search_files_with_count:
     one: '%{count}次数据下载'
@@ -3384,8 +3388,8 @@ zh-CN:
   data_subtab_about: 关于
   data_subtab_glossary: '%{taxon}的术语表'
   data_summary_ranges_header_with_count: EOL拥有汇总数据
-  data_tab_curator_exemplar: 在概述中显示
-  data_tab_curator_excluded: 已从概述中排除
+  data_tab_curator_exemplar: 这一行已添加到概述标签。
+  data_tab_curator_excluded: 这一行已从概述标签中移除。
   data_tab_curator_key_exemplar: '%{image}已加入至<a href=''%{link}''>概述</a>'
   data_tab_curator_key_excluded: '%{image}已从<a href=''%{link}''>概述</a>移除'
   data_usage_reports: 数据使用报告

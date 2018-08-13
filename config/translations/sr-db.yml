@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Arabesque46
+# Author: BadDog
 # Author: Rancher
 ---
 sr:
@@ -252,7 +253,7 @@ sr:
   translated_synonym_relations-label-synonym_relation_id-61: објективан синоним
   translated_synonym_relations-label-synonym_relation_id-62: главни синоним
   translated_synonym_relations-label-synonym_relation_id-63: неприхваћено
-  translated_synonym_relations-label-synonym_relation_id-64: неисправно
+  translated_synonym_relations-label-synonym_relation_id-64: неважеће
   translated_synonym_relations-label-synonym_relation_id-6: еквивалентан назив
   translated_synonym_relations-label-synonym_relation_id-7: акроним из Генбанка
   translated_synonym_relations-label-synonym_relation_id-8: анаморф из Генбанка

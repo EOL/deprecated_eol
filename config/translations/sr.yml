@@ -243,7 +243,7 @@ sr:
         record_invalid: 'Не могу да потврдим: %{errors}'
         inclusion: се не налази на списку
         exclusion: је резервисано
-        invalid: је неисправно
+        invalid: је неважеће
         confirmation: се не поклапа с потврдом
         accepted: мора бити прихваћено
         empty: не може бити празно

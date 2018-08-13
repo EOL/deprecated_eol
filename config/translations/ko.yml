@@ -3631,7 +3631,7 @@ ko:
   content_summary_table_caption: '%{taxon_name} 이름과 %{hierarchy_label} 레이블의 자손과 연결된
     내용의 요약'
   content_summary_table_type_status_column_header: 내용 유형과 상태
-  content_summary_table_count_column_header: 갯수
+  content_summary_table_count_column_header: 개수
   content_summary_table_type_descendants_row: 자손 수
   content_summary_table_type_trusted_images_row: 신뢰할 수 있는 그림 수
   content_summary_table_type_unreviewed_images_row: 검토하지 않은 그림 수
@@ -3657,7 +3657,7 @@ ko:
   correct_donation_message_with_link: 이 정보가 올바르지 않으면 바꾸기 위해 <a href='%{link}'>뒤로 가세요</a>.
   could_not_find_collection_error: 죄송합니다, 해당 모음집을 찾을 수 없습니다.
   could_not_find_user: 이 공동체의 회원이 아닙니다.
-  count: 갯수
+  count: 개수
   count_results_for_search_term:
     one: <em>%{search_term}</em>에 대한 결과 %{count}개
     other: <em>%{search_term}</em>에 대한 결과 %{count}개

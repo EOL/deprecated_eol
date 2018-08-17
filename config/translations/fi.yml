@@ -308,8 +308,10 @@ fi:
         refs_order: '*Viitteet näkyvät aakkosjärjestyksessä'
         rights_holder: Oikeuksien haltija
       data_object_link:
+        toc_item: Aihe
         link_type: Luokka
       data_search:
+        attribute: Valitse ominaisuus
         max: Korkein arvo
         max_with_val: 'Korkein arvo: %{val}'
         max_placeholder: Syötä numero

@@ -19,6 +19,7 @@
 # Author: Mordecaista
 # Author: PedroMaia
 # Author: Pedrofariasm
+# Author: Piterkeo
 # Author: Rodrigo codignoli
 # Author: SoraRenard
 # Author: TheGabrielZaum
@@ -3958,6 +3959,10 @@ pt-BR:
     one: Pertence a %{count} Comunidade
     other: Pertence a %{count} Comunidades
   beta_warning_header: Você está usando um recurso de teste beta
+  beta_warning_body: A maioria dos usuários não pode ver ou utilizar esta função,
+    a qual está sob desenvolvimento ativo. Desempenho e dados podem ser imprevisíveis,
+    mas convidamos você a explorar. Por favor, preencha nossa <a href='https://www.surveymonkey.com/s/9FDTDQP'>pesquisa</a>
+    após revisar nossas capacidades de dados.
   beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Acesse Biodiversity Heritage Library

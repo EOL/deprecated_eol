@@ -2038,7 +2038,7 @@ ko:
   0_1_or_2: 0, 1 또는 2
   about_eol: EOL 소개
   about_resources: 자료 정보
-  about_resources_title: 바깥 자료의 링크
+  about_resources_title: 외부 자료의 링크
   about_resources_body: 우리는 이 생물체나 생물체의 그룹과 관련된 타 웹사이트로 링크를 제공하는 것을 환영합니다. 예를 들어 식별
     키, 뉴스 기사, 블로그 뿐만 아니라 교육 자료와 시민 과학 자료를 제공하는 웹사이트를 포함합니다.
   account_information: 계정 정보
@@ -3979,9 +3979,9 @@ ko:
   export_curator_csv_link: '[모든 큐레이터를 CSV로 내보내기]'
   export_this_list_as_csv: 이 목록을 CSV로 내보내기
   external_link_header: 외부 링크
-  external_link_icon_alt_text: 바깥 링크입니다.
-  external_report_click_url_to_proceed: 바깥 보고입니다. 진행하려면 URL를 클릭하세요.
-  external_report_click_year_to_proceed: 바깥 보고입니다. 진행하려면 년도를 클릭하세요.
+  external_link_icon_alt_text: 외부 링크입니다.
+  external_report_click_url_to_proceed: 외부 보고입니다. 진행하려면 URL을 클릭하세요.
+  external_report_click_year_to_proceed: 외부 보고입니다. 진행하려면 연도를 클릭하세요.
   facebook: 페이스북
   faculty_staff_or_grad_student_credential_option: 관련 대학 학과의 교직원, 직원 또는 ​​대학생 상태
   failed_login_attempts_with_count:

@@ -20,20 +20,20 @@ sr:
       collection:
         name: Назив збирке
         description: Опис збирке
-        sort_style_id: Подразумевани смер сврставања
+        sort_style_id: Подразумевани смер сортирања
         logo: Слика главне збирке
         additional_annotation_fields: Додатна поља за забелешке
-        show_references: Наводи (текст или адреса)
+        show_references: Референце (текст или URL)
       collection_job:
         overwrite: Замени дупликате
       collection_item:
         annotation: Забелешка
-        sort_field: Поређај по
+        sort_field: Сортирај по
         refs: Референце
       comment:
         body: Коментар
       community:
-        name: Назив заједнице
+        name: Име заједнице
         description: Опис заједнице
         logo: Отпреми логотип
       contact:
@@ -41,8 +41,8 @@ sr:
         email: Имејл
         name: Име
       content_page:
-        page_name: Јединствени назив
-        sort_order: Редослед сврставања
+        page_name: Јединствено име
+        sort_order: Редослед сортирања
         active: Објављено
       content_partner:
         acronym: Скраћеница пројекта
@@ -51,31 +51,31 @@ sr:
         content_partner_status: Статус пројекта
         created_at: Направљено
         description: Опис пројекта
-        display_name: Име приказа
-        full_name: Назив пројекта
-        homepage: Адреса пројекта
-        id: Назнака
+        display_name: Име за приказ
+        full_name: Име пројекта
+        homepage: URL пројекта
+        id: ID
         notes: Белешке пројекта
         is_public: Јаван
         resources: Ресурси
-        user_id: 'Управник:'
+        user_id: 'Управник/ца:'
         vetted: Проверено
       content_partner_agreement:
         created_at: Направљено на
-        signed_by: Потписник
-        signed_on_date: Датум
+        signed_by: Потписао/ла
+        signed_on_date: Потписано на датум
       content_partner_contact:
-        email_reports_frequency_hours: Учесталост извештаја преко имејла
+        email_reports_frequency_hours: Учесталост извештаја путем имејла
       data_object:
-        bibliographic_citation: Библиографско навођење
+        bibliographic_citation: Библиографска референца
         description: Текст
         object_title: Наслов
         rights_holder: Носилац права
         rights_statement: Изјава о правима
-        source_url: Изворна адреса
+        source_url: Изворни URL
       data_object_link:
         description: Опис
-        source_url: Адреса везе
+        source_url: URL линка
       eol_statistic:
         created_at: Направљено на
         members_count: Чланови
@@ -83,10 +83,10 @@ sr:
         collections_count: Збирке
         pages_count: Укупно страница
         pages_with_content: Странице са садржајем
-        pages_with_text: Странице с текстом
+        pages_with_text: Странице са текстом
         pages_with_image: Странице са сликом
-        pages_with_map: Странице с мапом
-        pages_with_video: Странице са снимком
+        pages_with_map: Странице са мапом
+        pages_with_video: Странице са видео-снимком
         pages_with_sound: Странице са звуком
         pages_without_text: Странице без текста
         pages_without_image: Странице без слика

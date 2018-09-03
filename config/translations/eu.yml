@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Amaia
 # Author: An13sa
+# Author: EukeneFL
 # Author: Fitoschido
 # Author: Gorkaazk
 # Author: Mikel Ibaiba
@@ -108,6 +109,7 @@ eu:
         udo_published_by_curators: Mantentze-lanen arduradunak bidalitako testua
         udo_published_by_non_curators: Mantentze-lanen arduradunak bidali ez duen
           testua
+        content_partners: Eduki kideak
         content_partners_with_published_resources: Argitaratutako baliabideekin
         content_partners_with_published_trusted_resources: Argitaratutako baliabide
           fidagarriekin
@@ -120,6 +122,8 @@ eu:
         pages_with_score_10_to_39: 10 eta 40 arteko puntuazioa daukaten orriak
         pages_with_score_less_than_10: 10 baino puntuazio baxuagoa daukaten orriak
         total_taxa_with_data: Datuak dituzten orriak
+        total_triples: Hirukoitzak
+        total_occurrences: Burutazioak
         total_measurements: Neurketak
         total_associations: Elkarteak
         total_measurement_types: Neurketa-motak
@@ -141,6 +145,7 @@ eu:
       harvest_event:
         resource: Baliabidea
       hierarchy:
+        browsable: Arakagarria
         complete: Bukatuta
         description: Deskribapena
         descriptive_label: Etiketa deskribatzailea
@@ -319,6 +324,7 @@ eu:
       collection_item:
         annotation: Anotazioa
         sort_field: Sailkatu honen arabera <small>(data UUUU.HH.EE, zenbakia edo testua)</small>
+        sort_field_show: 'Balioa antolatu:'
       comment:
         body_edit: Iruzkina aldatu
       contact:
@@ -334,6 +340,7 @@ eu:
         parent_content_page_id: Gurasoa
       content_partner:
         created_at: Erregistratua
+        current_agreement: Oraingo hitzarmena
         description_of_data: Datuen deskribapena <small>(pribatua)</small>
         last_action: Azken ekintza
         latest_published_harvest_event: Azken argitalpena
@@ -341,9 +348,12 @@ eu:
         logo_new: 'Logo berria igo:'
         notes: Proiektuaren oharrak <small>(pribatuak)</small>
         oldest_published_harvest_event: Lehen argitalpena
+        user_id: Eduki kidearen datuak kudeatu ditu
       data_object:
+        bibliographic_citation: Aipamen bibliografikoa
         license_id: Lizentzia
         object_title: Izenburua
+        toc_item: Azpikapitulua
         rights_holder: Eskubideen jabea
         rights_statement: Eskubide aitormena
       data_object_link:
@@ -421,6 +431,8 @@ eu:
         agreed_with_terms: Ados nago <a href="%{terms_url}">erabilera baldintzekin</a>
         bio: Niri buruz
         credentials: Kredentzialak
+        email_reports_frequency_hours: Noizero gustatuko litzaizuke zure ekarpenei
+          buruzko jakinarazpenak emailez jasotzea?
         email_settings_submit: posta elektronikoaren ezarpenak
         email: E-posta helbidea
         entered_password: Pasahitza <small>(4 - 16 karaketere)</small>
@@ -457,6 +469,9 @@ eu:
         edit: Aldatu
         preview: Aurreikusi
         update: Orrialdea gaurkotu
+      content_partner:
+        create: Eduki kidea sortu
+        update: Eduki kidearen informazioa gorde
       content_partner_agreement:
         create: Hitzarmen berria sortu
         update: Hitzarmena eguneratu
@@ -491,7 +506,10 @@ eu:
         destroy: Deskonektatu
         update: Konexioa berrikusi
       resource:
+        create: Baliabidea gehitu
+        update: Baliabidea eguneratu
         update_settings: Ezarpenak eguneratu
+        force_harvest: Uzta Eskatu
       session:
         create: Saioa hasi
         sign_in_with_facebook: Saioa hasi Facebookekin
@@ -579,6 +597,9 @@ eu:
     previous: Aurrekoa
   admins:
     eol_statistics:
+      content_partners:
+        menu_link: Eduki kideak
+        page_header: Eduki Kideen Estatistikak
       index:
         menu_link: Estatistika orokorrak
         page_header: Estatistika orokorrak
@@ -587,6 +608,9 @@ eu:
         menu_link: LifeDesks
         page_header: LifeDesks-en estatistikak
         page_title: 'Administrazioa: LifeDesks-en estatistikak'
+  contacts:
+    new:
+      page_title: Mesedez utzi zure iritzia
   collections:
     download_taxa_data:
       attribute_header: Atributoa
@@ -603,8 +627,12 @@ eu:
         tweet_text: '%{collection_name} Albisteak'
     inaturalists:
       show:
+        add_observations: Oharrak gehitu
+        no_observations_added_to_this_project_yet: Proiektu honi ez zaio egunkariko
+          oharrik gehitu oraindik.
         observation_date: 'Data: %{observed_on}'
         observation_place: 'Lekua: %{place}'
+        recent_observations: Azkeneko Oharrak
         some_taxon: Zerbait
   communities:
     collections:
@@ -624,6 +652,8 @@ eu:
       show:
         meta_title: '%{partner_name} Estatistikak'
         tweet_text: '%{partner_name} erabilera estatistikak'
+    index:
+      meta_title: Eduki kideak
     edit:
       meta_title: Editatu %{partner_name}
   data_objects:
@@ -640,6 +670,8 @@ eu:
       stats_unavailable_for_date: Barkatu, estatistikak ez daude %{date} datarako
         eskuragarri. Mesedez aukeratu beste data bat.
     content_partners:
+      menu_link: Eduki kideak
+      page_header: Eduki Kideen Estatistikak
       page_title: Estatistikak
     curators:
       page_title: Estatistikak
@@ -687,6 +719,12 @@ eu:
       move_failed: Kategoria ezin izan da mugitu
     posts:
       edit: Aldatu mezua
+      create_successful: Argitalpena ondo sortu da
+      create_failed: Barkatu, arazo bat egon da, ezin izan da argitarapena gehitu
+      update_successful: Argitalpena ondo eguneratu da
+      update_failed: Barkatu, arazo bat egon da, ezin izan da argitalpena eguneratu.
+      delete_successful: Argitalpena ondo ezabatu da
+      post_has_been_deleted: Argitalpen hau ezabatua izan da
       deleted_subject: (ezabatua)
       no_subject: (gairik gabe)
       permalink_to_this_post: 'Bidalketa honetarako permalinka:'
@@ -696,8 +734,15 @@ eu:
         other: '%{count} bidalketa'
     topics:
       create: Hari berria hasi
+      no_posts: Ez dago argitalpenik hari honetan
+      create_successful: Haria ondo sortu da
+      create_failed: Barkatu, arazo bat egon da, ezin izan da haria gehitu
+      delete_successful: Haria ondo ezabatu da
+      delete_failed_not_empty: Haria ezin izan da ezabatu, hutsik ez dagoelako
   known_uris:
     add_a_relationship: Harreman bat gehitu
+    equivalent_to: Erlazio Baliokidetzak
+    no_results: Ez dago emaitzarik aukeratutako estatistiketarako
     no_relationships: Ez da URI honetarako harremanik aurkitu.
     please_select_category_for_stats: Mesedez, aukeratu kategoria bat estatistikak
       ikusteko.
@@ -788,6 +833,8 @@ eu:
     greeting_dear_name_with_comma: '%{name} maitea,'
     contact_us_message:
       subject: 'Mezu bat EOLentzat: %{title}'
+    contact_us_auto_response:
+      subject: Eskerrik asko Encyclopedia of Life-rekin kontaktatzeagatik
     unsubscribed_to_notifications:
       subject: Sentitzen dut zu joaten ikustea...
   recent_activity:

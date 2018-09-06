@@ -1242,6 +1242,12 @@ da:
         hierarchy_entry:
           meta_description: Geografisk information om %{scientific_name} som klassificeret
             af %{hierarchy_provider} hvor de lever og hvor de er indfødte i verden.
+        meta_title: Kort for %{scientific_name}
+        tweet_text: Kort for %{scientific_name}
+    names:
+      synonyms:
+        hierarchy_entry:
+          meta_keywords: '%{scientific_name} Synonymer'
     resources:
       education:
         meta_title: Undervisningsressourcer for %{scientific_name}
@@ -1273,13 +1279,23 @@ da:
       contact_us: kontakt os venligst for assistance
     newsfeeds:
       activity_link: aktivitet
+      comments_link: kommentarer
     open_authentications:
       facebook: Facebook
       google: Google
+      index:
+        not_connected: Ikke forbundet;
       twitter: Twitter
       yahoo: Yahoo!
   user_added_data:
     edit_data_header: Rediger din data
+    new_value: Værdi
+  article_from_supplier: Artikel fra %{whom}
+  sound_from_supplier: Lyd fra %{whom}
+  image_from_supplier: Billede fra %{whom}
+  map_from_supplier: Kort fra %{whom}
+  image_map_from_supplier: Kort fra %{whom}
+  video_from_supplier: Video fra %{whom}
   0_or_1: 0 eller 1
   0_1_or_2: 0, 1 eller 2
   about_eol: Om EOL

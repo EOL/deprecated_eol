@@ -552,7 +552,7 @@ sr:
         create: Додај ресурс
         update: Ажурирај ресурс
         update_settings: Ажурирај подешавања
-        force_harvest: Затражи наметнуто преузимање
+        force_harvest: Затражи жетву
       session:
         create: Пријава
         sign_in_with_google: Пријава преко Гугла
@@ -1360,8 +1360,8 @@ sr:
   cannot_be_associated_with_both_a_user_and_a_community: Не може истовремено бити
     повезано с корисником и заједницом
   cannot_be_empty: не може бити празно.
-  cannot_create_collection_item_from_class_error: Не могу да направим ставку збирке
-    од %{klass}
+  cannot_create_collection_item_from_class_error: 'Не можемо да направимо ставку збирке
+    од типа: %{klass}'
   cannot_create_community_from_watch_collection_error: Не можете направити заједницу
     са списка надгледања.
   cannot_expand_children: не могу да отворим подтаксон

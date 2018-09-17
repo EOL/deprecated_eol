@@ -51,15 +51,15 @@ es:
       collection:
         name: Nombre de la colección
         description: Descripción de la colección
-        sort_style_id: La dirección por defecto de ordenación
+        sort_style_id: Dirección de ordenación predeterminada
         logo: Imagen principal de la colección
         additional_annotation_fields: Campos de anotación adicionales
         show_references: Referencias (texto o URL)
       collection_job:
-        overwrite: Reemplazar duplicados
+        overwrite: Reemplaza duplicados
       collection_item:
         annotation: Anotación
-        sort_field: Ordenar por
+        sort_field: Ordena por
         refs: Referencias
       comment:
         body: Comentario
@@ -91,7 +91,7 @@ es:
         is_public: Público
         resources: Recursos
         user_id: Administrado por
-        vetted: Aprobados
+        vetted: Analizados
       content_partner_agreement:
         created_at: Creado el
         signed_by: Firmado por
@@ -123,9 +123,9 @@ es:
         pages_without_text: Páginas sin texto
         pages_without_image: Páginas sin imagen
         pages_with_image_no_text: Páginas con imagen pero sin texto
-        pages_with_text_no_image: Páginas con texto pero sin ninguna imagen
+        pages_with_text_no_image: Páginas con texto pero sin imagen
         base_pages: Páginas de base
-        pages_with_at_least_a_trusted_object: Páginas con objeto de confianza
+        pages_with_at_least_a_trusted_object: Páginas con objeto confiable
         pages_with_at_least_a_curatorial_action: Páginas con acción de mantenimiento
         pages_with_BHL_links: Páginas con enlaces BHL
         pages_with_BHL_links_no_text: Páginas con enlaces BHL pero sin texto
@@ -133,52 +133,53 @@ es:
         data_objects: Objetos de datos
         data_objects_texts: Objetos de texto
         data_objects_images: Objetos de imagen
-        data_objects_videos: Objetos de vídeo
+        data_objects_videos: Objetos de video
         data_objects_sounds: Objetos de audio
         data_objects_maps: Objetos de mapa
-        data_objects_trusted: Objetos de datos fiables
+        data_objects_trusted: Objetos de datos confiables
         data_objects_unreviewed: Objetos de datos no revisados
-        data_objects_untrusted: Objetos de datos no fiables
-        data_objects_trusted_or_unreviewed_but_hidden: Fiable o no revisado pero oculto
-        udo_published: Texto enviado por el usuario
-        udo_published_by_curators: Texto enviado por el responsable de mantenimiento
-        udo_published_by_non_curators: Texto no enviado por responsable de mantenimiento
+        data_objects_untrusted: Objetos de datos no confiables
+        data_objects_trusted_or_unreviewed_but_hidden: Confiable o no revisado pero
+          oculto
+        udo_published: Texto enviado por usuario
+        udo_published_by_curators: Texto enviado por el curador
+        udo_published_by_non_curators: Texto no enviado por el curador
         content_partners: Socios de contenido
         content_partners_with_published_resources: Con recursos publicados
-        content_partners_with_published_trusted_resources: Con recursos fiables publicados
+        content_partners_with_published_trusted_resources: Con recursos confiables
+          publicados
         published_resources: Recursos publicados
-        published_trusted_resources: Recursos fiables publicados
+        published_trusted_resources: Recursos confiables publicados
         published_unreviewed_resources: Recursos no revisados publicados
         newly_published_resources_in_the_last_30_days: Recién publicado en el último
           mes
         marine_pages: Páginas marinas
         marine_pages_in_col: Páginas marinas encontradas en CoL
         marine_pages_with_objects: Páginas marinas con objetos de datos
-        marine_pages_with_objects_vetted: Páginas marinas con objetos de datos fiables
-        curators: supervisores
-        curators_assistant: Supervisores adjuntos
-        curators_full: Conservadores con todas las funciones
-        curators_master: Supervisores maestros
-        active_curators: Supervisores activos
-        pages_curated_by_active_curators: Páginas supervisadas por supervisores activos
-        objects_curated_in_the_last_30_days: Objetos supervisados en los últimos 30
+        marine_pages_with_objects_vetted: Páginas marinas con objetos de datos confiables
+        curators: Curadores
+        curators_assistant: Curadores adjuntos
+        curators_full: Curadores con todas las funciones
+        curators_master: Curadores maestros
+        active_curators: Curadores activos
+        pages_curated_by_active_curators: Páginas curadas por curadores activos
+        objects_curated_in_the_last_30_days: Objetos curados en los últimos 30 días
+        curator_actions_in_the_last_30_days: Acciones de curador en los pasados 30
           días
-        curator_actions_in_the_last_30_days: Acciones de un supervisor en los últimos
-          30 días
         rich_pages: Páginas populares
         hotlist_pages: Páginas más solicitadas
         rich_hotlist_pages: Páginas populares más solicitadas
         rich_hotlist_pages_percentage: Lista de páginas más demandadas%
         redhotlist_pages: Páginas Rojas más demandadas
         rich_redhotlist_pages: Páginas ricas rojas más demandadas
-        rich_redhotlist_pages_percentage: Paginas Rich Red Hotlist %
+        rich_redhotlist_pages_percentage: Páginas ricas rojas más demandadas
         pages_with_score_10_to_39: Páginas con puntuación 10-40
         pages_with_score_less_than_10: Páginas con puntuación inferior a 10
-        lifedesk_taxa: Taxones LifeDesks
+        lifedesk_taxa: Taxa LifeDesks
         lifedesk_data_objects: Objetos de datos LifeDesks
         total_taxa_with_data: Páginas con datos
         total_triples: Triples
-        total_occurrences: Apariciones
+        total_occurrences: Registros
         total_measurements: Mediciones
         total_associations: Asociaciones
         total_measurement_types: Tipos de medición
@@ -212,7 +213,7 @@ es:
         description: Descripción
         exclude_from_exemplars: Excluir del resumen
         group_by_clade: Usar para intervalos de grupos taxonómicos
-        hide_from_glossary: Ocultar a partir de los datos del glosario
+        hide_from_glossary: Ocultar de los datos del glosario
         name: Nombre
         toc_items: Categorías
         uri: URI
@@ -242,40 +243,38 @@ es:
       notification:
         reply_to_comment: Una respuesta a un comentario que hiciste
         comment_on_my_profile: Un comentario en tu perfil
-        comment_on_my_contribution: Un comentario y/o una acción de supervisión en
-          una de sus aportaciones
+        comment_on_my_contribution: Un comentario y/o una acción de curación en una
+          de tus aportaciones
         comment_on_my_collection: Un comentario en una colección que administras
         comment_on_my_community: Un comentario en una de las comunidades de la que
           eres miembro
         made_me_a_manager: Ha sido hecho administrador de una colección o comunidad
         member_joined_my_community: Un nuevo miembro se ha unido a una comunidad que
-          administra
-        comment_on_my_watched_item: Comentarios sobre objetos, taxones, colecciones
-          o comunidades en su lista de seguimiento
-        curation_on_my_watched_item: Acciones de supervisión en objetos, taxones,
-          colecciones o comunidades de su lista de seguimiento
-        new_data_on_my_watched_item: Nuevas contribuciones a taxones de su lista de
-          seguimiento
-        changes_to_my_watched_collection: Cambios a colecciones de su lista de seguimiento
-        changes_to_my_watched_community: Cambios en comunidades de su lista de seguimiento
+          administras
+        comment_on_my_watched_item: Comentarios sobre objetos, taxa, colecciones o
+          comunidades en tu lista de seguimiento
+        curation_on_my_watched_item: Acciones de curación en objetos, taxa, colecciones
+          o comunidades de tu lista de seguimiento
+        new_data_on_my_watched_item: Nuevas contribuciones a taxa de tu lista de seguimiento
+        changes_to_my_watched_collection: Cambios a colecciones de tu lista de seguimiento
+        changes_to_my_watched_community: Cambios en comunidades de tu lista de seguimiento
         member_joined_my_watched_community: Nuevos miembros se han unido a una comunidad
-          de la que usted es miembro
-        member_left_my_community: Miembros que han dejado una comunidad que usted
-          administra
+          de la que tu eres miembro
+        member_left_my_community: Miembros que han dejado una comunidad que tu administras
         new_manager_in_my_community: Otro miembro se ha convertido en administrador
-          de una comunidad que usted administra
-        i_am_being_watched: Ha sido agregado a la lista de seguimiento de otro miembro
-        eol_newsletter: Envienme el boletín trimestral de EOL
+          de una comunidad que tu administras
+        i_am_being_watched: Has sido agregado a la lista de seguimiento de otro miembro
+        eol_newsletter: Envíenme el boletín trimestral de EOL
       resource:
         accesspoint_url: URL del conjunto de datos
         auto_publish: Publicar automáticamente
         bibliographic_citation: Cita bibliográfica
         dataset: Archivo del conjunto de datos
         description: Descripción del recurso
-        dwc_archive_url: URL del Archivo Darwin Core
-        dataset_source_url: Fuente de datos original
+        dwc_archive_url: URL del archivo Darwin Core
+        dataset_source_url: Fuente original de datos
         dataset_hosted_url: Fuente de datos (copia local)
-        harvest_events: Recoger eventos
+        harvest_events: Recoge eventos
         hierarchy: Jerarquía
         language_id: Idioma predeterminado
         dataset_license_id: Licencia
@@ -284,10 +283,10 @@ es:
         license_id: Licencia predeterminada
         notes: Notas de procesamiento
         resource_status_id: Estado de recursos
-        rights_holder: Posesor de derechos prediterminado
-        rights_statement: Declaración de los derechos predeterminada
+        rights_holder: Poosedor predeterminado de derechos
+        rights_statement: Declaración predeterminada de los derechos
         title: Nombre del recurso
-        vetted: Aprobado
+        vetted: Analizado
       translated_content_page:
         active_translation: Publicado
         left_content: Navegación
@@ -305,16 +304,16 @@ es:
         meta_description: Descripción de los metadatos
         title: Título
       user:
-        agreed_with_terms: Términos de uso
+        agreed_with_terms: Términos del acuerdo de uso
         api_key: Llave API
         bio: Biografía
         credentials: Credenciales
-        curator_level: Nivel de supervisor
-        curator_scope: Alcance del supervisor
+        curator_level: Nivel de curador
+        curator_scope: Alcance del curador
         disable_email_notifications: No enviarme NINGUNA actualización por correo
           electrónico
         email: Dirección de correo electrónico
-        email_confirmation: Escriba de nuevo la dirección de correo electrónico <small>(para
+        email_confirmation: Escribe de nuevo la dirección de correo electrónico <small>(para
           confirmar)</small>
         entered_password: Contraseña
         entered_password_confirmation: Repite la contraseña <small>(para confirmar)</small>
@@ -323,7 +322,7 @@ es:
         given_name: Nombre
         language_abbr: Idioma preferido
         permissions: Permisos
-        requested_curator_level_id: Nivel deseado para supervisor
+        requested_curator_level_id: Nivel deseado para curador
         tag_line: Lema
         username: Nombre de usuario
       user_added_data:
@@ -334,7 +333,7 @@ es:
         predicate: Atributo
         object: Valor
     errors:
-      format: '%{attribute} %{message}'
+      format: '%{Mensaje} %{de atributo}'
       template:
         header:
           one: Se encontró %{count} un error de validación
@@ -356,7 +355,7 @@ es:
         too_short:
           one: es demasiado corto (el mínimo es %{count} carácter
           other: es demasiado corto (el mínimo son %{count} caracteres)
-        wrong_length: es longitud mal (debe ser %{count} caracteres)
+        wrong_length: tiene tamaño incorrecto (debe ser %{count} caracteres)
         not_a_number: no es un número
         not_an_integer: debe ser un número entero
         greater_than:
@@ -375,7 +374,7 @@ es:
         models:
           inaccessible: es inaccesible
       full_messages:
-        format: '%{attribute} %{message}'
+        format: '%{Mensaje} %{de atributo}'
       models:
         data_object:
           attributes:
@@ -386,7 +385,7 @@ es:
           attributes:
             publish:
               inclusion: sólo está permitido para el último evento de recogida y sólo
-                si ese evento ya no está publicado
+                si ese evento no ha sido publicado
         inaccessible: No se pudo guardar el registro porque no era válido. Comprueba
           errores de validación y vuelve a enviarlo.
         known_uri:
@@ -402,14 +401,14 @@ es:
         resource:
           attributes:
             accesspoint_url:
-              blank: no puede estar vacío, a menos levantaste un archivo de recursos
-                en vez
+              blank: no puede estar vacío, a menos que subiste un archivo de recursos
+                en su lugar
               inaccessible: es inaccesible, la URL necesita ser accesible al público
               invalid: no es válida, debe apuntar a un archivo XML, XML.GZIP, XML.GZ
                 o ZIP.
             dataset:
-              blank: no puede estar blanco, a menos proporcionaste una dirección URL
-                conjunto de datos en ves
+              blank: no puede estar en blanco, a menos que hayas proporcionado una
+                URL de l conjunto de datos en su lugar
               wrong_type: es de tipo incorrecto, debe ser un archivo GZIP, TAR, ZIP
                 o XML
             dwc_archive_url:
@@ -467,23 +466,23 @@ es:
           ver las versiones de esta página en cualquier idioma.
         page_name: Nombre único <small>(caracteres alfanuméricos del alfabeto ISO
           Latino básico, en minúsculas y subrayados)</small>
-        page_name_more: Introduzca un único identificador de auto descriptivo y significativo
-          y persistente para esta página. El nombre que introduzca aquí se utiliza
+        page_name_more: Introduce un único identificador de auto descriptivo y significativo
+          y persistente para esta página. El nombre que introduzcas aquí se utiliza
           para generar el URL de esta página, por ejemplo, el <em>terms_of_use</em>
           nombre único se convierte en el <em>http://www.eol.org/info/terms_of_use</em>
           URL.
         parent_content_page_id: Padre
-        parent_content_page_id_more: Opcionalmente, puede seleccionar un padre en
-          las que se debe esta página anidados.
+        parent_content_page_id_more: Opcionalmente, puedes seleccionar un padre en
+          la que esta página esté anidada.
       content_partner:
         created_at: Registrado
         current_agreement: Acuerdo actual
         display_name: Nombre mostrado <small>(opcional)</small>
-        display_name_more: Proporcionar un nombre alternativo visible públicamente
-          para usar en lugar de su <em>nombre del proyecto</em>.
+        display_name_more: Proporciona un nombre alternativo visible públicamente
+          para usar en lugar de tu <em>nombre del proyecto</em>.
         description_of_data: Descripción de datos <small>(privada)</small>
-        description_of_data_more: Por favor proporcionenos una descripción del tipo
-          de información que tiene, cuántos elementos están disponibles, a que organismos
+        description_of_data_more: Por favor proporciónanos una descripción del tipo
+          de información que tienes, cuántos elementos están disponibles, a que organismos
           se refieren y si han sido montado o verificado por expertos cualificados
           o por una comunidad bien informada.
         last_action: Última acción
@@ -494,21 +493,21 @@ es:
         oldest_published_harvest_event: Primera publicación
         is_public_more: Los perfiles de los socios de contenido público son visibles
           para todos y la información de los asociados se incluye en los listados
-          de socios. Anule la selección para excluir detalles del contenido de los
-          socios de los listados y restrinja el acceso al perfil de usuario solo al
+          de socios. Anula la selección para excluir detalles del contenido de los
+          socios de los listados y restringe el acceso al perfil de usuario solo al
           socio que creó el contenido y a los administradores de EOL.
         user_id: Detalles de Socio Contenido administrados por
       content_partner_agreement:
         mou_url: URL del archivo del acuerdo <small>(alternativa opcional)</small>
-        mou_url_more: Opcionalmente, escriba una dirección URL para el archivo que
+        mou_url_more: Opcionalmente, escribe una dirección URL para el archivo que
           contiene el acuerdo de este socio. Este archivo anulará cualquier otro texto
-          de acuerdo. Si desea almacenar el archivo (por ejemplo, un archivo PDF)
-          en los servidores de contenidos de EOL entonces primero <a href="%{upload_content_url}">cargue
+          de acuerdo. Si deseas almacenar el archivo (por ejemplo, un archivo PDF)
+          en los servidores de contenidos de EOL entonces primero <a href="%{upload_content_url}">carga
           el archivo</a>, para obtener la dirección URL.
       content_partner_contact:
         email_reports_frequency_hours_more: Los informes de correo electrónico se
-          envían sólo si hubo comentarios o acciones de supervisión sobre sus datos
-          o en las páginas del taxón correspondiente a su conjunto de datos.
+          envían sólo si hubo comentarios o acciones de curación sobre tus datos o
+          en las páginas del taxón correspondiente a tu conjunto de datos.
       data_object:
         bibliographic_citation: Cita bibliográfica
         bibliographic_citation_more: Se recomienda una cita para estos datos en forma
@@ -530,7 +529,7 @@ es:
           un poseedor de los derechos de autor.
         rights_statement: Declaración de los derechos
         rights_statement_more: Declaración de los derechos de uso según es requerido
-          por las licencias  Creative Commons Attribution (CC-BY), por favor declare
+          por las licencias  Creative Commons Attribution (CC-BY), por favor declara
           la atribución <q cite="http://creativecommons.org/licenses/by/3.0"> del
           modo especificado por el autor o licenciatario</q>.
         source_url: URL al objeto original de datos
@@ -540,30 +539,30 @@ es:
         toc_item: Asunto
         link_type: Categoría
       data_search:
-        attribute: Seleccione un atributo
+        attribute: Selecciona un atributo
         max: Valor máximo
         max_with_val: 'Valor máximo: %{val}'
-        max_placeholder: Introduzca un número
+        max_placeholder: Introduce un número
         max_placeholder_disabled: Intervalo desactivado
         min: Valor mínimo
         min_with_val: 'Valor mínimo: %{val}'
-        min_placeholder: Introduzca un número
+        min_placeholder: Introduce un número
         min_placeholder_disabled: Intervalo desactivado
         q: Valor específico
         q_with_val: 'Valor específico: %{val}'
-        q_placeholder: Introduzca una palabra, frase o número
+        q_placeholder: Introduce una palabra, frase o número
         q_placeholder_disabled: Intervalo establecido, valor específico desactivado
         q_more: Por ejemplo, heterótrofos.
         taxon_name: Grupo de taxonomía
         taxon_name_with_val: 'Grupo de taxonomía: %{val}'
-        taxon_name_placeholder: Introduzca el nombre del grupo de taxonomía para seleccionar
+        taxon_name_placeholder: Introduce el nombre del grupo de taxonomía para seleccionar
           grupo
         taxon_name_placeholder_value_removed: '%{taxon_group} borrado, seleccione
           un nuevo grupo'
-        taxon_name_more: Por ejemplo, escriba Trochilidae o ballenas. SÓLO se usarán
-          las selecciones del menú desplegable. No edite el texto sin seleccionar
+        taxon_name_more: Por ejemplo, escribe Trochilidae o ballenas. SÓLO se usarán
+          las selecciones del menú desplegable. No edites el texto sin seleccionar
           un resultado.
-        taxa_found: Taxones encontrados
+        taxa_found: Taxa encontrados
         total_results: 'Resultados totales: %{total}'
         unit: Unidad de medida
       eol_statistic:
@@ -582,21 +581,21 @@ es:
         began_at: Iniciado
         completed_at: Completado
         first_published_at: Primera publicación
-        publish_more: Las banderas recogen los eventos que serán publicados, el contenido
-          no se hará público inmediatamente.
+        publish_more: Las advertencias recogen los eventos que serán publicados, el
+          contenido no se hará público inmediatamente.
         published_at: Publicado
         published_status: Estado
         last_harvest_seconds: Tardó %{time_in_words}
       hierarchy:
-        browsable_more: Compruebe la navegabilidad para promover esta jerarquía hasta
+        browsable_more: Comprueba la navegación para promover esta jerarquía hasta
           convertirla en una de las principales jerarquías navegables en EOL.
-        browsable_status_with_colon: 'Estado de navegabilidad:'
+        browsable_status_with_colon: 'Estado de navegación:'
         complete: Conservada
-        complete_more: 'Una jerarquía de supervisión asume que cada entrada está destinada
+        complete_more: 'Una jerarquía de curación asume que cada entrada está destinada
           a ser única, es decir, las cadenas que coinciden en el nombre serán tratadas
-          como homónimas. <strong>Advertencia: no cambie este atributo a menos que
-          esté seguro de la condición de homónimos en la jerarquía, haciéndolo así
-          que podría poner en peligro la integridad de los datos.</strong>'
+          como homónimas. <strong>Advertencia: no cambies este atributo a menos que
+          estés seguro de la condición de homónimos en la jerarquía, de otra forma
+          puedes poner en peligro la integridad de los datos.</strong>'
         request_publish: Publicar lo solicitado
         request_publish_more: Indica si existe una solicitud pendiente para promover
           esta jerarquía hasta convertirla en una de las principales jerarquías navegables
@@ -604,7 +603,7 @@ es:
       known_uri_relationship:
         from_known_uri: Para URI conocido
         relationship_uri: Seleccionar relación
-        to_known_uri: Introducir y seleccionar URI de destino
+        to_known_uri: Introduce y selecciona URI de destino
       news_item:
         active: Publicado
         active_more: Las noticias publicadas serán visibles públicamente en la fecha
@@ -618,21 +617,21 @@ es:
           <em>nueva_versión_de_eol</em> se convierte en la dirección URL <em>http://eol.org/news/nueva_versión_de_eol</em>.
       open_authentication:
         connected: Conectado
-        connect: Añadir
+        connect: Añade
       resource:
         administration_settings: Opciones de administración <small>(sólo visible para
           los administradores de EOL)</small>
         accesspoint_url: URL del conjunto de datos
         accesspoint_url_existing_remove: Actualmente este recurso se está cargando
           desde la URL que termina por <em>%{accesspoint_url}</em>. Sube un archivo
-          si desea eliminar la dirección URL existente y cargar el recurso de un archivo
-          en su lugar (no recomendado).
+          si deseas eliminar la dirección URL existente y cargar el recurso de un
+          archivo en su lugar (no recomendado).
         dataset: Conjunto de datos
         dataset_existing_replace: El archivo <em>%{file_name}</em> está asociado actualmente
           con este recurso. Sube un archivo nuevo para reemplazar el archivo existente
           de <em>%{file_name}</em> .
         dataset_existing_remove: El archivo <em>%{file_name}</em> está actualmente
-          asociado a este recurso. Indique un URL si usted quiere reemplazar el archivo
+          asociado a este recurso. Indica un URL si quieres reemplazar el archivo
           <em>%{file_name}</em> existente y más bien cargar el recurso de un URL (recomendado).
         dwc_archive_url: Si hay un Archivo Darwin Core asociados con este recurso,
           escribe la dirección URL aquí <small>(TAR.GZIP, TAR.GZ o TGZ solamente):</small>
@@ -643,21 +642,21 @@ es:
         refresh_period_hours: Frecuencia
         resource_status_id: Estado
         resource_status: Estado
-        resource_url_or_file: Datos de recursos <small>(elija introducir un URL o
+        resource_url_or_file: Datos de recursos <small>(elige introducir un URL o
           cargar un archivo)</small>
-        resource_url_or_file_url: Cargar recurso de URL
-        resource_url_or_file_upload: Subir archivo de recursos
+        resource_url_or_file_url: Carga recurso de URL
+        resource_url_or_file_upload: Sube archivo de recursos
         title: Nombre del recurso
       session:
         password: Contraseña
-        remember_me: Permanecer conectado 2 semanas
+        remember_me: Permanece conectado 2 semanas
         username_or_email: Nombre de usuario o dirección de correo electrónico
       translated_content_page:
         active_translation: Publicado
-        active_translation_more: Traducciones publicadas serán visible para el público,
-          a menos que la página no está publicado. Desmarque <em>publicado</em> si
-          deseas evitar que los usuarios en general puedan ver esta versión de la
-          página.
+        active_translation_more: Las traducciones publicadas serán visible para el
+          público, a menos que la página no está publicada. Desmarca <em>publicado</em>
+          si deseas evitar que los usuarios en general puedan ver esta versión de
+          la página.
         language_id: Idioma
         left_content_more: '(Opcional) Añade una lista desordenada de enlaces de navegación.
           Utiliza el nombre de clase <code>active</code> para resaltar el enlace de
@@ -677,13 +676,13 @@ es:
           por lo que las partidas en el área del cuerpo comienzan con <em>Encabezado
           2</em>. Selecciona <em>Fuente</em> para cambiar a la vista de código fuente
           HTML que permite insertar y editar manualmente el código HTML.'
-        meta_description_more: Proporcione una descripción breve, resuma los conceptos
+        meta_description_more: Proporciona una descripción breve, resume los conceptos
           clave del contenido de la página. Esta descripción se utiliza a veces por
           los motores de búsqueda Web para comprobar la relevancia y de anuncio en
           los resultados del motor de búsqueda.
-        meta_keywords_more: Escriba una lista separada por comas de palabras y frases
+        meta_keywords_more: Escribe una lista separada por comas de palabras y frases
           cortas que mejor reflejen el contenido de la página. Estas palabras y frases
-          clave son a veces utilizados por los motores de búsqueda Web para evaluar
+          clave son a veces utilizadas por los motores de búsqueda Web para evaluar
           la relevancia de la página contra los términos de búsqueda.
         title_more: El título de este contenido va aparece en el encabezado de la
           página. El título debe incluir las palabras clave más relevantes para el
@@ -718,154 +717,154 @@ es:
       user:
         agreed_with_terms: Estoy de acuerdo con los <a href="%{terms_url}">términos
           de uso</a>
-        api_key_more: Lea más acerca de <a href="%{api_docs_url}"> adición de una
+        api_key_more: Lee más acerca de <a href="%{api_docs_url}"> adición de una
           clave a las llamadas de API</a> .
         bio: Sobre mí
         credentials: Credenciales
         curation_priveleges_credentials: Credenciales <small>(sólo para verificadores
           de máximo rango & maestros verificadores)</small>
-        credentials_more: 'Por favor, indique al menos una credencial específica de
+        credentials_more: 'Por favor, indica al menos una credencial específica de
           esta lista:'
         credentials_more_academic: Facultad, personal o estudiante graduado en un
           departamento pertinente de Universidad o colegio.
-        credentials_more_author: La autoría de una publicación revisados (proporcionar
+        credentials_more_author: La autoría de una publicacióncon referee (proporcionar
           referencia).
         credentials_more_professional: Miembro de una sociedad profesional.
-        credentials_more_successful_assistant_curator: Historial de éxito como revisor
+        credentials_more_successful_assistant_curator: Historial de éxito como cuirador
           asistente.
-        credentials_more_referral: Referencia del revisor actual.
-        curation_application: Convertirse en revisor
-        curation_application_more: Si desea modificar sus privilegios de revisor,
-          tan sólo presente una solicitud y vamos a revisar su elegibilidad.
+        credentials_more_referral: Referencia del curador actual.
+        curation_application: Convertirse en curador
+        curation_application_more: Si deseas modificar tus privilegios de curador,
+          tan sólo presenta una solicitud y vamos a revisar tu elegibilidad.
         curator_level: Actualmente eres %{curator_level_with_indefinite_article}.
         curator_scope: Alcance de la revisión
-        curator_scope_more: 'Por favor, indique el alcance de su experiencia. Por
-          ejemplo: "Los roedores de Borneo", "Tri-tróficos interacciones", o "Problemas
-          de conservación de los peces". Esto no limitará su capacidad de cura, sino
-          que informar a la comunidad EOL.'
-        email_reports_frequency_hours: ¿Con qué frecuencia desea recibir alertas por
-          correo electrónico acerca de la actividad de sus contribuciones?
+        curator_scope_more: 'Por favor, indica el alcance de tu experiencia. Por ejemplo:
+          "Los roedores de Borneo", "Tri-tróficos interacciones", o "Problemas de
+          conservación de los peces". Esto no limitará tu capacidad de curación, sino
+          que informará a la comunidad EOL.'
+        email_reports_frequency_hours: ¿Con qué frecuencia deseas recibir alertas
+          por correo electrónico acerca de la actividad de tus contribuciones?
         email_settings_submit: configuración de correo electrónico
         email: Dirección de correo electrónico
         entered_password: Contraseña <small>(4-16 caracteres)</small>
-        generate_api_key: Solicitar una clave API
-        generate_api_key_more: Si está interesado en usar la API de EOL, puede generar
-          una llave API para identificar su aplicación. Lea más acerca de <a href="%{api_docs_url}">
+        generate_api_key: Solicita una clave API
+        generate_api_key_more: Si estás interesado en usar la API de EOL, puedes generar
+          una llave API para identificar su aplicación. Lee más acerca de <a href="%{api_docs_url}">
           cómo agregar una llave para sus llamadas a la API</a>.
         logo: Sube una foto nueva
         new_password: Nueva contraseña <small>(4-16 caracteres)</small>
         new_password_confirmation: Nueva contraseña <small>(por confirmar)</small>
         news_in_preferred_language: mostrar las noticias en el idioma preferido
         notification_settings: Configuración de notificaciones
-        notification_settings_more: Configure las opciones de notificación.
+        notification_settings_more: Configura las opciones de notificación.
         open_authentications: Cuentas conectadas
         open_authentications_more: Administra las conexiones a cuentas externas que
           se pueden utilizar para iniciar sesión en EOL. <a href="%{open_authentications_url}">Editar
           cuentas conectadas</a>.
-        open_authentications_connected_accounts: Sus cuentas conectadas
-        requested_curator_level: Su solicitud para convertirse en %{curator_level_with_indefinite_article}
+        open_authentications_connected_accounts: Tus cuentas conectadas
+        requested_curator_level: Tu solicitud para convertirte en %{curator_level_with_indefinite_article}
           está pendiente.
-        requested_curator_level_id_more: Seleccione <em>Revisor Asistente</em> si
-          usted todavía no tiene credenciales.  Seleccione <em>Revisor Pleno</em>
-          si es un científico professional o un estudiante de postgrado con credenciales.
-          Seleccione <em>Revisor Experto</em> si usted es un revisor experimentado
-          y quiere asumir más responsabilidades.
+        requested_curator_level_id_more: Selecciona <em>Revisor Asistente</em> si
+          todavía no tienes credenciales.  Selecciona <em>Revisor Pleno</em> si eres
+          un científico professional o un estudiante de postgrado con credenciales.
+          Selecciona <em>Revisor Experto</em> si eres un revisor experimentado y quieres
+          asumir más responsabilidades.
         tag_line: 'Lema o título <small>ejemplo: "Entusiasta de las aves"</small>'
         user_identities: Soy
         username: Nombre de usuario <small>(4-32 caracteres)</small>
         username_or_email: Nombre de usuario o dirección de correo electrónico
       wikipedia_queue:
         revision_url: URL de la revisión <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
-        revision_url_more: Cuando usted indica una revisión de URL de Wikipedia, está
+        revision_url_more: Cuando indicas una revisión de URL de Wikipedia, estás
           pidiendo que EOL ingiera esa revisión particular como de confianza. El sistema
           reemplazará la versión actual de ese artículo en EOL si ya EOL la tiene.
     select:
       prompt: Selecciona
     submit:
-      cancel: Cancelar
-      create: Crear %{model}
-      filter_sort: Filtrar y ordenar
-      update: Actualizar %{model}
-      submit: Guardar %{model}
+      cancel: Cancela
+      create: Crea %{model}
+      filter_sort: Filtra y ordena
+      update: Actualiza %{model}
+      submit: Guarda %{model}
       collection_item:
-        update: Guardar
+        update: Guarda
       contact:
-        new: Enviar comentario
+        new: Envía comentario
       content_page:
-        create: Crear página
-        edit: Editar
+        create: Crea página
+        edit: Edita
         preview: Previsualización
-        update: Actualizar página
+        update: Actualiza página
       content_partner:
-        create: Crear socio de contenido
-        update: Guardar información del socio de contenido
+        create: Crea socio de contenido
+        update: Guarda información del socio de contenido
       content_partner_agreement:
-        create: Crear un nuevo acuerdo
-        update: Actualizar el acuerdo
-        agree: Aceptar los términos de los socios de contenidos
+        create: Crea un nuevo acuerdo
+        update: Actualiza el acuerdo
+        agree: Acepta los términos de los socios de contenidos
       content_partner_contact:
-        create: Agregar contacto
-        update: Actualizar contacto
-        destroy: Eliminar contacto
+        create: Agrega contacto
+        update: Actualiza contacto
+        destroy: Elimina contacto
       data_object:
-        create: Agregar artículo
-        create_text: Agregar artículo
-        update: Guardar artículo
+        create: Agrega artículo
+        create_text: Agrega artículo
+        update: Guarda artículo
       data_object_link:
-        create: Añadir enlace
-        update: Guardar enlace
+        create: Añade enlace
+        update: Guarda enlace
       eol_statistic:
-        change_date: Obtener estadísticas de fechas
-        download_csv: Descargar como CSV
+        change_date: Obtén estadísticas de fechas
+        download_csv: Descarga como CSV
       harvest_event:
-        publish: Publicar
+        publish: Publica
       hierarchy:
-        update: Actualizar la jerarquía
-        request_publish: Solicitar la promoción de jerarquía
+        update: Actualiza la jerarquía
+        request_publish: Solicita la promoción de jerarquía
       name:
-        create: Agregar nombre
-        update: Actualizar el nombre
+        create: Agrega nombre
+        update: Actualiza el nombre
       news_item:
-        create: Crear noticia
-        edit: Editar
+        create: Crea noticia
+        edit: Edita
         preview: Vista preliminar
-        update: Actualizar noticia
+        update: Actualiza noticia
       open_authentication:
-        create: Conectar
-        destroy: Desconectar
-        update: Comprobar la conexión
+        create: Conecta
+        destroy: Desconecta
+        update: Comprueba la conexión
       resource:
-        create: Agregar recurso
-        update: Actualizar el recurso
-        update_settings: Actualizar la configuración
+        create: Agrega recurso
+        update: Actualiza el recurso
+        update_settings: Actualiza la configuración
         force_harvest: Cosecha de petición
-        harvest_tonight: Cosecha Esta Noche
+        harvest_tonight: Recoge esta noche
       session:
-        create: Iniciar sesión
-        sign_in_with_facebook: Iniciar sesión con Facebook
+        create: Inicia sesión
+        sign_in_with_facebook: Inicia sesión con Facebook
         sign_in_with_google: Inicia sesión con Google
-        sign_in_with_twitter: Iniciar sesión con Twitter
-        sign_in_with_yahoo: Acceder con Yahoo
+        sign_in_with_twitter: Inicia sesión con Twitter
+        sign_in_with_yahoo: Accede con Yahoo
       translated_content_page:
-        create: Agregar traducción
-        update: Guardar los cambios a la traducción
+        create: Agrega traducción
+        update: Guarda los cambios a la traducción
       translated_news_item:
-        create: Agregar traducción
-        update: Guardar los cambios en la traducción
+        create: Agrega traducción
+        update: Guarda los cambios en la traducción
       user:
-        create: Crear cuenta
-        curation_application: Solicitar ahora
-        curation_privileges: Enviar solicitud
-        generate_api_key: Generar una clave
-        recover_account: Enviar correo electrónico
+        create: Crea cuenta
+        curation_application: Solicita ahora
+        curation_privileges: Envía solicitud
+        generate_api_key: Genera una clave
+        recover_account: Envía correo electrónico
         notification_settings: Configuración de notificaciones
         sign_up_with_facebook: Regístrate con Facebook
         sign_up_with_google: Regístrate con Google
         sign_up_with_twitter: Regístrate con Twitter
         sign_up_with_yahoo: Regístrate con Yahoo
-        update: Guardar información del perfil
+        update: Guarda información del perfil
       wikipedia_queue:
-        create: Enviar solicitud
+        create: Envía solicitud
   will_paginate:
     next_label: Próxima
     page_gap: '&hellip;'
@@ -895,7 +894,7 @@ es:
     - Ju
     - Vi
     - Sá
-    close: Cerrar
+    close: Cierra
     current: Hoy
     month_names:
     - Enero
@@ -932,9 +931,9 @@ es:
         page_header: Estadísticas del socio de contenido
         page_title: 'Administración: Estadísticas del socio de contenidos'
       curators:
-        menu_link: Estadísticas de conservador
-        page_header: Estadísticas de conservador
-        page_title: 'Administración: Estadísticas del conservador'
+        menu_link: Estadísticas de curador
+        page_header: Estadísticas de curador
+        page_title: 'Administración: Estadísticas del curador'
       data_objects:
         menu_link: Objetos de datos
         page_header: Estadísticas del objeto de datos
@@ -2152,7 +2151,7 @@ es:
   users:
     activities:
       show:
-        meta_description: Actividad de supervisión y comentarios de %{user_full_name}
+        meta_description: Actividad de curación y comentarios de %{user_full_name}
         meta_title: actividad de %{user_full_name}
         tweet_text: actividad de %{user_full_name}
     collections:
@@ -2214,8 +2213,8 @@ es:
       form_tip_profile_oauth: El nombre es obligatorio, otros elementos marcados como
         requeridos %{required_icon} son opcionales para los usuarios generales pero
         obligatorios para los supervisores.
-      form_tip_curation: Las credenciales y el grado de supervisión son opcionales
-        para los supervisores ayudantes pero obligatorios %{required_icon} para supervisores
+      form_tip_curation: Las credenciales y el grado de curador son opcionales para
+        los curadores ayudantes pero obligatorios %{required_icon} para curadores
         Full y Master
     new:
       complete_registration_header: Completar tu registro en EOL
@@ -4788,7 +4787,7 @@ es:
     asistente revisor no son moderadas, y serán aprobados al instante. Aprenda más
     acerca de <a href="%{curators_url}">convertirse en un supervisor</a> .
   curation_privileges_page_title: Convertirse en un revisor
-  curation_scope: Alcance de supervisión
+  curation_scope: Alcance de curación
   curation_reason_placeholder: detalles adicionales (opcional)
   curator: supervisor
   curator_question: ¿Supervisor?
@@ -5036,7 +5035,7 @@ es:
   dato_edit_link_button: Editar este enlace
   dato_edit_link_description: Gracias por contribuir con tu experiencia a EOL. El
     enlace revisado se añadirá a tu lista de seguimiento para que puedas seguir las
-    conversaciones relacionadas con él y comprobar su estado de supervisión.
+    conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_text_button: Editar este artículo
   dato_edit_text_page_description: ¡Gracias por contribuir con tu experiencia a EOL.
     El artículo revisado se añadirá a tu lista de seguimiento para que puedas seguir
@@ -5365,7 +5364,7 @@ es:
   filter_newsfeed_option_community: Comunidad
   filter_newsfeed_option_collections: Colecciones
   filter_newsfeed_option_watchlist: Lista de seguimiento
-  filter_newsfeed_option_curation: Supervisión
+  filter_newsfeed_option_curation: Curación
   filtered_information: Información filtrada
   taxon_concept_search_keyword:
     one: taxón
@@ -5675,7 +5674,7 @@ es:
   known_uri_label_inverse: es un inverso de
   known_uri_label_allowed_val: permite a un valor de
   known_uri_label_allowed_unit: permite una unidad de
-  known_uri_label_unit: tiene una unidad por defecto de
+  known_uri_label_unit: tiene una unidad predeterminada de
   known_uri_label_equivalent: es equivalente a
   known_uri_label_indirectly_equivalent: equivale indirectamente a
   known_uris_empty_sorry: Lo sentimos, no hay URIs sugerias para esta categoría todavía.
@@ -5869,7 +5868,7 @@ es:
   message_will_disappear: (este mensaje desaparecerá en breve)
   meta_description_colon: 'Descrición meta:'
   meta_keywords_colon: 'Palabras clave meta:'
-  meta_title_site_name: Encyclopedia of Life
+  meta_title_site_name: Enciclopedia de la Vida
   method: Método
   methods: Métodos
   method_to_get_metadata_about_the_hierarchy: dado un identificador de jerarquía,
@@ -6392,8 +6391,8 @@ es:
     como un papel o estudio)
   resource_hint_dataset_rights: (se aplica para el conjunto de datos <i>como un todo</i>;
     no se aplica en todas las jurisdicciones)
-  resource_hint_default_rights: (se aplica por defecto a elementos <i>en</i> el conjunto
-    de datos)
+  resource_hint_default_rights: (se aplica por predeterminación a elementos <i>en</i>
+    el conjunto de datos)
   resources: Recursos
   response_formats: Formatos de Respuesta
   response: Respuesta

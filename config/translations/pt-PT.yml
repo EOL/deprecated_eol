@@ -19,6 +19,7 @@
 # Author: McDutchie
 # Author: Polyethylen
 # Author: Renatinhoracing
+# Author: Ruila
 # Author: SandroHc
 # Author: Sarilho1
 # Author: Vitorvicentevalente
@@ -1243,7 +1244,9 @@ pt-PT:
       questions_link_naming_species: Como são chamadas as espécies?
       questions_link_binomial_nomenclature: O que é a nomenclatura binomial?
       questions_link_biological_classification: O que é uma classificação biológica?
+      questions_link_invasive_species: O que é uma espécie invasiva?
       questions_link_model_organism: O que é um organismo modelo?
+      questions_link_contributing_to_research: Como posso contribuir para a pesquisa?
     data_search:
       page_header: Procurar no TraitBank
     footer:

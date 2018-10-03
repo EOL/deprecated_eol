@@ -1175,6 +1175,9 @@ da:
     comment_title_your_newsfeed: '%{who} har kommenteret på din nyhedskilde'
     collection_activity_log_title: '%{who} har ændret en samling'
     community_activity_log_title: '%{who} har ændret et fællesskab'
+    comment_link: Vis kommentar på EOL
+    collection_activity_user_watching_recipient: <b>%{user_name}</b> holder øje med
+      dig.
   recent_activities:
     index:
       list_header: Seneste 7 dage
@@ -1196,6 +1199,7 @@ da:
     communities:
       index:
         meta_keywords: '%{scientific_name} fællesskab'
+        tweet_text: Personer interesseret i %{scientific_name}
       collections:
         meta_title_with_common_name: Samlinger af %{preferred_common_name} (%{scientific_name})
         tweet_text: Samlinger af %{scientific_name}
@@ -1225,6 +1229,7 @@ da:
           inklusive målinger og fænotyper for  %{preferred_common_name} (videnskabeligt
           kendt som %{scientific_name}). Beregnede data for %{scientific_name} inklusive
           %{topics} fra videnskabelig forskning leveret af videnskabsmænd.'
+        tweet_text: Fakta om %{scientific_name}
     details:
       index:
         hierarchy_entry:
@@ -1233,6 +1238,7 @@ da:
             som klassificeret af %{hierarchy_provider} i Encyclopedia of Life. Inkluderer
             %{chapter_list}.
           meta_title: Beskrivelser om %{scientific_name} som klassificeret af %{hierarchy_provider}
+        meta_title: Beskrivelser og artikler om %{scientific_name}
         tweet_text: Artikler om %{scientific_name}
     literature:
       show:
@@ -1245,6 +1251,8 @@ da:
         meta_title: Kort for %{scientific_name}
         tweet_text: Kort for %{scientific_name}
     names:
+      common_names:
+        meta_description: Almindelige navne for %{scientific_name}
       synonyms:
         hierarchy_entry:
           meta_keywords: '%{scientific_name} Synonymer'
@@ -1289,7 +1297,11 @@ da:
       yahoo: Yahoo!
   user_added_data:
     edit_data_header: Rediger din data
+    new_field: Nyt felt...
     new_value: Værdi
+  data_search_files:
+    from: Laveste værdi
+    to: Højeste værdi
   article_from_supplier: Artikel fra %{whom}
   sound_from_supplier: Lyd fra %{whom}
   image_from_supplier: Billede fra %{whom}
@@ -1309,6 +1321,11 @@ da:
   active_colon: 'Aktiv:'
   active: Aktiv
   activity: Aktivitet
+  activity_logs:
+    collection_activity_log:
+      collect:
+        an_unknown_user_added_an_unknown_item_to_it: En ukendt bruger har tilføjet
+          et ukendt objekt.
   add_a_comment: Tilføj en kommentar.
   add_a_comment_colon: 'Tilføj en kommentar:'
   add: Tilføj

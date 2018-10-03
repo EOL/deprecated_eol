@@ -3864,6 +3864,14 @@ pt-BR:
   api_refer_to_the_getting_started_page: Veja a pagina<a href="%{link}">Começando
     agora</a> para exemplos de utilização da API EOL, termos de use informação sobre
     registro de chave API.
+  api_results_can_be_cached: A resposta de qualquer chamada de API pode ser colocada
+    em cache por um período de tempo especificado. Um parâmetro "cache_ttl" pode ser
+    fornecido, o valor do mesmo será o tempo em que a resposta será colocada no cache.
+    Isso ira criar cabeçalhos HTTP indicando que o resultado devera ser posto em cache
+    pelos navegadores de internet, e adicionalmente, a resposta será adicionada no
+    cache de servidor da EOL, pelo tempo especificado em segundos.Se o valor do parâmetro
+    "cache_ttl" for alterado, a primeira requisição com o novo valor não sensibilizara
+    o cache, mas as requisições subsequentes estarão com a nova resposta do cache.
   application_version_advisory_information: Versão do aplicativo
   are_you_sure: Tem certeza?
   are_you_sure_this_action_cannot_be_undone: Você tem certeza? Essa ação não pode
@@ -3886,7 +3894,18 @@ pt-BR:
   articles_in_other_languages_with_count:
     one: 'Artigo nesta página esta disponível em %{count} outra língua:'
     other: 'Artigos nesta página estão disponíveis em %{count} outras línguas:'
+  as_of_time_there_were_unique_visitors:
+    one: As of %{time} Até %{time} houve %{count} visitantes unicos
+    other: Enquanto em %{time} houve %{count} visitantes unicos
   a_total_of_comment_were_found_matching_your_criteria:
+    one: Foi encontrado um %{count} comentário coincidentes com os seus critérios.
+    other: Foi encontrado um total de %{count} comentários coincidentes com os seus
+      critérios.
+  a_total_of_items_were_found_matching_your_criteria:
+    one: Foi encontrado um %{count} comentário coincidentes com os seus critérios.
+    other: Foi encontrado um total de %{count} comentários coincidentes com os seus
+      critérios.
+  a_total_of_terms_were_found_matching_your:
     one: Foi encontrado um %{count} comentário coincidentes com os seus critérios.
     other: Foi encontrado um total de %{count} comentários coincidentes com os seus
       critérios.
@@ -4004,11 +4023,16 @@ pt-BR:
     de coleção do tipo(s): (%{types})'
   cannot_create_community_from_watch_collection_error: Não pode criar uma comunidade
     a partir de uma lista de vigiados.
+  cannot_curate_association_in_preview_mode: A associação ao %{name} não pode ser
+    supervisionada por que esta sendo pré-visualizada depois de ser recolhida.
   cannot_expand_children: não é possível expandir descendentes
   cannot_find_member: Não é possível encontrar um membro com este id.
   cannot_index_collection_item_type_error: Não podemos criar um item de coleção a
     partir de um %{type}
   categories_title: 'Selecione uma categoria e, em seguida, um atributo:'
+  category_suggestions: 'Se você não tem certeza sobre quais URL''s usar nos atributos,
+    os links abaixo podem prover algumas sugestões de URL''s escolhidas pelos curadores
+    da EOL:'
   change: Mudar
   change_rating_to_1_of_5: Alterar a classificação para 1 de 5
   change_rating_to_2_of_5: Alterar a classificação para 2 de 5
@@ -4117,6 +4141,8 @@ pt-BR:
     DE EDIÇÃO
   collect_item: Coletar item
   collect_items: Coletar itens
+  collection_api_sort_field_notes: Se um parâmetro sort_field for incluído, somente
+    valores que coincidirem exatamente com esse parâmetro serão retornados
   collection_create_failure: Erro ao criar coleção.
   collection_created_with_count_notice:
     one: Colecção <em>%{collection_name}</em> criada com sucesso com %{count} item.
@@ -4124,6 +4150,8 @@ pt-BR:
   collection_delete_link: Excluir permanentemente esta coleção
   collection_destroyed: Esta coleção foi eliminada.
   collection_removed: A Coleção %{collection} é excluída.
+  collection_update_failure: A atualização da coleção %{collection} falhou. Verifique
+    se não há problemas com os itens da coleção
   collection_not_existing: A Coleção %{collection} não existe.
   collection_error_no_items_selected: 'Erro: Não há itens selecionados, não foram
     tomadas quaisquer ações.'
@@ -4142,6 +4170,15 @@ pt-BR:
     %{type}:(%{values})
   collection_items_missing_values: ' collected_item_id/collected_item_type não pode
     ser nulo em:%{item}'
+  collection_copy_complete_with_count:
+    one: Copiado %{count} elemento de %{from} a %{to}.
+    other: Copiado um total de %{count} elementos de %{from} a %{to}.
+  collection_move_complete_with_count:
+    one: Movido %{count} elemento de %{from} a %{to}.
+    other: Movido um total de %{count} elementos de %{from} a %{to}.
+  collection_remove_complete_with_count:
+    one: Removido%{count} item de %{from}.
+    other: Removidos %{count} itens de%{from}.
   collection_copy_choose_all_items_target_title: 'Copiar todos os itens de "%{collection}"
     a:'
   collection_move_choose_all_items_target_title: 'Mover todos os itens de "%{collection}"
@@ -4411,6 +4448,11 @@ pt-BR:
   content_partner_resource_edit_link: Editar
   content_partner_resource_edit_subheader: Editar recurso
   content_partner_resource_edit_with_type_link: Editar recurso
+  content_partner_resource_harvest_event_confirm_publish: Você tem certeza de que
+    deseja publicar o evento de recolhida %{completed_at} do recurso %{resource_title}?
+    Por favor, tenha em mente que se confirmar que deseja publicar esse evento, sua
+    solicitação será posta na fila para processamento, podendo levar até 24 horas
+    para ser completada.
   content_partner_resource_harvest_event_current_published: Publicado atualmente
   content_partner_resource_harvest_event_not_published: Não publicado
   content_partner_resource_harvest_event_previously_published: Publicado anteriormente
@@ -4421,8 +4463,15 @@ pt-BR:
     de recursos %{resource_title}
   content_partner_resource_harvest_events_see_all_link: Ver tudo <span class="assistive">Eventos
     de colheita</span>
+  content_partner_resource_harvest_event_update_successful_notice: Evento de recolhida
+    para %{resource_title} foi atualizado com sucesso.
+  content_partner_resource_harvest_event_update_unsuccessful_error: Desculpe, ocorreu
+    um erro, o evento de recolhida para %{resource_title} não foi atualizado.
   content_partner_resource_page_title: Enciclopédia da Vida - %{content_partner_name}  -
     %{resource_name}
+  content_partner_resource_will_be_deleted: Todos os dados coletados pelo recurso
+    %{resource_title} serão apagados, por favor, espere 24 horas para o processo ser
+    completado.
   content_partner_resource_hierarchy_browsable: Navegável
   content_partner_resource_hierarchy_complete_true: Esta hierarquia é definida como
     <strong>curadora</strong>. A hierarquia com curadoria assume que cada entrada
@@ -4562,11 +4611,20 @@ pt-BR:
   content_summary_table_type_unreviewed_text_row: Número de itens de texto não revisados
   content_type: Tipo de conteúdo
   contribute: Contribuir
+  copied_all_items_from_collection_with_count:
+    one: Um item copiado de %{from} para essa coleção.
+    other: Copiados %{count} itens de %{from} para essa coleção.
+  copied_all_items_to_collections:
+    one: Todos os itens copiados de %{name} para a coleção %{count}.
+    other: Todos os itens copiados de %{name} para as coleções %{count}.
   copied_items_from_collection_with_count_notice:
     one: Copiou %{count} item de %{name}.
     other: Copiou %{count} itens de %{name}.
   copy: Copiar
   copy_of_name: Cópia de %{name}
+  copy_items_to_a_new_collection_with_count:
+    one: Copiar %{count} item para uma nova coleção
+    other: Copiar %{count} itens para uma nova coleção
   copyright: 'DIREITOS AUTORAIS:'
   correct_donation_message_with_link: Se esta informação não estiver correta, por
     favor <a href='%{link}'>volte atrás</a> para fazer as mudanças.
@@ -4578,6 +4636,9 @@ pt-BR:
   count_results_for_search_term:
     one: '%{count} resultado para <em>%{search_term}</em>'
     other: '%{count} resultados para <em>%{search_term}</em>'
+  count_results_for_traitbank:
+    one: '%{count} Resultado do TraitBank'
+    other: '%{count} Resultados do TraitBank'
   create_account: criar uma conta
   create_a_new_collection: Criar uma nova coleção
   create_community_unsuccessful_error: Desculpe, ocorreu um erro, a sua comunidade
@@ -4612,6 +4673,7 @@ pt-BR:
   curated: Curadoria
   curated_association_update_button: Salvar alterações
   curated_objects_of: objetos curados de %{name}
+  curated_species_of: objetos curados de %{name}
   curation_comment: Comentário de Curadoria
   curation_error_no_hide_reasons_given: Por favor escolha uma razão para esconder
     isso na página da %{association}, ou deixe um comentário explicando porque você
@@ -4619,8 +4681,11 @@ pt-BR:
   curation_error_no_untrust_reasons_given: Por favor escolha uma razão para esta desconfiado
     sobre na página da %{association}, ou deixe um comentário explicando porque você
     está desconfiado que
+  curation_error_vetted_invalid: Você não pode supervisionar %{association} para %{vetted}
   curation_error_visibility_invalid: Você não pode ser curador de %{association} a
     '%{visibility}'
+  curation_error_untrust_reasons_invalid: As razões de esconder a %{association} não
+    foram válidas
   curation_error_hide_reasons_invalid: As razões de esconder a %{association} não
     foram válidas
   curation_error_object_in_preview_state_cannot_be_curated: Este objeto está sendo
@@ -4672,6 +4737,9 @@ pt-BR:
   your_current_rating_5_of_5: 'A sua classificação atual: 5 de 5'
   your_watch_collection: Sua lista de páginas vigiadas
   current_language: 'Língua: %{iso_code}'
+  current_harvest_event: O evento de colheita de %{resource_title} rodou por %{period}
+    horas
+  currently_running_harvesting: Colheita rodando atualmente
   currently_in_eol: Atualmente na Enciclopédia da Vida
   create_download_data_file: Criar arquivo
   institutional_sponsors: Patrocinadores Institucionais
@@ -4681,6 +4749,7 @@ pt-BR:
   dashboard: Painel de controle
   data: Dados
   data_about_subtab_header: Sobre os dados no EOL
+  data_results_only_for_search: Resultados de TraitBank  para %{search_term}
   data_about_this_record: Dados sobre este registro
   data_column_tc_id: ID da página EOL
   data_column_sci_name: Nome Científico
@@ -4710,6 +4779,8 @@ pt-BR:
     dentro %{taxon_name}</a>.
   data_database_colon: 'Dados:'
   data_glossary: Glossário de dados
+  data_glossary_contribute: Para contribuir com novos termos para esse glossario,
+    <a href=%{url}> considere atualizar data</a>.
   data_link_to_record: Link para este registo
   data_logging_active: Registro ativo de dados
   data_master_database_colon: 'Dados principais:'
@@ -4732,6 +4803,8 @@ pt-BR:
   data_provided_by_content_partner: 'Fornecedor: %{whom}'
   data_ranges: Resumos de dados
   data_ranges_subheader: Os resumos de dados para este Grupo Taxonômico
+  data_ranges_subtab_help_text: Por algumas razões, a EOL determina os valores de
+    span disponível para taxonomias através de todas as fontes.
   data_reference_subtable_summary: Referências adicionais sobre este fato.
   data_row_exemplar_added: Adicionado à Visão Geral.
   data_row_exemplar_removed: Removido da Visão Geral.
@@ -4771,9 +4844,24 @@ pt-BR:
       search_value_or_range_header: Buscar um valor específico ou uma faixa
       search_within_taxon_group_header: Pesquisar dentro de um grupo de taxon
       sort_header: Classificar os resultados
+    notice:
+      clade_too_big: Desculpe, os resultados foram filtrados por %{taxon_name} por
+        serem muito longos. Escolha um conjunto de dados menor ou entre em contato
+        com <a%"{contactus_tech_path}"> para assistência.
+      clade_has_no_data: Ninguem contribuiu para os dados de %{taxon_name} ainda.  <a
+        href="%{contribute_path}"> aprenda como contibuir </a>
   data_search_link: Pesquisa de dados científicos sobre EOL
+  data_search_explanation: Use a procura de dados da EOL para achar conteúdos parecidos
+    a '%{term}' nas observações,<br />Medições e outras asserções cientificas.
+  data_search_attribute: Buscar dados no TraitBank com %{attribute}
   data_search_destroyed: Este trabalho não será mais processado.
+  data_search_files_with_count:
+    one: '%{count} Download de dados'
+    other: '%{count} downloads de dados'
   data_search_row_hidden: Um curador escondeu esta fila de dados.
+  data_server_unavailable: Os dados da EOL estão temporariamente inacessíveis. Tente
+    novamente mais tarde. Desculpe pelo incomodo.
+  data_show_n_more_rows: Mostrar mais NNN...
   data_subtab_about: Sobre
   data_subtab_glossary: Glossário para %{taxon}
   data_summary_header_with_count:
@@ -4926,6 +5014,7 @@ pt-BR:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: Hierarquias'
   eol_api_hierarchy_entries: 'EOL API: Entradas de Hierarquia'
+  eol_api_hierarchy_entries_descendants: 'API EOL: Entrada de descendentes hierárquicos'
   eol_api_pages: 'EOL API: Páginas'
   eol_api_ping: 'EOL API: Ping'
   eol_api_provider_hierarchies: 'EOL API: Hierarquias de Fornecedor'
@@ -4939,6 +5028,10 @@ pt-BR:
   error_log_detail: Detalhe de log de erro
   error_log: Erro de Log
   error_logging_active: Erro de registro ativo
+  error_violates_tos: Parece que seu conteúdo viola alguns termos de serviço da EOL.
+    Se você acha que isso é um erro, por favor nos contate para assistência.
+  error_revoking_editor_on_watch_collection: Editores não podem ser removidos das
+    coleções
   error_401_page_title: Não autorizado
   error_401_description: Desculpe, você não está autorizado a acessar a URL.
   error_403_page_title: Proibido
@@ -4963,6 +5056,8 @@ pt-BR:
     a nossa ferramenta de procura:'
   error_no_items_selected: Você deve selecionar itens da coleção ou selecionar "Todos
     os itens" no menu suspenso.
+  error_watch_collections_cannot_be_shared: Coleções supervisionadas não podem ser
+    compartilhadas
   error_updating_user: Houve um erro na atualização de registro do usuário
   every_method_can_also_return_json_response: Todos os métodos podem retornar uma
     resposta JSON adicionando a extensão .json
@@ -5018,6 +5113,8 @@ pt-BR:
         para poder vê-lo
       owner_and_managers_only_can_edit: Desculpe, somente o proprietário ou os administradores
         da coleção podem editá-lo
+      error_revoking_editor_on_watch_collection: Desculpe, editores não podem ser
+        removidos de listas supervisionadas
       error_revoking_editor_on_an_empty_community: Desculpe, os editores não podem
         ser removidos de uma comunidade vazia
       only_managers_can_edit_community: Desculpe, apenas os administradores podem
@@ -5064,6 +5161,9 @@ pt-BR:
   family_name_colon: 'Apelido:'
   feedback: Comentários
   file: Arquivo
+  file_download_pending: Criar downloads precisa de um tempo extra, por isso criamos
+    um trabalho em segundo plano para isso. Você pode verificar o status em <a href='%{link}'>
+    do seu trabalho</a> a qualquer hora.
   file_id: ID do arquivo
   file_size: Tamanho do arquivo
   filed_under_label_with_date: Arquivado em %{label} em %{date}
@@ -5230,6 +5330,8 @@ pt-BR:
   harvest_id: Identificação da colheita
   harvesting_processes_log: Registro de processos de colheita
   harvests_for: Colheitas para %{resource}
+  harvest_resource: Coletando o recurso
+  harvest_duration: Duração da coleta até o momento
   has_already_been_taken: já foram tomadas.
   has_colon: 'Tem:'
   has_curated_your_image: tem curadoria na sua imagem
@@ -5254,6 +5356,8 @@ pt-BR:
     %{date}
   home_page_link_advisory_information: Este link levará você à página inicial da Enciclopédia
     da Vida
+  however_there_are_summaries: Contudo, <a href='%{summary_url}'> a EOL resume os
+    dados do subgrupo </a>.
   html_format: (Formato HTML)
   html_format_with_left_col: (FORMATO HTML, introduza apenas se você deseja ter uma
     coluna à esquerda da página, caso contrário, deixe em branco)
@@ -5270,6 +5374,7 @@ pt-BR:
     classificação será mostrada na guia de nomes sem ter que "Mostrar todas as classificações".)
   reindex_data_object_button: Objeto Reindex
   reindex_page_button: Reindexar a página
+  reindex_users_button: Reindexar as contagens de usuário
   image: Imagem
   image_cropped_notice: A imagem foi cortada com sucesso.
   image_crop_failed_error: Desculpe, ocorreu um erro, a imagem não pode ser cortada.
@@ -5286,11 +5391,12 @@ pt-BR:
   image_title_without_taxa: Imagem de um táxon desconhecida
   images: Imagens
   images_with_count:
-    other: uma=%{count} imagem
+    one: '%{count} imagem'
   images_in_red_are_not_trusted: Imagens em vermelho não são confiáveis​​.
   images_in_yellow_are_not_reviewed: Imagens em amarelo não são revisadas.
   image_objects_page_number: página de imagens
   import_once: Importar uma vez
+  import_ontology: Importar ontologia
   inappropriate: Inadequado
   inaturalist_tab_label: Observações iNaturalist
   include_all_metadata: incluir todos os metadados para objetos de dados
@@ -5391,6 +5497,10 @@ pt-BR:
   known_uris_none: Ninguém adicionou URIs deste tipo.
   known_uris_page_title: URIs para dados em EOL
   known_uris_sorted: Ordem atualizada.
+  pending_harvests_none: Não há coletas pendentes
+  pending_harvests_title: Coletas pendentes
+  pause_pending_harvests: Pausar coleta
+  resume_pending_harvests: Continuar coleta
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -5398,6 +5508,7 @@ pt-BR:
     do site está disponível. Para mudar a língua atual, selecione uma língua alternativa
     a partir desta lista.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Duração da ultima coleta
   last_updated: Última Atualização
   last_updated_time_ago: Última atualização há %{time_passed}
   learn_about_collections: Como posso criar uma?
@@ -5508,6 +5619,7 @@ pt-BR:
   looking_up_url: Buscando endereço URL...
   main_content_area: 'Área de conteúdo principal:'
   main_database_colon: 'Principal:'
+  main_master_database_colon: 'Mestre principal:'
   maintained_by: mantido por
   major_heading: Título principal
   make_an_editor: criar um administrador
@@ -5579,6 +5691,7 @@ pt-BR:
   more_children_with_count:
     one: mais %{count}...
     other: mais %{count}...
+  more_taxa_with_attribute: Ver todas as taxas com esse atributo
   most_active_members: Membros mais ativos
   move: Mover
   move_down: Mover para abaixo
@@ -5668,9 +5781,12 @@ pt-BR:
   new_contact_us_topic: Novo tópico de contato
   new_news_item: Nova Notícia
   news_and_event_links: Links de novidades & eventos
+  news_archive_page: pagina de arquivos de noticias
   news_date: Data da notícia
   new_search_suggestion: Nova sugestão de pesquisa
   news_available_in_languages: 'Esta página está disponível em:'
+  news_item_date_as_shown_to_user: 'A data da noticia como mostrado ao usuario (o
+    tempo somente é mostrado no Feed RSS):'
   news_item_is_visible_on_website_after_this_time: 'A notícia será visível no site
     depois deste horário:'
   news_item: noticia
@@ -5706,6 +5822,7 @@ pt-BR:
   no_comments_have_been_left_yet: Nenhum comentário foi deixado.
   no_errors_are_available: Nenhum erro está disponível.
   no_harvesting_logs_for_this_da: Nenhum registro de colheita para esta data
+  no_harvesting_events_running_now: Nenhuma coleta esta sendo realizada no momento
   no_items_were_copied_to_collections_error: 'Nenhum item foi copiado das coleções:
     %{names}.'
   no_news_items_for_month_and_year: Nenhuma notícia de %{month_and_year}
@@ -5716,6 +5833,7 @@ pt-BR:
   no_record_found_matching_your_criteria: Nenhum registro encontrado correspondente
     aos seus critérios.
   no_related_names: Nenhum nome têm sido relacionado com este táxon ainda.
+  no_results_for_search_term: Sem resultados para %{search_term}
   no_search_suggestions_are_avai: Nenhuma das sugestões de pesquisa são correspondentes
     aos seus critérios de busca disponível.
   no_tasks_found: Não foram encontradas tarefas
@@ -5767,6 +5885,7 @@ pt-BR:
   object: Objeto
   object_curated: Objeto curado.
   objects_curated: Objectos Curados
+  object_removed: (esse objeto foi removido do banco de dados)
   object_status: Estado do objeto
   object_status_all_option: Tudo
   object_status_trusted_option: De confiança
@@ -5791,11 +5910,24 @@ pt-BR:
     %{link}
   other_version_links: 'Outras versões: %{version_links}'
   other_category_subtab: Outros
+  other_measurements_from_this_record: Outras medições para esse registro
+  ontology_uri: URL da ontologia
   percentage_of_children_with_images: '% de descendentes com imagens'
   percentage_of_children_with_text: '% de descendentes com texto'
+  number_of_taxa_at_this_entry: '# da taxa desse registro'
+  number_of_trusted_images_at_this_entry: '# de imagens confiáveis para esse registro'
+  number_of_trusted_text_objects_at_this_entry: '# de objetos de texto para esse registro'
+  number_of_unreviewed_images_at_this_entry: '# de imagens não revisadas para esse
+    registro'
+  number_of_unreviewed_text_objects_at_this_entry: '# de objetos de texto nao revisados
+    para esse registro'
+  only_alphanum_with_no_spaces: pode ser unicamente caracteres alfanuméricos sem espaço
+  only_show_authoritative_conten: 'Só mostrar conteúdo autorizado:'
+  only_show_unapproved_curators: Mostrar somente curadores não aprovados
   on_time_col_header: ativo
   option_please_select: Por favor selecione
   or_add_it_to_an_existing_collection: ou adicione-o a uma coleção existente
+  or_add_it_to_an_existing_community: ou adicione isso a uma comunidade existente
   or_copy_them_to_existing_collection: ou copie-os para uma coleção existente
   or_email_education: Ou, envie sua sugestão para %{link}.
   or_move_them_to_existing_collection: ou mova-os para uma coleção existente
@@ -5811,11 +5943,14 @@ pt-BR:
   other_taxa_with_count:
     one: '%{count} outro táxon'
     other: '%{count} outros táxons'
+  outlink: Link externo
   overview: Visão geral
+  page_linked_to: Pagina ligada a
   page_name: Nome da página
   page_navigation: Navegação da página
   page_not_found: Página não encontrada
   page: Página
+  page_results_avg: Média de resultados da pagina
   page_urls: 'URL(s) da página:'
   pages_title: Referências
   pages_with_count:
@@ -5877,9 +6012,11 @@ pt-BR:
   please_return_to_eol_homepage: Por favor, volte à página inicial da EOL
   please_wait: Por favor, aguarde...
   post_comment: Postar comentário
+  posts_from_year: Postagens de %{year}
   preferred_common_name_advisory_information: Nome comum preferido para este táxon.
   press_room: Sala de imprensa
   preview_changes: Prever mudanças
+  preview_version_of_latest_published_data_object_title_link: Versão previa de %{link}
   preview: Pré-visualizar
   previously_published: Publicado anteriormente
   proceed_to_checkout_page: Proceda para a página de pagamento
@@ -5895,6 +6032,7 @@ pt-BR:
   providers: Provedores
   public: Público
   public_domain: Domínio público
+  publish_after_utc: Publicar depois de (UTC)
   publish_changes: Publicar alterações
   published: Publicado
   published_parens: (Publicado)
@@ -5905,20 +6043,29 @@ pt-BR:
   quarterly: Trimestral
   rails_databases: Bancos de dados Rails
   rails_environment: Ambiente Rails
+  range: Intervalo
+  rating_added_notice: Classificação adicionada com sucesso.
   rating_learn_more_link: Saiba mais sobre classificação
   rating_not_added_error: Desculpe, ocorreu um erro, a avaliação não pode ser adicionada.
   recaptcha: Digite as duas palavras ou números que você vê abaixo
   recent_updates: Atualizações recentes
   recently_visited: Visitei recentemente
+  recently_used_link: Usado recentemente
   recipients: Destinatários
   recognized_by_from_source: '%{recognized_by} em %{source}'
   recognized_by_as_a_rank: '%{recognized_by} como %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} em %{source} como %{taxon_rank}'
+  record_count: Contagem de registros
   record_not_found: '[registro não encontrado]'
+  recount_collection_items_done: Recontagem de itens de coleção finalizada
+  redirect_url_ok_title_unavailable: URL de redirecionamento OK, titulo indisponivel
+  reference: Referencia
   references_cabs_colon: 'Referências:'
   related_names_with_count:
     one: '%{count} nome relacionado'
     other: '%{count} nomes relacionados'
+  related_organizations: Organizações relacionadas
+  remove_curatorship_colon: 'Remover curadoria:'
   remove_data_object_association: Remover associação
   remove_membership: Remover a associação
   remove: Remover
@@ -5927,6 +6074,7 @@ pt-BR:
   revoke_full_curator_link: Revogar
   revoke_manager_link: Revogar a função de administrador
   revoke_permission: Revogar
+  request_mailing_list_colon: 'Usuários que não desejam receber email''s:'
   request: Solicitar
   required_form_element: Obrigatório
   reset_password_enter_new_password_notice: A senha usada só é válida para esta sessão,
@@ -5938,6 +6086,13 @@ pt-BR:
     monthly: Mensalmente
     bimonthly: Bimensalmente
     quarterly: Quadrimensalmente
+    hours_with_count:
+      one: '%{count} hora'
+      other: '%{count} horas'
+  resource_hint_dataset_source_url: (URL da fonte original dos dados, tais como jornal
+    ou estudo)
+  resource_hint_dataset_rights: (aplica a fonte <i> como um todo</i>, não aplicável
+    em algumas jurisdições)
   resources: Recursos
   response_formats: Formatos de resposta
   response: Resposta

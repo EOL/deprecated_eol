@@ -38,6 +38,7 @@
 # Author: Verdy p
 # Author: Wladek92
 # Author: Wyz
+# Author: Zarisi
 # Author: Zcqsc06
 ---
 fr:
@@ -817,7 +818,7 @@ fr:
         update: Enregistrer le lien
       eol_statistic:
         change_date: Obtenir des statistiques pour les dates
-        download_csv: Télécharger comme fichier CSV
+        download_csv: Télécharger au format CSV
       harvest_event:
         publish: Publier
       hierarchy:

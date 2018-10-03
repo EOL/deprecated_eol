@@ -4505,7 +4505,7 @@ ar:
   data_server_unavailable: البيانات عن موسوعة الحياة غير متوفرة مؤقتا; يُرجَى التحقق
     مرة أخرى في وقت لاحق، نأسف لأي إزعاج.
   data_show_n_more_rows: عرض المزيد من NNN...
-  data_subtab_about: عن
+  data_subtab_about: حول
   data_subtab_glossary: معجم ل%{taxon}
   data_summary_header_with_count:
     zero: موسوعة الحياة ليست بها بيانات سمات

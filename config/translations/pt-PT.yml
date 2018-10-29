@@ -447,10 +447,10 @@ pt-PT:
           língua.
         page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em
           Latim básico e traços inferiores apenas)</small>
-        page_name_more: Introduza um identificador único, auto descritivo, significativo
-          e persistente para esta página. O nome que você digitar aqui será usado
-          para gerar a URL para esta página, por exemplo, o nome único <em>terms_of_use</em>
-          é convertido no URL <em>http://www.eol.org/info/terms_of_use</em>.
+        page_name_more: Introduza um identificador único, autodescritivo, significativo
+          e persistente para esta página. O nome que introduzir aqui será usado para
+          gerar o URL para esta página, por exemplo, o nome único <em>terms_of_use</em>
+          é convertido no URL <em>http://eol.org/info/terms_of_use</em>.
         parent_content_page_id: Tópico de raiz
         parent_content_page_id_more: Opcionalmente, selecione um tópico de raiz onde
           esta página deve estar incluída.
@@ -590,10 +590,10 @@ pt-PT:
           língua.
         page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em
           Latim básico e traços inferiores apenas)</small>
-        page_name_more: Introduza um identificador único, auto descritivo, significativo
-          e persistente para esta notícia. O nome que você digitar aqui será usado
-          para gerar a URL para esta notícia, por exemplo, o nome único <em>nova_versão_da_eol</em>
-          é convertido no URL <em>http://www.eol.org/info/nova_versão_da_eol</em>.
+        page_name_more: Introduza um identificador único, autodescritivo, significativo
+          e persistente para esta notícia. O nome que introduzir aqui será usado para
+          gerar o URL para esta notícia, por exemplo, o nome único <em>nova_versão_da_edv</em>
+          é convertido no URL <em>http://eol.org/news/nova_versão_da_edv</em>.
       open_authentication:
         connected: Conectado
         connect: Adicionar

@@ -555,7 +555,7 @@ sr:
         force_harvest: Затражи жетву
       session:
         create: Пријава
-        sign_in_with_google: Пријава преко Гугла
+        sign_in_with_google: Пријава преко Google-а
         sign_in_with_yahoo: Пријава преко Јахуа
       translated_content_page:
         create: Додај превод

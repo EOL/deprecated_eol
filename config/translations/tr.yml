@@ -21,6 +21,7 @@
 # Author: Sucsuzz
 # Author: Szoszv
 # Author: Talha Samil Cakir
+# Author: TmY e12
 # Author: Tonmachine
 # Author: Trncmvsr
 # Author: Trockya
@@ -104,7 +105,7 @@ tr:
         pages_with_content: İçerikli sayfa
         pages_with_text: Metin içeren sayfa
         pages_with_image: Resimli sayfa
-        pages_with_map: Haritalı sayfa
+        pages_with_map: Haritalı sayfalar
         pages_with_video: Videolu sayfa
         pages_with_sound: Sesli sayfa
         pages_without_text: Metin içermeyen sayfa

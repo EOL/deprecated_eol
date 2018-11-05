@@ -5,6 +5,7 @@
 # Author: Alexmar983
 # Author: Beta16
 # Author: Chris96
+# Author: Daimona Eaytoy
 # Author: Damiano Martino
 # Author: Darth Kule
 # Author: EdoDodo
@@ -7067,7 +7068,7 @@ it:
     one: '%{count} articolo Wikipedia nominato'
     other: '%{count} articoli Wikipedia nominati'
   new_uri_warning: Il termine che stai per aggiungere non è un termine EOL consigliato.
-  user_agent: Utente agente
+  user_agent: User agent
   user_already_active_notice: Il tuo account è già attivo, effettua il login.
   user_comments: Commenti utente
   user_comment: Note dell'utente

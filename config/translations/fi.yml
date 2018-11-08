@@ -114,6 +114,7 @@ fi:
         curators_master: Mestarikuraattorit
         active_curators: Aktiiviset kuraattorit
         rich_pages: Rikkaat sivuja
+        lifedesk_taxa: LifeDesks-taksonit
         total_taxa_with_data: Sivut joissa dataa
         total_associations: Yhdistykset
         total_user_added_data: Käyttäjän lisäämät tiedot
@@ -550,10 +551,15 @@ fi:
         page_title: 'Hallinto: Yleiset tilastot'
       lifedesks:
         menu_link: LifeDesks
+        page_header: LifeDesks-tilasto
       marine:
         menu_link: Merenkulkutilastot
       page_richness:
         menu_link: Rikkaat sivut
+  api:
+    docs:
+      forum_beta_test_text: <a href="%{forums_link}">Klikkaa tästä</a> päästäksesi
+        uuden EOL-foorumin beetatestaukseen. Palautteesi on tervetullutta.
   contacts:
     errors:
       message_not_sent: Tapahtui virhe, viestiäsi ei ole lähetetty.
@@ -883,6 +889,9 @@ fi:
     data:
       index:
         tweet_text: Faktoja %{scientific_name}:sta
+    details:
+      index:
+        tweet_text: Artikkelit %{scientific_name}:sta
     names:
       synonyms:
         hierarchy_entry:
@@ -928,8 +937,10 @@ fi:
         meta_title: '%{user_full_name} uutisvirta'
         tweet_text: '%{user_full_name} uutisvirta'
       comments:
+        meta_title: '%{user_full_name} kommenttisyöte'
         tweet_text: '%{user_full_name} kommenttisyöte'
       activity:
+        meta_title: '%{user_full_name} aktiivisuussyöte'
         tweet_text: '%{user_full_name} aktiivisuussyöte'
     notifications:
       edit:
@@ -1305,6 +1316,8 @@ fi:
   content_partner_contact_create_unsuccessful_error: Tapahtui virhe, yhteystietoa
     ei lisätty.
   content_partner_contact_delete_successful_notice: Yhteystieto on poistettu.
+  content_partner_contact_delete_unsuccessful_error: Tapahtui virhe, yhteystietoa
+    ei poistettu.
   content_partner_contact_edit_link: Muokkaa yhteystietoa
   content_partner_contact_update_unsuccessful_error: Tapahtui virhe, yhteystietoa
     ei päivitetty.
@@ -1480,10 +1493,15 @@ fi:
   exceptions:
     security_violations:
       default: Pääsy kielletty.
-      hidden_user_login: Kirjautuminen ei ole käytössä tälle tilille.
+      hidden_user_login: Kirjautuminen on poistettu käytöstä tälle tilille.
       hidden_user_temporary_login: Tilin palautus ja kirjautuminen on poistettu käytöstä
         tälle tilille.
+      only_managers_can_delete_community: Vain managerit voivat poistaa tämän yhteisön
       must_be_logged_in: Sinun täytyy olla kirjautunut sisään
+      only_admins_can_read_hidden_news_items: Vain ylläpitäjät voivat lukea piilotettuja
+        uutiskohteita
+      can_not_access_unpublished_taxon: Sinulla ei ole pääsy julkaisemattomaan taksoniin
+      only_data_owner_can_delete: Vain tiedon omistaja voi poistaa sen
       can_not_edit_permissions: Et voi muokata oikeuksia
   explore: Tutustu
   external_link_header: Ulkoinen linkki
@@ -1751,6 +1769,7 @@ fi:
   no_answer: Ei
   "no": Ei
   no_results_for_search_term: Ei tuloksia hakutermille "%{search_term}"
+  not_yet_implemented_error: Tätä ominaisuutta ei ole vielä toteutettu.
   note: 'Huomautus:'
   note_about_homonym_problems: 'Huomautus: Älä muuta tätä attribuuttia ellet ole varma.
     Poistaminen saattaa aiheuttaa vakavia homonyymiongelmia.'

@@ -14,6 +14,7 @@
 # Author: Patriccck
 # Author: Paxt
 # Author: Reaperman
+# Author: Spotter
 # Author: Utar
 # Author: Vks
 # Author: Zbyso23
@@ -157,6 +158,7 @@ cs:
         total_measurement_types: Typy Měření
         total_association_types: Asociace Typů
         total_user_added_data: Informace dodané uživatelem
+        total_data_records: Datové záznamy
       forum:
         forum_category_id: Kategorie fóra
         name: Název fóra
@@ -186,9 +188,13 @@ cs:
         toc_items: Kategorie
         uri: URI
         uri_type: Vložte URI
+        value_is_text: Hodnoty nebudou URI, pouze text
+        value_is_verbatim: Hodnoty nebudou čísla, pouze text
       known_uri_relationship:
+        from_known_uri_id: Předmět URI
         to_known_uri_id: Cílové URI
         to_known_uri: Cílové URI
+        relationship_uri: Vztah URI
       open_authentication:
         created_at: Vytvořeno
         guid: GUID
@@ -232,6 +238,7 @@ cs:
         dataset: Soubor dat
         description: Popis zdroje
         dwc_archive_url: URL Darwin Core archivu
+        dataset_source_url: Původní zdroj dat
         harvest_events: Sklizeň události
         hierarchy: Hierarchie
         language_id: Výchozí jazyk
@@ -387,6 +394,11 @@ cs:
           attributes:
             to_known_uri_id:
               must_be_known_uri: musí být známý URI
+              must_be_measurement: musí být měrná jednotka
+              must_be_different: musí být odlišné od URI objektu
+            relationship_uri:
+              only_one_measurement: není povoleno - může existovat pouze jedna výchozí
+                jednotka
   helpers:
     label:
       collection:
@@ -460,6 +472,7 @@ cs:
         object_title: Nadpis
         toc_item: Podkapitola
         refs: Reference <small>(pište každou referenci na nový řádek)</small>
+        refs_order: '* Odkazy se zobrazí v abecedním pořadí'
         rights_holder: Držitel práv
         rights_holder_more: Udejte osobu nebo organizaci, která vlastní nebo spravuje
           práva k těmto údajům. Pokud necháte toto pole prázdné, budeme předpokládat,
@@ -473,6 +486,7 @@ cs:
         toc_item: Předmět
         link_type: Kategorie
       data_search:
+        attribute: Vybrat atribut
         max: Nejvyšší hodnota
         max_placeholder: Zadejte číslo
         max_placeholder_disabled: Rozsah znemožněn
@@ -522,6 +536,9 @@ cs:
         request_publish: Požádáno o zveřejnění
         request_publish_more: Označuje, zda existuje čekající žádost o povýšení této
           hierarchie na jednu z primárních prohledávatelných hierarchií na EOL.
+      known_uri_relationship:
+        from_known_uri: Pro známé URI
+        relationship_uri: Vybrat vztah
       news_item:
         active: Zveřejněno
         active_more: Zveřejněné zprávy budou veřejně viditelné ve zvolený den a čas.
@@ -721,6 +738,7 @@ cs:
         update: Aktualizovat zdroj
         update_settings: Aktualizovat nastavení
         force_harvest: Žádost o sklizeň
+        harvest_tonight: Sklizeň Dnes večer
       session:
         create: Přihlásit se
         sign_in_with_facebook: Přihlásit se prostřednictvím Facebooku
@@ -749,6 +767,7 @@ cs:
         create: Odeslat žádost
   will_paginate:
     next_label: Další &#8594;
+    page_gap: '&hellip;'
     previous_label: '&#8592; Předchozí'
   datepicker:
     day_names:
@@ -855,6 +874,8 @@ cs:
     download_taxa_data:
       attribute_header: Vlastnost
       select_all_checkbox: Vybrat vše
+      collection_download_under_processing: Stahování sbírky je nyní zpracováno. Po
+        dokončení stahování vám bude zaslán e-mail
     show:
       meta_description_default: Sbírka Encyklopedie života nazvaná %{collection_name}.
       meta_description_default_focus_collection: Zaměření sbírky Encyclopedie Života
@@ -1078,6 +1099,7 @@ cs:
     more_than_one_field_mapped_to_type: K typu "%{type}" je přiřazen více než jeden
       atribut
     no_results: Ke zvolené statistice nejsou žádné výsledky
+    no_relationships: Pro tento identifikátor URI nebyly nalezeny žádné vztahy.
     please_select_field_types: Vyberte prosím přiřazení ke každému atributu
     relationships: Vztahy
     relationships_from_this_uri: Vztahy z této URI

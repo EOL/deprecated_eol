@@ -23,6 +23,7 @@ fi:
   translated_activities-name-activity_id-64: poista
   translated_agent_roles-label-agent_role_id-10: Projekti
   translated_agent_roles-label-agent_role_id-11: Julkaisija
+  translated_agent_roles-label-agent_role_id-12: Äänittäjä
   translated_agent_roles-label-agent_role_id-13: Lähde
   translated_agent_roles-label-agent_role_id-14: Lähdetietokanta
   translated_agent_roles-label-agent_role_id-15: Yhteyshenkilö
@@ -74,11 +75,14 @@ fi:
   translated_contact_subjects-title-contact_subject_id-25: Käyttöehdot ja lisensointi
   translated_contact_subjects-title-contact_subject_id-26: Oppiminen ja koulutus
   translated_contact_subjects-title-contact_subject_id-27: Ryhdy sisältökumppaniksi
+  translated_contact_subjects-title-contact_subject_id-28: Sisältökumppanituki
   translated_contact_subjects-title-contact_subject_id-29: Kuraattorien tuki
-  translated_contact_subjects-title-contact_subject_id-30: Korjata (oikeinkirjoitus
+  translated_contact_subjects-title-contact_subject_id-30: Tee korjaus (oikeinkirjoitus
     ja kielioppi, kuvat, tiedot)
   translated_contact_subjects-title-contact_subject_id-31: Lisää kuvia, videoita tai
     ääniä
+  translated_contact_subjects-title-contact_subject_id-32: Mediapyynnöt (haastattelut,
+    lehdistötutkimukset, logopyynnöt)
   translated_contact_subjects-title-contact_subject_id-33: Lahjoita rahaa
   translated_contact_subjects-title-contact_subject_id-34: Tekniset kysymykset (ongelmat
     haun kanssa, verkkosivun toiminnallisuus)
@@ -99,7 +103,7 @@ fi:
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Oikeuksia ei pidätetä
   translated_licenses-description-license_id-29: Jotkut oikeudet pidätetään
-  translated_licenses-description-license_id-2: © Kaikki oikeudet pidätetään
+  translated_licenses-description-license_id-2: '&#169; Kaikki oikeudet pidätetään'
   translated_licenses-description-license_id-30: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-31: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-32: Jotkut oikeudet pidätetään
@@ -119,10 +123,16 @@ fi:
   translated_licenses-description-license_id-7: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-8: Jotkut oikeudet pidätetään
   translated_licenses-description-license_id-9: Jotkut oikeudet pidätetään
+  translated_ranks-label-rank_id-106: formaatio
+  translated_ranks-label-rank_id-107: formaatio
   translated_ranks-label-rank_id-118: suku
+  translated_ranks-label-rank_id-169: osalahko
   translated_ranks-label-rank_id-183: kunta
   translated_ranks-label-rank_id-266: lahko
+  translated_ranks-label-rank_id-324: sarja
+  translated_ranks-label-rank_id-333: laji
   translated_ranks-label-rank_id-335: laji
+  translated_ranks-label-rank_id-352: alaheimo
   translated_ranks-label-rank_id-370: alaluokka
   translated_ranks-label-rank_id-383: alaheimo
   translated_ranks-label-rank_id-394: alasuku
@@ -130,21 +140,25 @@ fi:
   translated_ranks-label-rank_id-399: alalahko
   translated_ranks-label-rank_id-401: alajakso
   translated_ranks-label-rank_id-408: alaosasto
-  translated_ranks-label-rank_id-411: alasarjat
+  translated_ranks-label-rank_id-411: alasarja
+  translated_ranks-label-rank_id-413: alalaji
+  translated_ranks-label-rank_id-414: alalaji
   translated_ranks-label-rank_id-415: alalaji
   translated_ranks-label-rank_id-463: yläheimo
   translated_ranks-label-rank_id-494: tribus
   translated_ranks-label-rank_id-51: luokka
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
-  translated_ranks-label-rank_id-91: fam
-  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-91: heimo
+  translated_ranks-label-rank_id-92: heimo
   translated_ranks-label-rank_id-99: heimo
   translated_resource_statuses-label-resource_status_id-10: Julkaistu
   translated_resource_statuses-label-resource_status_id-1: Lähetetään
   translated_resource_statuses-label-resource_status_id-2: Lähetetty
   translated_resource_statuses-label-resource_status_id-3: Tallennus epäonnistui
   translated_resource_statuses-label-resource_status_id-4: Siirretty sisältöpalvelimelle
+  translated_resource_statuses-label-resource_status_id-5: Vahvistettu
+  translated_resource_statuses-label-resource_status_id-6: Vahvistus epäonnistui
   translated_resource_statuses-label-resource_status_id-7: Käsitellään
   translated_resource_statuses-label-resource_status_id-8: Käsitelty
   translated_resource_statuses-label-resource_status_id-9: Käsittely epäonnistui
@@ -162,11 +176,17 @@ fi:
   translated_synonym_relations-label-synonym_relation_id-13: harhaanjohtava
   translated_synonym_relations-label-synonym_relation_id-14: kirjoitusvirhe
   translated_synonym_relations-label-synonym_relation_id-16: moniselitteinen synonyymi
+  translated_synonym_relations-label-synonym_relation_id-17: väärin käytetty nimi
   translated_synonym_relations-label-synonym_relation_id-19: hyväksytty nimi
   translated_synonym_relations-label-synonym_relation_id-1: synonyymi
+  translated_synonym_relations-label-synonym_relation_id-20: tietokanta artefakti
+  translated_synonym_relations-label-synonym_relation_id-21: muut, katso kommentteja
   translated_synonym_relations-label-synonym_relation_id-24: hylätty nimi
   translated_synonym_relations-label-synonym_relation_id-29: juniorisynonyymi
   translated_synonym_relations-label-synonym_relation_id-2: yleisnimi
+  translated_synonym_relations-label-synonym_relation_id-36: nuorempi homonyymi
+  translated_synonym_relations-label-synonym_relation_id-37: homonyymi & nuorempi
+    homonyymi
   translated_synonym_relations-label-synonym_relation_id-3: lyhenne
   translated_synonym_relations-label-synonym_relation_id-45: basionyymi
   translated_synonym_relations-label-synonym_relation_id-46: heteronyymityyppinen
@@ -185,6 +205,7 @@ fi:
   translated_synonym_relations-label-synonym_relation_id-63: ei hyväksytty
   translated_synonym_relations-label-synonym_relation_id-64: kelpaamaton
   translated_synonym_relations-label-synonym_relation_id-6: vastaava nimi
+  translated_table_of_contents-label-table_of_contents_id-13: Yleisnimet
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Kirjallisuusviitteet
   translated_table_of_contents-label-table_of_contents_id-194: Koko
@@ -220,14 +241,19 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-312: Maahanmuutto
   translated_table_of_contents-label-table_of_contents_id-313: Tauteja ja tuholaisia
   translated_table_of_contents-label-table_of_contents_id-314: Populaatiobiologia
+  translated_table_of_contents-label-table_of_contents_id-315: Elämänhistoria ja käyttäytyminen
+  translated_table_of_contents-label-table_of_contents_id-316: Käyttäytyminen
+  translated_table_of_contents-label-table_of_contents_id-317: Syklisyys
   translated_table_of_contents-label-table_of_contents_id-318: Elinkaari
   translated_table_of_contents-label-table_of_contents_id-320: Lisääntyminen
   translated_table_of_contents-label-table_of_contents_id-321: Kasvu
   translated_table_of_contents-label-table_of_contents_id-322: Fossiilisten polttoaineiden
     historia
+  translated_table_of_contents-label-table_of_contents_id-323: Systematiikka tai fylogenetiikka
   translated_table_of_contents-label-table_of_contents_id-327: Fysiologi
   translated_table_of_contents-label-table_of_contents_id-328: Solubiologia
   translated_table_of_contents-label-table_of_contents_id-329: Genetiikka
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidisekvenssit
   translated_table_of_contents-label-table_of_contents_id-331: Viivakoodi
   translated_table_of_contents-label-table_of_contents_id-332: Perimä
   translated_table_of_contents-label-table_of_contents_id-333: Molekyylibiologia
@@ -238,13 +264,22 @@ fi:
   translated_table_of_contents-label-table_of_contents_id-338: Koulutuksen linkit
   translated_table_of_contents-label-table_of_contents_id-339: Opetusresurssit
   translated_table_of_contents-label-table_of_contents_id-33: Trendit
+  translated_table_of_contents-label-table_of_contents_id-341: Kansalaistiede
+  translated_table_of_contents-label-table_of_contents_id-342: Kansalaistiede linkit
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage
+    Library
   translated_table_of_contents-label-table_of_contents_id-344: Tiedot
   translated_table_of_contents-label-table_of_contents_id-345: Tietolähteet
+  translated_table_of_contents-label-table_of_contents_id-346: Biolääketieteelliset
+    termit
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomia
   translated_table_of_contents-label-table_of_contents_id-34: Kommentit
+  translated_table_of_contents-label-table_of_contents_id-3: Fyysinen kuvaus
   translated_table_of_contents-label-table_of_contents_id-41: Elinympäristö
   translated_table_of_contents-label-table_of_contents_id-4: Ekologia
   translated_table_of_contents-label-table_of_contents_id-5: Evoluutio ja systematiikka
+  translated_table_of_contents-label-table_of_contents_id-6: Relevanssi ihmisille
+    ja ekosysteemeille
   translated_table_of_contents-label-table_of_contents_id-7: Viitteet ja lisätiedot
   translated_table_of_contents-label-table_of_contents_id-8: Suojelu
   translated_untrust_reasons-label-untrust_reason_id-1: väärin tunnistettu

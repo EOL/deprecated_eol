@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Joedalton
+# Author: Saederup92
 # Author: Tjernobyl
 ---
 da:
@@ -172,9 +173,11 @@ da:
   translated_statuses-label-status_id-2: Opdateret
   translated_statuses-label-status_id-3: Uændret
   translated_statuses-label-status_id-4: Genanvendt
+  translated_synonym_relations-label-synonym_relation_id-12: inkluderer
   translated_synonym_relations-label-synonym_relation_id-19: Godkendt navn
   translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-48: utilgængeligt navn
   translated_synonym_relations-label-synonym_relation_id-49: gyldigt navn
   translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-50: gyldig

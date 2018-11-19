@@ -25,6 +25,7 @@
 # Author: Jgauthier
 # Author: Koavf
 # Author: Larjona
+# Author: Laura Ospina
 # Author: Macofe
 # Author: McDutchie
 # Author: Mor
@@ -333,7 +334,7 @@ es:
         predicate: Atributo
         object: Valor
     errors:
-      format: '%{Mensaje} %{de atributo}'
+      format: '%{attribute} %{message}'
       template:
         header:
           one: Se encontró %{count} un error de validación
@@ -374,7 +375,7 @@ es:
         models:
           inaccessible: es inaccesible
       full_messages:
-        format: '%{Mensaje} %{de atributo}'
+        format: '%{attribute} %{message}'
       models:
         data_object:
           attributes:

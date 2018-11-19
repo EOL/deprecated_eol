@@ -50,7 +50,7 @@ fi:
         acronym: Projektin lyhenne
         auto_publish: Automaattijulkaisu
         admin_notes: Ylläpitohuomautukset
-        content_partner_status: Projektitila
+        content_partner_status: Projektin tila
         created_at: Luotu
         description: Projektin kuvaus
         display_name: Näyttönimi
@@ -139,6 +139,8 @@ fi:
         browsable: Selattavissa
         complete: Valmis
         description: Kuvaus
+        descriptive_label: Kuvaileva nimike
+        label: Nimike
         request_publish: Pyydä julkaisua
       known_uri:
         description: Kuvaus
@@ -184,6 +186,8 @@ fi:
         hierarchy: Hierarkia
         language_id: Oletuskieli
         dataset_license_id: Lisenssi
+        dataset_rights_holder: Oikeuksien haltija
+        dataset_rights_statement: Oikeuslausunto
         license_id: Oletuslisenssi
         resource_status_id: Resurssin tila
         title: Resurssinimi
@@ -526,21 +530,21 @@ fi:
     - Perjantai
     - Lauantai
     day_names_short:
-    - su
-    - ma
-    - ti
-    - ke
-    - to
-    - pe
-    - la
+    - Su
+    - Ma
+    - Ti
+    - Ke
+    - To
+    - Pe
+    - La
     day_names_min:
-    - su
-    - ma
-    - ti
-    - ke
-    - to
-    - pe
-    - la
+    - Su
+    - Ma
+    - Ti
+    - Ke
+    - To
+    - Pe
+    - La
     close: Sulje
     current: Tänään
     month_names:
@@ -672,6 +676,7 @@ fi:
         tarjoajat
       meta_title: Sisältökumppanit
     show:
+      meta_description: '%{partner_name}. %{partner_description}'
       meta_keywords: '%{partner_name}, Encyclopedia of Life sisältökumppani'
     edit:
       meta_title: Muokkaa %{partner_name}
@@ -689,6 +694,8 @@ fi:
       meta_title: '%{dato_title} lähteestä %{supplier}'
       tweet_text: '%{dato_title} lähteestä %{supplier}'
   eol_statistics:
+    comparing_dates: <span class="assistive">Verrataan</span> <span class="date_one">%{date_one}</span>
+      <span class="assistive">and</span> <span class="date_two">%{date_two}</span>
     warnings:
       stats_unavailable_for_date: Tilastot eivät ole saatavana päivämäärälle %{date}.
         Valitse toinen päivämäärä.
@@ -701,6 +708,8 @@ fi:
       page_header: Kuraattoritilastot
       page_title: Tilastot
     data_objects:
+      menu_link: Dataobjektit
+      page_header: Dataobjektitilastot
       page_title: Tilastot
     index:
       menu_link: Yleiset tilastot
@@ -845,10 +854,17 @@ fi:
       questions_link_naming_species: Miten lajit on nimetty?
       questions_link_binomial_nomenclature: Mitä on binominimikkeistö?
       questions_link_biological_classification: Mikä on biologinen luokitus?
+      questions_link_invasive_species: Mikä on invasiivinen laji?
+      questions_link_indicator_species: Mikä on indikaattorilaji?
+      questions_link_model_organism: Mikä on malliorganismi?
+      questions_link_contributing_to_research: Miten voin osallistua tutkimukseen?
     data_search:
+      page_header: Hae TraitBank
       page_header_results: TraitBank hakutulokset
     footer:
       google_plus: Encyclopedia of Life Google+:ssa
+    taxa:
+      search_traitbank: Hae TraitBank
   members:
     index:
       meta_description: Yhteisön %{community_name} jäsenet, Encyclopedia of Life -yhteisö.
@@ -868,6 +884,17 @@ fi:
       meta_keywords: eol uutiset, encyclopedia of life uutiset
   notifier:
     activity_log_empty: Ei kuraattorien äskettäisiä toimia.
+    activity_user_added_association_on_date: |-
+      %{curator_level} %{users_name} (%{users_url}) lisäsi tuntemattoman yhteyden objektille %{object_name} (%{object_url})
+      %{action_date}.
+    activity_user_added_association_for_taxon_on_date: |-
+      %{curator_level} %{users_name} (%{users_url}) lisäsi yhteyden:
+      %{taxon_name} (%{taxon_url}) objektille %{object_name} (%{object_url})
+      %{action_date}.
+    activity_user_removed_association_for_taxon_on_date: |-
+      %{curator_level} %{users_name} (%{users_url}) poisti yhteyden:
+      %{taxon_name} (%{taxon_url}) objektista %{object_name} (%{object_url})
+      %{action_date}.
     comments_empty: Ei äskettäisiä kommentteja.
     greeting_dear_name_with_comma: Hyvä %{name},
     signature_basic: Encyclopedia of Life -ryhmä
@@ -933,6 +960,7 @@ fi:
 
         Kun tilisi on aktivoitu, saat vahvistussähköpostiviestin.
   recent_activity:
+    intro: Tässä on EOL-aktiviteettiyhteenvetosi ajalle %{time}
     intro_immediately: Hei, %{name} —
     see_all_activity: Katso kaikki edellinen toiminta <a href='%{activity_url}' style='color:#195184'>käyttäjäsi
       uutissyöte sivulla</a>.
@@ -989,6 +1017,12 @@ fi:
         meta_keywords: '%{scientific_name} yhteisö'
         meta_keywords_with_common_name: '%{preferred_common_name} yhteisö, %{scientific_name}
           yhteisö'
+      collections:
+        meta_title: '%{scientific_name}:n kokoelmat'
+        tweet_text: '%{scientific_name}:n kokoelmat'
+      curators:
+        meta_title: '%{scientific_name}:n kuraattorit'
+        tweet_text: '%{scientific_name}:n kuraattorit'
     data:
       index:
         tweet_text: Faktoja %{scientific_name}:sta
@@ -1023,14 +1057,19 @@ fi:
         tweet_text: '%{user_full_name} sisältökumppanit'
     data_downloads:
       download: lataa
+      attribute_head: Ominaisuus
       created_head: Luotu
       updated_head: Viimeisin toiminto
+      actions_head: Toiminnot
       is_complete: Kyllä
       is_not_complete: Ei
+      query_empty: (ei suodattimia)
       processing: käsitellään
+      error: jotain meni vikaan tämän tiedoston kanssa
       refresh: päivitä
       row_count: Määrä
       search_again: hae uudelleen
+      file_not_processed: Tätä tiedostoa ei ole vielä käsitelty,
     new:
       complete_registration_header: Suorita EOL-rekisteröitymisesi loppuun
       create_user_header: Luo uusi <abbr title="Encyclopedia of Life">EOL</abbr>-tili
@@ -1063,15 +1102,43 @@ fi:
           päivittää.
     open_authentications:
       errors:
+        not_authorized_to_add_authentication: Meillä ei ole valtuutusta yhdistää tätä
+          tiliä.
+        not_authorized_to_login: Meillä ei ole valtuutusta kirjauttaa sinua sisään
+          EOL:ään tällä tilillä.
         remove_connection_failed: Tapahtui virhe, emme pystyneet poistamaan yhteyttä.
         facebook:
+          add_connection_failed_account_already_connected: Emme voi yhdistää Facebook-tiliäsi
+            EOL-tiliisi, Facebook-tilisi on jo yhdistetty <a href="%{existing_eol_account_url}">EOL-tiliin</a>.
           new_authentication_not_added: Tapahtui virhe, emme voineet yhdistää Facebook-tiliäsi.
+          not_authorized_to_add_authentication: Meillä ei ole valtuutusta yhdistää
+            Facebook-tiliäsi.
+          not_authorized_to_login: Meillä ei ole valtuutusta kirjauttaa sinua sisään
+            EOL:ään käyttämällä Facebook-tiliäsi.
         google:
+          add_connection_failed_account_already_connected: Emme voi yhdistää Google-tiliäsi
+            EOL-tiliisi, Google-tilisi on jo yhdistetty <a href="%{existing_eol_account_url}">EOL-tiliin</a>.
           new_authentication_not_added: Tapahtui virhe, emme voineet yhdistää Google-tiliäsi.
+          not_authorized_to_add_authentication: Meillä ei ole valtuutusta yhdistää
+            Google-tiliäsi.
+          not_authorized_to_login: Meillä ei ole valtuutusta kirjauttaa sinua sisään
+            EOL:ään käyttämällä Google-tiliäsi.
         twitter:
+          add_connection_failed_account_already_connected: Emme voi yhdistää Twitter-tiliäsi
+            EOL-tiliisi, Twitter-tilisi on jo yhdistetty <a href="%{existing_eol_account_url}">EOL-tiliin</a>.
           new_authentication_not_added: Tapahtui virhe, emme voineet yhdistää Twitter-tiliäsi.
+          not_authorized_to_add_authentication: Meillä ei ole valtuutusta yhdistää
+            Twitter-tiliäsi.
+          not_authorized_to_login: Meillä ei ole valtuutusta kirjauttaa sinua sisään
+            EOL:ään käyttämällä Twitter-tiliäsi.
         yahoo:
+          add_connection_failed_account_already_connected: Emme voi yhdistää Yahoo!-tiliäsi
+            EOL-tiliisi, Yahoo!-tilisi on jo yhdistetty <a href="%{existing_eol_account_url}">EOL-tiliin</a>.
           new_authentication_not_added: Tapahtui virhe, emme voineet yhdistää Yahoo!-tiliäsi.
+          not_authorized_to_add_authentication: Meillä ei ole valtuutusta yhdistää
+            Yahoo!-tiliäsi.
+          not_authorized_to_login: Meillä ei ole valtuutusta kirjauttaa sinua sisään
+            EOL:ään käyttämällä Yahoo!-tiliäsi.
       facebook: Facebook
       google: Google
       index:
@@ -2135,7 +2202,7 @@ fi:
   remove_membership: Poista jäsenyys
   remove: Poista
   reply: Vastaa
-  required: Pakollinen
+  required: Vaadittu
   removed_count_items_from_collection_notice:
     one: '%{count} kohde on poistettu tästä kokoelmasta.'
     other: '%{count} kohdetta on poistettu tästä kokoelmasta.'

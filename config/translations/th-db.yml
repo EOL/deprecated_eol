@@ -5,6 +5,7 @@
 # Author: Akkhaporn
 # Author: Ariesanywhere
 # Author: TMo3289
+# Author: TrisT7
 # Author: Woraponboonkerd
 ---
 th:
@@ -77,8 +78,15 @@ th:
   translated_contact_subjects-title-contact_subject_id-27: มาเป็นพาร์ทเนอร์เนื้อหา
   translated_contact_subjects-title-contact_subject_id-28: ฝ่ายสนับสนุนพาร์ทเนอร์เนื้อหา
   translated_contact_subjects-title-contact_subject_id-29: ฝ่ายสนับสนุนผู้ดูแล
+  translated_contact_subjects-title-contact_subject_id-30: ทำการตรวจสอบความถูกต้อง
+    (การสะกดและไวยกรณ์, ภาพ, ข้อมูล)
   translated_contact_subjects-title-contact_subject_id-31: ร่วมลงรูปภาพ วิดีโอ หรือเสียง
-  translated_contact_subjects-title-contact_subject_id-35: ผลป้อนกลับทั่วไป
+  translated_contact_subjects-title-contact_subject_id-32: คำขอสื่อประกอบ (การสัมภาษณ์,
+    การตอบข้อซักถามต่อสื่อมวลชน, คำขอโลโก้)
+  translated_contact_subjects-title-contact_subject_id-33: บริจาคเงิน
+  translated_contact_subjects-title-contact_subject_id-34: คำถามทางเทคนิค (ปัญหาเกี่ยวกับการค้นหา,
+    ฟังก์ชันของเว็บไซต์)
+  translated_contact_subjects-title-contact_subject_id-35: คำติชมทั่วไป
   translated_content_partner_statuses-label-content_partner_status_id-1: รอการตรวจสอบ
   translated_content_partner_statuses-label-content_partner_status_id-2: เปิดใช้งานอยู่
   translated_content_partner_statuses-label-content_partner_status_id-3: เก็บถาวรแล้ว
@@ -108,15 +116,109 @@ th:
   translated_licenses-description-license_id-39: สาธารณสมบัติ
   translated_licenses-description-license_id-3: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-42: สงวนสิทธิ์บางประการ
+  translated_licenses-description-license_id-43: ใบอนุญาตไม่สามารถใช้ได้
   translated_licenses-description-license_id-4: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-5: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-6: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-7: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-8: สงวนสิทธิ์บางประการ
   translated_licenses-description-license_id-9: สงวนสิทธิ์บางประการ
-  translated_ranks-label-rank_id-99: ครอบครัว
+  translated_ranks-label-rank_id-106: แบบ
+  translated_ranks-label-rank_id-107: แบบ
+  translated_ranks-label-rank_id-112: รุ่น
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: สกุล
+  translated_ranks-label-rank_id-169: อันดับสูง
+  translated_ranks-label-rank_id-175: ชนิดสูง
+  translated_ranks-label-rank_id-183: อาณาจักร
+  translated_ranks-label-rank_id-266: อันดับ
+  translated_ranks-label-rank_id-280: ไฟลัม
+  translated_ranks-label-rank_id-313: sect
+  translated_ranks-label-rank_id-314: sect.
+  translated_ranks-label-rank_id-317: หมู่ย่อย
+  translated_ranks-label-rank_id-324: ชุด
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
+  translated_ranks-label-rank_id-335: ชนิด
+  translated_ranks-label-rank_id-352: วงศ์-ย่อย
+  translated_ranks-label-rank_id-370: ชั้นย่อย
+  translated_ranks-label-rank_id-375: ดิวิชันย่อย
+  translated_ranks-label-rank_id-383: วงศ์ย่อย
+  translated_ranks-label-rank_id-390: รุ่นย่อย
+  translated_ranks-label-rank_id-391: subgen.
+  translated_ranks-label-rank_id-394: สกุลย่อย
+  translated_ranks-label-rank_id-396: อาณาจักรย่อย
+  translated_ranks-label-rank_id-399: อันดับย่อย
+  translated_ranks-label-rank_id-401: ไฟลัมย่อย
+  translated_ranks-label-rank_id-408: หมู่ย่อย
+  translated_ranks-label-rank_id-411: ชุดย่อย
+  translated_ranks-label-rank_id-413: subsp
+  translated_ranks-label-rank_id-414: subsp.
+  translated_ranks-label-rank_id-415: ชนิดย่อย
+  translated_ranks-label-rank_id-422: เผ่าย่อย
+  translated_ranks-label-rank_id-463: วงศ์สูง
+  translated_ranks-label-rank_id-472: ไฟลัมสูง
+  translated_ranks-label-rank_id-494: เผ่า
+  translated_ranks-label-rank_id-503: ไม่ถูกจัดอันดับ
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-518: พันธุ์
+  translated_ranks-label-rank_id-51: ชั้น
+  translated_ranks-label-rank_id-562: nothogenus
+  translated_ranks-label-rank_id-563: nothospecies
+  translated_ranks-label-rank_id-564: nothosubspecies
+  translated_ranks-label-rank_id-565: nothovariety
+  translated_ranks-label-rank_id-74: ดิวิชัน
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: วงศ์
+  translated_resource_statuses-label-resource_status_id-10: เผยแพร่แล้ว
+  translated_resource_statuses-label-resource_status_id-11: รอการเผยแพร่
+  translated_resource_statuses-label-resource_status_id-12: รอการยกเลิกเผยแพร่
+  translated_resource_statuses-label-resource_status_id-1: กำลังอัปโหลด
+  translated_resource_statuses-label-resource_status_id-2: อัปโหลดแล้ว
+  translated_resource_statuses-label-resource_status_id-3: อัพโหลดไม่ผ่าน
+  translated_resource_statuses-label-resource_status_id-4: ย้ายไปเซิร์ฟเวอร์เนื้อหา
+  translated_resource_statuses-label-resource_status_id-5: ผ่านการตรวจสอบ
+  translated_resource_statuses-label-resource_status_id-6: ไม่ผ่านการตรวจสอบ
+  translated_resource_statuses-label-resource_status_id-7: กำลังดำเนินการ
+  translated_resource_statuses-label-resource_status_id-8: ดำเนินการเรียบร้อย
+  translated_resource_statuses-label-resource_status_id-9: ดำเนินการไม่ผ่าน
+  translated_service_types-label-service_type_id-1: EOL Transfer Schema
+  translated_service_types-label-service_type_id-2: อื่น ๆ
+  translated_sort_styles-name-sort_style_id-1: เพิ่งทำการเพิ่ม
+  translated_sort_styles-name-sort_style_id-2: เก่าที่สุด
+  translated_sort_styles-name-sort_style_id-3: เรียงลำดับอักษร
+  translated_sort_styles-name-sort_style_id-4: สลับการเรียงลำดับอักษร
+  translated_sort_styles-name-sort_style_id-6: จัดอันดับ
+  translated_statuses-label-status_id-1: ทำการเพิ่ม
+  translated_statuses-label-status_id-2: อัปเดต
+  translated_statuses-label-status_id-3: ไม่ทำการเปลี่ยนแปลง
+  translated_statuses-label-status_id-4: ถูกนำมาใช้ซ้ำ
+  translated_synonym_relations-label-synonym_relation_id-12: รวมไปถึง
+  translated_synonym_relations-label-synonym_relation_id-14: สะกดผิด
+  translated_synonym_relations-label-synonym_relation_id-17: ชื่อประยุกต์ผิด
+  translated_synonym_relations-label-synonym_relation_id-19: ชื่อได้รับการยอมรับ
+  translated_synonym_relations-label-synonym_relation_id-1: ชื่อพ้อง
+  translated_synonym_relations-label-synonym_relation_id-21: อื่น ๆ, ดูการคอมเม้นท์
+  translated_synonym_relations-label-synonym_relation_id-23: ประยุกต์ผิด
+  translated_synonym_relations-label-synonym_relation_id-24: ชื่อถูกปฏิเสธ
+  translated_synonym_relations-label-synonym_relation_id-29: ชื่อพ้องจูเนียร์
+  translated_synonym_relations-label-synonym_relation_id-2: ชื่อสามัญ
+  translated_synonym_relations-label-synonym_relation_id-31: การแทนที่โดยไม่จำเป็น
+  translated_synonym_relations-label-synonym_relation_id-51: ตกลง
+  translated_synonym_relations-label-synonym_relation_id-52: ทำการยืนยัน
+  translated_synonym_relations-label-synonym_relation_id-53: ชื่อที่ไม่เผยแพร่
+  translated_synonym_relations-label-synonym_relation_id-56: การสะกดไม่ถูกต้อง
   translated_table_of_contents-label-table_of_contents_id-194: ขนาด
+  translated_table_of_contents-label-table_of_contents_id-1: ภาพรวม
+  translated_table_of_contents-label-table_of_contents_id-221: ความเสี่ยง
+  translated_table_of_contents-label-table_of_contents_id-225: บนเว็บ
+  translated_table_of_contents-label-table_of_contents_id-227: ค้นหาเว็บ
   translated_table_of_contents-label-table_of_contents_id-286: สถานะการอนุรักษ์
+  translated_table_of_contents-label-table_of_contents_id-292: ดูคล้าย
   translated_table_of_contents-label-table_of_contents_id-296: การจัดการ
   translated_table_of_contents-label-table_of_contents_id-299: การศึกษา
   translated_table_of_contents-label-table_of_contents_id-2: รายการสรุปย่อ
@@ -129,6 +231,7 @@ th:
   translated_table_of_contents-label-table_of_contents_id-308: คำอธิบายโดยละเอียด
   translated_table_of_contents-label-table_of_contents_id-309: การกระจาย
   translated_table_of_contents-label-table_of_contents_id-310: การพัฒนา
+  translated_table_of_contents-label-table_of_contents_id-311: ระบุแหล่งที่มา
   translated_table_of_contents-label-table_of_contents_id-312: การอพยพ
   translated_table_of_contents-label-table_of_contents_id-313: โรคและปรสิต
   translated_table_of_contents-label-table_of_contents_id-314: ชีววิทยาประชากร
@@ -157,7 +260,16 @@ th:
   translated_table_of_contents-label-table_of_contents_id-338: ลิงก์การศึกษา
   translated_table_of_contents-label-table_of_contents_id-339: แหล่งข้อมูลการศึกษา
   translated_table_of_contents-label-table_of_contents_id-33: แนวโน้ม
+  translated_table_of_contents-label-table_of_contents_id-340: รุ่นห้องปฏิบัติการระดับมัธยมศึกษา
   translated_table_of_contents-label-table_of_contents_id-344: ข้อมูล
+  translated_table_of_contents-label-table_of_contents_id-345: แหล่งข้อมูล
+  translated_table_of_contents-label-table_of_contents_id-347: อนุกรมวิธาน
+  translated_table_of_contents-label-table_of_contents_id-348: ชนิดข้อมูล
   translated_table_of_contents-label-table_of_contents_id-34: ความคิดเห็น
+  translated_table_of_contents-label-table_of_contents_id-4: นิเวศวิทยา
+  translated_view_styles-name-view_style_id-1: ลิสต์
+  translated_view_styles-name-view_style_id-2: แกลเลอรี
+  translated_visibilities-label-visibility_id-0: ไม่เปิดเผย
+  translated_visibilities-label-visibility_id-1: เปิดเผย
   translated_visibilities-label-visibility_id-2: แสดงตัวอย่าง
 ...

@@ -153,6 +153,7 @@ cs:
         lifedesk_taxa: LifeDesks taxony
         lifedesk_data_objects: LifeDesks datové objekty
         total_taxa_with_data: Stránky s informacemi
+        total_occurrences: Výskyty
         total_measurements: Měření
         total_associations: Asociace
         total_measurement_types: Typy Měření
@@ -182,8 +183,11 @@ cs:
         label: Štítek
         request_publish: Požádat o zveřejnění
       known_uri:
+        clade_exemplar: Použít jako exemplář Taxonomic Group Range
         description: Popis
         exclude_from_exemplars: Vyloučit z Přehledu
+        group_by_clade: Použít pro rozsahy taxonomických skupin
+        hide_from_glossary: Skrýt z datového slovníku
         name: Jméno
         toc_items: Kategorie
         uri: URI
@@ -239,6 +243,7 @@ cs:
         description: Popis zdroje
         dwc_archive_url: URL Darwin Core archivu
         dataset_source_url: Původní zdroj dat
+        dataset_hosted_url: Zdroj datové sady (místní kopie)
         harvest_events: Sklizeň události
         hierarchy: Hierarchie
         language_id: Výchozí jazyk
@@ -488,16 +493,20 @@ cs:
       data_search:
         attribute: Vybrat atribut
         max: Nejvyšší hodnota
+        max_with_val: 'Nejvyšší hodnota: %{val}'
         max_placeholder: Zadejte číslo
         max_placeholder_disabled: Rozsah znemožněn
         min: Nejnižší hodnota
+        min_with_val: 'Nejnižší hodnota: %{val}'
         min_placeholder: Zadejte číslo
         min_placeholder_disabled: Rozsah znemožněn
         q: Konkrétní hodnota
+        q_with_val: 'Specifická hodnota: %{val}'
         q_placeholder: Zadejte slovo, frázi nebo číslo
         q_placeholder_disabled: Vložen rozsah, konkrétní hodnota znemožněna
         q_more: Například heterotrofní.
         taxon_name: Skupina taxonu
+        taxon_name_with_val: 'Taxonomická skupina: %{val}'
         taxon_name_placeholder: Zadejte název taxonu skupiny pro výběr skupiny
         taxon_name_placeholder_value_removed: '%{taxon_group} odstraněna, vyberte
           novou skupinu'
@@ -524,6 +533,7 @@ cs:
           zveřejněn.
         published_at: Zveřejněno
         published_status: Stav
+        last_harvest_seconds: Trvalo %{time_in_words}
       hierarchy:
         browsable_more: Zaškrtněte "Prohledávatelná", aby se tato hierarchie stala
           primární prohledávatelnou hierarchií EOL
@@ -1101,17 +1111,36 @@ cs:
     no_results: Ke zvolené statistice nejsou žádné výsledky
     no_relationships: Pro tento identifikátor URI nebyly nalezeny žádné vztahy.
     please_select_field_types: Vyberte prosím přiřazení ke každému atributu
+    please_select_category_for_stats: Vyberte kategorii pro zobrazení statistik.
+    please_select_uris_to_import: Vyberte prosím import URI
     relationships: Vztahy
     relationships_from_this_uri: Vztahy z této URI
     relationships_to_this_uri: Vztahy k této URI
+    select_a_category_to_view_stats: 'Vyberte kategorii pro zobrazení statistik:'
+    unrecognized_measurement_types: URI neurčených měřicích typů
+    unrecognized_measurement_values: URI nerozpoznaných hodnot měření
+    uri_placeholder_text: např. http://purl.org/dc/terms/contributor
     name_placeholder_text: např. Přispěvatel
+    definition_placeholder_text: např. Subjekt odpovědný za příspěvky do zdroje.
+    comment_placeholder_text: např. Příklady přispěvatelů zahrnují osobu, organizaci
+      nebo službu.
+    attribution_placeholder_text: např. z Dublin Core; viz http://dublincore.org/usage/terms/history/#contributorT-001.
+    ontology_information_url_placeholder_text: např. http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: např. http://dublincore.org/2012/06/14/dcterms.rdf
+    select_a_preferred_uri_for_this_group: Vyberte Preferovaný identifikátor URI
+    preferred_for_equivalence_group: Preferované
     select: Zvolit
+  known_uri_relationships:
+    created: Vztah byl úspěšně vytvořen
+    create_failed: Je nám líto, došlo k chybě, vztah nelze přidat.
+    deleted: Vztah byl úspěšně smazán
   layouts:
     application:
       header_about: O EOL
       header_learn_more: Dozvědět se více o
       header_questions: Chci vědět víc
       about_link_what_is_eol: Co je EOL?
+      about_link_traitbank: Co je TraitBank?
       about_link_eol_blog: EOL Blog
       about_link_discover: Vzdělání
       about_link_statistics: Statistika
@@ -1155,8 +1184,14 @@ cs:
       questions_link_indicator_species: Co je indikátor druhu?
       questions_link_model_organism: Co je modelový organismus?
       questions_link_contributing_to_research: Jak mohu přispět k výzkumu?
+    data_search:
+      page_header: Vyhledávání TraitBank
+      page_header_results: Výsledky vyhledávání TraitBank
     footer:
       google_plus: Encyklopedie Života na Google+
+    taxa:
+      search_within_clade: Vyhledávání v rámci clade
+      search_traitbank: Vyhledávání TraitBank
   members:
     index:
       meta_description: Členové %{community_name}, komunity Encyklopedie života.
@@ -1341,6 +1376,7 @@ cs:
   recent_activity:
     intro: Zde je přehled vašich činností v EOL za %{time}
     intro_immediately: Dobrý den, %{name} —
+    intro_weekly: Zde je vaše činnost EOL digest pro týden končící %{ending}
     default_subject: Nedávná aktivita na EOL
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'

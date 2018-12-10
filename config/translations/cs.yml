@@ -2138,6 +2138,7 @@ cs:
   time_ago: před %{time_passed}
   title: Nadpis
   toc: Obsah
+  topic: Téma
   to_process_your_donation_please_proceed: Pro vyřízení Vašeho příspěvku prosím pokračujte
   total_items_with_count:
     one: '%{count} item'

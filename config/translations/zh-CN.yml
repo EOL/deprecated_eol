@@ -1,6 +1,7 @@
 # Messages for Simplified Chinese (中文（简体）‎)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: A Chinese Wikipedian
 # Author: Anthony Fok
 # Author: Arthur2e5
 # Author: Assoc
@@ -2758,6 +2759,7 @@ zh-CN:
   associated_with_map_header: 在最近的地图中
   associated_with_sound_header: 在最近的音频中
   associated_with_video_header: 在最近的视频中
+  association_added_flash: 已加入协会。它可能需要几分钟的时间来更新页面。
   association_trusted_for_taxa:
     one: 信任为：
     other: 信任为：
@@ -2852,6 +2854,7 @@ zh-CN:
   citing_link: 引用
   clade: 分类组
   classification_already_preferred: 错误：该分类系统已被标为首选系统。
+  classification_curation_pending: 策展待定。这种分类可能在不久的将来移到另一页。
   classification_curation_split_comment_with_count:
     one: 来自此页面的%{count}个分类已被<a href='%{url}'>拆分到它自己的页面上</a>。
     other: 来自此页面的%{count}个分类已被<a href='%{url}'>拆分到它自己的页面上</a>。
@@ -2863,13 +2866,19 @@ zh-CN:
   classification_preferred_for_taxon_help_tip: '%{icon} 表示该类群的首选分类系统。'
   classification_summary_section_header: 分类
   classification_tree_header: 分类
+  classifications_edit_cancelled_merge_to_self: 您的源和目标是同一个页面，没有可移动的。
+  classifications_edit_cancelled_busy: 对不起，您的要求编辑分类此时无法处理；一个或一个以上的分类页面被锁定。正在处理编辑这些分类的现有请求。
+  classifications_locked: 此时无法编辑此页上的分类。正在处理编辑这些分类的另一个请求。
   classifications_preferred_column_header: 首选
   classifications_exemplar_column_header: 样本
   classifications_hierarchy_column_header: 分类
+  classifications_merge_additional_confirm_required: 若要合并这些分类，则需要附加确认。
+  classifications_merge_providers_match_confirm: 我确认我希望重写这个内容伙伴的断言，这些数据应该是分开的。
   classifications_merge_providers_match_warning: 您将合并两个页面，而%{provider}已宣称它们的数据应分开。请确认您要<i>推翻</i>他们的声明，并将这些数据放置在相同页面上。
   classifications_recognized_by_column_header: 确认机构
   classifications_rank_column_header: 等级
   classifications_split_column_header: 拆分/移动
+  classifications_split_one_classification_only: 请只选择一个分类来拆分。其他分类可以在创建新页后移动到新页。
   classifications_summary_header_with_count:
     zero: EOL没有用于此分类的分类系统
     other: '在 %{count}个分类系统中发现 '
@@ -2895,6 +2904,7 @@ zh-CN:
   close_this_window_to_return_to_edit_window: 关闭本窗口返回编辑窗口
   collect_item: 收藏条目
   collect_items: 收藏条目
+  collection_api_sort_field_notes: 如果一个sort_field参数包括在内，只有集合项的排序字段完全匹配的字符串将被返回
   collection_create_failure: 收藏创建失败。
   collection_created_with_count_notice:
     other: 成功创建了 <em>%{collection_name}</em>收藏，包含 %{count} 项内容。
@@ -2903,6 +2913,7 @@ zh-CN:
   collection_removed: 收藏%{collection}已删除。
   collection_update_failure: 收藏%{collection}更新失败。请检查收藏项目中是否有问题
   collection_not_existing: 收藏%{collection}不存在。
+  collection_error_no_items_selected: 错误：没有选择项目，没有采取任何行动。
   collection_image: 收藏图像
   collection_is_empty: 该收藏当前为空。
   collection_item_edit_page_title: 编辑<em>%{collection_name}</em>收藏中的条目
@@ -2956,6 +2967,7 @@ zh-CN:
   comment_delete_confirm: 您确定要删除这个评论？
   comment_edit_by_javascript_not_authorized_error: 抱歉，您没有权限编辑这条评论。如果您是评论的作者，请重新载入页面，并确认您已登录。
   comment_or_rate_on_this_article: 请评论或者为该文章评级
+  comment_or_rate_on_this_link: 评论或评价这个链接
   comment_not_added_error: 抱歉，发生了一个错误，无法添加评论。
   comment_not_deleted_error: 抱歉，发生了一个错误，无法删除评论
   comment_not_updated_error: 抱歉，发生了一个错误，评论未能更新。
@@ -3043,6 +3055,7 @@ zh-CN:
   content_partner_agreement_create_successful_notice: 已成功创建内容合作伙伴条款协议。
   content_partner_agreement_create_unsuccessful_error: 抱歉，出现了一个错误，内容合作伙伴条款协议未能创建。
   content_partner_agreement_subheader: 内容合作伙伴协议
+  content_partner_agreement_signed_successful_notice: 您已经成功地同意了内容合作伙伴条款，现在您可以添加数据资源。
   content_partner_agreement_signed_unsuccessful_error: 抱歉，出现了一个错误，可能是与有关内容合作伙伴协议有关的技术问题。请重试，如果这个问题还在，请告知EOL。
   content_partner_agreement_update_successful_notice: 已成功更新内容合作伙伴条款协议。
   content_partner_agreement_update_unsuccessful_error: 抱歉，出现了一个错误，内容合作伙伴条款协议未能更新。
@@ -3355,8 +3368,11 @@ zh-CN:
   data_provided_by_content_partner: 供应商：%{whom}
   data_ranges: 数据总结
   data_row_exemplar_removed: 已从概述中移除。
+  data_row_excluded_from_overview_notice: 注意：这一行已被排除在概览之外。
   data_row_add_exemplar_button: 添加到概述
   data_row_remove_exemplar_button: 从概述中移除
+  data_row_additional_detail_assistive: 加载有关此事实的元数据。
+  data_row_additional_detail_assistive_js: 在显示和隐藏元数据之间切换这个事实。
   data_row_additional_detail_alt: 额外详细信息
   data_row_additional_detail_show_alt: 显示额外详细信息
   data_row_additional_detail_hide_alt: 隐藏额外详细信息
@@ -3368,22 +3384,34 @@ zh-CN:
     form:
       equivalent_attributes: 等价值：
       equivalent_values: 等价值：
+      search_again_for_attributes: 再次搜索以包含选定属性
+      search_again_for_values: 再次搜索以包含选定值
       header_assistive: 搜索表单
       input_summary_intro: 选择的搜索选项
       new_search_link: 开始一次新搜索
       or_range_header: 或<span class="assistive">输入范围</span>
       refine_search_header: 改进您的搜索（可选）
       search_suggestions_header: 不确定从何开始？
+      search_suggestions_subheader_colon: 尝试下列数据搜索之一：
+      search_suggestion_whale_mass: 哪些鲸鱼体重超过10000公斤？
+      search_suggestion_diatom_shape: 硅藻的形状是什么？
+      search_suggestion_cavity_nests: 哪些物种筑巢巢？
+      search_suggestion_blue_flowers: 哪些植物有蓝色的花？
       search_tools_show_link: 显示搜索选项
       search_tools_hide_link: 隐藏搜索选项
+      search_value_or_range_header: 搜索特定的值或范围
+      search_within_taxon_group_header: 分类群内搜索
       search_within_taxon_group_intro_with_count:
         other: 在分类组中搜索目前限定为少于%{count}分类群的组。<a href="%{contact_us_tech_url}">联络我们</a>以查找更多有关搜索更大群组的信息。
       sort_header: 排序结果
   data_search_link: 在EOL上搜索科学数据
   data_search_attribute: 在TraitBank搜索带%{attribute}数据的记录
+  data_search_destroyed: 这项工作将不再被处理。
   data_search_files_with_count:
     one: '%{count}次数据下载'
     other: '%{count}次数据下载'
+  data_search_row_hidden: 馆长已经隐藏了这一行数据。
+  data_server_unavailable: EOL上的数据暂时不可用。请稍后再查看。很抱歉给您带来不便。
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
   data_subtab_glossary: '%{taxon}的术语表'
@@ -3397,6 +3425,7 @@ zh-CN:
   date_uploaded: 上传日期
   dato_create_cancel: 取消
   dato_edit_cancel: 取消
+  dato_create_user_link_error: 对不起，发生了一个错误，无法添加链接。
   dato_create_user_text_error: 抱歉，发生了一个错误，此文章不能被添加。
   dato_location_created: 位置已创建：%{loc}
   dato_new_edit_user_text_fieldset_content_header: 文章内容
@@ -3536,13 +3565,18 @@ zh-CN:
       no_access: 抱歉，此功能暂时禁用。请稍后再试。
       missing_edit_acess_to_forum_category: 对不起，只有管理员可以编辑此论坛分类
       missing_delete_acess_to_forum_category: 对不起，只有管理员可以删除此论坛分类
+      missing_edit_acess_to_forum_post: 对不起，只有管理员或邮政的老板可以编辑这个论坛帖子
+      missing_delete_acess_to_forum_post: 对不起，只有管理员或帖子的所有者可以删除这个论坛帖子
       missing_set_article_as_exemplar_privilege: 抱歉，只有馆长可以将条目设置为标本
+      missing_delete_access_to_synonym: 对不起，只有代理商删除这个同义词。
       missing_delete_access_to_data_search_file: 对不起，只有管理员、主馆长或文件的主人可以删除此文件
       missing_permission_to_view_open_authentications: 对不起，只有管理员和账户主人可以查看用于此账户的开放验证
       missing_permission_to_add_open_authentications: 对不起，只有管理员和账户主任科员添加用于此账户的开放验证
       missing_permission_to_delete_open_authentications: 对不起，只有管理员和账户主人可以删除用于此账户的开放验证
       this_action_requires_higher_curation_level: 对不起，此操作需要更高的管理等级
+      admins_and_joined_only_can_read: 对不起，您应该加入这个集合才能查看它。
       owner_and_managers_only_can_edit: 对不起，只有收藏的主人或经理可以编辑它
+      error_revoking_editor_on_watch_collection: 对不起，编辑者不能从收藏品中删除
       only_managers_can_edit_community: 对不起，只有经理可以编辑此社群
       only_managers_can_delete_community: 对不起，只有经理可以删除此社群
       only_admins_can_view_content_pages: 对不起，只有管理员可以查看内容页面

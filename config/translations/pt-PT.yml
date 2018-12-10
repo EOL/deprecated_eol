@@ -57,7 +57,7 @@ pt-PT:
         name: Nome
       content_page:
         page_name: Nome único
-        sort_order: Ordem da ordenação
+        sort_order: Ordem de classificação
         active: Publicado
       content_partner:
         acronym: Abreviatura do projeto

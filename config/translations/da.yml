@@ -1057,6 +1057,7 @@ da:
     name_placeholder_text: f.eks. bidragyder
     ontology_information_url_placeholder_text: f.eks. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: f.eks. http://dublincore.org/2012/06/14/dcterms.rdf
+    preferred_for_equivalence_group: Foretrukket
     select: vælg
   known_uri_relationships:
     created: Relationen blev oprettet
@@ -1253,15 +1254,26 @@ da:
     names:
       common_names:
         meta_description: Almindelige navne for %{scientific_name}
+        tweet_text: Almindelige navne for %{scientific_name}
       synonyms:
         hierarchy_entry:
           meta_keywords: '%{scientific_name} Synonymer'
+        meta_keywords: Synonymer for %{scientific_name}
+        meta_title: Synonymer for %{scientific_name}
+        tweet_text: Synonymer for %{scientific_name}
+    overview:
+      show:
+        tweet_text: Oplysninger om %{scientific_name}
     resources:
       education:
         meta_title: Undervisningsressourcer for %{scientific_name}
         meta_title_with_common_name: Undervisningsressourcer for %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Undervisningsressourcer for %{scientific_name}
+    updates:
+      show:
+        meta_title: Kommentarer på %{scientific_name}
+        tweet_text: Kommentarer på %{scientific_name}
   users:
     content_partners:
       index:
@@ -1295,8 +1307,13 @@ da:
         not_connected: Ikke forbundet;
       twitter: Twitter
       yahoo: Yahoo!
+    pending:
+      header: Tak for din registrering!
+    recover_account_choose_account:
+      legend_choose_account: Vælg en konto
   user_added_data:
     edit_data_header: Rediger din data
+    add_metadata_header: Yderligere oplysninger
     new_field: Nyt felt...
     new_value: Værdi
   data_search_files:
@@ -1311,6 +1328,8 @@ da:
   0_or_1: 0 eller 1
   0_1_or_2: 0, 1 eller 2
   about_eol: Om EOL
+  about_resources: Om ressourcer
+  about_resources_title: Links til eksterne ressourcer
   account_information: Kontooplysninger
   account_information_menu: Kontooplysninger
   account_registered_but_not_ready_try_later: Din konto er registreret, men endnu
@@ -1323,6 +1342,11 @@ da:
   activity: Aktivitet
   activity_logs:
     collection_activity_log:
+      create:
+        an_unknown_user_created_it: En ukendt bruger har oprettet den.
+        user_created_it: <strong>%{user}</strong> har oprettet den.
+      remove:
+        an_unknown_user_removed_item_from_it: En ukendt bruger har fjernet "%{item}".
       collect:
         an_unknown_user_added_an_unknown_item_to_it: En ukendt bruger har tilføjet
           et ukendt objekt.
@@ -1331,7 +1355,10 @@ da:
   add: Tilføj
   add_a_new_common_name: Tilføj et nyt almindeligt navn
   add_a_new_file_brackets: '[tilføj en ny fil]'
+  add_a_new_role: Tilføj en ny rolle
   add_a_new_user: Tilføj en ny bruger
+  add_article_instead: tilføj en artikel istedet
+  add_article_to_page_button: Tilføj en artikel
   add_association_submit_button: tilføj association
   add_brief_summary_to_page_link_button: Tilføj et kort resume til denne side
   add_item_to_new_collection: Tilføj "%{item}" til en ny samling
@@ -1367,6 +1394,9 @@ da:
     som CSV
   admin_content_partners_statistics_link: Statistik
   admin_link: Oversigt
+  admin_simple_actions_header: 'Simple handlinger:'
+  admin_spam_delete: Slet spam
+  admin_statistics_link: Statistik
   admin_translated_content_page_create_unsuccessful_error: Beklager, men der opstod
     en fejl, og oversættelsen kunne ikke tilføjes.
   admin_translated_content_page_edit_subheader: Rediger oversættelsen til %{language}
@@ -1377,17 +1407,25 @@ da:
   admin_user_delete_successful_notice: Brugeren er blevet slettet
   all: alle
   all_articles: Alle artikler
+  all_categories: Alle
   all_changes: Alle ændringer
   all_collections: Alle samlinger
   all_communities: Alle fællesskaber
+  all_filter: alle
   all_images: Alle billeder
   all_information: Alle oplysninger
+  all_people: Alle personer
   all_sounds: Alle lydklip
+  all_sources: Alle kilder
   all_title: Alle
   all_videos: Alle videoer
   already_a_member_question: Allerede medlem?
   already_member_of_community: Du er allerede medlem af dette fællesskab.
   alternate_classification: Alternativ klassifikation
+  an_unknown_user: En ukendt bruger
+  anonymous_user_full_name: Anonym bruger
+  anonymous_user_given_name: Anonym
+  anonymous_user_tag_line: Ikke logget på
   and: og
   and_between_form_items: og
   any_integer: vilkårligt heltal
@@ -1410,9 +1448,10 @@ da:
   assistive_updates_header: Opdateringer
   associated_submit_button: tilknyttede
   associated_with_header: Tilknyttet
-  associated_with_article_header: I denne artikel
-  associated_with_image_header: På dette billede
-  associated_with_sound_header: Tilknyttet
+  associated_with_article_header: I den seneste artikel
+  associated_with_image_header: På det seneste billede
+  associated_with_image_map_header: På det seneste kort
+  associated_with_sound_header: I den sidste lyd
   associated_with_video_header: I denne video
   audio_play: afspil
   audio_pause: pause
@@ -1420,7 +1459,10 @@ da:
   audio_mute: lyd fra
   audio_unmute: lyd til
   authoritative_information: autoritative oplysninger
+  available: tilgængelig
   average_rating_value_of_total: 'Gennemsnitlig bedømmelse: %{rating} ud af %{total}'
+  back: Tilbage
+  back_to_profile: Tilbage til profil
   belongs_in_count_communities:
     one: Tilhører %{count} Fællesskab
     other: Tilhører %{count} Fællesskaber
@@ -1428,6 +1470,7 @@ da:
   biodiversity_heritage_library: Biodiversity Heritage Library
   build_communities: Opbyg fællesskaber
   cancel: Afbryd
+  cancel_split: Annullér
   cannot_be_associated_with_both_a_user_and_a_community: Kan ikke være forbundet med
     både en bruger og et fællesskab
   cannot_be_empty: kan ikke være tom.
@@ -1443,7 +1486,7 @@ da:
   citation: Citering
   classification_tree_header: Klassificering
   cms_available_in_languages: 'Denne side er tilgængelig på:'
-  cms_missing_content_title: Manglende indhold
+  cms_missing_content_title: Manglende oversættelse
   cms_missing_content_message: Denne side findes desværre ikke med det valgte sprog
     (%{selected_language}).
   curator_level: Kuratorniveau
@@ -1457,6 +1500,9 @@ da:
   collection_name_label: Samlingens navn
   collection_not_found_error: Beklager, men den samling blev ikke fundet.
   collection_created_notice: Det lykkedes at oprette samlingen <em>%{collection_name}</em>.
+  collections_filter: Samlinger
+  collections_link: Samlinger
+  collections_page_title: Samlinger
   collections_summary_header_with_count:
     one: Til stede i %{count} samling
     other: Til stede i %{count} samlinger
@@ -1466,13 +1512,18 @@ da:
   comment: Kommentar
   comment_body_label: Din kommentar
   comment_created_at: Oprettet den
+  comment_new_title: Tilføj en ny kommentar
   comments: Kommentarer
+  comments_filter: Kommentarer
   common_names_with_count:
     one: '%{count} almindeligt navn'
     other: '%{count} almindelige navne'
   communities_with_count:
     one: '%{count} Fællesskab'
     other: '%{count} Fællesskaber'
+  communities_filter: Fællesskaber
+  communities_link: Fællesskaber
+  communities_page_title: Fællesskaber
   communities_index_empty: Der er ingen aktive fællesskaber.
   communities_index_header: Aktive fællesskaber
   community: Fællesskab
@@ -1483,14 +1534,22 @@ da:
   community_empty_notice: Dette fællesskab har ingen medlemmer.
   community_focus: Administrerede samlinger
   community_members: Medlemmer af fællesskabet
+  community_tab_collections_header: Samlinger
   community_removed_by_owner: Dette fællesskab blev fjernet af dets ejer.
   communities_summary_header_with_count:
     one: Tilhører %{count} fællesskab
     other: Tilhører %{count} fællesskaber
   confirm_password_colon: 'Bekræft adgangskode:'
+  contact: Kontakt
+  contact_information: Kontaktoplysninger
+  contact_updated: Kontaktperson opdateret
+  contact_us: kontakt os
   contact_us_link: Kontakt os
   content_has_been_updated: Indholdet er blevet opdateret.
   content_partner: Indholdssamarbejdspartner
+  content_partner_agreement_cancel_edit_agreement_link: Annullér
+  content_partner_agreement_cancel_new_agreement_link: Annullér
+  content_partner_agreement_cancel_sign_agreement_link: Annullér
   content_partner_about_header: Om %{partner_name}
   content_partner_column_header_partner: Partner
   content_partner_contact_edit_link: Rediger kontakt
@@ -1501,20 +1560,28 @@ da:
   content_partner_data_description_header: Beskrivelse af data
   content_partner_filter_option_vetted_yes: Ja
   content_partner_filter_option_vetted_no: Nej
+  content_partner_filter_option_published_no_resources: Ingen ressourcer
   content_partner_notes_header: Projektnoter
+  content_partner_public_false: Privat
+  content_partner_public_true: Offentlig
   content_partner_registered_time_ago: Registreret for %{time_passed} siden;
   content_partner_resource_about_header: Om ressourcen
   content_partner_resource_auto_publish_true: Ja
   content_partner_resource_auto_publish_false: Nej
   content_partner_resource_collections_header: Samlinger
+  content_partner_resource_delete_with_type_link: Slet alt
+  content_partner_resource_hierarchy_unknown: Ukendt
   content_partner_resource_new_link: Tilføj en ny ressource
   content_partner_resource_new_subheader: Tilføj en ny ressource
   content_partner_resource_resource_status_new: Oprettet
+  content_partner_resource_show_link_back_to: gå tilbage til ressource
   content_partner_resource_vetted_true: Ja
   content_partner_resource_vetted_false: Nej
   content_partner_resource_view_link: Vis
   content_partner_resources_header: Ressourcer
   content_partner_statistics_column_header_total_count: Alle sider
+  content_partner_statistics_month_label: Måned
+  content_partner_statistics_year_label: År
   content_partner_statistics_column_header_taxa_page_page_views: Sidevisninger
   content_partner_statistics_column_header_taxa_page_unique_page_views: Unikke sidevisninger
   content_partner_status_empty: Ukendt status
@@ -1522,6 +1589,7 @@ da:
   content_summary_table_type_status_column_header: Indholdstype og -status
   content_summary_table_count_column_header: Antal
   copy: Kopier
+  copyright: 'OPHAVSRET:'
   create_account: opret en konto
   create_community: Opret fællesskab
   create_a_community: Opret et fællesskab
@@ -1551,27 +1619,43 @@ da:
   your_watch_collection: din overvågningsliste
   current_language: 'Sprog: %{iso_code}'
   currently_in_eol: Lige nu i Encyclopedia of Life
+  create_download_data_file: Opret fil
   daily: Daglig
   dashboard: Instrumentbræt
+  data: Data
+  data_column_sci_name: Videnskabeligt navn
+  data_column_common_name: Almindeligt navn
+  data_column_value: Værdi
   data_object_ignore: Ignorer dette objekt
   data_overview_table_caption: Fænotypedata
+  data_row_hide_button: Skjul række
+  data_row_unhide_button: Vis række
   data_search:
     page_title: Søg TraitBank
   data_search_attribute: Søg i TraitBank (fænotypebank) for poster med %{attribute}-data
+  data_subtab_about: Om
   data_summary_header_with_count:
     zero: EOL har ingen fænotypedata
     one: EOL har data for 1 fænotype
     other: EOL har data for %{count} fænotyper
+  date_caps: Dato
+  date_uploaded: Dato lagt op
   dato_create_cancel: Afbryd
   dato_edit_cancel: Afbryd
   dato_new_edit_user_text_fieldset_content_header: Artikelindhold
+  dato_edit_link_button: Rediger dette link
+  dato_edit_text_button: Rediger denne artikel
+  dato_edit_link_title: Rediger link
+  dato_edit_text_title: Rediger artikel
   dato_update_user_text_error: Beklager, men der opstod en fejl, og artiklen kunne
     ikke opdateres.
+  deactivate: Deaktiver
   development_version_name: EOL V2 Beta
   default: Standard
   default_focus_collection_name_from_community: '%{name}s fokus'
   default_watch_collection_name: '%{username}s overvågningsliste'
   delete_community: Slet dette fællesskab
+  delete_data_object: Slet
   delete: slet
   delete_firstcap: Slet
   description: Beskrivelse
@@ -1579,10 +1663,16 @@ da:
   destination_inappropriate_for_logged_in_users: Du er logget på.
   destroy: Ødelæg
   detail: Detalje
+  details: Detaljer
   details_title: Detaljer
   did_you_mean: 'Mente du: %{suggestions} ?'
+  disabled_for_now: DEAKTIVERET INDTIL VIDERE
+  discover_link: Uddannelse
+  donate_link: Donér
+  edit_comment: Redigér kommentar
+  edit_comment_lowercase: redigér kommentar
   edit_community: Rediger fællesskab
-  edit: Rediger
+  edit: rediger
   edit_my_profile: Rediger min profil
   email: E-mail
   email_colon: 'E-mail:'
@@ -1590,11 +1680,26 @@ da:
   eol_colon: 'EOL:'
   eol_news: EOL-nyheder
   eol_pages: Sider
+  error_404_page_title: Ikke fundet
+  error_500_page_title: Hovsa.
+  error_default_page_title: Hovsa.
   example_colon: 'Eksempel:'
+  exception: Undtagelse
+  exceptions:
+    security_violations:
+      default: Adgang nægtet.
   expand_all_children: Udvid alle undersider
+  expired: Udløbet
+  expires_in_colon: 'Udløber om:'
   explore: Udforsk
+  export_this_list_as_csv: Eksporter denne liste som CSV
+  external_link_header: Ekstern henvisning
   external_link_icon_alt_text: Ekstern henvisning.
+  facebook: Facebook
   feedback: Tilbagemelding
+  file: Fil
+  file_id: Fil-ID
+  file_size: Filstørrelse
   filter_by_status_all_option: alle statusser
   filter_by_status_trusted_option: betroede
   filter_by_status_unreviewed_option: uvurderede
@@ -1611,14 +1716,24 @@ da:
   filter_by_type_user_option: Folk
   filter_by_type_sound_option: Lydklip
   filter_by_type_video_option: Videoer
+  filter_by_type_comment_option: Kommentarer
+  filter_by_type_name_option: Navne
   filter_media: filtrer medier
+  filter_newsfeed_option_all: Alle
+  filter_newsfeed_option_messages: Kommentarer
+  filter_newsfeed_option_community: Fællesskab
+  filter_newsfeed_option_collections: Samlinger
+  filter_newsfeed_option_watchlist: Overvågningsliste
   filtered_information: Filtrerede oplysninger
   data_search_keyword:
     one: fænotype
     other: fænotyper
+  flickr: Flickr
+  forgot_password: Glemt adgangskode
   forgot_password_form_cancel: Afbryd
   forgot_password_form_choose_username_legend: Vælg en konto
   forgot_password_form_header: Nulstil din adgangskode
+  frequency: Frekvens
   frequency_daily: Daglig
   frequency_monthly: Månedlig
   frequency_never: Aldrig
@@ -1626,10 +1741,15 @@ da:
   from_community: fra fællesskabet %{community}
   global_access_tagline: Global adgang til viden om livet på Jorden.
   global_navigation: Global Navigation
+  go_back: gå tilbage
   go: Gå til
+  google: Google
+  google_images: Google Billeder
   has_already_been_taken: er allerede blevet taget.
+  has_colon: 'Har:'
   hello_user: Hej %{user}
   help: Hjælp
+  here: her
   hide: skjul
   hierarchy: Hierarki
   home: Hjem
@@ -1638,15 +1758,29 @@ da:
   id: ID
   check_this_to_browse_eol_by_the_hierarchy: hvis dette felt er krydset af, vil hierarkiet
     kunne bruges som en mulig måde at gennemse EOL på
+  image: Billede
   image_is_no_longer_available: Billedet er ikke længere tilgængeligt
   image_not_found: Billede ikke fundet
   images: Billeder
   images_with_count:
     one: '%{count} billede'
     other: '%{count} billeder'
+  import_once: Importer en gang
   inappropriate: Upassende
   in_collection: i samling
   indexed: Indekseret
+  ip_address: IP-adresse
+  ip: IP
+  item_type_article: Artikel
+  item_type_collection: Samling
+  item_type_community: Fællesskab
+  item_type_image: Billede
+  item_type_image_map: Kort
+  item_type_link: Link
+  item_type_map: Kort
+  item_type_person: Person
+  item_type_sound: Lyd
+  item_type_video: Video
   item_type_article_assistive: Dette objekt er en artikel
   item_type_collection_assistive: Dette objekt er en samling
   item_type_image_assistive: Dette objekt er et billede
@@ -1654,6 +1788,7 @@ da:
   join_eol_button_html: Slut dig til <abbr title="Encyclopedia of Life">EOL</abbr>
     nu
   just_pages_with_pictures_and_text: Kun sider med billeder og tekst
+  known_uri_category_header: Kategorier
   language: 'Sprog:'
   languages: Sprog
   last_updated_time_ago: Senest opdateret for %{time_passed} siden
@@ -1668,6 +1803,7 @@ da:
   leave_community_button: Forlad dette fællesskab
   leave_a_comment: Tilføj en kommentar
   license: Licens
+  license_none: Ingen
   license_all_rights_reserved: Alle rettigheder forbeholdes
   license_cc_by: Creative Commons Navngivelse (CC BY)
   license_cc_by_2_0: Creative Commons Navngivelse 2.0 (CC BY 2.0)
@@ -1704,7 +1840,10 @@ da:
   license_not_applicable: Licens ikke relevant
   license_public_domain: Offentlig ejendom
   literature: Litteratur
+  literature_empty: Ingen referencer fundet.
+  literature_header: Referencer
   location: Sted
+  location_colon: 'Placering:'
   login: log på
   login_or_create_account: Log på eller opret en konto
   logo_header: Logo
@@ -1720,6 +1859,7 @@ da:
   media_summary_empty_contribute_instructions: Lær hvordan du kan bidrage med billeder
     til EOL.
   member_of: medlem af
+  members_like_you: Medlemmer som dig
   members_with_count:
     one: '%{count} medlem'
     other: '%{count} medlemmer'
@@ -1727,53 +1867,104 @@ da:
     one: '%{count} medlem;'
     other: '%{count} medlemmer;'
   method: Metode
+  methods: Metoder
   monthly: Månedlig
   most_active_members: Mest aktive medlemmer
   move: Flyt
+  move_down: Flyt need
+  move_to_bottom: flyt til bunden
+  move_to_top: flyt til toppen
+  move_up: Flyt op
   must_be_less_than_128_characters_long: skal være kortere end 128 tegn.
   must_be_logged_in: Du skal være logget på for at udføre denne handling.
   my_activity: Min aktivitet
   my_info: Min info
+  name_colon: 'Navn:'
   name: Navn
   name_preferred_for_language_yes: Foretrukket
+  name_preferred_taxonomically_for_source_yes: Foretrukket
   names: Navne
+  names_filter: Navne
   names_name_column_header: Navn
+  names_preferred_column_header: Foretrukket
+  names_relationship_column_header: Forhold
+  names_sources_column_header: Kilder
   names_status_column_header: Status
   curator_colon: 'Kurator:'
+  mobile:
+    contents:
+      home: Hjem
+      full_site: Fuld side
+      species: Arter
+    taxa:
+      details: Detaljer
+      media: Medier
+      maps: Kort
+      literature: Litteratur
+      community: Fællesskab
+      resources: Ressourcer
+      images: Billeder
+      sounds: Lyde
+      videos: Videoer
+    search:
+      suggestions: Forslag
+      no_results_found: Ingen resultater funder
+      results: Resultat
   never: Aldrig
+  news_missing_content_title: Manglende oversættelse
   newsfeed: Nyhedsfeed
   new_user: Ny bruger
+  next: Næste
+  no_active_members: Der har endnu ikke været tilstrækkeligt med aktivitet.
   none: ingen
   not_evaluated: Ikke evalueret
+  notification_frequency_never: Aldrig
+  notification_frequency_weekly: Ugentlig
   object_status_all_option: Alle
   object_status_trusted_option: Betroede
+  object_type: Objekttype
   object_type_all_option: Alle
+  object_type_collection_option: Samling
+  object_type_community_option: Fællesskab
   object_type_image_option: Billede
   object_type_sound_option: Lydklip
   object_type_text_option: Tekst
+  object_type_user_option: Bruger
   object_type_video_option: Video
   object_visibility_all_option: Alle
   object_visibility_visible_option: Synlige
   object_visibility_invisible_option: Skjulte
   option_please_select: Vælg venligst
   overview: Oversigt
+  page_not_found: Siden blev ikke fundet
+  page: Side
+  pages_title: Referencer
   pages_with_pictures_and_text: Sider med billeder og tekst
   pages_with_pictures_or_text: Sider med billeder eller tekst
   page_statistics: Sidestatistikker
+  page_views_th: Sidevisninger
   pages_curator_section_link: Kuratorer
+  pagination_page_number: Side %{number}
   pagination_next: Næste
   pagination_previous: Forrige
   parameters: Parametre
+  partner: Partner
   people_with_count:
     one: '%{count} person'
     other: '%{count} personer'
+  personal_profile_menu: Personlig profil
   personal_space: Personligt område
+  pinterest: Pinterest
+  please_wait: Vent venligst...
   post_comment: Skriv kommentar
   preferred_common_name_advisory_information: Foretrukket sædvanligt navn for denne
     taksonomiske gruppe.
   press_room: Presserum
+  profile_colon: 'Profil:'
   profile: Profil
   profile_image_alt_text_member: Profilbillede for medlemmet %{user_given_name} %{user_family_name}
+  profile_picture: Profilbillede
+  project: Projekt
   public_domain: offentlig ejendom
   punctuation_comma: ','
   quarterly: Kvartalsvis
@@ -1781,24 +1972,46 @@ da:
     one: fra %{count} person
     other: fra %{count} personer
   recent_updates: Seneste opdateringer
+  recipients: Modtagere
+  reference: Reference
+  references_cabs_colon: 'Referencer:'
   remove_membership: Fjern medlemskab
   remove: Fjern
+  resource: Ressource
+  resource_import_frequency:
+    weekly: Ugentlig
+    monthly: Månedlig
+    bimonthly: Hver anden måned
+    quarterly: Hvert kvartal
+    hours_with_count:
+      one: '%{count} time'
+      other: '%{count} timer'
   resources: Kilder
+  results: Resultater
   rights: Rettigheder
   rights_holder: Rettighedsindehaver
   rights_statement: Rettighedserklæring
+  save: Gem
+  scientific_name: Videnskabeligt navn
   search: Søg
-  search_by_term_page_title: 'EOL-søgning: %{term}'
+  search_by_term_page_title: 'Søgning: %{term}'
+  search_next_label: Næste
+  search_previous_label: Forrige
   search_input_advisory_information: Indtast et almindeligt eller videnskabeligt navn
     for en levende organisme, du ønsker at vide mere om. Du kan også søge efter EOL-medlemmer,
     samlinger og fællesskaber.
+  search_results: Søgeresultater
   search_field_label: Søg EOL
+  search_field_common_name: Almindeligt navn
   search_placeholder: Søg i EOL...
   search_the_site: Søg på hjemmesiden
   see_all_media_link: Se alle medier
+  select_colon: 'Vælg:'
   select_topic: Vælg venligst et emneområde
   selected_language_advisory_information: Dette er det aktuelt valgte sprog.
   set_as_exemplar: Angiv som forbillede
+  show: Vis
+  show_more_row_data_link: mere
   show_status_message: Vis statusmeddelelse
   show_warning_message: Vis advarselsmeddelelse
   sign_in: Log på
@@ -1812,36 +2025,61 @@ da:
   sort_by_newest_option: Nyeste
   sort_by_oldest_option: Ældste
   sort_by_rating_option: Bedømmelse
+  sort_by_alphabetical_option: Alfabetisk
+  sort_by_recently_added_option: Senest tilføjet
+  sort_by_recently_updated_option: Senest opdateret
   sort_by: Sorter efter
+  sound_file: Lydfil
   sounds_with_count:
     one: '%{count} Lyd'
     other: '%{count} Lyde'
+  source: Kilde
+  source_colon: 'Kilde:'
   source_url: Kilde-URL
+  species: Arter
+  stats: Statistik
+  submitting: Vent venligst...
   supplier: Leverandør
   switch_language_advisory_information: Skift hjemmesidens sprog til %{language_label}
+  table_column_header_actions: Handlinger
   table_of_contents: Indholdsfortegnelse
   taxa_with_count:
     one: '%{count} taksonomisk gruppe'
     other: '%{count} taksonomiske grupper'
   taxon: taksonomisk gruppe
+  technical_functions: Tekniske funktioner
   text_summary_more_link: Læs hele opslaget
   text_with_count:
     one: '%{count} Artikel'
     other: '%{count} Artikler'
+  thank_you: Tak
   there_are_currently_no_members_in_this_community: Der er i øjeblikket ikke nogen
     medlemmer af dette fællesskab.
+  this_comment_was_deleted: Denne kommentar blev slettet.
   time_ago: for %{time_passed} siden
+  title: Titel
+  translations_submit: Vis oversættelse
   trusted: Betroede
+  tumblr: Tumblr
   twitter: Twitter
+  type: Type
   unknown: Ukendt
   unreviewed: Ikke vurderet
   updated_community: Det lykkedes at opdatere fællesskabet
   updates: Opdateringer
+  user_activity_page_title: Brugeraktivitet
+  user_activity_stats_articles_added_dropdown: Artikler tilføjet
+  user_activity_stats_header: Aktivitet
   user_comment: Brugerkommentar
+  user_id: Bruger-ID
+  user_no_longer_active_message: Denne bruger er ikke længere aktiv
+  username_taken: '%{name} er allerede taget'
   username_colon: 'Brugernavn:'
   username: Brugernavn
+  user_says_colon: '%{users_name} siger:'
   user_system_down: Vi beklager, men systemet til brugerregistrering er ikke tilgængeligt
     i øjeblikket. Prøv venligst igen senere.
+  user: Bruger
   users_about_me_header: Om mig
   users_form_account_header: Din konto
   users_member_of_count_communities:
@@ -1851,20 +2089,33 @@ da:
   values: Værdier
   value: Værdi
   value_empty: (tom)
+  versions_colon: 'Versioner:'
+  video_from: video fra
   videos_with_count:
     one: '%{count} video'
     other: '%{count} videoer'
+  view_verb: Vis
+  view_source: Vis kilde
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Vis kun sider med mindst
     et billede eller tekststykke
+  vimeo: Vimeo
+  visible_title: Synlig
+  visitors: Besøgende
   what_is_eol: Hvad er EOL?
   what_is_this_question: Hvad er dette?
+  yahoo: Yahoo
   year: År
+  yes_answer: Ja
   you_are_an_admin_so_i_will_show_you_that_the_error_was: 'Du er administrator. Du
     har tilladelse til at se fejlmeddelelsen:'
   you_are_not_authorized_to_perform_this_action: Du har ikke tilladelse til at udføre
     denne handling.
   you_joined_community: Det er lykkedes dig at slutte dig til dette fællesskab.
   you_left_community: Du har forladt dette fællesskab.
+  your_email_address: Din e-mailadresse
+  your_ip_address: Din IP-adresse
   your_preferences: Dine Indstillinger
   your_rating: Din bedømmelse
+  youtube: YouTube
+  youtube_video: YouTube video
 ...

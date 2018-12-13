@@ -25,6 +25,7 @@ da:
   translated_agent_roles-label-agent_role_id-14: Kildedatabase
   translated_agent_roles-label-agent_role_id-15: Kontaktperson
   translated_agent_roles-label-agent_role_id-16: Bidragyder
+  translated_agent_roles-label-agent_role_id-1: Animatør
   translated_agent_roles-label-agent_role_id-21: udbyder
   translated_agent_roles-label-agent_role_id-22: Oversætter
   translated_agent_roles-label-agent_role_id-23: Videnskabelig korrekturlæser
@@ -119,6 +120,8 @@ da:
   translated_ranks-label-rank_id-183: rige
   translated_ranks-label-rank_id-266: orden
   translated_ranks-label-rank_id-280: række
+  translated_ranks-label-rank_id-317: sektion
+  translated_ranks-label-rank_id-324: serie
   translated_ranks-label-rank_id-335: arter
   translated_ranks-label-rank_id-352: underfamilie
   translated_ranks-label-rank_id-370: underklasse
@@ -165,6 +168,7 @@ da:
   translated_resource_statuses-label-resource_status_id-5: Valideret
   translated_resource_statuses-label-resource_status_id-6: Validering mislykkedes
   translated_service_types-label-service_type_id-2: Andet
+  translated_sort_styles-name-sort_style_id-1: Senest tilføjet
   translated_sort_styles-name-sort_style_id-2: Ældste
   translated_sort_styles-name-sort_style_id-3: Alfabetisk
   translated_sort_styles-name-sort_style_id-4: Omvendt alfabetisk
@@ -176,6 +180,7 @@ da:
   translated_synonym_relations-label-synonym_relation_id-12: inkluderer
   translated_synonym_relations-label-synonym_relation_id-19: Godkendt navn
   translated_synonym_relations-label-synonym_relation_id-1: synonym
+  translated_synonym_relations-label-synonym_relation_id-24: afvist navn
   translated_synonym_relations-label-synonym_relation_id-3: akronym
   translated_synonym_relations-label-synonym_relation_id-48: utilgængeligt navn
   translated_synonym_relations-label-synonym_relation_id-49: gyldigt navn

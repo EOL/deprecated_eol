@@ -890,6 +890,7 @@ da:
         observation_place: 'Sted: %{place}'
         recent_observations: Seneste observationer
         some_taxon: Noget
+        top_contributors: Top iNaturalist bidragsydere
         view_all_observations_on_inaturalist: Vis alle observationer fra %{project_title}
           på iNaturalist
         view_more_observations_on_inaturalist: Vis flere observationer fra %{project_title}
@@ -920,6 +921,8 @@ da:
         meta_title: '%{partner_name}-statistik'
     index:
       meta_title: Indholdspartnere
+    show:
+      meta_description: '%{partner_name}. %{partner_description}'
     edit:
       meta_title: Rediger %{partner_name}
   data_objects:
@@ -1155,6 +1158,8 @@ da:
       subject: Tak, fordi du har kontaktet Encyclopedia of Life (EOL)
     unsubscribed_to_notifications:
       subject: Træls at se dig gå...
+    user_activated:
+      subject: Din Encyclopedia of Life-konto er blevet aktiveret
     user_activated_with_open_authentication:
       subject: Din Encyclopedia of Life-konto er blevet aktiveret
     user_message:
@@ -1176,6 +1181,8 @@ da:
     comment_title_your_newsfeed: '%{who} har kommenteret på din nyhedskilde'
     collection_activity_log_title: '%{who} har ændret en samling'
     community_activity_log_title: '%{who} har ændret et fællesskab'
+    data_object_title: '%{who} har tilføjet nyt indhold til EOL'
+    someone_commented_on_something: <b>%{who}</b> har kommenteret på <b>%{what}</b>.
     comment_link: Vis kommentar på EOL
     collection_activity_user_watching_recipient: <b>%{user_name}</b> holder øje med
       dig.
@@ -1200,8 +1207,11 @@ da:
     communities:
       index:
         meta_keywords: '%{scientific_name} fællesskab'
+        meta_title: Personer interesseret i %{scientific_name}
         tweet_text: Personer interesseret i %{scientific_name}
       collections:
+        meta_description: Samlinger der indeholder %{scientific_name}.
+        meta_title: Samlinger af %{scientific_name}
         meta_title_with_common_name: Samlinger af %{preferred_common_name} (%{scientific_name})
         tweet_text: Samlinger af %{scientific_name}
       curators:
@@ -1243,6 +1253,9 @@ da:
         tweet_text: Artikler om %{scientific_name}
     literature:
       show:
+        meta_title: Artikler og bøger om %{scientific_name}
+        meta_title_with_common_name: Artikler og bøger om %{preferred_common_name}
+          (%{scientific_name})
         tweet_text: Artikler og bøger om %{scientific_name}
     maps:
       show:
@@ -1251,13 +1264,19 @@ da:
             af %{hierarchy_provider} hvor de lever og hvor de er indfødte i verden.
         meta_title: Kort for %{scientific_name}
         tweet_text: Kort for %{scientific_name}
+    media:
+      index:
+        tweet_text: Billeder, videoer og lyd af  %{scientific_name}
     names:
       common_names:
         meta_description: Almindelige navne for %{scientific_name}
+        meta_keywords: Almindelige navne for %{scientific_name}
+        meta_title: Almindelige navne for %{scientific_name}
         tweet_text: Almindelige navne for %{scientific_name}
       synonyms:
         hierarchy_entry:
           meta_keywords: '%{scientific_name} Synonymer'
+        meta_description: Synonymer for %{scientific_name}.
         meta_keywords: Synonymer for %{scientific_name}
         meta_title: Synonymer for %{scientific_name}
         tweet_text: Synonymer for %{scientific_name}
@@ -1272,9 +1291,14 @@ da:
         tweet_text: Undervisningsressourcer for %{scientific_name}
     updates:
       show:
+        meta_description: Nyheder og opdateringer om %{scientific_name}.
         meta_title: Kommentarer på %{scientific_name}
         tweet_text: Kommentarer på %{scientific_name}
   users:
+    activities:
+      show:
+        meta_title: '%{user_full_name} Aktivitet'
+        tweet_text: '%{user_full_name} aktivitet'
     content_partners:
       index:
         tweet_text: '%{user_full_name} indholdspartnere'
@@ -1319,12 +1343,15 @@ da:
   data_search_files:
     from: Laveste værdi
     to: Højeste værdi
+  this_image_is_unpublished: Dette billede er upubliseret.
   article_from_supplier: Artikel fra %{whom}
   sound_from_supplier: Lyd fra %{whom}
   image_from_supplier: Billede fra %{whom}
   map_from_supplier: Kort fra %{whom}
   image_map_from_supplier: Kort fra %{whom}
   video_from_supplier: Video fra %{whom}
+  article_of_taxon: Artikel om %{taxon_name}
+  image_of_taxon: Billede af %{taxon_name}
   0_or_1: 0 eller 1
   0_1_or_2: 0, 1 eller 2
   about_eol: Om EOL
@@ -1350,6 +1377,23 @@ da:
       collect:
         an_unknown_user_added_an_unknown_item_to_it: En ukendt bruger har tilføjet
           et ukendt objekt.
+        an_unknown_user_added_item_to_it: En ukendt bruger tilføjede "%{item}".
+        user_added_item_to_it: <strong>%{user}</strong> tilføjede "%{item}".
+    community_activity_log:
+      create:
+        user_created_an_unknown_community: <strong>%{user}</strong> oprettede et ukendt
+          fællesskab.
+      change_name:
+        an_unknown_user_changed_the_name_of_an_unknown_community: En ukendt bruger
+          ændrede navnet på et ukendt fællesskab.
+    curator_activity_log:
+      user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: En ukendt bruger tilføjede
+          data til en ukendt side.
+        an_unknown_user_create_data_on_taxon: En ukendt bruger tilføjede data til
+          "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> tilføjede data
+          til en ukendt side.
   add_a_comment: Tilføj en kommentar.
   add_a_comment_colon: 'Tilføj en kommentar:'
   add: Tilføj

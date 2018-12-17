@@ -643,6 +643,7 @@ fi:
         taxa_observed:
           one: '%{count} taksoni havaittu'
           other: '%{count} taksonia havaittu'
+        top_contributors: Parhaimmat iNaturalist osallistujat
         tweet_text: '%{collection_name} iNaturalist-havainnot'
         view_project_on_inaturalist: Näytä %{project_title} iNaturalistissa
   communities:
@@ -1377,6 +1378,8 @@ fi:
   admin_translated_news_item_active: Julkaistu
   admin_translated_news_item_create_unsuccessful_error: Tapahtui virhe, käännöstä
     ei voitu lisätä.
+  admin_translated_news_item_edit_subheader: Muokkaa kielen %{language} käännöksiä
+    sivulle <em>%{page_name}</em>
   admin_translated_news_item_new_header: Valitse kieli ja lisää sisältöä
   admin_translated_news_item_new_link: Lisää käännös
   admin_translated_news_item_new_subheader: Lisää käännös sivulle <em>%{page_name}</em>
@@ -1425,6 +1428,7 @@ fi:
     other: '%{count} artikkelia'
   assistive_overview_header: Yleiskatsaus
   assistive_data_header: Faktat & tiedot
+  assistive_media_header: Media
   assistive_details_header: Tiedot
   assistive_literature_header: Kirjallisuus
   assistive_names_classifications_header: Luokittelu
@@ -1476,6 +1480,7 @@ fi:
   classifications_preferred_column_header: Ensisijainen
   classifications_rank_column_header: Arvo
   cms_available_in_languages: 'Tämä sivu on käytettävissä kielillä:'
+  cms_editor: CMS-muokkain
   cms_missing_content_title: Puuttuva käännös
   cms_missing_content_message: Valitettavasti tämä sivu ei ole saatavissa valitulla
     kielellä %{selected_language}.
@@ -1523,6 +1528,7 @@ fi:
   comments_with_count:
     one: '%{count} kommentti'
     other: '%{count} kommenttia'
+  common_name: Yleisnimi
   common_name_exists: Yleisnimi <em>%{name_string}</em> on jo olemassa
   common_names_with_count:
     one: '%{count} yleinen nimi'
@@ -1866,6 +1872,7 @@ fi:
     other: kokoelmaa
   find_taxa_submit_button: hae taksoneita
   flash_video: Flash-video
+  flickr: Flickr
   forgot_password: Unohtuiko salasana?
   forgot_password_form_cancel: Peruuta
   forgot_password_form_choose_username_legend: Valitse tili
@@ -1882,6 +1889,7 @@ fi:
   global_navigation: Globaali navigointi
   glossary: Sanasto
   go_back: mene takaisin
+  go: Mene
   google_analytic_results: Google Analytics-tulokset
   google_analytics_active: Google Analytics aktiivinen
   google_analytics_google_account_and_access_required: Google Analytics (Google-tili

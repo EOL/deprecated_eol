@@ -1457,6 +1457,8 @@ fi:
   belongs_in_count_communities:
     one: Kuuluu %{count} yhteisöön
     other: Kuuluu %{count} yhteisöön
+  beta_warning_note_header: 'Huomautus:'
+  bhl: Biodiversity Heritage Library
   bhl_partner_footer: Käy Biodiversity Heritage Libraryssä
   bi_monthly: Kahdesti kuukaudessa
   by_caps: Tekijänä
@@ -1890,7 +1892,7 @@ fi:
   glossary: Sanasto
   go_back: mene takaisin
   go: Mene
-  google_analytic_results: Google Analytics-tulokset
+  google_analytic_results: Google Analytics -tulokset
   google_analytics_active: Google Analytics aktiivinen
   google_analytics_google_account_and_access_required: Google Analytics (Google-tili
     ja -käyttöoikeus vaadittu)

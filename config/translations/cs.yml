@@ -1404,8 +1404,40 @@ cs:
         meta_title: Popisy a články o %{scientific_name}
         tweet_text: Články o %{scientific_name}
   users:
+    data_downloads:
+      download: stáhnout
+      page_title: Stahování dat
+      query_head: Dotaz
+      attribute_head: Vlastnost
+      created_head: Vytvořeno
+      updated_head: Poslední akce
+      complete_head: Hotovo?
+      actions_head: Akce
+      is_complete: Ano
+      is_not_complete: Ne
+      query_empty: (žádné filtry)
+      processing: zpracovává se
+      error: s tímto souborem došlo k chybě
+      refresh: obnovit
+      row_count: Počet
+      search_again: hledat znovu
+      file_not_processed: Tento soubor ještě nebyl zpracován,
+      contact_us: kontaktujte nás prosím
+    new:
+      complete_registration_header: Dokončete registraci EOL
+      create_user_with_eol_authentication_header: 'Nebo předložte nové pověření:'
+      meta_title: Připojit se k EOL
+      sign_up_with_facebook_assistive: Přihlaste se k EOL pomocí přihlašovacích údajů
+        Facebooku.
+      sign_up_with_google_assistive: Přihlaste se k EOL pomocí přihlašovacích údajů
+        Google.
     newsfeeds:
+      activity_link: Aktivita
       comments_link: komentáře
+      newsfeed_link: Kanál novinek
+    notifications:
+      edit:
+        page_title: Nastavení pro upozornění
   this_article_is_unpublished: Tento článek není publikován.
   this_image_is_unpublished: Tento obrázek není publikován.
   this_image_map_is_unpublished: Tato mapa není publikována.

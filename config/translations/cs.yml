@@ -1438,6 +1438,30 @@ cs:
     notifications:
       edit:
         page_title: Nastavení pro upozornění
+    unsubscribe_notifications:
+      already_unsubscribed: Už jste se odhlásili od oznámení.
+      unsubscribed_notifications_successfully: Úspěšně jste se odhlásili od oznámení.
+      unsubscribe_notifications_failed: Omlouváme se, došlo k chybě, uživatel nemohl
+        být odhlášen od oznámení.
+  user_added_data:
+    add_data_header: Přispějte svými vlastními daty
+    additional_fields: Údaje o tomto záznamu
+    edit_data_header: Upravte data
+    add_metadata_header: Doplňující informace
+    edit_metadata_header: Upravit metadata
+    create_successful: Data byly úspěšně přidány
+    delete_successful: Data byly úspěšně smazány
+    new_field: Nové Pole...
+    new_value: Hodnota
+    source_field_helper: Přidejte odkaz na literaturu, nebo URL ke zdroji dat online.
+    submit_data: odeslat hodnotu dat
+    update_successful: Data byly úspěšně aktualizovány
+  data_search_files:
+    from: Nejnižší hodnota
+    to: Nejvyšší hodnota
+    unit_uri: Měrná jednotka
+  this_article_cannot_be_curated_because_unpublished: Tento článek nelze zkrátit,
+    protože je nepublikován.
   this_article_is_unpublished: Tento článek není publikován.
   this_image_is_unpublished: Tento obrázek není publikován.
   this_image_map_is_unpublished: Tato mapa není publikována.

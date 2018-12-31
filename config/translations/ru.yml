@@ -39,6 +39,7 @@
 # Author: Putnik
 # Author: Sprinter
 # Author: Striking Blue
+# Author: Vlad5250
 # Author: Александр Сигачёв
 # Author: Дмитрий
 # Author: Максим777
@@ -1136,7 +1137,7 @@ ru:
       create_successful: Категория была успешно создана.
       create_failed: Извините, произошла ошибка, категория не может быть добавлена
       update_successful: Категория была успешно обновлена.
-      update_failed: Извините произошла ошибка, категория не может быть обновлен
+      update_failed: Извините, произошла ошибка. Категория не может быть обновлена
       delete_successful: Категория была успешно удалена.
       delete_failed_not_empty: Категория не может быть удалена, поскольку она не пустая
       move_successful: Категория была успешно перемещена

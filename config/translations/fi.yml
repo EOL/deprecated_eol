@@ -1298,6 +1298,8 @@ fi:
         an_unknown_user_left_an_unknown_community: Tuntematon käyttäjä jätti tuntemattoman
           yhteisön.
         an_unknown_user_left_community: Tuntematon käyttäjä poistui yhteisöstä "%{community}".
+        user_left_an_unknown_community: <strong>%{user}</strong> jätti tuntemattoman
+          yhteisön.
         user_left_community: <strong>%{user}</strong> jätti yhteisön "%{community}".
       change_description:
         an_unknown_user_changed_the_description_of_community: Tuntematon käyttäjä

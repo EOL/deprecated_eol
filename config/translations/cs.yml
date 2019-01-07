@@ -1508,8 +1508,11 @@ cs:
   activity_log_empty: Nikdo ještě neposkytl aktualizace.
   activity_user_updated_text: <strong>%{user}</strong> aktualizoval/a "%{object_name}"
     text na "%{taxon_concept}".
+  add_a_comment: Vložit komentář.
   add_a_comment_colon: 'Přidat komentář:'
+  add: Přidat
   add_a_new_common_name: Přidat nový běžný název
+  add_a_new_role: Přidat novou roli
   add_a_new_user: Přidat nového uživatele
   add_a_taxon_association_label: Přidat asociaci taxonu
   add_association_submit_button: přidat asociaci

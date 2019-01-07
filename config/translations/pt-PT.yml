@@ -213,7 +213,7 @@ pt-PT:
         provider: Outro provedor
         secret: Secreto
         token: Chave
-        updated_at: Ultima atualização
+        updated_at: Última atualização
         user_id: Identificador do utilizador
         verified_at: Última verificação
       name:
@@ -1910,7 +1910,7 @@ pt-PT:
     sucesso.
   content_partner_contact_update_unsuccessful_error: Desculpe, ocorreu um erro, o
     contacto não foi atualizado.
-  content_partner_contacts_header: Contatos
+  content_partner_contacts_header: Contactos
   content_partner_current_agreement_edit_link: Editar
   content_partner_data_description_header: Descrição dos dados
   content_partner_data_description_empty: Ninguém adicionou uma descrição dos dados
@@ -1999,8 +1999,8 @@ pt-PT:
     os dados a intervalos regulares que pode definir. Cada ficheiro de recurso deve
     estar no formato <a href="%{eol_transfer_schema_url}">EOL Transfer Schema</a>
   content_partner_resources_header: Recursos
-  content_partner_resources_link_back_to: voltar para recursos &amp; contatos
-  content_partner_resources_link: Recursos &amp; Contatos
+  content_partner_resources_link_back_to: voltar para recursos &amp; contactos
+  content_partner_resources_link: Recursos &amp; Contactos
   content_partner_resources_policy_information: Antes de adicionar os recursos de
     dados por favor reveja e aceite os seguintes termos do acordo de uso para parceiros
     de conteúdo.
@@ -2453,7 +2453,7 @@ pt-PT:
     do site está disponível. Para mudar a língua atual, selecione uma língua alternativa
     a partir desta lista.
   language_with_count: '%{language} (%{count})'
-  last_updated: Ultima atualização
+  last_updated: Última atualização
   last_updated_time_ago: Última atualização há %{time_passed}
   learn_about_collections: Como posso criar uma?
   learn_about_content_partners: Como me posso tornar um?

@@ -4,6 +4,7 @@
 # Author: Jopparn
 # Author: Liftarn
 # Author: McDutchie
+# Author: Pyscowicz
 # Author: Ufred
 # Author: WikiPhoenix
 ---
@@ -104,7 +105,7 @@ sv:
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Inga rättigheter reserverade
   translated_licenses-description-license_id-29: Vissa rättigheter reserverade
-  translated_licenses-description-license_id-2: © Alla rättigheter reserverade
+  translated_licenses-description-license_id-2: '&#169; Alla rättigheter reserverade'
   translated_licenses-description-license_id-30: Vissa rättigheter reserverade
   translated_licenses-description-license_id-31: Vissa rättigheter reserverade
   translated_licenses-description-license_id-32: Vissa rättigheter reserverade

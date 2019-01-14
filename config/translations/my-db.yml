@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Dr Lotus Black
+# Author: Rul1902
 ---
 my:
   translated_activities-name-activity_id-19: ပရိုဖိုင်
@@ -17,7 +18,7 @@ my:
   translated_agent_roles-label-agent_role_id-10: ပရောဂျက်
   translated_agent_roles-label-agent_role_id-13: ရင်းမြစ်
   translated_agent_roles-label-agent_role_id-16: ပံ့ပိုးသူ
-  translated_agent_roles-label-agent_role_id-22: ဘာသပြန်သူ
+  translated_agent_roles-label-agent_role_id-22: ဘာသာပြန်သူ
   translated_agent_roles-label-agent_role_id-5: ဖန်တီးသူ
   translated_agent_roles-label-agent_role_id-6: ဒါရိုက်တာ
   translated_agent_roles-label-agent_role_id-7: တည်းဖြတ်သူ

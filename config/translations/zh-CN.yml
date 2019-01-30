@@ -8,6 +8,7 @@
 # Author: Chenxiaoqino
 # Author: Chixvv
 # Author: Gaoxuewei
+# Author: GoForceX
 # Author: Hydra
 # Author: Hzy980512
 # Author: Impersonator 1
@@ -1511,7 +1512,7 @@ zh-CN:
           tweet_text: 关于%{scientific_name}的条目由%{hierarchy_provider}分类
         meta_description: 网络生命大百科中关于%{scientific_name}的摘要和条目
         meta_description_no_data: 网络生命大百科中没有用于%{scientific_name}的文章。EOL邀请您提供有关%{scientific_name}的信息，例如养护、分布、生态、栖息地、形态等。
-        meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}的信息。包括%{chapter_list}。
+        meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}的信息和文章。包括%{chapter_list}。
         meta_description_with_common_name: 关于%{preferred_common_name}的描述和文章，在网络生命大百科中为%{scientific_name}。
         meta_description_with_common_name_no_data: 生物大百科全书中对被 %hierarchy_provider}%分类界定为{Preferred_common_name}，又称为
           %{scientific_name}没有提供任何资讯。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name}
@@ -2617,6 +2618,7 @@ zh-CN:
   admin_option_all_users_can_see_data: 所有用户都可以查看数据，而不需要权限
   admin_link: 概述
   admin_page_title: 管理：概要
+  admin_resource_delete_confirmation: 你确定要删除这个资源吗？这个指令需要很长时间运行。用它的时候你可能会受到一个超时。不要重新提交。
   admin_simple_actions_header: 简单操作：
   admin_spam_delete: 删除垃圾
   admin_statistics_link: 统计
@@ -2638,6 +2640,7 @@ zh-CN:
   admin_translated_news_item_active: 已发布
   admin_translated_news_item_create_successful_notice: 翻译已加入<a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: 抱歉，出现了一个错误，翻译无法添加。
+  admin_translated_news_item_delete_confirmation: 您确定要删除“%{page_name}”的%{language}版本？删除后无法恢复。
   admin_translated_news_item_delete_successful_notice: 新闻项<em>%{page_name}</em>的%{language}翻译版本被删除。
   admin_translated_news_item_edit_subheader: 编辑<em>%{page_name}</em>的%{language}翻译版本
   admin_translated_news_item_edit_tip: 标题和正文%{required_icon}必须。
@@ -3126,8 +3129,7 @@ zh-CN:
   content_partner_resource_collection_header: 已发布的收藏
   content_partner_resource_collection_show_link: 查看已发布的收藏
   content_partner_resource_confirm_harvest_requested: 您确定要强制采集资源%{resource_title}吗?
-  content_partner_resource_create_successful_notice: 已成功添加内容合作伙伴资源详细信息。资源数据的当前状态是：
-    {resource_status} %。
+  content_partner_resource_create_successful_notice: 已成功添加内容合作伙伴资源详细信息。资源数据的当前状态：%{resource_status}。
   content_partner_resource_create_unsuccessful_error: 抱歉，出现了一个错误，资源未能添加。
   content_partner_resource_dataset_details_header: 数据集
   content_partner_resource_delete_with_type_link: 删除一切
@@ -3584,6 +3586,7 @@ zh-CN:
       only_admins_can_edit_forums: 对不起，只有管理员可以编辑论坛
       must_be_logged_in: 对不起，您必须登录
       only_admins_can_read_hidden_news_items: 对不起，只有管理员可以阅读隐藏的新闻项目
+      only_admins_can_read_hidden_translated_news_items: 对不起，只有管理员可以阅读已翻译的隐藏的新闻项目。
       can_not_access_unpublished_taxon: 对不起，您不能访问未发布的分类单元
       only_data_owner_can_edit: 对不起，只有数据所有者可以编辑它
       only_data_owner_can_delete: 对不起，只有数据所有者可以删除它
@@ -3752,6 +3755,7 @@ zh-CN:
   hide: 隐藏
   hierarchy: 分类系统
   hierarchy_entry_switch_missing_id_error: 抱歉，由于缺少标识符，没有找到您选择的分类节点的页面。
+  hierarchy_node_missing: 对不起，这个节点的数据丢失了。
   hierarchy_roots_colon: 分类系统根结点：
   hierarchy_updated: 分类系统已更新
   hierarchies_title: 分类系统
@@ -3779,7 +3783,7 @@ zh-CN:
   image_map_from: 地图来自
   image_not_found: 找不到图像
   image_object: 图像
-  image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个mediaURL元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
+  image_objects_will_contain_two_mediaurl_elements: 图片对象将含有两个‘mediaURL’元素 - 一个是原始数据提供者的网站的URL，另一个是保存EOL缓存版本媒体的服务器的URL。这些图像的EOL缓存版本经过调整（保持纵横比）以适于网站展示，尺寸被限制在460像素宽度和345像素高度以内。
   image_title_with_taxa: '%{taxa}的图像'
   images: 图像
   images_with_count:
@@ -3865,6 +3869,7 @@ zh-CN:
   known_uri_label_unit: 有默认单位
   known_uri_label_equivalent: 相似于
   known_uris_page_title: EOL上有关数据的URI
+  known_uris_sorted: 命令更新。
   pending_harvests_title: 等待收割
   pause_pending_harvests: 暂停收割
   resume_pending_harvests: 恢复收割
@@ -4098,6 +4103,7 @@ zh-CN:
   news_item: 新闻项
   news_item_title: 新闻项
   news_missing_content_title: 丢失翻译
+  news_missing_content_message: 抱歉，此页面在您选择的语言%{selected_language}下不可用。
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: '"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。"'
   newsfeed_help_for_community: '"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。"'

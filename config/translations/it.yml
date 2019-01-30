@@ -1,6 +1,7 @@
 # Messages for Italian (italiano)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Albe Albe460
 # Author: Ale.salmo
 # Author: Alexmar983
 # Author: Beta16
@@ -155,7 +156,7 @@ it:
         marine_pages_with_objects: Pagine marine con oggetti dati
         marine_pages_with_objects_vetted: Pagine marine con oggetti dati attendibili
         curators: Curatori
-        curators_assistant: Assistenti curatore
+        curators_assistant: Assistenti curatori
         curators_full: Curatori
         curators_master: Curatori master
         active_curators: Curatori attivi

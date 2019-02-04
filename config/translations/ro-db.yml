@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: ANDROBETA
 # Author: Anca42
+# Author: Lucdrei
 # Author: Minisarm
 # Author: Strainu
 ---
@@ -33,6 +34,10 @@ ro:
   translated_agent_roles-label-agent_role_id-23: Referent științific
   translated_agent_roles-label-agent_role_id-24: Referent lingvistic
   translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-3: Compilator
+  translated_agent_roles-label-agent_role_id-4: Compozitor
+  translated_agent_roles-label-agent_role_id-5: Creator
+  translated_agent_roles-label-agent_role_id-6: Regizor
   translated_agent_roles-label-agent_role_id-7: Editor
   translated_agent_roles-label-agent_role_id-8: Ilustrator
   translated_agent_roles-label-agent_role_id-9: Fotograf
@@ -43,30 +48,46 @@ ro:
   translated_collection_types-label-collection_type_id-11: Legături
   translated_collection_types-label-collection_type_id-12: Literatură
   translated_collection_types-label-collection_type_id-13: Taxonomie
+  translated_collection_types-label-collection_type_id-14: Coduri de bare moleculare
   translated_collection_types-label-collection_type_id-15: Descriere
   translated_collection_types-label-collection_type_id-16: Imagini
   translated_collection_types-label-collection_type_id-17: Distribuire
   translated_collection_types-label-collection_type_id-18: Stare de conservate
+  translated_collection_types-label-collection_type_id-19: Informație nume
   translated_collection_types-label-collection_type_id-1: Taxonomie
   translated_collection_types-label-collection_type_id-20: Date moleculare
   translated_collection_types-label-collection_type_id-21: Nomenclatură
   translated_collection_types-label-collection_type_id-22: Sunete
   translated_collection_types-label-collection_type_id-23: Legături
   translated_collection_types-label-collection_type_id-24: Literatură
+  translated_collection_types-label-collection_type_id-2: Coduri de bare moleculare
   translated_collection_types-label-collection_type_id-3: Descriere
   translated_collection_types-label-collection_type_id-4: Imagini
   translated_collection_types-label-collection_type_id-5: Distribuire
   translated_collection_types-label-collection_type_id-6: Stare de conservate
+  translated_collection_types-label-collection_type_id-7: Nume informație
+  translated_collection_types-label-collection_type_id-8: Date moleculare
   translated_collection_types-label-collection_type_id-9: Nomenclatură
+  translated_contact_roles-label-contact_role_id-1: Contact inițial
+  translated_contact_roles-label-contact_role_id-2: Contact administrativ
+  translated_contact_roles-label-contact_role_id-3: Contact tehnic
+  translated_contact_subjects-title-contact_subject_id-24: Participare și înregistrare
+  translated_contact_subjects-title-contact_subject_id-25: Termeni de utilizare și
+    licențiere
   translated_contact_subjects-title-contact_subject_id-26: Învățământ și educație
   translated_contact_subjects-title-contact_subject_id-27: Devino partener de conținut
+  translated_contact_subjects-title-contact_subject_id-28: Suport partener de conținut
+  translated_contact_subjects-title-contact_subject_id-29: Suport curator
   translated_contact_subjects-title-contact_subject_id-30: Faceți o corectare (ortografie
     și gramatică, imagini, informații)
   translated_contact_subjects-title-contact_subject_id-31: Contribuiți cu fișiere
     video, audio sau imagini
+  translated_contact_subjects-title-contact_subject_id-32: Cereri ale media (interviuri,
+    cereri de presă, cereri de logo)
   translated_contact_subjects-title-contact_subject_id-33: Faceți o donație în bani
   translated_contact_subjects-title-contact_subject_id-34: Întrebări tehnice (probleme
     cu căutarea, funcționalitatea saitului)
+  translated_contact_subjects-title-contact_subject_id-35: Feedback general
   translated_content_partner_statuses-label-content_partner_status_id-1: În așteptare
   translated_content_partner_statuses-label-content_partner_status_id-2: Activ
   translated_content_partner_statuses-label-content_partner_status_id-3: Arhivat
@@ -103,9 +124,53 @@ ro:
   translated_licenses-description-license_id-7: Unele drepturi rezervate
   translated_licenses-description-license_id-8: Unele drepturi rezervate
   translated_licenses-description-license_id-9: Unele drepturi rezervate
+  translated_ranks-label-rank_id-106: formular
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: genuri
+  translated_ranks-label-rank_id-169: infraorder
+  translated_ranks-label-rank_id-175: infraspecie
+  translated_ranks-label-rank_id-183: regat
+  translated_ranks-label-rank_id-266: ordin
+  translated_ranks-label-rank_id-280: încregătură
+  translated_ranks-label-rank_id-313: secta
+  translated_ranks-label-rank_id-314: secta.
+  translated_ranks-label-rank_id-317: secțiune
+  translated_ranks-label-rank_id-324: serie
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
   translated_ranks-label-rank_id-335: specie
   translated_ranks-label-rank_id-352: subfamilie
+  translated_ranks-label-rank_id-370: subclasă
+  translated_ranks-label-rank_id-375: subdiviziune
+  translated_ranks-label-rank_id-383: subfamilie
   translated_ranks-label-rank_id-396: subregn
+  translated_ranks-label-rank_id-401: subîncrengătură
+  translated_ranks-label-rank_id-408: subsecțiune
+  translated_ranks-label-rank_id-411: subserie
+  translated_ranks-label-rank_id-413: subsp
+  translated_ranks-label-rank_id-414: subsp.
+  translated_ranks-label-rank_id-415: subspecii
+  translated_ranks-label-rank_id-422: aubtrib
+  translated_ranks-label-rank_id-463: superfamilie
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varietăți
+  translated_ranks-label-rank_id-518: varietate
+  translated_ranks-label-rank_id-51: clasă
+  translated_ranks-label-rank_id-562: nothogenuri
+  translated_ranks-label-rank_id-563: nothospecii
+  translated_ranks-label-rank_id-564: nothosubspecii
+  translated_ranks-label-rank_id-565: nothoverietate
+  translated_ranks-label-rank_id-74: diviziune
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_resource_statuses-label-resource_status_id-10: Publicat
+  translated_resource_statuses-label-resource_status_id-11: Publicare în așteptare
+  translated_resource_statuses-label-resource_status_id-12: Nepublicare în așteptare
+  translated_resource_statuses-label-resource_status_id-13: Culegere cerută
   translated_resource_statuses-label-resource_status_id-1: Se încarcă
   translated_resource_statuses-label-resource_status_id-2: Încărcat
   translated_resource_statuses-label-resource_status_id-3: Încărcarea a eșuat
@@ -115,11 +180,15 @@ ro:
   translated_resource_statuses-label-resource_status_id-7: Se procesează
   translated_resource_statuses-label-resource_status_id-8: Procesat
   translated_resource_statuses-label-resource_status_id-9: Procesarea a eșuat
+  translated_service_types-label-service_type_id-1: Schema de transfer EOL
   translated_service_types-label-service_type_id-2: Altele
   translated_sort_styles-name-sort_style_id-1: Adăugate recent
   translated_sort_styles-name-sort_style_id-2: Cele mai vechi
   translated_sort_styles-name-sort_style_id-3: În ordine alfabetică
   translated_sort_styles-name-sort_style_id-4: În ordine alfabetică inversă
+  translated_sort_styles-name-sort_style_id-5: Bogăție
+  translated_sort_styles-name-sort_style_id-6: Rating
+  translated_statuses-label-status_id-1: Introdus
   translated_statuses-label-status_id-2: Actualizat
   translated_statuses-label-status_id-3: Nemodificat
   translated_statuses-label-status_id-4: Refolosit

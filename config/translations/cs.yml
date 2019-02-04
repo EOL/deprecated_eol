@@ -51,7 +51,7 @@ cs:
       content_page:
         page_name: Jedinečný název
         sort_order: Řazení
-        active: Publikováno
+        active: Zveřejněno
       content_partner:
         acronym: Zkratka projektu
         auto_publish: Automaticky publikovat
@@ -258,7 +258,7 @@ cs:
         title: Název zdroje
         vetted: Prohlédnuto
       translated_content_page:
-        active_translation: Publikováno
+        active_translation: Zveřejněno
         left_content: Navigace
         main_content: Obsah
         meta_keywords: Klíčová slova metadat
@@ -421,7 +421,7 @@ cs:
         email: Vaše e-mailová adresa
         name: Vaše jméno
       content_page:
-        active: Publikováno
+        active: Zveřejněno
         active_more: Publikované stránky budou veřejně viditelné. Pokud chcete zabránit
           běžným uživatelům v zobrazení verze této stránky v libovolném jazyce, zrušte
           zaškrtnutí políčka <em>publikoval</em> .
@@ -445,11 +445,11 @@ cs:
           položek je k dispozici, ke kterým organismům se vztahují, a zda byly shromážděny
           nebo zkontrolovány kvalifikovanými odborníky nebo Společenstvím.
         last_action: Poslední akce
-        latest_published_harvest_event: Naposledy publikováno
+        latest_published_harvest_event: Naposledy zveřejněno
         logo_current: 'Aktuální logo:'
         logo_new: 'Nahrát nové logo:'
         notes: Poznámky k projektu <small>(soukromé)</small>
-        oldest_published_harvest_event: Poprvé publikováno
+        oldest_published_harvest_event: Poprvé zveřejněno
         is_public_more: Profily veřejného partnera obsahu jsou viditelné pro všechny
           uživatele a informace o partnerech je součástí seznamu partnera obsahu.
           Zrušte zaškrtnutí políčka pro vyloučení detailů o partnerovi obsahu ze seznamů
@@ -528,7 +528,7 @@ cs:
       harvest_event:
         began_at: Zahájeno
         completed_at: Dokončeno
-        first_published_at: Poprvé publikováno
+        first_published_at: Poprvé zveřejněno
         publish_more: Označuje výběr dat pro zveřejnění, obsah nebude bezprostředně
           zveřejněn.
         published_at: Zveřejněno
@@ -577,8 +577,8 @@ cs:
         dwc_archive_url: 'Pokud existuje archiv Darwin Core spojený s tímto zdrojem,
           zadejte adresu URL zde <small>(TAR.GZIP, TAR.GZ nebo pouze TGZ)</small>:'
         hierarchy: Hierarchie
-        oldest_published_harvest_event: Poprvé publikováno
-        latest_published_harvest_event: Naposledy publikováno
+        oldest_published_harvest_event: Poprvé zveřejněno
+        latest_published_harvest_event: Naposledy zveřejněno
         latest_harvest_event: Poslední sklizně
         refresh_period_hours: Frekvence
         resource_status_id: Stav
@@ -593,7 +593,7 @@ cs:
         remember_me: Zůstat přihlášen 2 týdny
         username_or_email: Uživatelské jméno nebo email
       translated_content_page:
-        active_translation: Publikováno
+        active_translation: Zveřejněno
         active_translation_more: Publikované překlady budou veřejně viditelné, pokud
           samotná stránka není neveřejná. Pokud chcete zabránit běžným uživatelům
           v zobrazení tuto verzi stránky, zrušte zaškrtnutí políčka <em>publikoval</em>
@@ -609,9 +609,9 @@ cs:
         title_more: Název tohoto obsahu se zobrazí v oblasti záhlaví stránky. Název
           by měl obsahovat klíčová slova nejvíce relevantní k obsahu.
       translated_news_item:
-        active_translation: Publikováno
-        active_translation_more: Publikované překlady budou veřejně viditelné, pokud
-          je nový příspěvek publikován. Odškrtněte políčko <em>publikováno</em>, pokud
+        active_translation: Zveřejněno
+        active_translation_more: Zveřejněné překlady budou veřejně viditelné, pokud
+          je nový příspěvek zveřejněn. Odškrtněte políčko <em>zveřejněno</em>, pokud
           chcete běžným uživatelům zabránit, aby tuto verzi příspěvku viděli.
         language_id: Jazyk
         body_more: 'Zadejte obsah položky zpráv v hlavní oblasti. Pomocí rozevíracího
@@ -895,7 +895,7 @@ cs:
       meta_keywords: '%{collection_name}, sbírka Encyklopedie života'
     editors:
       show:
-        meta_description: Správci kolekce Encyklopedia života  %{collection_name}.
+        meta_description: Správci kolekce Encyklopedie života  %{collection_name}.
         meta_keywords: '%{collection_name} - Správci'
         meta_title: '%{collection_name} - Správci'
         tweet_text: '%{collection_name} - Správci'
@@ -1466,7 +1466,7 @@ cs:
   this_image_is_unpublished: Tento obrázek není publikován.
   this_image_map_is_unpublished: Tato mapa není publikována.
   this_map_is_unpublished: Tato mapa není publikována.
-  this_video_is_unpublished: Toto video není publikováno.
+  this_video_is_unpublished: Toto video není zveřejněno.
   sound_from_supplier: Zvuk od %{whom}
   image_from_supplier: Obrázek od %{whom}
   map_from_supplier: Mapa od %{whom}
@@ -1521,7 +1521,7 @@ cs:
   add_new_association_link: Přidat novou asociaci
   add_page: Přidat stránku
   add_to_my_collection_button: Přidat do sbírky
-  admin_content_page_active: Publikováno
+  admin_content_page_active: Zveřejněno
   admin_content_page_not_active: Nepublikováno
   admin_content_page_child_new_link: Vytvořit dceřinou stránku
   admin_content_page_create_successful_notice: Stránka <a href="#%{anchor}"><em>%{page_name}</em></a>

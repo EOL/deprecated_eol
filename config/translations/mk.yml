@@ -4,6 +4,7 @@
 # Author: Bjankuloski06
 # Author: Rancher
 # Author: Shirayuki
+# Author: Vlad5250
 # Author: Монтехристо
 ---
 mk:
@@ -4775,7 +4776,7 @@ mk:
   dato_create_user_text_validation_error: Внимавајте образецот да биде правилно пополнет.
   dato_update_users_text_not_owner_exception: Само изворниот автор на овој текстуален
     експонат може да го уредува.
-  dato_edit_link_button: Уред. врскава
+  dato_edit_link_button: Уреди ја врскава
   dato_edit_link_description: Ви благодариме што придонесувате на EOL со вашата стручност.
     Проверената врска ќе биде ставена на вашиот Список на набљудувања за да можете
     да ги следите разговорите на таа тема (ако се јават), а и да го проверувате нејзиниот

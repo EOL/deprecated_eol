@@ -4,6 +4,7 @@
 # Author: ANDROBETA
 # Author: Anca42
 # Author: Lucdrei
+# Author: MSClaudiu
 # Author: Minisarm
 # Author: Strainu
 ---
@@ -145,7 +146,11 @@ ro:
   translated_ranks-label-rank_id-370: subclasă
   translated_ranks-label-rank_id-375: subdiviziune
   translated_ranks-label-rank_id-383: subfamilie
+  translated_ranks-label-rank_id-390: subgen
+  translated_ranks-label-rank_id-391: subgen.
+  translated_ranks-label-rank_id-394: sbgenuri
   translated_ranks-label-rank_id-396: subregn
+  translated_ranks-label-rank_id-399: subordin
   translated_ranks-label-rank_id-401: subîncrengătură
   translated_ranks-label-rank_id-408: subsecțiune
   translated_ranks-label-rank_id-411: subserie
@@ -154,6 +159,9 @@ ro:
   translated_ranks-label-rank_id-415: subspecii
   translated_ranks-label-rank_id-422: aubtrib
   translated_ranks-label-rank_id-463: superfamilie
+  translated_ranks-label-rank_id-472: superîncrengătură
+  translated_ranks-label-rank_id-494: trib
+  translated_ranks-label-rank_id-503: neclasificat
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietăți
@@ -167,6 +175,8 @@ ro:
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: familie
   translated_resource_statuses-label-resource_status_id-10: Publicat
   translated_resource_statuses-label-resource_status_id-11: Publicare în așteptare
   translated_resource_statuses-label-resource_status_id-12: Nepublicare în așteptare
@@ -192,18 +202,88 @@ ro:
   translated_statuses-label-status_id-2: Actualizat
   translated_statuses-label-status_id-3: Nemodificat
   translated_statuses-label-status_id-4: Refolosit
+  translated_synonym_relations-label-synonym_relation_id-10: banca de gene sinonim
+  translated_synonym_relations-label-synonym_relation_id-11: în parte
   translated_synonym_relations-label-synonym_relation_id-12: include
+  translated_synonym_relations-label-synonym_relation_id-13: termen impropriu
   translated_synonym_relations-label-synonym_relation_id-14: greșeală de scriere
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-16: sinonim ambiguu
   translated_synonym_relations-label-synonym_relation_id-17: nume atribuit greșit
   translated_synonym_relations-label-synonym_relation_id-18: nume acceptat anterior
   translated_synonym_relations-label-synonym_relation_id-19: nume acceptat
   translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-20: artifact baza de date
+  translated_synonym_relations-label-synonym_relation_id-21: altele, vezi comenturi
+  translated_synonym_relations-label-synonym_relation_id-22: varianta ortografică
+    (greșeli)
   translated_synonym_relations-label-synonym_relation_id-23: atribuit greșit
   translated_synonym_relations-label-synonym_relation_id-24: nume respins
   translated_synonym_relations-label-synonym_relation_id-25: omonim (ilegitim)
+  translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: redenumire inutilă (ilegitimă)
+  translated_synonym_relations-label-synonym_relation_id-28: nume uitat
+  translated_synonym_relations-label-synonym_relation_id-29: sinonim junior
+  translated_synonym_relations-label-synonym_relation_id-2: nume comun
+  translated_synonym_relations-label-synonym_relation_id-30: indisponibil, artefact
+    al bazei de date
   translated_synonym_relations-label-synonym_relation_id-31: înlocuire nenecesară
+  translated_synonym_relations-label-synonym_relation_id-32: nume/combinație ulterioară
+  translated_synonym_relations-label-synonym_relation_id-33: indisponibil, greșeli
+    în literatură
+  translated_synonym_relations-label-synonym_relation_id-34: nume original/combinație
+  translated_synonym_relations-label-synonym_relation_id-35: indisponibil, orig. incorect
+    ortografie
+  translated_synonym_relations-label-synonym_relation_id-36: omonim junior
+  translated_synonym_relations-label-synonym_relation_id-37: omonim & sinonim junior
+  translated_synonym_relations-label-synonym_relation_id-38: indisponibil, suprimat
+    prin hotărâre
+  translated_synonym_relations-label-synonym_relation_id-39: modificarea nejustificată
   translated_synonym_relations-label-synonym_relation_id-3: acronim
+  translated_synonym_relations-label-synonym_relation_id-40: indisponibil, altul
+  translated_synonym_relations-label-synonym_relation_id-41: nume indisponibil gol
+  translated_synonym_relations-label-synonym_relation_id-42: problema numelui
+  translated_synonym_relations-label-synonym_relation_id-43: invalid publicate, altele
+  translated_synonym_relations-label-synonym_relation_id-44: Numele publicat gol invalid
+  translated_synonym_relations-label-synonym_relation_id-45: adnotare
+  translated_synonym_relations-label-synonym_relation_id-46: sinonim heterotypic
+  translated_synonym_relations-label-synonym_relation_id-47: sinonim homotypic
+  translated_synonym_relations-label-synonym_relation_id-48: nume indisponibil
+  translated_synonym_relations-label-synonym_relation_id-49: nume valid
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-50: valid
+  translated_synonym_relations-label-synonym_relation_id-51: acceptat
+  translated_synonym_relations-label-synonym_relation_id-52: autoritate
+  translated_synonym_relations-label-synonym_relation_id-53: nume nepublicat
+  translated_synonym_relations-label-synonym_relation_id-54: sinonim subiectiv
+  translated_synonym_relations-label-synonym_relation_id-55: informații incorecte
+    privind autoritatea
+  translated_synonym_relations-label-synonym_relation_id-56: scrierea incorectă
+  translated_synonym_relations-label-synonym_relation_id-57: ortografie alternativă
+  translated_synonym_relations-label-synonym_relation_id-58: versiunea lexicală
+  translated_synonym_relations-label-synonym_relation_id-59: sinonim (obiectiv = homotypic)
+  translated_synonym_relations-label-synonym_relation_id-5: nume explozie
+  translated_synonym_relations-label-synonym_relation_id-60: sinonim (subiectiv =
+    heterotipic)
+  translated_synonym_relations-label-synonym_relation_id-61: sinonim obiectiv
+  translated_synonym_relations-label-synonym_relation_id-62: sinonim senior
+  translated_synonym_relations-label-synonym_relation_id-63: nu este acceptat
+  translated_synonym_relations-label-synonym_relation_id-64: invalid
+  translated_synonym_relations-label-synonym_relation_id-65: sinonim genuri
+  translated_synonym_relations-label-synonym_relation_id-66: reprezentare alternativă
+  translated_synonym_relations-label-synonym_relation_id-67: formular de căutare
+  translated_synonym_relations-label-synonym_relation_id-68: horticol
+  translated_synonym_relations-label-synonym_relation_id-6: nume echivalent
+  translated_synonym_relations-label-synonym_relation_id-7: acronim banca de gen
+  translated_synonym_relations-label-synonym_relation_id-8: anamorf banca de gen
+  translated_synonym_relations-label-synonym_relation_id-9: nume comun banca de gene
+  translated_table_of_contents-label-table_of_contents_id-13: Nume comune
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Referințe literatură
+  translated_table_of_contents-label-table_of_contents_id-194: Mărime
+  translated_table_of_contents-label-table_of_contents_id-1: Vedere de ansamblu
+  translated_table_of_contents-label-table_of_contents_id-218: Împrăștiere
+  translated_table_of_contents-label-table_of_contents_id-221: Riscuri
   translated_table_of_contents-label-table_of_contents_id-225: Pe internet
   translated_table_of_contents-label-table_of_contents_id-226: Parteneri conținut
   translated_table_of_contents-label-table_of_contents_id-227: Caută pe internet
@@ -214,42 +294,77 @@ ro:
   translated_table_of_contents-label-table_of_contents_id-267: Morfologie
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografie
   translated_table_of_contents-label-table_of_contents_id-285: Asociații
+  translated_table_of_contents-label-table_of_contents_id-286: Status de conservare
   translated_table_of_contents-label-table_of_contents_id-289: Evoluție
   translated_table_of_contents-label-table_of_contents_id-292: Similari
   translated_table_of_contents-label-table_of_contents_id-293: Descriere diagnostic
   translated_table_of_contents-label-table_of_contents_id-296: Gestiune
+  translated_table_of_contents-label-table_of_contents_id-297: Strategie trofică
   translated_table_of_contents-label-table_of_contents_id-299: Educație
   translated_table_of_contents-label-table_of_contents_id-2: Rezumat
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nume și taxonomie
+  translated_table_of_contents-label-table_of_contents_id-304: Nume înrudite
   translated_table_of_contents-label-table_of_contents_id-305: Sinonime
   translated_table_of_contents-label-table_of_contents_id-306: Statisticile paginii
   translated_table_of_contents-label-table_of_contents_id-307: Rezumat conținut
   translated_table_of_contents-label-table_of_contents_id-308: Descriere detaliată
   translated_table_of_contents-label-table_of_contents_id-309: Distribuție
   translated_table_of_contents-label-table_of_contents_id-310: Dezvoltare
+  translated_table_of_contents-label-table_of_contents_id-311: Resurse de identificare
   translated_table_of_contents-label-table_of_contents_id-312: Migrație
   translated_table_of_contents-label-table_of_contents_id-313: Boli și paraziți
+  translated_table_of_contents-label-table_of_contents_id-314: Biologia populațiilor
+  translated_table_of_contents-label-table_of_contents_id-315: Istoria vieții și comportament
   translated_table_of_contents-label-table_of_contents_id-316: Comportament
+  translated_table_of_contents-label-table_of_contents_id-317: Ciclicitate
+  translated_table_of_contents-label-table_of_contents_id-318: Ciclu de viață
   translated_table_of_contents-label-table_of_contents_id-319: Speranța de viață
+  translated_table_of_contents-label-table_of_contents_id-320: Reproducere
   translated_table_of_contents-label-table_of_contents_id-321: Creștere
   translated_table_of_contents-label-table_of_contents_id-322: Istoricul fosilelor
+  translated_table_of_contents-label-table_of_contents_id-323: Sistematică sau filogenetică
+  translated_table_of_contents-label-table_of_contents_id-324: Adaptări funcționale
   translated_table_of_contents-label-table_of_contents_id-325: Fiziologie și biologie
     celulară
   translated_table_of_contents-label-table_of_contents_id-326: Biologie moleculară
     și genetică
   translated_table_of_contents-label-table_of_contents_id-327: Fiziologie
+  translated_table_of_contents-label-table_of_contents_id-328: Biologia celulelor
   translated_table_of_contents-label-table_of_contents_id-329: Genetică
+  translated_table_of_contents-label-table_of_contents_id-330: Secvențe nucleotide
+  translated_table_of_contents-label-table_of_contents_id-331: Cod de bare
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Biologie moleculară
   translated_table_of_contents-label-table_of_contents_id-334: Amenințări
   translated_table_of_contents-label-table_of_contents_id-335: Legislație
   translated_table_of_contents-label-table_of_contents_id-336: Note
   translated_table_of_contents-label-table_of_contents_id-337: Educație
+  translated_table_of_contents-label-table_of_contents_id-338: Legături educație
+  translated_table_of_contents-label-table_of_contents_id-339: Resurse educație
+  translated_table_of_contents-label-table_of_contents_id-33: Trenduri
+  translated_table_of_contents-label-table_of_contents_id-340: Liceul Lab School
+  translated_table_of_contents-label-table_of_contents_id-341: Știința cetățenilor
+  translated_table_of_contents-label-table_of_contents_id-342: legături știința cetățenilor
+  translated_table_of_contents-label-table_of_contents_id-343: Biblioteca Patrimoniului
+    Biodiversității
+  translated_table_of_contents-label-table_of_contents_id-344: Date
+  translated_table_of_contents-label-table_of_contents_id-345: Surse de date
+  translated_table_of_contents-label-table_of_contents_id-346: Termeni biomedicali
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
+  translated_table_of_contents-label-table_of_contents_id-348: Tip informație
+  translated_table_of_contents-label-table_of_contents_id-34: Comenturi
+  translated_table_of_contents-label-table_of_contents_id-3: Descriere fizică
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-4: Ecologie
+  translated_table_of_contents-label-table_of_contents_id-5: Evoluție și sistematică
+  translated_table_of_contents-label-table_of_contents_id-6: Relevanța pentru oameni
+    și ecosisteme
   translated_table_of_contents-label-table_of_contents_id-7: Referințe și informații
     suplimentare
   translated_table_of_contents-label-table_of_contents_id-8: Conservare
+  translated_untrust_reasons-label-untrust_reason_id-1: identificat greșit
+  translated_untrust_reasons-label-untrust_reason_id-2: incorecte/înșelătoare
   translated_untrust_reasons-label-untrust_reason_id-3: calitate slabă
   translated_untrust_reasons-label-untrust_reason_id-4: duplicat
   translated_untrust_reasons-label-untrust_reason_id-5: Altele

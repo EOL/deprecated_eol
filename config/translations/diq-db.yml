@@ -8,6 +8,7 @@
 # Author: Gırd
 # Author: Kumkumuk
 # Author: Mirzali
+# Author: Orbot707
 ---
 diq:
   translated_activities-name-activity_id-19: profil
@@ -40,7 +41,7 @@ diq:
   translated_agent_roles-label-agent_role_id-4: Bestekar
   translated_agent_roles-label-agent_role_id-5: Vıraştoğ
   translated_agent_roles-label-agent_role_id-6: Direktor
-  translated_agent_roles-label-agent_role_id-7: Vurner
+  translated_agent_roles-label-agent_role_id-7: Vurnayoğ
   translated_agent_roles-label-agent_role_id-8: Resımvıraştoğ
   translated_agent_roles-label-agent_role_id-9: Fotrafkar
   translated_audiences-label-audience_id-1: Karberê profesyoneli
@@ -280,7 +281,7 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-337: Terbiyet
   translated_table_of_contents-label-table_of_contents_id-338: Linkê mısayışi
   translated_table_of_contents-label-table_of_contents_id-33: Meyıli
-  translated_table_of_contents-label-table_of_contents_id-344: Daye
+  translated_table_of_contents-label-table_of_contents_id-344: Melumat
   translated_table_of_contents-label-table_of_contents_id-345: Çımeyê melumati
   translated_table_of_contents-label-table_of_contents_id-347: Taxsonomi
   translated_table_of_contents-label-table_of_contents_id-34: Mışewreyi

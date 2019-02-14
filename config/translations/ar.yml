@@ -4905,7 +4905,7 @@ ar:
     البريد الإلكتروني لإعادة ضبط كلمة السر.
   forgot_password_form_header: أعد ضبط كلمة السر
   forgot_password_form_helper: الرجاء ملاحظة أن رسائل البريد الإلكتروني لإعادة تعيين
-    كلمة المرور <em>بشكل متكرر</em> يتم وضع علامة عليها كرسائل غير مرغوب فيها بواسطة
+    كلمة السر <em>بشكل متكرر</em> يتم وضع علامة عليها كرسائل غير مرغوب فيها بواسطة
     فلاتر البريد الإلكتروني، يُرجَى التحقق من مجلد الرسائل غير المرغوب فيها إذا لم
     تتلق بريدك الإلكتروني في غضون ساعة.
   forgot_password_cannot_find_user_from_username_or_email_error: عفوًا، لا توجد حسابات
@@ -5639,7 +5639,7 @@ ar:
   partner_page: صفحة الشريك
   partner: شريك
   partner_web_site_colon: 'موقع الشريك:'
-  password_must_be_4to16_characters: طول كلمة المرور يجب أن يكون بين 4 و16 حرفا.
+  password_must_be_4to16_characters: طول كلمة السر يجب أن يكون بين 4 و16 حرفا.
   password_colon: كلمة السر
   pause: وقوف مؤقت
   people_with_count:

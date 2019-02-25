@@ -25,7 +25,7 @@ diq:
   translated_activities-name-activity_id-63: arê ke
   translated_activities-name-activity_id-64: wedare
   translated_agent_roles-label-agent_role_id-10: Proce
-  translated_agent_roles-label-agent_role_id-11: Hesrekar
+  translated_agent_roles-label-agent_role_id-11: Weşanayoğ
   translated_agent_roles-label-agent_role_id-12: Qeydker
   translated_agent_roles-label-agent_role_id-13: Çıme
   translated_agent_roles-label-agent_role_id-14: Çımeyê bıngehê melumati
@@ -179,10 +179,10 @@ diq:
   translated_ranks-label-rank_id-91: kuf
   translated_ranks-label-rank_id-92: kuf.
   translated_ranks-label-rank_id-99: kuflet
-  translated_resource_statuses-label-resource_status_id-10: Hesreya
+  translated_resource_statuses-label-resource_status_id-10: Weşaniya
   translated_resource_statuses-label-resource_status_id-11: Vınderde vılabyayışi
   translated_resource_statuses-label-resource_status_id-12: Nêvınderde vılabyayışi
-  translated_resource_statuses-label-resource_status_id-13: Quweta Basaği
+  translated_resource_statuses-label-resource_status_id-13: Hesedo waziyaye
   translated_resource_statuses-label-resource_status_id-1: Bar beno
   translated_resource_statuses-label-resource_status_id-2: Bar biyo
   translated_resource_statuses-label-resource_status_id-3: Dosya nêselagne
@@ -194,7 +194,7 @@ diq:
   translated_resource_statuses-label-resource_status_id-8: Karneyayo
   translated_resource_statuses-label-resource_status_id-9: Hewl bıyayış nêbı
   translated_service_types-label-service_type_id-1: Transfer şemaya EOL'i
-  translated_service_types-label-service_type_id-2: Zewbi
+  translated_service_types-label-service_type_id-2: Sewbi
   translated_sort_styles-name-sort_style_id-1: No peyra debyayey
   translated_sort_styles-name-sort_style_id-2: Tewr kehan
   translated_sort_styles-name-sort_style_id-3: Alfabetik
@@ -224,6 +224,10 @@ diq:
   translated_synonym_relations-label-synonym_relation_id-24: Reb bıyaye name
   translated_synonym_relations-label-synonym_relation_id-25: homonym (gayrımeşru)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: reyna-namekerdışo vêşêr
+    (neheqki)
+  translated_synonym_relations-label-synonym_relation_id-28: name xovirakerdış
+  translated_synonym_relations-label-synonym_relation_id-29: hemmenayo cıwan
   translated_synonym_relations-label-synonym_relation_id-2: nameyê heray
   translated_synonym_relations-label-synonym_relation_id-3: kılmkerdış
   translated_synonym_relations-label-synonym_relation_id-45: bıngeh
@@ -235,7 +239,7 @@ diq:
     tebiiy u tebietiê beynelmıleli
   translated_table_of_contents-label-table_of_contents_id-17: Referansê Edebiyati
   translated_table_of_contents-label-table_of_contents_id-194: Gırdiye
-  translated_table_of_contents-label-table_of_contents_id-1: Hera weynayis
+  translated_table_of_contents-label-table_of_contents_id-1: Serqayt
   translated_table_of_contents-label-table_of_contents_id-218: Ağme
   translated_table_of_contents-label-table_of_contents_id-221: Riski
   translated_table_of_contents-label-table_of_contents_id-226: Hissedarê Zerreki
@@ -292,7 +296,7 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-6: Mıtabeqetê İnsanan u
     Ekosistemi
   translated_table_of_contents-label-table_of_contents_id-8: Qısekerdış
-  translated_untrust_reasons-label-untrust_reason_id-5: Zewbi
+  translated_untrust_reasons-label-untrust_reason_id-5: Sewbi
   translated_user_identities-label-user_identity_id-1: merakın merdım
   translated_user_identities-label-user_identity_id-2: telebe
   translated_user_identities-label-user_identity_id-3: musnayoğ

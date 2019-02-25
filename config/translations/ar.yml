@@ -111,9 +111,9 @@ ar:
         base_pages: صفحات أساسية
         pages_with_at_least_a_trusted_object: صفحات تحوي عنصرا موثوقا به
         pages_with_at_least_a_curatorial_action: صفحات ذات نشاط إشرافي
-        pages_with_BHL_links: صفحات تضم روابط BHL
-        pages_with_BHL_links_no_text: صفحات تضم روابط BHL لكن بدون نص
-        pages_with_BHL_links_only: صفحات تضم روابط BHL فقط
+        pages_with_BHL_links: صفحات تضم وصلات BHL
+        pages_with_BHL_links_no_text: صفحات تضم وصلات BHL لكن بدون نص
+        pages_with_BHL_links_only: صفحات تضم وصلات BHL فقط
         data_objects: عناصر البيانات
         data_objects_texts: عناصر نصية
         data_objects_images: عناصر صور
@@ -668,7 +668,7 @@ ar:
         curation_application: كن مشرفًا
         curation_application_more: إذا كنت ترغب في تعديل امتيازات الإشراف الخاصة بك،
           قم بتقديم طلب وسوف نقيم أهليتك.
-        curator_level: أنت الأن %{curator_level_with_indefinite_article}.
+        curator_level: أنت الآن %{curator_level_with_indefinite_article}.
         curator_scope: نطاق الإشراف
         curator_scope_more: يُرجَى توضيح مجال خبراتك، على سبيل المثال؛ ''قوارض بورنيو''،
           أو ''تفاعلات المستويات الغذائية الثلاثية''، أو ''قضايا حفظ الأسماك''، لن
@@ -784,7 +784,7 @@ ar:
         update: حفظ التغييرات إلى الترجمة
       user:
         create: إنشاء حساب
-        curation_application: قدم الطلب الأن
+        curation_application: قدم الطلب الآن
         curation_privileges: تقديم الطلب
         generate_api_key: إضافة مفتاح
         recover_account: إرسال بريد إلكتروني
@@ -1063,7 +1063,7 @@ ar:
     posts_heading: المشاركات
     replies: الردود
     topics_heading: خيوط المناقشات
-    views: العروض
+    views: المشاهدات
     create: إنشاء منتدى
     create_successful: تم إنشاء المنتدى بنجاح
     create_failed: عذراً، حدث خطأ; لم يمكن إضافة المنتدى
@@ -4017,7 +4017,7 @@ ar:
     اتفاقية شروط شريك المحتوى.
   content_partner_agreement_subheader: اتفاقية شريك المحتوى
   content_partner_agreement_signed_successful_notice: لقد وافقت على شروط شريك المحتوى
-    بنجاح; يمكنك الأن إضافة مصادر البيانات.
+    بنجاح; يمكنك الآن إضافة مصادر البيانات.
   content_partner_agreement_signed_unsuccessful_error: عفوًا، حدث خطأ; يبدوا أن هناك
     مشكلة في اتفاقيات شريك المحتوى; الرجاء المحاولة مرة أخرى، في حال استمرار المشكلة،
     يُرجَى إبلاغ موسوعة الحياة.
@@ -4056,7 +4056,7 @@ ar:
   content_partner_current_agreement_view_link: عرض
   content_partner_current_agreement_edit_link: تعديل
   content_partner_current_agreement_create_link: إنشاء جديد
-  content_partner_current_agreement_not_accepted: لم تتم الموافقة عليها حتى الأن
+  content_partner_current_agreement_not_accepted: لم تتم الموافقة عليها حتى الآن
   content_partner_data_description_header: وصف البيانات
   content_partner_data_description_empty: لم يضف أحد وصفا للبيانات المقدمة.
   content_partner_default_description: أحد شركاء المحتوى بموسوعة الحياة.
@@ -4246,7 +4246,7 @@ ar:
   content_summary_introduction_html: تمثل القيم التالية مجموع أنواع المحتوى المختلفة
     عن تلك الأصنوفة وجميع سلالتها التصنيفية، إن محتوى %{glossary_term_trusted} إما
     تم الموافقة عليه من قبل أحد مشرفي موسوعة الحياة أو مقدم من مصدر موثوق، لم يتم
-    تقييم محتوى %{glossary_term_unreviewed} من قبل أحد مشرفي موسوعة الحياة إلى الأن،
+    تقييم محتوى %{glossary_term_unreviewed} من قبل أحد مشرفي موسوعة الحياة إلى الآن،
     يتميز كل تسلسل هرمي تصنيفي عن غيره; لذلك تمت إضافة كل تسلسل هرمي يمكن تصفحه إلى
     قائمة بهدف إجراء المقارنات.
   content_summary_table_caption: ملخص المحتوى المرتبط بـ%{taxon_name} وسلالاته في
@@ -4829,7 +4829,7 @@ ar:
   filter_by_type_image_option_with_count:
     one: الصور (%{count})
   filter_by_type_data_option: سمات
-  filter_by_type_link_option: روابط
+  filter_by_type_link_option: وصلات
   filter_by_type_text_option: المقالات
   filter_by_type_user_option: الأشخاص
   filter_by_type_photosynth_option: فوتوسينث
@@ -4871,8 +4871,8 @@ ar:
     one: سمة
     other: سمات
   link_search_keyword:
-    one: رابط
-    other: روابط
+    one: وصلة
+    other: وصلات
   user_search_keyword:
     one: شخص
     other: أشخاص
@@ -5070,13 +5070,13 @@ ar:
     لإضافة اسماء شائعة.
   insufficient_privileges_to_curate_names: عفوًا، لا تتمتع بالامتيازات اللازمة لتقييم
     الأسماء.
-  internal_ip_address: عنوان آيبي داخلي
+  internal_ip_address: عنوان أيبي داخلي
   inverse_sort: اعكس الترتيب
   invite_members_label: ادعُ الأعضاء
   invite_members_help_text: أضف بعض مستخدمي موسوعة الحياة هنا وسوف يتلقون دعوة إلى
     مجتمعك الجديد!
-  ip_address: عنوان آيبي
-  ip: آيبي
+  ip_address: عنوان أيبي
+  ip: أيبي
   item_added_to_watch_collection_notice: تمت إضافة "%{item_name}" إلى %{collection_name}.
   item_added_to_collection_notice: تمت إضافة العنصر إلى مجموعة <em>%{collection_name}</em>
   item_details_missing: عفوًا، حدث خطأ; لم نتمكن من استرجاع تفاصيل العنصر.
@@ -5239,8 +5239,8 @@ ar:
   literature_bhl_link: عرض المراجع المكتشفة في مكتبة تراث التنوع البيولوجي
   literature_empty: لم يتم العثور على مراجع
   literature_header: المراجع
-  literature_links: روابط الأدب
-  literature_links_link: روابط الأدب
+  literature_links: وصلات الأدب
+  literature_links_link: وصلات الأدب
   literature_references: مراجع الأدب
   location: الموقع
   location_colon: 'الموقع:'
@@ -5274,7 +5274,7 @@ ar:
   map_objects_page_number: صفحة الخرائط
   maps_with_count:
     one: '%{count} خريطة'
-  maps_empty: لم تتم إضافة أية خريطة إلى هذه الصفحة حتى الأن.
+  maps_empty: لم تتم إضافة أية خريطة إلى هذه الصفحة حتى الآن.
   maps_empty_contribute_instructions: تعلم كيفية إضافة خرائط إلى موسوعة الحياة
   maps_image_maps_header: الوسائط مصنفة كـ"خريطة"
   march_of_life_thumbnail_title: 'مسيرة الحياة:'
@@ -5340,7 +5340,7 @@ ar:
     other: تم نقل كل العناصر من %{name} إلى %{count} مجموعات.
   moved_items_from_collection_with_count_notice: '{{PLURAL|one=تم نقل %{count} عنصر
     من %{name}}'
-  multimedia_links: روابط الوسائط المتعددة
+  multimedia_links: وصلات الوسائط المتعددة
   must_be_associated_with_either_a_user_or_a_community: يجب أن يكون مرتبطا بمستخدم
     أو بمجتمع
   must_provide_search_term_error: يجب عليك إدخال مصطلح بحث.
@@ -5412,7 +5412,7 @@ ar:
   new_collection: مجموعة جديدة
   new_contact_us_topic: موضوع "اتصل بنا" جديد
   new_news_item: عنصر أخبار جديد
-  news_and_event_links: روابط الأخبار والأحداث
+  news_and_event_links: وصلات الأخبار والأحداث
   news_archive_page: صفحة أرشيف الأخبار
   news_date: بيانات الخبر
   new_search_suggestion: اقتراح بحث جديد
@@ -6061,9 +6061,9 @@ ar:
     one: '%{count} أصنوفة'
   taxon: أصنوفة
   taxon_biomedical_terms_link: مصطلحات بيولوجية طبية
-  taxon_citizen_science_header: روابط لمواطن العلم
-  taxon_citizen_science_link: روابط لمواطن العلم
-  taxon_citizen_science_resources_empty: لم يقم أحد بالمساهمة بأي روابط لمواطن العلم
+  taxon_citizen_science_header: وصلات لمواطن العلم
+  taxon_citizen_science_link: وصلات لمواطن العلم
+  taxon_citizen_science_resources_empty: لم يقم أحد بالمساهمة بأي وصلات لمواطن العلم
     في هذه الصفحة بعد.
   taxon_common_names_subtab_explanation: كثير من الناس يعرفون الكائنات فقط من قبل
     الأسماء المشتركة، أو "العامية"، على عكس الأسماء العلمية، تكون الأسماء الشائعة
@@ -6077,32 +6077,32 @@ ar:
     العديد من المقدمين، ولم يساهم أحد في سجلات البيانات ل%{taxon} بعد.
   taxon_data_overview_empty: لم يساهم أحد في سجلات البيانات ل%{taxon} بعد
   taxon_data_header: بيانات عن %{taxon}
-  taxon_details_empty: لم تتم إضافة أي معلومات إلى تلك الصفحة إلى الأن.
+  taxon_details_empty: لم تتم إضافة أي معلومات إلى تلك الصفحة إلى الآن.
   taxon_details_empty_in_this_language: لم يساهم أحد في أي تفاصيل لهذه الصفحة بهذه
     اللغة.
-  taxon_education_empty: لم تتم إضافة أي مصادر عن التعليم إلى تلك الصفحة إلى الأن.
+  taxon_education_empty: لم تتم إضافة أي مصادر عن التعليم إلى تلك الصفحة إلى الآن.
   taxon_education_header: مصادر تعليمية
   taxon_education_link: مصادر تعليمية
   taxon_group: مجموعة الاصنوفة
   taxon_id: معرف الأصنوفة
   taxon_identification_resources_empty: لم تتم إضافة أي مصادر تعريف إلى هذه الصفحة
-    إلى الأن.
+    إلى الآن.
   taxon_identification_resources_header: مصادر التعريف
   taxon_identification_resources_link: مصادر التعريف
-  taxon_multimedia_links_link: روابط الوسائط المتعددة
+  taxon_multimedia_links_link: وصلات الوسائط المتعددة
   taxon_newsfeed: خلاصة أخبار الأصنوفة
-  taxon_news_and_event_links_link: روابط الأخبار والأحداث
+  taxon_news_and_event_links_link: وصلات الأخبار والأحداث
   taxon_nucleotide_sequences_link: تسلسلات النيوكليوتيدات
-  taxon_partner_links_empty: لم يضف مقدمو المحتوى روابط المصدر إلى هذه الصفحة إلى
-    الأن
+  taxon_partner_links_empty: لم يضف مقدمو المحتوى وصلات المصدر إلى هذه الصفحة إلى
+    الآن.
   taxon_partner_links_empty_learn_more_link: تعلم كيفية التحول إلى شريك محتوى
-  taxon_partner_links_header: روابط الشركاء
+  taxon_partner_links_header: وصلات الشركاء
   taxon_partner_links_intro: تجد فيما يلي قائمة بشركاء موسوعة الحياة، بما في ذلك شركاء
     المحتوى، بالإضافة إلى معلومات حول تلك الصفحة، سوف تحولك الروابط، حين تكون متاحة،
     إلى المحتوى المقابل في موقع الشريك، يتم دمج المعرف المميز لهذه الأصنوفة والمستخدم
     من قبل كل شريك في تلك الروابط، كما يمكن الوصول إلى هذه المعرفات عبر <a href="%{eol_api_link}">واجهة
     برمجة تطبيقات موسوعة الحياة</a>.
-  taxon_partner_links_link: روابط الشركاء
+  taxon_partner_links_link: وصلات الشركاء
   taxon_page_content_disclaimer_header: إخلاء مسؤولية
   taxon_page_content_disclaimer: يتم جمع محتوى موسوعة الحياة آليا من العديد من مقدمي
     المحتوى، ونتيجة لذلك; قد تجد بين الحين و الآخر بعض الصفحات المشوشة.
@@ -6561,9 +6561,9 @@ ar:
   wikipedia_queue_new_instructions_step_one: انتقل إلى صفحة المقال بموقع ويكيبيديا،
     مثل  <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
   wikipedia_queue_new_instructions_step_two: قم بتمديد قائمة "صندوق الأدوات" المدرجة
-    في خانة التنقل، ويجب أن ترى بند "الرابط الدائم" بداخلها.
-  wikipedia_queue_new_instructions_step_three: اتبع بند "الرابط الدائم" بالقائمة،
-    هذا هو المسار الحالي للمراجعة وسوف ينقلك إلى النسخة الحالية من المقال والتي يمكنك
+    في خانة التنقل، ويجب أن ترى عنصر "وصلة دائمة" بداخلها.
+  wikipedia_queue_new_instructions_step_three: اتبع عنصر "وصلة دائمة" بالقائمة، هذا
+    هو المسار الحالي للمراجعة وسوف ينقلك إلى النسخة الحالية من المقال والتي يمكنك
     من خلالها الانتقال إلى النسخ السابقة.
   wikipedia_queue_new_instructions_step_four: قم بنسخ مسار المراجعة من المتصفح والصقه
     في نموذج طلب استيراد بموقع ويكيبيديا المعروض هنا، يجب أن يبدو مسار النسخة المراجعة
@@ -6601,7 +6601,7 @@ ar:
     أن تستخدم مسار المحتوى كاملاً، وقد يُظهر المسار الكامل للمحتوى رقم خادم محتوى
     مختلف في كل مرة تقوم فيها بتحديث الصفحة (مثل: "content2.eol.org"، "content3.eol.org"،
     إلخ.) – وهذا طبيعي ويمكنك استخدام أيهم حين تقوم بإنشاء روابطك إذ أن جميعهم متساوون.'
-  you_must_be_comfortable: يجب أن تكون على دراية بـHTML إذا كنت ترغب في إنشاء روابط
+  you_must_be_comfortable: يجب أن تكون على دراية بـHTML إذا كنت ترغب في إنشاء وصلات
     تشعبية أو استخدام التنسيق.
   your_browser_does_not_support: متصفحك لا يدعم مقاطع الفيديو HTML5.
   your_email_address: عنوان بريدك الإلكتروني

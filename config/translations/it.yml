@@ -6171,7 +6171,7 @@ it:
     a questa pagina.</p>
   page_views_th: Visualizzazioni di pagina
   pages_curator_section_link: Curatori
-  pages_admin_section_link: 'Amministratori:'
+  pages_admin_section_link: Amministratori
   pages_method_description: prende un identificatore della pagina EOL e restituisce
     il nome scientifico per quella pagina e facoltativamente restituisce informazioni
     su nomi comuni, media (testo, immagini e video) e i riferimenti alle gerarchie

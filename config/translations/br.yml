@@ -29,7 +29,7 @@ br:
       community:
         name: Anv ar gumuniezh
         description: Deskrivadur ar gumuniezh
-        logo: Enporzhiañ un logo
+        logo: Enporzhiañ ul logo
       contact:
         comments: Kemennadenn
         contact_subject_id: Danvez an darempred
@@ -463,6 +463,7 @@ br:
         object_title: Titl
         toc_item: Is-rann
         refs: Daveennoù <small>(lakaat pep daveenn war ul linenn nevez)</small>
+        refs_order: '*Lakaet e vo an daveennoù  war wel en urzh al lizherennoù'
         rights_holder: Perc'henn ar gwirioù
         rights_holder_more: Spisaat un den pe un aozadur a berc'henn pe a ver ar gwirioù
           war ar roadennoù-se. Ma lezit ar vaezienn c'houllo e c'hourlakaomp oc'h
@@ -492,6 +493,7 @@ br:
         q: Talvoud difer
         q_with_val: 'Talvoud difer : %{val}'
         q_placeholder: Ebarzhiñ ur ger, ur frazenn pe un niver
+        q_placeholder_disabled: Lijorenn ebarzhet, talvoud difer diweredekaet
         q_more: Da skouer, heterotrofek.
         taxon_name: Strollad taksonoù
         taxon_name_with_val: 'Strollad taksonoù : %{val}'
@@ -525,6 +527,7 @@ br:
           war ar groaz diouzhtu).
         published_at: Embannet
         published_status: Statud
+        last_harvest_seconds: Kemeret %{time_in_words}
       hierarchy:
         browsable_more: Askit <em>navigable</em> evit brudañ an urzhaz-se e-touez
           an urzhazoù merdeüs pennañ KAV
@@ -554,6 +557,8 @@ br:
         refresh_period_hours: Stankter
         resource_status_id: Statud
         resource_status: Statud
+        resource_url_or_file: Roadennoù danvezioù <small>(gallout a reot pe ebarzhiñ
+          un URL, pe lakaat ur restr enlinen)</small>
         resource_url_or_file_url: Kargañ danvez diwar an URL
         resource_url_or_file_upload: Ezporzhiañ ur restr danvez
         title: Anv ar vammenn
@@ -1022,6 +1027,7 @@ br:
       post_has_been_deleted: Dilamet eo bet ar gemennadenn-mañ
       deleted_subject: (dilamet)
       no_subject: (danvez ebet)
+      permalink_to_this_post: 'Liamm padus war-zu ar gemennadenn-mañ :'
       close_window: serriñ
       posts_with_count:
         one: '%{count} gemennadenn'
@@ -1052,6 +1058,7 @@ br:
     name_placeholder_text: da sk. Kenlabourer
     ontology_information_url_placeholder_text: da sk. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: da sk. http://dublincore.org/2012/06/14/dcterms.rdf
+    select_a_preferred_uri_for_this_group: Diuzañ un URI gwellañ-deuet
     preferred_for_equivalence_group: Gwellañ-deuet
     select: diuzañ
   known_uri_relationships:
@@ -1111,6 +1118,7 @@ br:
         ?
     data_search:
       page_header: Furchal TraitBank
+      page_header_results: Diskoulmoù enklask TraitBank
     footer:
       google_plus: Kelc'hgeriadur ar Vuhez war Google+
     taxa:

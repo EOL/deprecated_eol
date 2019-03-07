@@ -17,6 +17,7 @@
 # Author: Luk3
 # Author: Macofe
 # Author: Mordecaista
+# Author: Ogipcio
 # Author: PedroMaia
 # Author: Pedrofariasm
 # Author: Piterkeo
@@ -4845,8 +4846,8 @@ pt-BR:
       search_within_taxon_group_header: Pesquisar dentro de um grupo de taxon
       sort_header: Classificar os resultados
     notice:
-      clade_too_big: Desculpe, os resultados foram filtrados por %{taxon_name} por
-        serem muito longos. Escolha um conjunto de dados menor ou entre em contato
+      clade_too_big: Desculpe, os resultados exibidos não foram filtrados por %{taxon_name}
+        por serem muito longos. Escolha um conjunto de dados menor ou entre em contato
         com <a%"{contactus_tech_path}"> para assistência.
       clade_has_no_data: Ninguem contribuiu para os dados de %{taxon_name} ainda.  <a
         href="%{contribute_path}"> aprenda como contibuir </a>

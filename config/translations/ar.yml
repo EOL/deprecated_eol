@@ -771,7 +771,7 @@ ar:
         force_harvest: طلب الحصاد
         harvest_tonight: حصاد الليلة
       session:
-        create: ادخل
+        create: دخول
         sign_in_with_facebook: قم بتسجيل الدخول عن طريق فيسبوك
         sign_in_with_google: قم بتسجيل الدخول عن طريق جوجل
         sign_in_with_twitter: قم بتسجيل الدخول عن طريق تويتر
@@ -5936,7 +5936,7 @@ ar:
   showing_harvest_logs_from_date: عرض الثمار من <b>%{date}</b>
   shown_to_the_user_parens: (يظهر للمستخدم)
   shown_to_user_as_the_title_of_page: يظهر للمستخدم كعنوان الصفحة
-  sign_in: ادخل
+  sign_in: دخول
   sign_in_remember_me_disallowed_for_admins_notice: للأسباب تتعلق بالأمان; لا يستطيع
     المشرفون استخدام خاصية تذكرني.
   sign_in_successful_notice: تم تسجيل الدخول بنجاح.

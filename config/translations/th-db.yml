@@ -4,6 +4,7 @@
 # Author: Aefgh39622
 # Author: Akkhaporn
 # Author: Ariesanywhere
+# Author: Geonuch
 # Author: Patsagorn Y.
 # Author: TMo3289
 # Author: TrisT7
@@ -44,7 +45,7 @@ th:
   translated_agent_roles-label-agent_role_id-8: ผู้วาดภาพประกอบ
   translated_agent_roles-label-agent_role_id-9: ผู้ถ่ายภาพ
   translated_audiences-label-audience_id-1: ผู้ใช้ขั้นสูง
-  translated_audiences-label-audience_id-2: ผู้ใช้ทั่วไป/สาธารณะ
+  translated_audiences-label-audience_id-2: สาธารณชน
   translated_audiences-label-audience_id-3: เด็ก
   translated_collection_types-label-collection_type_id-10: เสียง
   translated_collection_types-label-collection_type_id-11: ลิงก์

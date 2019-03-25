@@ -11,6 +11,7 @@
 # Author: CM3X
 # Author: CoderSI
 # Author: DCamer
+# Author: Diralik
 # Author: Dr&mx
 # Author: Eleferen
 # Author: Eroha
@@ -48,7 +49,7 @@
 ru:
   activerecord:
     models:
-      user: Учетная запись
+      user: Учётная запись
     attributes:
       collection:
         name: Название коллекции
@@ -395,10 +396,10 @@ ru:
             uri:
               must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
         open_authentications:
-          guid_provider_must_be_unique: сторонняя учетная запись уже связана с учетной
+          guid_provider_must_be_unique: сторонняя учётная запись уже связана с учётной
             записью EOL
-          provider_user_id_must_be_unique: только одна учетная запись от каждого стороннего
-            поставщика может быть подключена к учетной записи EOL
+          provider_user_id_must_be_unique: только одна учётная запись от каждого стороннего
+            поставщика может быть подключена к учётной записи EOL
         resource:
           attributes:
             accesspoint_url:
@@ -417,18 +418,18 @@ ru:
           attributes:
             predicate:
               must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
-              namespace: используется пространство имен, не обнаружено
+              namespace: используется пространство имён, не обнаружено
             subject:
               must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
-              namespace: используется пространство имен, не обнаружено
+              namespace: используется пространство имён, не обнаружено
         user_added_data_metadata:
           attributes:
             predicate:
               must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
-              namespace: используется пространство имен, не обнаружено
+              namespace: используется пространство имён, не обнаружено
             subject:
               must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
-              namespace: используется пространство имен, не обнаружено
+              namespace: используется пространство имён, не обнаружено
         known_uri_relationship:
           attributes:
             to_known_uri_id:
@@ -532,11 +533,11 @@ ru:
         max: Наибольшее значение
         max_with_val: 'Наибольшее значение: %{val}'
         max_placeholder: Введите число
-        max_placeholder_disabled: Диапазон отключен
+        max_placeholder_disabled: Диапазон отключён
         min: Наименьшее значение
         min_with_val: 'Наименьшее значение: %{val}'
         min_placeholder: Введите число
-        min_placeholder_disabled: Диапазон отключен
+        min_placeholder_disabled: Диапазон отключён
         q: Конкретное значение
         q_with_val: 'Конкретное значение: %{val}'
         q_placeholder: Введите слово, фразу или число
@@ -739,8 +740,8 @@ ru:
         requested_curator_level: Ваш запрос, чтобы стать %{curator_level_with_indefinite_article}
           в рассмотрении.
         requested_curator_level_id_more: Выберите <em>Помощник куратора</em>, если
-          у вас еще нет каких-либо полномочий.  Выберите <em>Полный куратор</em>,
-          если вы являетесь профессиональным ученым или аспирантом с полномочиями.  Выберите
+          у вас ещё нет каких-либо полномочий. Выберите <em>Полный куратор</em>, если
+          вы являетесь профессиональным ученым или аспирантом с полномочиями. Выберите
           <em>Мастер куратор</em>, если вы опытный куратор EOL и хотят взять на себя
           большую ответственность.
         tag_line: 'Слоган или заголовок <small>Пример: «Птица энтузиастов»</small>'
@@ -1116,11 +1117,11 @@ ru:
     create_failed: Извините, произошла ошибка, форум не может быть добавлен.
     update_successful: Форум успешно обновлен.
     update_failed: Извините, произошла ошибка, форум не может быть добавлен.
-    delete_successful: Форум был успешно удален
-    delete_failed_not_empty: Форум не может быть удален, поскольку он не является
+    delete_successful: Форум был успешно удалён
+    delete_failed_not_empty: Форум не может быть удалён, поскольку он не является
       пустым
-    move_successful: Форум был успешно перемещен
-    move_failed: Форум не может быть перемещен
+    move_successful: Форум был успешно перемещён
+    move_failed: Форум не может быть перемещён
     edit: Редактировать форум
     post_by_user_at_time: от %{user}, %{time}
     actions: Действия
@@ -1338,7 +1339,7 @@ ru:
       message: |-
         Это автоматически сгенерированное письмо от Encyclopedia of Life (EOL) с последними комментариями и кураторскими действиями на контенте, предоставленном контент-партнером %{partner_full_name} (%{partner_profile_url}). Вы получаете это письмо, потому что вы указаны в качестве контакта для %{partner_full_name}.
 
-        Если у вас есть какие-либо вопросы или нужна помощь по доступу к своей учетной записи EOL, пожалуйста, свяжитесь с %{species_pages_group_email}.
+        Если у вас есть какие-либо вопросы или нужна помощь по доступу к своей учётной записи EOL, пожалуйста, свяжитесь с %{species_pages_group_email}.
 
 
         Кураторские действия:
@@ -1355,7 +1356,7 @@ ru:
       message: |-
         Это автоматически сгенерированное письмо от Encyclopedia of Life (EOL) с последними комментариями и кураторскими действиями на контенте, добавленном на EOL через вашу учётную запись с именем пользователя %{members_username}.
 
-        Если у вас есть какие-либо вопросы или нужна помощь по доступу к своей учетной записи EOL, пожалуйста, свяжитесь с %{species_pages_group_email}.
+        Если у вас есть какие-либо вопросы или нужна помощь по доступу к своей учётной записи EOL, пожалуйста, свяжитесь с %{species_pages_group_email}.
 
 
         Кураторские действия:
@@ -1466,7 +1467,7 @@ ru:
     user_activated:
       subject: Ваш аккаунт в Энциклопедии Жизни (EOL) был активирован
       message: |-
-        Добро пожаловать в Энциклопедию Жизни (ЭЖ) и благодарим за регистрацию! Пожалуйста, обратите внимание, Ваше имя пользователя  %{username}, сслыка на Ваш профиль - %{profile_url}. Вы можете зайти в свою учетную запись по ссылке http://eol.org/login.
+        Добро пожаловать в Энциклопедию Жизни (ЭЖ) и благодарим за регистрацию! Пожалуйста, обратите внимание, Ваше имя пользователя  %{username}, сслыка на Ваш профиль - %{profile_url}. Вы можете зайти в свою учётную запись по ссылке http://eol.org/login.
 
         Чтобы узнать больше о том, как пользоваться ЭЖ, включая способы создания Коллекций ЭЖ, учавствовать в сообществах ЭЖ и создавать контент, посетите страницу помощи: http://eol.org/help.
     user_activated_with_open_authentication:
@@ -1480,13 +1481,13 @@ ru:
     user_recover_account:
       subject: Восстановить аккаунт Энциклопедии Жизни
       message: |-
-        Энциклопедия Жизни (http://eol.org) получила запрос для восстановления Вашей учетной записи. Если этот запрос делали не Вы, проигнорируйте это сообщение.
+        Энциклопедия Жизни (http://eol.org) получила запрос для восстановления Вашей учётной записи. Если этот запрос делали не Вы, проигнорируйте это сообщение.
 
-        Ссылка ниже дает одноразовую возможность сменить пароль или добавить связь с другими аккаунтами, которые Вы можете использовать для авторизации в будущем:
+        Ссылка ниже даёт одноразовую возможность сменить пароль или добавить связь с другими аккаунтами, которые Вы можете использовать для авторизации в будущем:
 
          %{temporary_login_url}
 
-        Пожалуйста, обратите внимание, что срок действия этой ссылки истекает через 24 часа, по истечении этого времени Вы можете посетить %{recover_account_url} для запроса новой ссылки восстановления учетной записи на случай если трудности с авторизацией сохранились.
+        Пожалуйста, обратите внимание, что срок действия этой ссылки истекает через 24 часа, по истечении этого времени Вы можете посетить %{recover_account_url} для запроса новой ссылки восстановления учётной записи на случай если трудности с авторизацией сохранились.
     user_updated_email_preferences:
       subject: пользователь ЭЖ  %{user_full_name} изменил свой адрес электронной почты
         или настройки списка рассылки
@@ -1498,11 +1499,11 @@ ru:
     user_verification:
       subject: Пожалуйста, подтвердите ваш запрос на регистрацию в Энциклопедии Жизни
       message: |-
-        Спасибо за регистрацию в Энциклопедии Жизни.Перейдите по следующей ссылке, чтобы завершить регистрацию и активировать Вашу учетную запись:
+        Спасибо за регистрацию в Энциклопедии Жизни. Перейдите по следующей ссылке, чтобы завершить регистрацию и активировать Вашу учётную запись:
 
         %{verification_url}
 
-        После активации вашей учетной записи вы получите сообщение электронной почты с подтверждением.
+        После активации вашей учётной записи вы получите сообщение электронной почты с подтверждением.
   recent_activity:
     intro: Вот Ваш дайджест активности ЭЖ за %{time}
     intro_immediately: Привет, %{name} —
@@ -1586,17 +1587,17 @@ ru:
       header: Ваша коллекция готова для скачивания!
   sessions:
     new:
-      login_with_facebook_assistive: Войти в EOL с помощью учетной записи Facebook.
-      login_with_google_assistive: Войти в EOL с помощью учетной записи Google.
-      login_with_twitter_assistive: Войти в EOL с помощью учетной записи Twitter.
-      login_with_yahoo_assistive: Войти в EOL с помощью учетной записи Yahoo.
-      login_with_eol_authentication_header: 'Или войти с помощью учетной записи EOL:'
+      login_with_facebook_assistive: Войти в EOL с помощью учётной записи Facebook.
+      login_with_google_assistive: Войти в EOL с помощью учётной записи Google.
+      login_with_twitter_assistive: Войти в EOL с помощью учётной записи Twitter.
+      login_with_yahoo_assistive: Войти в EOL с помощью учётной записи Yahoo.
+      login_with_eol_authentication_header: 'Или войти с помощью учётной записи EOL:'
       meta_title: Войти
       problems_signing_in_with_connected_accounts: Проблемы со входом в связанные
         аккаунты?
       problems_signing_in_with_eol_authentication: Забыли пароль?
-      tip: Уже зарегистрировались? Свяжите вашу учетную запись EOL с Facebook, Google
-        и другими в настройках вашего профиля. После подключения учетные записи можно
+      tip: Уже зарегистрировались? Свяжите вашу учётную запись EOL с Facebook, Google
+        и другими в настройках вашего профиля. После подключения учётные записи можно
         использовать для входа в EOL.
   taxa:
     communities:
@@ -1842,22 +1843,22 @@ ru:
       refresh: обновить
       row_count: Количество
       search_again: искать снова
-      file_not_processed: Этот файл еще не обработан,
+      file_not_processed: Этот файл ещё не обработан,
       contact_us: для получения помощи свяжитесь с нами, пожалуйста
     new:
       complete_registration_header: Завершить регистрацию на EOL
-      create_user_header: Создание новой учетной записи <abbr title="Encyclopedia
+      create_user_header: Создание новой учётной записи <abbr title="Encyclopedia
         of Life">EOL</abbr>
       create_user_with_eol_authentication_header: 'Или предоставьте новые учетные
         данные:'
       meta_title: Присоединится к EOL
-      sign_up_with_facebook_assistive: Зарегистрироваться на EOL с помощью учетной
+      sign_up_with_facebook_assistive: Зарегистрироваться на EOL с помощью учётной
         записи Facebook.
-      sign_up_with_google_assistive: Зарегистрироваться на EOL с помощью учетной записи
+      sign_up_with_google_assistive: Зарегистрироваться на EOL с помощью учётной записи
         Google.
-      sign_up_with_twitter_assistive: Зарегистрироваться на EOL с помощью учетной
+      sign_up_with_twitter_assistive: Зарегистрироваться на EOL с помощью учётной
         записи Twitter.
-      sign_up_with_yahoo_assistive: Зарегистрироваться на EOL с помощью учетной записи
+      sign_up_with_yahoo_assistive: Зарегистрироваться на EOL с помощью учётной записи
         Yahoo.
     newsfeeds:
       activity_link: активность
@@ -1876,32 +1877,32 @@ ru:
     open_authentications:
       errors:
         facebook:
-          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
-            записи  Facebook с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
-            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
-            а затем подключите Вашу учетную запись  Facebook в настройках Вашего профиля
-            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
-            в EOL</a> для получения учетной записи.
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учётной
+            записи  Facebook с EOL. Если у Вас уже есть учётная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учётные данные,
+            а затем подключите Вашу учётную запись  Facebook в настройках Вашего профиля
+            EOL. Если у Вас ещё нет учётной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учётной записи.
         google:
-          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
-            записи  Google  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
-            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
-            а затем подключите Вашу учетную запись Google в настройках Вашего профиля
-            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
-            в EOL</a> для получения учетной записи.
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учётной
+            записи  Google  с EOL. Если у Вас уже есть учётная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учётные данные,
+            а затем подключите Вашу учётную запись Google в настройках Вашего профиля
+            EOL. Если у Вас ещё нет учётной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учётной записи.
           missing_attributes: К сожалению, произошла ошибка при доступе Ваших данных
             в Google.
           new_authentication_not_added: К сожалению, произошла ошибка, мы не могли
             подключить Ваш аккаунт Google.
           not_authorized_to_add_authentication: К сожалению, у нас нет авторизации
-            для подключения Вашей учетной записи Google.
+            для подключения Вашей учётной записи Google.
         twitter:
-          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
-            записи Twitter  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
-            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
-            а затем подключите Вашу учетную запись Twitter в настройках Вашего профиля
-            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
-            в EOL</a> для получения учетной записи.
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учётной
+            записи Twitter  с EOL. Если у Вас уже есть учётная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учётные данные,
+            а затем подключите Вашу учётную запись Twitter в настройках Вашего профиля
+            EOL. Если у Вас ещё нет учётной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учётной записи.
           missing_attributes: К сожалению, произошла ошибка при доступе Ваших данные
             в Twitter.
           new_authentication_not_added: К сожалению, произошла ошибка, мы не могли
@@ -1909,12 +1910,12 @@ ru:
           not_authorized_to_add_authentication: К сожалению, у нас нет разрешения
             на подключение Вашего аккаунта в Twitter.
         yahoo:
-          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
-            записи Yahoo!  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
-            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
-            а затем подключите Вашу учетную запись Yahoo! в настройках Вашего профиля
-            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
-            в EOL</a> для получения учетной записи.
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учётной
+            записи Yahoo!  с EOL. Если у Вас уже есть учётная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учётные данные,
+            а затем подключите Вашу учётную запись Yahoo! в настройках Вашего профиля
+            EOL. Если у Вас ещё нет учётной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учётной записи.
       facebook: Facebook
       google: Google
       index:
@@ -1947,21 +1948,21 @@ ru:
         проверьте папку со спамом, если Вы не получили письмо в течение часа.
     recover_account:
       errors:
-        token_expired_or_invalid: К сожалению, срок временной ссылки для входа истек
+        token_expired_or_invalid: К сожалению, срок временной ссылки для входа истёк
           или ссылка недействительна, пожалуйста, пошлите новый запрос по электронной
-          почте для восстановления учетной записи.
+          почте для восстановления учётной записи.
         user_not_found_by_email_address: Учётная запись EOL с таким адресом электронной
           почты не найдена.
         unable_to_update_token: Извините, произошла ошибка, и письмо не было отправлено,
-          пожалуйста, попробуйте еще раз.
+          пожалуйста, попробуйте ещё раз.
       form_header: Восстановить учётную запись
-      form_tip: Для восстановления учетной записи EOL введите привязанный к ней адрес
+      form_tip: Для восстановления учётной записи EOL введите привязанный к ней адрес
         электронной почты. Пожалуйста, проверьте папку со спамом, если в течение часа
-        Вы не получите сообщение по электронной почте для восстановления учетной записи.
+        Вы не получите сообщение по электронной почте для восстановления учётной записи.
       notices:
         temporarily_logged_in_update_authentication_details: Вы временно вошли в систему
-          для восстановления учетной записи, пожалуйста, измените Ваш пароль или обновите
-          Ваши подключенные учетные записи, чтобы убедиться, что Вы можете успешно
+          для восстановления учётной записи, пожалуйста, измените Ваш пароль или обновите
+          Ваши подключённые учётные записи, чтобы убедиться, что Вы можете успешно
           войти в систему.
       meta_title: Восстановить учётную запись
     recover_account_choose_account:
@@ -2027,7 +2028,7 @@ ru:
   about_resources: О ресурсах
   about_resources_title: Ссылки на внешние ресурсы
   account_information: Информация профиля
-  account_information_menu: Сведения об учетной записи
+  account_information_menu: Сведения об учётной записи
   action: Действие
   action_not_available_error: К сожалению, это действие недоступно.
   actions: Действия
@@ -2269,7 +2270,7 @@ ru:
     версию "%{page_name}" на следующем языке: %{language}? Удалённые страницы нельзя
     будет восстановить.'
   admin_translated_content_page_delete_successful_notice: '%{language} перевод страницы<em>%{page_name}</em>
-    был удален.'
+    был удалён.'
   admin_translated_content_page_edit_subheader: Изменить %{language} перевод для <em>%{page_name}</em>
   admin_translated_content_page_edit_tip: Заголовок и текст %{required_icon} обязателен.
   admin_translated_content_page_new_header: Выберите язык и добавьте содержимое
@@ -2283,7 +2284,7 @@ ru:
     перевод не был обновлен.
   admin_translated_news_item_active: Опубликовано
   admin_translated_news_item_new_link: Добавить перевод
-  admin_user_delete_successful_notice: Пользователь был удален
+  admin_user_delete_successful_notice: Пользователь был удалён
   admin_user_hide_successful_notice: Пользователь был скрыт
   admin_user_unhide_successful_notice: Пользователь был показан
   agent: Агент
@@ -2391,7 +2392,7 @@ ru:
   bi_monthly: Два раза в месяц
   biodiversity_heritage_library: Библиотека наследия биоразнообразия
   biomedical_terms: Биомедицинские термины
-  biomedical_terms_introduction: Эти термины получены путем поиска в базе данных биомедицинской
+  biomedical_terms_introduction: Эти термины получены путём поиска в базе данных биомедицинской
     литературы <a rel="nofollow" href="%{pubmed_url}">PubMed</a> по запросу <em>%{scientific_name}</em>.
     Результаты проанализированы с помощью инструмента <a rel="nofollow" href="%{ligercat_url}">LigerCat</a>,
     который строит облако наиболее актуальных <a rel="nofollow" href="%{mesh_url}">заголовков
@@ -2418,7 +2419,7 @@ ru:
   cannot_be_empty: не может быть пустым
   cannot_create_community_from_watch_collection_error: Нельзя создать сообщество из
     списка наблюдения.
-  cannot_expand_children: не удается развернуть детей
+  cannot_expand_children: не удаётся развернуть детей
   cannot_find_member: Не удаётся найти пользователя с этим идентификатором.
   change: Изменить
   change_rating_to_1_of_5: Изменить рейтинг до 1 из 5
@@ -2452,7 +2453,7 @@ ru:
   curator_level_with_indefinite_article_assistant_curator: <strong>помощник куратора</strong>
   close_this_window_to_return_to_edit_window: ЗАКРОЙТЕ ЭТО ОКНО, ЧТОБЫ ВЕРНУТЬСЯ В
     ОКНО РЕДАКТИРОВАНИЯ
-  collection_destroyed: Коллекции была удален.
+  collection_destroyed: Коллекции была удалена.
   collection_error_no_items_selected: 'Ошибка: элементы не выбраны, действия не были
     приняты.'
   collection_image: Изображение коллекции
@@ -2536,9 +2537,9 @@ ru:
   content_partner_administration_notes_header: Заметки администрации
   content_partner_administration_settings_header: Параметры администрирования
   content_partner_column_header_partner: Партнер
-  content_partner_contact_delete_successful_notice: Контакт был удален.
+  content_partner_contact_delete_successful_notice: Контакт был удалён.
   content_partner_contact_delete_unsuccessful_error: К сожалению, произошла ошибка,
-    контакт не был удален.
+    контакт не был удалён.
   content_partner_contact_edit_link: Редактировать контакт
   content_partner_contact_edit_page_subheader: Редактировать контакт
   content_partner_contact_new_link: Добавить новый контакт
@@ -2801,7 +2802,7 @@ ru:
   licensing: Лицензирование
   literature_header: Примечания
   location: Местоположение
-  login_hidden_user_message: Учетная запись %{given_name} больше не активна
+  login_hidden_user_message: Учётная запись %{given_name} больше не активна
   logo_header: Логотип
   logout: Выйти
   media_list_empty_search: Нет медиафайлов, соответствующих вашим критериям поиска.
@@ -2817,7 +2818,7 @@ ru:
   method: Метод
   methods: Методы
   monthly: Ежемесячно
-  more_children_with_count: еще %{count}
+  more_children_with_count: ещё %{count}
   more_siblings_with_count:
     one: '%{count} сиблинг'
     other: '%{count} сиблингов'
@@ -2911,10 +2912,10 @@ ru:
   topic: Тема
   to_process_your_donation_please_proceed: Чтобы обработать пожертвование, пожалуйста,
     перейдите
-  to_remedy_this: Чтобы исправить это, мы закроем эти неактивные учетные записи и
-    предложим посетить eol.org для создания новой учетной записи. Когда вы получите
+  to_remedy_this: Чтобы исправить это, мы закроем эти неактивные учётные записи и
+    предложим посетить eol.org для создания новой учётной записи. Когда вы получите
     подтверждение по электронной почте, пожалуйста, нажмите на ссылку, чтобы активировать
-    свою учетную запись.
+    свою учётную запись.
   to_send_email_enter_text: Чтобы отправить этому пользователю электронное сообщение,
     введите ниже текст и нажмите кнопку «Отправить».
   total_comments_have_been_submitted:
@@ -2928,14 +2929,14 @@ ru:
     other: '%{count} элементов'
   total_searches: 'Всего запросов:'
   total: Всего
-  translation_deleted: Перевод был удален
+  translation_deleted: Перевод был удалён
   translation_information_header: Сведения о переводе
   translation_log: Гистограмма ключевых частот l18n
   translation_saved: Перевод был сохранен
   translations_submit: Просмотреть перевод
   trigger_search_term_entered_by: поиск термина, введенный пользователем
   true_label: Истина
-  truncated_comment_omission: '... <a href=''%{link}''>еще</a>'
+  truncated_comment_omission: '... <a href=''%{link}''>ещё</a>'
   truncated_comment_omission_linkless: '...'
   trusted: Доверенный
   trusted_images: Доверенные изображения
@@ -2959,8 +2960,8 @@ ru:
   update_collection_submit_button: Обновить детали коллекции
   update_language: Обновить язык
   update_page: Обновить страницу
-  update_user_successful_notice: Учетная запись успешно обновлена.
-  update_user_unsuccessful_error: Извините, произошла ошибка, ваша учетная запись
+  update_user_successful_notice: Учётная запись успешно обновлена.
+  update_user_unsuccessful_error: Извините, произошла ошибка, ваша учётная запись
     не была обновлена. Убедитесь, что все поля заполнены правильно.
   updated_community: Сообщество было успешно обновлено.
   updated_member: Участник был успешно обновлен.
@@ -2988,7 +2989,7 @@ ru:
   user_activity_stats_objects_curated_dropdown: Курированные объекты
   user_activity_stats_taxa_comments_dropdown: Прокомментированные таксоны
   user_agent: Браузер
-  user_already_active_notice: Ваша учетная запись уже активна, пожалуйста, авторизуйтесь.
+  user_already_active_notice: Ваша учётная запись уже активна, пожалуйста, авторизуйтесь.
   user_comments: Комментарии пользователей
   user_comment: Комментарий пользователя
   user_id: Идентификатор участника
@@ -3087,7 +3088,7 @@ ru:
   you_joined_community: Вы успешно присоединились к этому сообществу.
   you_left_community: Вы успешно покинули это сообщество.
   your_email_address: Ваш адрес электронной почты
-  you_removed_the_member_from_the_community: Этот участник успешно удален из сообщества.
+  you_removed_the_member_from_the_community: Этот участник успешно удалён из сообщества.
   your_ip_address: Ваш IP-адрес
   your_preferences: Ваши установки
   your_rating: Ваша оценка

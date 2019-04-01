@@ -8,6 +8,7 @@
 # Author: Armando-Martin
 # Author: Bernardom
 # Author: Cgalindo
+# Author: Ciencia Al Poder
 # Author: Crazymadlover
 # Author: Csbotero
 # Author: Dalton2
@@ -5433,7 +5434,7 @@ es:
   for_pdfs_and_docs_parens: (para archivos PDF y documentos)
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este
     elemento
-  fragment_caching_enabled: Se activó la antememoria de fragmentos
+  fragment_caching_enabled: Se activó la caché de fragmentos
   frequency: Frecuencia
   frequency_daily: Diario
   frequency_monthly: Menuale

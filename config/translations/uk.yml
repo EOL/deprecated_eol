@@ -1677,9 +1677,9 @@ uk:
           meta_title_with_common_name: Факти про %{preferred_common_name} (%{scientific_name}прокласифікованого
             за %{hierarchy_provider})
           tweet_text: Факти про %{scientific_name} прокласифікованого за %{hierarchy_provider}
-        meta_description: Факти про %{scientific_name}, в тому числі вимірювання і
-          риси %{scientific_name}. Дані обчислень для %{scientific_name} від наукових
-          досліджень вченими.
+        meta_description: Факти про %{scientific_name}, зокрема вимірювання і риси
+          %{scientific_name}. Дані обчислень для %{scientific_name} від наукових досліджень
+          вченими.
         meta_description_no_data: Немає доступних фактів для %{scientific_name}  в
           "Енциклопедії Життя". EOL запрошує вас внести факти для %{scientific_name}.
         meta_description_with_common_name: '%{preferred_common_name} факти, включаючи
@@ -4248,7 +4248,7 @@ uk:
     разом, щоб поділитися своїми інтересами і досвідом. Спільноти ЕЖ організуються
     навколо однієї або декількох колекцій ЕЖ і пропонують учасникам можливість зосередити
     увагу на темах, які становлять спільний інтерес. Детальніша інформація про спільноти
-    ЕЖ, в тому числі вказівки для створення власної, доступна на <a href='/info/communities'>сторінці
+    ЕЖ, зокрема вказівки для створення власної, доступна на <a href='/info/communities'>сторінці
     довідки</a>.
   community_tab_curators_description: Куратори - це користувачі ЕЖ з біологічними
     знаннями, які віддають свій час на перевірку вмісту ЕЖ, гарантуючи, що усе побачене

@@ -696,7 +696,7 @@ fi:
       tweet_text: '%{dato_title} lähteestä %{supplier}'
   eol_statistics:
     comparing_dates: <span class="assistive">Verrataan</span> <span class="date_one">%{date_one}</span>
-      <span class="assistive">and</span> <span class="date_two">%{date_two}</span>
+      <span class="assistive">ja</span> <span class="date_two">%{date_two}</span>
     warnings:
       stats_unavailable_for_date: Tilastot eivät ole saatavana päivämäärälle %{date}.
         Valitse toinen päivämäärä.

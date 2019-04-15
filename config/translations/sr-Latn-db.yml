@@ -33,7 +33,7 @@ sr-Latn:
   translated_agent_roles-label-agent_role_id-3: Sakupljač
   translated_agent_roles-label-agent_role_id-4: Sastavljač
   translated_agent_roles-label-agent_role_id-5: Tvorac
-  translated_agent_roles-label-agent_role_id-6: Rukovodilac
+  translated_agent_roles-label-agent_role_id-6: Direktor
   translated_agent_roles-label-agent_role_id-7: Urednik
   translated_agent_roles-label-agent_role_id-8: Ilustrator
   translated_agent_roles-label-agent_role_id-9: Fotograf
@@ -67,6 +67,7 @@ sr-Latn:
   translated_contact_roles-label-contact_role_id-1: Glavni kontakt
   translated_contact_roles-label-contact_role_id-2: Administrativni kontakt
   translated_contact_roles-label-contact_role_id-3: Tehnički kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Članstvo i registracija
   translated_content_partner_statuses-label-content_partner_status_id-1: Na čekanju
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktivno
   translated_content_partner_statuses-label-content_partner_status_id-3: Arhivirano
@@ -159,7 +160,7 @@ sr-Latn:
   translated_resource_statuses-label-resource_status_id-11: Objavljivanje je u toku
   translated_resource_statuses-label-resource_status_id-12: Uklanjanje objavljenog
     je u toku
-  translated_resource_statuses-label-resource_status_id-13: Primorano preuzimanje
+  translated_resource_statuses-label-resource_status_id-13: Žetva je zatražena
   translated_resource_statuses-label-resource_status_id-1: Otpremam
   translated_resource_statuses-label-resource_status_id-2: Otpremljeno
   translated_resource_statuses-label-resource_status_id-3: Ne mogu da otpremim
@@ -251,6 +252,7 @@ sr-Latn:
   translated_synonym_relations-label-synonym_relation_id-61: objektivan sinonim
   translated_synonym_relations-label-synonym_relation_id-62: glavni sinonim
   translated_synonym_relations-label-synonym_relation_id-63: neprihvaćeno
+  translated_synonym_relations-label-synonym_relation_id-64: nevažeće
   translated_synonym_relations-label-synonym_relation_id-6: ekvivalentan naziv
   translated_synonym_relations-label-synonym_relation_id-7: akronim iz Genbanka
   translated_synonym_relations-label-synonym_relation_id-8: anamorf iz Genbanka

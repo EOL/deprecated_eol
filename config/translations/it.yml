@@ -36,6 +36,7 @@
 # Author: Rippitippi
 # Author: Rosh
 # Author: Semiramide
+# Author: Senpremì
 # Author: Statix64
 # Author: Urielejh
 # Author: Viscontino
@@ -52,7 +53,7 @@ it:
         sort_style_id: Direzione di ordinamento predefinita
         logo: Immagine principale della raccolta
         additional_annotation_fields: Campi di annotazione aggiuntiva
-        show_references: Riferimenti (Testo o URL)
+        show_references: Note (Testo o URL)
       collection_job:
         overwrite: Sostituisci i duplicati
       collection_item:
@@ -81,7 +82,7 @@ it:
         content_partner_status: Stato del progetto
         created_at: Creato
         description: Descrizione del progetto
-        display_name: Visualizza nome
+        display_name: Nome da visualizzare
         full_name: Nome del progetto
         homepage: Indirizzo del progetto
         id: ID
@@ -110,7 +111,7 @@ it:
         created_at: Creato il
         members_count: Membri
         communities_count: Comunità
-        collections_count: Collezioni
+        collections_count: Raccolte
         pages_count: Totale pagine
         pages_with_content: Pagine con contenuti
         pages_with_text: Pagine con testo
@@ -126,8 +127,8 @@ it:
         pages_with_at_least_a_trusted_object: Pagine con oggetti attendibili
         pages_with_at_least_a_curatorial_action: Pagine con azione curatoriale
         pages_with_BHL_links: Pagine con collegamenti BHL
-        pages_with_BHL_links_no_text: Pagine con collegamenti BHL ma nessun testo
-        pages_with_BHL_links_only: Pagine con solo collegamento BHL
+        pages_with_BHL_links_no_text: Pagine con collegamenti BHL ma senza testo
+        pages_with_BHL_links_only: Pagine con solo collegamenti BHL
         data_objects: Oggetti di dati
         data_objects_texts: Oggetti testo
         data_objects_images: Oggetti immagine

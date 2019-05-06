@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Happy5214
+# Author: Mirin
 # Author: Objectivesea
 ---
 eo:
@@ -203,6 +204,7 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-65: genra sinonimo
   translated_synonym_relations-label-synonym_relation_id-67: specio prienketenda
   translated_synonym_relations-label-synonym_relation_id-68: hortikultura
+  translated_synonym_relations-label-synonym_relation_id-9: vulgara nomo laŭ genbank
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-194: Grandeco
   translated_table_of_contents-label-table_of_contents_id-1: Superrigardo

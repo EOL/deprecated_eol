@@ -1,48 +1,143 @@
 # Messages for Esperanto (Esperanto)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: phpyaml
 # Author: Amikeco
+# Author: Fitoschido
+# Author: Julián L
 # Author: KuboF
 # Author: Luckas
 # Author: Mihxil
+# Author: Mirin
 # Author: Objectivesea
+# Author: Renardo
+# Author: Robin van der Vliet
+# Author: YvesNevelsteen
 ---
 eo:
   activerecord:
+    models:
+      user: konto
     attributes:
       collection:
         name: Nomo de kolektaĵo
         description: Kolektaĵa priskribo
         show_references: Referencoj (kiel teksto aŭ URL)
       collection_item:
+        sort_field: Ordigi laŭ
         refs: Referencoj
       comment:
         body: Komento
       community:
         name: Nomo de komunumo
+        description: Priskribo de la komunumo
+        logo: Alŝuti markemblemon
       contact:
+        comments: Mesaĝo
+        contact_subject_id: Subjekto de kontakto
+        email: Retpoŝta adreso
         name: Nomo
+      content_page:
+        page_name: Unika nomo
+        sort_order: Ordiga metodo
+        active: Eldonita
       content_partner:
+        acronym: Mallongigo de projekta nomo
+        auto_publish: Aŭtomate eldoni
+        admin_notes: Aministraj notoj
         content_partner_status: Projekta statuso
+        created_at: Kreita
         description: Projekta priskribo
+        display_name: Montra nomo
         full_name: Projekta nomo
         homepage: URL de projekto
-        id: Identeco
+        id: Identigilo
+        notes: Projektaj notoj
         is_public: Publika
         resources: Rimedoj
+        user_id: Mastrumata de
+      content_partner_agreement:
+        created_at: Kreita je
+        signed_by: Subskribita de
+        signed_on_date: Subskribita en dato
+      content_partner_contact:
+        email_reports_frequency_hours: Ofteco de retpoŝtaj raportoj
       data_object:
         bibliographic_citation: Bibliografia citaĵo
-        description: Priskribo
+        description: Teksto
         object_title: Titolo
+        rights_holder: Posedanto de rajtoj
+        rights_statement: Aserto pri rajtoj
         source_url: URL de fonto
+      data_object_link:
+        description: Priskribo
+        source_url: Ligila adreso
       eol_statistic:
+        created_at: Kreita je
         members_count: Membroj
         communities_count: Komunumoj
         collections_count: Kolektaĵoj
-        objects_curated_in_the_last_30_days: >
-          Objektoj kiujn oni kuratoris dum la
-          lasta tridek tagoj
+        pages_count: Nombro de ĉiuj paĝoj
+        pages_with_content: Paĝoj kun enhavo
+        pages_with_text: Paĝoj kun teksto
+        pages_with_image: Paĝoj kun bildoj
+        pages_with_map: Paĝoj kun mapo
+        pages_with_video: Paĝoj kun video
+        pages_with_sound: Paĝoj kun aŭdo
+        pages_without_text: Paĝoj sen teksto
+        pages_without_image: Paĝoj sen bildo
+        pages_with_image_no_text: Paĝoj kun bildo sed sen teksto
+        pages_with_text_no_image: Paĝoj kun teksto sed sen bildo
+        base_pages: Bazaj paĝoj
+        data_objects: Datenobjektoj
+        data_objects_texts: Tekstobjektoj
+        data_objects_images: Bildobjektoj
+        data_objects_videos: Videobjektoj
+        data_objects_sounds: Sonobjektoj
+        data_objects_maps: Mapobjektoj
+        data_objects_trusted: Fidataj datenobjektoj
+        data_objects_untrusted: Nefidataj datenobjektoj
+        content_partners: Enhavopartneroj
+        content_partners_with_published_resources: Kun eldonitaj rimedoj
+        content_partners_with_published_trusted_resources: Kun eldonitaj fidataj rimedoj
+        published_resources: Eldonitaj rimedoj
+        published_trusted_resources: Eldonitaj fidataj rimedoj
+        published_unreviewed_resources: Eldonitaj ne reviziitaj rimedoj
+        newly_published_resources_in_the_last_30_days: Nove eldonitaj en la lasta
+          monato
+        marine_pages: Maraj paĝoj
+        curators: Kuratoroj
+        curators_assistant: Vickuratoroj
+        curators_full: Plenaj kuratoroj
+        curators_master: Majstraj kuratoroj
+        active_curators: Aktivaj kuratoroj
+        pages_curated_by_active_curators: Pâgoj prizorgata de aktivaj kuratoroj
+        objects_curated_in_the_last_30_days: Objektoj kiujn oni kuratoris dum la lasta
+          tridek tagoj
         curator_actions_in_the_last_30_days: Kuratoragoj dum la lasta tridek tagoj
+        rich_pages: Riĉaj paĝoj
+        lifedesk_taxa: taksonoj de LifeDesks
+        lifedesk_data_objects: datenobjektoj de LifeDesks
+        total_taxa_with_data: Paĝoj kun dateno
+        total_triples: Triopoj
+        total_occurrences: Okazoj
+        total_measurements: Mezuroj
+        total_associations: Asociiĝoj
+        total_measurement_types: Tipoj de mezuro
+        total_association_types: Tipoj de asociiĝo
+        total_user_added_data: Dateno aldonita de uzanto
+      forum:
+        forum_category_id: Kategorio
+        name: Nomo de la forumo
+        description: Priskribo <small>(nedeviga)</small>
+      forum_category:
+        title: Nomo de la kategoria
+        description: Priskribo <small>(nedeviga)</small>
+      forum_post:
+        subject: Subjekto
+        text: Enhavo
+      forum_topic:
+        subject: Subjekto
+        text: Enhavo
       harvest_event:
         resource: Rimedo
       hierarchy:
@@ -50,74 +145,173 @@ eo:
         description: Priskribo
         descriptive_label: Priskriba etikedo
         label: Etikedo
+      known_uri:
+        description: Priskribo
+        name: Nomo
+        toc_items: Kategorioj
       open_authentication:
+        created_at: Kreita
         guid: Globe unika identilo
+        provider: Ekstera provizanto
         secret: Sekreta
         token: Ĵetono
+        updated_at: Laste aktualigita
+        user_id: Salutnomo
+        verified_at: Laste ŝanĝita
       name:
         string: Nomo
+      news_item:
+        page_name: Unika nomo
+        sort_order: Ordiga metodo
+        active: Eldonita
       notification:
         reply_to_comment: Respondo al komento kiun vi faris
         comment_on_my_profile: Komento pri via profilo
-        comment_on_my_contribution: >
-          Komento kaj/aŭ kuratora ago pri
-          kontribuo kiun vi faris
+        comment_on_my_contribution: Komento kaj/aŭ kuratora ago pri kontribuo kiun
+          vi faris
         comment_on_my_collection: Komento pri kolektaĵo kiun vi traktas
-        comment_on_my_community: >
-          Komento en unu de la komunumoj kie vi
-          estas membro
+        comment_on_my_community: Komento en unu de la komunumoj kie vi estas membro
+      resource:
+        auto_publish: Aŭtomate eldoni
+        hierarchy: Hierarkio
+        language_id: Defaŭlta lingvo
+        dataset_license_id: Permesilo
+        dataset_rights_holder: Posedanto de rajtoj
+        dataset_rights_statement: Aserto pri rajtoj
+        license_id: Implicita permesilo
+        rights_holder: Implicita posedanto de rajtoj
+        rights_statement: Implicita aserto pri rajtoj
       translated_content_page:
+        active_translation: Eldonita
+        left_content: Navigado
+        main_content: Enhavo
+        meta_keywords: Metadatenaj ŝlosilvortoj
+        meta_description: Metadatena priskribo
+        title: Titolo
+      translated_known_uri:
+        definition: Difino
+        comment: Komento
+      translated_news_item:
+        active_translation: Eldonita
+        body: Enhavo
+        meta_keywords: Metadatenaj ŝlosilvortoj
+        meta_description: Metadatena priskribo
         title: Titolo
       user:
+        api_key: API-ŝlosilo
         bio: Biografio
         curator_level: Kuratora nivelo
         curator_scope: Kuratora amplekso
-        username: Uzantonomo
+        email: Retpoŝtadreso
+        entered_password: Pasvorto
+        family_name: Familinomo
+        full_name: Kompleta nomo
+        given_name: Antaŭnomo
+        language_abbr: Preferata lingvo
+        permissions: Permesoj
+        username: Uzantnomo
+      user_added_data:
+        predicate: Trajto
+        object: Valoro
+        user: Aldonita de
+      user_added_data_metadata:
+        predicate: Atributo
+        object: Valoro
     errors:
+      format: '%{attribute} %{message}'
       messages:
         invalid: estas nevalida
+        accepted: devas esti akceptita
+        not_a_number: ne estas nombro
+        not_an_integer: devas esti entjero
+        odd: devas esti malpara
+        even: devas esti para
+        wrong_type: havas malĝustan tipon
       models:
         resource:
           attributes:
             accesspoint_url:
-              invalid: >
-                estas nevalida. Ĝi devus indiki
-                dosieron de speco XML, XML.GZIP, XML.GZ
-                aŭ ZIP.
+              invalid: estas nevalida. Ĝi devus indiki dosieron de speco XML, XML.GZIP,
+                XML.GZ aŭ ZIP.
             dwc_archive_url:
-              inaccessible: >
-                ne estas alirebla. La URL devas publike
-                alirebli.
-              invalid: >
-                estas nevalida. Ĝi devus indiki
-                dosieron de speco TAR.GZIP, TAR.GZ, TGZ
-                aŭ ZIP.
+              inaccessible: ne estas alirebla. La URL devas publike alirebli.
+              invalid: estas nevalida. Ĝi devus indiki dosieron de speco TAR.GZIP,
+                TAR.GZ, TGZ aŭ ZIP.
   helpers:
     label:
+      collection:
+        view_style_id: Implicita vido
       collection_item:
         annotation: Prinotaĵo
       comment:
         body_edit: Redakti komenton
       contact:
+        comments: Via mesaĝo
         contact_subject_id: Subjekto
+        email: Via retpoŝtadreso
         name: Via nomo
+      content_page:
+        active: Eldonita
       content_partner:
         last_action: Lasta agado
+        latest_published_harvest_event: Laste eldonita
+        logo_current: 'Aktuala emblemo:'
+        logo_new: 'Alŝuti novan emblemon:'
+        oldest_published_harvest_event: Unue eldonita
       data_object:
+        description: Teksto <small>(iom da HTML estas permesita)</small>
+        license_id: Permesilo
         object_title: Titolo
+        toc_item: Subĉapitro
+        refs_order: '*Referencoj aperos laŭ alfabeta ordo'
+        rights_holder: Posedanto de rajtoj
+        rights_statement: Aserto pri rajtoj
+      data_object_link:
+        source_url: Retadreso de ligilo
+        toc_item: Subjekto
+        link_type: Kategorio
+      data_search:
+        attribute: Elektri atributon
+        max: Plej granda valoro
+        max_with_val: 'Plej granda valoro: %{val}'
+        max_placeholder: Enigi nombron
+        min: Plej malgranda valoro
+        min_with_val: 'Plej malgranda valoro: %{val}'
+        min_placeholder: Enigi nombron
+        q: Specifa valoro
+        q_with_val: 'Specifa valoro: %{val}'
+        q_more: Ekzemple, heterotrofa.
+        taxon_name: Taksona grupo
+        taxon_name_with_val: 'Taksona grupo: %{val}'
+        taxa_found: Taksonoj trovitaj
+        total_results: 'Nombro de rezultoj: %{total}'
+        unit: Mezurunuo
       eol_statistic:
         date_one: Dato
         date_two: Dato
       harvest_event:
         began_at: Komenca
         completed_at: Kompleta
+        first_published_at: Unue eldonita
+        published_at: Eldonita
         published_status: Statuso
+        last_harvest_seconds: Necesis %{time_in_words}
       hierarchy:
         complete: Kuratorita
+      known_uri_relationship:
+        relationship_uri: Elekti rilaton
+      news_item:
+        active: Eldonita
       open_authentication:
         connected: Konektita
         connect: Aldoni
       resource:
+        accesspoint_url: Retadreso de datenaro
+        dataset: Datenaro
+        hierarchy: Hierarkio
+        oldest_published_harvest_event: Unue eldonita
+        latest_published_harvest_event: Laste eldonita
+        latest_harvest_event: Lasta rikolto
         refresh_period_hours: Ofteco
         resource_status_id: Statuso
         resource_status: Statuso
@@ -125,28 +319,93 @@ eo:
       session:
         password: Pasvorto
       translated_content_page:
+        active_translation: Eldonita
+        language_id: Lingvo
+      translated_news_item:
+        active_translation: Eldonita
         language_id: Lingvo
       user:
         bio: Pri mi
         credentials: Akreditaĵo
-        curation_priveleges_credentials: 'Akreditaĵo <small>(nur ĉefo- kaj mastrokuratoroj)</small>'
-        credentials_more: 'Bonvole deklaru almenaŭ unu specifan akreditaĵon el ĉi tiu listo:'
-        credentials_more_academic: >
-          Rango de fakultatano, stabano aŭ
-          diplomito en rilata fako de universitato
-          aŭ komunuma kolegio.
-        credentials_more_author: >
-          Aŭtoreco de egalulo-reviziita eldonaĵo
-          (bonvole provizu referencojn).
+        curation_priveleges_credentials: Akreditaĵo <small>(nur ĉefo- kaj mastrokuratoroj)</small>
+        credentials_more: 'Bonvole deklaru almenaŭ unu specifan akreditaĵon el ĉi
+          tiu listo:'
+        credentials_more_academic: Rango de fakultatano, stabano aŭ diplomito en rilata
+          fako de universitato aŭ komunuma kolegio.
+        credentials_more_author: Aŭtoreco de egalulo-reviziita eldonaĵo (bonvole provizu
+          referencojn).
         credentials_more_professional: Ano de profesia societo.
-        credentials_more_successful_assistant_curator: Sukcesa historio kiel adjunkta kuratoro.
+        credentials_more_successful_assistant_curator: Sukcesa historio kiel adjunkta
+          kuratoro.
+        curation_application: Estiĝi kuratoro
         curator_scope: Kuratora amplekso
+        email_settings_submit: agordoj pri retpoŝto
         email: Retpoŝtadreso
+        entered_password: Pasvorto <small>(4 - 16 skribsignoj)</small>
+        generate_api_key: Peti API-ŝlosilon
+        logo: Alŝuti novan foton
+        new_password: Nova pasvorto <small>(4-16 signoj)</small>
+        new_password_confirmation: Nova pasvorto <small>(por konfirmi)</small>
+        news_in_preferred_language: montri novaĵojn en preferata lingvo
+        notification_settings: Agordoj pri Sciigo
+        open_authentications: Konektitaj kontoj
+        open_authentications_connected_accounts: Viaj konektitaj kontoj
         user_identities: Mi estas
+        username: Uzantnomo <small>(4–32 skribsignoj)</small>
+        username_or_email: Uzantnomo aŭ retpoŝta adreso
+    select:
+      prompt: Elektu
     submit:
-      create: 'Krei %{model}'
+      cancel: Nuligi
+      create: Krei %{model}
+      filter_sort: Filtri kaj ordigi
+      update: Ĝisdatigi %{model}-on
+      submit: Gardi %{model}-on
+      collection_item:
+        update: Konservi
       content_page:
+        create: Krei paĝon
         edit: Redakti
+        preview: Antaŭrigardi
+        update: Ĝisdatigi paĝon
+      content_partner:
+        create: Krei enhavopartneron
+        update: Konservi informon pri enhavopartnero
+      content_partner_contact:
+        create: Aldoni kontakton
+        update: Ĝisdatigi kontakton
+        destroy: Forigi kontakton
+      data_object:
+        create: Aldoni artikolon
+        create_text: Aldoni artikolon
+        update: Konservi artikolon
+      data_object_link:
+        create: Aldoni ligilon
+        update: Konservi ligilon
+      eol_statistic:
+        change_date: Akiri statistikojn pri datoj
+        download_csv: Elŝuti kiel CSV
+      harvest_event:
+        publish: Publikigi
+      hierarchy:
+        update: Ĝisdatigi hierarkion
+      name:
+        create: Aldoni nomon
+        update: Ĝisdatigi nomon
+      news_item:
+        create: Krei novaĵan eron
+        edit: Redakti
+        preview: Antaŭrigardi
+      open_authentication:
+        create: Konekti
+        destroy: Malkonekti
+        update: Konfirmi konekton
+      resource:
+        create: Aldoni rimedon
+        update: Ĝisdatigi rimedon
+        update_settings: Ĝisdatigi agordojn
+        force_harvest: Peti rikolton
+        harvest_tonight: Rikolto Ĉi-nokte
       session:
         create: Ensaluti
         sign_in_with_facebook: Ensaluti tra Facebook
@@ -155,64 +414,77 @@ eo:
         sign_in_with_yahoo: Ensaluti tra Yahoo
       translated_content_page:
         create: Aldoni tradukon
+        update: Konservi tradukajn ŝanĝojn
+      translated_news_item:
+        create: Aldoni tradukon
+        update: Konservi tradukajn ŝanĝojn
       user:
         create: Krei konton
         recover_account: Sendi retpoŝton
+  will_paginate:
+    next_label: Sekva
+    page_gap: '&hellip;'
   datepicker:
     day_names:
-      - Dimanĉo
-      - Lundo
-      - Mardo
-      - Merkredo
-      - Ĵaŭdo
-      - Vendredo
-      - Sabato
+    - Dimanĉo
+    - Lundo
+    - Mardo
+    - Merkredo
+    - Ĵaŭdo
+    - Vendredo
+    - Sabato
     day_names_short:
-      - Dim
-      - Lun
-      - Mar
-      - Mer
-      - Ĵaŭ
-      - Ven
-      - Sab
+    - Dim
+    - Lun
+    - Mar
+    - Mer
+    - Ĵaŭ
+    - Ven
+    - Sab
     day_names_min:
-      - Di
-      - Lu
-      - Ma
-      - Me
-      - Ĵ
-      - Ve
-      - Sa
+    - Di
+    - Lu
+    - Ma
+    - Me
+    - Ĵ
+    - Ve
+    - Sa
+    close: Fermi
+    current: Hodiaŭ
     month_names:
-      - januaro
-      - februaro
-      - marto
-      - aprilo
-      - majo
-      - junio
-      - julio
-      - aŭgusto
-      - septembro
-      - oktobro
-      - novembro
-      - decembro
+    - januaro
+    - februaro
+    - marto
+    - aprilo
+    - majo
+    - junio
+    - julio
+    - aŭgusto
+    - septembro
+    - oktobro
+    - novembro
+    - decembro
     month_names_short:
-      - Jan
-      - Feb
-      - Mar
-      - Apr
-      - Maj
-      - Jun
-      - Jul
-      - Aŭg
-      - Sep
-      - Okt
-      - Nov
-      - Dec
-    next: Sekven
+    - jan
+    - feb
+    - mar
+    - apr
+    - maj
+    - jun
+    - jul
+    - aŭg
+    - sep
+    - okt
+    - nov
+    - dec
+    next: Sekva
     previous: Antaŭen
   admins:
     eol_statistics:
+      content_partners:
+        menu_link: Enhavopartneroj
+        page_header: Statistiko pri Enhavopartnero
+        page_title: 'Administrado: Statistiko pri Enhavopartnero'
       curators:
         menu_link: Kuratora statistiko
         page_header: Kuratora statistiko
@@ -226,24 +498,35 @@ eo:
         page_header: Tutinkluziva statistiko
         page_title: 'Administrado: tutinkluziva statistiko'
       marine:
+        menu_link: Maraj statistikoj
         page_title: 'Administrado: mara statistiko'
+      page_richness:
+        menu_link: Riĉaj paĝoj
+        page_header: Statistikoj pri Riĉaj Paĝoj
   collections:
+    download_taxa_data:
+      attribute_header: Atributo
+      select_all_checkbox: Elekti Ĉiujn
+      user_downloaded_collection: Datena elŝuto de %{collection_name}
     show:
-      meta_description_default: 'Kolektaĵo de la Enciklopedio de Vivo nome de %{collection_name}.'
-      meta_description_default_focus_collection: 'Fokuskolektaĵo de la Enciklopedio de Vivo nome de %{collection_name}.'
-      meta_keywords: 'Kolektaĵo %{collection_name} de la Enciklopedio de Vivo'
+      meta_description_default: Kolektaĵo de la Enciklopedio de Vivo nome de %{collection_name}.
+      meta_description_default_focus_collection: Fokuskolektaĵo de la Enciklopedio
+        de Vivo nome de %{collection_name}.
+      meta_keywords: Kolektaĵo %{collection_name} de la Enciklopedio de Vivo
     editors:
       show:
-        meta_description: 'Registoj de la kolektaĵo %{collection_name} de la Enciklopedio de Vivo'
-        meta_keywords: 'Registoj pri %{collection_name}'
-        meta_title: 'Registoj pri %{collection_name}'
-        tweet_text: 'Registoj pri %{collection_name}'
+        meta_description: Registoj de la kolektaĵo %{collection_name} de la Enciklopedio
+          de Vivo
+        meta_keywords: Registoj pri %{collection_name}
+        meta_title: Registoj pri %{collection_name}
+        tweet_text: Registoj pri %{collection_name}
     newsfeeds:
       show:
-        meta_description: 'Novaĵoj, komentoj kaj membragadoj pri la kolektaĵo %{collection_name} de la Enciklopedio de Vivo'
-        meta_keywords: 'Novaĵoj pri %{collection_name}'
-        meta_title: 'Novaĵoj pri %{collection_name}'
-        tweet_text: 'Novaĵoj pri %{collection_name}'
+        meta_description: Novaĵoj, komentoj kaj membragadoj pri la kolektaĵo %{collection_name}
+          de la Enciklopedio de Vivo
+        meta_keywords: Novaĵoj pri %{collection_name}
+        meta_title: Novaĵoj pri %{collection_name}
+        tweet_text: Novaĵoj pri %{collection_name}
     inaturalists:
       show:
         observer_with_link: 'Observinto: %{observer_link}'
@@ -257,37 +540,49 @@ eo:
   communities:
     collections:
       index:
-        meta_keywords: 'Kolektaĵoj de %{community_name}'
-        meta_title: 'Kolektaĵoj de %{community_name}'
-        tweet_text: 'Kolektaĵoj de %{community_name}'
+        meta_keywords: Kolektaĵoj de %{community_name}
+        meta_title: Kolektaĵoj de %{community_name}
+        tweet_text: Kolektaĵoj de %{community_name}
     newsfeeds:
       show:
-        meta_keywords: '%{community_name}, komunumo de la Enciklopedio de Vivo, novaĵofadeno de %{community_name}, komentoj de %{community_name}, agadoj de %{community_name}'
+        meta_keywords: '%{community_name}, komunumo de la Enciklopedio de Vivo, novaĵofadeno
+          de %{community_name}, komentoj de %{community_name}, agadoj de %{community_name}'
     show:
-      meta_description: 'La komunumon %{community_name} de la Enciklopedio de Vivo forigis ĝia posedanto.'
+      meta_description: La komunumon %{community_name} de la Enciklopedio de Vivo
+        forigis ĝia posedanto.
       meta_title: '%{community_name}n forigis ĝia posedanto.'
-  content_partners:
+  content:
     index:
-      meta_keywords: >
-        Enhavopartneroj de la Enciklopedio de
-        Vivo, Datenprovizantoj de la
-        Enciklopedio de Vivo
+      header_news: Novaĵoj pri Enciklopedio de Vivo
+      meta_title: Bestoj - Plantoj - Bildoj & Informo
+  content_partners:
+    statistics:
+      show:
+        meta_title: Statistiko pri %{partner_name}
+        tweet_text: Uzada statistiko de %{partner_name}
+    index:
+      meta_keywords: Enhavopartneroj de la Enciklopedio de Vivo, Datenprovizantoj
+        de la Enciklopedio de Vivo
       meta_title: Enhavopartneroj
+    show:
+      meta_keywords: '%{partner_name}, Partnero pri Enhavo de Enciklopedio de Vivo'
+    edit:
+      meta_title: Redakti %{partner_name}
   data_objects:
     show:
-      meta_description_article: 'Artikolo - %{dato_description}'
-      meta_description_image: 'Bildo - %{dato_description}'
-      meta_description_image_map: 'Mapo - %{dato_description}'
-      meta_description_map: 'Mapo - %{dato_description}'
-      meta_description_sound: 'Sonaĵo - %{dato_description}'
-      meta_description_video: 'Vidaĵo - %{dato_description}'
+      meta_description_article: Artikolo - %{dato_description}
+      meta_description_image: Bildo - %{dato_description}
+      meta_description_image_map: Mapo - %{dato_description}
+      meta_description_map: Mapo - %{dato_description}
+      meta_description_sound: Sonaĵo - %{dato_description}
+      meta_description_video: Vidaĵo - %{dato_description}
       meta_description_default: '%{dato_title} el %{supplier}.'
-      meta_description_default_article: 'Artikolo - %{dato_title} el %{supplier}.'
-      meta_description_default_image: 'Bildo - %{dato_title} el %{supplier}.'
-      meta_description_default_image_map: 'Mapo - %{dato_title} el %{supplier}.'
-      meta_description_default_map: 'Mapo - %{dato_title} el %{supplier}.'
-      meta_description_default_sound: 'Sono - %{dato_title} el %{supplier}.'
-      meta_description_default_video: 'Vidaĵo - %{dato_title} el %{supplier}.'
+      meta_description_default_article: Artikolo - %{dato_title} el %{supplier}.
+      meta_description_default_image: Bildo - %{dato_title} el %{supplier}.
+      meta_description_default_image_map: Mapo - %{dato_title} el %{supplier}.
+      meta_description_default_map: Mapo - %{dato_title} el %{supplier}.
+      meta_description_default_sound: Sono - %{dato_title} el %{supplier}.
+      meta_description_default_video: Vidaĵo - %{dato_title} el %{supplier}.
       meta_supplier_default: Kontribuanto
       meta_title: '%{dato_title} el %{supplier}'
       tweet_text: '%{dato_title} el %{supplier}'
@@ -315,217 +610,1476 @@ eo:
       page_header: Mara amplekso en la Enciklopedio de Vivo
       page_title: Statistiko
     page_richness:
+      menu_link: Riĉaj paĝoj
+      page_header: Statistikoj pri Riĉaj Paĝoj
       page_title: Statistiko
     users_data_objects:
       page_title: Statistiko
+    data:
+      menu_link: Dateno
+      page_header: Stastistiko pri Dateno
+      page_title: Statistiko
+  forums:
+    forums_heading: Forumoj de Enciklopedio de Vivo
+    last_post: Lasta Afiŝo
+    posts_heading: Afiŝoj
+    replies: Respondoj
+    topics_heading: Fadenoj
+    views: Vidoj
+    create: Krei forumon
+    edit: Redakti forumon
+    post_by_user_at_time: de %{user}, %{time}
+    actions: Agoj
+    administration: Administrado
+    buttons:
+      delete: forigi
+      edit: redakti
+      reply: respondi
+      link: ligi
+    categories:
+      create: Krei kategorion
+      edit: Redakti kategorion
+    posts:
+      joined_date: Aniĝis je %{date}
+      create: Denova afiŝi
+      edit: Redakti afiŝon
+      post_written_by_user: '%{user} skribis:'
+      replying_to_post: 'Respondanta al:'
+      create_successful: Sukcese afiŝis
+      deleted_subject: (forigita)
+      no_subject: (sen subjekto)
+      permalink_to_this_post: 'Konstanta ligilo al ĉi tiu afiŝo:'
+      close_window: fermi
+      posts_with_count:
+        one: '%{count} afiŝo'
+        other: '%{count} afiŝoj'
+    topics:
+      create: Fari novan fadenon
+      no_posts: Neniu afiŝo en ĉi-fadeno
+      create_successful: Sukcese faris fadenon
+      create_failed: Bedaŭrinde, eraro okazis; la fadeno ne povas esti aldonita
+      delete_successful: Sukcese forigis fadenon
+  known_uris:
+    add_a_relationship: Aldoni Rilaton
+    equivalent_to: Ekvivalentecaj Rilatoj
+    relationships: Rilatoj
+    select_a_category_to_view_stats: 'Elekti kategorion por vidi statistikojn:'
+    name_placeholder_text: ekz. Kontribuinto
+    select_a_preferred_uri_for_this_group: Elekti Preferatan Retejan Adreson
+    preferred_for_equivalence_group: Preferata
+    select: elekti
+  known_uri_relationships:
+    deleted: Sukcese forigis rilaton
   layouts:
     application:
+      header_about: Pri EOL
+      header_learn_more: Lernu pli pri
+      header_questions: Diru al mi pli
+      about_link_what_is_eol: Kio estas EOL?
+      about_link_traitbank: Kio estas TraitBank?
+      about_link_discover: Edukado
+      about_link_statistics: Statistiko
+      about_link_glossary: Terminaro
+      about_link_help: Helpo
+      about_link_contact_us: Kontakti Nin
+      learn_more_link_animals: Animaloj
+      learn_more_link_mammals: Mamuloj
       learn_more_link_birds: Birdoj
+      learn_more_link_amphibians: Amfibioj
+      learn_more_link_reptiles: Reptilioj
       learn_more_link_fish: Fiŝoj
       learn_more_link_worms: Vermoj
+      learn_more_link_invertebrates: Senvertebruloj
+      learn_more_link_crustaceans: Krustuloj
+      learn_more_link_mollusks: Moluskoj
+      learn_more_link_insects: Insektoj
       learn_more_link_spiders: Araneoj
       learn_more_link_plants: Plantoj
+      learn_more_link_flowering_plants: Florplantoj
+      learn_more_link_trees: Arboj
+      learn_more_link_fungi: Fungoj
+      learn_more_link_mushrooms: Superaj fungoj
+      learn_more_link_molds: Ŝimoj
+      learn_more_link_bacteria: Bakterioj
+      learn_more_link_viruses: Virusoj
+      learn_more_link_algae: Algoj
+      questions_link_species: Kio estas specio?
+      questions_link_naming_species: Kiel nomiĝas specio?
+      questions_link_binomial_nomenclature: Kio estas dunoma nomenklaturo?
+      questions_link_biological_classification: Kio estas biologia klasifiko?
+      questions_link_invasive_species: Kio estas invada specio?
+      questions_link_model_organism: Kio estas modela organismo?
+    footer:
+      google_plus: Enciklopedio de Vivo ĉe Google+
   members:
     index:
-      meta_description: 'Membroj de komunumo %{community_name} de la Enciklopedio de Vivo.'
-      meta_keywords: 'Membroj de %{community_name}'
-      meta_title: 'Membroj de %{community_name}'
-      tweet_text: 'Membroj de %{community_name}'
+      meta_description: Membroj de komunumo %{community_name} de la Enciklopedio de
+        Vivo.
+      meta_keywords: Membroj de %{community_name}
+      meta_title: Membroj de %{community_name}
+      tweet_text: Membroj de %{community_name}
     show:
-      meta_description: '%{member_name} estas membro de %{community_name}, komunumo de la Enciklopedio de Vivo.'
+      meta_description: '%{member_name} estas membro de %{community_name}, komunumo
+        de la Enciklopedio de Vivo.'
       meta_keywords: '%{member_name} Komunumano'
       meta_title: '%{member_name} Membro de %{community_name}'
       tweet_text: '%{member_name} membro de %{community_name}'
   notifier:
-    activity_user_marked_data_object_as_trusted_for_taxon_on_date: |
+    activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
       %{curator_level} %{users_name} (%{users_url}) estas markita kiel fidata:
       %{object_name} (%{object_url}) por %{taxon_name} (%{taxon_url})
       %{action_date}.
-    activity_user_marked_data_object_as_untrusted_on_date: |
+    activity_user_marked_data_object_as_untrusted_on_date: |-
       %{curator_level} %{users_name} (%{users_url}) estas markita kiel nefidata:
       %{object_name} (%{object_url})
       %{action_date}.
-    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |
+    activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
       %{curator_level} %{users_name} (%{users_url}) estas markita kiel nefidata:
       %{object_name} (%{object_url}) por %{taxon_name} (%{taxon_url})
       %{action_date}.
-    activity_user_marked_data_object_as_inappropriate_on_date: |
+    activity_user_marked_data_object_as_inappropriate_on_date: |-
       %{curator_level} %{users_name} (%{users_url}) estas markita kiel netaŭga
       %{object_name} (%{object_url})
       %{action_date}.
-    greeting_dear_name_with_comma: 'Kara %{name},'
+    greeting_dear_name_with_comma: Kara %{name},
     signature_basic: Laborgrupo pri la Enciklopedio de Vivo
-    signature_with_contact_us_link: |
+    signature_with_contact_us_link: |-
       Se vi havos eventualajn problemojn, bonvole kontaktu nin ĉe %{url}.
-      
+
       Laborgrupo pri la Enciklopedio de Vivo
-    signature_with_species_pages_group_contact: |
+    signature_with_species_pages_group_contact: |-
       Se vi havos eventualajn demandojn, bonvole kontaktu nin ĉe %{species_pages_group_email}.
-      
+
       Laborgrupo pri la Enciklopedio de Vivo
-    user_commented_on_something_date_body: |
+    user_commented_on_something_date_body: |-
       %{curator_level} %{users_name} (%{users_url}) komenti pri:
       %{commented_on_name} (%{commented_on_url})
       %{comment_date}:
       %{comment_body}
+    contact_us_auto_response:
+      subject: Dankon por kontakti la Enciklopedion de Vivo
+    unsubscribed_to_notifications:
+      subject: Domaĝe ke vi foriras...
     user_activated:
-      subject: >
-        Vian konton de la Enciklopedio de Vivo
-        aktivigis
+      subject: Vian konton de la Enciklopedio de Vivo aktivigis
     user_activated_with_open_authentication:
-      subject: >
-        Vian konton de la Enciklopedio de Vivo
-        aktivigis
+      subject: Vian konton de la Enciklopedio de Vivo aktivigis
+    user_message:
+      subject: Mesaĝo de Enciklopedio de Vivo
     user_verification:
-      subject: >
-        Bonvole konfirmu vian peton por konto de
-        la Enciklopedio de Vivo
+      subject: Bonvole konfirmu vian peton por konto de la Enciklopedio de Vivo
   recent_activity:
-    intro_immediately: 'Saluton, %{name} —'
+    intro_immediately: Saluton, %{name} —
     default_subject: Lasta agado je EOL.
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
     comment_title: '%{who} komentis pri %{what}'
-    someone_commented_on_something: '<b>%{who}</b> komentis pri <b>%{what}</b>.'
+    collection_activity_log_title: '%{who} modifis kolekton'
+    community_activity_log_title: '%{who} modifis komunumon'
+    data_object_title: '%{who} aldonis novan enhavon al EdV'
+    someone_commented_on_something: <b>%{who}</b> komentis pri <b>%{what}</b>.
     comment_link: Vidi komenton pri EOL
-    collection_activity_user_added_item: '<b>%{user_name}</b> aldonis %{collected_item_type} #%{collected_item_id} al <b>%{collection_name}</b>.'
-    data_object_activity_article_added_by_user: '<b>%{user_name}</b> aldonis artikolon nomata %{dato_title} al <b>%{taxon_concept}</b> (%{taxon_details_url}).'
+    collection_activity_user_added_item: '<b>%{user_name}</b> aldonis %{collected_item_type}
+      #%{collected_item_id} al <b>%{collection_name}</b>.'
+    data_object_activity_article_added_by_user: <b>%{user_name}</b> aldonis artikolon
+      nomata %{dato_title} al <b>%{taxon_concept}</b> (%{taxon_details_url}).
   recent_activities:
     index:
       list_header: Lasta sep tagoj
+      page_title: Aktiveco de EdV-Komunumo
+      meta_title: Aktiveco de EdV-Komunumo
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      header: Via elŝuto estas preta!
   sessions:
     new:
-      login_with_facebook_assistive: >
-        Ensaluti al Enciklopedio de Vivo tra via
-        akreditaĵo el Facebook.
-      login_with_google_assistive: >
-        Ensaluti al Enciklopedio de Vivo tra via
-        akreditaĵo el Google.
-      login_with_twitter_assistive: >
-        Ensaluti al Enciklopedio de Vivo tra via
-        akreditaĵo el Twitter.
-      login_with_yahoo_assistive: >
-        Ensaluti al Enciklopedio de Vivo tra via
-        akreditaĵo el Yahoo.
-      login_with_eol_authentication_header: 'Aŭ ensaluti tra via akreditaĵo de la Enciklopedio de Vivo:'
+      login_with_facebook_assistive: Ensaluti al Enciklopedio de Vivo tra via akreditaĵo
+        el Facebook.
+      login_with_google_assistive: Ensaluti al Enciklopedio de Vivo tra via akreditaĵo
+        el Google.
+      login_with_twitter_assistive: Ensaluti al Enciklopedio de Vivo tra via akreditaĵo
+        el Twitter.
+      login_with_yahoo_assistive: Ensaluti al Enciklopedio de Vivo tra via akreditaĵo
+        el Yahoo.
+      login_with_eol_authentication_header: 'Aŭ ensaluti tra via akreditaĵo de la
+        Enciklopedio de Vivo:'
       meta_title: Ensaluti
+      problems_signing_in_with_eol_authentication: Forgesis pasvorton?
   taxa:
     communities:
+      index:
+        meta_keywords: komunumo pri %{scientific_name}
+        meta_keywords_with_common_name: komunumo pri %{preferred_common_name}, pri
+          %{scientific_name}
+        meta_title: Homoj interesataj pri %{scientific_name}
+        meta_title_with_common_name: Homoj interesataj pri %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Homoj interesataj pri %{scientific_name}
       collections:
-        meta_keywords: 'Kolektaĵoj de %{scientific_name}, Observaĵoj pri %{scientific_name}'
-        meta_keywords_with_common_name: 'Kolektaĵoj de %{preferred_common_name}, Observaĵoj pri %{preferred_common_name}, Kolektaĵoj de %{scientific_name}, Observaĵoj pri %{scientific_name}'
-        meta_title: 'Kolektaĵoj de %{scientific_name}'
-        meta_title_with_common_name: 'Kolektaĵoj de %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Kolektaĵoj de %{scientific_name}'
+        hierarchy_entry:
+          meta_description: Kolektoj enhavantaj %{scientific_name} laŭ klasifiko de
+            %{hierarchy_provider}.
+        meta_description: Kolektoj enhavantaj %{scientific_name}-on.
+        meta_keywords: Kolektaĵoj de %{scientific_name}, Observaĵoj pri %{scientific_name}
+        meta_keywords_with_common_name: Kolektaĵoj de %{preferred_common_name}, Observaĵoj
+          pri %{preferred_common_name}, Kolektaĵoj de %{scientific_name}, Observaĵoj
+          pri %{scientific_name}
+        meta_title: Kolektaĵoj de %{scientific_name}
+        meta_title_with_common_name: Kolektaĵoj de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kolektaĵoj de %{scientific_name}
       curators:
-        meta_description_with_common_name: 'Spertoj pri %{preferred_common_name} (ankaŭ konata kiel spertoj pri %{scientific_name}), kiuj monitoras ĝian datenon en la Enciklopedio de Vivo.'
-        meta_keywords: 'Spertoj pri %{scientific_name}, Kuratoroj pri %{scientific_name}'
-        meta_title: 'Kuratoroj de %{scientific_name}'
-        meta_title_with_common_name: 'Spertoj pri %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Kuratoroj de %{scientific_name}'
+        hierarchy_entry:
+          meta_title: Kuratoroj de %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+          meta_title_with_common_name: Fakuloj pri %{preferred_common_name} (%{scientific_name}
+            laŭ klasifiko de %{hierarchy_provider})
+          tweet_text: Kuratoroj de %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+        meta_description_with_common_name: Spertoj pri %{preferred_common_name} (ankaŭ
+          konata kiel spertoj pri %{scientific_name}), kiuj monitoras ĝian datenon
+          en la Enciklopedio de Vivo.
+        meta_keywords: Spertoj pri %{scientific_name}, Kuratoroj pri %{scientific_name}
+        meta_title: Kuratoroj de %{scientific_name}
+        meta_title_with_common_name: Spertoj pri %{preferred_common_name} (%{scientific_name})
+        tweet_text: Kuratoroj de %{scientific_name}
+    data:
+      index:
+        hierarchy_entry:
+          tweet_text: Faktoj pri %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+        meta_title: Mezuroj kaj faktoj pri %{scientific_name}
+        meta_title_with_common_name: Mezuroj kaj faktoj pri %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Faktoj pri %{scientific_name}
     details:
       index:
-        meta_description: 'Faktoj pri %{scientific_name} en la Enciklopedio de Vivo'
-        meta_title: 'Faktoj pri %{scientific_name}'
-        meta_title_with_common_name: 'Faktoj pri %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Faktoj pri %{scientific_name}'
+        meta_description: Priskriboj kaj artikoloj pri %{scientific_name} en la Enciklopedio
+          de Vivo
+        meta_title: Priskriboj kaj artikoloj pri %{scientific_name}
+        meta_title_with_common_name: Priskriboj kaj artikoloj pri %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Artikoloj pri %{scientific_name}
     literature:
       bhl:
         hierarchy_entry:
-          meta_description: 'Literaturo kaj informoj de BHL pri %{scientific_name} kiel klasifikas %{hierarchy_provider} en la Enciklopedio de Vivo. Vi povas legi artikolojn el la Biodiverseca Heredaĵa Libraro (BHL) pri %{scientific_name} en la Enciklopedio de Vivo.'
-          meta_title: 'Literaturo BHL pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-          meta_title_with_common_name: 'Literaturo BHL pri %{preferred_common_name} (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})'
+          meta_description: Literaturo kaj informoj de BHL pri %{scientific_name}
+            kiel klasifikas %{hierarchy_provider} en la Enciklopedio de Vivo. Vi povas
+            legi artikolojn el la Biodiverseca Heredaĵa Libraro (BHL) pri %{scientific_name}
+            en la Enciklopedio de Vivo.
+          meta_title: Literaturo BHL pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+          meta_title_with_common_name: Literaturo BHL pri %{preferred_common_name}
+            (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})
         tweet_text: 'Literaturo el #BHL pri %{scientific_name}'
       show:
         hierarchy_entry:
-          meta_title: 'Literaturo pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-          meta_title_with_common_name: 'Libroj pri %{preferred_common_name} (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})'
-          tweet_text: 'Literaturo pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
+          meta_title: Literaturo pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+          meta_title_with_common_name: Libroj pri %{preferred_common_name} (%{scientific_name}
+            kiel ĝin klasifikas %{hierarchy_provider})
+          tweet_text: Literaturo pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+        meta_title_with_common_name: Artikoloj & Libroj pri %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Artikoloj & Libroj pri %{scientific_name}
     maps:
       show:
-        meta_keywords: 'Habitatloko de %{scientific_name}, kie %{scientific_name} vivas'
-        meta_title: 'Mapoj pri %{scientific_name}'
-        meta_title_with_common_name: 'Mapoj pri %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Mapoj pri %{scientific_name}'
+        hierarchy_entry:
+          meta_title: Mapoj pri %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+          meta_title_with_common_name: Mapoj pri %{preferred_common_name} (%{scientific_name}
+            laŭ klasifiko de %{hierarchy_provider})
+        meta_keywords: Habitatloko de %{scientific_name}, kie %{scientific_name} vivas
+        meta_title: Mapoj pri %{scientific_name}
+        meta_title_with_common_name: Mapoj pri %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mapoj pri %{scientific_name}
+    media:
+      index:
+        tweet_text: Bildoj, videaĵoj, kaj sonoj pri %{scientific_name}
     names:
       index:
-        tweet_text: 'Taksonomia informo por %{scientific_name}'
+        hierarchy_entry:
+          tweet_text: Nomoj rilataj al %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+        tweet_text: Taksonomia informo por %{scientific_name}
       common_names:
         hierarchy_entry:
-          meta_keywords: 'Vulgaraj nomoj por %{scientific_name}'
-          meta_title: 'Vulgaraj nomoj por %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-          meta_title_with_common_name: 'Vulgaraj nomoj por %{preferred_common_name} (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})'
-        meta_description: 'Komunaj nomoj por %{scientific_name}'
-        meta_keywords: 'Komunaj nomoj por %{scientific_name}'
-        meta_keywords_with_common_name: 'Komunaj nomoj por %{scientific_name}, Scienca nomo por %{preferred_common_name}'
-        meta_title: 'Komunaj nomoj por %{scientific_name}'
-        meta_title_with_common_name: 'Komunaj nomoj por %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Komunaj nomoj por %{scientific_name}'
+          meta_keywords: Vulgaraj nomoj por %{scientific_name}
+          meta_title: Vulgaraj nomoj por %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+          meta_title_with_common_name: Vulgaraj nomoj por %{preferred_common_name}
+            (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})
+          tweet_text: Vulgaraj nomoj de %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
+        meta_description: Komunaj nomoj por %{scientific_name}
+        meta_description_with_common_name: La scienca nomo de %{preferred_common_name}
+          estas %{scientific_name}. Eltrovu kiujn aliajn vulgarajn nomojn %{scientific_name}
+          havas.
+        meta_keywords: Komunaj nomoj por %{scientific_name}
+        meta_keywords_with_common_name: Komunaj nomoj por %{scientific_name}, Scienca
+          nomo por %{preferred_common_name}
+        meta_title: Komunaj nomoj por %{scientific_name}
+        meta_title_with_common_name: Komunaj nomoj por %{preferred_common_name} (%{scientific_name})
+        tweet_text: Komunaj nomoj por %{scientific_name}
       synonyms:
         hierarchy_entry:
-          meta_keywords: 'Sinonimoj de %{scientific_name}'
-          meta_keywords_with_common_name: 'Sinonimoj de %{preferred_common_name}, Sinonimoj de %{scientific_name}'
-          meta_title: 'Sinonimoj de %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-          meta_title_with_common_name: 'Sinonimoj de %{preferred_common_name} (%{scientific_name} kiel ĝin klasifikas %{hierarchy_provider})'
-          tweet_text: 'Sinonimoj de %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-        meta_description: 'Sinonimoj de %{scientific_name}.'
-        meta_keywords_with_common_name: 'Sinonimoj de %{preferred_common_name}, Sinonimoj de %{scientific_name}'
-        meta_title: 'Sinonimoj de %{scientific_name}.'
-        meta_title_with_common_name: 'Sinonimoj de %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Sinonimoj de %{scientific_name}'
+          meta_description: Sinonimoj asociitaj al %{scientific_name} laŭ klasifiko
+            de %{hierarchy_provider}
+          meta_keywords: Sinonimoj de %{scientific_name}
+          meta_keywords_with_common_name: Sinonimoj de %{preferred_common_name}, Sinonimoj
+            de %{scientific_name}
+          meta_title: Sinonimoj de %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+          meta_title_with_common_name: Sinonimoj de %{preferred_common_name} (%{scientific_name}
+            kiel ĝin klasifikas %{hierarchy_provider})
+          tweet_text: Sinonimoj de %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+        meta_description: Sinonimoj de %{scientific_name}.
+        meta_description_with_common_name: Sinonimoj de %{preferred_common_name},
+          science konata kiel %{scientific_name}.
+        meta_keywords: Sinonimoj de %{scientific_name}
+        meta_keywords_with_common_name: Sinonimoj de %{preferred_common_name}, Sinonimoj
+          de %{scientific_name}
+        meta_title: Sinonimoj de %{scientific_name}.
+        meta_title_with_common_name: Sinonimoj de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sinonimoj de %{scientific_name}
+    overview:
+      show:
+        hierarchy_entry:
+          meta_title: '%{scientific_name} Klasifikita de %{hierarchy_provider}'
+          meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name}
+            Klasifikita de %{hierarchy_provider})'
+        meta_description: Informo pri %{scientific_name} en la Enciklopedio de Vivo.
+        meta_description_with_common_name: Informo pri %{preferred_common_name}, science
+          konata kiel %{scientific_name}, en la Enciklopedio de Vivo.
+        meta_title: '%{scientific_name} - Informo pri %{scientific_name}'
+        tweet_text: Informo pri %{scientific_name}
+    resources:
+      biomedical_terms:
+        meta_title: Biomedicinaj terminoj pri %{scientific_name}
+        meta_title_with_common_name: Biomedicinaj terminoj pri %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Biomedicinaj terminoj pri %{scientific_name}
     updates:
       show:
-        meta_title_with_common_name: 'Komentoj pri %{preferred_common_name} (%{scientific_name})'
-        tweet_text: 'Komentoj pri %{scientific_name}'
+        meta_title: Komentoj pri %{scientific_name}
+        meta_title_with_common_name: Komentoj pri %{preferred_common_name} (%{scientific_name})
+        tweet_text: Komentoj pri %{scientific_name}
       statistics:
         hierarchy_entry:
-          meta_title: 'Statistiko por %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}'
-        meta_description: 'Statistiko kaj dateno por %{scientific_name} ĉe la Enciklopedio de Vivo.'
-        meta_keywords: 'statistiko pri %{scientific_name}, statistiko pri %{scientific_name}, dateno por %{scientific_name}'
-        meta_keywords_with_common_name: 'statistiko pri %{preferred_common_name}, statistiko pri %{preferred_common_name}, dateno por %{preferred_common_name}'
+          meta_title: Statistiko por %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+        meta_description: Statistiko kaj dateno por %{scientific_name} ĉe la Enciklopedio
+          de Vivo.
+        meta_keywords: statistiko pri %{scientific_name}, statistiko pri %{scientific_name},
+          dateno por %{scientific_name}
+        meta_keywords_with_common_name: statistiko pri %{preferred_common_name}, statistiko
+          pri %{preferred_common_name}, dateno por %{preferred_common_name}
   users:
     activities:
       show:
-        meta_title: 'Agado de %{user_full_name}'
-        tweet_text: 'agado de %{user_full_name}'
+        meta_title: Agado de %{user_full_name}
+        tweet_text: agado de %{user_full_name}
     communities:
       index:
-        meta_description: 'Komunumoj kie %{user_full_name} estas membro.'
-        meta_title: 'Komunumoj de %{user_full_name}'
-        tweet_text: 'komunumoj de %{user_full_name}'
+        meta_description: Komunumoj kie %{user_full_name} estas membro.
+        meta_title: Komunumoj de %{user_full_name}
+        tweet_text: komunumoj de %{user_full_name}
+    data_downloads:
+      download: elŝuti
+      page_title: Datenaj Elŝutoj
+      query_head: Informpeto
+      attribute_head: Atributo
+      created_head: Kreita
+      complete_head: Ĉu kompleta?
+      actions_head: Agoj
+      is_complete: Jes
+      is_not_complete: Ne
+      query_empty: (neniu filtrilo)
+      refresh: refreŝigi
+      row_count: Nombro
+      search_again: reserĉi
+    new:
+      meta_title: Aliĝi al EdV
+      sign_up_with_facebook_assistive: Registri vin ĉe EdV per Facebook.
+      sign_up_with_google_assistive: Registri vin ĉe EdV per Google.
+      sign_up_with_twitter_assistive: Registri vin ĉe EdV per Twitter.
+      sign_up_with_yahoo_assistive: Registri vin ĉe EdV per Yahoo.
     newsfeeds:
       activity_link: agado
       comments_link: komentoj
+    notifications:
+      edit:
+        page_title: Agordoj pri sciigo
+      update:
+        notification_settings_successfully_updated: Sukcese agordis sciigojn.
+        sorry_notification_settings_could_not_be_updated: Domaĝe, ne povis agordi
+          sciigojn.
     open_authentications:
       facebook: Facebook
       google: Google
+      index:
+        not_connected: Ne konektita;
+        page_title: Konektitaj kontoj
       twitter: Twitter
       yahoo: Yahoo!
-  article_from_supplier: 'Artikolo el %{whom}'
-  sound_from_supplier: 'Sonaĵo el %{whom}'
-  image_from_supplier: 'Bildo el %{whom}'
-  map_from_supplier: 'Mapo el %{whom}'
-  image_map_from_supplier: 'Mapo el %{whom}'
-  video_from_supplier: 'Vidaĵo el %{whom}'
-  article_of_taxon: 'Artikolo pri %{taxon_name}'
-  sound_of_taxon: 'Sono de %{taxon_name}'
-  image_of_taxon: 'Bildo de %{taxon_name}'
-  map_of_taxon: 'Mapo pri %{taxon_name}'
-  image_map_of_taxon: 'Mapo pri %{taxon_name}'
-  video_of_taxon: 'Vidaĵo pri %{taxon_name}'
+    pending:
+      header: Dankon pro registri vin!
+    recover_account_choose_account:
+      legend_choose_account: Elekti konton
+  user_added_data:
+    edit_data_header: Redakti vian datenon
+    add_metadata_header: Plia Informo
+    edit_metadata_header: Redakti metadatenon
+    create_successful: Sukcese aldonis datenon
+    create_failed: 'Ne povis aldoni vian datenon: %{errors}'
+    delete_successful: Sukcese forigis datenon
+    new_field: Nova Kampo...
+    new_value: Valoro
+    submit_data: sendi datenan valoron
+    update_successful: Sukcese aktualigis datenon
+    update_failed: 'Ne povis aktualigi vian datenon: %{errors}'
+  data_search_files:
+    unit_uri: Mezurunuo
+  this_article_is_unpublished: Tiu artikolo ne estis eldonita.
+  this_image_is_unpublished: Tiu bildo ne estis eldonita.
+  this_image_map_is_unpublished: Tiu map ne estis eldonita.
+  this_link_is_unpublished: Tiu ligilo ne estis eldonita.
+  this_map_is_unpublished: Tiu mapo ne estis eldonita.
+  this_video_is_unpublished: Tiu videaĵo ne estis eldonita.
+  this_sound_is_unpublished: Tiu sono ne estis eldonita.
+  article_from_supplier: Artikolo el %{whom}
+  sound_from_supplier: Sonaĵo el %{whom}
+  image_from_supplier: Bildo el %{whom}
+  map_from_supplier: Mapo el %{whom}
+  image_map_from_supplier: Mapo el %{whom}
+  video_from_supplier: Vidaĵo el %{whom}
+  article_of_taxon: Artikolo pri %{taxon_name}
+  sound_of_taxon: Sono de %{taxon_name}
+  image_of_taxon: Bildo de %{taxon_name}
+  map_of_taxon: Mapo pri %{taxon_name}
+  image_map_of_taxon: Mapo pri %{taxon_name}
+  video_of_taxon: Vidaĵo pri %{taxon_name}
   0_or_1: 0 aŭ 1
   0_1_or_2: 0, 1 aŭ 2
+  account_information: Informo pri Konto
+  account_information_menu: Informo pri Konto
   action: Ago
   actions: 'Agoj:'
   active_colon: 'Aktiva:'
+  active: Aktiva
+  activity: Aktiveco
+  activity_logs:
+    collection_activity_log:
+      create:
+        an_unknown_user_created_it: Nekonata uzanto kreis ĝin.
+        user_created_it: <strong>%{user}</strong> kreis ĝin.
+      remove:
+        an_unknown_user_removed_an_unknown_item_from_it: Nekonata uzanto forigis nekonatan
+          eron.
+        an_unknown_user_removed_item_from_it: Nekonata uzanto forigis eron "%{item}".
+        user_removed_an_unknown_item_from_it: <strong>%{user}</strong> forigis nekonatan
+          eron.
+        user_removed_item_from_it: <strong>%{user}</strong> forigis eron "%{item}".
+      collect:
+        an_unknown_user_added_item_to_it: Nekonata uzanto aldonis eron "%{item}".
+        user_added_an_unknown_item_to_it: <strong>%{user}</strong> aldonis nekonatan
+          eron.
+        user_added_item_to_it: <strong>%{user}</strong> aldonis eron "%{item}".
+      other_actions:
+        an_unknown_user_modified_an_unknown_collection: Nekonata uzanto modifis nekonatan
+          kolekton.
+        an_unknown_user_modified_collection: Nekonata uzanto modifis kolekton "%{collection}".
+        user_modified_an_unknown_collection: <strong>%{user}</strong> modifis nekonatan
+          kolekton.
+        user_modified_collection: <strong>%{user}</strong> modifis kolekton "%{collection}".
+    community_activity_log:
+      create:
+        an_unknown_user_created_an_unknown_community: Nekonata uzanto kreis nekonatan
+          komunumon.
+        an_unknown_user_created_community: Nekonata uzanto kreis komunumon "%{community}".
+        user_created_an_unknown_community: <strong>%{user}</strong> kreis nekonatan
+          komunumon.
+        user_created_community: <strong>%{user}</strong> kreis komunumon "%{community}".
+      join:
+        an_unknown_user_joined_an_unknown_community: Nekonata uzanto aliĝis al nekonata
+          komunumo.
+        an_unknown_user_joined_community: Nekonata uzanto aligis al komunumo "%{community}".
+        user_joined_an_unknown_community: <strong>%{user}</strong> aliĝis al nekonatan
+          komunumon.
+        user_joined_community: <strong>%{user}</strong> aliĝis al la komunumo "%{community}".
+      change_name:
+        an_unknown_user_changed_the_name_of_an_unknown_community: Nekonata uzanto
+          ŝanĝis la nomon de nekonata komunumo.
+        an_unknown_user_changed_the_name_of_community: Nekonata uzanto ŝanĝis la nomon
+          de komunumo "%{community}".
+        user_changed_the_name_of_an_unknown_community: <strong>%{user}</strong> ŝanĝis
+          la nomon de nekonata komunumo.
+        user_changed_the_name_of_community: <strong>%{user}</strong> ŝanĝis la nomon
+          de komunumo "%{community}".
+      change_icon:
+        an_unknown_user_changed_the_icon_of_an_unknown_community: Nekonata uzanto
+          ŝanĝis la emblemon de nekonata komunumo.
+        an_unknown_user_changed_the_icon_of_community: Nekonata uzanto ŝanĝis emblemon
+          de komunumo "%{community}".
+        user_changed_the_icon_of_an_unknown_community: <strong>%{user}</strong> ŝanĝis
+          emblemon de nekonata komunumo.
+        user_changed_the_icon_of_community: <strong>%{user}</strong> ŝanĝis emblemon
+          de komunumo "%{community}".
+    curator_activity_log:
+      reasons_to_untrust: 'Kialoj por malfidi: %{reasons}'
+      reasons_to_hide: 'Kialoj por kaŝi: %{reasons}'
+  add_a_comment: Aldoni komenton.
+  add_a_comment_colon: 'Aldoni komenton:'
+  add: Aldoni
+  add_a_new_common_name: Aldoni novan vulgaran nomon
+  add_a_new_file_brackets: '[aldoni novan dosieron]'
+  add_a_new_role: Aldoni novan rolon
+  add_a_new_user: Aldoni novan uzanton
+  add_a_taxon_association_label: Aldoni taksonan asociiĝon
+  add_another_metadata_field: Aldoni novan metadatenan kampon
+  add_article_instead: aldoni artikolon anstataŭe
+  add_article_to_page_button: Aldoni artikolon
+  add_association_submit_button: aldoni asocion
+  add_language: Aldoni lingvon
+  add_link_instead: aldoni ligilon anstataŭe
+  add_link_to_page_button: Aldoni ligilon
+  add_new_association_link: Aldoni novan asocion
+  add_new_tag_suggestion: Aldoni novan sugeston pri etikedo
+  add_new_known_uri_link: Aldoni novan retejan adreson
+  add_page: Aldoni paĝon
+  add_sub_chapter: Aldoni subĉapitron
+  add_to_a_community: Aldoni al komunumo
+  admin_content_page_active: Eldonita
+  admin_content_page_not_active: Ne eldonita
+  admin_content_page_child_new_link: Krei idan paĝon
+  admin_content_page_new_link: Krei novan paĝon
+  admin_content_page_root: Radiko
+  admin_content_partners_index_header: Partneroj pri enhavo
+  admin_content_partners_link: Partneroj pri Enhavo
+  admin_content_partners_statistics_first_published_download_csv_submit: Elŝuti kiel
+    komo-apartigitaj valoroj
+  admin_content_partners_statistics_link: Statistiko
+  admin_news_item_active: Eldonita
+  admin_news_item_not_active: Ne eldonita
+  admin_news_link: Novaĵoj
+  admin_link: Superrigardo
+  admin_page_title: 'Administrado: Superrigardo'
+  admin_simple_actions_header: 'Simplaj Agoj:'
+  admin_statistics_link: Statistiko
+  admin_translated_content_page_new_header: Elekti bildon por aldoni enhavon
+  admin_translated_content_page_new_link: Aldoni tradukon
+  admin_translated_news_item_active: Eldonita
+  admin_translated_news_item_new_header: Elekti lingvon kaj aldoni enhavon
+  admin_translated_news_item_new_link: Aldoni tradukon
+  admin_translated_news_item_not_active: Ne eldonita
+  all_changes: Ĉiuj ŝanĝoj
+  all_collections: Ĉiuj kolektoj
+  all_communities: Ĉiuj komunumoj
+  all_count: Ĉiuj (%{count})
+  all_filter: ĉiuj
+  all_images: Ĉiuj bildoj
+  all_information: Ĉiuj informoj
+  all_items: Ĉiuj eroj
+  all_news: ĉiuj novaĵoj
+  all_people: Ĉiuj homoj
+  all_sounds: Ĉiuj sonoj
+  all_sources: Ĉiuj fontoj
+  all_taxa: Ĉiuj taksonoj
+  all_title: Ĉiuj
+  all_videos: Ĉiuj videaĵoj
+  allow_user_logins: Permesi ensalutojn
+  already_a_member_question: Jam aniĝis?
+  alternative_name_colon: 'Alternativa nomo:'
+  alternative_common_name_colon: 'Alternativa vulgara nomo:'
+  amount: Kvanto
+  annotation_submit: afiŝi komenton
+  anonymous_user_full_name: Anonima Uzanto
+  anonymous_user_given_name: Anonimulo
+  anonymous_user_tag_line: Ne Ensalutinta
+  and: kaj
+  and_between_form_items: kaj
+  any_integer: ajna entjero
+  any_string: ajna signoĉeno
+  application_version_advisory_information: Versio de aplikaĵo
+  are_you_sure: Ĉu vi certas?
+  are_you_sure_this_action_cannot_be_undone: Ĉu vi certas? Tio ne estas malfarebla.
+  article_from: artikolo el
+  article_more_about: Lernu pli pri tiu ĉi artikolon
+  assistive_overview_header: Superrigardo
+  assistive_data_header: Faktoj & Informo
+  assistive_details_header: Detaloj
+  assistive_literature_header: Literaturo
+  assistive_names_classifications_header: Klasifikoj
+  assistive_names_common_header: Vulgaraj nomoj
+  assistive_names_related_header: Rilataj nomoj
+  assistive_names_synonyms_header: Sinonimoj
+  assistive_maps_header: Mapoj
+  assistive_taxon_community_header: Komunumo
+  assistive_updates_header: Ĝisdatigoj
+  assistive_updates_statistics_header: Statistiko pri paĝo
+  associated_submit_button: asociita
+  associated_with_header: asociita kun
+  a_taxon: taksono
+  attribute: Atributo
+  audio_play: ludi
+  audio_pause: paŭzigi
+  audio_mute: mutigi
+  audio_unmute: malmutigi
+  authoritative_information: aŭtoritata informo
+  available: dispona
+  began: Komencis
+  beta_warning_note_header: 'Noto:'
+  bi_monthly: Ĉiusemajnduope
+  biomedical_terms: Biomedicinaj terminoj
+  by_caps: Far
+  by_scientific_name_table_header: laŭ Scienca Nomo
+  cancel: Nuligi
+  cancel_split: Nuligi
+  change: Ŝanĝi
   change_rating_to_2_of_5: Ŝanĝi la takson al 2 el 5
+  choose_collection_header: Elekti kolekton
+  citation: Citaĵo
+  citing_link: Citado
+  clade: Taksonomia Grupo
+  classification_preferred_for_taxon: Preferata
+  classification_summary_section_header: Klasifiko
+  classification_tree_header: Klasifiko
+  classifications_preferred_column_header: Preferata
+  classifications_exemplar_column_header: Ekzemplo
+  classifications_hierarchy_column_header: Klasifiko
+  classifications_recognized_by_column_header: Agnoskita De
+  curator_level: Rango de kuratoro
+  curator_level_with_indefinite_article_master_curator: <strong>majstra kuratoro</strong>
+  curator_level_with_indefinite_article_full_curator: <strong>plena kuratoro</strong>
+  curator_level_with_indefinite_article_assistant_curator: <strong>vickuratoro</strong>
+  click: Alklaki
+  collection_image: Bildo de kolekto
+  collection_name_label: Nomo de kolekto
+  collections_filter: Kolektoj
+  collections_link: Kolektoj
+  collections_page_title: Kolektoj
+  comment: Komento
+  comment_added_notice: Komento sukcese aldoniĝis.
+  comment_body_label: Via komento
+  comment_created_at: Kreita je
+  comment_delete_confirm: Ĉu vi certas, ke vi volas forigi la komenton?
+  comment_new_title: Aldoni novan komenton
+  comments_and_tags: Komentoj kaj Etikedoj
+  comments: Komentoj
+  comments_filter: Komentoj
+  comments_on: Komentoj Pri
+  comments_page_title: Komentoj pri %{parent}
+  common_name_avg: mezumo de Vulgara Nomo
+  common_name: Vulgara Nomo
   common_names_with_count:
-    one: '${count} komuna nomo'
-    other: '${count} da komunaj nomoj'
-  content_summary_introduction_html: 'Jenaj valoroj reprezentas la sumon de diversaj enhavotipoj por ĉi tiu taksono kaj ĉiuj ties taksonomiaj posteuloj. Enhavo %{glossary_term_trusted} estas aŭ aprobita de EOL-kuratoro aŭ devenis de fidata provizanto. Enhavo %{glossary_term_unreviewed} ne jam estas konsiderita de EOL-kuratoro. Ĉiu taksonomia hierarkio estas unika, do ĉiun abeleblan hierarkion montras por ke oni povu kompari.'
+    one: '%{count} komuna nomo'
+    other: '%{count} da komunaj nomoj'
+  communities_filter: Komunumoj
+  communities_link: Komunumoj
+  communities_page_title: Komunumoj
+  communities_index_empty: Ne estas aktiva komunumo.
+  communities_index_header: Aktivaj komunumoj
+  community: Komunumoj
+  community_activity: Komunuma Aktiveco
+  community_description_default: Komunumo de Enciklopedio de Vivo.
+  community_empty_notice: Anoj mankas je tiu ĉi komunumo.
+  community_focus: Mastrumataj kolektoj
+  community_focus_items_with_count:
+    one: '%{count} ero'
+    other: '%{count} eroj'
+  community_logo_alt_text: Emblemo de komunumo %{community_name}.
+  community_members: Komunumanoj
+  community_name_label: Nomo de komunumo
+  community_tab_collections_header: Kolektoj
+  completed: Kompleta
+  completed_colon: 'Kompleta:'
+  confirm_password_colon: 'Konfirmi Pasvorton:'
+  contact: Kontakti
+  contact_information: Kontakta informo
+  contact_us: kontakti nin
+  contact_us_link: Kontakti nin
+  containing_value: enhavanta %{value}n.
+  content_partner: Enhava Partnero
+  content_partner_new_link: Aldoni novan enhavan partneron
+  content_partner_agreement_cancel_edit_agreement_link: Nuligi
+  content_partner_agreement_cancel_new_agreement_link: Nuligi
+  content_partner_agreement_cancel_sign_agreement_link: Nuligi
+  content_partner_about_header: Pri %{partner_name}
+  content_partner_administration_notes_header: Administraj notoj
+  content_partner_administration_settings_header: Administraj agordoj
+  content_partner_column_header_partner: Partnero
+  content_partner_contact_edit_link: Redakti kontakton
+  content_partner_contact_edit_page_subheader: Redakti kontakton
+  content_partner_contact_new_link: Aldoni novan kontakton
+  content_partner_contact_new_page_subheader: Aldoni kontakton
+  content_partner_contacts_header: Kontaktoj
+  content_partner_current_agreement_view_link: Vidi
+  content_partner_current_agreement_edit_link: Redakti
+  content_partner_current_agreement_create_link: Krei novan
+  content_partner_current_agreement_not_accepted: Ne jam akceptita
+  content_partner_data_description_header: Priskribo de dateno
+  content_partner_default_description: Enhavopartnero de Enciklopedio de Vivo.
+  content_partner_filter_option_vetted_yes: Jes
+  content_partner_filter_option_vetted_no: Ne
+  content_partner_filter_option_published_never_harvested: Neniam rikoltita
+  content_partner_filter_option_published_never_published: Neniam eldonita
+  content_partner_filter_option_published_latest_harvest_published: Laste eldonita
+  content_partner_filter_option_published_no_resources: Neniu rimedo
+  content_partner_filter_published: Eldonita
+  content_partner_has_unpublished_content_true: Ne eldonita enhavo
+  content_partner_has_unpublished_content_false: Neniu neeldonita enhavo
+  content_partner_homepage_link: Viziti partneran retejon
+  content_partner_managed_by_header: Mastrumata de
+  content_partner_notes_header: Projektaj notoj
+  content_partner_overview_link: Superrigardo de Partnero
+  content_partner_overview_link_back_to: reiri al superrigardo de partnero
+  content_partner_profile_menu: Profilo de Enhavopartnero
+  content_partner_public_false: Privata
+  content_partner_public_true: Publika
+  content_partner_resource_about_header: Pri rimedo
+  content_partner_resource_auto_publish_true: Jes
+  content_partner_resource_auto_publish_false: Ne
+  content_partner_resource_collections_header: Kolektoj
+  content_partner_resource_collection_header: Eldonita kolekto
+  content_partner_resource_collection_show_link: Vidi eldonitan kolekton
+  content_partner_resource_dataset_details_header: Datenaro
+  content_partner_resource_delete_with_type_link: Forigi ĉiujn
+  content_partner_resource_edit_link: Redakti
+  content_partner_resource_edit_subheader: Redakti rimedon
+  content_partner_resource_edit_with_type_link: Redakti rimedon
+  content_partner_resource_harvest_event_current_published: Aktuale eldonita
+  content_partner_resource_harvest_event_not_published: Ne eldonita
+  content_partner_resource_harvest_event_previously_published: Antaŭe eldonita
+  content_partner_resource_hierarchy_edit_link: Redakti
+  content_partner_resource_hierarchy_edit_subheader: Redakti hierarkion pri rimedo
+    <em>%{resource_title}</em>
+  content_partner_resource_hierarchy_unknown: Nekonata
+  content_partner_resource_new_link: Aldoni novan rimedon
+  content_partner_resource_new_subheader: Aldoni novan rimedon
+  content_partner_resource_preview_collection_header: Antaŭrigardi kolekton
+  content_partner_resource_resource_status_new: Kreita
+  content_partner_resource_show_link_back_to: reiri al rimedo
+  content_partner_resource_vetted_true: Jes
+  content_partner_resource_vetted_false: Ne
+  content_partner_resource_view_link: Vidi
+  content_partner_resources_header: Rimedoj
+  content_partner_statistics_column_header_total_count: Ĉiuj paĝoj
+  content_partner_statistics_month_label: Monato
+  content_partner_statistics_year_label: Jaro
+  content_partner_statistics_link: Statistiko pri Uzado
+  content_partner_statistics_column_header_taxa_page_page_views: Nombro de Paĝaj Vidoj
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Nombro de
+    Paĝoj Viditaj
+  content_partner_status_empty: Nekonata stato
+  content_partners_page_title: Enhavaj Partneroj
+  content_summary_introduction_html: Jenaj valoroj reprezentas la sumon de diversaj
+    enhavotipoj por ĉi tiu taksono kaj ĉiuj ties taksonomiaj posteuloj. Enhavo %{glossary_term_trusted}
+    estas aŭ aprobita de EOL-kuratoro aŭ devenis de fidata provizanto. Enhavo %{glossary_term_unreviewed}
+    ne jam estas konsiderita de EOL-kuratoro. Ĉiu taksonomia hierarkio estas unika,
+    do ĉiun abeleblan hierarkion montras por ke oni povu kompari.
+  content_summary_table_type_status_column_header: Tipo kaj stato de enhavo
+  content_summary_table_count_column_header: Nombro
+  content_type: Tipo de Enhavo
+  contribute: Kontribui
+  copy: Kopii
+  copy_of_name: Kopio de %{name}
+  copyright: 'KOPIRAJTO:'
+  count: Nombro
+  create_account: krei konton
+  create_a_new_collection: Krei novan kolekton
+  create_community: Krei komunumon
+  create_a_community: Krei komunumon
+  create_a_collection: Krei kolekton
+  create_collection_button: Krei kolekton
+  create_child_page: Krei idan paĝon
+  create_community_button: Krei komunumon
+  created_at: Kreita je
+  created_by: Kreita de
+  created_colon: 'Kreita:'
+  created_community: Sukcese kreis komunumon.
+  created: Kreita
+  curated_association_update_button: Konservi ŝanĝojn
+  curation_privileges_page_title: Estiĝi kuratoro
+  curator: kuratoro
+  curator_question: Ĉu kuratoro?
+  curator_level_assistant_curator: Vickuratoro
+  curator_level_full_curator: Plena Kuratoro
+  curator_level_master_curator: Majstra Kuratoro
+  curator_profile: kuratora profilo
+  curator_profile_menu: Kuratora Profilo
+  curator_profile_of: kuratora profilo de %{name}
+  curators: Kuratoroj
+  curators_summary_learn_more_link: Lerni pri kiel plenumi kuratorecon
+  current_language: 'Lingvo: %{iso_code}'
+  create_download_data_file: Krei dosieron
+  currently_published: aktuale eldonita
+  daily: Ĉiutage
+  data: Dateno
+  data_about_subtab_header: Pri Dateno ĉe EdV
+  data_column_tc_id: Identigilo de paĝo de EdV
+  data_column_sci_name: Scienca Nomo
+  data_column_common_name: Vulgara Nomo
+  data_column_classification_summary: Resumo de Klasifiko
+  data_column_measurement: Mezuro
+  data_column_value: Valoro
+  data_database_colon: 'Dateno:'
+  data_glossary: Terminaro pri Dateno
+  data_master_database_colon: 'Datena Mastro:'
+  data_object: Datenobjekto
+  data_object_deleted: Sukcese forigis Datenobjekton
+  data_object_reference: Datenobjekta referenco
+  data_overview_table_caption: Trajta dateno
+  data_point_uri_source_missing: fonto mankas
+  data_point_uri_summary_name: dateno pri %{taxon}
+  data_provided_by_user: provizita de %{whom}
+  data_provided_by_content_partner: 'Provizinto: %{whom}'
+  data_ranges: Resumoj pri dateno
+  data_row_exemplar_added: Aldonita al Superrigardo.
+  data_row_exemplar_removed: Forigita de Superrigardo.
+  data_row_add_exemplar_button: aldoni al Superrigardo
+  data_row_remove_exemplar_button: forigi de Superrigardo
+  data_row_additional_detail_alt: Plia detalo
+  data_row_additional_detail_show_alt: Montri plian detalon
+  data_row_additional_detail_hide_alt: Kaŝi plian detalon
+  data_search:
+    form:
+      new_search_link: Denove serĉi
+      sort_header: Ordigi rezultojn
+  data_subtab_about: Pri
+  data_subtab_glossary: Terminaro pri %{taxon}
+  date_caps: Dato
+  date_uploaded: Dato de alŝuto
+  dato_create_cancel: Nuligi
+  dato_edit_cancel: Nuligi
+  dato_new_edit_user_text_link_fieldset_content_header: Ligila dateno
+  dato_new_edit_user_text_fieldset_information_header: Informo pri artiklo
+  dato_edit_link_button: Redakti ĉi-ligilon
+  dato_edit_text_button: Redakti ĉi tiun artikolon
+  dato_edit_link_title: Redakti ligilon
+  dato_edit_text_title: Redakti artikolon
+  deactivate: Malaktivigi
+  development_version_name: EdV V2 Beta
+  default: Implicita
+  delete_community: Forigi ĉi tiun komunumon
+  delete_data_object: Forigi
+  delete: forigi
+  deleted_colon: 'forigita:'
+  delete_firstcap: Forigi
   description: Priskribo
-  home_page_link_advisory_information: >
-    Jena ligo portos vin al la hejmpaĝo de
-    la Enciklopedio de Vivo
+  description_of: Priskribo de
+  descriptive_label: Priskriba Etikedo
+  destination_inappropriate_for_logged_in_users: Vi ensalutis.
+  destroy: Detrui
+  detail: Detalo
+  details: Detaloj
+  details_title: Detaloj
+  discover_link: Edukado
+  donate_link: Donaci
+  download_data: Elŝuti Datenon
+  download_collection_data: Elŝuti Datenon
+  edit_comment: Redakti komenton
+  edit_comment_lowercase: redakti komenton
+  edit_community: Redakti komunumon
+  edit: redakti
+  edited_colon: 'redaktita:'
+  edit_hierarchy: redakti hierarkion
+  edit_my_profile: Redakti mian profilon
+  edit_upload: Redakti Alŝuton
+  editors_tab_label: Mastrumantoj
+  email: Retpoŝta adreso
+  email_colon: 'Retpoŝta adreso:'
+  encyclopedia_of_life: Enciklopedio de Vivo
+  eol_news: Novaĵoj pri EdV
+  eol_pages: Paĝoj
+  error_log: Erarprotokolo
+  error_403_page_title: Malpermesata
+  error_404_page_title: Ne trovita
+  error_500_page_title: Ho ve!
+  error_default_page_title: Ho ve!
+  example_colon: 'Ekzemplo:'
+  explore: Esplori
+  external_link_header: Ekstera Ligilo
+  external_link_icon_alt_text: Ekstera ligilo.
+  facebook: Facebook
+  false_label: Malvera
+  family_name_colon: 'Familinomo:'
+  file: Dosiero
+  file_id: Identigilo de Dosiero
+  file_size: Grando de Dosiero
+  filter_button: Filtri
+  filter_by_day: Filtri laŭ tago
+  filter_by_subject: Filtri laŭ subjekto
+  filter_by_status_all_option: Ĉiuj statoj
+  filter_by_status_trusted_option: Fidata
+  filter_by_status_untrusted_option: Ne fidata
+  filter_by_status: Filtri laŭ stato
+  filter_by_type: Filtri laŭ tipo
+  filter_by_type_all_option: Ĉiuj tipoj
+  filter_by_type_all_option_with_count:
+    one: Ĉiuj tipoj (%{count})
+    other: Ĉiuj tipoj (%{count})
+  filter_by_type_collection_option: Kolektoj
+  filter_by_type_community_option: Komunumoj
+  filter_by_type_content_page_option: Pri EdV
+  filter_by_type_image_option: Bildoj
+  filter_by_type_image_option_with_count:
+    one: Bildoj (%{count})
+    other: Bildoj (%{count})
+  filter_by_type_data_option: Trajtoj
+  filter_by_type_link_option: Ligiloj
+  filter_by_type_text_option: Artikoloj
+  filter_by_type_user_option: Homoj
+  filter_by_type_sound_option: Sonoj
+  filter_by_type_sound_option_with_count:
+    one: Sonoj (%{count})
+    other: Sonoj (%{count})
+  filter_by_type_taxon_concept_option: Taksonoj
+  filter_by_type_video_option: Videaĵoj
+  filter_by_type_video_option_with_count:
+    one: Videaĵoj (%{count})
+    other: Videaĵoj (%{count})
+  filter_by_type_comment_option: Komentoj
+  filter_by_type_name_option: Nomoj
+  filter_by_type_taxa_comment_option: Komentoj pri taksono
+  filter_newsfeed_option_all: Ĉiuj
+  filter_newsfeed_option_messages: Komentoj
+  filter_newsfeed_option_community: Komunumo
+  filter_newsfeed_option_collections: Kolektoj
+  filtered_information: Filtrita informo
+  taxon_concept_search_keyword:
+    one: taksono
+    other: taksonoj
+  image_search_keyword:
+    one: bildo
+    other: bildoj
+  video_search_keyword:
+    one: videaĵo
+    other: videaĵoj
+  sound_search_keyword:
+    one: sono
+    other: sonoj
+  text_search_keyword:
+    one: artikolo
+    other: artikoloj
+  data_search_keyword:
+    one: trajto
+    other: trajtoj
+  link_search_keyword:
+    one: ligilo
+    other: ligiloj
+  user_search_keyword:
+    one: homo
+    other: homoj
+  community_search_keyword:
+    one: komunumo
+    other: komunumoj
+  collection_search_keyword:
+    one: kolekto
+    other: kolektoj
+  flickr: Flickr
+  forgot_password_form_cancel: Nuligi
+  forgot_password_form_choose_username_legend: Elekti konton
+  frequency: Ofteco
+  frequency_daily: Ĉiutage
+  frequency_monthly: Ĉiumonate
+  frequency_never: Neniam
+  frequency_weekly: Ĉiusemajne
+  given_name_colon: 'Antaŭnomo:'
+  glossary: Terminaro
+  glossary_subhead: Terminaro
+  go: Ek
+  google: Google
+  google_images: Google Images
+  google_plus: Enciklopedio de Vivo ĉe Google+
+  google_scholar: Google Scholar
+  has_colon: 'Havas:'
+  has_hidden_your_image: kaŝis vian bildon
+  has_trusted_your_image: fidas vian bildon
+  has_untrusted_your_image: malfidas vian bildon
+  hello_user: Saluton, %{user}
+  help: Helpo
+  here: ĉi tie
+  hidden: Kaŝita
+  hidden_comment: kaŝita komento
+  hide: kaŝi
+  hierarchy: Hierarkio
+  hierarchy_roots_colon: 'Hierarkiaj Radikoj:'
+  hierarchy_updated: Aktualigis hierarkion
+  hierarchies_title: Hierarkioj
+  home: Ĉefpaĝo
+  home_page_link_advisory_information: Jena ligo portos vin al la hejmpaĝo de la Enciklopedio
+    de Vivo
+  id: Identigilo
+  reindex_data_object_button: Reindeksi objekton
+  reindex_page_button: Reindeksi paĝon
+  reindex_users_button: Rekalkuli nombron de uzantoj
+  image: Bildo
+  image_is_no_longer_available: Bildo ne plu disponas
+  image_map_from: mapo el
+  image_not_found: Bildo ne trovita
+  image_object: Bildobjekto
+  image_title_with_taxa: Bildo de %{taxa}
+  image_title_without_taxa: Bildo de nekonata taksono
+  images: Bildoj
+  images_with_count:
+    one: '%{count} bildo'
+    other: '%{count} bildoj'
+  images_in_red_are_not_trusted: Ruĝe markitaj bildoj ne estas fidata.
+  images_in_yellow_are_not_reviewed: Ruĝe markitaj bildoj ne estis reviziita.
+  image_objects_page_number: Bilda paĝo
+  in_collection: en kolekto
+  in_community: en komunumo
+  indexed: Indeksita
+  info_item: Informero
+  info_items_col_header: Informeroj
+  internal_ip_address: interna IP-adreso
+  ip_address: IP-Adreso
+  ip: IP-adreso
+  item_type_article: Artikolo
+  item_type_cms_page: Informo pri EdV
+  item_type_collection: Kolekto
+  item_type_community: Komunumo
+  item_type_image: Bildo
+  item_type_image_map: Mapo
+  item_type_link: Ligilo
+  item_type_map: Mapo
+  item_type_person: Homo
+  item_type_sound: Sono
+  item_type_taxon: Taksono
+  item_type_video: Videaĵo
+  item_type_article_assistive: Ĉi tiu ero estas artikolo
+  item_type_cms_page_assistive: Ĉi tiu ero estas informa enhavo pri EdV
+  item_type_collection_assistive: Ĉi tiu ero estas kolekto
+  item_type_community_assistive: Ĉi tiu ero estas komunumo
+  item_type_image_assistive: Ĉi tiu ero estas bildo
+  item_type_image_map_assistive: Ĉi tiu ero estas mapa bildo
+  item_type_link_assistive: Ĉi tiu ero estas Ligilo
+  item_type_map_assistive: Ĉi tiu ero estas mapo
+  item_type_person_assistive: Ĉi tiu ero estas homo
+  item_type_sound_assistive: Ĉi tiu ero estas sono
+  item_type_taxon_assistive: Tiu ero estas taksono
+  item_type_video_assistive: Ĉi tiu ero estas videaĵo
+  join_community_button: Aliĝi al ĉi tiu komunumo
+  key: Ŝlosilo
+  known_uri_category_header: Kategorioj
+  known_uri_missing_translation: Netradukita, bonvolu redakti
+  language: 'Lingvo:'
+  languages: Lingvoj
+  learn_about_communities: Kiel partopreni?
+  learn_about_eol: Kiel uzi Enciklopedion de Vivo?
+  learn_about_contributing: Kiel kontribui?
+  learn_about_joining: Kiel aliĝi?
+  learn_how_to_contribute: Lerni kiel kontribui.
+  learn_more_about_communities_link: Lerni pli pri Komunumoj
+  learn_more_lowercase: lerni pli
+  leave_a_comment: Komenti
+  leave_reply: Respondi
+  license: Permesilo
+  license_none: Nenio
+  license_public_domain: Publika Havaĵo
+  link_name: Ligila Nomo
+  link_to_this_term: ligi ĉi tiun terminon
+  link_to_top_of_page: supren
+  literature: Literaturo
+  literature_header: Referencoj
+  literature_links: Literaturaj ligiloj
+  literature_links_link: Literaturaj ligiloj
+  literature_references: Literaturaj referencoj
+  location: Loko
+  location_colon: 'Loko:'
+  login_required_button: Devas ensaluti
+  logging_database_colon: 'Protokolado:'
+  login: ensaluti
+  logo_header: Emblemo
+  logout: Elsaluti
+  make_an_editor: estigi mastrumanto
+  manage_your_profile: Mastrumi Vian Profilon
+  managed_by: Mastrumata de
+  manager_parens: (mastrumanto)
+  map_from: mapo el
+  map_objects_page_number: Mapa paĝo
+  march_of_life_thumbnail_title: 'Marŝo de Vivo:'
   media: Aŭdvidaĵoj
-  you_are_not_authorized_to_perform_this_action: Mankas al vi permesoj por fari tion ĉi.
+  member_of: ano de
+  members_like_you: Anoj kiel vi
+  members_with_count:
+    one: '%{count} ano'
+    other: '%{count} anoj'
+  members_with_count_semi_colon:
+    one: '%{count} ano;'
+    other: '%{count} anoj;'
+  merge_concepts: kunigi konceptojn
+  message_colon: 'Mesaĝo:'
+  meta_description_colon: 'Meta-priskriboj:'
+  meta_keywords_colon: 'Meta-ŝlosilvortoj:'
+  meta_title_site_name: Enciklopedio de Vivo
+  method: Metodo
+  methods: Metodoj
+  missing_interpolation_argument_error: '[traduko ne kompleta]'
+  monthly: Ĉiumonate
+  move: Movi
+  move_down: Movi suben
+  move_to_bottom: movi malsupren
+  move_to_top: movi supren
+  my_activity: Mia aktiveco
+  my_info: Mia informo
+  name_colon: 'Nomo:'
+  name: Nomo
+  name_preferred_for_language_yes: Preferata
+  name_preferred_taxonomically_for_source_yes: Preferata
+  names: Nomoj
+  names_filter: Nomoj
+  names_children_column_header: Idoj
+  names_common_empty: Neniu vulgara nomo ankoraŭ asociiĝis kun tiu taksono
+  names_common_list_by_language_assistive_header: Vulgaraj nomoj listigitaj laŭ lingvoj
+  names_name_column_header: Nomo
+  names_preferred_column_header: Preferata
+  names_relationship_column_header: Rilato
+  names_sources_column_header: Fontoj
+  names_status_column_header: Stato
+  curator_colon: 'Kuratoro:'
+  mobile:
+    contents:
+      home: Ĉefpaĝo
+      taxa: Taksonoj
+      full_site: Plena retejo
+      species: Specio
+      explore_eol: Esplori Enciklopedion de Vivo
+    taxa:
+      taxon_overview: Superrigardo de Taksono
+      overview: Superrigardo
+      details: Detaloj
+      maps: Mapoj
+      nomenclature: Nomenklaturo
+      literature: Literaturo
+      community: Komunumo
+      resources: Rimedoj
+      taxon_details: Detaloj pri Taksono
+      images: Bildoj
+      sounds: Sonoj
+      videos: Videaĵoj
+    search:
+      suggestions: Sugestoj
+      no_results_found: Neniu rezulto trovita
+      results: Rezultoj
+  never: Neniam
+  new_collection: Nova kolekto
+  new_upload: Nova Alŝuto
+  new_user: Nova Uzanto
+  next: Sekva
+  no_answer: Ne
+  no_errors_are_available: Neniu eraro disponas.
+  none: nenio
+  "no": Ne
+  num_content_partners: Nombro de enhavaj partneroj
+  num_data_objects: Nombro de datenobjektoj
+  no_results_for_search_term: Neniu rezulto pri "%{search_term}"
+  no_tasks_found: Neniu tasko trovita
+  not_applicable: ne aplikebla
+  not_evaluated: Ne taksita
+  not_specified: ne specifita
+  note: 'Noto:'
+  notes: Notoj
+  notification_frequency_daily_digest: Ĉiutaga resumo
+  notification_frequency_send_immediately: Tuj sendi
+  notification_frequency_never: Neniam
+  notification_frequency_weekly: Ĉiusemajne
+  notifications_tab_name: Sciigoj
+  taxon_not_found_error: '"%{taxon}" ne trovita'
+  not_published_yet: ne jam eldonita
+  object: Objekto
+  object_status: Stato de objekto
+  object_status_all_option: Ĉiuj
+  object_status_trusted_option: Fidataj
+  object_status_unreviewed_option: Nereviziitaj
+  object_status_untrusted_option: Nefidataj
+  object_type: Tipo de objekto
+  object_type_all_option: Ĉiuj
+  object_type_collection_option: Kolekto
+  object_type_community_option: Komunumo
+  object_type_image_option: Bildo
+  object_type_link_option: Ligilo
+  object_type_sound_option: Sono
+  object_type_taxon_concept_option: Taksona Koncepto
+  object_type_text_option: Teksto
+  object_type_user_option: Uzanto
+  object_type_video_option: Videaĵo
+  object_visibility: Videbleco de objekto
+  object_visibility_all_option: Ĉiuj
+  object_visibility_visible_option: Videbla
+  object_visibility_invisible_option: Kaŝita
+  other_category_subtab: Alia
+  on_time_col_header: je
+  option_please_select: Bonvolu elekti
+  original_object: Originala objekto
+  original: 'ORIGINALO:'
+  other_us_dollars_amount: 'Alia: Usona dolaro'
+  overview: Superrigardo
+  page_name: Nomo de Paĝo
+  page_navigation: Navigado de paĝo
+  page_not_found: Paĝo ne trovita
+  page: Paĝo
+  page_results_avg: mezumo de Paĝaj Rezultoj
+  page_urls: 'Retadreso(j) de paĝo:'
+  pages_title: Referencoj
+  pages_curator_section_link: Kuratoroj
+  pages_admin_section_link: Administrantoj
+  pagination_page_number: Paĝo %{number}
+  pagination_next: Sekva
+  parameters: Parametroj
+  partner_page: partnera paĝo
+  partner: Partnero
+  partner_web_site_colon: 'Partnera Retejo:'
+  password_colon: 'Pasvorto:'
+  permalink: Konstanta ligilo
+  permissions_list_header: Permesoj ĉe EdV
+  permissions_users_count:
+    one: '%{count} uzanto'
+    other: '%{count} uzantoj'
+  pinterest: Pinterest
+  please_wait: Bonvolu atendi...
+  post_comment: Afiŝi komenton
+  preferred_common_name_advisory_information: Preferata vulgara nomo de tiu taksono.
+  preview_changes: Antaŭrigardi Ŝanĝojn
+  preview: antaŭrigardi
+  previewing_unpublished_page: Ĉi tiu paĝo estas nepublikigita. Vi speciale havas
+    aliron al ĝia antaŭprezentaĵo; aliaj uzantoj ne povas vidi ĉi tiun paĝon.
+  profile_colon: 'Profilo:'
+  profile: Profilo
+  project: Projekto
+  provider: Provizanto
+  providers: Provizantoj
+  public: Publika
+  public_domain: publika havaĵo
+  publish_changes: Eldoni Ŝanĝojn
+  published: Eldonita
+  published_parens: (Eldonita)
+  publish: publikigi
+  punctuation_comma: ','
+  punctuation_semi_colon: ;
+  quarterly: Ĉiujarkvarone
+  recent_updates: Lastaj aktualigoj
+  recently_visited: Ĵus vizitita
+  recently_used_link: Ĵuz uzita
+  recipients: Ricevantoj
+  reference: Referenco
+  references_cabs_colon: 'Referencoj:'
+  remove_curatorship_colon: 'Forigi kuratorecon:'
+  remove_data_object_association: Forigi asocion
+  remove_membership: Forigi anecon
+  remove: Forigi
+  reply: Respondi
+  required: Deviga
+  request: Peto
+  required_form_element: Deviga
+  resource: Rimedo
+  resource_import_frequency:
+    weekly: Ĉiusemajne
+    monthly: Ĉiumonate
+    bimonthly: Ĉiumonatoduope
+    quarterly: Ĉiujarkvarone
+  resources: Rimedoj
+  response: Respondo
+  results_per_page: 'Rezultoj en paĝo:'
+  results: Rezultoj
+  rights: Rajtoj
+  rights_holder: Posedanto de rajtoj
+  rights_statement: Aserto pri rajtoj
+  save_comment_lowercase: konservi komenton
+  save: Konservi
+  scientific_name: Scienca Nomo
+  sci_name_avg_table_head: mezumo de Sciencaj Nomoj
+  search: Serĉi
+  search_next_label: Sekva
+  search_results: Serĉrezultoj
+  search_field_label: Serĉi Enciklopedion de Vivo
+  search_field_common_name: Vulgara Nomo
+  search_field_preferred_common_name: Preferata Vulgara Nomo
+  search_field_preferred_scientific: Preferata Scienca Nomo
+  search_field_surrogate: Surogato
+  search_field_synonym: Sinonimo
+  search_placeholder: Serĉi Enciklopedion de Vivo...
+  search_suggestions: Sugestoj pri Serĉo
+  search_summary: Serĉa Resumo
+  search_the_site: Serĉi la retejon
+  see_all_maps_link: Vidi ĉiujn mapojn
+  see_in_data_glossary: esplori plenan datenan terminaron
+  see_notes: vidi notojn
+  send: Sendi
+  server_ip_address: IP-Adreso de Servilo
+  show: Montri
+  show_more_row_data_link: pli
+  show_tasks: montri taskojn
+  sign_in: Ensaluti
+  sign_in_successful_notice: Sukcese ensalutis.
+  sign_in_unsuccessful_error: Malsukcesis ensaluti. Ne valida uzantnomo, retpoŝta
+    adreso, aŭ pasvorto.
+  sign_out: Elsaluti
+  site_information: Informo pri retejo
+  site_language: Reteja lingvo
+  site_settings_menu: Agordoj pri Retejo
+  social_sharing_reddit_button: afiŝi ĉe Reddit
+  social_sharing_twitter_tweet_button: Diskonigi per Twitter
+  sort_by_button: Ordigi
+  sort_by_label: Ordigi laŭ
+  sort_by_richness_option: Riĉeco
+  sort_by_alphabetical_option: Alfabete
+  sort_by_reverse_alphabetical_option: Malalfabete
+  sort_by_status_option: Stato
+  sort_order: Ordiga Metodo
+  sort_by: Ordigi laŭ
+  sound_file: Sona Dosiero
+  sound_from: sono el
+  sound_object: Sonobjekto
+  sound_objects_page_number: paĝo pri sonoj
+  sound_of: Sono de
+  sounds_with_count:
+    one: '%{count} sono'
+    other: '%{count} sonoj'
+  source_information_header: Informo pri fonto
+  source_and_additional_information: Fonto kaj Plia Informo
+  source: Fonto
+  source_colon: 'Fonto:'
+  source_url: Retadreso de fonto
+  special_collection: Speciala kolekto
+  species: Specio
+  stats: Statistiko
+  stat: Statistiko
+  subject: subjekto
+  submit: Sendi
+  submitting: Bonvolu atendi...
+  submitted_colon: 'Sendita:'
+  suggested_results_avg: mezumo de Sugestataj Rezultoj
+  suggested_vocab_add: rekomendi serĉindaĵon
+  suggested_vocab_remove: forigi rekomendon
+  summary_thumbnail_title: 'Resumo:'
+  synonym: Sinonimo
+  table_column_header_actions: Agoj
+  table_of_contents: Enhavtabelo
+  task_status: Taska stato
+  task_status_active_option: Aktiva
+  task_status_ignored_option: Ignorita
+  taxa_count: Nombro de Taksonoj
+  taxa_column_header: Taksonoj
+  taxon: taksono
+  taxon_biomedical_terms_link: Biomedicinaj terminoj
+  taxon_concept_stats: Statistiko pri Taksona Koncepto
+  taxon_data_header: Dateno pri %{taxon}
+  taxon_group: Taksona Grupo
+  taxon_id: Identigilo de Taksono
+  taxon_partner_links_empty_learn_more_link: Lerni kiel estiĝi enhavopartnero
+  taxon_partner_links_header: Partneraj ligiloj
+  taxon_partner_links_link: Partneraj ligiloj
+  taxon_page_content_disclaimer_header: Malgarantio
+  taxon_related_organizations_link: Rilataj organizaĵoj
+  taxonomic_summary_of_content: taksonomia resumo de enhavo
+  taxon_recognized_by: Taksono agnoskita de %{whom}
+  taxon_suggested: Sugestataj Taksonoj
+  technical_functions: Teknikaj Funkcioj
+  terms_agreement_form_submit: Mi konsentas
+  text_object: Tekstobjekto
+  text_objects_page_number: Teksta paĝo
+  text: teksto
+  text_capital: Teksto
+  thank_you: Dankon
+  the_file_was_uploaded: Alŝutis dosieron.
+  this_data_object_will_be_reindexed: Reindeksos ĉi tiun datenobjekton.
+  title: Titolo
+  topic_area: Tema Areo
+  topic: Temo
+  total: Sumo
+  translation_information_header: Traduka informo
+  translations_submit: Vidi tradukon
+  "true": Vera
+  true_label: Vera
+  truncated_comment_omission: '... <a href=''%{link}''>pli</a>'
+  truncated_comment_omission_linkless: '...'
+  truncated_news_item_omission: '... <a href=''%{link}''>pli</a>'
+  trusted: Fidata
+  trusted_images: Fidataj bildoj
+  trusted_maps: Fidataj mapoj
+  trusted_text_objects: Fidataj artikoloj
+  tumblr: Tumblr
+  twitter: Twitter
+  type: Tipo
+  unit_of_measure: Mezurunuo
+  unknown: Nekonata
+  unknown_hierarchy: Nekonata Hierarkio
+  unknown_data_object_title: Nekonata datenobjekto
+  unpublished: Ne eldonita
+  unpublished_collections_with_count:
+    one: '%{count} kaŝita kolekto'
+    other: '%{count} kaŝitaj kolektoj'
+  unreviewed: Ne reviziita
+  unreviewed_images: Ne reviziitaj bildoj
+  unreviewed_maps: Ne reviziitaj mapoj
+  unreviewed_text_objects: Ne reviziitaj artikoloj
+  untrusted: Ne fidata
+  update: Aktualigi
+  update_collection_submit_button: Aktualigi detalojn pri kolekto
+  update_language: Ĝisdatigi lingvon
+  update_page: Aktualigi paĝon
+  updated: Ĝisdatigita
+  updated_colon: 'Aktualigita:'
+  updates: Aktualigoj
+  upload_content: alŝuti enhavon
+  uploaded_by: Alŝutita De
+  uploaded_content: Alŝutita Enhavo
+  uploaded_on: Alŝutita Je
+  upload: Alŝuti
+  us_dollars_100: 100 Usonaj dolaroj
+  us_dollars_35: 35 Usonaj dolaroj
+  us_dollars_50: 50 Usonaj dolaroj
+  us_dolars_75: 75 Usonaj dolaroj
+  use_as_examplar_button: uzi kiel ekzemplo
+  user_activity_page_title: Aktiveco de Uzanto
+  user_activity_stats_data_added_dropdown: Dateno aldonita
+  user_activity_stats_header: Aktiveco
+  user_activity_stats_taxa_comments_dropdown: Komentoj pri taksono
+  user_comments: Komentoj de Uzantoj
+  user_comment: Komento de Uzanto
+  user_id: Salutnomo
+  username_colon: 'Uzantnomo:'
+  username: Uzantnomo
+  user_response: Respondo de Uzanto
+  user_says_colon: '%{users_name} diras:'
+  user: Uzanto
+  users_about_me_header: Pri mi
+  users_content_partners_header: Enhavopartneroj
+  users_form_account_header: Via konto
+  users_my_info_header: Mia informo
+  using_the_site: Uzi Ĉi Tiun Retejon
+  values: Valoroj
+  value: Valoro
+  value_empty: (malplena)
+  value_default: (defaŭlta)
+  versions_colon: 'Versioj:'
+  video_object: videaĵo el
+  video_objects_page_number: Videa paĝo
+  video_title_not_available_in_language: Titolo ne disponebla en %{language}
+  view_verb: Vidi
+  view_added_text: vidi aldonitan tekston
+  view_as_button: Ŝanĝi vidon
+  view_as_label: Vidi kiel
+  view_curators: vidi kuratorojn
+  view_in_classification: vidi en klasifiko
+  view_translation_source_link: Vidi tradukan fonton
+  view_error_log: Vidi eraroprotokolon
+  view_article_source: Vidi fonton de artikolo
+  view_image_source: Vidi bildan fonton
+  view_image_map_source: Vidi mapan fonton
+  view_map_source: Vidi mapan fonton
+  view_sound_source: Vidi sonan fonton
+  view_source: Vidi fonton
+  view_video_source: Vidi fonton de videaĵo
+  view_this_hierarchy: vidi ĉi tiun hierarkion
+  vimeo: Vimeo
+  visible_title: Videbla
+  visitors: Vizitantoj
+  vivisimo: Vivisimo
+  wants_colon: 'Deziras:'
+  weekly: Ĉiusemajne
+  welcome: Bonvenon
+  what_is_eol: Kio estas EdV?
+  what_is_this_question: Kio estas ĉi tio?
+  who_registered_before: ĝis
+  xml_response: XML-Respondo
+  yahoo_images: Yahoo-Bildoj
+  yahoo: Yahoo
+  year: Jaro
+  yes_answer: Jes
+  you_are_not_authorized_to_perform_this_action: Mankas al vi permesoj por fari tion
+    ĉi.
+  your_email_address: Via retpoŝtadreso
+  your_ip_address: Via IP-Adreso
+  your_preferences: Viaj Agordoj
+  youtube: YouTube
+...

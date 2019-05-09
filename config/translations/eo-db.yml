@@ -143,6 +143,7 @@ eo:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familio
+  translated_resource_statuses-label-resource_status_id-10: Eldonita
   translated_resource_statuses-label-resource_status_id-11: Eldonadon okazontas
   translated_resource_statuses-label-resource_status_id-12: Neeldonadon okazontas
   translated_resource_statuses-label-resource_status_id-1: Alŝutanta
@@ -152,6 +153,7 @@ eo:
   translated_sort_styles-name-sort_style_id-5: Riĉeco
   translated_statuses-label-status_id-2: Ĝisdatigita
   translated_statuses-label-status_id-3: Neŝanĝita
+  translated_synonym_relations-label-synonym_relation_id-12: inkluzivas
   translated_synonym_relations-label-synonym_relation_id-13: misnomo
   translated_synonym_relations-label-synonym_relation_id-14: misliterumo
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
@@ -190,6 +192,7 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-50: valida
   translated_synonym_relations-label-synonym_relation_id-51: akceptita
   translated_synonym_relations-label-synonym_relation_id-52: autoritato
+  translated_synonym_relations-label-synonym_relation_id-53: ne eldonita nomo
   translated_synonym_relations-label-synonym_relation_id-54: subjektiva sinonimo
   translated_synonym_relations-label-synonym_relation_id-56: erara literumo
   translated_synonym_relations-label-synonym_relation_id-57: alternativo literuma
@@ -204,8 +207,11 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-65: genra sinonimo
   translated_synonym_relations-label-synonym_relation_id-67: specio prienketenda
   translated_synonym_relations-label-synonym_relation_id-68: hortikultura
+  translated_synonym_relations-label-synonym_relation_id-6: ekvivalenta nomo
   translated_synonym_relations-label-synonym_relation_id-9: vulgara nomo laŭ genbank
+  translated_table_of_contents-label-table_of_contents_id-13: Vulgaraj Nomoj
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Literaturaj Referencoj
   translated_table_of_contents-label-table_of_contents_id-194: Grandeco
   translated_table_of_contents-label-table_of_contents_id-1: Superrigardo
   translated_table_of_contents-label-table_of_contents_id-221: Riskoj
@@ -215,15 +221,19 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-285: Asociiĝoj
   translated_table_of_contents-label-table_of_contents_id-289: Evoluo
   translated_table_of_contents-label-table_of_contents_id-292: Similŝajnaĵoj
+  translated_table_of_contents-label-table_of_contents_id-296: Mastrumado
   translated_table_of_contents-label-table_of_contents_id-299: Edukado
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedio
   translated_table_of_contents-label-table_of_contents_id-303: Nomoj kaj taksonomio
+  translated_table_of_contents-label-table_of_contents_id-304: Rilataj Nomoj
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimoj
   translated_table_of_contents-label-table_of_contents_id-306: Paĝa statistiko
+  translated_table_of_contents-label-table_of_contents_id-307: Resumo de Enhavo
   translated_table_of_contents-label-table_of_contents_id-308: Ampleksa priskribo
   translated_table_of_contents-label-table_of_contents_id-309: Distribuo
   translated_table_of_contents-label-table_of_contents_id-310: Disvolviĝo
   translated_table_of_contents-label-table_of_contents_id-312: Migrado
+  translated_table_of_contents-label-table_of_contents_id-313: Malsanoj kaj Parazitoj
   translated_table_of_contents-label-table_of_contents_id-315: Vivhistorio kaj konduto
   translated_table_of_contents-label-table_of_contents_id-316: Konduto
   translated_table_of_contents-label-table_of_contents_id-318: Vivciklo
@@ -280,4 +290,5 @@ eo:
   translated_view_styles-name-view_style_id-2: Galerio
   translated_visibilities-label-visibility_id-0: Nevidebla
   translated_visibilities-label-visibility_id-1: Videbla
+  translated_visibilities-label-visibility_id-2: Antaŭrigardi
 ...

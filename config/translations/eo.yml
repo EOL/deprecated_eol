@@ -253,6 +253,7 @@ eo:
       content_page:
         active: Eldonita
       content_partner:
+        created_at: Registrita
         last_action: Lasta agado
         latest_published_harvest_event: Laste eldonita
         logo_current: 'Aktuala emblemo:'
@@ -315,9 +316,14 @@ eo:
         refresh_period_hours: Ofteco
         resource_status_id: Statuso
         resource_status: Statuso
+        resource_url_or_file: Rimeda dateno <small>(aŭ enigi retadreson aŭ alŝuti
+          dosieron)</small>
+        resource_url_or_file_url: Ŝarĝi rimedon el retadreso
+        resource_url_or_file_upload: Alŝuti rimedan dosieron
         title: Rimeda nomo
       session:
         password: Pasvorto
+        username_or_email: Uzantnomo aŭ retpoŝta adreso
       translated_content_page:
         active_translation: Eldonita
         language_id: Lingvo
@@ -421,6 +427,13 @@ eo:
       user:
         create: Krei konton
         recover_account: Sendi retpoŝton
+        sign_up_with_facebook: Registriĝi per Facebook
+        sign_up_with_google: Registriĝi per Google
+        sign_up_with_twitter: Registriĝi per Twitter
+        sign_up_with_yahoo: Registriĝi per Yahoo
+        update: Konservi informon pri profilo
+      wikipedia_queue:
+        create: Sendi peton
   will_paginate:
     next_label: Sekva
     page_gap: '&hellip;'
@@ -529,6 +542,7 @@ eo:
         tweet_text: Novaĵoj pri %{collection_name}
     inaturalists:
       show:
+        add_observations: Aldoni Observojn
         observer_with_link: 'Observinto: %{observer_link}'
         observation_date: 'Dato: %{observed_on}'
         observation_place: 'Loko: %{place}'
@@ -639,6 +653,10 @@ eo:
     categories:
       create: Krei kategorion
       edit: Redakti kategorion
+      create_successful: Sukcese kreis kategorion
+      update_successful: Sukcese aktualigis kategorion
+      delete_successful: Sukcese forigis kategorion
+      move_successful: Sukcese movis kategorion
     posts:
       joined_date: Aniĝis je %{date}
       create: Denova afiŝi
@@ -680,6 +698,7 @@ eo:
       about_link_discover: Edukado
       about_link_statistics: Statistiko
       about_link_glossary: Terminaro
+      about_link_donate: Donaci al EdV
       about_link_help: Helpo
       about_link_contact_us: Kontakti Nin
       learn_more_link_animals: Animaloj
@@ -873,6 +892,7 @@ eo:
           meta_title_with_common_name: Libroj pri %{preferred_common_name} (%{scientific_name}
             kiel ĝin klasifikas %{hierarchy_provider})
           tweet_text: Literaturo pri %{scientific_name} kiel ĝin klasifikas %{hierarchy_provider}
+        meta_title: Artikoloj & Libroj pri %{scientific_name}
         meta_title_with_common_name: Artikoloj & Libroj pri %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Artikoloj & Libroj pri %{scientific_name}
@@ -882,6 +902,7 @@ eo:
           meta_title: Mapoj pri %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
           meta_title_with_common_name: Mapoj pri %{preferred_common_name} (%{scientific_name}
             laŭ klasifiko de %{hierarchy_provider})
+          tweet_text: Mapoj pri %{scientific_name} laŭ klasifiko de %{hierarchy_provider}
         meta_keywords: Habitatloko de %{scientific_name}, kie %{scientific_name} vivas
         meta_title: Mapoj pri %{scientific_name}
         meta_title_with_common_name: Mapoj pri %{preferred_common_name} (%{scientific_name})
@@ -944,6 +965,9 @@ eo:
         tweet_text: Informo pri %{scientific_name}
     resources:
       biomedical_terms:
+        hierarchy_entry:
+          tweet_text: Biomedicinaj terminoj pri %{scientific_name} laŭ klasifiko de
+            %{hierarchy_provider}
         meta_title: Biomedicinaj terminoj pri %{scientific_name}
         meta_title_with_common_name: Biomedicinaj terminoj pri %{preferred_common_name}
           (%{scientific_name})
@@ -962,11 +986,18 @@ eo:
           dateno por %{scientific_name}
         meta_keywords_with_common_name: statistiko pri %{preferred_common_name}, statistiko
           pri %{preferred_common_name}, dateno por %{preferred_common_name}
+        meta_title: Riĉeco de %{scientific_name}
+        meta_title_with_common_name: Riĉeco de %{preferred_common_name} (%{scientific_name})
+        tweet_text: Riĉeca poentaro de %{scientific_name}
   users:
     activities:
       show:
         meta_title: Agado de %{user_full_name}
         tweet_text: agado de %{user_full_name}
+    collections:
+      index:
+        meta_title: Kolektoj de %{user_full_name}
+        tweet_text: kolektoj de %{user_full_name}
     communities:
       index:
         meta_description: Komunumoj kie %{user_full_name} estas membro.
@@ -995,6 +1026,7 @@ eo:
     newsfeeds:
       activity_link: agado
       comments_link: komentoj
+      newsfeed_link: abonfluo
     notifications:
       edit:
         page_title: Agordoj pri sciigo
@@ -1049,6 +1081,8 @@ eo:
   video_of_taxon: Vidaĵo pri %{taxon_name}
   0_or_1: 0 aŭ 1
   0_1_or_2: 0, 1 aŭ 2
+  about_eol: Pri EdV
+  about_resources: Pri Rimedoj
   account_information: Informo pri Konto
   account_information_menu: Informo pri Konto
   action: Ago
@@ -1116,6 +1150,18 @@ eo:
     curator_activity_log:
       reasons_to_untrust: 'Kialoj por malfidi: %{reasons}'
       reasons_to_hide: 'Kialoj por kaŝi: %{reasons}'
+      add_association:
+        an_unknown_user_associated_an_unknown_data_object_to_an_unknown_association: Nekonata
+          uzanto aldonis nekonatan asocion.
+        user_associated_it_to_association: <strong>%{user}</strong> aldonis asocion
+          al "%{association}".
+      remove_association:
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: Nekonata
+          uzanto forigis nekonatan asocion.
+        an_unknown_user_disassociated_it_from_an_unknown_association: Nekonata uzanto
+          forigis asocion al nekonata paĝo.
+        an_unknown_user_disassociated_it_from_association: Nekonata uzanto forigis
+          asocion al "%{association}".
   add_a_comment: Aldoni komenton.
   add_a_comment_colon: 'Aldoni komenton:'
   add: Aldoni

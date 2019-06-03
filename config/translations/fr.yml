@@ -5961,7 +5961,7 @@ fr:
   names_relationship_column_header: Relations
   names_sources_column_header: Sources
   names_status_column_header: Statut
-  names_synonyms_empty: Aucun synonyme n’a encore été associé avec ce taxon.
+  names_synonyms_empty: Aucun synonyme n’a encore été associé à ce taxon.
   curator_colon: 'Conservateur :'
   mobile:
     contents:
@@ -6746,8 +6746,8 @@ fr:
     données pour %{taxon}.
   taxon_data_header: Données concernant %{taxon}
   taxon_details_empty: Personne n’a encore contribué à un détail sur cette page.
-  taxon_details_empty_in_this_language: Personne n’a contribué sur aucun détail de
-    cette page dans cette langue.
+  taxon_details_empty_in_this_language: Personne n’a contribué de détail à cette page
+    dans cette langue.
   taxon_education_empty: Personne n’a encore contribué à une ressource d'éducation
     sur cette page.
   taxon_education_header: Ressources éducatives

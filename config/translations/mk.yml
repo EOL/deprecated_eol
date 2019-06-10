@@ -2373,7 +2373,7 @@ mk:
   this_video_is_unpublished: Оваа видеоснимка е необјавена.
   this_sound_cannot_be_curated_because_unpublished: Оваа звучна снимка не може да
     се згрижи бидејќи не е објавена.
-  this_sound_is_unpublished: Оваа аудиоснимка е необјавена.
+  this_sound_is_unpublished: Оваа звучна снимка е необјавена.
   article_not_associated_with_any_published_entries: Оваа статија не е поврзана со
     ниеден објавен таксон.
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани
@@ -2386,11 +2386,11 @@ mk:
     објавен таксон.
   video_not_associated_with_any_published_entries: Оваа видеоснимка не е поврзана
     со ниеден објавен таксон.
-  sound_not_associated_with_any_published_entries: Оваа аудиоснимка не е поврзана
+  sound_not_associated_with_any_published_entries: Оваа звучна снимка не е поврзана
     со ниеден објавен таксон.
   link_not_associated_with_any_published_entries: Оваа врска не е поврзана со ниеден
     објавен таксон.
-  sound_alt_text: Оваа %{vetted_status} аудиоснимка го претставува таксонот %{taxon_name}
+  sound_alt_text: Оваа %{vetted_status} звучна снимка го претставува таксонот %{taxon_name}
   image_alt_text: Оваа %{vetted_status} слика го претставува таксонот %{taxon_name}
   map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
   image_map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
@@ -2402,7 +2402,7 @@ mk:
   image_map_from_supplier: Карта од %{whom}
   video_from_supplier: Видео од %{whom}
   article_of_taxon: Статија за %{taxon_name}
-  sound_of_taxon: Аудиоснимка од %{taxon_name}
+  sound_of_taxon: Звучна снимка од %{taxon_name}
   image_of_taxon: Слика од %{taxon_name}
   map_of_taxon: Карта на %{taxon_name}
   image_map_of_taxon: Карта на %{taxon_name}
@@ -3789,7 +3789,7 @@ mk:
   associated_with_image_map_header: На најновата карта
   associated_with_link_header: На најновата врска
   associated_with_map_header: На најновата карта
-  associated_with_sound_header: На најновата аудиоснимка
+  associated_with_sound_header: На најновата звучна снимка
   associated_with_video_header: На најновата видеоснимка
   association_added_flash: Поврзаноста е додадена. На страниците може да им треба
     некоја минута за да се подноват.
@@ -4762,13 +4762,13 @@ mk:
     не ја провери кустос. Полињата за категорија, опис и URL се задолжителни (%{required_icon}),
     а сите други се по избор. Повеќе помош ќе добиете на <a href="%{add_article_help_url}">Помош
     со додавање статии/врски</a>.
-  dato_new_edit_user_text_form_tip: Вашата готова стати ќе биде објавена на страницата
+  dato_new_edit_user_text_form_tip: Вашата готова статија ќе биде објавена на страницата
     на таксонот. Доколку не сте кустос, таа ќе стои означена како „непроверена“ додека
     не ја провери кустос. Подглавата, текстот, јазикот и лиценцата се задолжителни
     (%{required_icon}), а сите други полиња се по избор. Ако ја изберете лиценцата
-    CC-BY (Наведи извор), тогаш наведете го имателот на правата или оставете го полето
-    празно за да стои вашето полно име. Лиценците за јавна сопственост не бараат наведување
-    на имател. <a href="%{add_article_help_url}">Повеќе помош со додавање на статии</a>.
+    CC-BY (Наведи извор), тогаш наведете го праводржецот или оставете го полето празно
+    за да стои вашето полно име. Лиценците за јавна сопственост не бараат наведување
+    на праводржец. <a href="%{add_article_help_url}">Повеќе помош со додавање на статии</a>.
   dato_create_user_text_missing_taxon_id_exception: Не можам да составам текстуален
     DataObject или UsersDataObject ако нема назнака за таксонот.
   dato_create_user_text_missing_user_exception: Не можам да срочам DataObject или
@@ -5484,8 +5484,8 @@ mk:
     од пребарувањето
   limits_the_number_of_returned_video_objects: го ограничува бројот на добиени видеоснимки
     од пребарувањето
-  limits_the_number_of_returned_sound_objects: го ограничува бројот на добиени аудиоснимки
-    од пребарувањето
+  limits_the_number_of_returned_sound_objects: го ограничува бројот на добиени звучни
+    снимки од пребарувањето
   limits_the_number_of_returned_map_objects: го ограничува бројот на добиени картографски
     објекти од пребарувањето
   limits_the_number_of_returned_iucn_objects: вклучи го објектот за статус на Црвениот
@@ -6915,7 +6915,7 @@ mk:
   view_image_source: Погл. извор на сликата
   view_image_map_source: Погл. извор на картата
   view_map_source: Погл. извор на картата
-  view_sound_source: Погл. извор на аудиоснимката
+  view_sound_source: Извор на звуч. снимка
   view_source: Извор
   view_video_source: Погл. извор на видеоснимката
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем

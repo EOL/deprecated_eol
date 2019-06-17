@@ -125,6 +125,7 @@ eo:
         total_measurement_types: Tipoj de mezuro
         total_association_types: Tipoj de asociiĝo
         total_user_added_data: Dateno aldonita de uzanto
+        total_data_records: Datenaj Rikordoj
       forum:
         forum_category_id: Kategorio
         name: Nomo de la forumo
@@ -141,6 +142,7 @@ eo:
       harvest_event:
         resource: Rimedo
       hierarchy:
+        browsable: Foliumebla
         complete: Kompleta
         description: Priskribo
         descriptive_label: Priskriba etikedo
@@ -149,6 +151,13 @@ eo:
         description: Priskribo
         name: Nomo
         toc_items: Kategorioj
+        uri: Retadreso
+        uri_type: Speco de retadreso
+      known_uri_relationship:
+        from_known_uri_id: Tema Retadreso
+        to_known_uri_id: Cela Retadreso
+        to_known_uri: Cela Retadreso
+        relationship_uri: Retadreso de Rilato
       open_authentication:
         created_at: Kreita
         guid: Globe unika identilo
@@ -172,15 +181,23 @@ eo:
         comment_on_my_collection: Komento pri kolektaĵo kiun vi traktas
         comment_on_my_community: Komento en unu de la komunumoj kie vi estas membro
       resource:
+        accesspoint_url: Retadreso de Datenaro
         auto_publish: Aŭtomate eldoni
+        dataset: Dosiero de datenaro
+        description: Priskribo de rimedo
+        dwc_archive_url: Arkiva retadreso de Darvin-Kerno
+        dataset_source_url: Originala Datenfonto
+        dataset_hosted_url: Fonta Datenaro (loka kopio)
         hierarchy: Hierarkio
         language_id: Defaŭlta lingvo
         dataset_license_id: Permesilo
         dataset_rights_holder: Posedanto de rajtoj
         dataset_rights_statement: Aserto pri rajtoj
         license_id: Implicita permesilo
+        resource_status_id: Stato de rimedo
         rights_holder: Implicita posedanto de rajtoj
         rights_statement: Implicita aserto pri rajtoj
+        title: Nomo de rimedo
       translated_content_page:
         active_translation: Eldonita
         left_content: Navigado
@@ -226,7 +243,10 @@ eo:
         not_an_integer: devas esti entjero
         odd: devas esti malpara
         even: devas esti para
+        inaccessible: ne estas atingebla
         wrong_type: havas malĝustan tipon
+        models:
+          inaccessible: ne estas atingebla
       models:
         resource:
           attributes:
@@ -252,6 +272,7 @@ eo:
         name: Via nomo
       content_page:
         active: Eldonita
+        parent_content_page_id: Patro
       content_partner:
         created_at: Registrita
         last_action: Lasta agado
@@ -426,6 +447,7 @@ eo:
         update: Konservi tradukajn ŝanĝojn
       user:
         create: Krei konton
+        generate_api_key: Fari ŝlosilon
         recover_account: Sendi retpoŝton
         sign_up_with_facebook: Registriĝi per Facebook
         sign_up_with_google: Registriĝi per Google
@@ -437,6 +459,7 @@ eo:
   will_paginate:
     next_label: Sekva
     page_gap: '&hellip;'
+    previous_label: Antaŭen
   datepicker:
     day_names:
     - Dimanĉo
@@ -699,7 +722,9 @@ eo:
       about_link_statistics: Statistiko
       about_link_glossary: Terminaro
       about_link_donate: Donaci al EdV
+      about_link_citing: Citi EdV
       about_link_help: Helpo
+      about_link_terms_of_use: Uzkondiĉoj
       about_link_contact_us: Kontakti Nin
       learn_more_link_animals: Animaloj
       learn_more_link_mammals: Mamuloj
@@ -720,8 +745,12 @@ eo:
       learn_more_link_mushrooms: Superaj fungoj
       learn_more_link_molds: Ŝimoj
       learn_more_link_bacteria: Bakterioj
+      learn_more_link_protists: Protozooj
+      learn_more_link_archaea: Arkeoj
       learn_more_link_viruses: Virusoj
       learn_more_link_algae: Algoj
+      questions_link_evolution: Kio estas evoluo?
+      questions_link_biodiversity: Kio estas biodiverseco?
       questions_link_species: Kio estas specio?
       questions_link_naming_species: Kiel nomiĝas specio?
       questions_link_binomial_nomenclature: Kio estas dunoma nomenklaturo?
@@ -743,6 +772,11 @@ eo:
       meta_keywords: '%{member_name} Komunumano'
       meta_title: '%{member_name} Membro de %{community_name}'
       tweet_text: '%{member_name} membro de %{community_name}'
+  news_items:
+    index:
+      page_title: Novaĵoj pri Enciklopedio de Vivo
+      meta_title: Novaĵoj pri Enciklopedio de Vivo
+      meta_keywords: novaĵoj pri enciklopedio de vivo, novaĵoj pri edv
   notifier:
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
       %{curator_level} %{users_name} (%{users_url}) estas markita kiel fidata:
@@ -775,6 +809,8 @@ eo:
       %{commented_on_name} (%{commented_on_url})
       %{comment_date}:
       %{comment_body}
+    contact_us_message:
+      subject: 'Mesaĝo al Encikipedio de Vivo: %{title}'
     contact_us_auto_response:
       subject: Dankon por kontakti la Enciklopedion de Vivo
     unsubscribed_to_notifications:
@@ -1040,6 +1076,7 @@ eo:
       index:
         not_connected: Ne konektita;
         page_title: Konektitaj kontoj
+        return_link: Reen al redaktado de profilo.
       twitter: Twitter
       yahoo: Yahoo!
     pending:
@@ -1079,6 +1116,17 @@ eo:
   map_of_taxon: Mapo pri %{taxon_name}
   image_map_of_taxon: Mapo pri %{taxon_name}
   video_of_taxon: Vidaĵo pri %{taxon_name}
+  article_rating: Taksado de artikolo
+  community_rating: Taksado de komunumo
+  collection_rating: Taksado de kolekto
+  image_map_rating: Taksado de mapo
+  link_rating: Taksado de ligilo
+  image_rating: Taksado de bildo
+  person_rating: Taksado de homo
+  sound_rating: Taksado de sono
+  taxon_rating: Taksado de taksono
+  video_rating: Taksado de videaĵo
+  map_rating: Taksado de mapo
   0_or_1: 0 aŭ 1
   0_1_or_2: 0, 1 aŭ 2
   about_eol: Pri EdV

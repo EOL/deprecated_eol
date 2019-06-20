@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ebraminio
+# Author: FarsiNevis
 # Author: Hooshmand.hasannia
 # Author: Leyth
 # Author: Omnia
@@ -14,7 +15,7 @@ fa:
   translated_activities-name-activity_id-51: نمایش
   translated_activities-name-activity_id-52: ایجاد
   translated_activities-name-activity_id-53: نهفتن
-  translated_activities-name-activity_id-54: به‌روز رسانی
+  translated_activities-name-activity_id-54: روزآمدسازی
   translated_activities-name-activity_id-55: نامناسب
   translated_activities-name-activity_id-56: حذف
   translated_activities-name-activity_id-57: میزان
@@ -167,7 +168,7 @@ fa:
   translated_sort_styles-name-sort_style_id-5: غنی بودن
   translated_sort_styles-name-sort_style_id-6: رتبه بندی
   translated_statuses-label-status_id-1: قرار داده شده
-  translated_statuses-label-status_id-2: به روز شده
+  translated_statuses-label-status_id-2: روزآمد شده
   translated_statuses-label-status_id-3: بدون تغییر
   translated_statuses-label-status_id-4: دوباره استفاده شده
   translated_synonym_relations-label-synonym_relation_id-11: در بخش

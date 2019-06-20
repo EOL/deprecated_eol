@@ -7,6 +7,7 @@
 # Author: Josve05a
 # Author: Liftarn
 # Author: Lokal Profil
+# Author: Mjälten
 # Author: Per
 # Author: WikiPhoenix
 ---
@@ -603,6 +604,8 @@ sv:
         curation_priveleges_credentials: Referenser <small>(endast fullständiga och
           mästerkuratorer)</small>
         credentials_more: 'Var god ange minst en specifik referens från denna lita:'
+        credentials_more_academic: Status som fakultet, anställt eller magisterstudent
+          eller högre i ett aktuellt fack på ett universitet eller en högskola.
         credentials_more_author: Upphovsman i en publikation med peer-review (lämna
           referens).
         credentials_more_professional: Medlem av ett professionellt sällskap.
@@ -1058,7 +1061,7 @@ sv:
     add_a_relationship: Lägg till en relation
     equivalent_to: Ekvivalensförhållanden
     import_successful: Ontologitermer importerades
-    more_than_one_field_mapped_to_type: Mer än ett attribut är mappat till "%{type}"
+    more_than_one_field_mapped_to_type: Mer än ett attribut pekar på "%{type}"
     no_results: Det finns inga resultat för den valda statistiken
     no_relationships: Inga relationer hittades för denna URI.
     please_select_field_types: Var god välj en mappning för varje attribut
@@ -4334,6 +4337,7 @@ sv:
   data_column_measurement: Mätning
   data_column_value: Värde
   data_column_measurement_uri: Mätnings-URI
+  data_column_value_uri: Värde URI
   data_column_name: Mätningsetikett
   data_column_val: Värde (normaliserat)
   data_column_raw_value: Råvärde (direkt från källan)

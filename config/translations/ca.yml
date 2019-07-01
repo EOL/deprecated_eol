@@ -1080,6 +1080,7 @@ ca:
     pending:
       header: Gràcies per enregistrar-vos!
   user_added_data:
+    new_field: Camp nou…
     new_value: Valor
   data_search_files:
     from: Valor més baix
@@ -1418,6 +1419,8 @@ ca:
   never: Mai
   new_collection: Col·lecció nova
   new_news_item: Nou element de notícies
+  new_upload: Penjada nova
+  new_user: Usuari nou
   next: Següent
   "no": "No"
   notification_frequency_never: Mai

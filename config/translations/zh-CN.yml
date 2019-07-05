@@ -31,6 +31,7 @@
 # Author: Yfdyh000
 # Author: 乌拉跨氪
 # Author: 凡人丶
+# Author: 神樂坂秀吉
 # Author: 아라
 ---
 zh-CN:
@@ -997,7 +998,7 @@ zh-CN:
       update_failed: 抱歉，发生了一个错误， 帖子无法更新
       delete_successful: 帖子已成功删除
       topic_and_post_delete_successful: 网页和帖子已成功删除
-      delete_failed_topic_not_empty: 文章不能被删除因为它不是空的
+      delete_failed_topic_not_empty: 文章不能删除因为它不是空的
       post_has_been_deleted: 此文章已被删除
       deleted_subject: （已删除）
       no_subject: （没有主题）
@@ -3035,7 +3036,7 @@ zh-CN:
   completed_colon: 完成：
   confirm_deactivate_user: 您确信您要停用此用户？
   confirm_delete_community: 您确认要删除这个社区？社区的其他会员还可以浏览该社区的内容，但是该社区的内容已经不能进行查询和显示在物种页面，也无法在进行编辑。
-  confirm_delete_data_object: 您确信您要删除此数据对象？此操作不能被撤销。
+  confirm_delete_data_object: 您确信您要删除此数据对象？此操作不能撤销。
   confirm_leave: 您确认要离开这个社区？
   confirm_password_colon: 确认密码：
   contact: 联系
@@ -3551,7 +3552,7 @@ zh-CN:
   error_couldnt_find_collection_by_id: 未能找到您管理的编号为%{id}的收藏。
   error_couldnt_find_community_by_id: 未能找到您管理的编号为%{id}的社区。
   error_homepage_or_search_option: '"您可以返回<a href=""/"">首页</a> 或使用我们的搜索工具："'
-  error_watch_collections_cannot_be_shared: 关注的收藏不能被分享
+  error_watch_collections_cannot_be_shared: 关注的收藏不能分享
   example_colon: 例子：
   exception: 例外
   exceptions:

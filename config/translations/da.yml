@@ -1329,6 +1329,7 @@ da:
       google: Google
       index:
         not_connected: Ikke forbundet;
+        page_title: Tilknyttede konti
       twitter: Twitter
       yahoo: Yahoo!
     pending:
@@ -1343,6 +1344,7 @@ da:
   data_search_files:
     from: Laveste værdi
     to: Højeste værdi
+    unit_uri: Måleenhed
   this_image_is_unpublished: Dette billede er upubliseret.
   article_from_supplier: Artikel fra %{whom}
   sound_from_supplier: Lyd fra %{whom}

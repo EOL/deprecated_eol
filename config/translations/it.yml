@@ -6583,7 +6583,7 @@ it:
     one: '%{count} suono'
     other: '%{count} suoni'
   source_information_header: Informazioni relative alla fonte
-  source_and_additional_information: Fonte e Ulteriori Informazioni
+  source_and_additional_information: Fonte e informazioni aggiuntive
   source: Fonte
   source_colon: 'Fonte:'
   source_url: URL di origine

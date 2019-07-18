@@ -15,6 +15,7 @@
 # Author: Paxt
 # Author: Reaperman
 # Author: Spotter
+# Author: Tereza
 # Author: Utar
 # Author: Vks
 # Author: Zbyso23
@@ -549,6 +550,7 @@ cs:
       known_uri_relationship:
         from_known_uri: Pro známé URI
         relationship_uri: Vybrat vztah
+        to_known_uri: Vlož a vyber cílové URL
       news_item:
         active: Zveřejněno
         active_more: Zveřejněné zprávy budou veřejně viditelné ve zvolený den a čas.
@@ -1388,8 +1390,20 @@ cs:
   recent_activities:
     index:
       list_header: Posledních 7 dní
+      page_title: Aktivity komunity EOL
+      meta_title: Činosti komunity EOL
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      header: Vaše stahování je připraveno.
   sessions:
     new:
+      login_with_facebook_assistive: Přihlaste se do EOL použitím Facebookového účtu.
+      login_with_google_assistive: Přihlaste se k EOL pomocí přihlašovacích údajů
+        Google.
+      login_with_twitter_assistive: Přihlas se k EOL použitím tvého Twitter účtu.
+      login_with_yahoo_assistive: Přihlaste se k EOL pomocí přihlašovacích údajů Yahoo.
+      login_with_eol_authentication_header: Nebo se přihlaste vašimi EOL přihlašovacími
+        údaji.
       meta_title: Přihlášení
       problems_signing_in_with_eol_authentication: Zapomněli jste heslo?
   taxa:
@@ -1403,7 +1417,32 @@ cs:
       index:
         meta_title: Popisy a články o %{scientific_name}
         tweet_text: Články o %{scientific_name}
+    literature:
+      show:
+        meta_title: Články a knihy o %{scientific_name}
+        meta_title_with_common_name: Články a knihy o %{preferred_common_name}%{scientific_name}
+        tweet_text: Články a knihy na %{scientific_name}
+    media:
+      index:
+        tweet_text: Obrázky, videa a audio záznamy %{scientific_name}
+    names:
+      common_names:
+        meta_description: Běžné jméno pro %{scientific_name}
+      synonyms:
+        hierarchy_entry:
+          meta_keywords: '%{scientific_name} Synonyma'
+          meta_keywords_with_common_name: '%{preferred_common_name} Synonyma, %{scientific_name}
+            Synonyma'
+        meta_description: Synonyma %{scientific_name}
+    updates:
+      statistics:
+        meta_description: Statistika a informace pro %{scientific_name} na Encyklopedii
+          života.
   users:
+    activities:
+      show:
+        meta_title: '%{user_full_name} Aktivity'
+        tweet_text: '%{user_full_name} Činnosti'
     data_downloads:
       download: stáhnout
       page_title: Stahování dat
@@ -1438,6 +1477,24 @@ cs:
     notifications:
       edit:
         page_title: Nastavení pro upozornění
+      update:
+        sorry_notification_settings_could_not_be_updated: Omlouváme se, nastavení
+          upozornění nemohlo být aktualizována.
+    open_authentications:
+      errors:
+        google:
+          missing_attributes: Omlouváme se, vyskytl se problém s přístupem k vaším
+            Google údajům.
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
+    pending:
+      header: Děkujeme za registraci.
+    recover_account_choose_account:
+      legend_choose_account: Vyberte účet
+    show:
+      meta_description: Uživatelský profil %{user_full_name} na Encyklopedii života.
     unsubscribe_notifications:
       already_unsubscribed: Už jste se odhlásili od oznámení.
       unsubscribed_notifications_successfully: Úspěšně jste se odhlásili od oznámení.
@@ -1472,10 +1529,17 @@ cs:
   map_from_supplier: Mapa od %{whom}
   image_map_from_supplier: Mapa od %{whom}
   video_from_supplier: Video od %{whom}
+  article_rating: Hodnocení článku
+  community_rating: Hodnocení komunity
+  image_rating: Hodnocení obrázku
+  person_rating: Hodnocení osoby
+  sound_rating: Hodnocení zvuku
+  video_rating: Hodnocení videa
   0_or_1: 0 nebo 1
   0_1_or_2: 0, 1 nebo 2
   about_eol: O EOL
   account_information: Informace o účtu
+  account_information_menu: Informace o účtu
   account_registered_but_not_ready_try_later: Váš účet je registrován, ale ještě není
     připraven. Vyčkejte prosím a zkuste to za 5 minut.
   action: Činnost
@@ -1505,6 +1569,15 @@ cs:
           uživatel odebral neznámou položku z neznámé kolekce.
         an_unknown_user_removed_an_unknown_item_from_collection: Neznámý uživatel
           odebral neznámou položku z kolekce "%{collection}".
+    community_activity_log:
+      change_description:
+        user_changed_the_description_of_community: '%{user} změnil popis komunity
+          %{community}'
+    curator_activity_log:
+      reasons_to_hide: Důvod skrytí %{reasons}
+      show:
+        an_unknown_user_showed_it_on_association: Označeno neznámým uživatelem jako
+          viditelné na %{association} stránce.
   activity_log_empty: Nikdo ještě neposkytl aktualizace.
   activity_user_updated_text: <strong>%{user}</strong> aktualizoval/a "%{object_name}"
     text na "%{taxon_concept}".

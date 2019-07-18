@@ -1464,8 +1464,8 @@ eu:
           batek izen arrunt ezezagun bat gehitu du %{language} hizkuntzan "%{taxon}"
           taxonean.
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Erabiltzaile
-          ezezagun batek izen arrunt bat gehitu du hizkuntza ezezagun batean orri
-          ezezagun batean.
+          ezezagun batek "%{name}" izen arrunta gehitu du hizkuntza ezezagun batean
+          orri ezezagun batean.
         an_unknown_user_added_name_in_language_to_an_unknown_taxon: Erabiltzaile ezezagun
           batek "%{name}" izen arrunta gehitu du %{language} hizkuntzan orri ezezagun
           batean.

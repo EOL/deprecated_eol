@@ -2995,7 +2995,7 @@ sr:
   sort_by_year_ascending: Растућа година
   sort_by_year_descending: Опадајућа година
   sort_collection_by_label: Поређај збирку по
-  sort_order: Редослед сврставања
+  sort_order: Редослед сортирања
   sort_by: Поређај по
   sort_field: 'Поље за сврставање:'
   sound_file: Звучни снимак

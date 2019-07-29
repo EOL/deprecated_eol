@@ -874,21 +874,21 @@ fr:
     previous_label: ← Précédent
   datepicker:
     day_names:
-    - Dimanche
-    - Lundi
-    - Mardi
-    - Mercredi
-    - Jeudi
-    - Vendredi
-    - Samedi
+    - dimanche
+    - lundi
+    - mardi
+    - mercredi
+    - jeudi
+    - vendredi
+    - samedi
     day_names_short:
-    - dim
-    - lun
-    - mar
-    - mer
-    - jeu
-    - ven
-    - sam
+    - dim.
+    - lun.
+    - mar.
+    - mer.
+    - jeu.
+    - ven.
+    - sam.
     day_names_min:
     - Di
     - Lu
@@ -900,31 +900,31 @@ fr:
     close: Fermer
     current: Aujourd’hui
     month_names:
-    - Janvier
-    - Février
-    - Mars
-    - Avril
-    - mai
-    - Juin
-    - Juillet
-    - Août
-    - Septembre
-    - Octobre
-    - Novembre
-    - Décembre
-    month_names_short:
-    - janv
-    - fév
+    - janvier
+    - février
     - mars
-    - avr
+    - avril
     - mai
     - juin
-    - juil
+    - juillet
     - août
-    - sept
-    - oct
-    - nov
-    - déc
+    - septembre
+    - octobre
+    - novembre
+    - décembre
+    month_names_short:
+    - janv.
+    - fév.
+    - mars
+    - avr.
+    - mai
+    - juin
+    - juil.
+    - aoû.
+    - sept.
+    - oct.
+    - nov.
+    - déc.
     next: Suivant
     previous: Précédent
   admins:
@@ -953,7 +953,7 @@ fr:
       marine:
         menu_link: Statistiques marines
         page_header: Couverture marine dans l’EdlV
-        page_title: 'Administration : Statistiques marines'
+        page_title: 'Administration : statistiques marines'
       page_richness:
         menu_link: Pages riches
         page_header: Statistiques de pages riches
@@ -4165,7 +4165,7 @@ fr:
     modèle" correspondant. Pour annuler toute l’opération, cliquez sur "annuler".
   classification_tree_header: Classification
   classifications_edit_cancelled_merge_to_self: Votre source et votre cible sont la
-    même page; rien à déplacer.
+    même page ; rien à déplacer.
   classifications_edit_cancelled_busy: Désolé, votre requête pour modifier les classifications
     ne peut pas être exécutée pour l’instant; une ou plusieurs des pages de taxon
     sont verrouillées. Une requête existante pour modifier ces classifications est
@@ -5575,7 +5575,7 @@ fr:
   image_not_found: Image introuvable
   image_object: Objet image
   image_objects_will_contain_two_mediaurl_elements: Les objets image contiennent deux
-    éléments 'mediaURL' - le premier étant l’URL de l’image sur le site Web du fournisseur
+    éléments 'mediaURL' – le premier étant l’URL de l’image sur le site Web du fournisseur
     et le second l’URL de la version en cache du média hébergé sur un serveur EdlV.
     La version EdlV de l’image aura été redimensionnée (en conservant le rapport de
     dimension) si l’image d’origine est plus grande que 460 pixels de large ou 345
@@ -6233,7 +6233,7 @@ fr:
   pages_admin_section_link: Administrateurs
   pages_method_description: prend en entrée un identifiant de page EdlV et renvoie
     le nom scientifique pour cette page, et éventuellement renvoie des informations
-    sur les noms communs, les médias (textes, images et vidéos), et les références
+    sur les noms communs, les médias (textes, images et vidéos) et les références
     aux hiérarchies qui reconnaissent le taxon décrit sur cette page
   pagination_page_number: Page %{number}
   pagination_next: Suivant

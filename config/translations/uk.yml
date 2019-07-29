@@ -16,6 +16,7 @@
 # Author: Pig1995z
 # Author: Piramidion
 # Author: SteveR
+# Author: Svitmov anna
 # Author: Ua2004
 # Author: Ата
 # Author: Максим Підліснюк
@@ -5748,7 +5749,17 @@ uk:
     many: '%{count} членів'
     other: '%{count} члена'
   merge_concepts: злиття понять
+  merge_data_ready: Ви готові об'єднати дані з наступних класифікацій на цю сторінку
+    таксонів, або розділити їх на окремі сторінки. Переконайтесь, будь ласка, що ви
+    обрали всі класифікації, які представляють вашу цільову сторінку таксонів. Наприклад,
+    ви видаляєте відомості про метеликів зі сторінки про гриби, передивіться, будь
+    ласка, <i>всі</i> класифікації, подані вище, для того, щоб переконатися, що ви
+    обрали всі відомості про метеликів.
   merge_data: злиття класифікацій
+  merge_pending: Ця операція об'єднання потребує певного часу. Таксони, задіяні в
+    ній, тепер заблоковані для подальшого редагування класифікацій доки об'єднання
+    не буде завершено. По закінченню процесу ви отримаєте електронного листа, а також
+    це відобразиться у стрічці новин для цієї сторінки.
   message_colon: 'Повідомлення:'
   message_will_disappear: (це повідомлення скоро зникне)
   meta_description_colon: 'Мета опис:'
@@ -5774,6 +5785,10 @@ uk:
   most_active_members: Найактивніші учасники
   move: Перемістити
   move_down: Перемістити вниз
+  added_classifications_ready: Дані з обраної класифікації готові до перенесення на
+    іншу сторінку. Для завершення процесу, оберіть "виділити в нову сторінку" або
+    перейдіть на вклдку "Імена" сторінки, на яку ви хотіли перенести дані, а потім
+    оберіть "поєднати класифікації".
   move_items_to_a_new_collection_with_count:
     one: Перемістити %{count} елемент до нової колекції
     few: Перемістити %{count} елементи до нової колекції
@@ -5787,22 +5802,39 @@ uk:
     few: Переміщено %{count} елементи з %{from} до цієї колекції.
     many: Переміщено всі %{count} елементів із %{from} до цієї колекції.
     other: Переміщено %{count} елемента з %{from} до цієї колекції.
+  moved_all_items_to_collections:
+    one: Перемістити всі позиції з %{name} до колекції %{count}.
+    other: Перемістити всі позиції з %{name} до колекції %{count}.
   moved_items_from_collection_with_count_notice:
     one: Переміщено %{count} елемент із %{name}.
     few: Переміщено %{count} елементи з %{name}.
     many: Переміщено %{count} елементів із %{name}.
     other: Переміщено %{count} елемента з %{name}.
   multimedia_links: Мультимедійні Посилання
+  must_be_associated_with_either_a_user_or_a_community: Повинно бути пов'язано з користувачем
+    або спільнотою.
   must_provide_search_term_error: Ви повинні ввести пошуковий термін.
+  must_be_checked_in_to_view: '- потребує перевірки для перегляду'
+  must_be_checked_in_to_show: '- потребує перевірки для відображення користувачу'
   must_be_less_than_128_characters_long: повинні містити менше 128 символів.
   must_be_logged_in: Ви повинні увійти в систему для виконання цієї дії.
   my_activity: Моя діяльність
   my_info: Моя інформація
   name_colon: 'Назва:'
   name: Назва
+  name_not_in_select_an_alternate: Ім'я не в %{hierarchy}. Оберіть альтернативну категорію
+    з переліку вище.
+  name_preferred_for_language_yes: Бажаний
+  name_preferred_for_language_help_tip: '%{icon} - маркування бажаних імен для кожної
+    мови.'
+  name_preferred_taxonomically_for_source_help_tip: '%{icon} - маркування бажаних
+    імен з кожного джерела.'
+  name_preferred_taxonomically_for_source_yes: Бажаний
   names: Назви
   names_filter: Назви
   names_children_column_header: Діти
+  names_common_empty: Поки немає загальних імен, пов'язаних з цим таксоном.
+  names_common_list_by_language_assistive_header: Загальні імена, перелічені за мовами
   names_curation_column_header: Курування
   names_et_al: '%{names} та інш.'
   names_name_column_header: Назва

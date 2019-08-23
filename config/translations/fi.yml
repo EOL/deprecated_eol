@@ -1146,6 +1146,7 @@ fi:
         connected_last_verified: Yhdistetty; Viimeksi tarkistettu %{time_passed} sitten;
         not_connected: Ei ole yhdistetty;
         page_title: Yhdistetyt tilit
+        return_link: Palaa muokkaamaan profiilia.
       notices:
         facebook:
           new_authentication_added: Facebook-todennus on lisätty tiliisi.
@@ -1315,12 +1316,14 @@ fi:
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> lisäsi tuntemattoman
           luokituksen.
   activity_log_empty: Kukaan ei ole vielä toimittanut päivityksiä.
+  add_a_collection_to_a_community: Lisää kokoelma "%{collection}" yhteisöön
   add_a_comment: Lisää kommentti.
   add_a_comment_colon: 'Lisää kommentti:'
   add: Lisää
   add_a_new_common_name: Lisää uusi yleisnimi
   add_a_new_file_brackets: '[lisää uusi tiedosto]'
   add_a_new_role: Lisää uusi rooli
+  add_a_new_search_suggestion: Lisää uusi hakuehdotus
   add_a_new_user: Lisää uusi käyttäjä
   add_another_metadata_field: Lisää uusi metatietokenttä
   add_article_to_page_button: Lisää artikkeli
@@ -1586,7 +1589,9 @@ fi:
   content_partner_contact_delete_unsuccessful_error: Tapahtui virhe, yhteystietoa
     ei poistettu.
   content_partner_contact_edit_link: Muokkaa yhteystietoa
+  content_partner_contact_edit_page_subheader: Muokkaa yhteystietoa
   content_partner_contact_new_link: Lisää uusi yhteystieto
+  content_partner_contact_new_page_subheader: Lisää yhteystieto
   content_partner_contact_update_unsuccessful_error: Tapahtui virhe, yhteystietoa
     ei päivitetty.
   content_partner_contacts_header: Yhteystiedot
@@ -1959,6 +1964,8 @@ fi:
   key: Avain
   known_uri_category_header: Luokat
   known_uri_created: URI lisätty.
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: URI päivitetty.
   language: 'Kieli:'
   languages: Kielet
   language_with_count: '%{language} (%{count})'

@@ -14,6 +14,7 @@
 # Author: F. Cosoleto
 # Author: Federico Mugnaini
 # Author: Fitoschido
+# Author: Frubino
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: JackLantern
@@ -53,7 +54,7 @@ it:
         sort_style_id: Direzione di ordinamento predefinita
         logo: Immagine principale della raccolta
         additional_annotation_fields: Campi di annotazione aggiuntiva
-        show_references: Note (Testo o URL)
+        show_references: Riferimenti (Testo o URL)
       collection_job:
         overwrite: Sostituisci i duplicati
       collection_item:
@@ -96,7 +97,7 @@ it:
         signed_by: Firmato da
         signed_on_date: Firmato in data
       content_partner_contact:
-        email_reports_frequency_hours: Frequenza di rapporti email
+        email_reports_frequency_hours: Frequenza dei rapporti email
       data_object:
         bibliographic_citation: Citazione bibliografica
         description: Testo

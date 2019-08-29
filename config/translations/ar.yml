@@ -20,6 +20,7 @@
 # Author: Rana el deeb
 # Author: Sara.elshobaky
 # Author: Shirayuki
+# Author: Sonic N800
 # Author: أحمد
 # Author: ترجمان05
 # Author: ديفيد
@@ -5128,7 +5129,7 @@ ar:
   join_eol_button_html: انضم إلى <abbr title="Encyclopedia of Life">موسوعة الحياة</abbr>
     الآن.
   joined_mailing_list: فقط المنضمين للقائمة البريدية.
-  joined_time_ago: انضم منذ %{time_passed}
+  joined_time_ago: انضم قبل %{time_passed}
   json_response: استجابة JSON
   just_pages_with_pictures_and_text: الصفحات التي بها صور ونصوص فقط
   keep_split_entry_from_this_entry: إبقاؤه منفصلا عن هذا المدخل
